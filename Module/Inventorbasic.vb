@@ -10,7 +10,7 @@ Imports Inventor.PrintOrientationEnum
 Imports System.Text
 
 
-Module inventorbasic
+Module InventorBasic
 
     Public Structure StockNumPartName
         Dim IsGet As Boolean
@@ -379,7 +379,7 @@ Module inventorbasic
                     ' propitem.Value = ""
             End Select
         Next
- 999:
+999:
         '是否为打开的文件，是的话就关闭
         If IsNeedClose = True Then
             InventorDoc.Close(True)
@@ -1337,6 +1337,8 @@ Module inventorbasic
         '            '多加的1要减去
         '            i = i - 1
         '        Next
+
+
         '点击每个序号组
         Dim oBalloon As Balloon
         Do
@@ -1729,9 +1731,9 @@ Module inventorbasic
 
     End Sub
 
-        '-------------------------------------------------------------------------------------------------------
-        '批量替换部件下子集的名字
-        ' 组件，被替换的文件名，替换的文件名
+    '-------------------------------------------------------------------------------------------------------
+    '批量替换部件下子集的名字
+    ' 组件，被替换的文件名，替换的文件名
     Public Function ReplaceNameInAsm(ByVal AsmDoc As Document, ByVal OldName As String, ByVal NewName As String, ByVal IsSaveAsOld As MsgBoxResult) As Boolean
         Dim InventorDoc As Inventor.Document
 
@@ -2429,4 +2431,41 @@ Module inventorbasic
         End Try
     End Function
 
+
+
+    Public Function SaveNewItemOverridesToBOM() As Boolean
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDoc() = False Then
+                Exit Function
+            End If
+
+            If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
+                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+                Exit Function
+            End If
+
+            Dim IdwDoc As DrawingDocument
+            Dim oActiveSheet As Sheet
+
+            IdwDoc = ThisApplication.ActiveDocument
+            oActiveSheet = IdwDoc.ActiveSheet
+
+            If oActiveSheet.PartsLists.Count = 0 Then
+                MsgBox("该工程图无明细表", MsgBoxStyle.Critical)
+                Return (False)
+                Exit Function
+            End If
+
+            Dim partslistrow As Inventor.PartsListRow
+            For Each partslistrow In oActiveSheet.PartsLists.Item(1).PartsListRows
+                partslistrow.SaveItemOverridesToBOM()
+            Next
+
+            Return (True)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Function
 End Module

@@ -2,9 +2,6 @@
 Imports FSLib.App.SimpleUpdater
 
 Public NotInheritable Class About
-    Const newvpath As String = "\\Likai-pc\发行版\Inventor2011插件.exe"
-
-
 
     Private Sub AboutBox1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
@@ -31,10 +28,10 @@ Public NotInheritable Class About
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try
-            'Process.Start(newvpath)
+            Dim simupdate As String
 
-            Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
-
+            simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
+            Process.Start(simupdate)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

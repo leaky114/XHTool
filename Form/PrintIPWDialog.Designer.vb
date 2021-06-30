@@ -208,16 +208,16 @@ Partial Class PrintIPWDialog
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(281, 408)
+        Me.Button5.Location = New System.Drawing.Point(260, 408)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(51, 30)
+        Me.Button5.Size = New System.Drawing.Size(104, 30)
         Me.Button5.TabIndex = 34
-        Me.Button5.Text = "查找"
+        Me.Button5.Text = "导入已打开文件"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(338, 408)
+        Me.Button6.Location = New System.Drawing.Point(405, 408)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(51, 30)
         Me.Button6.TabIndex = 35

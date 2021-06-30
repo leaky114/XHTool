@@ -296,4 +296,28 @@ Public Class PrintIPWDialog
             ListView.Items.RemoveAt(ListView.SelectedIndices(i))
         Next
     End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+
+        Dim InventorDoc As Inventor.Document
+
+        Try
+            Label1.Visible = False
+
+            SetStatusBarText()
+
+            If IsInventorOpenDoc() = False Then
+                Exit Sub
+            End If
+
+            For Each InventorDoc In ThisApplication.Documents
+                If InventorDoc.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
+                    ListView1.Items.Add(InventorDoc.FullDocumentName)
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class
