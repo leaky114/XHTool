@@ -33,7 +33,20 @@ Public NotInheritable Class About
         Try
             'Process.Start(newvpath)
 
-            Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
+          '  Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
+          
+            Dim UpdaterInstance = Updater.CreateUpdaterInstance()
+
+            With UpdaterInstance.Context
+                .UpdateDownloadUrl = "\\likai-pc\发行版\更新包\{0}"   '获得或设置用于更新的模板地址
+                .UpdateInfoFileName = "update.xml"                      '获得或设置更新时使用的 XML 文件名
+
+                .MultipleDownloadCount = 5                      '获得或设置同时下载的文件数，默认为 3
+
+            End With
+
+            '开始更新
+            UpdaterInstance.BeginCheckUpdateInProcess()
 
         Catch ex As Exception
             MsgBox(ex.Message)

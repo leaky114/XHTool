@@ -256,7 +256,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\InventorAddIn.AllSaveAsDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.AutoPartNumberDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.DrawSlotDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.InputBoxDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.iPopertiesDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.OptionDialog.resources" />
@@ -299,17 +298,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="obj\Debug\InventorAddIn.vbproj.GenerateResource.Cache" />
-    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
     <None Include="obj\Release\InventorAddIn.vbproj.GenerateResource.Cache" />
     <None Include="obj\Release\InventorAddIn.vbproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon\查找部件161624.ico" />
-    <Content Include="obj\Debug\.xml" />
-    <Content Include="obj\Debug\InventorAddIn.dll" />
-    <Content Include="obj\Debug\InventorAddIn.pdb" />
-    <Content Include="obj\Debug\InventorAddIn.vbproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
     <Content Include="obj\Debug\TempPE\Resource.Designer.vb.dll" />
     <Content Include="obj\Release\Interop.Office.dll" />
