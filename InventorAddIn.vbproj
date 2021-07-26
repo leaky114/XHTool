@@ -58,7 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
-    <Reference Include="SimpleUpdater, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c532149a76b9a64b, processorArchitecture=MSIL">
+    <Reference Include="SimpleUpdater, Version=2.2.0.0, Culture=neutral, PublicKeyToken=8bf54bd6729f490c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\自动更新库\客户端\DLL\SimpleUpdater.dll</HintPath>
     </Reference>
@@ -165,7 +165,6 @@
     <Compile Include="Module\BasicFileSystem.vb" />
     <Compile Include="Module\BiaoQingBao.vb" />
     <Compile Include="Module\Inventorbasic.vb" />
-    <Compile Include="Module\NewUpdater.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,6 +256,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="obj\Debug\InventorAddIn.AllSaveAsDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.AutoPartNumberDialog.resources" />
+    <EmbeddedResource Include="obj\Debug\InventorAddIn.DrawSlotDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.InputBoxDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.iPopertiesDialog.resources" />
     <EmbeddedResource Include="obj\Debug\InventorAddIn.OptionDialog.resources" />
@@ -265,28 +265,6 @@
     <EmbeddedResource Include="obj\Debug\InventorAddIn.SignDialog.resources" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="obj\Release\InventorAddIn.vbproj.GenerateResource.Cache" />
-    <None Include="obj\Release\InventorAddIn.vbproj.ResolveComReference.cache" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="icon\查找部件161624.ico" />
-    <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
-    <Content Include="obj\Debug\TempPE\Resource.Designer.vb.dll" />
-    <Content Include="obj\Release\Interop.Office.dll" />
-    <Content Include="obj\Release\Interop.VBIDE.dll" />
-    <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
-    <None Include="Resources\支付宝.bmp" />
-    <None Include="Resources\微信.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>2</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Excel">
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -295,25 +273,41 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
-    <COMReference Include="Office">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>6</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\InventorAddIn\" />
+    <None Include="bin\64位注册.bat" />
+    <None Include="bin\InventorAddIn.rar" />
+    <None Include="bin\InventorAddIn.tlb" />
+    <None Include="bin\InventorAddIn\帮助.doc" />
+    <None Include="bin\InventorAddIn\帮助.pdf" />
+    <None Include="bin\InventorAddIn\注册.bat" />
+    <None Include="bin\InventorAddIn\设置默认值.reg" />
+    <None Include="bin\注册.bat" />
+    <None Include="bin\设置默认值.reg" />
+    <None Include="obj\Debug\InventorAddIn.vbproj.GenerateResource.Cache" />
+    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <None Include="obj\Release\InventorAddIn.vbproj.GenerateResource.Cache" />
+    <None Include="obj\Release\InventorAddIn.vbproj.ResolveComReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\.xml" />
+    <Content Include="bin\InventorAddIn.dll" />
+    <Content Include="bin\InventorAddIn.pdb" />
+    <Content Include="bin\InventorAddIn\InventorAddIn.dll" />
+    <Content Include="bin\InventorAddIn\RegAsm.exe" />
+    <Content Include="bin\RegAsm.exe" />
+    <None Include="icon\查找部件161624.ico" />
+    <Content Include="obj\Debug\.xml" />
+    <Content Include="obj\Debug\InventorAddIn.dll" />
+    <Content Include="obj\Debug\InventorAddIn.pdb" />
+    <Content Include="obj\Debug\InventorAddIn.vbproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
+    <Content Include="obj\Debug\TempPE\Resource.Designer.vb.dll" />
+    <Content Include="obj\Release\Interop.Office.dll" />
+    <Content Include="obj\Release\Interop.VBIDE.dll" />
+    <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
+    <None Include="Resources\支付宝.bmp" />
+    <None Include="Resources\微信.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
