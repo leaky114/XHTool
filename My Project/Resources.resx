@@ -244,6 +244,12 @@
   <data name="提取iPro修改文件名323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\提取iPro修改文件名323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="插入序号161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\插入序号161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="插入序号323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\插入序号323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="支付宝" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\支付宝.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -385,6 +391,12 @@
   <data name="设置签字323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\设置签字323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="调整IPro顺序161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\调整IPro顺序161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="调整IPro顺序323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\调整IPro顺序323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="还原旧图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\还原旧图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -402,6 +414,12 @@
   </data>
   <data name="部件替换文件名323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\部件替换文件名323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="重写BOM161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\重写BOM161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="重写BOM323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\重写BOM323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="量产iPropertys161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\量产iPropertys161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -165,6 +165,7 @@
     <Compile Include="Module\BasicFileSystem.vb" />
     <Compile Include="Module\BiaoQingBao.vb" />
     <Compile Include="Module\Inventorbasic.vb" />
+    <Compile Include="Module\NewUpdater.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -296,7 +297,6 @@
     <Content Include="bin\InventorAddIn\InventorAddIn.dll" />
     <Content Include="bin\InventorAddIn\RegAsm.exe" />
     <Content Include="bin\RegAsm.exe" />
-    <None Include="icon\查找部件161624.ico" />
     <Content Include="obj\Debug\.xml" />
     <Content Include="obj\Debug\InventorAddIn.dll" />
     <Content Include="obj\Debug\InventorAddIn.pdb" />
@@ -308,6 +308,9 @@
     <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
     <None Include="Resources\支付宝.bmp" />
     <None Include="Resources\微信.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="icon\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

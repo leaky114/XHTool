@@ -1406,15 +1406,15 @@ Module InventorBasic
 
         Dim FirstBalloonNumber As Short
 
-        FirstBalloonNumber = InputBox("输入要插入的序号，并点击该序号的标注标志", "插入序号")
+        FirstBalloonNumber = InputBox("输入要插入的序号，并点击该序号的标注标识", "插入序号")
 
         If FirstBalloonNumber = "" Then
             Return False
         End If
 
-        '点击被插入的序号标志
+        '点击被插入的序号标识
         Dim oBalloon As Balloon
-        oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择被插入的引出序号标志")
+        oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择被插入的引出序号标识")
 
         '  设置序号+1
         Dim partslistrow As Inventor.PartsListRow
@@ -1424,12 +1424,12 @@ Module InventorBasic
             End If
         Next
 
-        '设置插入序号对应的标志
+        '设置插入序号对应的标识
         For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
             If oBalloonValueSet.Value = 0 Then
                 oBalloonValueSet.Value = FirstBalloonNumber
             Else
-                MsgBox("该标志数值不为0，请重新选择。", MsgBoxStyle.Information)
+                MsgBox("该标识数值不为0，请重新选择。", MsgBoxStyle.Information)
             End If
         Next
 
@@ -2432,40 +2432,4 @@ Module InventorBasic
     End Function
 
 
-
-    Public Function SaveNewItemOverridesToBOM() As Boolean
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDoc() = False Then
-                Exit Function
-            End If
-
-            If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
-                Exit Function
-            End If
-
-            Dim IdwDoc As DrawingDocument
-            Dim oActiveSheet As Sheet
-
-            IdwDoc = ThisApplication.ActiveDocument
-            oActiveSheet = IdwDoc.ActiveSheet
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表", MsgBoxStyle.Critical)
-                Return (False)
-                Exit Function
-            End If
-
-            Dim partslistrow As Inventor.PartsListRow
-            For Each partslistrow In oActiveSheet.PartsLists.Item(1).PartsListRows
-                partslistrow.SaveItemOverridesToBOM()
-            Next
-
-            Return (True)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Function
 End Module

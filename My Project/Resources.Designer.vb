@@ -354,6 +354,20 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property 插入序号161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("插入序号161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property 插入序号323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("插入序号323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property 支付宝() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("支付宝", resourceCulture)
@@ -683,6 +697,20 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property 调整IPro顺序161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("调整IPro顺序161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property 调整IPro顺序323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("调整IPro顺序323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property 还原旧图161624() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("还原旧图161624", resourceCulture)
@@ -721,6 +749,20 @@ Namespace My.Resources
         Friend ReadOnly Property 部件替换文件名323224() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("部件替换文件名323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property 重写BOM161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("重写BOM161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property 重写BOM323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("重写BOM323224", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
