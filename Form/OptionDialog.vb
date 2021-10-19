@@ -35,7 +35,7 @@ Public Class OptionDialog
             Case CheckState.Unchecked
                 IsDayAndName = -1
             Case CheckState.Indeterminate
-                IsDayAndName = 0S
+                IsDayAndName = 0
             Case CheckState.Checked
                 IsDayAndName = 1
         End Select
@@ -45,7 +45,7 @@ Public Class OptionDialog
             Case CheckState.Unchecked
                 IsSetDrawingScale = -1
             Case CheckState.Indeterminate
-                IsSetDrawingScale = 0S
+                IsSetDrawingScale = 0
             Case CheckState.Checked
                 IsSetDrawingScale = 1
         End Select
@@ -55,9 +55,20 @@ Public Class OptionDialog
             Case CheckState.Unchecked
                 IsSetMass = -1
             Case CheckState.Indeterminate
-                IsSetMass = 0S
+                IsSetMass = 0
             Case CheckState.Checked
                 IsSetMass = 1
+        End Select
+
+
+        '启动检查更新
+        Select Case CheckBox5.CheckState
+            Case CheckState.Unchecked
+                CheckUpdate = -1
+            Case CheckState.Indeterminate
+                CheckUpdate = 0
+            Case CheckState.Checked
+                CheckUpdate = 1
         End Select
 
         '质量精度：
@@ -114,6 +125,8 @@ Public Class OptionDialog
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "BOMTiTle", BOMTiTle)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Mass_Accuracy", Mass_Accuracy)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Area_Accuracy", Area_Accuracy)
+
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -203,6 +216,15 @@ Public Class OptionDialog
                 CheckBox4.CheckState = CheckState.Indeterminate
             Case 1
                 CheckBox4.CheckState = CheckState.Checked
+        End Select
+
+        Select Case CheckUpdate
+            Case -1
+                CheckBox5.CheckState = CheckState.Unchecked
+            Case 0
+                CheckBox5.CheckState = CheckState.Indeterminate
+            Case 1
+                CheckBox5.CheckState = CheckState.Checked
         End Select
 
     End Sub

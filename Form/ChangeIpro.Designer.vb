@@ -75,7 +75,7 @@ Partial Class ChangeIproDialog
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 60)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "零件代号：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "库存编号：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "描    述："
+        Me.Label1.Text = "图    号：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "文 件 名：" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "描    述："
         '
         'TextBox1
         '
@@ -83,6 +83,7 @@ Partial Class ChangeIproDialog
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(164, 21)
         Me.TextBox1.TabIndex = 2
+        Me.TextBox1.WordWrap = False
         '
         'TextBox2
         '

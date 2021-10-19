@@ -64,6 +64,7 @@ Partial Class OptionDialog
         Me.CheckBox4 = New System.Windows.Forms.CheckBox
         Me.TextBox7 = New System.Windows.Forms.TextBox
         Me.Label11 = New System.Windows.Forms.Label
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -339,7 +340,7 @@ Partial Class OptionDialog
         '
         Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"材料", "空格", "存货编号", "零件代号", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量"})
+        Me.ComboBox3.Items.AddRange(New Object() {"材料", "空格", "存货编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量"})
         Me.ComboBox3.Location = New System.Drawing.Point(254, 51)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(170, 20)
@@ -491,6 +492,18 @@ Partial Class OptionDialog
         Me.Label11.TabIndex = 4
         Me.Label11.Text = "比例："
         '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Checked = True
+        Me.CheckBox5.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox5.Location = New System.Drawing.Point(25, 413)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(108, 16)
+        Me.CheckBox5.TabIndex = 13
+        Me.CheckBox5.Text = "启动时检查更新"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
         'OptionDialog
         '
         Me.AcceptButton = Me.OK_Button
@@ -498,6 +511,7 @@ Partial Class OptionDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(533, 458)
+        Me.Controls.Add(Me.CheckBox5)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
@@ -529,6 +543,7 @@ Partial Class OptionDialog
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
@@ -573,5 +588,6 @@ Partial Class OptionDialog
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents ComboBox6 As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
 
 End Class

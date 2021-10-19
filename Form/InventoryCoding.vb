@@ -74,6 +74,8 @@ Public Class InventoryCoding
             If opfile.FileName <> "" Then '如果有选中文件
                 ExcelFullFileName = opfile.FileName
             End If
+        Else
+            Exit Sub
         End If
 
         If Lead_InventoryCoding(ExcelFullFileName, ListView1) Then

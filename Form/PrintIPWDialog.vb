@@ -46,12 +46,15 @@ Public Class PrintIPWDialog
             Print_Day = Today.Year & "." & Today.Month & "." & Today.Day
 
             '设置签字
-            SetSign(IdwDoc, EngineerName, Print_Day, False)
+
+            If CheckBox2.CheckState = CheckState.Checked Then
+                SetSign(IdwDoc, EngineerName, Print_Day, False)
+            End If
 
             '打印文件
             PrintDrawing(IdwDoc, sPrinterName)
 
-            IdwDoc.Close(True)
+            'IdwDoc.Close(False)
 
 999:
         Next
@@ -209,6 +212,8 @@ Public Class PrintIPWDialog
                     .Orientation = PrintOrientationEnum.kPortraitOrientation
             End Select
 
+
+
             ' Set to print all sheets.
             .PrintRange = PrintRangeEnum.kPrintAllSheets
 
@@ -320,4 +325,6 @@ Public Class PrintIPWDialog
             MsgBox(ex.Message)
         End Try
     End Sub
+
+  
 End Class

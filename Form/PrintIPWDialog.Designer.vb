@@ -235,6 +235,7 @@ Partial Class PrintIPWDialog
         Me.ListView1.Location = New System.Drawing.Point(15, 11)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(670, 314)
+        Me.ListView1.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListView1.TabIndex = 36
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details

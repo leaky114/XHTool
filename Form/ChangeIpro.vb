@@ -7,8 +7,8 @@ Public Class ChangeIproDialog
         Dim InventorDoc As Document
         InventorDoc = ThisApplication.ActiveEditDocument
 
-        SetPropitem(InventorDoc, "零件代号", TextBox1.Text)
-        SetPropitem(InventorDoc, "库存编号", TextBox2.Text)
+        SetPropitem(InventorDoc, Map_StochNum, TextBox1.Text)
+        SetPropitem(InventorDoc, Map_PartName, TextBox2.Text)
         SetPropitem(InventorDoc, "描述", TextBox3.Text)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
@@ -35,9 +35,9 @@ Public Class ChangeIproDialog
         Dim StockNumPartName As StockNumPartName = Nothing
         For Each propitem In oPropSet
             Select Case propitem.DisplayName
-                Case "零件代号"
+                Case Map_StochNum
                     TextBox1.Text = propitem.Value
-                Case "库存编号"
+                Case Map_PartName
                     TextBox2.Text = propitem.Value
                 Case "描述"
                     TextBox3.Text = propitem.Value
@@ -59,4 +59,6 @@ Public Class ChangeIproDialog
         TextBox2.Text = TextBox3.Text
         TextBox3.Text = Str_TempText
     End Sub
+
+    
 End Class

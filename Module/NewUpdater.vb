@@ -25,7 +25,11 @@ Module NewUpdater
 
 
         Catch ex As Exception
+<<<<<<< HEAD
             MsgBox(ex.Message)
+=======
+            'MsgBox(ex.Message)
+>>>>>>> c3706ff (新增重新BOM序号与排序)
         End Try
     End Sub
 
@@ -49,14 +53,26 @@ Module NewUpdater
             'MsgBox(MyVersion)
 
             If NewVersion <> "" Then
+<<<<<<< HEAD
                 If NewVersion <> MyVersion Then
 
+=======
+                Dim shortMyversion As Long
+                Dim shortNewVersion As Long
+
+                shortMyversion = ShortVersion(MyVersion)
+                shortNewVersion = ShortVersion(NewVersion)
+
+                If shortNewVersion > shortMyversion Then
+                    MsgBox("InventorAddIn插件" & vbCrLf & "当前版本：" & MyVersion & vbCrLf & "检查到 新版本：" & NewVersion, MsgBoxStyle.OkOnly, " 检查更新")
+>>>>>>> c3706ff (新增重新BOM序号与排序)
                     simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
                     Process.Start(simupdate)
 
                 End If
             End If
         Catch ex As Exception
+<<<<<<< HEAD
             MsgBox(ex.Message)
 
         End Try
@@ -64,4 +80,19 @@ Module NewUpdater
 
 
     End Sub
+=======
+            'MsgBox(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Public Function ShortVersion(ByVal LongVesion As String) As Long
+
+        ShortVersion = Val(Strings.Replace(LongVesion, ".", ""))
+
+        Return ShortVersion
+    End Function
+
+>>>>>>> c3706ff (新增重新BOM序号与排序)
 End Module

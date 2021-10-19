@@ -62,6 +62,8 @@ Module InventorBasic
     Public IsSetMass As Short  '打开工程图时是否写 质量 到ipro  是赋值为1
 
 
+    Public CheckUpdate As Short   '启动检查更新
+
     Public TotalItem As Integer 'BOM序号
 
     Public OPosition(9) As Point   '点
@@ -2159,29 +2161,17 @@ Module InventorBasic
     End Sub
 
 
-
     '保存文件时的事件
-    Public Sub ThisApplicationEvents_OnOnSaveDocument(ByVal DocumentObject As Inventor._Document, _
-                                                    ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-                                                     ByVal Context As Inventor.NameValueMap, _
-                                                     ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnSaveDocument
+    'Public Sub ThisApplicationEvents_OnOnSaveDocument(ByVal DocumentObject As Inventor._Document, _
+    '                                                ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
+    '                                                 ByVal Context As Inventor.NameValueMap, _
+    '                                                 ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnSaveDocument
 
 
-        '当打开文件为工程图
-        If DocumentObject.DocumentType = kDrawingDocumentObject Then
-            '写入主视图比例
-            If IsSetDrawingScale = 1 Then
-                SetDrawingScale(DocumentObject)
-            End If
-
-            '写入零部件质量
-            If IsSetMass = 1 Then
-                SetMass(DocumentObject)
-            End If
-        End If
 
 
-    End Sub
+
+    'End Sub
 
     '打开文件时的事件
     Public Sub ThisApplicationEvents_OnOpenDocument(ByVal DocumentObject As Inventor._Document, _
@@ -2204,13 +2194,24 @@ Module InventorBasic
     End Sub
 
     '激活一个文档时的事件
-    'Public Sub ThisApplicationEvents_OnActivateDocument(ByVal DocumentObject As Inventor._Document, _
-    '                                                    ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-    '                                                    ByVal Context As Inventor.NameValueMap, _
-    '                                                    ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnActivateDocument
+    Public Sub ThisApplicationEvents_OnActivateDocument(ByVal DocumentObject As Inventor._Document, _
+                                                        ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
+                                                        ByVal Context As Inventor.NameValueMap, _
+                                                        ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnActivateDocument
+        '当打开文件为工程图
+        If DocumentObject.DocumentType = kDrawingDocumentObject Then
+            '写入主视图比例
+            If IsSetDrawingScale = 1 Then
+                SetDrawingScale(DocumentObject)
+            End If
 
+            '写入零部件质量
+            If IsSetMass = 1 Then
+                SetMass(DocumentObject)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
     '刷新引用 
     Public Function RefreshShowName(ByVal AsmDoc As Document) As Boolean

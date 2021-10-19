@@ -27,13 +27,16 @@ Public NotInheritable Class About
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Try
-            Dim simupdate As String
+        'Try
+        '    Dim simupdate As String
 
-            simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
-            Process.Start(simupdate)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        '    simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
+        '    Process.Start(simupdate)
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
+
+        NewUpdater.UpDater2()
+
     End Sub
 End Class
