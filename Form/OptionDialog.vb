@@ -1,4 +1,4 @@
-﻿Imports System.Windows.Forms
+Imports System.Windows.Forms
 
 Public Class OptionDialog
 
@@ -21,32 +21,27 @@ Public Class OptionDialog
 
 
         '打印签字
-        Select Case CheckBox1.CheckState
-            Case CheckState.Unchecked
+        Select Case CheckBox1.Checked
+            Case False
                 IsOpenPrint = -1
-            Case CheckState.Indeterminate
-                IsOpenPrint = 0
-            Case CheckState.Checked
+            Case True
                 IsOpenPrint = 1
         End Select
 
         '同时签字
-        Select Case CheckBox2.CheckState
-            Case CheckState.Unchecked
+        Select Case CheckBox2.Checked
+            Case True
                 IsDayAndName = -1
-            Case CheckState.Indeterminate
-                IsDayAndName = 0
-            Case CheckState.Checked
+
+            Case False
                 IsDayAndName = 1
         End Select
 
         '打开工程图时写入
-        Select Case CheckBox3.CheckState
-            Case CheckState.Unchecked
+        Select Case CheckBox3.Checked
+            Case False
                 IsSetDrawingScale = -1
-            Case CheckState.Indeterminate
-                IsSetDrawingScale = 0
-            Case CheckState.Checked
+            Case True
                 IsSetDrawingScale = 1
         End Select
 
@@ -62,12 +57,10 @@ Public Class OptionDialog
 
 
         '启动检查更新
-        Select Case CheckBox5.CheckState
-            Case CheckState.Unchecked
+        Select Case CheckBox5.Checked
+            Case False
                 CheckUpdate = -1
-            Case CheckState.Indeterminate
-                CheckUpdate = 0
-            Case CheckState.Checked
+            Case True
                 CheckUpdate = 1
         End Select
 
@@ -182,49 +175,40 @@ Public Class OptionDialog
         TextBox6.Text = BOMTiTle
         TextBox7.Text = Map_Mass
 
-        Select Case IsOpenPrint
+          Select Case IsOpenPrint
             Case -1
-                CheckBox1.CheckState = CheckState.Unchecked
-            Case 0
-                CheckBox1.CheckState = CheckState.Indeterminate
+                CheckBox1.Checked = False
             Case 1
-                CheckBox1.CheckState = CheckState.Checked
+                CheckBox1.Checked = True
         End Select
 
         Select Case IsDayAndName
             Case -1
-                CheckBox2.CheckState = CheckState.Unchecked
-            Case 0
-                CheckBox2.CheckState = CheckState.Indeterminate
+                CheckBox1.Checked = False
             Case 1
-                CheckBox2.CheckState = CheckState.Checked
+                CheckBox1.Checked = True
         End Select
 
         Select Case IsSetDrawingScale
             Case -1
-                CheckBox3.CheckState = CheckState.Unchecked
-            Case 0
-                CheckBox3.CheckState = CheckState.Indeterminate
+                CheckBox1.Checked = False
+
             Case 1
-                CheckBox3.CheckState = CheckState.Checked
+                CheckBox1.Checked = True
         End Select
 
         Select Case IsSetMass
             Case -1
-                CheckBox4.CheckState = CheckState.Unchecked
-            Case 0
-                CheckBox4.CheckState = CheckState.Indeterminate
+                CheckBox1.Checked = False
             Case 1
-                CheckBox4.CheckState = CheckState.Checked
+                CheckBox1.Checked = True
         End Select
 
         Select Case CheckUpdate
             Case -1
-                CheckBox5.CheckState = CheckState.Unchecked
-            Case 0
-                CheckBox5.CheckState = CheckState.Indeterminate
+                CheckBox1.Checked = False
             Case 1
-                CheckBox5.CheckState = CheckState.Checked
+                CheckBox1.Checked = True
         End Select
 
     End Sub
