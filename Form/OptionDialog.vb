@@ -30,10 +30,10 @@ Public Class OptionDialog
 
         '同时签字
         Select Case CheckBox2.Checked
-            Case True
+            Case False
                 IsDayAndName = -1
 
-            Case False
+            Case  True
                 IsDayAndName = 1
         End Select
 
@@ -45,13 +45,11 @@ Public Class OptionDialog
                 IsSetDrawingScale = 1
         End Select
 
-        '打开工程图时写入
-        Select Case CheckBox4.CheckState
-            Case CheckState.Unchecked
+              '打开工程图时写入
+        Select Case CheckBox4.Checked
+            Case False
                 IsSetMass = -1
-            Case CheckState.Indeterminate
-                IsSetMass = 0
-            Case CheckState.Checked
+            Case True
                 IsSetMass = 1
         End Select
 
