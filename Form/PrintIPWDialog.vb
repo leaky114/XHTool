@@ -1,4 +1,4 @@
-﻿Imports System.Windows.Forms
+Imports System.Windows.Forms
 Imports Inventor
 Imports System
 Imports System.IO
@@ -149,8 +149,8 @@ Public Class PrintIPWDialog
             ' Get the name of the printer that will be used.
             .Printer = sPrinterName
 
-            '所有颜色打印为黑色
-            If CheckBox1.CheckState = CheckState.Checked Then
+                       '所有颜色打印为黑色
+            If CheckBox1.Checked = True Then
                 .AllColorsAsBlack = True
             Else
                 .AllColorsAsBlack = False
@@ -171,7 +171,7 @@ Public Class PrintIPWDialog
 
 
             ' 如果是打印到打印机，修正为A3
-            If CheckBox3.CheckState = CheckState.Checked Then
+              If CheckBox3.Checked = True Then
                 Select Case IdwDoc.ActiveSheet.Size
                     Case DrawingSheetSizeEnum.kA4DrawingSheetSize
                         .PaperSize = PaperSizeEnum.kPaperSizeA4
