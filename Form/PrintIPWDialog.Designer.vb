@@ -41,6 +41,7 @@ Partial Class PrintIPWDialog
         Me.Button6 = New System.Windows.Forms.Button
         Me.ListView1 = New System.Windows.Forms.ListView
         Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox
         Me.GroupBox1.SuspendLayout()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,7 +49,7 @@ Partial Class PrintIPWDialog
         'OK_Button
         '
         Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(566, 408)
+        Me.OK_Button.Location = New System.Drawing.Point(614, 408)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(57, 30)
         Me.OK_Button.TabIndex = 1
@@ -59,7 +60,7 @@ Partial Class PrintIPWDialog
         '
         Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(629, 408)
+        Me.Cancel_Button.Location = New System.Drawing.Point(677, 408)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(57, 30)
         Me.Cancel_Button.TabIndex = 1
@@ -79,7 +80,7 @@ Partial Class PrintIPWDialog
         'Button2
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(491, 408)
+        Me.Button2.Location = New System.Drawing.Point(509, 408)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(69, 30)
         Me.Button2.TabIndex = 3
@@ -109,6 +110,7 @@ Partial Class PrintIPWDialog
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.CheckBox4)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.NumericUpDown1)
@@ -118,7 +120,7 @@ Partial Class PrintIPWDialog
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
         Me.GroupBox1.Location = New System.Drawing.Point(13, 342)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(673, 60)
+        Me.GroupBox1.Size = New System.Drawing.Size(720, 60)
         Me.GroupBox1.TabIndex = 33
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "选项"
@@ -126,7 +128,7 @@ Partial Class PrintIPWDialog
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(281, 22)
+        Me.Label3.Location = New System.Drawing.Point(247, 25)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(29, 12)
         Me.Label3.TabIndex = 38
@@ -143,7 +145,7 @@ Partial Class PrintIPWDialog
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(319, 22)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(285, 22)
         Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(46, 21)
@@ -155,7 +157,7 @@ Partial Class PrintIPWDialog
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(60, 21)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(204, 20)
+        Me.ComboBox1.Size = New System.Drawing.Size(174, 20)
         Me.ComboBox1.Sorted = True
         Me.ComboBox1.TabIndex = 35
         '
@@ -165,7 +167,7 @@ Partial Class PrintIPWDialog
         Me.CheckBox3.AutoSize = True
         Me.CheckBox3.Checked = True
         Me.CheckBox3.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox3.Location = New System.Drawing.Point(585, 23)
+        Me.CheckBox3.Location = New System.Drawing.Point(541, 23)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(72, 16)
         Me.CheckBox3.TabIndex = 34
@@ -176,7 +178,7 @@ Partial Class PrintIPWDialog
         '
         Me.CheckBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(521, 23)
+        Me.CheckBox2.Location = New System.Drawing.Point(486, 23)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(48, 16)
         Me.CheckBox2.TabIndex = 33
@@ -189,7 +191,7 @@ Partial Class PrintIPWDialog
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Checked = True
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(383, 23)
+        Me.CheckBox1.Location = New System.Drawing.Point(349, 23)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(132, 16)
         Me.CheckBox1.TabIndex = 32
@@ -217,7 +219,7 @@ Partial Class PrintIPWDialog
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(405, 408)
+        Me.Button6.Location = New System.Drawing.Point(455, 408)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(51, 30)
         Me.Button6.TabIndex = 35
@@ -234,7 +236,7 @@ Partial Class PrintIPWDialog
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(15, 11)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(670, 314)
+        Me.ListView1.Size = New System.Drawing.Size(718, 314)
         Me.ListView1.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListView1.TabIndex = 36
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -245,13 +247,24 @@ Partial Class PrintIPWDialog
         Me.ColumnHeader1.Text = "文件名"
         Me.ColumnHeader1.Width = 650
         '
+        'CheckBox4
+        '
+        Me.CheckBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Location = New System.Drawing.Point(620, 24)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(84, 16)
+        Me.CheckBox4.TabIndex = 39
+        Me.CheckBox4.Text = "打印后关闭"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
         'PrintIPWDialog
         '
         Me.AcceptButton = Me.Button1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(698, 450)
+        Me.ClientSize = New System.Drawing.Size(746, 450)
         Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
@@ -295,5 +308,6 @@ Partial Class PrintIPWDialog
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
 
 End Class

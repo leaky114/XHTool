@@ -19,7 +19,9 @@ Public NotInheritable Class About
         Me.LabelVersion.Text = String.Format("版本 {0}", My.Application.Info.Version.ToString)
         Me.LabelCopyright.Text = String.Format("版权 {0}", My.Application.Info.Copyright)
         Me.LabelCompanyName.Text = String.Format("公司 {0}", My.Application.Info.CompanyName)
-        Me.TextBoxDescription.Text = My.Application.Info.Description
+        Me.TextBoxDescription.Text = My.Application.Info.Description & vbCrLf & _
+                                      vbCrLf & _
+                                    My.Application.Info.DirectoryPath
     End Sub
 
     Private Sub OKButton_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OKButton.Click
@@ -36,7 +38,6 @@ Public NotInheritable Class About
         '    MsgBox(ex.Message)
         'End Try
 
-        NewUpdater.UpDater2()
-
+    NewUpdater.UpDater2(True)
     End Sub
 End Class

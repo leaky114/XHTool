@@ -54,7 +54,9 @@ Public Class PrintIPWDialog
             '打印文件
             PrintDrawing(IdwDoc, sPrinterName)
 
-            'IdwDoc.Close(False)
+            If CheckBox4.Checked = True Then
+                IdwDoc.Close(True)
+            End If
 
 999:
         Next

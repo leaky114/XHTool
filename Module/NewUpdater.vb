@@ -25,15 +25,14 @@ Module NewUpdater
 
 
         Catch ex As Exception
-<<<<<<< HEAD
-            MsgBox(ex.Message)
-=======
+
+
             'MsgBox(ex.Message)
->>>>>>> c3706ff (新增重新BOM序号与排序)
+
         End Try
     End Sub
 
-    Public Sub UpDater2()
+    Public Sub UpDater2(ByVal IsPutOutMsg As Boolean)
         Try
             Dim simupdate As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
 
@@ -47,16 +46,13 @@ Module NewUpdater
             Dim MyVersion As String = _
             My.Application.Info.Version.Major & "." & _
             My.Application.Info.Version.Minor & "." & _
-            My.Application.Info.Version.Build & "." & _
-            My.Application.Info.Version.Revision
+            Format(My.Application.Info.Version.Build, "00") & "." & _
+           Format(My.Application.Info.Version.Revision, "00")
 
             'MsgBox(MyVersion)
 
             If NewVersion <> "" Then
-<<<<<<< HEAD
-                If NewVersion <> MyVersion Then
 
-=======
                 Dim shortMyversion As Long
                 Dim shortNewVersion As Long
 
@@ -65,23 +61,18 @@ Module NewUpdater
 
                 If shortNewVersion > shortMyversion Then
                     MsgBox("InventorAddIn插件" & vbCrLf & "当前版本：" & MyVersion & vbCrLf & "检查到 新版本：" & NewVersion, MsgBoxStyle.OkOnly, " 检查更新")
->>>>>>> c3706ff (新增重新BOM序号与排序)
+
                     simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
                     Process.Start(simupdate)
-
+                Else
+                    If IsPutOutMsg = True Then
+                        MsgBox("当前是最新版本。", MsgBoxStyle.OkOnly, "检查更新")
+                    End If
                 End If
             End If
         Catch ex As Exception
-<<<<<<< HEAD
+
             MsgBox(ex.Message)
-
-        End Try
-
-
-
-    End Sub
-=======
-            'MsgBox(ex.Message)
 
         End Try
 
@@ -94,5 +85,4 @@ Module NewUpdater
         Return ShortVersion
     End Function
 
->>>>>>> c3706ff (新增重新BOM序号与排序)
 End Module
