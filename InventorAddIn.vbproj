@@ -306,7 +306,6 @@
     <Content Include="obj\Release\Interop.Office.dll" />
     <Content Include="obj\Release\Interop.VBIDE.dll" />
     <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\支付宝.bmp" />
     <None Include="Resources\微信.bmp" />
   </ItemGroup>
