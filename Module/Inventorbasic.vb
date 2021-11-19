@@ -2312,7 +2312,7 @@ Module InventorBasic
 
         '获取结构化的bom页面
         For Each oBOMView In oBOM.BOMViews
-            If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+            If oBOMView.ViewType = BOMViewTypeEnum.kModelDataBOMViewType Then
                 '遍历这个bom页面
                 QueryBOMRowToOpenUnkonwDocument(oBOMView.BOMRows, FirstLevelOnly)
             End If

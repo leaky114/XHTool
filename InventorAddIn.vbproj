@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42032</NoWarn>
     <DebugType>full</DebugType>
     <RegisterForComInterop>true</RegisterForComInterop>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,7 +51,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42032</NoWarn>
     <DebugType>none</DebugType>
     <RegisterForComInterop>true</RegisterForComInterop>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -175,6 +175,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="StandardAddInServer.vb" />
     <Compile Include="Module\Strings.vb" />
   </ItemGroup>
@@ -259,38 +264,120 @@
       <DependentUpon>PrintIPWDialog.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.AllSaveAsDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.AutoPartNumberDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.DrawSlotDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.InputBoxDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.iPopertiesDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.OptionDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.Resources.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.SaveAsDialog.resources" />
-    <EmbeddedResource Include="obj\Debug\InventorAddIn.SignDialog.resources" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="obj\Debug\InventorAddIn.vbproj.GenerateResource.Cache" />
-    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
-    <None Include="obj\Release\InventorAddIn.vbproj.GenerateResource.Cache" />
-    <None Include="obj\Release\InventorAddIn.vbproj.ResolveComReference.cache" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="obj\Debug\.xml" />
-    <Content Include="obj\Debug\InventorAddIn.dll" />
-    <Content Include="obj\Debug\InventorAddIn.pdb" />
-    <Content Include="obj\Debug\InventorAddIn.vbproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
-    <Content Include="obj\Debug\TempPE\Resource.Designer.vb.dll" />
-    <Content Include="obj\Release\Interop.Office.dll" />
-    <Content Include="obj\Release\Interop.VBIDE.dll" />
-    <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
-    <None Include="Resources\支付宝.bmp" />
-    <None Include="Resources\微信.bmp" />
+    <Content Include="icon\inventor.ico" />
+    <Content Include="icon\保存关闭161624.ico" />
+    <Content Include="icon\保存关闭323224.ico" />
+    <Content Include="icon\修改文件iProperty161624.ico" />
+    <Content Include="icon\修改文件iProperty323224.ico" />
+    <Content Include="icon\修改部件iProperty161624.ico" />
+    <Content Include="icon\修改部件iProperty323224.ico" />
+    <Content Include="icon\全部另存为161624.ico" />
+    <Content Include="icon\全部另存为323224.ico" />
+    <Content Include="icon\关于161624.ico" />
+    <Content Include="icon\关于323224.ico" />
+    <Content Include="icon\刷新引用161624.ico" />
+    <Content Include="icon\刷新引用323224.ico" />
+    <Content Include="icon\另存为Dwg161624.ico" />
+    <Content Include="icon\另存为Dwg323224.ico" />
+    <Content Include="icon\另存为Pdf161624.ico" />
+    <Content Include="icon\另存为Pdf323224.ico" />
+    <Content Include="icon\对称件iProperty161624.ico" />
+    <Content Include="icon\对称件iProperty323224.ico" />
+    <Content Include="icon\对齐原始坐标面161624.ico" />
+    <Content Include="icon\对齐原始坐标面323224.ico" />
+    <Content Include="icon\导出平面BOM161624.ico" />
+    <Content Include="icon\导出平面BOM323224.ico" />
+    <Content Include="icon\导出树形BOM161624.ico" />
+    <Content Include="icon\导出树形BOM323224.ico" />
+    <Content Include="icon\尺寸圆整161624.ico" />
+    <Content Include="icon\尺寸圆整323224.ico" />
+    <Content Include="icon\工程图161624.ico" />
+    <Content Include="icon\工程图323224.ico" />
+    <Content Include="icon\帮助161624.ico" />
+    <Content Include="icon\帮助323224.ico" />
+    <Content Include="icon\打印161624.ico" />
+    <Content Include="icon\打印323224.ico" />
+    <Content Include="icon\打开全部工程图161624.ico" />
+    <Content Include="icon\打开全部工程图323224.ico" />
+    <Content Include="icon\打开文件夹161624.ico" />
+    <Content Include="icon\打开文件夹323224.ico" />
+    <Content Include="icon\批量另存为161624.ico" />
+    <Content Include="icon\批量另存为323224.ico" />
+    <Content Include="icon\提取iPro修改文件名161624.ico" />
+    <Content Include="icon\提取iPro修改文件名323224.ico" />
+    <Content Include="icon\插入序号161624.ico" />
+    <Content Include="icon\插入序号323224.ico" />
+    <Content Include="icon\新建序号161624.ico" />
+    <Content Include="icon\新建序号323224.ico" />
+    <Content Include="icon\更改文件名161624.ico" />
+    <Content Include="icon\更改文件名323224.ico" />
+    <Content Include="icon\更改镜像文件名161624.ico" />
+    <Content Include="icon\更改镜像文件名323224.ico" />
+    <Content Include="icon\查找缺失文件的部件161624.ico" />
+    <Content Include="icon\查找缺失文件的部件323224.ico" />
+    <Content Include="icon\查找部件161624.ico" />
+    <Content Include="icon\查找部件323224.ICO" />
+    <Content Include="icon\检查序号完整性161624.ico" />
+    <Content Include="icon\检查序号完整性323224.ico" />
+    <Content Include="icon\检查是否有工程图161624.ico" />
+    <Content Include="icon\检查是否有工程图323224.ico" />
+    <Content Include="icon\添加直径161624.ico" />
+    <Content Include="icon\添加直径323224.ico" />
+    <Content Include="icon\清理旧版文件161624.ico" />
+    <Content Include="icon\清理旧版文件323224.ico" />
+    <Content Include="icon\清除日期161624.ico" />
+    <Content Include="icon\清除日期323224.ico" />
+    <Content Include="icon\清除签字161624.ico" />
+    <Content Include="icon\清除签字323224.ico" />
+    <Content Include="icon\生成图号161624.ico" />
+    <Content Include="icon\生成图号323224.ico" />
+    <Content Include="icon\移动指定文件161624.ico" />
+    <Content Include="icon\移动指定文件323224.ico" />
+    <Content Include="icon\空白161624.ico" />
+    <Content Include="icon\空白323224.ico" />
+    <Content Include="icon\自定义日期161624.ico" />
+    <Content Include="icon\自定义日期323224.ico" />
+    <Content Include="icon\自定义签字161624.ico" />
+    <Content Include="icon\自定义签字323224.ico" />
+    <Content Include="icon\设置161624.ico" />
+    <Content Include="icon\设置323224.ico" />
+    <Content Include="icon\设置BOM结构161624.ico" />
+    <Content Include="icon\设置BOM结构323224.ico" />
+    <Content Include="icon\设置描述161624.ico" />
+    <Content Include="icon\设置描述323224.ico" />
+    <Content Include="icon\设置日期161624.ico" />
+    <Content Include="icon\设置日期323224.ico" />
+    <Content Include="icon\设置材料编码161624.ico" />
+    <Content Include="icon\设置材料编码323224.ico" />
+    <Content Include="icon\设置比例161624.ico" />
+    <Content Include="icon\设置比例323224.ico" />
+    <Content Include="icon\设置签字161624.ico" />
+    <Content Include="icon\设置签字323224.ico" />
+    <Content Include="icon\调整IPro顺序161624.ICO" />
+    <Content Include="icon\调整IPro顺序323224.ICO" />
+    <Content Include="icon\还原旧图161624.ico" />
+    <Content Include="icon\还原旧图323224.ico" />
+    <Content Include="icon\部件161624.ico" />
+    <Content Include="icon\部件323224.ico" />
+    <Content Include="icon\部件替换文件名161624.ico" />
+    <Content Include="icon\部件替换文件名323224.ico" />
+    <Content Include="icon\重写BOM161624.ICO" />
+    <Content Include="icon\重写BOM323224.ICO" />
+    <Content Include="icon\量产iPropertys161624.ico" />
+    <Content Include="icon\量产iPropertys323224.ico" />
+    <Content Include="icon\零件161624.ico" />
+    <Content Include="icon\零件323224.ico" />
+    <None Include="app.config" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\InventorAddIn\" />
-    <Folder Include="icon\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
