@@ -145,4 +145,8 @@ Public Class GetPartDialog
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
         My.Computer.Clipboard.SetText(TextBox2.Text)
     End Sub
+
+    Private Sub GetPartDialog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

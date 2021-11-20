@@ -32,6 +32,7 @@ Partial Class About
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Button1 = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -40,7 +41,7 @@ Partial Class About
         '
         Me.OKButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.OKButton.Location = New System.Drawing.Point(268, 221)
+        Me.OKButton.Location = New System.Drawing.Point(268, 233)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(79, 24)
         Me.OKButton.TabIndex = 40
@@ -136,18 +137,28 @@ Partial Class About
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(136, 221)
+        Me.Button1.Location = New System.Drawing.Point(180, 233)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(79, 24)
         Me.Button1.TabIndex = 44
         Me.Button1.Text = "检查更新"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(21, 233)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(87, 24)
+        Me.Button2.TabIndex = 45
+        Me.Button2.Text = "访问软件仓库"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(359, 252)
+        Me.ClientSize = New System.Drawing.Size(359, 264)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
@@ -180,5 +191,6 @@ Partial Class About
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 
 End Class

@@ -2351,9 +2351,9 @@ Module InventorBasic
 
             ' Set the message for the progress bar
             'oProgressBar.Message = FullFileName
-            If InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                GoTo 999
-            End If
+            'If InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            '    GoTo 999
+            'End If
 
 
             '文件不存在，就打开父级文件

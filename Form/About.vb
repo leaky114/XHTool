@@ -3,6 +3,9 @@ Imports FSLib.App.SimpleUpdater
 
 Public NotInheritable Class About
 
+    Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
+
+
     Private Sub AboutBox1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
         Dim ApplicationTitle As String
@@ -39,5 +42,9 @@ Public NotInheritable Class About
         'End Try
 
     NewUpdater.UpDater2(True)
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Process.Start(GitWeb)
     End Sub
 End Class
