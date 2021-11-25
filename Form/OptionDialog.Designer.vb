@@ -420,6 +420,7 @@ Partial Class OptionDialog
         Me.CheckBox3.TabIndex = 7
         Me.CheckBox3.Text = "保存工程图时写入"
         Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.CheckBox3.Visible = False
         '
         'GroupBox6
         '
@@ -476,6 +477,7 @@ Partial Class OptionDialog
         Me.CheckBox4.TabIndex = 7
         Me.CheckBox4.Text = "保存工程图时写入"
         Me.CheckBox4.UseVisualStyleBackColor = True
+        Me.CheckBox4.Visible = False
         '
         'TextBox7
         '

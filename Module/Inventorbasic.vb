@@ -47,8 +47,8 @@ Module InventorBasic
     Public Map_Mass As String '映射质量
 
     Public Map_PrintDay As String '映射打印时间
-    Public IsOpenPrint As Short   '设置打印时间后是否进入打印预览
-    Public IsDayAndName As Short  '同时签字
+    Public IsOpenPrint As String    '设置打印时间后是否进入打印预览
+    Public IsDayAndName As String   '同时签字
 
     Public EngineerName As String '工程师
 
@@ -58,11 +58,11 @@ Module InventorBasic
     Public Area_Accuracy As String  '面积精度
 
 
-    Public IsSetDrawingScale As Short   '打开工程图时是否写 比例 到ipro   是赋值为1
-    Public IsSetMass As Short  '打开工程图时是否写 质量 到ipro  是赋值为1
+    Public IsSetDrawingScale As String    '打开工程图时是否写 比例 到ipro   是赋值为1
+    Public IsSetMass As String   '打开工程图时是否写 质量 到ipro  是赋值为1
 
 
-    Public CheckUpdate As Short   '启动检查更新
+    Public CheckUpdate As String    '启动检查更新
 
     Public TotalItem As Integer 'BOM序号
 
@@ -2151,6 +2151,7 @@ Module InventorBasic
     End Sub
 
 
+
     '保存文件时的事件
     'Public Sub ThisApplicationEvents_OnOnSaveDocument(ByVal DocumentObject As Inventor._Document, _
     '                                                ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
@@ -2164,24 +2165,24 @@ Module InventorBasic
     'End Sub
 
     '打开文件时的事件
-    Public Sub ThisApplicationEvents_OnOpenDocument(ByVal oInventorDocument As Inventor.Document, _
-                                    ByVal FullDocumentName As String, _
-                                   ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-                                  ByVal Context As Inventor.NameValueMap, _
-                                  ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnOpenDocument
-        '当打开文件为工程图
-        If oInventorDocument.DocumentType = kDrawingDocumentObject Then
-            '写入主视图比例
-            If IsSetDrawingScale = 1 Then
-                SetDrawingScale(oInventorDocument)
-            End If
+    'Public Sub ThisApplicationEvents_OnOpenDocument(ByVal oInventorDocument As Inventor.Document, _
+    '                                ByVal FullDocumentName As String, _
+    '                               ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
+    '                              ByVal Context As Inventor.NameValueMap, _
+    '                              ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnOpenDocument
+    '    '当打开文件为工程图
+    '    If oInventorDocument.DocumentType = kDrawingDocumentObject Then
+    '        '写入主视图比例
+    '        'If IsSetDrawingScale = 1 Then
+    '        SetDrawingScale(oInventorDocument)
+    '        'End If
 
-            '写入零部件质量
-            If IsSetMass = 1 Then
-                SetMass(oInventorDocument)
-            End If
-        End If
-    End Sub
+    '        '写入零部件质量
+    '        'If IsSetMass = 1 Then
+    '        SetMass(oInventorDocument)
+    '        'End If
+    '    End If
+    'End Sub
 
     '激活一个文档时的事件
     Public Sub ThisApplicationEvents_OnActivateDocument(ByVal oInventorDocument As Inventor.Document, _
@@ -2191,14 +2192,14 @@ Module InventorBasic
         '当打开文件为工程图
         If oInventorDocument.DocumentType = kDrawingDocumentObject Then
             '写入主视图比例
-            If IsSetDrawingScale = 1 Then
-                SetDrawingScale(oInventorDocument)
-            End If
+            'If IsSetDrawingScale = 1 Then
+            SetDrawingScale(oInventorDocument)
+            'End If
 
             '写入零部件质量
-            If IsSetMass = 1 Then
-                SetMass(oInventorDocument)
-            End If
+            'If IsSetMass = 1 Then
+            SetMass(oInventorDocument)
+            'End If
         End If
 
     End Sub

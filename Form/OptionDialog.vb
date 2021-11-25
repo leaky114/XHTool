@@ -23,43 +23,43 @@ Public Class OptionDialog
         '打印签字
         Select Case CheckBox1.Checked
             Case False
-                IsOpenPrint = -1
+                IsOpenPrint = "-1"
             Case True
-                IsOpenPrint = 1
+                IsOpenPrint = "1"
         End Select
 
         '同时签字
         Select Case CheckBox2.Checked
             Case False
-                IsDayAndName = -1
+                IsDayAndName = "-1"
 
             Case  True
-                IsDayAndName = 1
+                IsDayAndName = "1"
         End Select
 
         '打开工程图时写入
         Select Case CheckBox3.Checked
             Case False
-                IsSetDrawingScale = -1
+                IsSetDrawingScale = "-1"
             Case True
-                IsSetDrawingScale = 1
+                IsSetDrawingScale = "1"
         End Select
 
               '打开工程图时写入
         Select Case CheckBox4.Checked
             Case False
-                IsSetMass = -1
+                IsSetMass = "-1"
             Case True
-                IsSetMass = 1
+                IsSetMass = "1"
         End Select
 
 
         '启动检查更新
         Select Case CheckBox5.Checked
             Case False
-                CheckUpdate = -1
+                CheckUpdate = "-1"
             Case True
-                CheckUpdate = 1
+                CheckUpdate = "1"
         End Select
 
         '质量精度：
@@ -174,39 +174,38 @@ Public Class OptionDialog
         TextBox7.Text = Map_Mass
 
           Select Case IsOpenPrint
-            Case -1
+            Case "-1"
                 CheckBox1.Checked = False
-            Case 1
+            Case "1"
                 CheckBox1.Checked = True
         End Select
 
         Select Case IsDayAndName
-            Case -1
-                CheckBox1.Checked = False
-            Case 1
-                CheckBox1.Checked = True
+            Case "-1"
+                CheckBox2.Checked = False
+            Case "1"
+                CheckBox2.Checked = True
         End Select
 
         Select Case IsSetDrawingScale
-            Case -1
-                CheckBox1.Checked = False
-
-            Case 1
-                CheckBox1.Checked = True
+            Case "-1"
+                CheckBox3.Checked = False
+            Case "1"
+                CheckBox3.Checked = True
         End Select
 
         Select Case IsSetMass
-            Case -1
-                CheckBox1.Checked = False
-            Case 1
-                CheckBox1.Checked = True
+            Case "-1"
+                CheckBox4.Checked = False
+            Case "1"
+                CheckBox4.Checked = True
         End Select
 
         Select Case CheckUpdate
-            Case -1
-                CheckBox1.Checked = False
-            Case 1
-                CheckBox1.Checked = True
+            Case "-1"
+                CheckBox5.Checked = False
+            Case "1"
+                CheckBox5.Checked = True
         End Select
 
     End Sub
