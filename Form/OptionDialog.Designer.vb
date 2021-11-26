@@ -25,56 +25,56 @@ Partial Class OptionDialog
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.OK_Button = New System.Windows.Forms.Button
         Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
+        Me.cbo图号 = New System.Windows.Forms.ComboBox
+        Me.cbo文件名 = New System.Windows.Forms.ComboBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.ComboBox6 = New System.Windows.Forms.ComboBox
+        Me.cbo存货编码 = New System.Windows.Forms.ComboBox
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.txt文件名映射 = New System.Windows.Forms.TextBox
+        Me.txt图号映射 = New System.Windows.Forms.TextBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label4 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox
-        Me.TextBox5 = New System.Windows.Forms.TextBox
+        Me.chk签字 = New System.Windows.Forms.CheckBox
+        Me.txt工程师 = New System.Windows.Forms.TextBox
         Me.Label7 = New System.Windows.Forms.Label
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
-        Me.TextBox4 = New System.Windows.Forms.TextBox
+        Me.chk签字后打印 = New System.Windows.Forms.CheckBox
+        Me.txt打印日期 = New System.Windows.Forms.TextBox
         Me.Label6 = New System.Windows.Forms.Label
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.Button清除 = New System.Windows.Forms.Button
-        Me.Button还原 = New System.Windows.Forms.Button
-        Me.Button添加 = New System.Windows.Forms.Button
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox
-        Me.TextBox6 = New System.Windows.Forms.TextBox
+        Me.btn清除 = New System.Windows.Forms.Button
+        Me.btn还原 = New System.Windows.Forms.Button
+        Me.btn添加 = New System.Windows.Forms.Button
+        Me.cbo添加 = New System.Windows.Forms.ComboBox
+        Me.txtBOM导出项 = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
         Me.Label9 = New System.Windows.Forms.Label
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox
+        Me.cbo质量精度 = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
-        Me.TextBox3 = New System.Windows.Forms.TextBox
+        Me.txt比例 = New System.Windows.Forms.TextBox
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.CheckBox3 = New System.Windows.Forms.CheckBox
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.ComboBox5 = New System.Windows.Forms.ComboBox
+        Me.cbo面积精度 = New System.Windows.Forms.ComboBox
         Me.Label10 = New System.Windows.Forms.Label
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.CheckBox4 = New System.Windows.Forms.CheckBox
-        Me.TextBox7 = New System.Windows.Forms.TextBox
+        Me.txt图号 = New System.Windows.Forms.TextBox
         Me.Label11 = New System.Windows.Forms.Label
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox
+        Me.chk检查更新 = New System.Windows.Forms.CheckBox
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.TextBox8 = New System.Windows.Forms.TextBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.TextBox9 = New System.Windows.Forms.TextBox
-        Me.TextBox10 = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.TextBox11 = New System.Windows.Forms.TextBox
+        Me.txt查询列 = New System.Windows.Forms.TextBox
         Me.Label16 = New System.Windows.Forms.Label
+        Me.txt查找范围 = New System.Windows.Forms.TextBox
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.txt数据表 = New System.Windows.Forms.TextBox
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.btnexcel文件 = New System.Windows.Forms.Button
+        Me.txtexcel文件 = New System.Windows.Forms.TextBox
+        Me.Label13 = New System.Windows.Forms.Label
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -120,25 +120,25 @@ Partial Class OptionDialog
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "取消"
         '
-        'ComboBox1
+        'cbo图号
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"零件代号", "库存编号", "描述"})
-        Me.ComboBox1.Location = New System.Drawing.Point(85, 20)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(87, 20)
-        Me.ComboBox1.TabIndex = 1
+        Me.cbo图号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo图号.FormattingEnabled = True
+        Me.cbo图号.Items.AddRange(New Object() {"零件代号", "库存编号", "描述"})
+        Me.cbo图号.Location = New System.Drawing.Point(85, 20)
+        Me.cbo图号.Name = "cbo图号"
+        Me.cbo图号.Size = New System.Drawing.Size(87, 20)
+        Me.cbo图号.TabIndex = 1
         '
-        'ComboBox2
+        'cbo文件名
         '
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"零件代号", "库存编号", "描述"})
-        Me.ComboBox2.Location = New System.Drawing.Point(85, 49)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(87, 20)
-        Me.ComboBox2.TabIndex = 2
+        Me.cbo文件名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo文件名.FormattingEnabled = True
+        Me.cbo文件名.Items.AddRange(New Object() {"零件代号", "库存编号", "描述"})
+        Me.cbo文件名.Location = New System.Drawing.Point(85, 49)
+        Me.cbo文件名.Name = "cbo文件名"
+        Me.cbo文件名.Size = New System.Drawing.Size(87, 20)
+        Me.cbo文件名.TabIndex = 2
         '
         'Label1
         '
@@ -151,12 +151,12 @@ Partial Class OptionDialog
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.ComboBox6)
+        Me.GroupBox1.Controls.Add(Me.cbo存货编码)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.ComboBox2)
+        Me.GroupBox1.Controls.Add(Me.cbo文件名)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.ComboBox1)
+        Me.GroupBox1.Controls.Add(Me.cbo图号)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 14)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(191, 101)
@@ -164,15 +164,15 @@ Partial Class OptionDialog
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "IPro映射"
         '
-        'ComboBox6
+        'cbo存货编码
         '
-        Me.ComboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox6.FormattingEnabled = True
-        Me.ComboBox6.Items.AddRange(New Object() {"成本中心", "描述"})
-        Me.ComboBox6.Location = New System.Drawing.Point(86, 75)
-        Me.ComboBox6.Name = "ComboBox6"
-        Me.ComboBox6.Size = New System.Drawing.Size(86, 20)
-        Me.ComboBox6.TabIndex = 6
+        Me.cbo存货编码.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo存货编码.FormattingEnabled = True
+        Me.cbo存货编码.Items.AddRange(New Object() {"成本中心", "描述"})
+        Me.cbo存货编码.Location = New System.Drawing.Point(86, 75)
+        Me.cbo存货编码.Name = "cbo存货编码"
+        Me.cbo存货编码.Size = New System.Drawing.Size(86, 20)
+        Me.cbo存货编码.TabIndex = 6
         '
         'Label12
         '
@@ -194,8 +194,8 @@ Partial Class OptionDialog
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.TextBox2)
-        Me.GroupBox2.Controls.Add(Me.TextBox1)
+        Me.GroupBox2.Controls.Add(Me.txt文件名映射)
+        Me.GroupBox2.Controls.Add(Me.txt图号映射)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Location = New System.Drawing.Point(16, 129)
@@ -205,19 +205,19 @@ Partial Class OptionDialog
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "对称零件IPro映射"
         '
-        'TextBox2
+        'txt文件名映射
         '
-        Me.TextBox2.Location = New System.Drawing.Point(77, 45)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(95, 21)
-        Me.TextBox2.TabIndex = 6
+        Me.txt文件名映射.Location = New System.Drawing.Point(77, 45)
+        Me.txt文件名映射.Name = "txt文件名映射"
+        Me.txt文件名映射.Size = New System.Drawing.Size(95, 21)
+        Me.txt文件名映射.TabIndex = 6
         '
-        'TextBox1
+        'txt图号映射
         '
-        Me.TextBox1.Location = New System.Drawing.Point(77, 18)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(95, 21)
-        Me.TextBox1.TabIndex = 5
+        Me.txt图号映射.Location = New System.Drawing.Point(77, 18)
+        Me.txt图号映射.Name = "txt图号映射"
+        Me.txt图号映射.Size = New System.Drawing.Size(95, 21)
+        Me.txt图号映射.TabIndex = 5
         '
         'Label3
         '
@@ -239,11 +239,11 @@ Partial Class OptionDialog
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.CheckBox2)
-        Me.GroupBox4.Controls.Add(Me.TextBox5)
+        Me.GroupBox4.Controls.Add(Me.chk签字)
+        Me.GroupBox4.Controls.Add(Me.txt工程师)
         Me.GroupBox4.Controls.Add(Me.Label7)
-        Me.GroupBox4.Controls.Add(Me.CheckBox1)
-        Me.GroupBox4.Controls.Add(Me.TextBox4)
+        Me.GroupBox4.Controls.Add(Me.chk签字后打印)
+        Me.GroupBox4.Controls.Add(Me.txt打印日期)
         Me.GroupBox4.Controls.Add(Me.Label6)
         Me.GroupBox4.Location = New System.Drawing.Point(217, 14)
         Me.GroupBox4.Name = "GroupBox4"
@@ -252,23 +252,23 @@ Partial Class OptionDialog
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "签字："
         '
-        'CheckBox2
+        'chk签字
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(128, 77)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox2.TabIndex = 10
-        Me.CheckBox2.Text = "同时签字"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        Me.CheckBox2.Visible = False
+        Me.chk签字.AutoSize = True
+        Me.chk签字.Location = New System.Drawing.Point(128, 77)
+        Me.chk签字.Name = "chk签字"
+        Me.chk签字.Size = New System.Drawing.Size(72, 16)
+        Me.chk签字.TabIndex = 10
+        Me.chk签字.Text = "同时签字"
+        Me.chk签字.UseVisualStyleBackColor = True
+        Me.chk签字.Visible = False
         '
-        'TextBox5
+        'txt工程师
         '
-        Me.TextBox5.Location = New System.Drawing.Point(83, 47)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(98, 21)
-        Me.TextBox5.TabIndex = 9
+        Me.txt工程师.Location = New System.Drawing.Point(83, 47)
+        Me.txt工程师.Name = "txt工程师"
+        Me.txt工程师.Size = New System.Drawing.Size(98, 21)
+        Me.txt工程师.TabIndex = 9
         '
         'Label7
         '
@@ -279,22 +279,22 @@ Partial Class OptionDialog
         Me.Label7.TabIndex = 8
         Me.Label7.Text = "工程师："
         '
-        'CheckBox1
+        'chk签字后打印
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(14, 77)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(108, 16)
-        Me.CheckBox1.TabIndex = 7
-        Me.CheckBox1.Text = "签字后打开打印"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.chk签字后打印.AutoSize = True
+        Me.chk签字后打印.Location = New System.Drawing.Point(14, 77)
+        Me.chk签字后打印.Name = "chk签字后打印"
+        Me.chk签字后打印.Size = New System.Drawing.Size(108, 16)
+        Me.chk签字后打印.TabIndex = 7
+        Me.chk签字后打印.Text = "签字后打开打印"
+        Me.chk签字后打印.UseVisualStyleBackColor = True
         '
-        'TextBox4
+        'txt打印日期
         '
-        Me.TextBox4.Location = New System.Drawing.Point(83, 20)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(98, 21)
-        Me.TextBox4.TabIndex = 6
+        Me.txt打印日期.Location = New System.Drawing.Point(83, 20)
+        Me.txt打印日期.Name = "txt打印日期"
+        Me.txt打印日期.Size = New System.Drawing.Size(98, 21)
+        Me.txt打印日期.TabIndex = 6
         '
         'Label6
         '
@@ -307,11 +307,11 @@ Partial Class OptionDialog
         '
         'GroupBox5
         '
-        Me.GroupBox5.Controls.Add(Me.Button清除)
-        Me.GroupBox5.Controls.Add(Me.Button还原)
-        Me.GroupBox5.Controls.Add(Me.Button添加)
-        Me.GroupBox5.Controls.Add(Me.ComboBox3)
-        Me.GroupBox5.Controls.Add(Me.TextBox6)
+        Me.GroupBox5.Controls.Add(Me.btn清除)
+        Me.GroupBox5.Controls.Add(Me.btn还原)
+        Me.GroupBox5.Controls.Add(Me.btn添加)
+        Me.GroupBox5.Controls.Add(Me.cbo添加)
+        Me.GroupBox5.Controls.Add(Me.txtBOM导出项)
         Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Location = New System.Drawing.Point(16, 214)
         Me.GroupBox5.Name = "GroupBox5"
@@ -320,50 +320,50 @@ Partial Class OptionDialog
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "BOM导出项目："
         '
-        'Button清除
+        'btn清除
         '
-        Me.Button清除.Location = New System.Drawing.Point(77, 47)
-        Me.Button清除.Name = "Button清除"
-        Me.Button清除.Size = New System.Drawing.Size(53, 25)
-        Me.Button清除.TabIndex = 10
-        Me.Button清除.Text = "清除"
-        Me.Button清除.UseVisualStyleBackColor = True
+        Me.btn清除.Location = New System.Drawing.Point(77, 47)
+        Me.btn清除.Name = "btn清除"
+        Me.btn清除.Size = New System.Drawing.Size(53, 25)
+        Me.btn清除.TabIndex = 10
+        Me.btn清除.Text = "清除"
+        Me.btn清除.UseVisualStyleBackColor = True
         '
-        'Button还原
+        'btn还原
         '
-        Me.Button还原.Location = New System.Drawing.Point(14, 47)
-        Me.Button还原.Name = "Button还原"
-        Me.Button还原.Size = New System.Drawing.Size(53, 25)
-        Me.Button还原.TabIndex = 9
-        Me.Button还原.Text = "还原"
-        Me.Button还原.UseVisualStyleBackColor = True
+        Me.btn还原.Location = New System.Drawing.Point(14, 47)
+        Me.btn还原.Name = "btn还原"
+        Me.btn还原.Size = New System.Drawing.Size(53, 25)
+        Me.btn还原.TabIndex = 9
+        Me.btn还原.Text = "还原"
+        Me.btn还原.UseVisualStyleBackColor = True
         '
-        'Button添加
+        'btn添加
         '
-        Me.Button添加.Location = New System.Drawing.Point(466, 45)
-        Me.Button添加.Name = "Button添加"
-        Me.Button添加.Size = New System.Drawing.Size(53, 25)
-        Me.Button添加.TabIndex = 8
-        Me.Button添加.Text = "添加"
-        Me.Button添加.UseVisualStyleBackColor = True
+        Me.btn添加.Location = New System.Drawing.Point(466, 45)
+        Me.btn添加.Name = "btn添加"
+        Me.btn添加.Size = New System.Drawing.Size(53, 25)
+        Me.btn添加.TabIndex = 8
+        Me.btn添加.Text = "添加"
+        Me.btn添加.UseVisualStyleBackColor = True
         '
-        'ComboBox3
+        'cbo添加
         '
-        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"材料", "空格", "存货编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量"})
-        Me.ComboBox3.Location = New System.Drawing.Point(272, 50)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(170, 20)
-        Me.ComboBox3.TabIndex = 7
+        Me.cbo添加.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo添加.FormattingEnabled = True
+        Me.cbo添加.Items.AddRange(New Object() {"材料", "空格", "存货编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量"})
+        Me.cbo添加.Location = New System.Drawing.Point(272, 50)
+        Me.cbo添加.Name = "cbo添加"
+        Me.cbo添加.Size = New System.Drawing.Size(170, 20)
+        Me.cbo添加.TabIndex = 7
         '
-        'TextBox6
+        'txtBOM导出项
         '
-        Me.TextBox6.Location = New System.Drawing.Point(86, 19)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(433, 21)
-        Me.TextBox6.TabIndex = 6
-        Me.TextBox6.Text = "库存编号|空格|零件代号|材料|质量|所属装配代号|数量|总数量|描述"
+        Me.txtBOM导出项.Location = New System.Drawing.Point(86, 19)
+        Me.txtBOM导出项.Name = "txtBOM导出项"
+        Me.txtBOM导出项.Size = New System.Drawing.Size(433, 21)
+        Me.txtBOM导出项.TabIndex = 6
+        Me.txtBOM导出项.Text = "库存编号|空格|零件代号|材料|质量|所属装配代号|数量|总数量|描述"
         '
         'Label8
         '
@@ -383,15 +383,15 @@ Partial Class OptionDialog
         Me.Label9.TabIndex = 9
         Me.Label9.Text = "质量精度："
         '
-        'ComboBox4
+        'cbo质量精度
         '
-        Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001"})
-        Me.ComboBox4.Location = New System.Drawing.Point(80, 20)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(66, 20)
-        Me.ComboBox4.TabIndex = 10
+        Me.cbo质量精度.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo质量精度.FormattingEnabled = True
+        Me.cbo质量精度.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001"})
+        Me.cbo质量精度.Location = New System.Drawing.Point(80, 20)
+        Me.cbo质量精度.Name = "cbo质量精度"
+        Me.cbo质量精度.Size = New System.Drawing.Size(66, 20)
+        Me.cbo质量精度.TabIndex = 10
         '
         'Label5
         '
@@ -401,17 +401,17 @@ Partial Class OptionDialog
         Me.Label5.TabIndex = 4
         Me.Label5.Text = "比例："
         '
-        'TextBox3
+        'txt比例
         '
-        Me.TextBox3.Location = New System.Drawing.Point(80, 17)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(64, 21)
-        Me.TextBox3.TabIndex = 6
+        Me.txt比例.Location = New System.Drawing.Point(80, 17)
+        Me.txt比例.Name = "txt比例"
+        Me.txt比例.Size = New System.Drawing.Size(64, 21)
+        Me.txt比例.TabIndex = 6
         '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.CheckBox3)
-        Me.GroupBox3.Controls.Add(Me.TextBox3)
+        Me.GroupBox3.Controls.Add(Me.txt比例)
         Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Location = New System.Drawing.Point(435, 129)
         Me.GroupBox3.Name = "GroupBox3"
@@ -435,9 +435,9 @@ Partial Class OptionDialog
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.ComboBox5)
+        Me.GroupBox6.Controls.Add(Me.cbo面积精度)
         Me.GroupBox6.Controls.Add(Me.Label10)
-        Me.GroupBox6.Controls.Add(Me.ComboBox4)
+        Me.GroupBox6.Controls.Add(Me.cbo质量精度)
         Me.GroupBox6.Controls.Add(Me.Label9)
         Me.GroupBox6.Location = New System.Drawing.Point(435, 14)
         Me.GroupBox6.Name = "GroupBox6"
@@ -446,15 +446,15 @@ Partial Class OptionDialog
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "精度设置"
         '
-        'ComboBox5
+        'cbo面积精度
         '
-        Me.ComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001", "0.0001", "0.00001"})
-        Me.ComboBox5.Location = New System.Drawing.Point(80, 50)
-        Me.ComboBox5.Name = "ComboBox5"
-        Me.ComboBox5.Size = New System.Drawing.Size(66, 20)
-        Me.ComboBox5.TabIndex = 12
+        Me.cbo面积精度.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo面积精度.FormattingEnabled = True
+        Me.cbo面积精度.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001", "0.0001", "0.00001"})
+        Me.cbo面积精度.Location = New System.Drawing.Point(80, 50)
+        Me.cbo面积精度.Name = "cbo面积精度"
+        Me.cbo面积精度.Size = New System.Drawing.Size(66, 20)
+        Me.cbo面积精度.TabIndex = 12
         '
         'Label10
         '
@@ -468,7 +468,7 @@ Partial Class OptionDialog
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.CheckBox4)
-        Me.GroupBox7.Controls.Add(Me.TextBox7)
+        Me.GroupBox7.Controls.Add(Me.txt图号)
         Me.GroupBox7.Controls.Add(Me.Label11)
         Me.GroupBox7.Location = New System.Drawing.Point(217, 129)
         Me.GroupBox7.Name = "GroupBox7"
@@ -490,12 +490,12 @@ Partial Class OptionDialog
         Me.CheckBox4.UseVisualStyleBackColor = True
         Me.CheckBox4.Visible = False
         '
-        'TextBox7
+        'txt图号
         '
-        Me.TextBox7.Location = New System.Drawing.Point(66, 17)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(112, 21)
-        Me.TextBox7.TabIndex = 6
+        Me.txt图号.Location = New System.Drawing.Point(66, 17)
+        Me.txt图号.Name = "txt图号"
+        Me.txt图号.Size = New System.Drawing.Size(112, 21)
+        Me.txt图号.TabIndex = 6
         '
         'Label11
         '
@@ -505,28 +505,28 @@ Partial Class OptionDialog
         Me.Label11.TabIndex = 4
         Me.Label11.Text = "比例："
         '
-        'CheckBox5
+        'chk检查更新
         '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Checked = True
-        Me.CheckBox5.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox5.Location = New System.Drawing.Point(25, 406)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(108, 16)
-        Me.CheckBox5.TabIndex = 13
-        Me.CheckBox5.Text = "启动时检查更新"
-        Me.CheckBox5.UseVisualStyleBackColor = True
+        Me.chk检查更新.AutoSize = True
+        Me.chk检查更新.Checked = True
+        Me.chk检查更新.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk检查更新.Location = New System.Drawing.Point(25, 406)
+        Me.chk检查更新.Name = "chk检查更新"
+        Me.chk检查更新.Size = New System.Drawing.Size(108, 16)
+        Me.chk检查更新.TabIndex = 13
+        Me.chk检查更新.Text = "启动时检查更新"
+        Me.chk检查更新.UseVisualStyleBackColor = True
         '
         'GroupBox8
         '
-        Me.GroupBox8.Controls.Add(Me.TextBox11)
+        Me.GroupBox8.Controls.Add(Me.txt查询列)
         Me.GroupBox8.Controls.Add(Me.Label16)
-        Me.GroupBox8.Controls.Add(Me.TextBox10)
+        Me.GroupBox8.Controls.Add(Me.txt查找范围)
         Me.GroupBox8.Controls.Add(Me.Label15)
-        Me.GroupBox8.Controls.Add(Me.TextBox9)
+        Me.GroupBox8.Controls.Add(Me.txt数据表)
         Me.GroupBox8.Controls.Add(Me.Label14)
-        Me.GroupBox8.Controls.Add(Me.Button1)
-        Me.GroupBox8.Controls.Add(Me.TextBox8)
+        Me.GroupBox8.Controls.Add(Me.btnexcel文件)
+        Me.GroupBox8.Controls.Add(Me.txtexcel文件)
         Me.GroupBox8.Controls.Add(Me.Label13)
         Me.GroupBox8.Location = New System.Drawing.Point(16, 308)
         Me.GroupBox8.Name = "GroupBox8"
@@ -535,72 +535,13 @@ Partial Class OptionDialog
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "ERP查询"
         '
-        'Label13
+        'txt查询列
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 23)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(71, 12)
-        Me.Label13.TabIndex = 7
-        Me.Label13.Text = "Excel文件："
-        '
-        'TextBox8
-        '
-        Me.TextBox8.Location = New System.Drawing.Point(77, 19)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(433, 21)
-        Me.TextBox8.TabIndex = 8
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(532, 19)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(33, 20)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "..."
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(8, 52)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(65, 12)
-        Me.Label14.TabIndex = 10
-        Me.Label14.Text = "数 据 表："
-        '
-        'TextBox9
-        '
-        Me.TextBox9.Location = New System.Drawing.Point(75, 48)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox9.TabIndex = 11
-        Me.TextBox9.Text = "物料"
-        '
-        'TextBox10
-        '
-        Me.TextBox10.Location = New System.Drawing.Point(234, 48)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.Size = New System.Drawing.Size(89, 21)
-        Me.TextBox10.TabIndex = 13
-        Me.TextBox10.Text = "A:G"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(167, 52)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(65, 12)
-        Me.Label15.TabIndex = 12
-        Me.Label15.Text = "查询范围："
-        '
-        'TextBox11
-        '
-        Me.TextBox11.Location = New System.Drawing.Point(401, 50)
-        Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.Size = New System.Drawing.Size(89, 21)
-        Me.TextBox11.TabIndex = 15
-        Me.TextBox11.Text = "2,4"
+        Me.txt查询列.Location = New System.Drawing.Point(401, 50)
+        Me.txt查询列.Name = "txt查询列"
+        Me.txt查询列.Size = New System.Drawing.Size(89, 21)
+        Me.txt查询列.TabIndex = 15
+        Me.txt查询列.Text = "2,4"
         '
         'Label16
         '
@@ -611,6 +552,65 @@ Partial Class OptionDialog
         Me.Label16.TabIndex = 14
         Me.Label16.Text = "查询列："
         '
+        'txt查找范围
+        '
+        Me.txt查找范围.Location = New System.Drawing.Point(234, 48)
+        Me.txt查找范围.Name = "txt查找范围"
+        Me.txt查找范围.Size = New System.Drawing.Size(89, 21)
+        Me.txt查找范围.TabIndex = 13
+        Me.txt查找范围.Text = "A:G"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(167, 52)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(65, 12)
+        Me.Label15.TabIndex = 12
+        Me.Label15.Text = "查询范围："
+        '
+        'txt数据表
+        '
+        Me.txt数据表.Location = New System.Drawing.Point(75, 48)
+        Me.txt数据表.Name = "txt数据表"
+        Me.txt数据表.Size = New System.Drawing.Size(69, 21)
+        Me.txt数据表.TabIndex = 11
+        Me.txt数据表.Text = "物料"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(8, 52)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(65, 12)
+        Me.Label14.TabIndex = 10
+        Me.Label14.Text = "数 据 表："
+        '
+        'btnexcel文件
+        '
+        Me.btnexcel文件.Location = New System.Drawing.Point(532, 19)
+        Me.btnexcel文件.Name = "btnexcel文件"
+        Me.btnexcel文件.Size = New System.Drawing.Size(33, 20)
+        Me.btnexcel文件.TabIndex = 9
+        Me.btnexcel文件.Text = "..."
+        Me.btnexcel文件.UseVisualStyleBackColor = True
+        '
+        'txtexcel文件
+        '
+        Me.txtexcel文件.Location = New System.Drawing.Point(77, 19)
+        Me.txtexcel文件.Name = "txtexcel文件"
+        Me.txtexcel文件.Size = New System.Drawing.Size(433, 21)
+        Me.txtexcel文件.TabIndex = 8
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(7, 23)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(71, 12)
+        Me.Label13.TabIndex = 7
+        Me.Label13.Text = "Excel文件："
+        '
         'OptionDialog
         '
         Me.AcceptButton = Me.OK_Button
@@ -619,7 +619,7 @@ Partial Class OptionDialog
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(618, 444)
         Me.Controls.Add(Me.GroupBox8)
-        Me.Controls.Add(Me.CheckBox5)
+        Me.Controls.Add(Me.chk检查更新)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
@@ -659,55 +659,55 @@ Partial Class OptionDialog
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
-    Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo图号 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo文件名 As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txt文件名映射 As System.Windows.Forms.TextBox
+    Friend WithEvents txt图号映射 As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
-    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents chk签字后打印 As System.Windows.Forms.CheckBox
+    Friend WithEvents txt打印日期 As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents chk签字 As System.Windows.Forms.CheckBox
+    Friend WithEvents txt工程师 As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents txtBOM导出项 As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Button添加 As System.Windows.Forms.Button
-    Friend WithEvents ComboBox3 As System.Windows.Forms.ComboBox
-    Friend WithEvents Button还原 As System.Windows.Forms.Button
-    Friend WithEvents Button清除 As System.Windows.Forms.Button
+    Friend WithEvents btn添加 As System.Windows.Forms.Button
+    Friend WithEvents cbo添加 As System.Windows.Forms.ComboBox
+    Friend WithEvents btn还原 As System.Windows.Forms.Button
+    Friend WithEvents btn清除 As System.Windows.Forms.Button
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents ComboBox4 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo质量精度 As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents txt比例 As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
-    Friend WithEvents ComboBox5 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo面积精度 As System.Windows.Forms.ComboBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
     Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
-    Friend WithEvents TextBox7 As System.Windows.Forms.TextBox
+    Friend WithEvents txt图号 As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents ComboBox6 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo存货编码 As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk检查更新 As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents TextBox8 As System.Windows.Forms.TextBox
+    Friend WithEvents btnexcel文件 As System.Windows.Forms.Button
+    Friend WithEvents txtexcel文件 As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents TextBox10 As System.Windows.Forms.TextBox
+    Friend WithEvents txt查找范围 As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents TextBox9 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox11 As System.Windows.Forms.TextBox
+    Friend WithEvents txt数据表 As System.Windows.Forms.TextBox
+    Friend WithEvents txt查询列 As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
 
 End Class

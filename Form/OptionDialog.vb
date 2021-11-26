@@ -3,25 +3,30 @@ Imports System.Windows.Forms
 Public Class OptionDialog
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        If ComboBox1.Text = ComboBox2.Text Then
+        If cbo图号.Text = cbo文件名.Text Then
             MsgBox("映射设置相同！", MsgBoxStyle.Exclamation, "设置")
             Exit Sub
         End If
 
-        Map_StochNum = ComboBox1.Text
-        Map_PartName = ComboBox2.Text
-        Map_PartNum = ComboBox6.Text
-        Map_Mir_StochNum = TextBox1.Text
-        Map_Mir_PartName = TextBox2.Text
-        Map_DrawingScale = TextBox3.Text
-        Map_PrintDay = TextBox4.Text
-        EngineerName = TextBox5.Text
-        BOMTiTle = TextBox6.Text
-        Map_Mass = TextBox7.Text
+        Map_StochNum = cbo图号.Text
+        Map_PartName = cbo文件名.Text
+        Map_PartNum = cbo存货编码.Text
+        Map_Mir_StochNum = txt图号映射.Text
+        Map_Mir_PartName = txt文件名映射.Text
+        Map_DrawingScale = txt比例.Text
+        Map_PrintDay = txt打印日期.Text
+        EngineerName = txt工程师.Text
+        BOMTiTle = txtBOM导出项.Text
+        Map_Mass = txt图号.Text
+
+        Excel_File_Name = txtexcel文件.Text
+        Sheet_Name = txt数据表.Text
+        Table_Array = txt查找范围.Text
+        Col_Index_Num = txt查询列.Text
 
 
         '打印签字
-        Select Case CheckBox1.Checked
+        Select Case chk签字后打印.Checked
             Case False
                 IsOpenPrint = "-1"
             Case True
@@ -29,11 +34,11 @@ Public Class OptionDialog
         End Select
 
         '同时签字
-        Select Case CheckBox2.Checked
+        Select Case chk签字.Checked
             Case False
                 IsDayAndName = "-1"
 
-            Case  True
+            Case True
                 IsDayAndName = "1"
         End Select
 
@@ -45,7 +50,7 @@ Public Class OptionDialog
                 IsSetDrawingScale = "1"
         End Select
 
-              '打开工程图时写入
+        '打开工程图时写入
         Select Case CheckBox4.Checked
             Case False
                 IsSetMass = "-1"
@@ -55,7 +60,7 @@ Public Class OptionDialog
 
 
         '启动检查更新
-        Select Case CheckBox5.Checked
+        Select Case chk检查更新.Checked
             Case False
                 CheckUpdate = "-1"
             Case True
@@ -63,7 +68,7 @@ Public Class OptionDialog
         End Select
 
         '质量精度：
-        Select Case ComboBox4.Text
+        Select Case cbo质量精度.Text
             Case "", "0"
                 Mass_Accuracy = "0"
             Case "0.1"
@@ -75,7 +80,7 @@ Public Class OptionDialog
         End Select
 
         '面积精度：
-        Select Case ComboBox5.Text
+        Select Case cbo面积精度.Text
             Case "", "0"
                 Area_Accuracy = "0"
             Case "0.1"
@@ -119,6 +124,12 @@ Public Class OptionDialog
 
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
 
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Excel_File_Name", Excel_File_Name)
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", Sheet_Name)
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", Table_Array)
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", Col_Index_Num)
+
+
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -131,60 +142,60 @@ Public Class OptionDialog
 
     Private Sub frmoption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '初始化映射
-        ComboBox1.Text = Map_StochNum
-        ComboBox2.Text = Map_PartName
-        ComboBox6.Text = Map_PartNum
-        ComboBox3.Text = ComboBox3.Items(0)
+        cbo图号.Text = Map_StochNum
+        cbo文件名.Text = Map_PartName
+        cbo存货编码.Text = Map_PartNum
+        cbo添加.Text = cbo添加.Items(0)
 
         Select Case Mass_Accuracy
             Case "0"
-                ComboBox4.Text = "0"
+                cbo质量精度.Text = "0"
             Case "1"
-                ComboBox4.Text = "0.1"
+                cbo质量精度.Text = "0.1"
             Case "2"
-                ComboBox4.Text = "0.01"
+                cbo质量精度.Text = "0.01"
             Case "3"
-                ComboBox4.Text = "0.001"
+                cbo质量精度.Text = "0.001"
         End Select
 
         Select Case Area_Accuracy
             Case "0"
-                ComboBox5.Text = "0"
+                cbo面积精度.Text = "0"
             Case "1"
-                ComboBox5.Text = "0.1"
+                cbo面积精度.Text = "0.1"
             Case "2"
-                ComboBox5.Text = "0.01"
+                cbo面积精度.Text = "0.01"
             Case "3"
-                ComboBox5.Text = "0.001"
+                cbo面积精度.Text = "0.001"
             Case "4"
-                ComboBox5.Text = "0.0001"
+                cbo面积精度.Text = "0.0001"
             Case "5"
-                ComboBox5.Text = "0.00001"
+                cbo面积精度.Text = "0.00001"
             Case "6"
-                ComboBox5.Text = "0.000001"
+                cbo面积精度.Text = "0.000001"
         End Select
 
 
-        TextBox1.Text = Map_Mir_StochNum
-        TextBox2.Text = Map_Mir_PartName
-        TextBox3.Text = Map_DrawingScale
-        TextBox4.Text = Map_PrintDay
-        TextBox5.Text = EngineerName
-        TextBox6.Text = BOMTiTle
-        TextBox7.Text = Map_Mass
+        txt图号映射.Text = Map_Mir_StochNum
+        txt文件名映射.Text = Map_Mir_PartName
+        txt比例.Text = Map_DrawingScale
+        txt打印日期.Text = Map_PrintDay
+        txt工程师.Text = EngineerName
+        txtBOM导出项.Text = BOMTiTle
+        txt图号.Text = Map_Mass
 
-          Select Case IsOpenPrint
+        Select Case IsOpenPrint
             Case "-1"
-                CheckBox1.Checked = False
+                chk签字后打印.Checked = False
             Case "1"
-                CheckBox1.Checked = True
+                chk签字后打印.Checked = True
         End Select
 
         Select Case IsDayAndName
             Case "-1"
-                CheckBox2.Checked = False
+                chk签字.Checked = False
             Case "1"
-                CheckBox2.Checked = True
+                chk签字.Checked = True
         End Select
 
         Select Case IsSetDrawingScale
@@ -203,29 +214,51 @@ Public Class OptionDialog
 
         Select Case CheckUpdate
             Case "-1"
-                CheckBox5.Checked = False
+                chk检查更新.Checked = False
             Case "1"
-                CheckBox5.Checked = True
+                chk检查更新.Checked = True
         End Select
+
+        txtexcel文件.Text = Excel_File_Name
+        txt数据表.Text = Sheet_Name
+        txt查找范围.Text = Table_Array
+        txt查询列.Text = Col_Index_Num
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button添加.Click
+    Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
 
-        If TextBox6.Text = "" Then
-            TextBox6.Text = ComboBox3.Text
+        If txtBOM导出项.Text = "" Then
+            txtBOM导出项.Text = cbo添加.Text
         Else
-            TextBox6.Text = TextBox6.Text & "|" & ComboBox3.Text
+            txtBOM导出项.Text = txtBOM导出项.Text & "|" & cbo添加.Text
         End If
 
     End Sub
 
-    Private Sub Button清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button清除.Click
-        TextBox6.Clear()
+    Private Sub Bbtn清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清除.Click
+        txtBOM导出项.Clear()
     End Sub
 
-    Private Sub Button还原_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button还原.Click
-        TextBox6.Text = BOMTiTle
+    Private Sub btn还原_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn还原.Click
+        txtBOM导出项.Text = BOMTiTle
     End Sub
 
+    Private Sub btnexcel文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnexcel文件.Click
+        Dim NewOpenFileDialog As New OpenFileDialog
+
+        With NewOpenFileDialog
+            .Title = "打开"
+            .FileName = ""
+            '.Filter = "AutoDesk Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
+            .Multiselect = True '多开文件打开
+            If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                If .FileName <> "" Then '如果有选中文件
+                    txtexcel文件.Text = .FileName
+                End If
+            Else
+                Exit Sub
+            End If
+        End With
+    End Sub
 End Class
