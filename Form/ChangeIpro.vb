@@ -21,14 +21,14 @@ Public Class ChangeIproDialog
     End Sub
 
     Private Sub ChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim InventorDoc As Document
-        InventorDoc = ThisApplication.ActiveEditDocument
+        Dim oInventorDoc As Document
+        oInventorDoc = ThisApplication.ActiveEditDocument
 
         Dim oPropSets As PropertySets
         Dim oPropSet As PropertySet
         Dim propitem As [Property]
 
-        oPropSets = InventorDoc.PropertySets
+        oPropSets = oInventorDoc.PropertySets
         oPropSet = oPropSets.Item(3)
 
         '获取iproperty
