@@ -1526,7 +1526,7 @@ Module InventorBasic
             oLinearGeneralDimension.Text.FormattedText = strDimension
 
         End If
-
+        Return True
 
     End Function
 
@@ -1874,6 +1874,7 @@ Module InventorBasic
             End If
         Next
 
+        Return True
 
     End Function
 

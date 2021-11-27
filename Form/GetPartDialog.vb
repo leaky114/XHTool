@@ -73,15 +73,9 @@ Public Class GetPartDialog
             Val_Area_Accuracy = Val(Area_Accuracy)
             valArea = Math.Round(valArea, Val_Area_Accuracy)
 
-
-
-
             LVI.SubItems.Add(valMass * 数量)
             LVI.SubItems.Add(valArea * 数量)
-
-
             'End If
-
         Next
 
         Dim SumMass As Double = 0

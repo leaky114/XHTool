@@ -207,6 +207,7 @@ Module BasicFileSystem
                 DelFile(f, FileIO.RecycleOption.SendToRecycleBin)
             Next
         End If
+        Return True
     End Function
 
     '删除文件夹(文件夹)

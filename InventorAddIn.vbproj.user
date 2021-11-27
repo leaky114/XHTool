@@ -13,7 +13,7 @@
     </BootstrapperUrlHistory>
     <FallbackCulture>zh-CN</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <StartAction>Program</StartAction>
@@ -24,6 +24,10 @@
     </StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Autodesk\Inventor 2015\Bin\Inventor.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Autodesk\Inventor 2015\Bin\Inventor.exe</StartProgram>
   </PropertyGroup>
