@@ -23,7 +23,7 @@ Public Class InventoryCoding
             Exit Sub
         End If
 
-         ' 获取所有引用文档 
+        ' 获取所有引用文档 
         Dim oRefDocs As DocumentsEnumerator
         oRefDocs = AsmDoc.AllReferencedDocuments
 
