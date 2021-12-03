@@ -60,5 +60,4 @@ Public Class ChangeIproDialog
         TextBox3.Text = Str_TempText
     End Sub
 
-    
 End Class

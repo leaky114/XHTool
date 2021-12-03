@@ -53,7 +53,7 @@ Module StringsModel
                 GetStockNumPartName.IsGet = False
                 GetStockNumPartName.StockNum = ""
                 GetStockNumPartName.PartName = FileName
-                GetStockNumPartName.partNum = ""
+                GetStockNumPartName.PartNum = ""
                 'MsgBox(FullFileName & "  无图号！", MsgBoxStyle.Information)
             Case s = ""  '无汉字
                 GetStockNumPartName.IsGet = False

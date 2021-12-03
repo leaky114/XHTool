@@ -12,12 +12,10 @@ Public Class iPopertiesDialog
 
     Private oOption As enumPType = enumPType.eString
 
-
     Private oUserPropertySet As Inventor.PropertySet
     Private PropID As Long = 0
 
     Public Sub getUserPropertySet(ByVal oUSet As Inventor.PropertySet)
-
 
         '获得缺省的自定义特性集
         oUserPropertySet = oUSet
@@ -43,7 +41,7 @@ Public Class iPopertiesDialog
         Dim InventorDoc As Inventor.Document
 
         For Each InventorDoc In ThisApplication.Documents
-            Select InventorDoc.DocumentType
+            Select Case InventorDoc.DocumentType
                 Case DocumentTypeEnum.kDrawingDocumentObject, DocumentTypeEnum.kAssemblyDocumentObject, DocumentTypeEnum.kPartDocumentObject
                     ListBox1.Items.Add(InventorDoc.FullDocumentName)
             End Select
@@ -69,7 +67,6 @@ Public Class iPopertiesDialog
                     'Dim oDesignerProp As Inventor.Property = oDTProps.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kDesignerDesignTrackingProperties)
                     'oDesignerProp = oDTProps.Item("Designer")
                     'Debug.Print(oDesignerProp.DisplayName & " = " & oDesignerProp.Value)
-
 
                     '用显示名 displayname 的代码
                     '定义单个项目
@@ -107,17 +104,17 @@ Public Class iPopertiesDialog
                     Dim pEachScale As Inventor.Property
 
                     'Try
-                    '    '若该iProperty已经存在，则直接修改其值  
+                    '    '若该iProperty已经存在，则直接修改其值
 
                     '    pEachScale = IdwDoc.PropertySets.Item("User Defined Properties").Item(Map_PrintDay)
                     '    pEachScale.Value = Print_Day
                     'Catch
-                    '    ' 若该iProperty不存在，则添加一个  
+                    '    ' 若该iProperty不存在，则添加一个
                     '    IdwDoc.PropertySets.Item("User Defined Properties").Add(Print_Day, Map_PrintDay)
                     'End Try
 
                     'Try
-                    '若该iProperty已经存在，则直接修改其值  
+                    '若该iProperty已经存在，则直接修改其值
                     pEachScale = InventorDoc.PropertySets.Item("User Defined Properties").Item(PropertyName.Text)
                     Select Case oOption
                         Case enumPType.eString
@@ -131,7 +128,7 @@ Public Class iPopertiesDialog
                     End Select
 
                     'Catch
-                    ' 若该iProperty不存在，则添加一个  
+                    ' 若该iProperty不存在，则添加一个
                     Select Case oOption
                         Case enumPType.eString
                             InventorDoc.PropertySets.Item("User Defined Properties").Add(StringP.Text, PropertyName.Text, PropID)

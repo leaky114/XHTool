@@ -191,7 +191,6 @@ Module BasicFileSystem
         End If
     End Function
 
-
     '删除一个文件(文件名,是否删除到回收站选项)
     Public Function DelFile(ByVal FullFileName As String, ByVal RecycleOption As FileIO.RecycleOption) As Boolean
         If IsFileExsts(FullFileName) Then
@@ -290,7 +289,6 @@ Module BasicFileSystem
                     '按文件删除，速度太慢，改为直接删除文件夹
                     'Dim strFile As String() = System.IO.Directory.GetFiles(strDir(i))
 
-
                     'For Each f As String In strFile
                     '    SetStatusBarText(f)
                     '    Select Case DeletePermanently
@@ -307,7 +305,6 @@ Module BasicFileSystem
                     directoryname = inf.FullName
                     SetStatusBarText(directoryname)
 
-
                     Select Case DeletePermanently
                         Case True   '永久删除
                             DelFolder(directoryname, FileIO.RecycleOption.DeletePermanently)
@@ -315,8 +312,6 @@ Module BasicFileSystem
                         Case False  '删除到垃圾箱
                             DelFolder(directoryname, FileIO.RecycleOption.SendToRecycleBin)
                     End Select
-
-
 
                 End If
                 DelOldFile(strDir(i), DeletePermanently)

@@ -4,7 +4,6 @@ Imports Inventor.SelectTypeEnum
 Imports Inventor.DocumentTypeEnum
 Imports Inventor
 
-
 Public Class GetPartDialog
 
     '添加
@@ -33,11 +32,10 @@ Public Class GetPartDialog
         End If
 
         For Each oSelect As Object In InventorDoc.SelectSet
-            'Dim 
+            'Dim
             'If (oSelect.GetType Is ) = True Then
             'Dim FullFileName As String
             'Dim FNI As FileNameInfo
-
 
             'FullFileName = oSelect.name
 
@@ -64,7 +62,6 @@ Public Class GetPartDialog
             Val_Mass_Accuracy = Val(Mass_Accuracy)
             valMass = Math.Round(valMass, Val_Mass_Accuracy)
 
-          
             Dim valArea As Double
             valArea = oSelect.MassProperties.area / 10000
             valArea = valArea + 0.00000001

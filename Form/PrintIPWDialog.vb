@@ -8,9 +8,6 @@ Imports System.Collections.ObjectModel
 Imports stdole
 Imports System.Drawing
 
-
-
-
 Public Class PrintIPWDialog
 
     '批量打印开始
@@ -65,7 +62,6 @@ Public Class PrintIPWDialog
         ListView1.Items.Clear()
         SetStatusBarText("批量打印工程图完成")
 
-
     End Sub
 
     '关闭
@@ -74,7 +70,6 @@ Public Class PrintIPWDialog
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
-
 
     '添加文件
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
@@ -137,7 +132,6 @@ Public Class PrintIPWDialog
 
     End Sub
 
-
     '打印文档，打印机名称
     Private Sub PrintDrawing(ByVal IdwDoc As DrawingDocument, ByVal sPrinterName As String)
 
@@ -151,7 +145,7 @@ Public Class PrintIPWDialog
             ' Get the name of the printer that will be used.
             .Printer = sPrinterName
 
-                       '所有颜色打印为黑色
+            '所有颜色打印为黑色
             If CheckBox1.Checked = True Then
                 .AllColorsAsBlack = True
             Else
@@ -171,9 +165,8 @@ Public Class PrintIPWDialog
 
             '设置为默认纸张大小
 
-
             ' 如果是打印到打印机，修正为A3
-              If CheckBox3.Checked = True Then
+            If CheckBox3.Checked = True Then
                 Select Case IdwDoc.ActiveSheet.Size
                     Case DrawingSheetSizeEnum.kA4DrawingSheetSize
                         .PaperSize = PaperSizeEnum.kPaperSizeA4
@@ -213,8 +206,6 @@ Public Class PrintIPWDialog
                 Case PageOrientationTypeEnum.kPortraitPageOrientation
                     .Orientation = PrintOrientationEnum.kPortraitOrientation
             End Select
-
-
 
             ' Set to print all sheets.
             .PrintRange = PrintRangeEnum.kPrintAllSheets
@@ -258,23 +249,19 @@ Public Class PrintIPWDialog
             End If
         End With
 
-
-
-        ' 获取所有引用文档 
+        ' 获取所有引用文档
         Dim oRefDocs As DocumentsEnumerator
         oRefDocs = AssDoc.AllReferencedDocuments
 
-        ' 遍历这些文档 
+        ' 遍历这些文档
         Dim oRefDoc As Document
         For Each oRefDoc In oRefDocs
 
             Dim FullFileName As String
             FullFileName = oRefDoc.FullDocumentName
 
-
             Dim IdwFullFileName As String
             IdwFullFileName = GetNewExtensionFileName(FullFileName, ".idw")
-
 
             If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
@@ -288,8 +275,6 @@ Public Class PrintIPWDialog
 
 999:
         Next
-
-
 
     End Sub
 
@@ -328,5 +313,4 @@ Public Class PrintIPWDialog
         End Try
     End Sub
 
-  
 End Class

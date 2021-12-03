@@ -41,7 +41,6 @@ Public Class AllSaveAsDialog
             '    GoTo 999
             'End If
 
-
             If RadioButton1.Checked = True Then
                 DwgFullFileName = Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".dwg")
                 PdfFullFileName = Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".pdf")
@@ -121,7 +120,6 @@ Public Class AllSaveAsDialog
     '指定文件夹
     Private Sub RadioButton2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RadioButton2.CheckedChanged
         Dim NeFolderBrowserDialog As New FolderBrowserDialog
-
 
         If RadioButton2.Checked = True Then
             RadioButton1.Checked = False

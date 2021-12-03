@@ -4,7 +4,6 @@ Module NewUpdater
     Const InNewVisonTXT As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
     Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
 
-
     Public Sub UpDater1()
         Try
 
@@ -28,7 +27,6 @@ Module NewUpdater
 
         Catch ex As Exception
 
-
             'MsgBox(ex.Message)
 
         End Try
@@ -51,7 +49,6 @@ Module NewUpdater
            Format(My.Application.Info.Version.Revision, "00")
 
             'MsgBox(MyVersion)
-
 
             If NewVersion <> "" Then
                 Dim shortMyversion As Long

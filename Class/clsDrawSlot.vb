@@ -1,5 +1,4 @@
-﻿
-Imports Inventor
+﻿Imports Inventor
 
 '//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 '// Use: Implements a simple user interaction. User picks up an entity and its type will be displayed.
@@ -12,7 +11,6 @@ Public Class clsDrawSlot
     Private mSelectEvents As SelectEvents
     Private mMouseEvents As MouseEvents
     Private mMousePosition As MouseEvents
-
 
     Public Sub New(ByVal oApplication As Inventor.Application)
 
@@ -39,7 +37,6 @@ Public Class clsDrawSlot
         mMouseEvents.MouseMoveEnabled = True
         mMouseEvents.PointInferenceEnabled = True
 
-
         'Remember to Start/Stop the interaction event
         mInteractionEvents.Start()
 
@@ -55,7 +52,6 @@ Public Class clsDrawSlot
         mInteractionEvents = Nothing
 
     End Sub
-
 
     'OnMouseClick(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, ViewPosition As Point2d, view As View)
     Public Sub mMousePostion_Click(ByVal Button As MouseButtonEnum, ByVal ShiftKeys As ShiftStateEnum, ByVal ModelPosition As Point, _
@@ -83,9 +79,7 @@ Public Class clsDrawSlot
 
         createSlotTransaction.End()
 
-
         mInteractionEvents.Stop()
-
 
     End Sub
 

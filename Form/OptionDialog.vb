@@ -24,7 +24,6 @@ Public Class OptionDialog
         Table_Array = txt查找范围.Text
         Col_Index_Num = txt查询列.Text
 
-
         '打印签字
         Select Case chk签字后打印.Checked
             Case False
@@ -57,7 +56,6 @@ Public Class OptionDialog
             Case True
                 IsSetMass = "1"
         End Select
-
 
         '启动检查更新
         Select Case chk检查更新.Checked
@@ -97,8 +95,6 @@ Public Class OptionDialog
                 Area_Accuracy = "6"
         End Select
 
-
-
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapStochNum", Map_StochNum)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartName", Map_PartName)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartNum", Map_PartNum)
@@ -128,7 +124,6 @@ Public Class OptionDialog
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", Sheet_Name)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", Table_Array)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", Col_Index_Num)
-
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -174,7 +169,6 @@ Public Class OptionDialog
             Case "6"
                 cbo面积精度.Text = "0.000001"
         End Select
-
 
         txt图号映射.Text = Map_Mir_StochNum
         txt文件名映射.Text = Map_Mir_PartName

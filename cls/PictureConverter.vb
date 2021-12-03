@@ -1,5 +1,4 @@
-﻿
-Friend Class PictureConverter
+﻿Friend Class PictureConverter
     Inherits System.Windows.Forms.AxHost
 
     Private Sub New()

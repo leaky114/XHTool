@@ -1,10 +1,8 @@
-﻿
-Imports FSLib.App.SimpleUpdater
+﻿Imports FSLib.App.SimpleUpdater
 
 Public NotInheritable Class About
 
     Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
-
 
     Private Sub AboutBox1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
@@ -16,7 +14,7 @@ Public NotInheritable Class About
         End If
         Me.Text = String.Format("关于 {0}", ApplicationTitle)
         ' 初始化“关于”对话框显示的所有文字。
-        ' TODO: 在项目的“应用程序”窗格中自定义此应用程序的程序集信息 
+        ' TODO: 在项目的“应用程序”窗格中自定义此应用程序的程序集信息
         '    属性对话框(在“项目”菜单下)。
         Me.LabelProductName.Text = String.Format("产品 {0}", My.Application.Info.ProductName)
         Me.LabelVersion.Text = String.Format("版本 {0}", My.Application.Info.Version.ToString)
@@ -41,7 +39,7 @@ Public NotInheritable Class About
         '    MsgBox(ex.Message)
         'End Try
 
-    NewUpdater.UpDater2(True)
+        NewUpdater.UpDater2(True)
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click

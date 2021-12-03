@@ -9,7 +9,6 @@ Imports System.Windows.Forms
 Imports Inventor.PrintOrientationEnum
 Imports System.Text
 
-
 Module InventorBasic
 
     Public Structure StockNumPartName
@@ -57,10 +56,8 @@ Module InventorBasic
     Public Mass_Accuracy As String '质量精度
     Public Area_Accuracy As String  '面积精度
 
-
     Public IsSetDrawingScale As String    '打开工程图时是否写 比例 到ipro   是赋值为1
     Public IsSetMass As String   '打开工程图时是否写 质量 到ipro  是赋值为1
-
 
     Public CheckUpdate As String    '启动检查更新
 
@@ -114,7 +111,6 @@ Module InventorBasic
         '    Exit Function
         'End If
 
-
         If InStr(OldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
             MsgBox("无法修改资源中心文件： " & OldFullFileName, MsgBoxStyle.Information, "修改文件名")
             'OldInventorDoc.Close()
@@ -128,7 +124,6 @@ Module InventorBasic
 
                 '新图号
                 'frmain.Focus()
-
 
                 '取消输入
                 If NewFileName = "" Then
@@ -173,7 +168,6 @@ Module InventorBasic
 
                 '关闭旧图
                 OldInventorDocument.Close()
-
 
                 '全部替换为新文件
                 If MsgBox("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.SystemModal + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
@@ -254,7 +248,6 @@ Module InventorBasic
         '    Exit Function
         'End If
 
-
         If InStr(OldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
             MsgBox(OldFullFileName & "为零件库文件", MsgBoxStyle.Information)
             'OldInventorDoc.Close()
@@ -318,7 +311,6 @@ Module InventorBasic
         OldInventorDocument.Close()
 
         '全部替换为新文件
-
 
         If MsgBox("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.SystemModal) = MsgBoxResult.Yes Then
             MsgBox("选择 " & NewFullFileName & "  的基础文件！")
@@ -388,10 +380,9 @@ Module InventorBasic
         Return True
     End Function
 
-
     '修改部件包含文件的iProperty   （ 部件文件对象 ； 文件是否需打开，打开的文件用后要关闭）
     Public Function SetDocumentsInAssIpropertyFromFileName(ByVal oAssemblyDocument As AssemblyDocument, ByVal IsNeedClose As Boolean) As Boolean
-        ' 获取所有引用文档 
+        ' 获取所有引用文档
 
         Dim FirstLevelOnly As Boolean
 
@@ -467,7 +458,6 @@ Module InventorBasic
 
             SetDocumentIpropertyFromFileName(oInventorDocument, True) '设置Iproperty,打开文件后需关闭
 
-
             '遍历下一级
             If (Not oBOMRow.ChildRows Is Nothing) And FirstLevelOnly = False Then
                 Call QueryBOMRowToSetiPro(oBOMRow.ChildRows, FirstLevelOnly)
@@ -481,10 +471,9 @@ Module InventorBasic
 
     End Sub
 
-
     '自动生成零件图号（部件文件对象；进度条）
     Public Function AutoSetPartNumber(ByVal oAssemblyDocument As AssemblyDocument) As Boolean
-        'With ProgressBar 
+        'With ProgressBar
         '    .Minimum = 0
         '    '.Maximum = AsmDoc.ReferencedDocuments.Count
         '    .Value = 0
@@ -548,7 +537,6 @@ Module InventorBasic
             Exit Function
         End If
 
-
         '重命名还是续命名
         Dim PartNumberItem As Integer     '第几个零件文件
         Dim AssNumberItem As Integer   '第几个部件文件
@@ -584,7 +572,6 @@ Module InventorBasic
             PartNumberItem = 0
         End If
 
-
         Dim OldComponentOccurrence As ComponentOccurrence   '选择的部件或零件
 
         Dim OldInventorDocument As Document   '旧的文档
@@ -597,19 +584,17 @@ Module InventorBasic
         Dim NewFileName As String           '新的文档名
         Dim NewStockNum As String = Nothing      '新的图号
 
-
-        ' 获取所有引用文档 
+        ' 获取所有引用文档
         Dim oDocumentsEnumerator As DocumentsEnumerator
         oDocumentsEnumerator = oAssemblyDocument.ReferencedDocuments
 
-        ' 遍历这些文档 
+        ' 遍历这些文档
         Do
             OldComponentOccurrence = ThisApplication.CommandManager.Pick(kAssemblyOccurrenceFilter, "选择要编号的文件")
 
             If OldComponentOccurrence Is Nothing Then       '取消选择
                 Exit Do
             End If
-
 
             OldFullFileName = OldComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName      '旧文件全文件名
             OldFileInfo = GetFileNameInfo(OldFullFileName)
@@ -674,7 +659,6 @@ Module InventorBasic
                 NewInventorDocument = ThisApplication.Documents.Open(NewFullFileName, False)  '打开文件，不显示
                 SetDocumentIpropertyFromFileName(NewInventorDocument, False) '设置Iproperty，打开文件后需关闭
 
-
                 '是否有对应的工程图文件，同时复制后修改文件名和模型链接
                 Dim OldIdwFullFileName As String
                 OldIdwFullFileName = GetNewExtensionFileName(OldFullFileName, ".idw")   '旧工程图
@@ -682,8 +666,6 @@ Module InventorBasic
                     Dim NewIdwFullFileName As String
                     NewIdwFullFileName = GetNewExtensionFileName(NewFullFileName, ".idw")   '新工程图
                     FileSystem.FileCopy(OldIdwFullFileName, NewIdwFullFileName)             '复制为新工程图
-
-
 
                     Dim TempFullFileName As String       '暂时更改旧文件名字
                     TempFullFileName = OldFullFileName & ".old"
@@ -697,7 +679,6 @@ Module InventorBasic
                     'ReFileName(TempFullFileName, OldFullFileName)   '恢复旧零件或部件文件名
 
                 End If
-
 
             Else
                 MsgBox(OldFullFileName & "可能已有图号", MsgBoxStyle.Information)
@@ -783,7 +764,6 @@ Module InventorBasic
         ' 调用SaveCopyAs
         Call oTranslatorAddIn.SaveCopyAs(oDrawingDocument, oTranslationContext, options, oDataMedium)
 
-
         Return DwgFullFileName
 
     End Function
@@ -819,14 +799,11 @@ Module InventorBasic
             End Select
         End If
 
-
-
         InventorDocument.SaveAs(PdfFullFileName, True)
 
         Return PdfFullFileName
 
     End Function
-
 
     '设置工程图自定义比例
     Public Function SetDrawingScale(ByVal oDrawingDocument As DrawingDocument) As Boolean
@@ -844,12 +821,12 @@ Module InventorBasic
                 Dim pEachScale As [Property]
 
                 Try
-                    '若该iProperty已经存在，则直接修改其值  
+                    '若该iProperty已经存在，则直接修改其值
                     pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(oPropertyName)
                     pEachScale.Value = StrScale
 
                 Catch
-                    ' 若该iProperty不存在，则添加一个  
+                    ' 若该iProperty不存在，则添加一个
                     oDrawingDocument.PropertySets.Item("User Defined Properties").Add(StrScale, oPropertyName)
                 End Try
 
@@ -932,12 +909,12 @@ Module InventorBasic
         Dim pEachScale As [Property]
 
         Try
-            '若该iProperty已经存在，则直接修改其值  
+            '若该iProperty已经存在，则直接修改其值
             pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(oPropertyName)
             pEachScale.Value = strMass
 
         Catch
-            ' 若该iProperty不存在，则添加一个  
+            ' 若该iProperty不存在，则添加一个
             oDrawingDocument.PropertySets.Item("User Defined Properties").Add(strMass, oPropertyName)
         End Try
 
@@ -989,7 +966,6 @@ Module InventorBasic
         Dim oRef As DocumentDescriptor
         oRef = oView.ReferencedDocumentDescriptor
 
-
         '获取本零件文件夹路径
         Dim MirFile_FullFileName As String
         Dim ofd As New OpenFileDialog
@@ -1006,7 +982,6 @@ Module InventorBasic
             End If
         End With
 
-
         '获取镜像零件ipro
         Dim StockNumPartName As StockNumPartName
         StockNumPartName = GetStockNumPartName(MirFile_FullFileName)
@@ -1014,7 +989,7 @@ Module InventorBasic
         '设置ipro
         Dim pEachScale As [Property]
         Try
-            '若该iProperty已经存在，则直接修改其值  
+            '若该iProperty已经存在，则直接修改其值
             pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(Map_Mir_StochNum)
             pEachScale.Value = StockNumPartName.StockNum
 
@@ -1022,7 +997,7 @@ Module InventorBasic
             pEachScale.Value = StockNumPartName.PartName
 
         Catch
-            ' 若该iProperty不存在，则添加一个  
+            ' 若该iProperty不存在，则添加一个
             oDrawingDocument.PropertySets.Item("User Defined Properties").Add(StockNumPartName.StockNum, Map_Mir_StochNum)
             oDrawingDocument.PropertySets.Item("User Defined Properties").Add(StockNumPartName.PartName, Map_Mir_PartName)
         End Try
@@ -1051,19 +1026,17 @@ Module InventorBasic
     '    End Select
 
     '    Try
-    '        '若该iProperty已经存在，则直接修改其值  
+    '        '若该iProperty已经存在，则直接修改其值
 
     '        pEachScale = IdwDoc.PropertySets.Item("User Defined Properties").Item(Map_PrintDay)
     '        pEachScale.Value = Print_Day
     '    Catch
-    '        ' 若该iProperty不存在，则添加一个  
+    '        ' 若该iProperty不存在，则添加一个
     '        IdwDoc.PropertySets.Item("User Defined Properties").Add(Print_Day, Map_PrintDay)
     '    End Try
     '    IdwDoc.Update()   '刷新数据
     '    Return True
     'End Function
-
-
 
     '设置签字
     Public Function SetSign(ByVal oDrawingDocument As DrawingDocument, ByVal EngineerName As String, ByVal Print_Day As String, ByVal IsOPenPrintDialog As Boolean) As Boolean
@@ -1084,11 +1057,11 @@ Module InventorBasic
         Dim pEachScale As [Property]
 
         Try
-            '若该iProperty已经存在，则直接修改其值  
+            '若该iProperty已经存在，则直接修改其值
             pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(Map_PrintDay)
             pEachScale.Value = Print_Day
         Catch
-            ' 若该iProperty不存在，则添加一个  
+            ' 若该iProperty不存在，则添加一个
             oDrawingDocument.PropertySets.Item("User Defined Properties").Add(Print_Day, Map_PrintDay)
         End Try
 
@@ -1114,7 +1087,6 @@ Module InventorBasic
 
     End Function
 
-
     '获取单个描述
     Public Function GetPropitem(ByVal oInventorDocument As Inventor.Document, ByVal propitemName As String) As String
         Dim oPropSets As PropertySets
@@ -1138,7 +1110,6 @@ Module InventorBasic
         Return True
 
     End Function
-
 
     '设置单个propitem
     Public Function SetPropitem(ByVal oInventorDocument As Inventor.Document, ByVal propitemName As String, ByVal propitemValue As String) As Boolean
@@ -1164,7 +1135,7 @@ Module InventorBasic
 
     End Function
 
-    '提取iproperty更改文件名 
+    '提取iproperty更改文件名
     Public Function GetIpropertyToRename(ByVal InventorDoc As Inventor.Document, ByVal OldOcc As ComponentOccurrence) As Boolean
         Dim OldFullFileName As String   '被替换的旧文件全名
         Dim OldFileName As String   '被替换的旧文件仅文件名
@@ -1216,7 +1187,6 @@ Module InventorBasic
 
                 '新文件名
                 NewFileName = StockNumPartName.StockNum & StockNumPartName.PartName
-
 
                 '替换旧文件全名为新文件全名
                 NewFullFileName = GetNewFileName(OldFullFileName, NewFileName)
@@ -1290,7 +1260,6 @@ Module InventorBasic
         End Select
     End Function
 
-
     '设置序号
     Public Function SetSerialNumber(ByVal oDrawingDocument As DrawingDocument) As Boolean
         Dim oActiveSheet As Sheet
@@ -1331,7 +1300,6 @@ Module InventorBasic
         '            i = i - 1
         '        Next
 
-
         '点击每个序号组
         Dim oBalloon As Balloon
         Do
@@ -1351,7 +1319,6 @@ Module InventorBasic
 
     '检查序号完整性
     Public Function CheckSerialNumber(ByVal oDrawingDocument As DrawingDocument) As Boolean
-
 
         Dim oActiveSheet As Sheet
         oActiveSheet = oDrawingDocument.ActiveSheet
@@ -1383,7 +1350,6 @@ Module InventorBasic
         Else
             Return True
         End If
-
 
     End Function
 
@@ -1429,7 +1395,6 @@ Module InventorBasic
         Return True
     End Function
 
-
     '设置当前部件下级为虚拟件
     Public Function SetBOMStructuret(ByVal oAssemblyDocument As AssemblyDocument) As Boolean
         '设置结构类型
@@ -1458,7 +1423,6 @@ Module InventorBasic
         oBOM.StructuredViewEnabled = True
 
         ' Set a reference to the "Structured" BOMView
-
 
         '获取结构化的bom页面
         For Each oBOMView As BOMView In oBOM.BOMViews
@@ -1536,7 +1500,6 @@ Module InventorBasic
         Dim oBOM As BOM
         oBOM = oAssemblyDocument.ComponentDefinition.BOM
 
-
         ' Set the structured view to 'all levels'
         oBOM.StructuredViewFirstLevelOnly = False
 
@@ -1544,7 +1507,6 @@ Module InventorBasic
         oBOM.StructuredViewEnabled = True
 
         ' Set a reference to the "Structured" BOMView
-
 
         '获取结构化的bom页面
         For Each oBOMView As BOMView In oBOM.BOMViews
@@ -1556,7 +1518,6 @@ Module InventorBasic
         Return True
 
     End Function
-
 
     '检查模型是否有对应的工程图
     Public Sub CheckIsInvHaveIdwSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal StrInName As String)
@@ -1575,7 +1536,6 @@ Module InventorBasic
             Dim IdwFullFileName As String  '工程图全文件名
 
             InventorFullName = oCompDef.Document.FullFileName
-
 
             If IsFileExsts(InventorFullName) = False Then   '跳过不存在的文件
                 GoTo 999
@@ -1611,7 +1571,6 @@ Module InventorBasic
         Dim oBOM As BOM
         oBOM = oAssemblyDocument.ComponentDefinition.BOM
 
-
         ' Set the structured view to 'all levels'
         oBOM.StructuredViewFirstLevelOnly = False
 
@@ -1631,7 +1590,6 @@ Module InventorBasic
         Return True
 
     End Function
-
 
     '打开部件中所有子集对应的工程图
     Public Sub OpenAllDrwInAsmSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal StockNum As String)
@@ -1679,7 +1637,6 @@ Module InventorBasic
 
             End Select
 
-
             '遍历下一级
             If Not oRow.ChildRows Is Nothing Then
                 Call OpenAllDrwInAsmSub(oRow.ChildRows, StockNum)
@@ -1688,7 +1645,6 @@ Module InventorBasic
         Next
 
     End Sub
-
 
     '打开活动文件对应的工程图
     Public Sub OpenDrawingDocument(ByVal oInventorDocument As Inventor.Document)
@@ -1878,7 +1834,7 @@ Module InventorBasic
 
     End Function
 
-    '在 bom平面性导出，遍历bom 行文件ipro 
+    '在 bom平面性导出，遍历bom 行文件ipro
     Private Sub QueryBOMRowPropertieToExcel(ByVal ExcelFullFileName As String, ByVal oBOMRows As BOMRowsEnumerator, ByVal FirstLevelOnly As Boolean, ByVal ColumnsTitle As String, _
                                             ByVal Level As String, ByVal PresentNumber As Integer)
 
@@ -1902,7 +1858,6 @@ Module InventorBasic
             oBOMRowData(i - 1, 1) = oBOMRows.Item(i).ReferencedFileDescriptor.FullFileName
         Next
 
-
         '冒泡排序()
 
         Dim Temp As String  '不定义变量类型,以自动适应数组Ar的类型
@@ -1924,7 +1879,6 @@ Module InventorBasic
                     oBOMRowData(j, 1) = oBOMRowData(j + 1, 1)
                     oBOMRowData(j + 1, 1) = Temp
 
-
                     Flag = True '如果有排序行为，则设为 True
                 End If
             Next
@@ -1932,7 +1886,6 @@ Module InventorBasic
                 Exit For
             End If
         Next
-
 
         '循环每一行
         For i = 0 To n
@@ -1942,8 +1895,6 @@ Module InventorBasic
             FilePointItemNumber = oBOMRowData(i, 1)
 
             '寻找指针的行，开始提取数据
-
-
 
             For j = 1 To oBOMRows.Count
                 Dim oRow As BOMRow
@@ -1973,7 +1924,6 @@ Module InventorBasic
                     Dim oPropSet As PropertySet
                     oPropSets = oInventorDocument.PropertySets
                     oPropSet = oPropSets.Item(3)
-
 
                     Dim Array_ColumnsTitle() As String
                     Dim Array_ColumnsTitleValue() As String
@@ -2049,7 +1999,6 @@ Module InventorBasic
                             Threading.Thread.Sleep(200)
                     End Select
 
-
                     '集合数组数据
                     Dim ColumnsTitleValue As String
                     ColumnsTitleValue = TotalItem & "," & Join(Array_ColumnsTitleValue, ",")
@@ -2075,9 +2024,7 @@ Module InventorBasic
                     Exit For
                 End If
 
-
             Next j
-
 
         Next i
 
@@ -2093,7 +2040,6 @@ Module InventorBasic
         '写空白行
         IOS2.WriteLine("")
         IOS2.Close()
-
 
         For i = 1 To oBOMRows.Count
             ' Get the current row.
@@ -2125,10 +2071,7 @@ Module InventorBasic
                     '数据操作
                     '========================================
 
-
-
                     '==========================================
-
 
                     '遍历下一级
                     If (Not oRow.ChildRows Is Nothing) And FirstLevelOnly = False Then
@@ -2139,9 +2082,7 @@ Module InventorBasic
                     Exit For
                 End If
 
-
             Next j
-
 
         Next i
 
@@ -2151,17 +2092,11 @@ Module InventorBasic
 
     End Sub
 
-
-
     '保存文件时的事件
     'Public Sub ThisApplicationEvents_OnOnSaveDocument(ByVal DocumentObject As Inventor._Document, _
     '                                                ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
     '                                                 ByVal Context As Inventor.NameValueMap, _
     '                                                 ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnSaveDocument
-
-
-
-
 
     'End Sub
 
@@ -2205,7 +2140,7 @@ Module InventorBasic
 
     End Sub
 
-    '刷新引用 
+    '刷新引用
     Public Function RefreshShowName(ByVal AsmDoc As Document) As Boolean
 
         ' 获取装配定义
@@ -2237,7 +2172,6 @@ Module InventorBasic
         Return True
     End Function
 
-
     '对齐XYZ平面
     Public Function FlushXYZPlane() As Boolean
 
@@ -2255,7 +2189,6 @@ Module InventorBasic
         If oComponentOccurrence1 Is Nothing Then       '取消选择
             Exit Function
         End If
-
 
         Dim oComponentOccurrence2 As ComponentOccurrence
         oComponentOccurrence2 = ThisApplication.CommandManager.Pick(kAssemblyLeafOccurrenceFilter, "选择第二个部件或零件")
@@ -2295,10 +2228,9 @@ Module InventorBasic
         Return True
     End Function
 
-
     '获取未读取的文件所在部件并打开该部件   （ 部件文件对象 ； 文件是否需打开，打开的文件用后要关闭）
     Public Function GetUnkonwDocumentWithBOM(ByVal AsmDoc As AssemblyDocument, ByVal IsNeedClose As Boolean) As Boolean
-        ' 获取所有引用文档 
+        ' 获取所有引用文档
         Dim FirstLevelOnly As Boolean
         FirstLevelOnly = False
 
@@ -2357,7 +2289,6 @@ Module InventorBasic
             '    GoTo 999
             'End If
 
-
             '文件不存在，就打开父级文件
             If IsFileExsts(FullFileName) = False Then
                 Dim InventorDoc As Inventor.Document
@@ -2379,8 +2310,6 @@ Module InventorBasic
 
     End Sub
 
-
-
     '尺寸精度圆整
     Public Function SetDrawingDimPrecision() As Boolean
         Try
@@ -2400,7 +2329,6 @@ Module InventorBasic
 
             Dim oLinearGeneralDimension As LinearGeneralDimension    '选择的部件或零件
 
-
             ' 是否已经选择了尺寸
             If oDrawingDocument.SelectSet.Count <> 0 Then
                 For Each oSelect As Object In oDrawingDocument.SelectSet
@@ -2418,11 +2346,9 @@ Module InventorBasic
 
             End If
 
-
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Function
-
 
 End Module

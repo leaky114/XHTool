@@ -55,7 +55,6 @@ Public Class AutoPartNumberDialog
                     End If
                 Next
 
-
                 Dim OldIdwFullFileName As String
                 OldIdwFullFileName = GetNewExtensionFileName(OldFullFileName, ".idw")   '旧工程图
                 If IsFileExsts(OldIdwFullFileName) = True Then
@@ -92,7 +91,6 @@ Public Class AutoPartNumberDialog
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
-
 
     '上移
     Private Sub ListViewUp(ByVal ListView As ListView)
@@ -195,7 +193,6 @@ Public Class AutoPartNumberDialog
     '    ListView1.DoDragDrop(ListView1.SelectedItems, DragDropEffects.Move)
     'End Sub
 
-
     '键盘上下键移动
     Private Sub ListView1_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles ListView1.KeyDown
         Select Case e.KeyCode
@@ -225,7 +222,6 @@ Public Class AutoPartNumberDialog
         AssNum = 1
         PartNum = 1
         BasicStockNumn = TextBox1.Text
-
 
         For i = 0 To ListView1.Items.Count - 1
             LVI = ListView1.Items(i)
@@ -259,7 +255,6 @@ Public Class AutoPartNumberDialog
         Dim oBOM As BOM
 
         Dim AssFullFileName As String
-
 
         AssFullFileName = assdoc.FullFileName
 
@@ -327,7 +322,6 @@ Public Class AutoPartNumberDialog
         LoadAssBOM(AsmDoc, ListView1)
     End Sub
 
-
     Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
         If ListView1.SelectedIndices.Count > 0 Then
             Dim index As Integer = ListView1.SelectedIndices(0)
@@ -352,11 +346,11 @@ Public Class AutoPartNumberDialog
                     AsmDoc = ThisApplication.ActiveDocument
                     AssFullFileName = AsmDoc.FullFileName
 
-                    ' 获取装配定义 
+                    ' 获取装配定义
                     Dim oAsmDef As AssemblyComponentDefinition
                     oAsmDef = AsmDoc.ComponentDefinition
 
-                    ' 获取装配子集 
+                    ' 获取装配子集
                     Dim oOccs As ComponentOccurrences
                     oOccs = oAsmDef.Occurrences
 
@@ -390,7 +384,7 @@ Public Class AutoPartNumberDialog
         Dim ptScreen As Drawing.Point = New Drawing.Point(e.X, e.Y)
         Dim pt As Drawing.Point = ListView1.PointToClient(ptScreen)
         Dim TargetItem As ListViewItem
-        TargetItem = ListView1.GetItemAt(pt.X, pt.Y) '拖动的项将放置于该项之前   
+        TargetItem = ListView1.GetItemAt(pt.X, pt.Y) '拖动的项将放置于该项之前
         If (TargetItem Is Nothing) Then
             Exit Sub
         End If
@@ -413,7 +407,6 @@ Public Class AutoPartNumberDialog
         Dim index As Integer = ListView1.InsertionMark.NearestIndex(pt)
         ListView1.InsertionMark.Index = index
     End Sub
-
 
     Private Sub ListView1_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles ListView1.ItemDrag
         ListView1.InsertionMark.Color = System.Drawing.Color.ForestGreen

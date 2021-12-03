@@ -23,11 +23,11 @@ Public Class InventoryCoding
             Exit Sub
         End If
 
-        ' 获取所有引用文档 
+        ' 获取所有引用文档
         Dim oRefDocs As DocumentsEnumerator
         oRefDocs = AsmDoc.AllReferencedDocuments
 
-        ' 遍历这些文档 
+        ' 遍历这些文档
         Dim oRefDoc As Document
         For Each oRefDoc In oRefDocs
             Debug.Print(oRefDoc.DisplayName)
@@ -60,7 +60,6 @@ Public Class InventoryCoding
     End Sub
 
     Private Sub 导入Excel文件ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 导入Excel文件ToolStripMenuItem.Click
-
 
         Dim ExcelFullFileName As String = Nothing
 
@@ -121,7 +120,6 @@ Public Class InventoryCoding
         Dim i As Integer = 0
         Dim j As Integer
 
-
         LV.Items.Clear()
 
         For Each exsheet In exbook.Sheets
@@ -139,8 +137,6 @@ Public Class InventoryCoding
                     oBOMRowData(k, j) = exrangevalue
                 Next
 
-
-
                 i = i + 1
                 k = k + 1
             Loop
@@ -156,8 +152,6 @@ Public Class InventoryCoding
             LVI.SubItems.Add(oBOMRowData(i, 1))
             LVI.SubItems.Add(oBOMRowData(i, 2))
         Next
-
-
 
         '删除空项
         'For Each LVI In LV.Items
