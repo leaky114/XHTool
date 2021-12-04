@@ -14,39 +14,39 @@ Public Class InventoryCoding
             Exit Sub
         End If
 
-        Dim AsmDoc As AssemblyDocument
+        Dim oAssemblyDocument As AssemblyDocument
 
-        AsmDoc = ThisApplication.ActiveDocument
+        oAssemblyDocument = ThisApplication.ActiveDocument
 
-        If AsmDoc.DocumentType <> kAssemblyDocumentObject Then
+        If oAssemblyDocument.DocumentType <> kAssemblyDocumentObject Then
             MsgBox("该功能仅适用于部件")
             Exit Sub
         End If
 
         ' 获取所有引用文档
-        Dim oRefDocs As DocumentsEnumerator
-        oRefDocs = AsmDoc.AllReferencedDocuments
+        Dim oAllReferencedDocuments As DocumentsEnumerator
+        oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
 
         ' 遍历这些文档
-        Dim oRefDoc As Document
-        For Each oRefDoc In oRefDocs
-            Debug.Print(oRefDoc.DisplayName)
+
+        For Each ReferencedDocument As Document In oAllReferencedDocuments
+            Debug.Print(ReferencedDocument.DisplayName)
             Dim StockNumPartName As StockNumPartName
-            StockNumPartName = GetStockNumPartName(oRefDoc.FullDocumentName)
-            ToolStripStatusLabel1.Text = oRefDoc.FullDocumentName
+            StockNumPartName = GetStockNumPartName(ReferencedDocument.FullDocumentName)
+            ToolStripStatusLabel1.Text = ReferencedDocument.FullDocumentName
             For Each LVI As ListViewItem In ListView1.Items
                 Dim ss As String    '替换/\符号
                 LVI.Selected = True
                 ss = Strings.Replace(LVI.SubItems(2).Text, "/", "-")
                 ss = Strings.Replace(ss, "\", "-")
                 If StockNumPartName.StockNum = ss Then
-                    StockNumPartName.StockNum = GetPropitem(oRefDoc, Map_StochNum)
+                    StockNumPartName.StockNum = GetPropitem(ReferencedDocument, Map_StochNum)
                     If StockNumPartName.PartNum = "" Then
-                        SetPropitem(oRefDoc, Map_PartNum, LVI.Text)
+                        SetPropitem(ReferencedDocument, Map_PartNum, LVI.Text)
                         Exit For
                     ElseIf StockNumPartName.PartNum <> LVI.Text Then
-                        If MsgBox("替换文件：" & oRefDoc.FullDocumentName & vbCrLf & "原库存编码:" & StockNumPartName.PartNum & vbCrLf & "为新编码：" & LVI.Text & "？", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "替换") = MsgBoxResult.Yes Then
-                            SetPropitem(oRefDoc, Map_PartNum, LVI.Text)
+                        If MsgBox("替换文件：" & ReferencedDocument.FullDocumentName & vbCrLf & "原库存编码:" & StockNumPartName.PartNum & vbCrLf & "为新编码：" & LVI.Text & "？", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "替换") = MsgBoxResult.Yes Then
+                            SetPropitem(ReferencedDocument, Map_PartNum, LVI.Text)
                             Exit For
                         End If
                     End If

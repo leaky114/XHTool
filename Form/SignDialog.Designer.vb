@@ -128,7 +128,7 @@ Partial Class SignDialog
         Me.Name = "SignDialog"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "s"
+        Me.Text = " 签字"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

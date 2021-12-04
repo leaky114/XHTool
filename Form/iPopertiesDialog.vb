@@ -38,12 +38,12 @@ Public Class iPopertiesDialog
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
         'Dim thisApprenticeApp = New Inventor.ApprenticeServerComponent()
         'Dim thisApprenticeDoc As Inventor.ApprenticeServerDocument
-        Dim InventorDoc As Inventor.Document
+        Dim oInventorDocDocument As Inventor.Document
 
-        For Each InventorDoc In ThisApplication.Documents
-            Select Case InventorDoc.DocumentType
+        For Each oInventorDocDocument In ThisApplication.Documents
+            Select Case oInventorDocDocument.DocumentType
                 Case DocumentTypeEnum.kDrawingDocumentObject, DocumentTypeEnum.kAssemblyDocumentObject, DocumentTypeEnum.kPartDocumentObject
-                    ListBox1.Items.Add(InventorDoc.FullDocumentName)
+                    ListBox1.Items.Add(oInventorDocDocument.FullDocumentName)
             End Select
         Next
 
@@ -59,9 +59,9 @@ Public Class iPopertiesDialog
                 For i = 0 To ListBox1.Items.Count - 1
                     ListBox1.SelectedIndex = i
                     '打开文件
-                    InventorDoc = ThisApplication.Documents.ItemByName(ListBox1.Items(i).ToString)
+                    oInventorDocDocument = ThisApplication.Documents.ItemByName(ListBox1.Items(i).ToString)
                     '打开 项目 选项卡
-                    Dim oDTProps As PropertySet = InventorDoc.PropertySets.Item("Design Tracking Properties")
+                    Dim oDTProps As PropertySet = oInventorDocDocument.PropertySets.Item("Design Tracking Properties")
 
                     '用内部定义名的代码
                     'Dim oDesignerProp As Inventor.Property = oDTProps.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kDesignerDesignTrackingProperties)
@@ -97,7 +97,7 @@ Public Class iPopertiesDialog
                 For i = 0 To ListBox1.Items.Count - 1
                     ListBox1.SelectedIndex = i
                     '打开文件
-                    InventorDoc = ThisApplication.Documents.ItemByName(ListBox1.Items(i).ToString)
+                    oInventorDocDocument = ThisApplication.Documents.ItemByName(ListBox1.Items(i).ToString)
                     '打开 项目 选项卡
                     'Dim oDTProps As PropertySet = thisApprenticeDoc.PropertySets.Item("User Defined Properties")
 
@@ -115,7 +115,7 @@ Public Class iPopertiesDialog
 
                     'Try
                     '若该iProperty已经存在，则直接修改其值
-                    pEachScale = InventorDoc.PropertySets.Item("User Defined Properties").Item(PropertyName.Text)
+                    pEachScale = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(PropertyName.Text)
                     Select Case oOption
                         Case enumPType.eString
                             pEachScale.Value = StringP.Text
@@ -131,18 +131,18 @@ Public Class iPopertiesDialog
                     ' 若该iProperty不存在，则添加一个
                     Select Case oOption
                         Case enumPType.eString
-                            InventorDoc.PropertySets.Item("User Defined Properties").Add(StringP.Text, PropertyName.Text, PropID)
+                            oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(StringP.Text, PropertyName.Text, PropID)
                         Case enumPType.eBool
-                            InventorDoc.PropertySets.Item("User Defined Properties").Add(BoolP.Checked, PropertyName.Text, PropID)
+                            oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(BoolP.Checked, PropertyName.Text, PropID)
                         Case enumPType.eDouble
-                            InventorDoc.PropertySets.Item("User Defined Properties").Add(Convert.ToDouble(DoubleP.Text), PropertyName.Text, PropID)
+                            oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Convert.ToDouble(DoubleP.Text), PropertyName.Text, PropID)
                         Case enumPType.eDate
-                            InventorDoc.PropertySets.Item("User Defined Properties").Add(DateTimeP.Value, PropertyName.Text, PropID)
+                            oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(DateTimeP.Value, PropertyName.Text, PropID)
                     End Select
                     'End Try
 
                     '保存到文件
-                    InventorDoc.PropertySets.FlushToFile()
+                    oInventorDocDocument.PropertySets.FlushToFile()
                     '关闭文件
                     'InventorDoc.Close()
                 Next

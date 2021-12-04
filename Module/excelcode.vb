@@ -32,6 +32,13 @@ Module excelcode
         If VLookUpValue <> Nothing Then
             wb.Close()
             excelApp.Quit()
+
+            '9.释放资源
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(userange)
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(sht)
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(wb)
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+
             Return VLookUpValue
         End If
         'Next
@@ -53,4 +60,52 @@ Module excelcode
 
     End Function
 
+
+    Public Function FindSrtingInSheet(ByVal Excel_File_Name As String, ByVal StochNum As String, ByVal Sheet_Name As String, _
+                                ByVal Table_Arrays As String, ByVal Col_Index_Num As String, ByVal range_lookup As Integer) As String
+
+        On Error Resume Next
+        Dim excelApp As Excel.Application
+        excelApp = New Excel.Application
+        'excelApp.Visible = True
+        Dim wb As Excel.Workbook = excelApp.Workbooks.Open(Excel_File_Name, 0, True)
+        Dim sht As Excel.Worksheet
+        sht = wb.Sheets(Sheet_Name)
+
+        Dim userange As Excel.Range = Nothing
+
+        Dim Table_Array(10) As String
+
+        Table_Array = Split(Table_Arrays, ",")
+
+        Dim MatchRow As Double
+
+        For Each a In Table_Array
+            userange = sht.Range(a & ":" & a)
+            MatchRow = excelApp.WorksheetFunction.Match(StochNum, userange, 0)
+            If MatchRow <> 0 Then
+                Exit For
+            End If
+        Next
+
+        Dim FindRow As String
+        FindRow = Col_Index_Num & MatchRow
+        Dim FindRowValue As String
+        FindRowValue = sht.Range(FindRow).Value
+
+
+
+        '关闭文件
+        wb.Close()
+        ' 8.退出Excel程序
+        excelApp.Quit()
+
+        '9.释放资源
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(userange)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(sht)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(wb)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+
+        Return FindRowValue
+    End Function
 End Module

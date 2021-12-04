@@ -4,12 +4,12 @@ Imports Inventor
 Public Class ChangeIproDialog
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        Dim InventorDoc As Document
-        InventorDoc = ThisApplication.ActiveEditDocument
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
 
-        SetPropitem(InventorDoc, Map_StochNum, TextBox1.Text)
-        SetPropitem(InventorDoc, Map_PartName, TextBox2.Text)
-        SetPropitem(InventorDoc, "描述", TextBox3.Text)
+        SetPropitem(oInventorDocument, Map_StochNum, TextBox1.Text)
+        SetPropitem(oInventorDocument, Map_PartName, TextBox2.Text)
+        SetPropitem(oInventorDocument, "描述", TextBox3.Text)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -21,14 +21,14 @@ Public Class ChangeIproDialog
     End Sub
 
     Private Sub ChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim oInventorDoc As Document
-        oInventorDoc = ThisApplication.ActiveEditDocument
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
 
         Dim oPropSets As PropertySets
         Dim oPropSet As PropertySet
         Dim propitem As [Property]
 
-        oPropSets = oInventorDoc.PropertySets
+        oPropSets = oInventorDocument.PropertySets
         oPropSet = oPropSets.Item(3)
 
         '获取iproperty

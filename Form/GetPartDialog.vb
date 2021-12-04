@@ -15,23 +15,23 @@ Public Class GetPartDialog
             Exit Sub
         End If
 
-        Dim InventorDoc As Inventor.Document
-        InventorDoc = ThisApplication.ActiveDocument
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
 
-        If InventorDoc.DocumentType <> kAssemblyDocumentObject Then
+        If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
             MsgBox("该功能仅适用于部件", MsgBoxStyle.Information, "统计质量面积")
             Exit Sub
         End If
 
         Dim oSelectSet As Inventor.SelectSet
-        oSelectSet = InventorDoc.SelectSet
+        oSelectSet = oInventorDocument.SelectSet
 
         If oSelectSet.Count = 0 Then
             MsgBox("请先选择零部件", MsgBoxStyle.OkOnly, "统计质量面积")
             Exit Sub
         End If
 
-        For Each oSelect As Object In InventorDoc.SelectSet
+        For Each oSelect As Object In oInventorDocument.SelectSet
             'Dim
             'If (oSelect.GetType Is ) = True Then
             'Dim FullFileName As String

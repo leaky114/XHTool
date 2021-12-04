@@ -30,19 +30,19 @@ Public Class AutoPartNumberDialog
                 NewFullFileName = LVI.SubItems(3).Text & "\" & LVI.SubItems(2).Text & LVI.SubItems(1).Text
 
                 '打开旧文件,不显示
-                Dim OldDoc As Inventor.Document
-                OldDoc = ThisApplication.Documents.Open(OldFullFileName, False)
+                Dim OldInventorDocument As Inventor.Document
+                OldInventorDocument = ThisApplication.Documents.Open(OldFullFileName, False)
 
                 '另存为新文件
-                OldDoc.SaveAs(NewFullFileName, False)
+                OldInventorDocument.SaveAs(NewFullFileName, False)
 
                 '关闭旧图
-                OldDoc.Close()
+                OldInventorDocument.Close()
 
                 '后台打开文件，修改ipro
-                Dim NewDoc As Inventor.Document
-                NewDoc = ThisApplication.Documents.Open(NewFullFileName, False)  '打开文件，不显示
-                SetDocumentIpropertyFromFileName(NewDoc, True) '设置Iproperty，打开文件后需关闭
+                Dim NewInventorDocument As Inventor.Document
+                NewInventorDocument = ThisApplication.Documents.Open(NewFullFileName, False)  '打开文件，不显示
+                SetDocumentIpropertyFromFileName(NewInventorDocument, True) '设置Iproperty，打开文件后需关闭
 
                 Dim oCO As Inventor.ComponentOccurrences
                 oCO = ThisApplication.ActiveDocument.ComponentDefinition.Occurrences
@@ -62,11 +62,11 @@ Public Class AutoPartNumberDialog
                     NewIdwFullFileName = GetNewExtensionFileName(NewFullFileName, ".idw")   '新工程图
                     FileSystem.FileCopy(OldIdwFullFileName, NewIdwFullFileName)             '复制为新工程图
 
-                    Dim IdwDoc As Inventor.DrawingDocument
-                    IdwDoc = ThisApplication.Documents.Open(NewIdwFullFileName, False)  '打开文件，不显示
-                    IdwDoc.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(NewFullFileName)
-                    IdwDoc.Save2()
-                    IdwDoc.Close()
+                    Dim oInventorDrawingDocument As Inventor.DrawingDocument
+                    oInventorDrawingDocument = ThisApplication.Documents.Open(NewIdwFullFileName, False)  '打开文件，不显示
+                    oInventorDrawingDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(NewFullFileName)
+                    oInventorDrawingDocument.Save2()
+                    oInventorDrawingDocument.Close()
 
                 End If
 
@@ -241,13 +241,13 @@ Public Class AutoPartNumberDialog
 
     Private Sub AutoPartNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Dim AsmDoc As AssemblyDocument
-        AsmDoc = ThisApplication.ActiveDocument
-        LoadAssBOM(AsmDoc, ListView1)
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+        LoadAssBOM(oInventorAssemblyDocument, ListView1)
     End Sub
 
     '载入数据函数
-    Private Sub LoadAssBOM(ByVal assdoc As Inventor.AssemblyDocument, ByVal LV As ListView)
+    Private Sub LoadAssBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal LV As ListView)
 
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
@@ -256,22 +256,21 @@ Public Class AutoPartNumberDialog
 
         Dim AssFullFileName As String
 
-        AssFullFileName = assdoc.FullFileName
+        AssFullFileName = oInventorAssemblyDocument.FullFileName
 
-        Dim StockNumPartName As StockNumPartName
-        StockNumPartName = GetStockNumPartName(AssFullFileName)
-        TextBox1.Text = StockNumPartName.StockNum
+        Dim oStockNumPartName As StockNumPartName
+        oStockNumPartName = GetStockNumPartName(AssFullFileName)
+        TextBox1.Text = oStockNumPartName.StockNum
 
-        oBOM = assdoc.ComponentDefinition.BOM
+        oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
 
         'Set a reference to the "Structured" BOMView
-        Dim oBOMView As BOMView
 
         LV.Items.Clear()
 
         '获取结构化的bom页面
-        For Each oBOMView In oBOM.BOMViews
+        For Each oBOMView As BOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
 
                 For i = 1 To oBOMView.BOMRows.Count
@@ -340,31 +339,30 @@ Public Class AutoPartNumberDialog
                     Dim OldFullFileName As String   '旧文件全名
                     OldFullFileName = item.SubItems(3).Text & "\" & item.Text & item.SubItems(1).Text
 
-                    Dim AsmDoc As Inventor.AssemblyDocument
+                    Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
                     Dim AssFullFileName As String
 
-                    AsmDoc = ThisApplication.ActiveDocument
-                    AssFullFileName = AsmDoc.FullFileName
+                    oInventorAssemblyDocument = ThisApplication.ActiveDocument
+                    AssFullFileName = oInventorAssemblyDocument.FullFileName
 
                     ' 获取装配定义
-                    Dim oAsmDef As AssemblyComponentDefinition
-                    oAsmDef = AsmDoc.ComponentDefinition
+                    Dim oAssemblyComponentDefinition As AssemblyComponentDefinition
+                    oAssemblyComponentDefinition = oInventorAssemblyDocument.ComponentDefinition
 
                     ' 获取装配子集
-                    Dim oOccs As ComponentOccurrences
-                    oOccs = oAsmDef.Occurrences
+                    Dim oComponentOccurrences As ComponentOccurrences
+                    oComponentOccurrences = oAssemblyComponentDefinition.Occurrences
 
                     '指定要选择的文件()
                     'Dim oDoc As Document
                     'oDoc = ThisApplication.Documents.ItemByName(OldFullFileName)
 
                     '遍历
-                    Dim oOcc As ComponentOccurrence
-                    For Each oOcc In oOccs
-                        If oOcc.ReferencedDocumentDescriptor.FullDocumentName = OldFullFileName Then
-                            ThisApplication.CommandManager.DoSelect(oOcc)
+                    For Each oComponentOccurrence As ComponentOccurrence In oComponentOccurrences
+                        If oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName = OldFullFileName Then
+                            ThisApplication.CommandManager.DoSelect(oComponentOccurrence)
                         Else
-                            ThisApplication.CommandManager.DoUnSelect(oOcc)
+                            ThisApplication.CommandManager.DoUnSelect(oComponentOccurrence)
                         End If
 
                     Next
@@ -414,7 +412,4 @@ Public Class AutoPartNumberDialog
 
     End Sub
 
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-
-    End Sub
 End Class

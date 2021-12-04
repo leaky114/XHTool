@@ -541,7 +541,7 @@ Partial Class OptionDialog
         Me.txt查询列.Name = "txt查询列"
         Me.txt查询列.Size = New System.Drawing.Size(89, 21)
         Me.txt查询列.TabIndex = 15
-        Me.txt查询列.Text = "2"
+        Me.txt查询列.Text = "B"
         '
         'Label16
         '
@@ -550,7 +550,7 @@ Partial Class OptionDialog
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 12)
         Me.Label16.TabIndex = 14
-        Me.Label16.Text = "查询列："
+        Me.Label16.Text = "返回列："
         '
         'txt查找范围
         '
@@ -558,16 +558,16 @@ Partial Class OptionDialog
         Me.txt查找范围.Name = "txt查找范围"
         Me.txt查找范围.Size = New System.Drawing.Size(89, 21)
         Me.txt查找范围.TabIndex = 13
-        Me.txt查找范围.Text = "A:G"
+        Me.txt查找范围.Text = "A,C,D,E,F"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Location = New System.Drawing.Point(167, 52)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(65, 12)
+        Me.Label15.Size = New System.Drawing.Size(53, 12)
         Me.Label15.TabIndex = 12
-        Me.Label15.Text = "查询范围："
+        Me.Label15.Text = "查询列："
         '
         'txt数据表
         '
