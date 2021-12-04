@@ -11,14 +11,14 @@ Public Class AllSaveAsDialog
     '量产开始
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
 
-        Dim InventorDoc As Inventor.Document
+        Dim oInventorDocument As Inventor.Document
 
         Dim DwgFullFileName As String = ""      'dwg 文件全文件名
         Dim PdfFullFileName As String = ""      'pdf 文件全文件名
 
-        For Each InventorDoc In ThisApplication.Documents
-            If InventorDoc.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
-                ListBox1.Items.Add(InventorDoc.FullFileName)
+        For Each oInventorDocument In ThisApplication.Documents
+            If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
+                ListBox1.Items.Add(oInventorDocument.FullFileName)
             End If
         Next
 
@@ -26,10 +26,10 @@ Public Class AllSaveAsDialog
         Cancel_Button.Enabled = False
 
         For i = 0 To ListBox1.Items.Count - 1
-            InventorDoc = ThisApplication.Documents.ItemByName(ListBox1.Items(i))
+            oInventorDocument = ThisApplication.Documents.ItemByName(ListBox1.Items(i))
 
             Dim IdwFullFileName As String  '工程图全文件名
-            IdwFullFileName = InventorDoc.FullDocumentName
+            IdwFullFileName = oInventorDocument.FullDocumentName
 
             ThisApplication.Documents.ItemByName(IdwFullFileName).Activate()
 
@@ -76,21 +76,21 @@ Public Class AllSaveAsDialog
 
             Select Case SaveModel
                 Case 1
-                    InventorDoc.SaveAs(DwgFullFileName, True)
+                    oInventorDocument.SaveAs(DwgFullFileName, True)
                 Case 2
-                    InventorDoc.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(PdfFullFileName, True)
                 Case 3
-                    InventorDoc.SaveAs(DwgFullFileName, True)
-                    InventorDoc.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(DwgFullFileName, True)
+                    oInventorDocument.SaveAs(PdfFullFileName, True)
             End Select
 
             If CheckBox3.Checked = True Then
                 If CheckBox4.Checked = True Then
                     '保存文件
-                    InventorDoc.Save2(True)
+                    oInventorDocument.Save2(True)
                 End If
                 '关闭，不保存文件
-                InventorDoc.Close(True)
+                oInventorDocument.Close(True)
             End If
 999:
 

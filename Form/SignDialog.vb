@@ -17,8 +17,8 @@ Public Class SignDialog
                 Exit Sub
             End If
 
-            Dim IdwDoc As DrawingDocument
-            IdwDoc = ThisApplication.ActiveDocument
+            Dim oInventorDrawingDocument As Inventor.DrawingDocument
+            oInventorDrawingDocument = ThisApplication.ActiveDocument
 
             Dim Print_Date As String
 
@@ -33,7 +33,7 @@ Public Class SignDialog
                     IsOpenPrint = 1
             End Select
 
-            If SetSign(IdwDoc, TextBox1.Text, Print_Date, True) Then
+            If SetSign(oInventorDrawingDocument, TextBox1.Text, Print_Date, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
                 SetStatusBarText("错误")

@@ -35,9 +35,9 @@ Public Class PrintIPWDialog
             '    GoTo 999
             'End If
 
-            Dim IdwDoc As Inventor.DrawingDocument
+            Dim oInventorDrawingDocument As Inventor.DrawingDocument
             '打开工程图
-            IdwDoc = ThisApplication.Documents.Open(InvDocFullFileName, True)
+            oInventorDrawingDocument = ThisApplication.Documents.Open(InvDocFullFileName, True)
 
             Dim Print_Day As String
             Print_Day = Today.Year & "." & Today.Month & "." & Today.Day
@@ -45,14 +45,14 @@ Public Class PrintIPWDialog
             '设置签字
 
             If CheckBox2.CheckState = CheckState.Checked Then
-                SetSign(IdwDoc, EngineerName, Print_Day, False)
+                SetSign(oInventorDrawingDocument, EngineerName, Print_Day, False)
             End If
 
             '打印文件
-            PrintDrawing(IdwDoc, sPrinterName)
+            PrintDrawing(oInventorDrawingDocument, sPrinterName)
 
             If CheckBox4.Checked = True Then
-                IdwDoc.Close(True)
+                oInventorDrawingDocument.Close(True)
             End If
 
 999:
@@ -105,11 +105,11 @@ Public Class PrintIPWDialog
         Dim destinationFolder As String = Nothing
         Dim inf As FileAttributes
         Dim Present_Folder As String = Nothing
-        Dim NewFolderBrowserDialog As New FolderBrowserDialog
+        Dim oFolderBrowserDialog As New FolderBrowserDialog
 
         Label1.Visible = False
 
-        With NewFolderBrowserDialog
+        With oFolderBrowserDialog
             .ShowNewFolderButton = False
             .Description = "添加文件夹"
             .RootFolder = System.Environment.SpecialFolder.Desktop
@@ -133,13 +133,13 @@ Public Class PrintIPWDialog
     End Sub
 
     '打印文档，打印机名称
-    Private Sub PrintDrawing(ByVal IdwDoc As DrawingDocument, ByVal sPrinterName As String)
+    Private Sub PrintDrawing(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal sPrinterName As String)
 
         ' Set a reference to the print manager object of the active document.
         ' This will fail if a drawing document is not active.
         Dim oPrintMgr As DrawingPrintManager
 
-        oPrintMgr = IdwDoc.PrintManager
+        oPrintMgr = oInventorDrawingDocument.PrintManager
 
         With oPrintMgr
             ' Get the name of the printer that will be used.
@@ -167,7 +167,7 @@ Public Class PrintIPWDialog
 
             ' 如果是打印到打印机，修正为A3
             If CheckBox3.Checked = True Then
-                Select Case IdwDoc.ActiveSheet.Size
+                Select Case oInventorDrawingDocument.ActiveSheet.Size
                     Case DrawingSheetSizeEnum.kA4DrawingSheetSize
                         .PaperSize = PaperSizeEnum.kPaperSizeA4
                     Case DrawingSheetSizeEnum.kA3DrawingSheetSize
@@ -181,7 +181,7 @@ Public Class PrintIPWDialog
                 End Select
             Else
                 '设置为默认纸张大小
-                Select Case IdwDoc.ActiveSheet.Size
+                Select Case oInventorDrawingDocument.ActiveSheet.Size
                     Case DrawingSheetSizeEnum.kA4DrawingSheetSize
                         .PaperSize = PaperSizeEnum.kPaperSizeA4
                     Case DrawingSheetSizeEnum.kA3DrawingSheetSize
@@ -200,7 +200,7 @@ Public Class PrintIPWDialog
             .ScaleMode = PrintScaleModeEnum.kPrintBestFitScale
 
             '设置方向
-            Select Case IdwDoc.ActiveSheet.Orientation
+            Select Case oInventorDrawingDocument.ActiveSheet.Orientation
                 Case PageOrientationTypeEnum.kLandscapePageOrientation
                     .Orientation = PrintOrientationEnum.kLandscapeOrientation
                 Case PageOrientationTypeEnum.kPortraitPageOrientation
@@ -230,12 +230,12 @@ Public Class PrintIPWDialog
     End Sub
 
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
-        Dim NewOpenFileDialog As New OpenFileDialog
+        Dim oOpenFileDialog As New OpenFileDialog
         Dim AssDoc As AssemblyDocument = Nothing
 
         Label1.Visible = False
 
-        With NewOpenFileDialog
+        With oOpenFileDialog
             .Title = "打开"
             .Filter = "AutoDesk Inventor 部件(*.iam)|*.iam" '添加过滤文件
             .Multiselect = False  '多开文件打开
@@ -250,15 +250,15 @@ Public Class PrintIPWDialog
         End With
 
         ' 获取所有引用文档
-        Dim oRefDocs As DocumentsEnumerator
-        oRefDocs = AssDoc.AllReferencedDocuments
+        Dim oAllReferencedDocuments As DocumentsEnumerator
+        oAllReferencedDocuments = AssDoc.AllReferencedDocuments
 
         ' 遍历这些文档
-        Dim oRefDoc As Document
-        For Each oRefDoc In oRefDocs
+
+        For Each ReferencedDocument As Inventor.Document In oAllReferencedDocuments
 
             Dim FullFileName As String
-            FullFileName = oRefDoc.FullDocumentName
+            FullFileName = ReferencedDocument.FullDocumentName
 
             Dim IdwFullFileName As String
             IdwFullFileName = GetNewExtensionFileName(FullFileName, ".idw")
@@ -291,7 +291,7 @@ Public Class PrintIPWDialog
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
 
-        Dim InventorDoc As Inventor.Document
+
 
         Try
             Label1.Visible = False
@@ -302,9 +302,9 @@ Public Class PrintIPWDialog
                 Exit Sub
             End If
 
-            For Each InventorDoc In ThisApplication.Documents
-                If InventorDoc.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
-                    ListView1.Items.Add(InventorDoc.FullDocumentName)
+            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
+                If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
+                    ListView1.Items.Add(oInventorDocument.FullDocumentName)
                 End If
             Next
 

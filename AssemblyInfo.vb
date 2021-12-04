@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("InventorAddIn")> 
-<Assembly: AssemblyDescription("For Inventor 2015")> 
+<Assembly: AssemblyDescription("InventorAddIn For Inventor 2015")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("InventorAddIn")> 
 <Assembly: AssemblyCopyright("")> 
@@ -28,5 +28,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.21.11.28")> 
-<Assembly: AssemblyFileVersionAttribute("1.21.11.28")> 
+<Assembly: AssemblyVersion("1.21.12.4")> 
+<Assembly: AssemblyFileVersionAttribute("1.21.12.4")> 

@@ -49,24 +49,24 @@ Public Class SaveAsDialog
                 Exit Sub
             End If
 
-            Dim InvDoc As Inventor.Document
-            InvDoc = ThisApplication.Documents.Open(InvDocFullFileName, True)
+            Dim oInventorDocument As Inventor.Document
+            oInventorDocument = ThisApplication.Documents.Open(InvDocFullFileName, True)
 
             Select Case SaveModel
                 Case 1
-                    InvDoc.SaveAs(DwgFullFileName, True)
+                    oInventorDocument.SaveAs(DwgFullFileName, True)
                 Case 2
-                    InvDoc.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(PdfFullFileName, True)
                 Case 3
-                    InvDoc.SaveAs(DwgFullFileName, True)
-                    InvDoc.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(DwgFullFileName, True)
+                    oInventorDocument.SaveAs(PdfFullFileName, True)
                 Case 4
                 Case 5
                 Case 6
                 Case 7
             End Select
 
-            InvDoc.Close(True)
+            oInventorDocument.Close(True)
 
 999:
         Next
@@ -85,9 +85,9 @@ Public Class SaveAsDialog
     '添加文件
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         '打开文件
-        Dim NewOpenFileDialog As New OpenFileDialog '声名新open 窗口
+        Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-        With NewOpenFileDialog
+        With oOpenFileDialog
             .Title = "打开"
             .Filter = "AutoDesk Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
             .Multiselect = True '多开文件打开
@@ -113,9 +113,9 @@ Public Class SaveAsDialog
         Dim destinationFolder As String = Nothing
         Dim inf As FileAttributes
         Dim Present_Folder As String = Nothing
-        Dim NewFolderBrowserDialog As New FolderBrowserDialog
+        Dim oFolderBrowserDialog As New FolderBrowserDialog
 
-        With NewFolderBrowserDialog
+        With oFolderBrowserDialog
             .ShowNewFolderButton = False
             .Description = "添加文件夹"
             .RootFolder = System.Environment.SpecialFolder.Desktop
