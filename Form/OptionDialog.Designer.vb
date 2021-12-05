@@ -537,7 +537,7 @@ Partial Class OptionDialog
         '
         'txt查询列
         '
-        Me.txt查询列.Location = New System.Drawing.Point(401, 50)
+        Me.txt查询列.Location = New System.Drawing.Point(401, 48)
         Me.txt查询列.Name = "txt查询列"
         Me.txt查询列.Size = New System.Drawing.Size(89, 21)
         Me.txt查询列.TabIndex = 15
@@ -546,7 +546,7 @@ Partial Class OptionDialog
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(346, 54)
+        Me.Label16.Location = New System.Drawing.Point(346, 52)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 12)
         Me.Label16.TabIndex = 14
