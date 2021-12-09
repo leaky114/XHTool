@@ -220,6 +220,13 @@
   <data name="打印323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\打印323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="打开ERP数据文件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\打开ERP数据文件161624..ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开ERP数据文件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\打开ERP数据文件323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="打开全部工程图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\打开全部工程图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -283,7 +290,6 @@
   <data name="查找部件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\查找部件323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="查询材料编码161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\查询材料编码161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
