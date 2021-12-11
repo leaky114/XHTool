@@ -22,34 +22,34 @@ Partial Class AutoPartNumberDialog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.ListView1 = New System.Windows.Forms.ListView
-        Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
-        Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
-        Me.ColumnHeader3 = New System.Windows.Forms.ColumnHeader
-        Me.ColumnHeader4 = New System.Windows.Forms.ColumnHeader
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.TextBox3 = New System.Windows.Forms.TextBox
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.Button6 = New System.Windows.Forms.Button
-        Me.Button7 = New System.Windows.Forms.Button
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(470, 346)
+        Me.OK_Button.Location = New System.Drawing.Point(528, 385)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(57, 33)
         Me.OK_Button.TabIndex = 5
@@ -60,7 +60,7 @@ Partial Class AutoPartNumberDialog
         Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cancel_Button.AutoSize = True
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(533, 346)
+        Me.Cancel_Button.Location = New System.Drawing.Point(591, 385)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(57, 33)
         Me.Cancel_Button.TabIndex = 6
@@ -68,8 +68,8 @@ Partial Class AutoPartNumberDialog
         '
         'Button1
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(87, 346)
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(107, 385)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(69, 33)
         Me.Button1.TabIndex = 0
@@ -79,8 +79,8 @@ Partial Class AutoPartNumberDialog
         '
         'Button2
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(393, 346)
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Location = New System.Drawing.Point(413, 385)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(69, 33)
         Me.Button2.TabIndex = 4
@@ -89,8 +89,8 @@ Partial Class AutoPartNumberDialog
         '
         'Button3
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(158, 346)
+        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button3.Location = New System.Drawing.Point(178, 385)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(81, 33)
         Me.Button3.TabIndex = 21
@@ -108,7 +108,7 @@ Partial Class AutoPartNumberDialog
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(13, 12)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(578, 242)
+        Me.ListView1.Size = New System.Drawing.Size(636, 281)
         Me.ListView1.TabIndex = 22
         Me.ListView1.TabStop = False
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -137,7 +137,7 @@ Partial Class AutoPartNumberDialog
         'TextBox1
         '
         Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(79, 276)
+        Me.TextBox1.Location = New System.Drawing.Point(79, 315)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(134, 21)
         Me.TextBox1.TabIndex = 0
@@ -146,7 +146,7 @@ Partial Class AutoPartNumberDialog
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(22, 279)
+        Me.Label1.Location = New System.Drawing.Point(22, 318)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 12)
         Me.Label1.TabIndex = 25
@@ -156,7 +156,7 @@ Partial Class AutoPartNumberDialog
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(219, 279)
+        Me.Label2.Location = New System.Drawing.Point(219, 318)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(65, 12)
         Me.Label2.TabIndex = 26
@@ -166,7 +166,7 @@ Partial Class AutoPartNumberDialog
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(397, 279)
+        Me.Label3.Location = New System.Drawing.Point(397, 318)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 12)
         Me.Label3.TabIndex = 28
@@ -175,7 +175,7 @@ Partial Class AutoPartNumberDialog
         'TextBox3
         '
         Me.TextBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox3.Location = New System.Drawing.Point(478, 276)
+        Me.TextBox3.Location = New System.Drawing.Point(478, 315)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(73, 21)
         Me.TextBox3.TabIndex = 2
@@ -186,7 +186,7 @@ Partial Class AutoPartNumberDialog
         Me.ComboBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"100", "10000"})
-        Me.ComboBox1.Location = New System.Drawing.Point(292, 276)
+        Me.ComboBox1.Location = New System.Drawing.Point(292, 315)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(99, 20)
         Me.ComboBox1.TabIndex = 2
@@ -194,8 +194,8 @@ Partial Class AutoPartNumberDialog
         '
         'Button4
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(244, 346)
+        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button4.Location = New System.Drawing.Point(264, 385)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(69, 33)
         Me.Button4.TabIndex = 29
@@ -204,8 +204,8 @@ Partial Class AutoPartNumberDialog
         '
         'Button5
         '
-        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(318, 346)
+        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button5.Location = New System.Drawing.Point(338, 385)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(69, 33)
         Me.Button5.TabIndex = 30
@@ -216,7 +216,7 @@ Partial Class AutoPartNumberDialog
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(20, 307)
+        Me.Label4.Location = New System.Drawing.Point(20, 346)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(53, 12)
         Me.Label4.TabIndex = 31
@@ -225,15 +225,15 @@ Partial Class AutoPartNumberDialog
         'TextBox2
         '
         Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.Location = New System.Drawing.Point(79, 303)
+        Me.TextBox2.Location = New System.Drawing.Point(79, 342)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(361, 21)
         Me.TextBox2.TabIndex = 32
         '
         'Button6
         '
-        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Location = New System.Drawing.Point(14, 346)
+        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button6.Location = New System.Drawing.Point(34, 385)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(69, 33)
         Me.Button6.TabIndex = 33
@@ -245,7 +245,7 @@ Partial Class AutoPartNumberDialog
         'Button7
         '
         Me.Button7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button7.Location = New System.Drawing.Point(446, 301)
+        Me.Button7.Location = New System.Drawing.Point(446, 340)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(25, 25)
         Me.Button7.TabIndex = 34
@@ -257,7 +257,7 @@ Partial Class AutoPartNumberDialog
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(603, 388)
+        Me.ClientSize = New System.Drawing.Size(661, 427)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.TextBox2)

@@ -395,9 +395,10 @@ Partial Class OptionDialog
         '
         'Label5
         '
+        Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(12, 22)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(151, 40)
+        Me.Label5.Size = New System.Drawing.Size(41, 12)
         Me.Label5.TabIndex = 4
         Me.Label5.Text = "比例："
         '
@@ -499,11 +500,12 @@ Partial Class OptionDialog
         '
         'Label11
         '
+        Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(12, 22)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(215, 40)
+        Me.Label11.Size = New System.Drawing.Size(41, 12)
         Me.Label11.TabIndex = 4
-        Me.Label11.Text = "比例："
+        Me.Label11.Text = "质量："
         '
         'chk检查更新
         '

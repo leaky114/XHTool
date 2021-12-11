@@ -127,6 +127,24 @@
   <data name="保存关闭323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\保存关闭323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="保存关闭工程图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭工程图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存关闭工程图323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭工程图323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存关闭部件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭部件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存关闭部件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭部件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存关闭零件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭零件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存关闭零件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\保存关闭零件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="修改文件iProperty161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\修改文件iProperty161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -150,6 +168,25 @@
   </data>
   <data name="关于323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\关于323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭工程图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭工程图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭工程图323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭工程图323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭部件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭部件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭部件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭部件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="关闭零件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭零件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭零件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon\关闭零件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="刷新引用161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\刷新引用161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,7 +257,6 @@
   <data name="打印323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\打印323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="打开ERP数据文件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icon\打开ERP数据文件161624..ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
