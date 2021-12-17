@@ -21,7 +21,7 @@ Public Class OptionDialog
 
         Excel_File_Name = txtexcel文件.Text
         Sheet_Name = txt数据表.Text
-        Table_Array = txt查找范围.Text
+        Table_Arrays = txt查找范围.Text
         Col_Index_Num = txt查询列.Text
 
         '打印签字
@@ -122,7 +122,7 @@ Public Class OptionDialog
 
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Excel_File_Name", Excel_File_Name)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", Sheet_Name)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", Table_Array)
+        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", Table_Arrays)
         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", Col_Index_Num)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
@@ -215,7 +215,7 @@ Public Class OptionDialog
 
         txtexcel文件.Text = Excel_File_Name
         txt数据表.Text = Sheet_Name
-        txt查找范围.Text = Table_Array
+        txt查找范围.Text = Table_Arrays
         txt查询列.Text = Col_Index_Num
 
     End Sub

@@ -4,7 +4,7 @@ Imports Inventor.SelectTypeEnum
 Imports Inventor.DocumentTypeEnum
 Imports Inventor
 
-Public Class GetPartDialog
+Public Class SearchCoding
 
     '添加
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click

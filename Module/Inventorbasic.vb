@@ -1135,6 +1135,63 @@ Module InventorBasic
 
     End Function
 
+    '获取 StockNumPartName
+    Public Function GetPropitems(ByVal oInventorDocument As Inventor.Document) As StockNumPartName
+        Dim oPropSets As PropertySets
+        Dim oPropSet As PropertySet
+        Dim propitem As [Property]
+
+        oPropSets = oInventorDocument.PropertySets
+        oPropSet = oPropSets.Item(3)
+
+        Dim oStockNumPartName As StockNumPartName = Nothing
+
+        For Each propitem In oPropSet
+            Select Case propitem.DisplayName
+                Case Map_PartName
+                    oStockNumPartName.PartName = propitem.Value
+                Case Map_StochNum
+                    oStockNumPartName.StockNum = propitem.Value
+                Case Map_PartNum
+                    oStockNumPartName.PartNum = propitem.Value
+            End Select
+        Next
+
+        oInventorDocument.Update()   '刷新数据
+
+        Return oStockNumPartName
+
+    End Function
+
+    '设置 StockNumPartName
+    Public Function SetPropitems(ByVal oInventorDocument As Inventor.Document, ByVal oStockNumPartName As StockNumPartName) As Boolean
+        Dim oPropSets As PropertySets
+        Dim oPropSet As PropertySet
+        Dim propitem As [Property]
+
+        oPropSets = oInventorDocument.PropertySets
+        oPropSet = oPropSets.Item(3)
+
+
+        For Each propitem In oPropSet
+            Select Case propitem.DisplayName
+                Case Map_PartName
+                    propitem.Value = oStockNumPartName.PartName
+                Case Map_StochNum
+                    propitem.Value = oStockNumPartName.StockNum
+                Case Map_PartNum
+                    propitem.Value = oStockNumPartName.PartNum
+            End Select
+        Next
+
+        oInventorDocument.Update()   '刷新数据
+
+        Return True
+
+    End Function
+
+
+
     '提取iproperty更改文件名
     Public Function GetIpropertyToRename(ByVal InventorDoc As Inventor.Document, ByVal OldOcc As ComponentOccurrence) As Boolean
         Dim OldFullFileName As String   '被替换的旧文件全名

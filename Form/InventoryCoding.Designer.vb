@@ -24,21 +24,13 @@ Partial Class InventoryCoding
     Private Sub InitializeComponent()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.导入Excel文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.编辑ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.清空列表ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.工具ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.开始导入数据ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ListView1
@@ -46,11 +38,11 @@ Partial Class InventoryCoding
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader3, Me.ColumnHeader2, Me.ColumnHeader4})
         Me.ListView1.FullRowSelect = True
-        Me.ListView1.Location = New System.Drawing.Point(12, 28)
+        Me.ListView1.Location = New System.Drawing.Point(12, 13)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(488, 221)
+        Me.ListView1.Size = New System.Drawing.Size(569, 254)
         Me.ListView1.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListView1.TabIndex = 0
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -59,108 +51,76 @@ Partial Class InventoryCoding
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "存货编码"
-        Me.ColumnHeader1.Width = 150
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "存货名称"
-        Me.ColumnHeader2.Width = 200
+        Me.ColumnHeader1.Width = 100
         '
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "规格(图号)"
-        Me.ColumnHeader3.Width = 100
+        Me.ColumnHeader3.Width = 150
         '
-        'MenuStrip1
+        'ColumnHeader2
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.文件ToolStripMenuItem, Me.编辑ToolStripMenuItem, Me.工具ToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(512, 25)
-        Me.MenuStrip1.TabIndex = 1
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.ColumnHeader2.Text = "存货名称"
+        Me.ColumnHeader2.Width = 120
         '
-        '文件ToolStripMenuItem
+        'ColumnHeader4
         '
-        Me.文件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.导入Excel文件ToolStripMenuItem, Me.ToolStripSeparator1, Me.退出ToolStripMenuItem})
-        Me.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem"
-        Me.文件ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.文件ToolStripMenuItem.Text = "文件"
+        Me.ColumnHeader4.Text = "文件"
+        Me.ColumnHeader4.Width = 200
         '
-        '导入Excel文件ToolStripMenuItem
+        'Button5
         '
-        Me.导入Excel文件ToolStripMenuItem.Name = "导入Excel文件ToolStripMenuItem"
-        Me.导入Excel文件ToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.导入Excel文件ToolStripMenuItem.Text = "导入Excel文件"
+        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button5.Location = New System.Drawing.Point(296, 277)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(69, 33)
+        Me.Button5.TabIndex = 33
+        Me.Button5.Text = "装载"
+        Me.Button5.UseVisualStyleBackColor = True
         '
-        'ToolStripSeparator1
+        'Cancel_Button
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(150, 6)
+        Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Cancel_Button.AutoSize = True
+        Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Cancel_Button.Location = New System.Drawing.Point(521, 277)
+        Me.Cancel_Button.Name = "Cancel_Button"
+        Me.Cancel_Button.Size = New System.Drawing.Size(69, 33)
+        Me.Cancel_Button.TabIndex = 32
+        Me.Cancel_Button.Text = "关闭"
         '
-        '退出ToolStripMenuItem
+        'OK_Button
         '
-        Me.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem"
-        Me.退出ToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.退出ToolStripMenuItem.Text = "退出"
+        Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OK_Button.Location = New System.Drawing.Point(371, 277)
+        Me.OK_Button.Name = "OK_Button"
+        Me.OK_Button.Size = New System.Drawing.Size(69, 33)
+        Me.OK_Button.TabIndex = 31
+        Me.OK_Button.Text = "查询"
         '
-        '编辑ToolStripMenuItem
+        'Button1
         '
-        Me.编辑ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.清空列表ToolStripMenuItem})
-        Me.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem"
-        Me.编辑ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.编辑ToolStripMenuItem.Text = "编辑"
-        '
-        '清空列表ToolStripMenuItem
-        '
-        Me.清空列表ToolStripMenuItem.Name = "清空列表ToolStripMenuItem"
-        Me.清空列表ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.清空列表ToolStripMenuItem.Text = "清空列表"
-        '
-        '工具ToolStripMenuItem
-        '
-        Me.工具ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.开始导入数据ToolStripMenuItem})
-        Me.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem"
-        Me.工具ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
-        Me.工具ToolStripMenuItem.Text = "工具"
-        '
-        '开始导入数据ToolStripMenuItem
-        '
-        Me.开始导入数据ToolStripMenuItem.Name = "开始导入数据ToolStripMenuItem"
-        Me.开始导入数据ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.开始导入数据ToolStripMenuItem.Text = "开始导入数据"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 260)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(512, 22)
-        Me.StatusStrip1.TabIndex = 2
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(466, 17)
-        Me.ToolStripStatusLabel1.Spring = True
-        Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(446, 277)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(69, 33)
+        Me.Button1.TabIndex = 34
+        Me.Button1.Text = "写入"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'InventoryCoding
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(512, 282)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.ClientSize = New System.Drawing.Size(593, 322)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.Cancel_Button)
+        Me.Controls.Add(Me.OK_Button)
         Me.Controls.Add(Me.ListView1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
         Me.Name = "InventoryCoding"
         Me.Text = "导入存货编码"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -169,15 +129,9 @@ Partial Class InventoryCoding
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents 文件ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 导入Excel文件ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 退出ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents 编辑ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 清空列表ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 工具ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 开始导入数据ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Cancel_Button As System.Windows.Forms.Button
+    Friend WithEvents OK_Button As System.Windows.Forms.Button
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

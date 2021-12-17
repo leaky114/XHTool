@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class GetPartDialog
+Partial Class SearchCoding
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -180,7 +180,6 @@ Partial Class GetPartDialog
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " "
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
