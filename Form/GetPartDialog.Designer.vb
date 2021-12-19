@@ -158,7 +158,7 @@ Partial Class SearchCoding
         Me.Button3.Text = "C"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'GetPartDialog
+        'SearchCoding
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -173,13 +173,15 @@ Partial Class SearchCoding
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.Cancel_Button)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "GetPartDialog"
+        Me.Name = "SearchCoding"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = " "
+        Me.Text = "统计质量面积"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

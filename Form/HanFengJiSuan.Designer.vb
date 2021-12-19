@@ -166,9 +166,11 @@ Partial Class HanFengJiSuan
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "HanFengJiSuan"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "焊缝计算"
+        Me.TopMost = True
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

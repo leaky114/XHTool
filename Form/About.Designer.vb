@@ -23,16 +23,16 @@ Partial Class About
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OKButton = New System.Windows.Forms.Button
-        Me.LabelVersion = New System.Windows.Forms.Label
-        Me.LabelCopyright = New System.Windows.Forms.Label
-        Me.LabelCompanyName = New System.Windows.Forms.Label
-        Me.LabelProductName = New System.Windows.Forms.Label
-        Me.TextBoxDescription = New System.Windows.Forms.TextBox
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
+        Me.OKButton = New System.Windows.Forms.Button()
+        Me.LabelVersion = New System.Windows.Forms.Label()
+        Me.LabelCopyright = New System.Windows.Forms.Label()
+        Me.LabelCompanyName = New System.Windows.Forms.Label()
+        Me.LabelProductName = New System.Windows.Forms.Label()
+        Me.TextBoxDescription = New System.Windows.Forms.TextBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
