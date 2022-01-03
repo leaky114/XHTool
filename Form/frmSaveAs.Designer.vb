@@ -22,227 +22,227 @@ Partial Class frmSaveAs
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnStart = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnAddFile = New System.Windows.Forms.Button()
-        Me.btnClearList = New System.Windows.Forms.Button()
-        Me.btnAddFolder = New System.Windows.Forms.Button()
+        Me.btn开始 = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.btn添加文件 = New System.Windows.Forms.Button()
+        Me.btn清空列表 = New System.Windows.Forms.Button()
+        Me.btn添加文件夹 = New System.Windows.Forms.Button()
         Me.chkDwg = New System.Windows.Forms.CheckBox()
         Me.chkPdf = New System.Windows.Forms.CheckBox()
-        Me.chkPic = New System.Windows.Forms.CheckBox()
-        Me.txtString = New System.Windows.Forms.TextBox()
-        Me.rdoSameFolder = New System.Windows.Forms.RadioButton()
-        Me.rdoLocal = New System.Windows.Forms.RadioButton()
-        Me.btnRemove = New System.Windows.Forms.Button()
-        Me.btnOpenFolder = New System.Windows.Forms.Button()
-        Me.lvwFileListView = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.SuspendLayout
+        Me.chkStep = New System.Windows.Forms.CheckBox()
+        Me.txt文件夹路径 = New System.Windows.Forms.TextBox()
+        Me.rdo同一文件夹 = New System.Windows.Forms.RadioButton()
+        Me.rdo当前文件夹 = New System.Windows.Forms.RadioButton()
+        Me.btn移出 = New System.Windows.Forms.Button()
+        Me.btn设置文件夹 = New System.Windows.Forms.Button()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.SuspendLayout()
         '
-        'btnStart
+        'btn开始
         '
-        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(385, 298)
-        Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(57, 28)
-        Me.btnStart.TabIndex = 1
-        Me.btnStart.Text = "开始"
+        Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn开始.Location = New System.Drawing.Point(385, 298)
+        Me.btn开始.Name = "btn开始"
+        Me.btn开始.Size = New System.Drawing.Size(57, 28)
+        Me.btn开始.TabIndex = 1
+        Me.btn开始.Text = "开始"
         '
-        'btnClose
+        'btn关闭
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(448, 298)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(57, 28)
-        Me.btnClose.TabIndex = 1
-        Me.btnClose.Text = "关闭"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(448, 298)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(57, 28)
+        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.Text = "关闭"
         '
-        'btnAddFile
+        'btn添加文件
         '
-        Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(23, 298)
-        Me.btnAddFile.Name = "btnAddFile"
-        Me.btnAddFile.Size = New System.Drawing.Size(69, 28)
-        Me.btnAddFile.TabIndex = 0
-        Me.btnAddFile.Text = "添加文件"
-        Me.btnAddFile.UseVisualStyleBackColor = true
+        Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件.Location = New System.Drawing.Point(23, 298)
+        Me.btn添加文件.Name = "btn添加文件"
+        Me.btn添加文件.Size = New System.Drawing.Size(69, 28)
+        Me.btn添加文件.TabIndex = 0
+        Me.btn添加文件.Text = "添加文件"
+        Me.btn添加文件.UseVisualStyleBackColor = True
         '
-        'btnClearList
+        'btn清空列表
         '
-        Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(189, 298)
-        Me.btnClearList.Name = "btnClearList"
-        Me.btnClearList.Size = New System.Drawing.Size(69, 28)
-        Me.btnClearList.TabIndex = 20
-        Me.btnClearList.Text = "清除列表"
-        Me.btnClearList.UseVisualStyleBackColor = true
+        Me.btn清空列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn清空列表.Location = New System.Drawing.Point(189, 298)
+        Me.btn清空列表.Name = "btn清空列表"
+        Me.btn清空列表.Size = New System.Drawing.Size(69, 28)
+        Me.btn清空列表.TabIndex = 20
+        Me.btn清空列表.Text = "清空列表"
+        Me.btn清空列表.UseVisualStyleBackColor = True
         '
-        'btnAddFolder
+        'btn添加文件夹
         '
-        Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(100, 298)
-        Me.btnAddFolder.Name = "btnAddFolder"
-        Me.btnAddFolder.Size = New System.Drawing.Size(81, 28)
-        Me.btnAddFolder.TabIndex = 21
-        Me.btnAddFolder.Text = "添加文件夹"
-        Me.btnAddFolder.UseVisualStyleBackColor = true
+        Me.btn添加文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件夹.Location = New System.Drawing.Point(100, 298)
+        Me.btn添加文件夹.Name = "btn添加文件夹"
+        Me.btn添加文件夹.Size = New System.Drawing.Size(81, 28)
+        Me.btn添加文件夹.TabIndex = 21
+        Me.btn添加文件夹.Text = "添加文件夹"
+        Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
         'chkDwg
         '
-        Me.chkDwg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.chkDwg.AutoSize = true
+        Me.chkDwg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkDwg.AutoSize = True
+        Me.chkDwg.Checked = True
+        Me.chkDwg.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDwg.Location = New System.Drawing.Point(20, 245)
         Me.chkDwg.Name = "chkDwg"
         Me.chkDwg.Size = New System.Drawing.Size(90, 16)
         Me.chkDwg.TabIndex = 22
         Me.chkDwg.Text = "AutoCAD.dwg"
-        Me.chkDwg.UseVisualStyleBackColor = true
+        Me.chkDwg.UseVisualStyleBackColor = True
         '
         'chkPdf
         '
-        Me.chkPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.chkPdf.AutoSize = true
+        Me.chkPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkPdf.AutoSize = True
         Me.chkPdf.Location = New System.Drawing.Point(135, 245)
         Me.chkPdf.Name = "chkPdf"
         Me.chkPdf.Size = New System.Drawing.Size(78, 16)
         Me.chkPdf.TabIndex = 23
         Me.chkPdf.Text = "Adobe.pdf"
-        Me.chkPdf.UseVisualStyleBackColor = true
+        Me.chkPdf.UseVisualStyleBackColor = True
         '
-        'chkPic
+        'chkStep
         '
-        Me.chkPic.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.chkPic.AutoSize = true
-        Me.chkPic.Enabled = false
-        Me.chkPic.Location = New System.Drawing.Point(231, 245)
-        Me.chkPic.Name = "chkPic"
-        Me.chkPic.Size = New System.Drawing.Size(72, 16)
-        Me.chkPic.TabIndex = 24
-        Me.chkPic.Text = "图片.jpg"
-        Me.chkPic.UseVisualStyleBackColor = true
-        Me.chkPic.Visible = false
+        Me.chkStep.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkStep.AutoSize = True
+        Me.chkStep.Location = New System.Drawing.Point(231, 245)
+        Me.chkStep.Name = "chkStep"
+        Me.chkStep.Size = New System.Drawing.Size(72, 16)
+        Me.chkStep.TabIndex = 24
+        Me.chkStep.Text = "Step文件"
+        Me.chkStep.UseVisualStyleBackColor = True
         '
-        'txtString
+        'txt文件夹路径
         '
-        Me.txtString.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.txtString.Location = New System.Drawing.Point(20, 267)
-        Me.txtString.Name = "txtString"
-        Me.txtString.Size = New System.Drawing.Size(445, 21)
-        Me.txtString.TabIndex = 29
+        Me.txt文件夹路径.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txt文件夹路径.Location = New System.Drawing.Point(20, 267)
+        Me.txt文件夹路径.Name = "txt文件夹路径"
+        Me.txt文件夹路径.Size = New System.Drawing.Size(445, 21)
+        Me.txt文件夹路径.TabIndex = 29
         '
-        'rdoSameFolder
+        'rdo同一文件夹
         '
-        Me.rdoSameFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.rdoSameFolder.AutoSize = true
-        Me.rdoSameFolder.Location = New System.Drawing.Point(416, 245)
-        Me.rdoSameFolder.Name = "rdoSameFolder"
-        Me.rdoSameFolder.Size = New System.Drawing.Size(95, 16)
-        Me.rdoSameFolder.TabIndex = 28
-        Me.rdoSameFolder.Text = "同一个文件夹"
-        Me.rdoSameFolder.UseVisualStyleBackColor = true
+        Me.rdo同一文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.rdo同一文件夹.AutoSize = True
+        Me.rdo同一文件夹.Location = New System.Drawing.Point(416, 245)
+        Me.rdo同一文件夹.Name = "rdo同一文件夹"
+        Me.rdo同一文件夹.Size = New System.Drawing.Size(95, 16)
+        Me.rdo同一文件夹.TabIndex = 28
+        Me.rdo同一文件夹.Text = "同一个文件夹"
+        Me.rdo同一文件夹.UseVisualStyleBackColor = True
         '
-        'rdoLocal
+        'rdo当前文件夹
         '
-        Me.rdoLocal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.rdoLocal.AutoSize = true
-        Me.rdoLocal.Checked = true
-        Me.rdoLocal.Location = New System.Drawing.Point(318, 245)
-        Me.rdoLocal.Name = "rdoLocal"
-        Me.rdoLocal.Size = New System.Drawing.Size(83, 16)
-        Me.rdoLocal.TabIndex = 27
-        Me.rdoLocal.TabStop = true
-        Me.rdoLocal.Text = "当前文件夹"
-        Me.rdoLocal.UseVisualStyleBackColor = true
+        Me.rdo当前文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.rdo当前文件夹.AutoSize = True
+        Me.rdo当前文件夹.Checked = True
+        Me.rdo当前文件夹.Location = New System.Drawing.Point(318, 245)
+        Me.rdo当前文件夹.Name = "rdo当前文件夹"
+        Me.rdo当前文件夹.Size = New System.Drawing.Size(83, 16)
+        Me.rdo当前文件夹.TabIndex = 27
+        Me.rdo当前文件夹.TabStop = True
+        Me.rdo当前文件夹.Text = "当前文件夹"
+        Me.rdo当前文件夹.UseVisualStyleBackColor = True
         '
-        'btnRemove
+        'btn移出
         '
-        Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(266, 298)
-        Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(69, 28)
-        Me.btnRemove.TabIndex = 30
-        Me.btnRemove.Text = "移除"
-        Me.btnRemove.UseVisualStyleBackColor = true
+        Me.btn移出.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn移出.Location = New System.Drawing.Point(266, 298)
+        Me.btn移出.Name = "btn移出"
+        Me.btn移出.Size = New System.Drawing.Size(69, 28)
+        Me.btn移出.TabIndex = 30
+        Me.btn移出.Text = "移除"
+        Me.btn移出.UseVisualStyleBackColor = True
         '
-        'btnOpenFolder
+        'btn设置文件夹
         '
-        Me.btnOpenFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-        Me.btnOpenFolder.Location = New System.Drawing.Point(471, 267)
-        Me.btnOpenFolder.Name = "btnOpenFolder"
-        Me.btnOpenFolder.Size = New System.Drawing.Size(34, 21)
-        Me.btnOpenFolder.TabIndex = 31
-        Me.btnOpenFolder.Text = "..."
-        Me.btnOpenFolder.UseVisualStyleBackColor = true
+        Me.btn设置文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn设置文件夹.Location = New System.Drawing.Point(471, 267)
+        Me.btn设置文件夹.Name = "btn设置文件夹"
+        Me.btn设置文件夹.Size = New System.Drawing.Size(34, 21)
+        Me.btn设置文件夹.TabIndex = 31
+        Me.btn设置文件夹.Text = "..."
+        Me.btn设置文件夹.UseVisualStyleBackColor = True
         '
-        'lvwFileListView
+        'lvw文件列表
         '
-        Me.lvwFileListView.AllowColumnReorder = true
-        Me.lvwFileListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
-            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-        Me.lvwFileListView.AutoArrange = false
-        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
-        Me.lvwFileListView.FullRowSelect = true
-        Me.lvwFileListView.Location = New System.Drawing.Point(12, 12)
-        Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(493, 217)
-        Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwFileListView.TabIndex = 37
-        Me.lvwFileListView.UseCompatibleStateImageBehavior = false
-        Me.lvwFileListView.View = System.Windows.Forms.View.Details
+        Me.lvw文件列表.AllowColumnReorder = True
+        Me.lvw文件列表.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.AutoArrange = False
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(493, 217)
+        Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.lvw文件列表.TabIndex = 37
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
-        'ColumnHeader1
+        'ColumnHeader文件名
         '
-        Me.ColumnHeader1.Text = "文件名"
-        Me.ColumnHeader1.Width = 650
+        Me.ColumnHeader文件名.Text = "文件名"
+        Me.ColumnHeader文件名.Width = 650
         '
         'frmSaveAs
         '
-        Me.AcceptButton = Me.btnStart
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 12!)
+        Me.AcceptButton = Me.btn开始
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnClose
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(517, 340)
-        Me.Controls.Add(Me.lvwFileListView)
-        Me.Controls.Add(Me.btnOpenFolder)
-        Me.Controls.Add(Me.btnRemove)
-        Me.Controls.Add(Me.txtString)
-        Me.Controls.Add(Me.rdoSameFolder)
-        Me.Controls.Add(Me.rdoLocal)
-        Me.Controls.Add(Me.chkPic)
+        Me.Controls.Add(Me.lvw文件列表)
+        Me.Controls.Add(Me.btn设置文件夹)
+        Me.Controls.Add(Me.btn移出)
+        Me.Controls.Add(Me.txt文件夹路径)
+        Me.Controls.Add(Me.rdo同一文件夹)
+        Me.Controls.Add(Me.rdo当前文件夹)
+        Me.Controls.Add(Me.chkStep)
         Me.Controls.Add(Me.chkPdf)
         Me.Controls.Add(Me.chkDwg)
-        Me.Controls.Add(Me.btnAddFolder)
-        Me.Controls.Add(Me.btnClearList)
-        Me.Controls.Add(Me.btnAddFile)
-        Me.Controls.Add(Me.btnClose)
-        Me.Controls.Add(Me.btnStart)
+        Me.Controls.Add(Me.btn添加文件夹)
+        Me.Controls.Add(Me.btn清空列表)
+        Me.Controls.Add(Me.btn添加文件)
+        Me.Controls.Add(Me.btn关闭)
+        Me.Controls.Add(Me.btn开始)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.MaximizeBox = false
-        Me.MinimizeBox = false
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmSaveAs"
-        Me.ShowIcon = false
-        Me.ShowInTaskbar = false
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "工程图批量另存"
-        Me.ResumeLayout(false)
-        Me.PerformLayout
+        Me.Text = "批量另存"
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
 
-End Sub
-    Friend WithEvents btnStart As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents btnAddFile As System.Windows.Forms.Button
-    Friend WithEvents btnClearList As System.Windows.Forms.Button
-    Friend WithEvents btnAddFolder As System.Windows.Forms.Button
+    End Sub
+    Friend WithEvents btn开始 As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
+    Friend WithEvents btn添加文件 As System.Windows.Forms.Button
+    Friend WithEvents btn清空列表 As System.Windows.Forms.Button
+    Friend WithEvents btn添加文件夹 As System.Windows.Forms.Button
     Friend WithEvents chkDwg As System.Windows.Forms.CheckBox
     Friend WithEvents chkPdf As System.Windows.Forms.CheckBox
-    Friend WithEvents chkPic As System.Windows.Forms.CheckBox
-    Friend WithEvents txtString As System.Windows.Forms.TextBox
-    Friend WithEvents rdoSameFolder As System.Windows.Forms.RadioButton
-    Friend WithEvents rdoLocal As System.Windows.Forms.RadioButton
-    Friend WithEvents btnRemove As System.Windows.Forms.Button
-    Friend WithEvents btnOpenFolder As System.Windows.Forms.Button
-    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chkStep As System.Windows.Forms.CheckBox
+    Friend WithEvents txt文件夹路径 As System.Windows.Forms.TextBox
+    Friend WithEvents rdo同一文件夹 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdo当前文件夹 As System.Windows.Forms.RadioButton
+    Friend WithEvents btn移出 As System.Windows.Forms.Button
+    Friend WithEvents btn设置文件夹 As System.Windows.Forms.Button
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader
 
 End Class

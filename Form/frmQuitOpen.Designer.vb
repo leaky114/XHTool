@@ -22,64 +22,64 @@ Partial Class frmQuitOpen
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.lvwFileListView = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
-        'btnClose
+        'btn关闭
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(856, 266)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 28)
-        Me.btnClose.TabIndex = 3
-        Me.btnClose.Text = "关闭"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(856, 266)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(75, 28)
+        Me.btn关闭.TabIndex = 3
+        Me.btn关闭.Text = "关闭"
         '
-        'lvwFileListView
+        'lvw文件列表
         '
-        Me.lvwFileListView.AllowColumnReorder = True
-        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFileListView.AutoArrange = False
-        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
-        Me.lvwFileListView.FullRowSelect = True
-        Me.lvwFileListView.Location = New System.Drawing.Point(12, 12)
-        Me.lvwFileListView.MultiSelect = False
-        Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(919, 236)
-        Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwFileListView.TabIndex = 37
-        Me.lvwFileListView.UseCompatibleStateImageBehavior = False
-        Me.lvwFileListView.View = System.Windows.Forms.View.Details
+        Me.lvw文件列表.AllowColumnReorder = True
+        Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.AutoArrange = False
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
+        Me.lvw文件列表.MultiSelect = False
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(919, 236)
+        Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.lvw文件列表.TabIndex = 37
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
-        'ColumnHeader1
+        'ColumnHeader文件名
         '
-        Me.ColumnHeader1.Text = "文件名(双击打开)"
-        Me.ColumnHeader1.Width = 900
+        Me.ColumnHeader文件名.Text = "文件名(双击打开)"
+        Me.ColumnHeader文件名.Width = 900
         '
         'frmQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnClose
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(943, 306)
-        Me.Controls.Add(Me.lvwFileListView)
-        Me.Controls.Add(Me.btnClose)
+        Me.Controls.Add(Me.lvw文件列表)
+        Me.Controls.Add(Me.btn关闭)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmQuitOpen"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "快速打开"
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader
 
 End Class

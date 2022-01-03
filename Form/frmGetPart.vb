@@ -1,13 +1,13 @@
-﻿Imports System.Windows.Forms
+﻿Imports Inventor
+Imports Inventor.DocumentTypeEnum
 Imports Inventor.SelectionFilterEnum
 Imports Inventor.SelectTypeEnum
-Imports Inventor.DocumentTypeEnum
-Imports Inventor
+Imports System.Windows.Forms
 
 Public Class frmGetPart
 
     '添加
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
         'Try
         SetStatusBarText()
 
@@ -43,7 +43,7 @@ Public Class frmGetPart
 
             Dim oListViewItem As ListViewItem
             'LVI = ListView1.Items.Add(FNI.ONlyName)
-            oListViewItem = lvwFileList.Items.Add(oSelect.name)
+            oListViewItem = lvw文件列表.Items.Add(oSelect.name)
 
             Dim intQuantity As Integer = 1
             '数量 = InputBox("输入数量", "数量", "1")
@@ -78,13 +78,13 @@ Public Class frmGetPart
         Dim dblSumMass As Double = 0
         Dim dblSumArea As Double = 0
 
-        For Each LVI As ListViewItem In lvwFileList.Items
+        For Each LVI As ListViewItem In lvw文件列表.Items
             dblSumMass = dblSumMass + LVI.SubItems(1).Text * LVI.SubItems(2).Text
             dblSumArea = dblSumArea + LVI.SubItems(1).Text * LVI.SubItems(3).Text
         Next
 
-        txtWeight.Text = dblSumMass.ToString
-        txtArea.Text = dblSumArea.ToString
+        txt质量.Text = dblSumMass.ToString
+        txt面积.Text = dblSumArea.ToString
 
         'Catch ex As Exception
         '    MsgBox(ex.Message)
@@ -92,48 +92,45 @@ Public Class frmGetPart
     End Sub
 
     '移出
-    Private Sub btnMoveOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveOut.Click
-        ListViewDel(lvwFileList)
+    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
+        ListViewDel(lvw文件列表)
         Dim dblSumMass As Double = 0
         Dim dblSumArea As Double = 0
 
-        For Each oListViewItem As ListViewItem In lvwFileList.Items
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
             dblSumMass = dblSumMass + oListViewItem.SubItems(1).Text * oListViewItem.SubItems(2).Text
             dblSumArea = dblSumArea + oListViewItem.SubItems(1).Text * oListViewItem.SubItems(3).Text
         Next
 
-        txtWeight.Text = dblSumMass
-        txtArea.Text = dblSumArea
+        txt质量.Text = dblSumMass
+        txt面积.Text = dblSumArea
     End Sub
 
     '退出
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        lvwFileList.Items.Clear()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
+        lvw文件列表.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Dispose()
     End Sub
 
-    '移出项
-    Private Sub ListViewDel(ByVal ListView As ListView)
-        For i As Integer = ListView.SelectedIndices.Count - 1 To 0 Step -1
-            ListView.Items.RemoveAt(ListView.SelectedIndices(i))
-        Next
-    End Sub
-
     '清空
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
-        lvwFileList.Items.Clear()
-        txtWeight.Clear()
-        txtArea.Clear()
+    Private Sub btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click
+        lvw文件列表.Items.Clear()
+        txt质量.Clear()
+        txt面积.Clear()
     End Sub
 
     '复制总质量到剪贴板
-    Private Sub btnCopyG_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyG.Click
-        My.Computer.Clipboard.SetText(txtWeight.Text)
+    Private Sub btn复制质量_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制质量.Click
+        My.Computer.Clipboard.SetText(txt质量.Text)
     End Sub
 
     '复制总面积到剪贴板
-    Private Sub btnCopyA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyA.Click
-        My.Computer.Clipboard.SetText(txtArea.Text)
+    Private Sub btn复制面积_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制面积.Click
+        My.Computer.Clipboard.SetText(txt面积.Text)
+    End Sub
+
+    Private Sub frmGetPart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

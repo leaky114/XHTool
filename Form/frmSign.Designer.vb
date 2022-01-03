@@ -22,107 +22,107 @@ Partial Class frmSign
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnOK = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
-        Me.lblEngineer = New System.Windows.Forms.Label()
-        Me.lblDate = New System.Windows.Forms.Label()
-        Me.txtEngineer = New System.Windows.Forms.TextBox()
-        Me.dtpDate = New System.Windows.Forms.DateTimePicker()
-        Me.chkSignPrint = New System.Windows.Forms.CheckBox()
+        Me.btn确定 = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.lbl工程师 = New System.Windows.Forms.Label()
+        Me.lbl日期 = New System.Windows.Forms.Label()
+        Me.txt工程师 = New System.Windows.Forms.TextBox()
+        Me.dtp日期 = New System.Windows.Forms.DateTimePicker()
+        Me.chk签字后打印 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
-        'btnOK
+        'btn确定
         '
-        Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnOK.Location = New System.Drawing.Point(74, 109)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(65, 25)
-        Me.btnOK.TabIndex = 0
-        Me.btnOK.Text = "确定"
+        Me.btn确定.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn确定.Location = New System.Drawing.Point(74, 109)
+        Me.btn确定.Name = "btn确定"
+        Me.btn确定.Size = New System.Drawing.Size(65, 25)
+        Me.btn确定.TabIndex = 0
+        Me.btn确定.Text = "确定"
         '
-        'btnCancel
+        'btn关闭
         '
-        Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(147, 109)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(65, 25)
-        Me.btnCancel.TabIndex = 1
-        Me.btnCancel.Text = "取消"
+        Me.btn关闭.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(147, 109)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(65, 25)
+        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.Text = "取消"
         '
-        'lblEngineer
+        'lbl工程师
         '
-        Me.lblEngineer.AutoSize = True
-        Me.lblEngineer.Location = New System.Drawing.Point(12, 9)
-        Me.lblEngineer.Name = "lblEngineer"
-        Me.lblEngineer.Size = New System.Drawing.Size(53, 12)
-        Me.lblEngineer.TabIndex = 1
-        Me.lblEngineer.Text = "工程师："
+        Me.lbl工程师.AutoSize = True
+        Me.lbl工程师.Location = New System.Drawing.Point(12, 9)
+        Me.lbl工程师.Name = "lbl工程师"
+        Me.lbl工程师.Size = New System.Drawing.Size(53, 12)
+        Me.lbl工程师.TabIndex = 1
+        Me.lbl工程师.Text = "工程师："
         '
-        'lblDate
+        'lbl日期
         '
-        Me.lblDate.AutoSize = True
-        Me.lblDate.Location = New System.Drawing.Point(12, 35)
-        Me.lblDate.Name = "lblDate"
-        Me.lblDate.Size = New System.Drawing.Size(47, 12)
-        Me.lblDate.TabIndex = 2
-        Me.lblDate.Text = "日 期："
+        Me.lbl日期.AutoSize = True
+        Me.lbl日期.Location = New System.Drawing.Point(12, 35)
+        Me.lbl日期.Name = "lbl日期"
+        Me.lbl日期.Size = New System.Drawing.Size(47, 12)
+        Me.lbl日期.TabIndex = 2
+        Me.lbl日期.Text = "日 期："
         '
-        'txtEngineer
+        'txt工程师
         '
-        Me.txtEngineer.Location = New System.Drawing.Point(67, 5)
-        Me.txtEngineer.Name = "txtEngineer"
-        Me.txtEngineer.Size = New System.Drawing.Size(136, 21)
-        Me.txtEngineer.TabIndex = 3
+        Me.txt工程师.Location = New System.Drawing.Point(67, 5)
+        Me.txt工程师.Name = "txt工程师"
+        Me.txt工程师.Size = New System.Drawing.Size(136, 21)
+        Me.txt工程师.TabIndex = 3
         '
-        'dtpDate
+        'dtp日期
         '
-        Me.dtpDate.Location = New System.Drawing.Point(64, 35)
-        Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(139, 21)
-        Me.dtpDate.TabIndex = 4
+        Me.dtp日期.Location = New System.Drawing.Point(64, 35)
+        Me.dtp日期.Name = "dtp日期"
+        Me.dtp日期.Size = New System.Drawing.Size(139, 21)
+        Me.dtp日期.TabIndex = 4
         '
-        'chkSignPrint
+        'chk签字后打印
         '
-        Me.chkSignPrint.AutoSize = True
-        Me.chkSignPrint.Location = New System.Drawing.Point(12, 72)
-        Me.chkSignPrint.Name = "chkSignPrint"
-        Me.chkSignPrint.Size = New System.Drawing.Size(84, 16)
-        Me.chkSignPrint.TabIndex = 5
-        Me.chkSignPrint.Text = "签字后打印"
-        Me.chkSignPrint.UseVisualStyleBackColor = True
+        Me.chk签字后打印.AutoSize = True
+        Me.chk签字后打印.Location = New System.Drawing.Point(12, 72)
+        Me.chk签字后打印.Name = "chk签字后打印"
+        Me.chk签字后打印.Size = New System.Drawing.Size(84, 16)
+        Me.chk签字后打印.TabIndex = 5
+        Me.chk签字后打印.Text = "签字后打印"
+        Me.chk签字后打印.UseVisualStyleBackColor = True
         '
         'frmSign
         '
-        Me.AcceptButton = Me.btnOK
+        Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnCancel
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(226, 142)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.chkSignPrint)
-        Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.dtpDate)
-        Me.Controls.Add(Me.txtEngineer)
-        Me.Controls.Add(Me.lblDate)
-        Me.Controls.Add(Me.lblEngineer)
+        Me.Controls.Add(Me.btn确定)
+        Me.Controls.Add(Me.chk签字后打印)
+        Me.Controls.Add(Me.btn关闭)
+        Me.Controls.Add(Me.dtp日期)
+        Me.Controls.Add(Me.txt工程师)
+        Me.Controls.Add(Me.lbl日期)
+        Me.Controls.Add(Me.lbl工程师)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSign"
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " 签字"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnOK As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents lblEngineer As System.Windows.Forms.Label
-    Friend WithEvents lblDate As System.Windows.Forms.Label
-    Friend WithEvents txtEngineer As System.Windows.Forms.TextBox
-    Friend WithEvents dtpDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chkSignPrint As System.Windows.Forms.CheckBox
+    Friend WithEvents btn确定 As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
+    Friend WithEvents lbl工程师 As System.Windows.Forms.Label
+    Friend WithEvents lbl日期 As System.Windows.Forms.Label
+    Friend WithEvents txt工程师 As System.Windows.Forms.TextBox
+    Friend WithEvents dtp日期 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents chk签字后打印 As System.Windows.Forms.CheckBox
 
 End Class

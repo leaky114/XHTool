@@ -3,6 +3,7 @@
 Public NotInheritable Class frmAbout
 
     Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
+    Const Bilibili As String = "https://space.bilibili.com/482062689"
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
@@ -41,12 +42,12 @@ Public NotInheritable Class frmAbout
 
     End Sub
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Dispose()
     End Sub
 
-    Private Sub btnCheckUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckUpdate.Click
+    Private Sub btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
 
         '启动更新程序
         NewUpdater.UpDate3()
@@ -62,7 +63,11 @@ Public NotInheritable Class frmAbout
 
     End Sub
 
-    Private Sub btnGit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGit.Click
+    Private Sub lblGitCode_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblGitCode.LinkClicked
         Process.Start(GitWeb)
+    End Sub
+
+    Private Sub lblBilibili_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblBilibili.LinkClicked
+        Process.Start(Bilibili)
     End Sub
 End Class

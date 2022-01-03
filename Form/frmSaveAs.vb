@@ -1,36 +1,39 @@
-﻿Imports System.Windows.Forms
-Imports Inventor
-Imports System
-Imports System.IO
+﻿Imports Inventor
 Imports Microsoft
 Imports Microsoft.VisualBasic
-Imports System.Collections.ObjectModel
 'Imports Microsoft.VisualBasic.Compatibility
 Imports stdole
+Imports System
+Imports System.Collections.ObjectModel
+Imports System.IO
+Imports System.Windows.Forms
 
 Public Class frmSaveAs
 
     '量产开始
-    Private Sub btnStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStart.Click
+    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
+        On Error Resume Next
         Dim strDwgFullFileName As String = Nothing         'dwg 文件全文件名
         Dim strPdfFullFileName As String = Nothing         'pdf 文件全文件名
         Dim strJpgFullFileName As String = Nothing      'jpg文件全文件名
-        Dim strInventorDrawingFullFileName As String = Nothing   '工程图全文件名
+        Dim strStpFullFileName As String = Nothing      'stp文件全文件名
+        Dim strInventorFullFileName As String = Nothing   '文档文件名
 
-        If lvwFileListView.Items.Count = 0 Then
-            MsgBox("未添加工程图文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
+        If lvw文件列表.Items.Count = 0 Then
+            MsgBox("未添加文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
             Exit Sub
         End If
 
-        btnStart.Enabled = False
+        'btnStart.Enabled = False
         'ThisApplication.Cursor  = Cursors.WaitCursor
 
-        For i = 0 To lvwFileListView.Items.Count - 1
+        For i = 0 To lvw文件列表.Items.Count - 1
+            '当前项标记颜色
+            lvw文件列表.Items(i).ForeColor = Drawing.Color.BlueViolet
 
-            'lvwFileListView.SelectedIndices.Item = i
-            '打开文件
+            strInventorFullFileName = lvw文件列表.Items(i).Text
 
-            If IsFileExsts(strInventorDrawingFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
             End If
 
@@ -40,7 +43,7 @@ Public Class frmSaveAs
 
             Dim intSaveModel As Integer
 
-            intSaveModel = chkDwg.CheckState + chkPdf.CheckState * 2 + chkPic.CheckState * 4
+            intSaveModel = chkDwg.CheckState + chkPdf.CheckState * 2 + chkStep.CheckState * 4
 
             If intSaveModel = 0 Then
                 MsgBox("未选择另存为的文件类型！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
@@ -48,87 +51,101 @@ Public Class frmSaveAs
             End If
 
             '当前文件夹
-            If rdoLocal.Checked = True Then
-                strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
-                strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
-                'strJpgFullFileName= Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".bmp")
+            If rdo当前文件夹.Checked = True Then
+                strDwgFullFileName = GetChangeExtension(strInventorFullFileName, DWG)   'Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".dwg")
+                strPdfFullFileName = GetChangeExtension(strInventorFullFileName, PDF) 'Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".pdf")
+                strStpFullFileName = GetChangeExtension(strInventorFullFileName, STP) ' Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".bmp")
             End If
 
             '同一文件夹
-            If rdoSameFolder.Checked = True Then
+            If rdo同一文件夹.Checked = True Then
 
                 Dim Present_Folder As String       '指定文件夹
-                Present_Folder = txtString.Text
+                Present_Folder = txt文件夹路径.Text
 
-                If IsDirectoryExists(Present_Folder) = True Then
-
-                    strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, Present_Folder)
-                    strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, Present_Folder)
-                    'strJpgFullFileName = Strings.Replace(IdwFullFileName, GetFileNameInfo(IdwFullFileName).Folder, Present_Folder)
-
-                    strDwgFullFileName = Strings.Replace(strDwgFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
-                    strPdfFullFileName = Strings.Replace(strPdfFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
-                    'strJpgFullFileName= Strings.Replace(DwgFullFileName, LCaseGetFileExtension(IdwFullFileName), ".bmp")
-
-                Else
-                    MsgBox("指定文件夹不存在。", MsgBoxStyle.Critical, "全部另存为")
-                    Exit Sub
+                If IsDirectoryExists(Present_Folder) = False Then
+                    IO.Directory.CreateDirectory(Present_Folder)
+                    'Exit Sub
                 End If
+
+                'strDwgFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
+                'strPdfFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
+                'strJpgFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
+
+                strDwgFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & DWG
+                strPdfFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & PDF
+                strStpFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & STP
 
             End If
 
             Dim oInventorDocument As Inventor.Document
-            oInventorDocument = ThisApplication.Documents.Open(strInventorDrawingFullFileName)
 
             Select Case intSaveModel
                 Case 1
-                    oInventorDocument.SaveAs(strDwgFullFileName, True)
+                    oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, True)
+                    'oInventorDocument.SaveAs(strDwgFullFileName, True)
+                    IdwSaveAsDwgSub(strInventorFullFileName, strDwgFullFileName)
+                    oInventorDocument.Close(True)
                 Case 2
+                    oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, True)
                     oInventorDocument.SaveAs(strPdfFullFileName, True)
+                    oInventorDocument.Close(True)
                 Case 3
+                    oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, True)
                     oInventorDocument.SaveAs(strDwgFullFileName, True)
                     oInventorDocument.SaveAs(strPdfFullFileName, True)
+                    oInventorDocument.Close(True)
+
+                Case 4
+                    oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, True)
+                    oInventorDocument.SaveAs(strStpFullFileName, True)
+                    oInventorDocument.Close(True)
             End Select
 
             '关闭，不保存文件
-            oInventorDocument.Close(True)
 
+            'lvwFileListView.Items(i).Text = strInventorDrawingFullFileName & "        完成"
 999:
-
         Next
 
-        btnStart.Enabled = True
+        MsgBox("批量另存完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量另存")
+        'btnStart.Enabled = True
         'ThisApplication.Cursor  = Cursors.WaitCursor
 
     End Sub
 
     '关闭
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        lvwFileListView.Items.Clear()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
+        lvw文件列表.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Dispose()
     End Sub
 
     '添加文件
-    Private Sub btnAddFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFile.Click
+    Private Sub btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
         '打开文件
         Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
         With oOpenFileDialog
             .Title = "打开"
-            .Filter = "AutoDesk Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
+            If chkStep.Checked = True Then
+                .Filter = "AutoDesk Inventor 零件(*.ipt)|*.ipt" '添加过滤文件
+            Else
+                .Filter = "AutoDesk Inventor 工程图(*.idw)|*.idw" '添加过滤文件
+            End If
+
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
 
-                    btnAddFile.Enabled = False
+                    btn添加文件.Enabled = False
                     'ThisApplication.Cursor  = Cursors.WaitCursor
 
                     For Each strFullFileName As String In .FileNames
-                        lvwFileListView.Items.Add(strFullFileName)
+                        lvw文件列表.Items.Add(strFullFileName)
                     Next
 
-                    btnAddFile.Enabled = True
+                    btn添加文件.Enabled = True
                     'ThisApplication.Cursor  = Cursors.Default
 
                 End If
@@ -139,12 +156,12 @@ Public Class frmSaveAs
     End Sub
 
     '清空文件列表
-    Private Sub btnClearList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearList.Click
-        lvwFileListView.Items.Clear()
+    Private Sub btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
+        lvw文件列表.Items.Clear()
     End Sub
 
     '添加文件夹
-    Private Sub btnAddFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFolder.Click
+    Private Sub btn添加文件夹_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件夹.Click
         Dim strDestinationFolder As String = Nothing
         Dim oFileAttributes As FileAttributes
         Dim strPresentFolder As String = Nothing
@@ -161,7 +178,7 @@ Public Class frmSaveAs
             End If
         End With
 
-        btnAddFolder.Enabled = False
+        btn添加文件夹.Enabled = False
         'ThisApplication.Cursor  = Cursors.WaitCursor
 
         '是否为文件夹，在其后添加 \，得到父文件夹
@@ -172,30 +189,37 @@ Public Class frmSaveAs
             strPresentFolder = My.Computer.FileSystem.GetParentPath(strDestinationFolder)
         End If
 
-        GetAllFile(strPresentFolder, strDestinationFolder, lvwFileListView)
+        Dim strExtension As String
+        If chkStep.Checked = True Then
+            strExtension = IPT
+        Else
+            strExtension = IDW
+        End If
 
-        btnAddFolder.Enabled = True
+        GetAllFile(strPresentFolder, strDestinationFolder, lvw文件列表, strExtension)
+
+        btn添加文件夹.Enabled = True
         'ThisApplication.Cursor  = Cursors.Default
     End Sub
 
     '当前文件夹
-    Private Sub rdoLocal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoLocal.CheckedChanged
+    Private Sub rdo当前文件夹_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo当前文件夹.CheckedChanged
 
-        If rdoLocal.Checked = True Then
-            rdoSameFolder.Checked = False
-            txtString.Enabled = False
-            btnOpenFolder.Enabled = False
+        If rdo当前文件夹.Checked = True Then
+            rdo同一文件夹.Checked = False
+            txt文件夹路径.Enabled = False
+            btn设置文件夹.Enabled = False
         End If
 
     End Sub
 
     '指定文件夹
-    Private Sub rdoSameFolder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoSameFolder.CheckedChanged
+    Private Sub rdo同一文件夹_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo同一文件夹.CheckedChanged
 
-        If rdoSameFolder.Checked = True Then
-            rdoLocal.Checked = False
-            txtString.Enabled = True
-            btnOpenFolder.Enabled = True
+        If rdo同一文件夹.Checked = True Then
+            rdo当前文件夹.Checked = False
+            txt文件夹路径.Enabled = True
+            btn设置文件夹.Enabled = True
             'Else
             '    RadioButton2.Checked = True
         End If
@@ -203,18 +227,18 @@ Public Class frmSaveAs
     End Sub
 
     '移除选择列
-    Private Sub btnRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemove.Click
-        ListViewDel(lvwFileListView)
+    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
+        ListViewDel(lvw文件列表)
     End Sub
 
     '选择文件夹
-    Private Sub btnOpenFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFolder.Click
+    Private Sub btn设置文件夹_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn设置文件夹.Click
         Dim strDestinationFolder As String = Nothing
         Dim oFileAttributes As FileAttributes
         Dim strPresentFolder As String = Nothing
         Dim oFolderBrowserDialog As New FolderBrowserDialog
 
-        strPresentFolder = txtString.Text
+        strPresentFolder = txt文件夹路径.Text
 
         If IsDirectoryExists(strPresentFolder) = False Then
             strPresentFolder = System.Environment.SpecialFolder.MyComputer
@@ -238,6 +262,30 @@ Public Class frmSaveAs
             strDestinationFolder = strDestinationFolder + "\"
         End If
 
-        txtString.Text = strDestinationFolder
+        txt文件夹路径.Text = strDestinationFolder
+    End Sub
+
+    Private Sub chkDwg_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkDwg.CheckedChanged
+        If chkDwg.Checked = True Then
+            chkStep.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkPdf_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkPdf.CheckedChanged
+        If chkPdf.Checked = True Then
+            chkStep.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkStep_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkStep.CheckedChanged
+        If chkStep.Checked = True Then
+            chkDwg.Checked = False
+            chkPdf.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub frmSaveAs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

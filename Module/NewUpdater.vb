@@ -1,6 +1,12 @@
 ﻿'Imports FSLib.App.SimpleUpdater
+Imports Microsoft.VisualBasic
 Imports System.Windows.Forms
 Module NewUpdater
+
+    Public Server As String  '服务器，包含/
+    Public ServerExcelFileName As String  '服务器的excel
+    Public SimpleUpdater As String
+    Public NewVersionTxt As String
 
     Public NewVersion As String
     Public MyVersion As String
@@ -32,39 +38,40 @@ Module NewUpdater
 
     Public Function CheckNewVesion() As String
         Try
-            Dim NewVersionInfo As String = "\\Likai-pc\发行版\更新包\NewVersion.txt"
+            Dim NewVersionInfo As String
 
-            Dim fileReader As System.IO.StreamReader
-            fileReader = My.Computer.FileSystem.OpenTextFileReader(NewVersionInfo)
+            If Strings.Right(Server, 1) = "\" Then
+                NewVersionInfo = Server & NewVersionTxt
+            Else
+                NewVersionInfo = Server & "\" & NewVersionTxt
+            End If
 
-            NewVersion = fileReader.ReadLine()
+            'Dim fileReader As System.IO.StreamReader
+            'fileReader = My.Computer.FileSystem.OpenTextFileReader(NewVersionInfo)
+            'NewVersion = fileReader.ReadLine()
+            'fileReader.Close()
+            'fileReader.Dispose()
 
+            NewVersion = System.IO.File.ReadAllText(NewVersionInfo)
             'MsgBox(NewVersion)
 
-            MyVersion = My.Application.Info.Version.Minor & _
-          Format(My.Application.Info.Version.Build, "00") & _
-          Format(My.Application.Info.Version.Revision, "00")
+            MyVersion = My.Application.Info.Version.Major &
+        Format(My.Application.Info.Version.Minor, "00") &
+    Format(My.Application.Info.Version.Build, "00") &
+    Format(My.Application.Info.Version.Revision, "00")
 
             'MsgBox(MyVersion)
 
             If NewVersion <> "" Then
-                Dim shortMyversion As Long
-                Dim shortNewVersion As Long
+                'Dim shortMyversion As Long
+                'Dim shortNewVersion As Long
 
-                shortMyversion = ShortVersion(MyVersion)
-                shortNewVersion = ShortVersion(NewVersion)
+                'shortMyversion = ShortVersion(MyVersion)
+                'shortNewVersion = ShortVersion(NewVersion)
 
-                If shortNewVersion > shortMyversion Then
-                    'MsgBox("InventorAddIn插件" & vbCrLf & "当前版本：" & MyVersion & vbCrLf & "检查到 新版本：" & NewVersion, MsgBoxStyle.OkOnly, " 检查更新")
-                    'simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
-                    'Process.Start(simupdate)
-
-                    'btnCheckUpDate.Text = "检查到新版" & NewVersion
-
-                    'Return NewVersion
+                If NewVersion > MyVersion Then
                     Return "New"
                 Else
-
                     Return "Null"
                 End If
             Else
@@ -88,23 +95,29 @@ Module NewUpdater
         Try
             Dim strSimpleUpdater As String
 
-            strSimpleUpdater = ThisApplication.InstallPath & "\Bin\SimpleUpdater.exe"
+            strSimpleUpdater = My.Application.Info.DirectoryPath
+
+            If Strings.Right(strSimpleUpdater, 1) = "\" Then
+                strSimpleUpdater = strSimpleUpdater & SimpleUpdater
+            Else
+                strSimpleUpdater = strSimpleUpdater & "\" & SimpleUpdater
+            End If
 
             If IsFileExsts(strSimpleUpdater) = False Then
-                Dim strNewSimpleUpdater As String = "\\Likai-pc\发行版\更新包\SimpleUpdater.exe"
+                Dim strNewSimpleUpdater As String = Server & SimpleUpdater
                 My.Computer.Network.DownloadFile(strNewSimpleUpdater, strSimpleUpdater)
             End If
 
             MyVersion = _
-                   My.Application.Info.Version.Major & "." & _
-                   My.Application.Info.Version.Minor & "." & _
-                 Format(My.Application.Info.Version.Build, "00") & "." & _
-                 Format(My.Application.Info.Version.Revision, "00")
+                  My.Application.Info.Version.Major & "." & _
+                  My.Application.Info.Version.Minor & "." & _
+                My.Application.Info.Version.Build & "." & _
+               My.Application.Info.Version.Revision
 
-            Dim DisplayVersion As String
-            DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
 
             Select Case DisplayVersion
+                'Case Is >= 2016
+                '    DisplayVersion = 2016
                 Case Is >= 2015
                     DisplayVersion = 2015
                 Case Is >= 2011
@@ -115,7 +128,7 @@ Module NewUpdater
 
             'SimpleUpdater.exe /startupdate /cv "1.2.3.4" /url "\\likai-pc\发行版\更新包\2015\{0}" /infofile "update.xml" /p "Inventor.exe" /hideCheckUI
 
-            strArguments = "/startupdate /cv """ & MyVersion & """ /url  ""\\likai-pc\发行版\更新包\" & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
+            strArguments = "/startupdate /cv """ & MyVersion & """  /url """ & Server & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
 
             If IsFileExsts(strSimpleUpdater) = True Then
                 Process.Start(strSimpleUpdater, strArguments)
@@ -125,6 +138,59 @@ Module NewUpdater
             MsgBox(ex.Message)
         End Try
     End Sub
+
+    Public Function GetGitVersion() As String
+        On Error Resume Next
+        Dim strGitVersionText As String = "https://gitcode.net/leaky114/inventoraddin/-/raw/master/Release/NewVison.txt?inline=false"
+
+        'Dim strGitVersionText As String = "https://github.com/leaky114/InAI/blob/master/Release/NewVison.txt"
+
+        Dim strLocalVersionText As String
+
+        strLocalVersionText = My.Application.Info.DirectoryPath
+
+        If Strings.Right(strLocalVersionText, 1) = "\" Then
+            strLocalVersionText = strLocalVersionText & "NewVison.txt"
+        Else
+            strLocalVersionText = strLocalVersionText & "\NewVison.txt"
+        End If
+
+        'My.Computer.Network.DownloadFile(strGitVersionText, strLocalVersionText)
+
+        DownNetFile(strGitVersionText, strLocalVersionText)
+
+        Dim fileReader As System.IO.StreamReader
+        fileReader = My.Computer.FileSystem.OpenTextFileReader(strLocalVersionText)
+
+        NewVersion = fileReader.ReadLine()
+
+        'MsgBox(NewVersion)
+
+        MyVersion = My.Application.Info.Version.Major &
+          Format(My.Application.Info.Version.Minor, "00") &
+      Format(My.Application.Info.Version.Build, "00") &
+      Format(My.Application.Info.Version.Revision, "00")
+
+        'MsgBox(MyVersion)
+
+        If NewVersion <> "" Then
+            'Dim shortMyversion As Long
+            'Dim shortNewVersion As Long
+
+            'shortMyversion = ShortVersion(MyVersion)
+            'shortNewVersion = ShortVersion(NewVersion)
+
+            If NewVersion > MyVersion Then
+                Return "New"
+            Else
+
+                Return "Null"
+            End If
+        Else
+            Return "Null"
+        End If
+
+    End Function
 
     'Public Function CreateUpdateExe() As Boolean
     '    Try
@@ -154,5 +220,24 @@ Module NewUpdater
     '        'MessageBox.Show("资源释放失败！Result=" + ex.Message)
     '    End Try
     'End Function
+
+    Public Sub DownNetFile(ByVal nUrl As String, ByVal nFile As String)
+        On Error Resume Next
+        Dim XmlHttp As Object
+        Dim B() As Byte
+
+        XmlHttp = CreateObject("Microsoft.XMLHTTP")
+
+        XmlHttp.Open("GET", nUrl, False)
+
+        XmlHttp.Send()
+
+        If XmlHttp.ReadyState = 4 Then
+            B = XmlHttp.ResponseBody
+            My.Computer.FileSystem.WriteAllBytes(nFile, B, False)
+        End If
+        XmlHttp = Nothing
+
+    End Sub
 
 End Module

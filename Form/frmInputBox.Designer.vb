@@ -22,125 +22,125 @@ Partial Class frmInputBox
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnOK = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
-        Me.lblDescribe = New System.Windows.Forms.Label()
-        Me.txtInPut = New System.Windows.Forms.TextBox()
-        Me.picICON = New System.Windows.Forms.PictureBox()
-        Me.btnCopy = New System.Windows.Forms.Button()
-        Me.btnPaste = New System.Windows.Forms.Button()
-        Me.btnOther = New System.Windows.Forms.Button()
-        CType(Me.picICON, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.btn确定 = New System.Windows.Forms.Button()
+        Me.btn取消 = New System.Windows.Forms.Button()
+        Me.lbl描述 = New System.Windows.Forms.Label()
+        Me.txt输入 = New System.Windows.Forms.TextBox()
+        Me.pic图标 = New System.Windows.Forms.PictureBox()
+        Me.btn复制 = New System.Windows.Forms.Button()
+        Me.btn粘贴 = New System.Windows.Forms.Button()
+        Me.btn其他 = New System.Windows.Forms.Button()
+        CType(Me.pic图标, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'btnOK
+        'btn确定
         '
-        Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOK.Location = New System.Drawing.Point(283, 125)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(65, 28)
-        Me.btnOK.TabIndex = 0
-        Me.btnOK.Text = "确定"
+        Me.btn确定.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn确定.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.btn确定.Location = New System.Drawing.Point(283, 125)
+        Me.btn确定.Name = "btn确定"
+        Me.btn确定.Size = New System.Drawing.Size(65, 28)
+        Me.btn确定.TabIndex = 0
+        Me.btn确定.Text = "确定"
         '
-        'btnCancel
+        'btn取消
         '
-        Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(356, 125)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(65, 28)
-        Me.btnCancel.TabIndex = 1
-        Me.btnCancel.Text = "取消"
+        Me.btn取消.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btn取消.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn取消.Location = New System.Drawing.Point(356, 125)
+        Me.btn取消.Name = "btn取消"
+        Me.btn取消.Size = New System.Drawing.Size(65, 28)
+        Me.btn取消.TabIndex = 1
+        Me.btn取消.Text = "取消"
         '
-        'lblDescribe
+        'lbl描述
         '
-        Me.lblDescribe.Location = New System.Drawing.Point(77, 9)
-        Me.lblDescribe.Name = "lblDescribe"
-        Me.lblDescribe.Size = New System.Drawing.Size(343, 63)
-        Me.lblDescribe.TabIndex = 1
-        Me.lblDescribe.Text = "Label1"
+        Me.lbl描述.Location = New System.Drawing.Point(77, 9)
+        Me.lbl描述.Name = "lbl描述"
+        Me.lbl描述.Size = New System.Drawing.Size(343, 63)
+        Me.lbl描述.TabIndex = 1
+        Me.lbl描述.Text = "Label1"
         '
-        'txtInPut
+        'txt输入
         '
-        Me.txtInPut.Location = New System.Drawing.Point(79, 87)
-        Me.txtInPut.Name = "txtInPut"
-        Me.txtInPut.Size = New System.Drawing.Size(341, 21)
-        Me.txtInPut.TabIndex = 0
+        Me.txt输入.Location = New System.Drawing.Point(79, 87)
+        Me.txt输入.Name = "txt输入"
+        Me.txt输入.Size = New System.Drawing.Size(341, 21)
+        Me.txt输入.TabIndex = 0
         '
-        'picICON
+        'pic图标
         '
-        Me.picICON.Location = New System.Drawing.Point(11, 13)
-        Me.picICON.Name = "picICON"
-        Me.picICON.Size = New System.Drawing.Size(45, 45)
-        Me.picICON.TabIndex = 3
-        Me.picICON.TabStop = False
+        Me.pic图标.Location = New System.Drawing.Point(11, 13)
+        Me.pic图标.Name = "pic图标"
+        Me.pic图标.Size = New System.Drawing.Size(45, 45)
+        Me.pic图标.TabIndex = 3
+        Me.pic图标.TabStop = False
         '
-        'btnCopy
+        'btn复制
         '
-        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnCopy.Location = New System.Drawing.Point(10, 125)
-        Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(65, 28)
-        Me.btnCopy.TabIndex = 4
-        Me.btnCopy.Text = "复制"
-        Me.btnCopy.UseVisualStyleBackColor = True
+        Me.btn复制.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn复制.Location = New System.Drawing.Point(10, 125)
+        Me.btn复制.Name = "btn复制"
+        Me.btn复制.Size = New System.Drawing.Size(65, 28)
+        Me.btn复制.TabIndex = 4
+        Me.btn复制.Text = "复制"
+        Me.btn复制.UseVisualStyleBackColor = True
         '
-        'btnPaste
+        'btn粘贴
         '
-        Me.btnPaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnPaste.Location = New System.Drawing.Point(83, 125)
-        Me.btnPaste.Name = "btnPaste"
-        Me.btnPaste.Size = New System.Drawing.Size(65, 28)
-        Me.btnPaste.TabIndex = 5
-        Me.btnPaste.Text = "粘贴"
-        Me.btnPaste.UseVisualStyleBackColor = True
+        Me.btn粘贴.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn粘贴.Location = New System.Drawing.Point(83, 125)
+        Me.btn粘贴.Name = "btn粘贴"
+        Me.btn粘贴.Size = New System.Drawing.Size(65, 28)
+        Me.btn粘贴.TabIndex = 5
+        Me.btn粘贴.Text = "粘贴"
+        Me.btn粘贴.UseVisualStyleBackColor = True
         '
-        'btnOther
+        'btn其他
         '
-        Me.btnOther.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOther.Location = New System.Drawing.Point(156, 125)
-        Me.btnOther.Name = "btnOther"
-        Me.btnOther.Size = New System.Drawing.Size(65, 28)
-        Me.btnOther.TabIndex = 6
-        Me.btnOther.Text = "其他可变"
-        Me.btnOther.UseVisualStyleBackColor = True
-        Me.btnOther.Visible = False
+        Me.btn其他.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn其他.Location = New System.Drawing.Point(156, 125)
+        Me.btn其他.Name = "btn其他"
+        Me.btn其他.Size = New System.Drawing.Size(65, 28)
+        Me.btn其他.TabIndex = 6
+        Me.btn其他.Text = "其他可变"
+        Me.btn其他.UseVisualStyleBackColor = True
+        Me.btn其他.Visible = False
         '
         'frmInputBox
         '
-        Me.AcceptButton = Me.btnOK
+        Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnCancel
+        Me.CancelButton = Me.btn取消
         Me.ClientSize = New System.Drawing.Size(443, 161)
-        Me.Controls.Add(Me.btnOther)
-        Me.Controls.Add(Me.btnPaste)
-        Me.Controls.Add(Me.btnCopy)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.picICON)
-        Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.txtInPut)
-        Me.Controls.Add(Me.lblDescribe)
+        Me.Controls.Add(Me.btn其他)
+        Me.Controls.Add(Me.btn粘贴)
+        Me.Controls.Add(Me.btn复制)
+        Me.Controls.Add(Me.btn确定)
+        Me.Controls.Add(Me.pic图标)
+        Me.Controls.Add(Me.btn取消)
+        Me.Controls.Add(Me.txt输入)
+        Me.Controls.Add(Me.lbl描述)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmInputBox"
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "InputBoxDialog"
-        CType(Me.picICON, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pic图标, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnOK As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents lblDescribe As System.Windows.Forms.Label
-    Friend WithEvents txtInPut As System.Windows.Forms.TextBox
-    Friend WithEvents picICON As System.Windows.Forms.PictureBox
-    Friend WithEvents btnCopy As System.Windows.Forms.Button
-    Friend WithEvents btnPaste As System.Windows.Forms.Button
-    Friend WithEvents btnOther As System.Windows.Forms.Button
+    Friend WithEvents btn确定 As System.Windows.Forms.Button
+    Friend WithEvents btn取消 As System.Windows.Forms.Button
+    Friend WithEvents lbl描述 As System.Windows.Forms.Label
+    Friend WithEvents txt输入 As System.Windows.Forms.TextBox
+    Friend WithEvents pic图标 As System.Windows.Forms.PictureBox
+    Friend WithEvents btn复制 As System.Windows.Forms.Button
+    Friend WithEvents btn粘贴 As System.Windows.Forms.Button
+    Friend WithEvents btn其他 As System.Windows.Forms.Button
 
 End Class

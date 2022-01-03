@@ -1,38 +1,38 @@
-﻿Imports System.Windows.Forms
-Imports Inventor
-Imports Inventor.SelectionFilterEnum
+﻿Imports Inventor
 Imports Inventor.DocumentTypeEnum
+Imports Inventor.SelectionFilterEnum
+Imports System.Windows.Forms
 
 Public Class frmInputBox
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
 
     Private Sub frmInputBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        txtInPut.Focus()
+        txt输入.Focus()
     End Sub
 
-    Private Sub btnCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopy.Click
-        If txtInPut.Text <> Nothing Then
-            My.Computer.Clipboard.SetText(txtInPut.Text)
+    Private Sub btn复制_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制.Click
+        If txt输入.Text <> Nothing Then
+            My.Computer.Clipboard.SetText(txt输入.Text)
         End If
     End Sub
 
-    Private Sub btnPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPaste.Click
-        txtInPut.Text = My.Computer.Clipboard.GetText
+    Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
+        txt输入.Text = My.Computer.Clipboard.GetText
     End Sub
 
-    Private Sub btnOther_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOther.Click
-        btnOther.Enabled = False
+    Private Sub btn其他_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn其他.Click
+        btn其他.Enabled = False
 
-        Select Case btnOther.Text
+        Select Case btn其他.Text
 
             Case "查询编码"
                 SetStatusBarText()
@@ -69,13 +69,13 @@ Public Class frmInputBox
                 If strPartNum <> 0 Then
                     'MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
                     'SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
-                    Select Case txtInPut.Text
+                    Select Case txt输入.Text
                         Case ""
-                            txtInPut.Text = strPartNum
+                            txt输入.Text = strPartNum
                         Case Else
-                            If txtInPut.Text <> strPartNum Then
+                            If txt输入.Text <> strPartNum Then
                                 If MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
-                                    txtInPut.Text = strPartNum
+                                    txt输入.Text = strPartNum
                                 End If
                             End If
                     End Select
@@ -85,6 +85,13 @@ Public Class frmInputBox
 
         End Select
 
-        btnOther.Enabled = True
+        btn其他.Enabled = True
     End Sub
+
+    Private Sub txt输入_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt输入.KeyPress
+        If Asc(e.KeyChar) = Keys.Enter Then
+            btn确定.PerformClick()
+        End If
+    End Sub
+
 End Class

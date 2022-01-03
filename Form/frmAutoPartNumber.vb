@@ -1,15 +1,15 @@
 ﻿Imports System.Windows.Forms
 Imports Inventor
-Imports System
-Imports System.IO
 Imports Microsoft
 Imports Microsoft.VisualBasic
+Imports System
 Imports System.Collections.ObjectModel
+Imports System.IO
 
 Public Class frmAutoPartNumber
 
     '开始编号
-    Private Sub btnStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStart.Click
+    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
 
         Dim strOldFullFileName As String   '旧文件全名
         Dim strNewFullFileName As String   '新文件全名
@@ -17,11 +17,11 @@ Public Class frmAutoPartNumber
 
         Try
 
-            btnStart.Enabled = False
+            btn开始.Enabled = False
             'ThisApplication.Cursor  = Cursors.WaitCursor
 
-            For i = 0 To lvwFileListView.Items.Count - 1
-                oListViewItem = lvwFileListView.Items(i)
+            For i = 0 To lvw文件列表.Items.Count - 1
+                oListViewItem = lvw文件列表.Items(i)
 
                 strOldFullFileName = oListViewItem.SubItems(3).Text & "\" & oListViewItem.Text & oListViewItem.SubItems(1).Text
 
@@ -43,7 +43,7 @@ Public Class frmAutoPartNumber
                 '后台打开文件，修改ipro
                 Dim oNewInventorDocument As Inventor.Document
                 oNewInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)  '打开文件，不显示
-                SetDocumentIpropertyFromFileName(oNewInventorDocument, True) '设置Iproperty，打开文件后需关闭
+                SetDocumentIpropertyFromFileNameSub(oNewInventorDocument, True) '设置Iproperty，打开文件后需关闭
 
                 Dim oComponentOccurrences As Inventor.ComponentOccurrences
                 oComponentOccurrences = ThisApplication.ActiveDocument.ComponentDefinition.Occurrences
@@ -57,19 +57,16 @@ Public Class frmAutoPartNumber
                 Next
 
                 Dim strOldDrawingFullFileName As String
-                strOldDrawingFullFileName = GetNewExtensionFileName(strOldFullFileName, ".idw")   '旧工程图
+                strOldDrawingFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
 
                 If IsFileExsts(strOldDrawingFullFileName) = True Then
 
                     Dim strNewDrawingFullFileName As String
 
-                    strNewDrawingFullFileName = GetNewExtensionFileName(strNewFullFileName, ".idw")   '新工程图
+                    strNewDrawingFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
                     FileSystem.FileCopy(strOldDrawingFullFileName, strNewDrawingFullFileName)             '复制为新工程图
 
-                    Dim oInventorDrawingDocument As Inventor.DrawingDocument
-                    oInventorDrawingDocument = ThisApplication.Documents.Open(strNewDrawingFullFileName, False)  '打开文件，不显示
-
-                    ReplaceFileReference(oInventorDrawingDocument, strOldFullFileName, strNewFullFileName)
+                    ReplaceFileReference(strNewDrawingFullFileName, strOldFullFileName, strNewFullFileName)
 
                     'With oInventorDrawingDocument
                     '    .ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
@@ -87,73 +84,39 @@ Public Class frmAutoPartNumber
             Me.TopMost = False
             SetStatusBarText("自动命名图号完成！")
             MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
-            btnStart.Enabled = True
+            btn开始.Enabled = True
             'ThisApplication.Cursor  = Cursors.Default
 
         Catch ex As Exception
-            btnStart.Enabled = True
+            btn开始.Enabled = True
             MsgBox(ex.Message)
         End Try
 
     End Sub
 
     '关闭
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        lvwFileListView.Items.Clear()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
+        lvw文件列表.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
 
-    '上移
-    Private Sub ListViewUp(ByVal oListView As ListView)
-        Dim index As Integer
-        Dim oListViewItem As ListViewItem
-        If oListView.SelectedItems.Count < 1 Then
-            Exit Sub
-        End If
-        index = oListView.SelectedIndices(0)
-        If index = 0 Then
-            Exit Sub
-        End If
-        oListViewItem = oListView.Items(index)
-        oListView.Items.Insert(index - 1, oListViewItem.Clone())
-        oListView.Items.RemoveAt(index + 1)
-        oListView.Items.Item(index - 1).Selected = True
+    Private Sub btn上移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn上移.Click
+        ListViewUp(lvw文件列表)
     End Sub
 
-    Private Sub btnMoveUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveUp.Click
-        ListViewUp(lvwFileListView)
+    Private Sub btn下移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn下移.Click
+        ListViewDown(lvw文件列表)
     End Sub
 
-    '下移
-    Private Sub ListViewDown(ByVal oListView As ListView)
-        Dim index As Integer
-        Dim oListViewItem As ListViewItem
-        If oListView.SelectedItems.Count < 1 Then
-            Exit Sub
-        End If
-        index = oListView.SelectedIndices(0)
-        If index = oListView.Items.Count - 1 Then
-            Exit Sub
-        End If
-        oListViewItem = oListView.Items(index)
-        oListView.Items.Insert(index + 2, oListViewItem.Clone())
-        oListView.Items.RemoveAt(index)
-        oListView.Items.Item(index + 1).Selected = True
-    End Sub
-
-    Private Sub btnMoveDown_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveDown.Click
-        ListViewDown(lvwFileListView)
-    End Sub
-
-    Private Sub lvwFileListView_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwFileListView.ColumnClick
+    Private Sub lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
         If _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
             Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
-            lvwFileListView.ListViewItemSorter = Sorter
+            lvw文件列表.ListViewItemSorter = Sorter
             _ListViewSorter = clsListViewSorter.EnumSortOrder.Descending
         Else
             Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Ascending)
-            lvwFileListView.ListViewItemSorter = Sorter
+            lvw文件列表.ListViewItemSorter = Sorter
             _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending
         End If
     End Sub
@@ -218,25 +181,25 @@ Public Class frmAutoPartNumber
     'End Sub
 
     '键盘上下键移动
-    Private Sub lvwFileListView_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvwFileListView.KeyDown
+    Private Sub lvw文件列表_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvw文件列表.KeyDown
         Select Case e.KeyCode
             Case Keys.Up
                 If e.Control Then
-                    ListViewUp(lvwFileListView)
+                    ListViewUp(lvw文件列表)
                     e.Handled = True
                 End If
             Case Keys.Down
                 If e.Control Then
-                    ListViewDown(lvwFileListView)
+                    ListViewDown(lvw文件列表)
                     e.Handled = True
                 End If
             Case Keys.Delete
-                ListViewDel(lvwFileListView)
+                ListViewDel(lvw文件列表)
         End Select
     End Sub
 
     '预览
-    Private Sub btnReview_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReview.Click
+    Private Sub btn预览_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn预览.Click
         Dim oListViewItem As ListViewItem
         Dim intAssNum As Integer
         Dim intPartNum As Integer
@@ -245,24 +208,24 @@ Public Class frmAutoPartNumber
 
         intAssNum = 1
         intPartNum = 1
-        strBasicStockNum = txtBasicNum.Text
+        strBasicStockNum = txt基准图号.Text
 
-        If (IsNumeric(txtPartChange.Text) = False) Or (IsNumeric(cmbAmsChange.Text) = False) Then
+        If (IsNumeric(txt零件变量.Text) = False) Or (IsNumeric(cmb部件变量.Text) = False) Then
             MsgBox("变量非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
             Exit Sub
         End If
 
-        Dim intPartChange As Integer = Val(txtPartChange.Text)
-        Dim intAmsChange As Integer = Val(cmbAmsChange.Text)
+        Dim intPartChange As Integer = Val(txt零件变量.Text)
+        Dim intAmsChange As Integer = Val(cmb部件变量.Text)
 
-        For i = 0 To lvwFileListView.Items.Count - 1
-            oListViewItem = lvwFileListView.Items(i)
-            If oListViewItem.SubItems(1).Text = ".ipt" Then
+        For i = 0 To lvw文件列表.Items.Count - 1
+            oListViewItem = lvw文件列表.Items(i)
+            If oListViewItem.SubItems(1).Text = IPT Then
                 oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
                 oStockNumPartName.PartName = oListViewItem.Text
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
                 intPartNum = intPartNum + 1
-            ElseIf oListViewItem.SubItems(1).Text = ".iam" Then
+            ElseIf oListViewItem.SubItems(1).Text = IAM Then
                 oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * intAmsChange).ToString)) & intAssNum * intAmsChange
                 oStockNumPartName.PartName = oListViewItem.Text
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
@@ -275,7 +238,7 @@ Public Class frmAutoPartNumber
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
-        LoadAssBOM(oInventorAssemblyDocument, lvwFileListView)
+        LoadAssBOM(oInventorAssemblyDocument, lvw文件列表)
     End Sub
 
     '载入数据函数
@@ -293,7 +256,7 @@ Public Class frmAutoPartNumber
 
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strInventorAssemblyFullFileName)
-        txtBasicNum.Text = oStockNumPartName.StockNum
+        txt基准图号.Text = oStockNumPartName.StockNum
 
         oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
@@ -349,32 +312,32 @@ Public Class frmAutoPartNumber
         Next
     End Sub
 
-    Private Sub btnMoveOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveOut.Click
-        ListViewDel(lvwFileListView)
+    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
+        ListViewDel(lvw文件列表)
     End Sub
 
     '重载数据
-    Private Sub btnReLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReLoad.Click
+    Private Sub btn重载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn重载.Click
         Dim oAssemblyDocument As AssemblyDocument
         oAssemblyDocument = ThisApplication.ActiveDocument
-        LoadAssBOM(oAssemblyDocument, lvwFileListView)
+        LoadAssBOM(oAssemblyDocument, lvw文件列表)
     End Sub
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-        If lvwFileListView.SelectedIndices.Count > 0 Then
-            Dim index As Integer = lvwFileListView.SelectedIndices(0)
-            lvwFileListView.Items(index).SubItems(2).Text = txtNewFileName.Text
+    Private Sub btn确定新文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定新文件名.Click
+        If lvw文件列表.SelectedIndices.Count > 0 Then
+            Dim index As Integer = lvw文件列表.SelectedIndices(0)
+            lvw文件列表.Items(index).SubItems(2).Text = txt新文件名.Text
         End If
 
     End Sub
 
-    Private Sub lvwFileListView_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwFileListView.SelectedIndexChanged
+    Private Sub lvw文件列表_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.SelectedIndexChanged
         Try
-            If lvwFileListView.SelectedIndices.Count > 0 Then
-                Dim index As Integer = lvwFileListView.SelectedIndices(0)  '选中行的下一行索引
-                If index < lvwFileListView.Items.Count Then
-                    txtNewFileName.Text = lvwFileListView.Items(index).SubItems(2).Text
-                    Dim item As ListViewItem = lvwFileListView.Items(index)
+            If lvw文件列表.SelectedIndices.Count > 0 Then
+                Dim index As Integer = lvw文件列表.SelectedIndices(0)  '选中行的下一行索引
+                If index < lvw文件列表.Items.Count Then
+                    txt新文件名.Text = lvw文件列表.Items(index).SubItems(2).Text
+                    Dim item As ListViewItem = lvw文件列表.Items(index)
                     Dim strOldFullFileName As String   '旧文件全名
                     strOldFullFileName = item.SubItems(3).Text & "\" & item.Text & item.SubItems(1).Text
 
@@ -414,46 +377,52 @@ Public Class frmAutoPartNumber
 
     End Sub
 
-    Private Sub lvwFileListView_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvwFileListView.DragDrop
+    Private Sub lvw文件列表_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragDrop
         Dim oDraggedItem As ListViewItem
         oDraggedItem = e.Data.GetData(System.Windows.Forms.DataFormats.Serializable)
 
         Dim ptScreen As Drawing.Point = New Drawing.Point(e.X, e.Y)
-        Dim pt As Drawing.Point = lvwFileListView.PointToClient(ptScreen)
+        Dim pt As Drawing.Point = lvw文件列表.PointToClient(ptScreen)
         Dim TargetItem As ListViewItem
-        TargetItem = lvwFileListView.GetItemAt(pt.X, pt.Y) '拖动的项将放置于该项之前
+        TargetItem = lvw文件列表.GetItemAt(pt.X, pt.Y) '拖动的项将放置于该项之前
         If (TargetItem Is Nothing) Then
             Exit Sub
         End If
-        lvwFileListView.Items.Insert(TargetItem.Index, oDraggedItem.Clone())
-        lvwFileListView.Items.Remove(oDraggedItem)
+        lvw文件列表.Items.Insert(TargetItem.Index, oDraggedItem.Clone())
+        lvw文件列表.Items.Remove(oDraggedItem)
     End Sub
 
-    Private Sub lvwFileList_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvwFileListView.DragEnter
+    Private Sub lvwFileList_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragEnter
         e.Effect = DragDropEffects.Move
     End Sub
 
-    Private Sub lvwFileListView_DragLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwFileListView.DragLeave
-        lvwFileListView.InsertionMark.Index = -1
+    Private Sub lvw文件列表_DragLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.DragLeave
+        lvw文件列表.InsertionMark.Index = -1
     End Sub
 
-    Private Sub lvwFileListView_DragOver(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvwFileListView.DragOver
+    Private Sub lvw文件列表_DragOver(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragOver
         Dim ptScreen As Drawing.Point = New Drawing.Point(e.X, e.Y)
-        Dim pt As Drawing.Point = lvwFileListView.PointToClient(ptScreen)
+        Dim pt As Drawing.Point = lvw文件列表.PointToClient(ptScreen)
 
-        Dim index As Integer = lvwFileListView.InsertionMark.NearestIndex(pt)
-        lvwFileListView.InsertionMark.Index = index
+        Dim index As Integer = lvw文件列表.InsertionMark.NearestIndex(pt)
+        lvw文件列表.InsertionMark.Index = index
     End Sub
 
-    Private Sub lvwFileListView_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles lvwFileListView.ItemDrag
-        lvwFileListView.InsertionMark.Color = System.Drawing.Color.ForestGreen
-        lvwFileListView.DoDragDrop(e.Item, DragDropEffects.Move)
+    Private Sub lvw文件列表_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles lvw文件列表.ItemDrag
+        lvw文件列表.InsertionMark.Color = System.Drawing.Color.ForestGreen
+        lvw文件列表.DoDragDrop(e.Item, DragDropEffects.Move)
 
     End Sub
 
-    Private Sub txtPartChange_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtPartChange.TextChanged
-        If IsNumeric(txtPartChange.Text) = False Then
+    Private Sub txt零件变量_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt零件变量.TextChanged
+        If IsNumeric(txt零件变量.Text) = False Then
             MsgBox("非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+        End If
+    End Sub
+
+    Private Sub txt新文件名_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt新文件名.KeyPress
+        If Asc(e.KeyChar) = Keys.Enter Then
+            btn确定新文件名.PerformClick()
         End If
     End Sub
 

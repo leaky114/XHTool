@@ -1,10 +1,10 @@
-﻿Imports System.Windows.Forms
-Imports Inventor
+﻿Imports Inventor
 Imports Inventor.DocumentTypeEnum
+Imports System.Windows.Forms
 
 Public Class frmSign
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Try
             SetStatusBarText()
 
@@ -25,16 +25,16 @@ Public Class frmSign
 
             Dim strPrintDate As String
 
-            strPrintDate = dtpDate.Value.Date.Year & "." & dtpDate.Value.Date.Month & "." & dtpDate.Value.Date.Day
+            strPrintDate = dtp日期.Value.Date.Year & "." & dtp日期.Value.Date.Month & "." & dtp日期.Value.Date.Day
 
-            Select Case chkSignPrint.Checked
+            Select Case chk签字后打印.Checked
                 Case True
                     IsOpenPrint = 1
                 Case False
                     IsOpenPrint = 0
             End Select
 
-            If SetSign(oInventorDrawingDocument, txtEngineer.Text, strPrintDate, True) Then
+            If SetSign(oInventorDrawingDocument, txt工程师.Text, strPrintDate, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
                 SetStatusBarText("错误")
@@ -48,19 +48,19 @@ Public Class frmSign
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btn关闭_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Dispose()
     End Sub
 
     Private Sub frmSign_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        txtEngineer.Text = EngineerName
-        dtpDate.Value = Today.Date
+        txt工程师.Text = EngineerName
+        dtp日期.Value = Today.Date
         Select Case IsOpenPrint
             Case 0
-                chkSignPrint.Checked = False
+                chk签字后打印.Checked = False
             Case 1
-                chkSignPrint.Checked = True
+                chk签字后打印.Checked = True
 
         End Select
 

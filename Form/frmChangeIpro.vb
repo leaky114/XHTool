@@ -1,23 +1,23 @@
-﻿Imports System.Windows.Forms
-Imports Inventor
+﻿Imports Inventor
+Imports System.Windows.Forms
 
 Public Class frmChangeIpro
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        SetPropitem(oInventorDocument, Map_DrawingNnumber, txtNum.Text)
-        SetPropitem(oInventorDocument, Map_PartName, txtFileName.Text)
-        SetPropitem(oInventorDocument, Map_Describe, cmbDescribe.Text)
+        SetPropitem(oInventorDocument, Map_DrawingNnumber, txt图号.Text)
+        SetPropitem(oInventorDocument, Map_PartName, txt文件名.Text)
+        SetPropitem(oInventorDocument, Map_Describe, cmb描述.Text)
         SetPropitem(oInventorDocument, Map_ERPCode, txtERPCode.Text)
-        SetPropitem(oInventorDocument, Map_Vendor, cmbSupplier.Text)
+        SetPropitem(oInventorDocument, Map_Vendor, cmb供应商.Text)
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
             Dim oPartDocument As Inventor.PartDocument = oInventorDocument
 
             Dim strMaterialName As String
-            strMaterialName = cmbMaterialName.Text.ToString
+            strMaterialName = cmb材料.Text.ToString
 
             Dim oMaterial As Inventor.Material
             oMaterial = oPartDocument.Materials.Item(strMaterialName)
@@ -32,7 +32,7 @@ Public Class frmChangeIpro
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Dispose()
     End Sub
@@ -53,56 +53,55 @@ Public Class frmChangeIpro
         For Each propitem In oPropSet
             Select Case propitem.DisplayName
                 Case Map_DrawingNnumber
-                    txtNum.Text = propitem.Value
+                    txt图号.Text = propitem.Value
                 Case Map_PartName
-                    txtFileName.Text = propitem.Value
+                    txt文件名.Text = propitem.Value
                 Case Map_Describe
-                    cmbDescribe.Text = propitem.Value
+                    cmb描述.Text = propitem.Value
                 Case Map_ERPCode
                     txtERPCode.Text = propitem.Value
                 Case Map_Vendor
-                    cmbSupplier.Text = propitem.Value
+                    cmb供应商.Text = propitem.Value
             End Select
         Next
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
             Dim oPartDocument As Inventor.PartDocument = oInventorDocument
-            cmbMaterialName.Items.Clear()
+            cmb材料.Items.Clear()
 
             For Each oMaterial In oPartDocument.Materials
-                cmbMaterialName.Items.Add(oMaterial.name)
+                cmb材料.Items.Add(oMaterial.Name)
             Next
-            cmbMaterialName.DropDownStyle = ComboBoxStyle.DropDownList
-            cmbMaterialName.Text = oPartDocument.ComponentDefinition.Material.Name.ToString
+            cmb材料.DropDownStyle = ComboBoxStyle.DropDownList
+            cmb材料.Text = oPartDocument.ComponentDefinition.Material.Name.ToString
         Else
-            cmbMaterialName.Enabled = False
-            Exit Sub
+            cmb材料.Enabled = False
         End If
 
     End Sub
 
-    Private Sub btnUp1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUp1.Click
+    Private Sub btn向上1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上1.Click
         Dim strTemp As String
-        strTemp = txtNum.Text
-        txtNum.Text = txtFileName.Text
-        txtFileName.Text = strTemp
+        strTemp = txt图号.Text
+        txt图号.Text = txt文件名.Text
+        txt文件名.Text = strTemp
     End Sub
 
-    Private Sub btnUp2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUp2.Click
+    Private Sub btn向上2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上2.Click
         Dim strTemp As String
-        strTemp = txtFileName.Text
-        txtFileName.Text = cmbDescribe.Text
-        cmbDescribe.Text = strTemp
+        strTemp = txt文件名.Text
+        txt文件名.Text = cmb描述.Text
+        cmb描述.Text = strTemp
     End Sub
 
-    Private Sub btnSearchERPCode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchERPCode.Click
+    Private Sub btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
         SetStatusBarText()
 
         If IsInventorOpenDocument() = False Then
             Exit Sub
         End If
 
-        btnSearchERPCode.Enabled = False
+        btn查询.Enabled = False
 
         'Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         'oInteraction.Start()
@@ -134,7 +133,7 @@ Public Class frmChangeIpro
         '    End Select
         'Next
 
-        strStochNum = txtNum.Text
+        strStochNum = txt图号.Text
 
         strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
         If strPartNum <> 0 Then
@@ -156,8 +155,11 @@ Public Class frmChangeIpro
         End If
 
         'oInteraction.Stop()
-        btnSearchERPCode.Enabled = True
+        btn查询.Enabled = True
 
     End Sub
 
+    Private Sub chk只读_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
 End Class

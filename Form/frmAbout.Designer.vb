@@ -23,7 +23,7 @@ Partial Class frmAbout
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnOK = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.lblCopyright = New System.Windows.Forms.Label()
         Me.lblCompanyName = New System.Windows.Forms.Label()
@@ -31,21 +31,22 @@ Partial Class frmAbout
         Me.txtDescription = New System.Windows.Forms.TextBox()
         Me.picZhiFuBao = New System.Windows.Forms.PictureBox()
         Me.picWeiXin = New System.Windows.Forms.PictureBox()
-        Me.btnCheckUpdate = New System.Windows.Forms.Button()
-        Me.btnGit = New System.Windows.Forms.Button()
+        Me.btn检查更新 = New System.Windows.Forms.Button()
+        Me.lblGitCode = New System.Windows.Forms.LinkLabel()
+        Me.lblBilibili = New System.Windows.Forms.LinkLabel()
         CType(Me.picZhiFuBao, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picWeiXin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'btnOK
+        'btn关闭
         '
-        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnOK.Location = New System.Drawing.Point(274, 238)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(75, 28)
-        Me.btnOK.TabIndex = 40
-        Me.btnOK.Text = "确定"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(274, 238)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(75, 28)
+        Me.btn关闭.TabIndex = 40
+        Me.btn关闭.Text = "关闭"
         '
         'lblVersion
         '
@@ -115,7 +116,7 @@ Partial Class frmAbout
         '
         'picZhiFuBao
         '
-        Me.picZhiFuBao.Image = Global.InAI.My.Resources.Resources.支付宝
+        Me.picZhiFuBao.Image = Global.InventorAddIn.My.Resources.Resources.支付宝
         Me.picZhiFuBao.InitialImage = Nothing
         Me.picZhiFuBao.Location = New System.Drawing.Point(14, 126)
         Me.picZhiFuBao.Name = "picZhiFuBao"
@@ -126,7 +127,7 @@ Partial Class frmAbout
         '
         'picWeiXin
         '
-        Me.picWeiXin.Image = Global.InAI.My.Resources.Resources.微信
+        Me.picWeiXin.Image = Global.InventorAddIn.My.Resources.Resources.微信
         Me.picWeiXin.InitialImage = Nothing
         Me.picWeiXin.Location = New System.Drawing.Point(14, 12)
         Me.picWeiXin.Name = "picWeiXin"
@@ -135,39 +136,50 @@ Partial Class frmAbout
         Me.picWeiXin.TabIndex = 42
         Me.picWeiXin.TabStop = False
         '
-        'btnCheckUpdate
+        'btn检查更新
         '
-        Me.btnCheckUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCheckUpdate.Location = New System.Drawing.Point(184, 238)
-        Me.btnCheckUpdate.Name = "btnCheckUpdate"
-        Me.btnCheckUpdate.Size = New System.Drawing.Size(75, 28)
-        Me.btnCheckUpdate.TabIndex = 44
-        Me.btnCheckUpdate.Text = "检查更新"
-        Me.btnCheckUpdate.UseVisualStyleBackColor = True
+        Me.btn检查更新.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn检查更新.Location = New System.Drawing.Point(184, 238)
+        Me.btn检查更新.Name = "btn检查更新"
+        Me.btn检查更新.Size = New System.Drawing.Size(75, 28)
+        Me.btn检查更新.TabIndex = 44
+        Me.btn检查更新.Text = "检查更新"
+        Me.btn检查更新.UseVisualStyleBackColor = True
         '
-        'btnGit
+        'lblGitCode
         '
-        Me.btnGit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnGit.Location = New System.Drawing.Point(10, 238)
-        Me.btnGit.Name = "btnGit"
-        Me.btnGit.Size = New System.Drawing.Size(90, 28)
-        Me.btnGit.TabIndex = 45
-        Me.btnGit.Text = "访问软件仓库"
-        Me.btnGit.UseVisualStyleBackColor = True
+        Me.lblGitCode.AutoSize = True
+        Me.lblGitCode.Location = New System.Drawing.Point(21, 248)
+        Me.lblGitCode.Name = "lblGitCode"
+        Me.lblGitCode.Size = New System.Drawing.Size(47, 12)
+        Me.lblGitCode.TabIndex = 46
+        Me.lblGitCode.TabStop = True
+        Me.lblGitCode.Text = "GitCode"
+        '
+        'lblBilibili
+        '
+        Me.lblBilibili.AutoSize = True
+        Me.lblBilibili.Location = New System.Drawing.Point(88, 248)
+        Me.lblBilibili.Name = "lblBilibili"
+        Me.lblBilibili.Size = New System.Drawing.Size(53, 12)
+        Me.lblBilibili.TabIndex = 47
+        Me.lblBilibili.TabStop = True
+        Me.lblBilibili.Text = "Bilibili"
         '
         'frmAbout
         '
-        Me.AcceptButton = Me.btnCheckUpdate
+        Me.AcceptButton = Me.btn检查更新
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnOK
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(358, 275)
-        Me.Controls.Add(Me.btnGit)
-        Me.Controls.Add(Me.btnCheckUpdate)
+        Me.Controls.Add(Me.lblBilibili)
+        Me.Controls.Add(Me.lblGitCode)
+        Me.Controls.Add(Me.btn检查更新)
         Me.Controls.Add(Me.picZhiFuBao)
         Me.Controls.Add(Me.picWeiXin)
         Me.Controls.Add(Me.txtDescription)
-        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lblCopyright)
         Me.Controls.Add(Me.lblCompanyName)
@@ -186,7 +198,7 @@ Partial Class frmAbout
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnOK As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents lblVersion As System.Windows.Forms.Label
     Friend WithEvents lblCopyright As System.Windows.Forms.Label
     Friend WithEvents lblCompanyName As System.Windows.Forms.Label
@@ -194,7 +206,8 @@ Partial Class frmAbout
     Friend WithEvents txtDescription As System.Windows.Forms.TextBox
     Friend WithEvents picWeiXin As System.Windows.Forms.PictureBox
     Friend WithEvents picZhiFuBao As System.Windows.Forms.PictureBox
-    Friend WithEvents btnCheckUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnGit As System.Windows.Forms.Button
+    Friend WithEvents btn检查更新 As System.Windows.Forms.Button
+    Friend WithEvents lblGitCode As System.Windows.Forms.LinkLabel
+    Friend WithEvents lblBilibili As System.Windows.Forms.LinkLabel
 
 End Class

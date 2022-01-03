@@ -23,129 +23,129 @@ Partial Class frmChangeIpro
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChangeIpro))
-        Me.btnOK = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
-        Me.lblNum = New System.Windows.Forms.Label()
-        Me.txtNum = New System.Windows.Forms.TextBox()
-        Me.txtFileName = New System.Windows.Forms.TextBox()
-        Me.btnUp1 = New System.Windows.Forms.Button()
-        Me.btnUp2 = New System.Windows.Forms.Button()
-        Me.cmbDescribe = New System.Windows.Forms.ComboBox()
-        Me.cmbMaterialName = New System.Windows.Forms.ComboBox()
-        Me.lblFileName = New System.Windows.Forms.Label()
-        Me.lblDescribe = New System.Windows.Forms.Label()
-        Me.lblMaterialName = New System.Windows.Forms.Label()
+        Me.btn确定 = New System.Windows.Forms.Button()
+        Me.btn取消 = New System.Windows.Forms.Button()
+        Me.lbl图号 = New System.Windows.Forms.Label()
+        Me.txt图号 = New System.Windows.Forms.TextBox()
+        Me.txt文件名 = New System.Windows.Forms.TextBox()
+        Me.btn向上1 = New System.Windows.Forms.Button()
+        Me.btn向上2 = New System.Windows.Forms.Button()
+        Me.cmb描述 = New System.Windows.Forms.ComboBox()
+        Me.cmb材料 = New System.Windows.Forms.ComboBox()
+        Me.lbl文件名 = New System.Windows.Forms.Label()
+        Me.lbl描述 = New System.Windows.Forms.Label()
+        Me.lbl材料 = New System.Windows.Forms.Label()
         Me.lblERPCode = New System.Windows.Forms.Label()
-        Me.btnSearchERPCode = New System.Windows.Forms.Button()
+        Me.btn查询 = New System.Windows.Forms.Button()
         Me.txtERPCode = New System.Windows.Forms.TextBox()
-        Me.lblSupplier = New System.Windows.Forms.Label()
-        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
+        Me.lbl供应商 = New System.Windows.Forms.Label()
+        Me.cmb供应商 = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
-        'btnOK
+        'btn确定
         '
-        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(149, 218)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(65, 28)
-        Me.btnOK.TabIndex = 0
-        Me.btnOK.Text = "确定"
+        Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn确定.Location = New System.Drawing.Point(149, 211)
+        Me.btn确定.Name = "btn确定"
+        Me.btn确定.Size = New System.Drawing.Size(65, 28)
+        Me.btn确定.TabIndex = 0
+        Me.btn确定.Text = "确定"
         '
-        'btnCancel
+        'btn取消
         '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(222, 218)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(65, 28)
-        Me.btnCancel.TabIndex = 1
-        Me.btnCancel.Text = "取消"
+        Me.btn取消.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn取消.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn取消.Location = New System.Drawing.Point(222, 211)
+        Me.btn取消.Name = "btn取消"
+        Me.btn取消.Size = New System.Drawing.Size(65, 28)
+        Me.btn取消.TabIndex = 1
+        Me.btn取消.Text = "取消"
         '
-        'lblNum
+        'lbl图号
         '
-        Me.lblNum.AutoSize = True
-        Me.lblNum.Location = New System.Drawing.Point(12, 22)
-        Me.lblNum.Name = "lblNum"
-        Me.lblNum.Size = New System.Drawing.Size(65, 12)
-        Me.lblNum.TabIndex = 1
-        Me.lblNum.Text = "图    号："
+        Me.lbl图号.AutoSize = True
+        Me.lbl图号.Location = New System.Drawing.Point(12, 22)
+        Me.lbl图号.Name = "lbl图号"
+        Me.lbl图号.Size = New System.Drawing.Size(65, 12)
+        Me.lbl图号.TabIndex = 1
+        Me.lbl图号.Text = "图    号："
         '
-        'txtNum
+        'txt图号
         '
-        Me.txtNum.Location = New System.Drawing.Point(79, 20)
-        Me.txtNum.Name = "txtNum"
-        Me.txtNum.Size = New System.Drawing.Size(164, 21)
-        Me.txtNum.TabIndex = 2
+        Me.txt图号.Location = New System.Drawing.Point(79, 20)
+        Me.txt图号.Name = "txt图号"
+        Me.txt图号.Size = New System.Drawing.Size(164, 21)
+        Me.txt图号.TabIndex = 0
         '
-        'txtFileName
+        'txt文件名
         '
-        Me.txtFileName.Location = New System.Drawing.Point(79, 49)
-        Me.txtFileName.Name = "txtFileName"
-        Me.txtFileName.Size = New System.Drawing.Size(164, 21)
-        Me.txtFileName.TabIndex = 3
+        Me.txt文件名.Location = New System.Drawing.Point(79, 49)
+        Me.txt文件名.Name = "txt文件名"
+        Me.txt文件名.Size = New System.Drawing.Size(164, 21)
+        Me.txt文件名.TabIndex = 1
         '
-        'btnUp1
+        'btn向上1
         '
-        Me.btnUp1.Location = New System.Drawing.Point(254, 25)
-        Me.btnUp1.Name = "btnUp1"
-        Me.btnUp1.Size = New System.Drawing.Size(23, 27)
-        Me.btnUp1.TabIndex = 5
-        Me.btnUp1.Text = "↑"
-        Me.btnUp1.UseVisualStyleBackColor = True
+        Me.btn向上1.Location = New System.Drawing.Point(254, 25)
+        Me.btn向上1.Name = "btn向上1"
+        Me.btn向上1.Size = New System.Drawing.Size(23, 27)
+        Me.btn向上1.TabIndex = 7
+        Me.btn向上1.Text = "↑"
+        Me.btn向上1.UseVisualStyleBackColor = True
         '
-        'btnUp2
+        'btn向上2
         '
-        Me.btnUp2.Location = New System.Drawing.Point(254, 63)
-        Me.btnUp2.Name = "btnUp2"
-        Me.btnUp2.Size = New System.Drawing.Size(23, 27)
-        Me.btnUp2.TabIndex = 6
-        Me.btnUp2.Text = "↑"
-        Me.btnUp2.UseVisualStyleBackColor = True
+        Me.btn向上2.Location = New System.Drawing.Point(254, 63)
+        Me.btn向上2.Name = "btn向上2"
+        Me.btn向上2.Size = New System.Drawing.Size(23, 27)
+        Me.btn向上2.TabIndex = 8
+        Me.btn向上2.Text = "↑"
+        Me.btn向上2.UseVisualStyleBackColor = True
         '
-        'cmbDescribe
+        'cmb描述
         '
-        Me.cmbDescribe.FormattingEnabled = True
-        Me.cmbDescribe.Items.AddRange(New Object() {"", "见本图", "无图", "无图,×", "无图,L=", "8.8级", "12.9级"})
-        Me.cmbDescribe.Location = New System.Drawing.Point(79, 78)
-        Me.cmbDescribe.Name = "cmbDescribe"
-        Me.cmbDescribe.Size = New System.Drawing.Size(164, 20)
-        Me.cmbDescribe.TabIndex = 7
+        Me.cmb描述.FormattingEnabled = True
+        Me.cmb描述.Items.AddRange(New Object() {"", "见本图", "无图", "无图,×", "无图,L=", "8.8级", "12.9级"})
+        Me.cmb描述.Location = New System.Drawing.Point(79, 78)
+        Me.cmb描述.Name = "cmb描述"
+        Me.cmb描述.Size = New System.Drawing.Size(164, 20)
+        Me.cmb描述.TabIndex = 3
         '
-        'cmbMaterialName
+        'cmb材料
         '
-        Me.cmbMaterialName.FormattingEnabled = True
-        Me.cmbMaterialName.Location = New System.Drawing.Point(79, 106)
-        Me.cmbMaterialName.Name = "cmbMaterialName"
-        Me.cmbMaterialName.Size = New System.Drawing.Size(164, 20)
-        Me.cmbMaterialName.Sorted = True
-        Me.cmbMaterialName.TabIndex = 8
+        Me.cmb材料.FormattingEnabled = True
+        Me.cmb材料.Location = New System.Drawing.Point(79, 106)
+        Me.cmb材料.Name = "cmb材料"
+        Me.cmb材料.Size = New System.Drawing.Size(164, 20)
+        Me.cmb材料.Sorted = True
+        Me.cmb材料.TabIndex = 4
         '
-        'lblFileName
+        'lbl文件名
         '
-        Me.lblFileName.AutoSize = True
-        Me.lblFileName.Location = New System.Drawing.Point(12, 53)
-        Me.lblFileName.Name = "lblFileName"
-        Me.lblFileName.Size = New System.Drawing.Size(65, 12)
-        Me.lblFileName.TabIndex = 9
-        Me.lblFileName.Text = "文 件 名："
+        Me.lbl文件名.AutoSize = True
+        Me.lbl文件名.Location = New System.Drawing.Point(12, 53)
+        Me.lbl文件名.Name = "lbl文件名"
+        Me.lbl文件名.Size = New System.Drawing.Size(65, 12)
+        Me.lbl文件名.TabIndex = 9
+        Me.lbl文件名.Text = "文 件 名："
         '
-        'lblDescribe
+        'lbl描述
         '
-        Me.lblDescribe.AutoSize = True
-        Me.lblDescribe.Location = New System.Drawing.Point(12, 82)
-        Me.lblDescribe.Name = "lblDescribe"
-        Me.lblDescribe.Size = New System.Drawing.Size(65, 12)
-        Me.lblDescribe.TabIndex = 10
-        Me.lblDescribe.Text = "描    述："
+        Me.lbl描述.AutoSize = True
+        Me.lbl描述.Location = New System.Drawing.Point(12, 82)
+        Me.lbl描述.Name = "lbl描述"
+        Me.lbl描述.Size = New System.Drawing.Size(65, 12)
+        Me.lbl描述.TabIndex = 10
+        Me.lbl描述.Text = "描    述："
         '
-        'lblMaterialName
+        'lbl材料
         '
-        Me.lblMaterialName.AutoSize = True
-        Me.lblMaterialName.Location = New System.Drawing.Point(12, 110)
-        Me.lblMaterialName.Name = "lblMaterialName"
-        Me.lblMaterialName.Size = New System.Drawing.Size(65, 12)
-        Me.lblMaterialName.TabIndex = 11
-        Me.lblMaterialName.Text = "材    料："
+        Me.lbl材料.AutoSize = True
+        Me.lbl材料.Location = New System.Drawing.Point(12, 110)
+        Me.lbl材料.Name = "lbl材料"
+        Me.lbl材料.Size = New System.Drawing.Size(65, 12)
+        Me.lbl材料.TabIndex = 11
+        Me.lbl材料.Text = "材    料："
         '
         'lblERPCode
         '
@@ -156,66 +156,65 @@ Partial Class frmChangeIpro
         Me.lblERPCode.TabIndex = 12
         Me.lblERPCode.Text = "E   R  P："
         '
-        'btnSearchERPCode
+        'btn查询
         '
-        Me.btnSearchERPCode.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnSearchERPCode.Location = New System.Drawing.Point(247, 132)
-        Me.btnSearchERPCode.Name = "btnSearchERPCode"
-        Me.btnSearchERPCode.Size = New System.Drawing.Size(40, 28)
-        Me.btnSearchERPCode.TabIndex = 13
-        Me.btnSearchERPCode.Text = "查询"
-        Me.btnSearchERPCode.UseVisualStyleBackColor = True
+        Me.btn查询.Location = New System.Drawing.Point(249, 129)
+        Me.btn查询.Name = "btn查询"
+        Me.btn查询.Size = New System.Drawing.Size(40, 28)
+        Me.btn查询.TabIndex = 13
+        Me.btn查询.Text = "查询"
+        Me.btn查询.UseVisualStyleBackColor = True
         '
         'txtERPCode
         '
         Me.txtERPCode.Location = New System.Drawing.Point(79, 136)
         Me.txtERPCode.Name = "txtERPCode"
         Me.txtERPCode.Size = New System.Drawing.Size(164, 21)
-        Me.txtERPCode.TabIndex = 14
+        Me.txtERPCode.TabIndex = 5
         '
-        'lblSupplier
+        'lbl供应商
         '
-        Me.lblSupplier.AutoSize = True
-        Me.lblSupplier.Location = New System.Drawing.Point(12, 171)
-        Me.lblSupplier.Name = "lblSupplier"
-        Me.lblSupplier.Size = New System.Drawing.Size(65, 12)
-        Me.lblSupplier.TabIndex = 15
-        Me.lblSupplier.Text = "供 应 商："
+        Me.lbl供应商.AutoSize = True
+        Me.lbl供应商.Location = New System.Drawing.Point(12, 171)
+        Me.lbl供应商.Name = "lbl供应商"
+        Me.lbl供应商.Size = New System.Drawing.Size(65, 12)
+        Me.lbl供应商.TabIndex = 15
+        Me.lbl供应商.Text = "供 应 商："
         '
-        'cmbSupplier
+        'cmb供应商
         '
-        Me.cmbSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSupplier.FormattingEnabled = True
-        Me.cmbSupplier.Items.AddRange(New Object() {"", "标准件", "看板件", "外购件", "外协件", "自制件"})
-        Me.cmbSupplier.Location = New System.Drawing.Point(80, 169)
-        Me.cmbSupplier.Name = "cmbSupplier"
-        Me.cmbSupplier.Size = New System.Drawing.Size(162, 20)
-        Me.cmbSupplier.TabIndex = 16
+        Me.cmb供应商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb供应商.FormattingEnabled = True
+        Me.cmb供应商.Items.AddRange(New Object() {"", "标准件", "看板件", "外购件", "外协件", "自制件"})
+        Me.cmb供应商.Location = New System.Drawing.Point(80, 169)
+        Me.cmb供应商.Name = "cmb供应商"
+        Me.cmb供应商.Size = New System.Drawing.Size(162, 20)
+        Me.cmb供应商.TabIndex = 6
         '
         'frmChangeIpro
         '
-        Me.AcceptButton = Me.btnOK
+        Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(301, 256)
-        Me.Controls.Add(Me.cmbSupplier)
-        Me.Controls.Add(Me.lblSupplier)
+        Me.CancelButton = Me.btn取消
+        Me.ClientSize = New System.Drawing.Size(301, 249)
+        Me.Controls.Add(Me.cmb供应商)
+        Me.Controls.Add(Me.lbl供应商)
         Me.Controls.Add(Me.txtERPCode)
-        Me.Controls.Add(Me.btnSearchERPCode)
+        Me.Controls.Add(Me.btn查询)
         Me.Controls.Add(Me.lblERPCode)
-        Me.Controls.Add(Me.lblMaterialName)
-        Me.Controls.Add(Me.lblDescribe)
-        Me.Controls.Add(Me.lblFileName)
-        Me.Controls.Add(Me.cmbMaterialName)
-        Me.Controls.Add(Me.cmbDescribe)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.btnUp2)
-        Me.Controls.Add(Me.btnUp1)
-        Me.Controls.Add(Me.txtFileName)
-        Me.Controls.Add(Me.txtNum)
-        Me.Controls.Add(Me.lblNum)
+        Me.Controls.Add(Me.lbl材料)
+        Me.Controls.Add(Me.lbl描述)
+        Me.Controls.Add(Me.lbl文件名)
+        Me.Controls.Add(Me.cmb材料)
+        Me.Controls.Add(Me.cmb描述)
+        Me.Controls.Add(Me.btn确定)
+        Me.Controls.Add(Me.btn取消)
+        Me.Controls.Add(Me.btn向上2)
+        Me.Controls.Add(Me.btn向上1)
+        Me.Controls.Add(Me.txt文件名)
+        Me.Controls.Add(Me.txt图号)
+        Me.Controls.Add(Me.lbl图号)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -230,22 +229,22 @@ Partial Class frmChangeIpro
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnOK As System.Windows.Forms.Button
-    Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents lblNum As System.Windows.Forms.Label
-    Friend WithEvents txtNum As System.Windows.Forms.TextBox
-    Friend WithEvents txtFileName As System.Windows.Forms.TextBox
-    Friend WithEvents btnUp1 As System.Windows.Forms.Button
-    Friend WithEvents btnUp2 As System.Windows.Forms.Button
-    Friend WithEvents cmbDescribe As System.Windows.Forms.ComboBox
-    Friend WithEvents cmbMaterialName As System.Windows.Forms.ComboBox
-    Friend WithEvents lblFileName As System.Windows.Forms.Label
-    Friend WithEvents lblDescribe As System.Windows.Forms.Label
-    Friend WithEvents lblMaterialName As System.Windows.Forms.Label
+    Friend WithEvents btn确定 As System.Windows.Forms.Button
+    Friend WithEvents btn取消 As System.Windows.Forms.Button
+    Friend WithEvents lbl图号 As System.Windows.Forms.Label
+    Friend WithEvents txt图号 As System.Windows.Forms.TextBox
+    Friend WithEvents txt文件名 As System.Windows.Forms.TextBox
+    Friend WithEvents btn向上1 As System.Windows.Forms.Button
+    Friend WithEvents btn向上2 As System.Windows.Forms.Button
+    Friend WithEvents cmb描述 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb材料 As System.Windows.Forms.ComboBox
+    Friend WithEvents lbl文件名 As System.Windows.Forms.Label
+    Friend WithEvents lbl描述 As System.Windows.Forms.Label
+    Friend WithEvents lbl材料 As System.Windows.Forms.Label
     Friend WithEvents lblERPCode As System.Windows.Forms.Label
-    Friend WithEvents btnSearchERPCode As System.Windows.Forms.Button
+    Friend WithEvents btn查询 As System.Windows.Forms.Button
     Friend WithEvents txtERPCode As System.Windows.Forms.TextBox
-    Friend WithEvents lblSupplier As System.Windows.Forms.Label
-    Friend WithEvents cmbSupplier As System.Windows.Forms.ComboBox
+    Friend WithEvents lbl供应商 As System.Windows.Forms.Label
+    Friend WithEvents cmb供应商 As System.Windows.Forms.ComboBox
 
 End Class

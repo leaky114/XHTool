@@ -1,10 +1,10 @@
-﻿Imports System.Windows.Forms
-Imports Inventor.DocumentTypeEnum
+﻿Imports Inventor.DocumentTypeEnum
+Imports System.Windows.Forms
 
 Public Class frmSaveAll
     Dim RadioState As Short
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
 
         SetStatusBarText()
 
@@ -19,7 +19,7 @@ Public Class frmSaveAll
 
             Select Case oInventorDocument.DocumentType
                 Case kAssemblyDocumentObject
-                    If chkAsm.Checked = True Then
+                    If chk部件.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -31,7 +31,7 @@ Public Class frmSaveAll
                         End Select
                     End If
                 Case kPartDocumentObject
-                    If chkPart.Checked = True Then
+                    If chk零件图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -43,7 +43,7 @@ Public Class frmSaveAll
                         End Select
                     End If
                 Case kDrawingDocumentObject
-                    If chkIdw.Checked = True Then
+                    If chk工程图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -61,20 +61,24 @@ Public Class frmSaveAll
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Dispose()
     End Sub
 
-    Private Sub rdoSaveAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoSaveAll.CheckedChanged
+    Private Sub rdo全部保存_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存.CheckedChanged
         RadioState = 1
     End Sub
 
-    Private Sub rdoAllSaveClose_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoAllSaveClose.CheckedChanged
+    Private Sub rdo全部保存并关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存并关闭.CheckedChanged
         RadioState = 2
     End Sub
 
-    Private Sub rdoAllClose_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoAllClose.CheckedChanged
+    Private Sub rdo全部关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部关闭.CheckedChanged
         RadioState = 3
+    End Sub
+
+    Private Sub frmSaveAll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

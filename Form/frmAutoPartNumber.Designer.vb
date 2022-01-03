@@ -22,261 +22,247 @@ Partial Class frmAutoPartNumber
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnStart = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnMoveUp = New System.Windows.Forms.Button()
-        Me.btnReview = New System.Windows.Forms.Button()
-        Me.btnMoveDown = New System.Windows.Forms.Button()
-        Me.lvwFileListView = New System.Windows.Forms.ListView()
-        Me.chOriginalFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chNewFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chFolder = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.txtBasicNum = New System.Windows.Forms.TextBox()
-        Me.lblBasicNum = New System.Windows.Forms.Label()
-        Me.lblAmsChange = New System.Windows.Forms.Label()
-        Me.lblPartChange = New System.Windows.Forms.Label()
-        Me.txtPartChange = New System.Windows.Forms.TextBox()
-        Me.cmbAmsChange = New System.Windows.Forms.ComboBox()
-        Me.btnMoveOut = New System.Windows.Forms.Button()
-        Me.btnReLoad = New System.Windows.Forms.Button()
-        Me.lblNewFileName = New System.Windows.Forms.Label()
-        Me.txtNewFileName = New System.Windows.Forms.TextBox()
-        Me.btnSelectall = New System.Windows.Forms.Button()
-        Me.btnOK = New System.Windows.Forms.Button()
+        Me.btn开始 = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.btn上移 = New System.Windows.Forms.Button()
+        Me.btn预览 = New System.Windows.Forms.Button()
+        Me.btn下移 = New System.Windows.Forms.Button()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ch原文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch类型 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch新文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch文件夹 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.txt基准图号 = New System.Windows.Forms.TextBox()
+        Me.lbl基准图号 = New System.Windows.Forms.Label()
+        Me.lbl部件变量 = New System.Windows.Forms.Label()
+        Me.lbl零件变量 = New System.Windows.Forms.Label()
+        Me.txt零件变量 = New System.Windows.Forms.TextBox()
+        Me.cmb部件变量 = New System.Windows.Forms.ComboBox()
+        Me.btn移出 = New System.Windows.Forms.Button()
+        Me.btn重载 = New System.Windows.Forms.Button()
+        Me.lbl新文件名 = New System.Windows.Forms.Label()
+        Me.txt新文件名 = New System.Windows.Forms.TextBox()
+        Me.btn确定新文件名 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnStart
+        'btn开始
         '
-        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(514, 391)
-        Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(65, 28)
-        Me.btnStart.TabIndex = 5
-        Me.btnStart.Text = "开始"
+        Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn开始.Location = New System.Drawing.Point(514, 391)
+        Me.btn开始.Name = "btn开始"
+        Me.btn开始.Size = New System.Drawing.Size(65, 28)
+        Me.btn开始.TabIndex = 5
+        Me.btn开始.Text = "开始"
         '
-        'btnClose
+        'btn关闭
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.AutoSize = True
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(587, 391)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(65, 28)
-        Me.btnClose.TabIndex = 6
-        Me.btnClose.Text = "关闭"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.AutoSize = True
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(587, 391)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(65, 28)
+        Me.btn关闭.TabIndex = 6
+        Me.btn关闭.Text = "关闭"
         '
-        'btnMoveUp
+        'btn上移
         '
-        Me.btnMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveUp.Location = New System.Drawing.Point(96, 391)
-        Me.btnMoveUp.Name = "btnMoveUp"
-        Me.btnMoveUp.Size = New System.Drawing.Size(65, 28)
-        Me.btnMoveUp.TabIndex = 0
-        Me.btnMoveUp.TabStop = False
-        Me.btnMoveUp.Text = "上移"
-        Me.btnMoveUp.UseVisualStyleBackColor = True
+        Me.btn上移.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn上移.Location = New System.Drawing.Point(16, 391)
+        Me.btn上移.Name = "btn上移"
+        Me.btn上移.Size = New System.Drawing.Size(65, 28)
+        Me.btn上移.TabIndex = 0
+        Me.btn上移.TabStop = False
+        Me.btn上移.Text = "上移"
+        Me.btn上移.UseVisualStyleBackColor = True
         '
-        'btnReview
+        'btn预览
         '
-        Me.btnReview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReview.Location = New System.Drawing.Point(388, 391)
-        Me.btnReview.Name = "btnReview"
-        Me.btnReview.Size = New System.Drawing.Size(65, 28)
-        Me.btnReview.TabIndex = 4
-        Me.btnReview.Text = "预览"
-        Me.btnReview.UseVisualStyleBackColor = True
+        Me.btn预览.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn预览.Location = New System.Drawing.Point(308, 391)
+        Me.btn预览.Name = "btn预览"
+        Me.btn预览.Size = New System.Drawing.Size(65, 28)
+        Me.btn预览.TabIndex = 4
+        Me.btn预览.Text = "预览"
+        Me.btn预览.UseVisualStyleBackColor = True
         '
-        'btnMoveDown
+        'btn下移
         '
-        Me.btnMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveDown.Location = New System.Drawing.Point(169, 391)
-        Me.btnMoveDown.Name = "btnMoveDown"
-        Me.btnMoveDown.Size = New System.Drawing.Size(65, 28)
-        Me.btnMoveDown.TabIndex = 21
-        Me.btnMoveDown.TabStop = False
-        Me.btnMoveDown.Text = "下移"
-        Me.btnMoveDown.UseVisualStyleBackColor = True
+        Me.btn下移.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn下移.Location = New System.Drawing.Point(89, 391)
+        Me.btn下移.Name = "btn下移"
+        Me.btn下移.Size = New System.Drawing.Size(65, 28)
+        Me.btn下移.TabIndex = 21
+        Me.btn下移.TabStop = False
+        Me.btn下移.Text = "下移"
+        Me.btn下移.UseVisualStyleBackColor = True
         '
-        'lvwFileListView
+        'lvw文件列表
         '
-        Me.lvwFileListView.AllowDrop = True
-        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chOriginalFileName, Me.chType, Me.chNewFileName, Me.chFolder})
-        Me.lvwFileListView.FullRowSelect = True
-        Me.lvwFileListView.Location = New System.Drawing.Point(13, 12)
-        Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(639, 287)
-        Me.lvwFileListView.TabIndex = 22
-        Me.lvwFileListView.TabStop = False
-        Me.lvwFileListView.UseCompatibleStateImageBehavior = False
-        Me.lvwFileListView.View = System.Windows.Forms.View.Details
+        Me.lvw文件列表.AllowDrop = True
+        Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch原文件名, Me.ch类型, Me.ch新文件名, Me.ch文件夹})
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(13, 12)
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(639, 287)
+        Me.lvw文件列表.TabIndex = 22
+        Me.lvw文件列表.TabStop = False
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
-        'chOriginalFileName
+        'ch原文件名
         '
-        Me.chOriginalFileName.Text = "原文件名"
-        Me.chOriginalFileName.Width = 150
+        Me.ch原文件名.Text = "原文件名"
+        Me.ch原文件名.Width = 150
         '
-        'chType
+        'ch类型
         '
-        Me.chType.Text = "类型"
-        Me.chType.Width = 50
+        Me.ch类型.Text = "类型"
+        Me.ch类型.Width = 50
         '
-        'chNewFileName
+        'ch新文件名
         '
-        Me.chNewFileName.Text = "新文件名"
-        Me.chNewFileName.Width = 250
+        Me.ch新文件名.Text = "新文件名"
+        Me.ch新文件名.Width = 250
         '
-        'chFolder
+        'ch文件夹
         '
-        Me.chFolder.Text = "文件夹"
-        Me.chFolder.Width = 250
+        Me.ch文件夹.Text = "文件夹"
+        Me.ch文件夹.Width = 250
         '
-        'txtBasicNum
+        'txt基准图号
         '
-        Me.txtBasicNum.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtBasicNum.Location = New System.Drawing.Point(79, 321)
-        Me.txtBasicNum.Name = "txtBasicNum"
-        Me.txtBasicNum.Size = New System.Drawing.Size(134, 21)
-        Me.txtBasicNum.TabIndex = 0
+        Me.txt基准图号.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txt基准图号.Location = New System.Drawing.Point(79, 321)
+        Me.txt基准图号.Name = "txt基准图号"
+        Me.txt基准图号.Size = New System.Drawing.Size(134, 21)
+        Me.txt基准图号.TabIndex = 0
         '
-        'lblBasicNum
+        'lbl基准图号
         '
-        Me.lblBasicNum.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblBasicNum.AutoSize = True
-        Me.lblBasicNum.Location = New System.Drawing.Point(22, 324)
-        Me.lblBasicNum.Name = "lblBasicNum"
-        Me.lblBasicNum.Size = New System.Drawing.Size(53, 12)
-        Me.lblBasicNum.TabIndex = 25
-        Me.lblBasicNum.Text = "基准代号"
+        Me.lbl基准图号.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl基准图号.AutoSize = True
+        Me.lbl基准图号.Location = New System.Drawing.Point(22, 324)
+        Me.lbl基准图号.Name = "lbl基准图号"
+        Me.lbl基准图号.Size = New System.Drawing.Size(53, 12)
+        Me.lbl基准图号.TabIndex = 25
+        Me.lbl基准图号.Text = "基准图号"
         '
-        'lblAmsChange
+        'lbl部件变量
         '
-        Me.lblAmsChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblAmsChange.AutoSize = True
-        Me.lblAmsChange.Location = New System.Drawing.Point(219, 324)
-        Me.lblAmsChange.Name = "lblAmsChange"
-        Me.lblAmsChange.Size = New System.Drawing.Size(65, 12)
-        Me.lblAmsChange.TabIndex = 26
-        Me.lblAmsChange.Text = "部件变化量"
+        Me.lbl部件变量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl部件变量.AutoSize = True
+        Me.lbl部件变量.Location = New System.Drawing.Point(219, 324)
+        Me.lbl部件变量.Name = "lbl部件变量"
+        Me.lbl部件变量.Size = New System.Drawing.Size(65, 12)
+        Me.lbl部件变量.TabIndex = 26
+        Me.lbl部件变量.Text = "部件变化量"
         '
-        'lblPartChange
+        'lbl零件变量
         '
-        Me.lblPartChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblPartChange.AutoSize = True
-        Me.lblPartChange.Location = New System.Drawing.Point(397, 324)
-        Me.lblPartChange.Name = "lblPartChange"
-        Me.lblPartChange.Size = New System.Drawing.Size(65, 12)
-        Me.lblPartChange.TabIndex = 28
-        Me.lblPartChange.Text = "零件变化量"
+        Me.lbl零件变量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl零件变量.AutoSize = True
+        Me.lbl零件变量.Location = New System.Drawing.Point(397, 324)
+        Me.lbl零件变量.Name = "lbl零件变量"
+        Me.lbl零件变量.Size = New System.Drawing.Size(65, 12)
+        Me.lbl零件变量.TabIndex = 28
+        Me.lbl零件变量.Text = "零件变化量"
         '
-        'txtPartChange
+        'txt零件变量
         '
-        Me.txtPartChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtPartChange.Location = New System.Drawing.Point(478, 321)
-        Me.txtPartChange.Name = "txtPartChange"
-        Me.txtPartChange.Size = New System.Drawing.Size(73, 21)
-        Me.txtPartChange.TabIndex = 2
-        Me.txtPartChange.Text = "1"
+        Me.txt零件变量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txt零件变量.Location = New System.Drawing.Point(478, 321)
+        Me.txt零件变量.Name = "txt零件变量"
+        Me.txt零件变量.Size = New System.Drawing.Size(73, 21)
+        Me.txt零件变量.TabIndex = 2
+        Me.txt零件变量.Text = "1"
         '
-        'cmbAmsChange
+        'cmb部件变量
         '
-        Me.cmbAmsChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmbAmsChange.FormattingEnabled = True
-        Me.cmbAmsChange.Items.AddRange(New Object() {"100", "10000"})
-        Me.cmbAmsChange.Location = New System.Drawing.Point(292, 321)
-        Me.cmbAmsChange.Name = "cmbAmsChange"
-        Me.cmbAmsChange.Size = New System.Drawing.Size(99, 20)
-        Me.cmbAmsChange.TabIndex = 2
-        Me.cmbAmsChange.Text = "100"
+        Me.cmb部件变量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmb部件变量.FormattingEnabled = True
+        Me.cmb部件变量.Items.AddRange(New Object() {"100", "10000"})
+        Me.cmb部件变量.Location = New System.Drawing.Point(292, 321)
+        Me.cmb部件变量.Name = "cmb部件变量"
+        Me.cmb部件变量.Size = New System.Drawing.Size(99, 20)
+        Me.cmb部件变量.TabIndex = 2
+        Me.cmb部件变量.Text = "100"
         '
-        'btnMoveOut
+        'btn移出
         '
-        Me.btnMoveOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveOut.Location = New System.Drawing.Point(242, 391)
-        Me.btnMoveOut.Name = "btnMoveOut"
-        Me.btnMoveOut.Size = New System.Drawing.Size(65, 28)
-        Me.btnMoveOut.TabIndex = 29
-        Me.btnMoveOut.Text = "移出"
-        Me.btnMoveOut.UseVisualStyleBackColor = True
+        Me.btn移出.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn移出.Location = New System.Drawing.Point(162, 391)
+        Me.btn移出.Name = "btn移出"
+        Me.btn移出.Size = New System.Drawing.Size(65, 28)
+        Me.btn移出.TabIndex = 29
+        Me.btn移出.Text = "移出"
+        Me.btn移出.UseVisualStyleBackColor = True
         '
-        'btnReLoad
+        'btn重载
         '
-        Me.btnReLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReLoad.Location = New System.Drawing.Point(315, 391)
-        Me.btnReLoad.Name = "btnReLoad"
-        Me.btnReLoad.Size = New System.Drawing.Size(65, 28)
-        Me.btnReLoad.TabIndex = 30
-        Me.btnReLoad.Text = "重载"
-        Me.btnReLoad.UseVisualStyleBackColor = True
+        Me.btn重载.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn重载.Location = New System.Drawing.Point(235, 391)
+        Me.btn重载.Name = "btn重载"
+        Me.btn重载.Size = New System.Drawing.Size(65, 28)
+        Me.btn重载.TabIndex = 30
+        Me.btn重载.Text = "重载"
+        Me.btn重载.UseVisualStyleBackColor = True
         '
-        'lblNewFileName
+        'lbl新文件名
         '
-        Me.lblNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblNewFileName.AutoSize = True
-        Me.lblNewFileName.Location = New System.Drawing.Point(20, 352)
-        Me.lblNewFileName.Name = "lblNewFileName"
-        Me.lblNewFileName.Size = New System.Drawing.Size(53, 12)
-        Me.lblNewFileName.TabIndex = 31
-        Me.lblNewFileName.Text = "新文件名"
+        Me.lbl新文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl新文件名.AutoSize = True
+        Me.lbl新文件名.Location = New System.Drawing.Point(20, 352)
+        Me.lbl新文件名.Name = "lbl新文件名"
+        Me.lbl新文件名.Size = New System.Drawing.Size(53, 12)
+        Me.lbl新文件名.TabIndex = 31
+        Me.lbl新文件名.Text = "新文件名"
         '
-        'txtNewFileName
+        'txt新文件名
         '
-        Me.txtNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtNewFileName.Location = New System.Drawing.Point(79, 348)
-        Me.txtNewFileName.Name = "txtNewFileName"
-        Me.txtNewFileName.Size = New System.Drawing.Size(361, 21)
-        Me.txtNewFileName.TabIndex = 32
+        Me.txt新文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txt新文件名.Location = New System.Drawing.Point(79, 348)
+        Me.txt新文件名.Name = "txt新文件名"
+        Me.txt新文件名.Size = New System.Drawing.Size(361, 21)
+        Me.txt新文件名.TabIndex = 32
         '
-        'btnSelectall
+        'btn确定新文件名
         '
-        Me.btnSelectall.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSelectall.Location = New System.Drawing.Point(23, 391)
-        Me.btnSelectall.Name = "btnSelectall"
-        Me.btnSelectall.Size = New System.Drawing.Size(65, 28)
-        Me.btnSelectall.TabIndex = 33
-        Me.btnSelectall.TabStop = False
-        Me.btnSelectall.Text = "全选"
-        Me.btnSelectall.UseVisualStyleBackColor = True
-        Me.btnSelectall.Visible = False
-        '
-        'btnOK
-        '
-        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(446, 346)
-        Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(25, 25)
-        Me.btnOK.TabIndex = 34
-        Me.btnOK.Text = "√"
-        Me.btnOK.UseVisualStyleBackColor = True
+        Me.btn确定新文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn确定新文件名.Location = New System.Drawing.Point(446, 346)
+        Me.btn确定新文件名.Name = "btn确定新文件名"
+        Me.btn确定新文件名.Size = New System.Drawing.Size(25, 25)
+        Me.btn确定新文件名.TabIndex = 34
+        Me.btn确定新文件名.Text = "√"
+        Me.btn确定新文件名.UseVisualStyleBackColor = True
         '
         'frmAutoPartNumber
         '
-        Me.AcceptButton = Me.btnStart
+        Me.AcceptButton = Me.btn开始
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnClose
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(664, 433)
-        Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.btnSelectall)
-        Me.Controls.Add(Me.txtNewFileName)
-        Me.Controls.Add(Me.lblNewFileName)
-        Me.Controls.Add(Me.btnReLoad)
-        Me.Controls.Add(Me.btnMoveOut)
-        Me.Controls.Add(Me.cmbAmsChange)
-        Me.Controls.Add(Me.lblPartChange)
-        Me.Controls.Add(Me.txtPartChange)
-        Me.Controls.Add(Me.lblAmsChange)
-        Me.Controls.Add(Me.lblBasicNum)
-        Me.Controls.Add(Me.txtBasicNum)
-        Me.Controls.Add(Me.lvwFileListView)
-        Me.Controls.Add(Me.btnMoveDown)
-        Me.Controls.Add(Me.btnReview)
-        Me.Controls.Add(Me.btnMoveUp)
-        Me.Controls.Add(Me.btnClose)
-        Me.Controls.Add(Me.btnStart)
+        Me.Controls.Add(Me.btn确定新文件名)
+        Me.Controls.Add(Me.txt新文件名)
+        Me.Controls.Add(Me.lbl新文件名)
+        Me.Controls.Add(Me.btn重载)
+        Me.Controls.Add(Me.btn移出)
+        Me.Controls.Add(Me.cmb部件变量)
+        Me.Controls.Add(Me.lbl零件变量)
+        Me.Controls.Add(Me.txt零件变量)
+        Me.Controls.Add(Me.lbl部件变量)
+        Me.Controls.Add(Me.lbl基准图号)
+        Me.Controls.Add(Me.txt基准图号)
+        Me.Controls.Add(Me.lvw文件列表)
+        Me.Controls.Add(Me.btn下移)
+        Me.Controls.Add(Me.btn预览)
+        Me.Controls.Add(Me.btn上移)
+        Me.Controls.Add(Me.btn关闭)
+        Me.Controls.Add(Me.btn开始)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -290,27 +276,26 @@ Partial Class frmAutoPartNumber
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnStart As System.Windows.Forms.Button
-    Friend WithEvents btnMoveUp As System.Windows.Forms.Button
-    Friend WithEvents btnReview As System.Windows.Forms.Button
-    Friend WithEvents btnMoveDown As System.Windows.Forms.Button
-    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
-    Friend WithEvents chOriginalFileName As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chType As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chNewFileName As System.Windows.Forms.ColumnHeader
-    Friend WithEvents txtBasicNum As System.Windows.Forms.TextBox
-    Friend WithEvents lblBasicNum As System.Windows.Forms.Label
-    Friend WithEvents lblAmsChange As System.Windows.Forms.Label
-    Friend WithEvents lblPartChange As System.Windows.Forms.Label
-    Friend WithEvents txtPartChange As System.Windows.Forms.TextBox
-    Friend WithEvents chFolder As System.Windows.Forms.ColumnHeader
-    Friend WithEvents cmbAmsChange As System.Windows.Forms.ComboBox
-    Friend WithEvents btnMoveOut As System.Windows.Forms.Button
-    Friend WithEvents btnReLoad As System.Windows.Forms.Button
-    Friend WithEvents lblNewFileName As System.Windows.Forms.Label
-    Friend WithEvents txtNewFileName As System.Windows.Forms.TextBox
-    Friend WithEvents btnSelectall As System.Windows.Forms.Button
-    Friend WithEvents btnOK As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
+    Friend WithEvents btn开始 As System.Windows.Forms.Button
+    Friend WithEvents btn上移 As System.Windows.Forms.Button
+    Friend WithEvents btn预览 As System.Windows.Forms.Button
+    Friend WithEvents btn下移 As System.Windows.Forms.Button
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ch原文件名 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ch类型 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ch新文件名 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents txt基准图号 As System.Windows.Forms.TextBox
+    Friend WithEvents lbl基准图号 As System.Windows.Forms.Label
+    Friend WithEvents lbl部件变量 As System.Windows.Forms.Label
+    Friend WithEvents lbl零件变量 As System.Windows.Forms.Label
+    Friend WithEvents txt零件变量 As System.Windows.Forms.TextBox
+    Friend WithEvents ch文件夹 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmb部件变量 As System.Windows.Forms.ComboBox
+    Friend WithEvents btn移出 As System.Windows.Forms.Button
+    Friend WithEvents btn重载 As System.Windows.Forms.Button
+    Friend WithEvents lbl新文件名 As System.Windows.Forms.Label
+    Friend WithEvents txt新文件名 As System.Windows.Forms.TextBox
+    Friend WithEvents btn确定新文件名 As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
 
 End Class

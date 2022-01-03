@@ -1,8 +1,36 @@
+Imports System.Drawing
 Imports System.Windows.Forms
 
 Public Class frmOption
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
+        'If txtBOM导出项.Text = "" Then
+        '    txtBOM导出项.Text = cbo添加.Text
+        'Else
+
+        '//先获取复制文本
+        Dim newstr As String = cbo添加.Text
+
+        '//获取textBox2 中的光标
+        Dim index As Integer = txtBOM导出项.SelectionStart
+        txtBOM导出项.Text = txtBOM导出项.Text.Insert(index, newstr)
+        txtBOM导出项.SelectionStart = index + newstr.Length
+        txtBOM导出项.Focus()
+        'End If
+
+    End Sub
+
+    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Dispose()
+
+    End Sub
+
+    Private Sub btn清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清除.Click
+        txtBOM导出项.Clear()
+    End Sub
+
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         If cbo图号.Text = cbo文件名.Text Then
             MsgBox("映射设置相同！", MsgBoxStyle.Exclamation, "设置")
             Exit Sub
@@ -33,7 +61,7 @@ Public Class frmOption
         End Select
 
         '同时签字
-        Select Case chk签字.Checked
+        Select Case chk同时签字.Checked
             Case False
                 IsDayAndName = "-1"
             Case True
@@ -41,7 +69,7 @@ Public Class frmOption
         End Select
 
         '打开工程图时写入
-        Select Case CheckBox3.Checked
+        Select Case chk保存比例.Checked
             Case False
                 IsSetDrawingScale = "-1"
             Case True
@@ -49,7 +77,7 @@ Public Class frmOption
         End Select
 
         '打开工程图时写入
-        Select Case CheckBox4.Checked
+        Select Case chk保存质量.Checked
             Case False
                 IsSetMass = "-1"
             Case True
@@ -109,7 +137,6 @@ Public Class frmOption
 
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPrintDay", Map_PrintDay)
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsOpenPrint", IsOpenPrint)
-
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "EngineerName", EngineerName)
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsDayAndName", IsDayAndName)
 
@@ -124,16 +151,83 @@ Public Class frmOption
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", TableArrays)
         'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", ColIndexNum)
 
-        WrXml.XmlWriteSetting()
+        Printer = cmb打印机.Text
+
+        '匹配A3
+        Select Case chk匹配A3纸.Checked
+            Case False
+                IsPaperA3 = "-1"
+            Case True
+                IsPaperA3 = "1"
+        End Select
+
+        '签字
+        Select Case chk签字.Checked
+            Case False
+                IsSign = "-1"
+            Case True
+                IsSign = "1"
+        End Select
+
+        '另存为
+        SaveAsDawAndPdf = cbo另存为.Text
+
+        TitleBlockIdwDoc = txt图框模板文件.Text
+
+        WrXml.InAISettingXmlWriteSetting()
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
+    Private Sub btn图框配置_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn图框配置.Click
+        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "TitleBlock.ini", "\TitleBlock.ini")
+        Process.Start("NOTEPAD.EXE", FPath)
+    End Sub
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
 
+        'If IsFileExsts(txt自定义数据文件.Text) = True Then
+        '    Process.Start(txt自定义数据文件.Text)
+        'End If
+
+        If IsFileExsts(BasicExcelFullFileName) = True Then
+            Process.Start(BasicExcelFullFileName)
+        Else
+            'excel文件不存在，到服务器下载
+            Dim documentURL As String
+            documentURL = Server & ServerExcelFileName
+
+            If IsFileExsts(documentURL) = True Then
+                Dim wc As New System.Net.WebClient
+                wc.DownloadFile(documentURL, BasicExcelFullFileName)
+                Process.Start(BasicExcelFullFileName)
+            End If
+
+        End If
+    End Sub
+
+    Private Sub btn配置文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn配置文件.Click
+        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
+        Process.Start("NOTEPAD.EXE", FPath)
+    End Sub
+
+    Private Sub btn还原_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn还原.Click
+        txtBOM导出项.Text = BOMTiTle
+    End Sub
+
+    Private Sub btn更新数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn更新数据库.Click
+        '更新数据库文件
+        'excel文件不存在，到服务器下载
+        Dim documentURL As String
+        documentURL = Server & ServerExcelFileName
+
+        If IsFileExsts(documentURL) = True Then
+            Dim wc As New System.Net.WebClient
+            wc.DownloadFile(documentURL, BasicExcelFullFileName)
+            'Process.Start(BasicExcelFullFileName)
+
+        End If
+        MsgBox("更新数据库文件完成！", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "更新数据库")
     End Sub
 
     Private Sub frmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -190,23 +284,23 @@ Public Class frmOption
 
         Select Case IsDayAndName
             Case "-1"
-                chk签字.Checked = False
+                chk同时签字.Checked = False
             Case "1"
-                chk签字.Checked = True
+                chk同时签字.Checked = True
         End Select
 
         Select Case IsSetDrawingScale
             Case "-1"
-                CheckBox3.Checked = False
+                chk保存比例.Checked = False
             Case "1"
-                CheckBox3.Checked = True
+                chk保存比例.Checked = True
         End Select
 
         Select Case IsSetMass
             Case "-1"
-                CheckBox4.Checked = False
+                chk保存质量.Checked = False
             Case "1"
-                CheckBox4.Checked = True
+                chk保存质量.Checked = True
         End Select
 
         Select Case CheckUpdate
@@ -220,85 +314,117 @@ Public Class frmOption
         txt查找范围.Text = TableArrays
         txt查询列.Text = ColIndexNum
 
-    End Sub
+        '默认打印机
+        Dim oPrintDocument As New Printing.PrintDocument
+        Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
-
-        'If txtBOM导出项.Text = "" Then
-        '    txtBOM导出项.Text = cbo添加.Text
-        'Else
-
-        '//先获取复制文本
-        Dim newstr As String = cbo添加.Text
-
-        '//获取textBox2 中的光标
-        Dim index As Integer = txtBOM导出项.SelectionStart
-        txtBOM导出项.Text = txtBOM导出项.Text.Insert(index, newstr)
-        txtBOM导出项.SelectionStart = index + newstr.Length
-        txtBOM导出项.Focus()
-        'End If
-
-    End Sub
-
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
-        txtBOM导出项.Clear()
-    End Sub
-
-    Private Sub btnReDo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReDo.Click
-        txtBOM导出项.Text = BOMTiTle
-    End Sub
-
-    Private Sub btnOpenExcelFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenBasicExcelFile.Click
-
-        'If IsFileExsts(txt自定义数据文件.Text) = True Then
-        '    Process.Start(txt自定义数据文件.Text)
-        'End If
-
-        If IsFileExsts(BasicExcelFullFileName) = True Then
-            Process.Start(BasicExcelFullFileName)
-        Else
-            'excel文件不存在，到服务器下载
-            Dim documentURL As String
-            documentURL = "\\Likai-pc\发行版\2011\最新物料编码.xlsx"
-
-            If IsFileExsts(documentURL) = True Then
-                Dim wc As New System.Net.WebClient
-                wc.DownloadFile(documentURL, BasicExcelFullFileName)
-                Process.Start(BasicExcelFullFileName)
+        cmb打印机.Items.Clear()
+        For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
+            cmb打印机.Items.Add(strPrinterName)
+            If strPrinterName = strDefaultPrinter Then
+                cmb打印机.SelectedIndex = cmb打印机.Items.IndexOf(strPrinterName)
             End If
+        Next
 
-        End If
+        For Each cmblist In cmb打印机.Items
+            If cmblist = Printer Then
+                cmb打印机.Text = Printer
+            End If
+        Next
+
+        '匹配A3
+        Select Case IsPaperA3
+            Case -1
+                chk匹配A3纸.Checked = False
+            Case 1
+                chk匹配A3纸.Checked = True
+        End Select
+
+        '签字
+        Select Case IsSign
+            Case -1
+                chk签字.Checked = False
+            Case 1
+                chk签字.Checked = True
+        End Select
+
+        '另存为
+        cbo另存为.Text = SaveAsDawAndPdf
+
+        txt图框模板文件.Text = TitleBlockIdwDoc
+
+    End Sub
+    Private Sub txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.DoubleClick
+        'If e.Button = System.Windows.Forms.MouseButtons.Left Then
+
+        '    Dim oOpenFileDialog As New OpenFileDialog
+        '    With oOpenFileDialog
+        '        .Title = "打开"
+        '        .FileName = ""
+        '        .InitialDirectory = GetFileNameInfo(BasicExcelFullFileName).Folder
+        '        .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
+        '        .Multiselect = False '多开文件打开
+        '        .CheckFileExists = False
+        '        If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+        '            If .FileName <> "" Then '如果有选中文件
+        '                txt基础数据文件.Text = .FileName
+        '            End If
+        '        Else
+        '            Exit Sub
+        '        End If
+        '    End With
+        'End If
     End Sub
 
-    Private Sub txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.MouseDoubleClick
-        If e.Button = System.Windows.Forms.MouseButtons.Left Then
+    'Private Sub txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
+    '    Dim k As ToolTip
 
-            Dim oOpenFileDialog As New OpenFileDialog
-            With oOpenFileDialog
-                .Title = "打开"
-                .FileName = ""
-                .InitialDirectory = GetFileNameInfo(BasicExcelFullFileName).Folder
-                .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
-                .Multiselect = False '多开文件打开
-                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                    If .FileName <> "" Then '如果有选中文件
-                        txt基础数据文件.Text = .FileName
-                    End If
-                Else
-                    Exit Sub
+    '    k = New ToolTip()
+    '    k.AutoPopDelay = 2000 '显示出气泡后的延时时间（毫秒）
+    '    k.InitialDelay = 50 '出现前的延时（毫秒）
+    '    k.ToolTipTitle = "" '提示信息标题
+    '    k.SetToolTip(txt基础数据文件, "双击更改文件") '提示信息内容
+    'End Sub
+
+    Private Sub btn选择工程图模板_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择工程图模板.Click
+        Dim oOpenFileDialog As New OpenFileDialog
+        With oOpenFileDialog
+            .Title = "打开"
+            .FileName = ""
+            .InitialDirectory = ThisApplication.FileOptions.DefaultTemplateDrawingStandard
+            .Filter = "Inventor工程图文件(*.idw)|*.idw" '添加过滤文件
+            .Multiselect = False '多开文件打开
+            .CheckFileExists = True
+            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                If .FileName <> "" Then '如果有选中文件
+                    txt图框模板文件.Text = .FileName
+                    TitleBlockIdwDoc = .FileName
                 End If
-            End With
-        End If
+            Else
+                Exit Sub
+            End If
+        End With
     End Sub
 
-    Private Sub txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
-        Dim k As ToolTip
 
-        k = New ToolTip()
-        k.AutoPopDelay = 2000 '显示出气泡后的延时时间（毫秒）
-        k.InitialDelay = 50 '出现前的延时（毫秒）
-        k.ToolTipTitle = "" '提示信息标题
-        k.SetToolTip(txt基础数据文件, "双击更改文件") '提示信息内容
+    Private Sub btn选择erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择erp数据库.Click
+        Dim oOpenFileDialog As New OpenFileDialog
+        With oOpenFileDialog
+            .Title = "打开"
+            .FileName = ""
+            .InitialDirectory = GetFileNameInfo(BasicExcelFullFileName).Folder
+            .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
+            .Multiselect = False '多开文件打开
+            .CheckFileExists = False
+            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                If .FileName <> "" Then '如果有选中文件
+                    txt基础数据文件.Text = .FileName
+                    BasicExcelFullFileName = .FileName
+                End If
+            Else
+                Exit Sub
+            End If
+        End With
+
     End Sub
-
 End Class

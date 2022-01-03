@@ -24,377 +24,415 @@ Partial Class frmPrint
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrint))
-        Me.btnStart = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnAddFile = New System.Windows.Forms.Button()
-        Me.btnClearList = New System.Windows.Forms.Button()
-        Me.btnAddFolder = New System.Windows.Forms.Button()
-        Me.lblsuggest = New System.Windows.Forms.Label()
-        Me.grpOption = New System.Windows.Forms.GroupBox()
-        Me.chkSaveSign = New System.Windows.Forms.CheckBox()
-        Me.chkSaveAsDwg = New System.Windows.Forms.CheckBox()
-        Me.chkSaveAsPdf = New System.Windows.Forms.CheckBox()
-        Me.chkClose = New System.Windows.Forms.CheckBox()
-        Me.lblCopies = New System.Windows.Forms.Label()
-        Me.lblPrinter = New System.Windows.Forms.Label()
-        Me.nudCopies = New System.Windows.Forms.NumericUpDown()
-        Me.cmbPrinter = New System.Windows.Forms.ComboBox()
-        Me.chkPaperA3 = New System.Windows.Forms.CheckBox()
-        Me.chkSign = New System.Windows.Forms.CheckBox()
-        Me.chkBlack = New System.Windows.Forms.CheckBox()
-        Me.btnLoadAsm = New System.Windows.Forms.Button()
-        Me.btnLoadIdw = New System.Windows.Forms.Button()
-        Me.lvwFileListView = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.cmsRemove = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.tsmiRemove = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiRemoveFilter = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsmiSaveFilter = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnLoadActiveAsm = New System.Windows.Forms.Button()
-        Me.grpOption.SuspendLayout()
-        CType(Me.nudCopies, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.cmsRemove.SuspendLayout()
+        Me.btn开始 = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.btn添加文件 = New System.Windows.Forms.Button()
+        Me.btn清空列表 = New System.Windows.Forms.Button()
+        Me.btn添加文件夹 = New System.Windows.Forms.Button()
+        Me.lbl建议 = New System.Windows.Forms.Label()
+        Me.grp选项 = New System.Windows.Forms.GroupBox()
+        Me.chk关闭窗口 = New System.Windows.Forms.CheckBox()
+        Me.chk刷新工程图 = New System.Windows.Forms.CheckBox()
+        Me.chk保存工程图 = New System.Windows.Forms.CheckBox()
+        Me.chk保存签字 = New System.Windows.Forms.CheckBox()
+        Me.chk存为dwg = New System.Windows.Forms.CheckBox()
+        Me.chk存为pdf = New System.Windows.Forms.CheckBox()
+        Me.chk打印后关闭 = New System.Windows.Forms.CheckBox()
+        Me.lbl份数 = New System.Windows.Forms.Label()
+        Me.lbl打印机 = New System.Windows.Forms.Label()
+        Me.nud份数 = New System.Windows.Forms.NumericUpDown()
+        Me.cmb打印机 = New System.Windows.Forms.ComboBox()
+        Me.chk匹配A3 = New System.Windows.Forms.CheckBox()
+        Me.chk签字 = New System.Windows.Forms.CheckBox()
+        Me.chk打印为黑色 = New System.Windows.Forms.CheckBox()
+        Me.btn从部件导入 = New System.Windows.Forms.Button()
+        Me.btn导入已打开文件 = New System.Windows.Forms.Button()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.cms右键菜单 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmi移出 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi筛选移出 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi筛选保留 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn导入当前部件 = New System.Windows.Forms.Button()
+        Me.grp选项.SuspendLayout()
+        CType(Me.nud份数, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cms右键菜单.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btnStart
+        'btn开始
         '
-        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(785, 478)
-        Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(86, 28)
-        Me.btnStart.TabIndex = 1
-        Me.btnStart.TabStop = False
-        Me.btnStart.Text = "开始打印"
+        Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn开始.Location = New System.Drawing.Point(671, 443)
+        Me.btn开始.Name = "btn开始"
+        Me.btn开始.Size = New System.Drawing.Size(86, 28)
+        Me.btn开始.TabIndex = 1
+        Me.btn开始.TabStop = False
+        Me.btn开始.Text = "开始打印"
         '
-        'btnClose
+        'btn关闭
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(879, 478)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(57, 28)
-        Me.btnClose.TabIndex = 1
-        Me.btnClose.TabStop = False
-        Me.btnClose.Text = "关闭"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(769, 443)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(57, 28)
+        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.TabStop = False
+        Me.btn关闭.Text = "关闭"
         '
-        'btnAddFile
+        'btn添加文件
         '
-        Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(116, 478)
-        Me.btnAddFile.Name = "btnAddFile"
-        Me.btnAddFile.Size = New System.Drawing.Size(85, 28)
-        Me.btnAddFile.TabIndex = 1
-        Me.btnAddFile.Text = "添加文件"
-        Me.btnAddFile.UseVisualStyleBackColor = True
+        Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件.Location = New System.Drawing.Point(116, 443)
+        Me.btn添加文件.Name = "btn添加文件"
+        Me.btn添加文件.Size = New System.Drawing.Size(85, 28)
+        Me.btn添加文件.TabIndex = 1
+        Me.btn添加文件.Text = "添加文件"
+        Me.btn添加文件.UseVisualStyleBackColor = True
         '
-        'btnClearList
+        'btn清空列表
         '
-        Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(570, 478)
-        Me.btnClearList.Name = "btnClearList"
-        Me.btnClearList.Size = New System.Drawing.Size(85, 28)
-        Me.btnClearList.TabIndex = 3
-        Me.btnClearList.Text = "清除列表"
-        Me.btnClearList.UseVisualStyleBackColor = True
+        Me.btn清空列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn清空列表.Location = New System.Drawing.Point(570, 443)
+        Me.btn清空列表.Name = "btn清空列表"
+        Me.btn清空列表.Size = New System.Drawing.Size(85, 28)
+        Me.btn清空列表.TabIndex = 3
+        Me.btn清空列表.Text = "清除列表"
+        Me.btn清空列表.UseVisualStyleBackColor = True
         '
-        'btnAddFolder
+        'btn添加文件夹
         '
-        Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(217, 478)
-        Me.btnAddFolder.Name = "btnAddFolder"
-        Me.btnAddFolder.Size = New System.Drawing.Size(85, 28)
-        Me.btnAddFolder.TabIndex = 2
-        Me.btnAddFolder.Text = "添加文件夹"
-        Me.btnAddFolder.UseVisualStyleBackColor = True
+        Me.btn添加文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件夹.Location = New System.Drawing.Point(217, 443)
+        Me.btn添加文件夹.Name = "btn添加文件夹"
+        Me.btn添加文件夹.Size = New System.Drawing.Size(85, 28)
+        Me.btn添加文件夹.TabIndex = 2
+        Me.btn添加文件夹.Text = "添加文件夹"
+        Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
-        'lblsuggest
+        'lbl建议
         '
-        Me.lblsuggest.BackColor = System.Drawing.SystemColors.Window
-        Me.lblsuggest.Font = New System.Drawing.Font("宋体", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.lblsuggest.ForeColor = System.Drawing.Color.Red
-        Me.lblsuggest.Location = New System.Drawing.Point(70, 159)
-        Me.lblsuggest.Name = "lblsuggest"
-        Me.lblsuggest.Size = New System.Drawing.Size(686, 49)
-        Me.lblsuggest.TabIndex = 32
-        Me.lblsuggest.Text = "建议打开模型提高程序加载工程图的效率！"
+        Me.lbl建议.BackColor = System.Drawing.SystemColors.Window
+        Me.lbl建议.Font = New System.Drawing.Font("微软雅黑", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.lbl建议.ForeColor = System.Drawing.Color.Red
+        Me.lbl建议.Location = New System.Drawing.Point(75, 144)
+        Me.lbl建议.Name = "lbl建议"
+        Me.lbl建议.Size = New System.Drawing.Size(686, 49)
+        Me.lbl建议.TabIndex = 32
+        Me.lbl建议.Text = "建议打开模型提高程序加载工程图的效率！"
         '
-        'grpOption
+        'grp选项
         '
-        Me.grpOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.grpOption.Controls.Add(Me.chkSaveSign)
-        Me.grpOption.Controls.Add(Me.chkSaveAsDwg)
-        Me.grpOption.Controls.Add(Me.chkSaveAsPdf)
-        Me.grpOption.Controls.Add(Me.chkClose)
-        Me.grpOption.Controls.Add(Me.lblCopies)
-        Me.grpOption.Controls.Add(Me.lblPrinter)
-        Me.grpOption.Controls.Add(Me.nudCopies)
-        Me.grpOption.Controls.Add(Me.cmbPrinter)
-        Me.grpOption.Controls.Add(Me.chkPaperA3)
-        Me.grpOption.Controls.Add(Me.chkSign)
-        Me.grpOption.Controls.Add(Me.chkBlack)
-        Me.grpOption.Location = New System.Drawing.Point(13, 410)
-        Me.grpOption.Name = "grpOption"
-        Me.grpOption.Size = New System.Drawing.Size(922, 60)
-        Me.grpOption.TabIndex = 33
-        Me.grpOption.TabStop = False
-        Me.grpOption.Text = "选项"
+        Me.grp选项.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grp选项.Controls.Add(Me.chk关闭窗口)
+        Me.grp选项.Controls.Add(Me.chk刷新工程图)
+        Me.grp选项.Controls.Add(Me.chk保存工程图)
+        Me.grp选项.Controls.Add(Me.chk保存签字)
+        Me.grp选项.Controls.Add(Me.chk存为dwg)
+        Me.grp选项.Controls.Add(Me.chk存为pdf)
+        Me.grp选项.Controls.Add(Me.chk打印后关闭)
+        Me.grp选项.Controls.Add(Me.lbl份数)
+        Me.grp选项.Controls.Add(Me.lbl打印机)
+        Me.grp选项.Controls.Add(Me.nud份数)
+        Me.grp选项.Controls.Add(Me.cmb打印机)
+        Me.grp选项.Controls.Add(Me.chk匹配A3)
+        Me.grp选项.Controls.Add(Me.chk签字)
+        Me.grp选项.Controls.Add(Me.chk打印为黑色)
+        Me.grp选项.Location = New System.Drawing.Point(12, 333)
+        Me.grp选项.Name = "grp选项"
+        Me.grp选项.Size = New System.Drawing.Size(815, 82)
+        Me.grp选项.TabIndex = 33
+        Me.grp选项.TabStop = False
+        Me.grp选项.Text = "选项"
         '
-        'chkSaveSign
+        'chk关闭窗口
         '
-        Me.chkSaveSign.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkSaveSign.AutoSize = True
-        Me.chkSaveSign.Location = New System.Drawing.Point(482, 26)
-        Me.chkSaveSign.Name = "chkSaveSign"
-        Me.chkSaveSign.Size = New System.Drawing.Size(72, 16)
-        Me.chkSaveSign.TabIndex = 43
-        Me.chkSaveSign.Text = "保存签字"
-        Me.chkSaveSign.UseVisualStyleBackColor = True
+        Me.chk关闭窗口.AutoSize = True
+        Me.chk关闭窗口.Checked = True
+        Me.chk关闭窗口.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk关闭窗口.Location = New System.Drawing.Point(635, 25)
+        Me.chk关闭窗口.Name = "chk关闭窗口"
+        Me.chk关闭窗口.Size = New System.Drawing.Size(72, 16)
+        Me.chk关闭窗口.TabIndex = 46
+        Me.chk关闭窗口.Text = "关闭窗口"
+        Me.chk关闭窗口.UseVisualStyleBackColor = True
         '
-        'chkSaveAsDwg
+        'chk刷新工程图
         '
-        Me.chkSaveAsDwg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkSaveAsDwg.AutoSize = True
-        Me.chkSaveAsDwg.Location = New System.Drawing.Point(815, 26)
-        Me.chkSaveAsDwg.Name = "chkSaveAsDwg"
-        Me.chkSaveAsDwg.Size = New System.Drawing.Size(90, 16)
-        Me.chkSaveAsDwg.TabIndex = 42
-        Me.chkSaveAsDwg.Text = "同步存为Dwg"
-        Me.chkSaveAsDwg.UseVisualStyleBackColor = True
+        Me.chk刷新工程图.AutoSize = True
+        Me.chk刷新工程图.Location = New System.Drawing.Point(432, 25)
+        Me.chk刷新工程图.Name = "chk刷新工程图"
+        Me.chk刷新工程图.Size = New System.Drawing.Size(84, 16)
+        Me.chk刷新工程图.TabIndex = 45
+        Me.chk刷新工程图.Text = "刷新工程图"
+        Me.chk刷新工程图.UseVisualStyleBackColor = True
         '
-        'chkSaveAsPdf
+        'chk保存工程图
         '
-        Me.chkSaveAsPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkSaveAsPdf.AutoSize = True
-        Me.chkSaveAsPdf.Location = New System.Drawing.Point(724, 26)
-        Me.chkSaveAsPdf.Name = "chkSaveAsPdf"
-        Me.chkSaveAsPdf.Size = New System.Drawing.Size(90, 16)
-        Me.chkSaveAsPdf.TabIndex = 41
-        Me.chkSaveAsPdf.Text = "同步存为Pdf"
-        Me.chkSaveAsPdf.UseVisualStyleBackColor = True
+        Me.chk保存工程图.AutoSize = True
+        Me.chk保存工程图.Location = New System.Drawing.Point(432, 53)
+        Me.chk保存工程图.Name = "chk保存工程图"
+        Me.chk保存工程图.Size = New System.Drawing.Size(84, 16)
+        Me.chk保存工程图.TabIndex = 44
+        Me.chk保存工程图.Text = "保存工程图"
+        Me.chk保存工程图.UseVisualStyleBackColor = True
         '
-        'chkClose
+        'chk保存签字
         '
-        Me.chkClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkClose.AutoSize = True
-        Me.chkClose.Checked = True
-        Me.chkClose.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkClose.Location = New System.Drawing.Point(632, 26)
-        Me.chkClose.Name = "chkClose"
-        Me.chkClose.Size = New System.Drawing.Size(84, 16)
-        Me.chkClose.TabIndex = 39
-        Me.chkClose.Text = "打印后关闭"
-        Me.chkClose.UseVisualStyleBackColor = True
+        Me.chk保存签字.AutoSize = True
+        Me.chk保存签字.Location = New System.Drawing.Point(344, 53)
+        Me.chk保存签字.Name = "chk保存签字"
+        Me.chk保存签字.Size = New System.Drawing.Size(72, 16)
+        Me.chk保存签字.TabIndex = 43
+        Me.chk保存签字.Text = "保存签字"
+        Me.chk保存签字.UseVisualStyleBackColor = True
         '
-        'lblCopies
+        'chk存为dwg
         '
-        Me.lblCopies.AutoSize = True
-        Me.lblCopies.Location = New System.Drawing.Point(247, 25)
-        Me.lblCopies.Name = "lblCopies"
-        Me.lblCopies.Size = New System.Drawing.Size(29, 12)
-        Me.lblCopies.TabIndex = 38
-        Me.lblCopies.Text = "份数"
+        Me.chk存为dwg.AutoSize = True
+        Me.chk存为dwg.Location = New System.Drawing.Point(528, 53)
+        Me.chk存为dwg.Name = "chk存为dwg"
+        Me.chk存为dwg.Size = New System.Drawing.Size(90, 16)
+        Me.chk存为dwg.TabIndex = 42
+        Me.chk存为dwg.Text = "同步存为Dwg"
+        Me.chk存为dwg.UseVisualStyleBackColor = True
         '
-        'lblPrinter
+        'chk存为pdf
         '
-        Me.lblPrinter.AutoSize = True
-        Me.lblPrinter.Location = New System.Drawing.Point(14, 22)
-        Me.lblPrinter.Name = "lblPrinter"
-        Me.lblPrinter.Size = New System.Drawing.Size(41, 12)
-        Me.lblPrinter.TabIndex = 37
-        Me.lblPrinter.Text = "打印机"
+        Me.chk存为pdf.AutoSize = True
+        Me.chk存为pdf.Location = New System.Drawing.Point(528, 25)
+        Me.chk存为pdf.Name = "chk存为pdf"
+        Me.chk存为pdf.Size = New System.Drawing.Size(90, 16)
+        Me.chk存为pdf.TabIndex = 41
+        Me.chk存为pdf.Text = "同步存为Pdf"
+        Me.chk存为pdf.UseVisualStyleBackColor = True
         '
-        'nudCopies
+        'chk打印后关闭
         '
-        Me.nudCopies.Location = New System.Drawing.Point(285, 22)
-        Me.nudCopies.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudCopies.Name = "nudCopies"
-        Me.nudCopies.Size = New System.Drawing.Size(46, 21)
-        Me.nudCopies.TabIndex = 36
-        Me.nudCopies.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.chk打印后关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chk打印后关闭.AutoSize = True
+        Me.chk打印后关闭.Checked = True
+        Me.chk打印后关闭.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk打印后关闭.Location = New System.Drawing.Point(248, 53)
+        Me.chk打印后关闭.Name = "chk打印后关闭"
+        Me.chk打印后关闭.Size = New System.Drawing.Size(84, 16)
+        Me.chk打印后关闭.TabIndex = 39
+        Me.chk打印后关闭.Text = "打印后关闭"
+        Me.chk打印后关闭.UseVisualStyleBackColor = True
         '
-        'cmbPrinter
+        'lbl份数
         '
-        Me.cmbPrinter.FormattingEnabled = True
-        Me.cmbPrinter.Location = New System.Drawing.Point(60, 21)
-        Me.cmbPrinter.Name = "cmbPrinter"
-        Me.cmbPrinter.Size = New System.Drawing.Size(174, 20)
-        Me.cmbPrinter.Sorted = True
-        Me.cmbPrinter.TabIndex = 35
+        Me.lbl份数.AutoSize = True
+        Me.lbl份数.Location = New System.Drawing.Point(16, 53)
+        Me.lbl份数.Name = "lbl份数"
+        Me.lbl份数.Size = New System.Drawing.Size(29, 12)
+        Me.lbl份数.TabIndex = 38
+        Me.lbl份数.Text = "份数"
         '
-        'chkPaperA3
+        'lbl打印机
         '
-        Me.chkPaperA3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkPaperA3.AutoSize = True
-        Me.chkPaperA3.Checked = True
-        Me.chkPaperA3.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkPaperA3.Location = New System.Drawing.Point(558, 26)
-        Me.chkPaperA3.Name = "chkPaperA3"
-        Me.chkPaperA3.Size = New System.Drawing.Size(72, 16)
-        Me.chkPaperA3.TabIndex = 34
-        Me.chkPaperA3.Text = "匹配A3纸"
-        Me.chkPaperA3.UseVisualStyleBackColor = True
+        Me.lbl打印机.AutoSize = True
+        Me.lbl打印机.Location = New System.Drawing.Point(14, 22)
+        Me.lbl打印机.Name = "lbl打印机"
+        Me.lbl打印机.Size = New System.Drawing.Size(41, 12)
+        Me.lbl打印机.TabIndex = 37
+        Me.lbl打印机.Text = "打印机"
         '
-        'chkSign
+        'nud份数
         '
-        Me.chkSign.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkSign.AutoSize = True
-        Me.chkSign.Checked = True
-        Me.chkSign.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSign.Location = New System.Drawing.Point(433, 26)
-        Me.chkSign.Name = "chkSign"
-        Me.chkSign.Size = New System.Drawing.Size(48, 16)
-        Me.chkSign.TabIndex = 33
-        Me.chkSign.Text = "签字"
-        Me.chkSign.UseVisualStyleBackColor = True
+        Me.nud份数.Location = New System.Drawing.Point(54, 50)
+        Me.nud份数.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nud份数.Name = "nud份数"
+        Me.nud份数.Size = New System.Drawing.Size(46, 21)
+        Me.nud份数.TabIndex = 36
+        Me.nud份数.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'chkBlack
+        'cmb打印机
         '
-        Me.chkBlack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkBlack.AutoSize = True
-        Me.chkBlack.Checked = True
-        Me.chkBlack.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBlack.Location = New System.Drawing.Point(349, 26)
-        Me.chkBlack.Name = "chkBlack"
-        Me.chkBlack.Size = New System.Drawing.Size(84, 16)
-        Me.chkBlack.TabIndex = 32
-        Me.chkBlack.Text = "打印为黑色"
-        Me.chkBlack.UseVisualStyleBackColor = True
+        Me.cmb打印机.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb打印机.FormattingEnabled = True
+        Me.cmb打印机.Location = New System.Drawing.Point(60, 21)
+        Me.cmb打印机.Name = "cmb打印机"
+        Me.cmb打印机.Size = New System.Drawing.Size(174, 20)
+        Me.cmb打印机.Sorted = True
+        Me.cmb打印机.TabIndex = 35
         '
-        'btnLoadAsm
+        'chk匹配A3
         '
-        Me.btnLoadAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadAsm.Location = New System.Drawing.Point(15, 478)
-        Me.btnLoadAsm.Name = "btnLoadAsm"
-        Me.btnLoadAsm.Size = New System.Drawing.Size(85, 28)
-        Me.btnLoadAsm.TabIndex = 0
-        Me.btnLoadAsm.Text = "从部件导入"
-        Me.btnLoadAsm.UseVisualStyleBackColor = True
+        Me.chk匹配A3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chk匹配A3.AutoSize = True
+        Me.chk匹配A3.Checked = True
+        Me.chk匹配A3.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk匹配A3.Location = New System.Drawing.Point(248, 25)
+        Me.chk匹配A3.Name = "chk匹配A3"
+        Me.chk匹配A3.Size = New System.Drawing.Size(72, 16)
+        Me.chk匹配A3.TabIndex = 34
+        Me.chk匹配A3.Text = "匹配A3纸"
+        Me.chk匹配A3.UseVisualStyleBackColor = True
         '
-        'btnLoadIdw
+        'chk签字
         '
-        Me.btnLoadIdw.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadIdw.Location = New System.Drawing.Point(444, 478)
-        Me.btnLoadIdw.Name = "btnLoadIdw"
-        Me.btnLoadIdw.Size = New System.Drawing.Size(110, 28)
-        Me.btnLoadIdw.TabIndex = 34
-        Me.btnLoadIdw.Text = "导入已打开文件"
-        Me.btnLoadIdw.UseVisualStyleBackColor = True
+        Me.chk签字.AutoSize = True
+        Me.chk签字.Checked = True
+        Me.chk签字.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk签字.Location = New System.Drawing.Point(344, 25)
+        Me.chk签字.Name = "chk签字"
+        Me.chk签字.Size = New System.Drawing.Size(48, 16)
+        Me.chk签字.TabIndex = 33
+        Me.chk签字.Text = "签字"
+        Me.chk签字.UseVisualStyleBackColor = True
         '
-        'lvwFileListView
+        'chk打印为黑色
         '
-        Me.lvwFileListView.AllowColumnReorder = True
-        Me.lvwFileListView.AllowDrop = True
-        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFileListView.AutoArrange = False
-        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
-        Me.lvwFileListView.ContextMenuStrip = Me.cmsRemove
-        Me.lvwFileListView.FullRowSelect = True
-        Me.lvwFileListView.Location = New System.Drawing.Point(15, 11)
-        Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(922, 390)
-        Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwFileListView.TabIndex = 36
-        Me.lvwFileListView.UseCompatibleStateImageBehavior = False
-        Me.lvwFileListView.View = System.Windows.Forms.View.Details
+        Me.chk打印为黑色.AutoSize = True
+        Me.chk打印为黑色.Checked = True
+        Me.chk打印为黑色.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk打印为黑色.Location = New System.Drawing.Point(150, 53)
+        Me.chk打印为黑色.Name = "chk打印为黑色"
+        Me.chk打印为黑色.Size = New System.Drawing.Size(84, 16)
+        Me.chk打印为黑色.TabIndex = 32
+        Me.chk打印为黑色.Text = "打印为黑色"
+        Me.chk打印为黑色.UseVisualStyleBackColor = True
         '
-        'ColumnHeader1
+        'btn从部件导入
         '
-        Me.ColumnHeader1.Text = "文件名(双击打开)"
-        Me.ColumnHeader1.Width = 978
+        Me.btn从部件导入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn从部件导入.Location = New System.Drawing.Point(15, 443)
+        Me.btn从部件导入.Name = "btn从部件导入"
+        Me.btn从部件导入.Size = New System.Drawing.Size(85, 28)
+        Me.btn从部件导入.TabIndex = 0
+        Me.btn从部件导入.Text = "从部件导入"
+        Me.btn从部件导入.UseVisualStyleBackColor = True
         '
-        'cmsRemove
+        'btn导入已打开文件
         '
-        Me.cmsRemove.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiRemove, Me.tsmiRemoveFilter, Me.tsmiSaveFilter})
-        Me.cmsRemove.Name = "cmsRemove"
-        Me.cmsRemove.Size = New System.Drawing.Size(125, 70)
+        Me.btn导入已打开文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn导入已打开文件.Location = New System.Drawing.Point(444, 443)
+        Me.btn导入已打开文件.Name = "btn导入已打开文件"
+        Me.btn导入已打开文件.Size = New System.Drawing.Size(110, 28)
+        Me.btn导入已打开文件.TabIndex = 34
+        Me.btn导入已打开文件.Text = "导入已打开文件"
+        Me.btn导入已打开文件.UseVisualStyleBackColor = True
         '
-        'tsmiRemove
+        'lvw文件列表
         '
-        Me.tsmiRemove.Name = "tsmiRemove"
-        Me.tsmiRemove.Size = New System.Drawing.Size(124, 22)
-        Me.tsmiRemove.Text = "移除"
+        Me.lvw文件列表.AllowColumnReorder = True
+        Me.lvw文件列表.AllowDrop = True
+        Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.AutoArrange = False
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
+        Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(15, 11)
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(812, 306)
+        Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.lvw文件列表.TabIndex = 36
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
-        'tsmiRemoveFilter
+        'ColumnHeader文件名
         '
-        Me.tsmiRemoveFilter.Name = "tsmiRemoveFilter"
-        Me.tsmiRemoveFilter.Size = New System.Drawing.Size(124, 22)
-        Me.tsmiRemoveFilter.Text = "筛选移除"
+        Me.ColumnHeader文件名.Text = "文件名(双击打开)"
+        Me.ColumnHeader文件名.Width = 792
         '
-        'tsmiSaveFilter
+        'cms右键菜单
         '
-        Me.tsmiSaveFilter.Name = "tsmiSaveFilter"
-        Me.tsmiSaveFilter.Size = New System.Drawing.Size(124, 22)
-        Me.tsmiSaveFilter.Text = "筛选保留"
+        Me.cms右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi移出, Me.tsmi筛选移出, Me.tsmi筛选保留})
+        Me.cms右键菜单.Name = "cmsRemove"
+        Me.cms右键菜单.Size = New System.Drawing.Size(153, 92)
         '
-        'btnLoadActiveAsm
+        'tsmi移出
         '
-        Me.btnLoadActiveAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadActiveAsm.Location = New System.Drawing.Point(318, 478)
-        Me.btnLoadActiveAsm.Name = "btnLoadActiveAsm"
-        Me.btnLoadActiveAsm.Size = New System.Drawing.Size(110, 28)
-        Me.btnLoadActiveAsm.TabIndex = 37
-        Me.btnLoadActiveAsm.Text = "导入当前部件"
-        Me.btnLoadActiveAsm.UseVisualStyleBackColor = True
+        Me.tsmi移出.Name = "tsmi移出"
+        Me.tsmi移出.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi移出.Text = "移出"
+        '
+        'tsmi筛选移出
+        '
+        Me.tsmi筛选移出.Name = "tsmi筛选移出"
+        Me.tsmi筛选移出.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi筛选移出.Text = "筛选移出"
+        '
+        'tsmi筛选保留
+        '
+        Me.tsmi筛选保留.Name = "tsmi筛选保留"
+        Me.tsmi筛选保留.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi筛选保留.Text = "筛选保留"
+        '
+        'btn导入当前部件
+        '
+        Me.btn导入当前部件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn导入当前部件.Location = New System.Drawing.Point(318, 443)
+        Me.btn导入当前部件.Name = "btn导入当前部件"
+        Me.btn导入当前部件.Size = New System.Drawing.Size(110, 28)
+        Me.btn导入当前部件.TabIndex = 37
+        Me.btn导入当前部件.Text = "导入当前部件"
+        Me.btn导入当前部件.UseVisualStyleBackColor = True
         '
         'frmPrint
         '
-        Me.AcceptButton = Me.btnLoadIdw
+        Me.AcceptButton = Me.btn导入已打开文件
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(950, 515)
-        Me.Controls.Add(Me.btnLoadActiveAsm)
-        Me.Controls.Add(Me.btnLoadIdw)
-        Me.Controls.Add(Me.btnLoadAsm)
-        Me.Controls.Add(Me.grpOption)
-        Me.Controls.Add(Me.lblsuggest)
-        Me.Controls.Add(Me.btnAddFolder)
-        Me.Controls.Add(Me.btnClearList)
-        Me.Controls.Add(Me.btnAddFile)
-        Me.Controls.Add(Me.btnClose)
-        Me.Controls.Add(Me.btnStart)
-        Me.Controls.Add(Me.lvwFileListView)
+        Me.CancelButton = Me.btn关闭
+        Me.ClientSize = New System.Drawing.Size(840, 480)
+        Me.Controls.Add(Me.btn导入当前部件)
+        Me.Controls.Add(Me.btn导入已打开文件)
+        Me.Controls.Add(Me.btn从部件导入)
+        Me.Controls.Add(Me.grp选项)
+        Me.Controls.Add(Me.lbl建议)
+        Me.Controls.Add(Me.btn添加文件夹)
+        Me.Controls.Add(Me.btn清空列表)
+        Me.Controls.Add(Me.btn添加文件)
+        Me.Controls.Add(Me.btn关闭)
+        Me.Controls.Add(Me.btn开始)
+        Me.Controls.Add(Me.lvw文件列表)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmPrint"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"
-        Me.grpOption.ResumeLayout(False)
-        Me.grpOption.PerformLayout()
-        CType(Me.nudCopies, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.cmsRemove.ResumeLayout(False)
+        Me.TopMost = True
+        Me.grp选项.ResumeLayout(False)
+        Me.grp选项.PerformLayout()
+        CType(Me.nud份数, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cms右键菜单.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btnStart As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents btnClearList As System.Windows.Forms.Button
-    Friend WithEvents btnAddFolder As System.Windows.Forms.Button
-    Friend WithEvents lblsuggest As System.Windows.Forms.Label
-    Friend WithEvents grpOption As System.Windows.Forms.GroupBox
-    Friend WithEvents cmbPrinter As System.Windows.Forms.ComboBox
-    Friend WithEvents chkPaperA3 As System.Windows.Forms.CheckBox
-    Friend WithEvents chkSign As System.Windows.Forms.CheckBox
-    Friend WithEvents chkBlack As System.Windows.Forms.CheckBox
-    Friend WithEvents nudCopies As System.Windows.Forms.NumericUpDown
-    Friend WithEvents lblCopies As System.Windows.Forms.Label
-    Friend WithEvents lblPrinter As System.Windows.Forms.Label
-    Friend WithEvents btnAddFile As System.Windows.Forms.Button
-    Friend WithEvents btnLoadAsm As System.Windows.Forms.Button
-    Friend WithEvents btnLoadIdw As System.Windows.Forms.Button
-    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chkClose As System.Windows.Forms.CheckBox
-    Friend WithEvents cmsRemove As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents tsmiRemoveFilter As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiSaveFilter As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsmiRemove As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents chkSaveAsPdf As System.Windows.Forms.CheckBox
-    Friend WithEvents chkSaveAsDwg As System.Windows.Forms.CheckBox
-    Friend WithEvents btnLoadActiveAsm As System.Windows.Forms.Button
-    Friend WithEvents chkSaveSign As System.Windows.Forms.CheckBox
+    Friend WithEvents btn开始 As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
+    Friend WithEvents btn清空列表 As System.Windows.Forms.Button
+    Friend WithEvents btn添加文件夹 As System.Windows.Forms.Button
+    Friend WithEvents lbl建议 As System.Windows.Forms.Label
+    Friend WithEvents grp选项 As System.Windows.Forms.GroupBox
+    Friend WithEvents cmb打印机 As System.Windows.Forms.ComboBox
+    Friend WithEvents chk匹配A3 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk签字 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk打印为黑色 As System.Windows.Forms.CheckBox
+    Friend WithEvents nud份数 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents lbl份数 As System.Windows.Forms.Label
+    Friend WithEvents lbl打印机 As System.Windows.Forms.Label
+    Friend WithEvents btn添加文件 As System.Windows.Forms.Button
+    Friend WithEvents btn从部件导入 As System.Windows.Forms.Button
+    Friend WithEvents btn导入已打开文件 As System.Windows.Forms.Button
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chk打印后关闭 As System.Windows.Forms.CheckBox
+    Friend WithEvents cms右键菜单 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents tsmi筛选移出 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmi筛选保留 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmi移出 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents chk存为pdf As System.Windows.Forms.CheckBox
+    Friend WithEvents chk存为dwg As System.Windows.Forms.CheckBox
+    Friend WithEvents btn导入当前部件 As System.Windows.Forms.Button
+    Friend WithEvents chk保存签字 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk刷新工程图 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk保存工程图 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk关闭窗口 As System.Windows.Forms.CheckBox
 
 End Class

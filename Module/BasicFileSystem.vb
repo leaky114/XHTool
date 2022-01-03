@@ -27,156 +27,160 @@ Module BasicFileSystem
 
     '判断文件是否存在(文件名)
     Public Function IsFileExsts(ByVal strFullFileName As String) As Boolean
-        IsFileExsts = My.Computer.FileSystem.FileExists(strFullFileName)
+        IsFileExsts = IO.File.Exists(strFullFileName)
     End Function
 
     '判断文件夹是否存在(文件夹)
     Public Function IsDirectoryExists(ByVal strDirectoryFullName As String) As Boolean
-        IsDirectoryExists = My.Computer.FileSystem.DirectoryExists(strDirectoryFullName)
+        IsDirectoryExists = IO.Directory.Exists(strDirectoryFullName)
     End Function
 
     '获取文件所在文件夹(文件名)
     Public Function GetParentFolder(ByVal strFullFileName As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            GetParentFolder = My.Computer.FileSystem.GetFileInfo(strFullFileName).DirectoryName
-        Else
-            Dim i As Integer
-            Dim strTemp As String
-            strTemp = strFullFileName
-            i = InStrRev(strTemp, "\")
-            GetParentFolder = Strings.Left(strTemp, i - 1)
-        End If
+        'If IsFileExsts(strFullFileName) = True Then
+        '    GetParentFolder = My.Computer.FileSystem.GetFileInfo(strFullFileName).DirectoryName
+        'Else
+        '    Dim i As Integer
+        '    Dim strTemp As String
+        '    strTemp = strFullFileName
+        '    i = InStrRev(strTemp, "\")
+        '    GetParentFolder = Strings.Left(strTemp, i - 1)
+        'End If
+        GetParentFolder = IO.Path.GetDirectoryName(strFullFileName)
+
     End Function
 
     '从全名中取出文件名,含扩展名(文件名)
     Public Function GetSingleName(ByVal strFullFileName As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            GetSingleName = My.Computer.FileSystem.GetName(strFullFileName)
-        Else
-            Dim p As Integer
-            p = InStrRev(strFullFileName, "\")
-            If p > 0 Then
-                GetSingleName = Strings.Right(strFullFileName, Strings.Len(strFullFileName) - p)
-            Else
-                GetSingleName = ""
-            End If
-        End If
-
+        'If IsFileExsts(strFullFileName) = True Then
+        '    GetSingleName = My.Computer.FileSystem.GetName(strFullFileName)
+        'Else
+        '    Dim p As Integer
+        '    p = InStrRev(strFullFileName, "\")
+        '    If p > 0 Then
+        '        GetSingleName = Strings.Right(strFullFileName, Strings.Len(strFullFileName) - p)
+        '    Else
+        '        GetSingleName = ""
+        '    End If
+        'End If
+        GetSingleName = IO.Path.GetFileName(strFullFileName)
     End Function
 
     '从全名中取出文件名简称,去除路径及扩展名(文件名)
     Public Function GetOnlyname(ByVal strFullFileName As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            Dim strFileName As String
-            Dim strFileExtension As String
+        'If IsFileExsts(strFullFileName) = True Then
+        '    Dim strFileName As String
+        '    Dim strFileExtension As String
 
-            strFileName = My.Computer.FileSystem.GetName(strFullFileName)
-            strFileExtension = My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension
-            GetOnlyname = Microsoft.VisualBasic.Strings.Replace(strFileName, strFileExtension, "")
-        Else
-            Dim i As Integer
-            Dim strTemp As String
-            strTemp = strFullFileName
-            i = InStrRev(strTemp, "\")
-            strTemp = Strings.Right(strTemp, Len(strTemp) - i)
-            i = InStrRev(strTemp, ".")
-            strTemp = Strings.Left(strTemp, i - 1)
-            GetOnlyname = strTemp
-        End If
+        '    strFileName = My.Computer.FileSystem.GetName(strFullFileName)
+        '    strFileExtension = My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension
+        '    GetOnlyname = Microsoft.VisualBasic.Strings.Replace(strFileName, strFileExtension, "")
+        'Else
+        '    Dim i As Integer
+        '    Dim strTemp As String
+        '    strTemp = strFullFileName
+        '    i = InStrRev(strTemp, "\")
+        '    strTemp = Strings.Right(strTemp, Len(strTemp) - i)
+        '    i = InStrRev(strTemp, ".")
+        '    strTemp = Strings.Left(strTemp, i - 1)
+        '    GetOnlyname = strTemp
+        'End If
+        GetOnlyname = IO.Path.GetFileNameWithoutExtension(strFullFileName)
     End Function
 
     '大写扩展名(文件名)
     Public Function UCaseGetFileExtension(ByVal strFullFileName As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            UCaseGetFileExtension = UCase(My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension)
-        Else
-            Dim i As Integer
-            Dim strTemp As String
-            strTemp = strFullFileName
-            i = InStrRev(strTemp, ".")
-            strTemp = Strings.Right(strTemp, Len(strTemp) - i + 1)
-            UCaseGetFileExtension = UCase(strTemp)
-        End If
+        'If IsFileExsts(strFullFileName) = True Then
+        '    UCaseGetFileExtension = UCase(My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension)
+        'Else
+        '    Dim i As Integer
+        '    Dim strTemp As String
+        '    strTemp = strFullFileName
+        '    i = InStrRev(strTemp, ".")
+        '    strTemp = Strings.Right(strTemp, Len(strTemp) - i + 1)
+        '    UCaseGetFileExtension = UCase(strTemp)
+        'End If
+        UCaseGetFileExtension = IO.Path.GetExtension(strFullFileName).ToUpper
     End Function
 
     '小写扩展名(文件名)
     Public Function LCaseGetFileExtension(ByVal strFullFileName As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            LCaseGetFileExtension = LCase(My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension)
-        Else
-            Dim i As Integer
-            Dim strTemp As String
-            strTemp = strFullFileName
-            i = InStrRev(strTemp, ".")
-            strTemp = Strings.Right(strTemp, Len(strTemp) - i + 1)
-            LCaseGetFileExtension = LCase(strTemp)
-        End If
+        'If IsFileExsts(strFullFileName) = True Then
+        '    LCaseGetFileExtension = LCase(My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension)
+        'Else
+        '    Dim i As Integer
+        '    Dim strTemp As String
+        '    strTemp = strFullFileName
+        '    i = InStrRev(strTemp, ".")
+        '    strTemp = Strings.Right(strTemp, Len(strTemp) - i + 1)
+        '    LCaseGetFileExtension = LCase(strTemp)
+        'End If
+
+        LCaseGetFileExtension = IO.Path.GetExtension(strFullFileName).ToLower
     End Function
 
     '获取filenameinfo结构(文件名)
     Public Function GetFileNameInfo(ByVal strFullFileName As String) As FileNameInfo
         Dim FNI As FileNameInfo = Nothing
-        If IsFileExsts(strFullFileName) = True Then
-            FNI.Folder = My.Computer.FileSystem.GetFileInfo(strFullFileName).DirectoryName
-            FNI.SigleName = My.Computer.FileSystem.GetName(strFullFileName)
-            FNI.ExtensionName = My.Computer.FileSystem.GetFileInfo(strFullFileName).Extension  '这里有大小写问题
-            FNI.OnlyName = Microsoft.VisualBasic.Strings.Replace(FNI.SigleName, FNI.ExtensionName, "")
-        Else
-            Dim i As Integer
-            i = InStrRev(strFullFileName, "\")
-            FNI.Folder = Strings.Left(strFullFileName, i - 1)
+        With FNI
+            .Folder = GetParentFolder(strFullFileName)
+            .SigleName = GetSingleName(strFullFileName)
+            .ExtensionName = LCaseGetFileExtension(strFullFileName)
+            .OnlyName = GetOnlyname(strFullFileName)
+        End With
 
-            FNI.SigleName = Strings.Right(strFullFileName, Strings.Len(strFullFileName) - Strings.Len(FNI.Folder) - 1)
-
-            i = InStr(FNI.SigleName, ".")
-            FNI.OnlyName = Left(FNI.SigleName, i - 1)
-            FNI.ExtensionName = LCase(Strings.Right(FNI.SigleName, Strings.Len(FNI.SigleName) - Strings.Len(FNI.OnlyName)))
-        End If
         Return FNI
     End Function
 
     '重命名(旧文件名,新文件名)
     Public Function ReFileName(ByVal strOldFullFileName As String, ByVal strNewFullFileName As String) As Boolean
         If IsFileExsts(strNewFullFileName) = False And IsFileExsts(strOldFullFileName) = True Then
-            My.Computer.FileSystem.RenameFile(strOldFullFileName, GetSingleName(strNewFullFileName))
+            IO.File.Move(strOldFullFileName, GetSingleName(strNewFullFileName))
             ReFileName = IsFileExsts(strNewFullFileName)
         Else
             ReFileName = False
         End If
+
     End Function
 
     '只变更文件名，不操作，仅返回新的文件名
     Public Function GetNewFileName(ByVal strOldFullFileName As String, ByVal strNewFileName As String) As String
-        Dim oFileNameInfo As FileNameInfo
-        oFileNameInfo = GetFileNameInfo(strOldFullFileName)
+        'Dim oFileNameInfo As FileNameInfo
+        'oFileNameInfo = GetFileNameInfo(strOldFullFileName)
 
-        Dim strParentFolder As String
-        strParentFolder = oFileNameInfo.Folder  'GetParentFolder(OldFullFileName)
+        'Dim strParentFolder As String
+        'strParentFolder = oFileNameInfo.Folder  'GetParentFolder(OldFullFileName)
 
-        Dim strExtensionName As String
-        strExtensionName = oFileNameInfo.ExtensionName
+        'Dim strExtensionName As String
+        'strExtensionName = oFileNameInfo.ExtensionName
 
-        GetNewFileName = strParentFolder & "\" & strNewFileName & strExtensionName
+        'GetNewFileName = strParentFolder & "\" & strNewFileName & strExtensionName
+
+        Dim directoryPath As String = Path.GetDirectoryName(strOldFullFileName)
+        Dim extension As String = Path.GetExtension(strOldFullFileName)
+
+        GetNewFileName = Path.Combine(directoryPath, strNewFileName + extension)
 
         Return GetNewFileName
 
     End Function
 
     '只变更扩展名，不操作，仅返回新的文件名
-    Public Function GetNewExtensionFileName(ByVal strOldFullFileName As String, ByVal strNewExtensionName As String) As String
-        Dim oFileNameInfo As FileNameInfo
-        oFileNameInfo = GetFileNameInfo(strOldFullFileName)
+    Public Function GetChangeExtension(ByVal strOldFullFileName As String, ByVal strNewExtensionName As String) As String
+        'Dim oFileNameInfo As FileNameInfo
+        'oFileNameInfo = GetFileNameInfo(strOldFullFileName)
 
-        Dim strParentFolder As String   '文件夹
-        strParentFolder = oFileNameInfo.Folder  'GetParentFolder(OldFullFileName)
+        'Dim strParentFolder As String   '文件夹
+        'strParentFolder = oFileNameInfo.Folder  'GetParentFolder(OldFullFileName)
 
-        Dim OnlyName As String     '仅文件名
-        OnlyName = oFileNameInfo.OnlyName
+        'Dim OnlyName As String     '仅文件名
+        'OnlyName = oFileNameInfo.OnlyName
 
-        GetNewExtensionFileName = strParentFolder & "\" & OnlyName & strNewExtensionName
+        'GetNewExtensionFileName = strParentFolder & "\" & OnlyName & strNewExtensionName
 
-        Return GetNewExtensionFileName
+        GetChangeExtension = IO.Path.ChangeExtension(strOldFullFileName, strNewExtensionName)
 
+        Return GetChangeExtension
     End Function
 
     '判断2个文件是否在同一文件夹(第一个文件名,第二个文件名)
@@ -195,24 +199,24 @@ Module BasicFileSystem
     '删除一个文件(文件名,是否删除到回收站选项)
     Public Function DelFile(ByVal strFullFileName As String, ByVal oRecycleOption As FileIO.RecycleOption) As Boolean
         If IsFileExsts(strFullFileName) Then
-            My.Computer.FileSystem.DeleteFile(strFullFileName, FileIO.UIOption.OnlyErrorDialogs, oRecycleOption, FileIO.UICancelOption.ThrowException)
+            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strFullFileName, FileIO.UIOption.OnlyErrorDialogs, oRecycleOption, FileIO.UICancelOption.ThrowException)
         End If
         DelFile = IsFileExsts(strFullFileName) Xor True
     End Function
 
     '仅删除一个文件夹中的文件(文件夹)
     Public Function DelOnlyFileInForlder(ByVal strFolder As String) As Boolean
-        If My.Computer.FileSystem.DirectoryExists(strFolder) Then
-            For Each f As String In My.Computer.FileSystem.GetFiles(strFolder)
-                DelFile(f, FileIO.RecycleOption.SendToRecycleBin)
+        If IsDirectoryExists(strFolder) Then
+            For Each file As String In IO.Directory.GetFiles(strFolder)
+                DelFile(file, FileIO.RecycleOption.SendToRecycleBin)
             Next
         End If
     End Function
 
     '删除文件夹(文件夹)
     Public Function DelFolder(ByVal strFolder As String, ByVal intDeleteRecycleOption As Integer) As Boolean
-        If My.Computer.FileSystem.DirectoryExists(strFolder) Then
-            My.Computer.FileSystem.DeleteDirectory(strFolder, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, intDeleteRecycleOption)
+        If IsDirectoryExists(strFolder) Then
+            Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strFolder, Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, intDeleteRecycleOption)
             DelFolder = IsDirectoryExists(strFolder)
         Else
             DelFolder = False
@@ -223,29 +227,33 @@ Module BasicFileSystem
     Public Function ReMoveFile(ByVal strSourceFileName As String, ByVal strDestinationFileName As String) As Boolean
         Dim strDestinationFolder As String
         strDestinationFolder = GetParentFolder(strDestinationFileName)
-        If IsDirectoryExists(strDestinationFolder) = False Then
-            My.Computer.FileSystem.CreateDirectory(strDestinationFolder)
+
+        If Not IO.Directory.Exists(strDestinationFolder) Then
+            IO.Directory.CreateDirectory(strDestinationFolder)
         End If
-        My.Computer.FileSystem.MoveFile(strSourceFileName, strDestinationFileName, True)
+        IO.File.Move(strSourceFileName, strDestinationFileName)
         Return IsFileExsts(strDestinationFileName)
     End Function
 
     '移动文件到文件夹(源文件名,目标文件夹)
-    Public Function ReMoveFileToFolder(ByVal strSourceFileName As String, ByVal strDestinationFolder As String) As Boolean
-        Dim strDestinationFileName As String
-        If IsDirectoryExists(strDestinationFolder) = False Then
-            My.Computer.FileSystem.CreateDirectory(strDestinationFolder)
+    Public Function ReMoveFileToFolder(ByVal sourceFilePath As String, ByVal targetFolderPath As String) As Boolean
+
+        If Not IO.Directory.Exists(targetFolderPath) Then
+            IO.Directory.CreateDirectory(targetFolderPath)
         End If
 
-        strDestinationFileName = strDestinationFolder & "\" & GetSingleName(strSourceFileName)
-        If strSourceFileName <> strDestinationFileName Then
-            My.Computer.FileSystem.MoveFile(strSourceFileName, strDestinationFileName, True)
+        Dim targetFilePath As String = IO.Path.Combine(targetFolderPath, IO.Path.GetFileName(sourceFilePath))
+
+        If sourceFilePath <> targetFolderPath Then
+            IO.File.Move(sourceFilePath, targetFilePath)
         End If
-        Return IsFileExsts(strDestinationFileName)
+
+        Return IsFileExsts(targetFilePath)
+
     End Function
 
     '扫描文件夹
-    Public Sub GetAllFile(ByVal strBootFolder As String, ByVal strSourceFolder As String, ByVal olistbox As Object) ' ListBox)
+    Public Sub GetAllFile(ByVal strBootFolder As String, ByVal strSourceFolder As String, ByVal olistbox As Object, Optional ByVal strExtension As String = ".idw") ' ListBox)
         ' 源文件夹父文件夹 ,源文件夹 , 目标文件夹
         Dim strDir As String() = System.IO.Directory.GetDirectories(strSourceFolder)
         Dim strFile As String() = System.IO.Directory.GetFiles(strSourceFolder)
@@ -261,7 +269,7 @@ Module BasicFileSystem
             For i = 0 To strFile.Length - 1
                 'Debug.Print(strFile(i))
                 oFileInfo = My.Computer.FileSystem.GetFileInfo(strFile(i))
-                If (LCase(oFileInfo.Extension) = IDW) And (Strings.InStr(oFileInfo.FullName, "OldVersions") = 0) Then
+                If (LCase(oFileInfo.Extension) = strExtension) And (Strings.InStr(oFileInfo.FullName, "OldVersions") = 0) Then
                     If IsItemInListView(olistbox, oFileInfo.FullName) = False Then
                         olistbox.Items.Add(oFileInfo.FullName)
                     End If
@@ -270,7 +278,7 @@ Module BasicFileSystem
         End If
         If strDir.Length > 0 Then
             For i = 0 To strDir.Length - 1
-                GetAllFile(strBootFolder, strDir(i), olistbox)
+                GetAllFile(strBootFolder, strDir(i), olistbox, strExtension)
             Next
         End If
     End Sub
@@ -359,9 +367,75 @@ Module BasicFileSystem
 
     '移出 listview 中的选择项
     Public Sub ListViewDel(ByVal oListView As ListView)
-        For i As Integer = oListView.SelectedIndices.Count - 1 To 0 Step -1
-            oListView.Items.RemoveAt(oListView.SelectedIndices(i))
-        Next
+        If oListView.SelectedItems.Count > 0 Then
+            ' 遍历 ListView 中的所有选择项。
+            For Each item As ListViewItem In oListView.SelectedItems
+                ' 从 ListView 中移除选择项。
+                oListView.Items.Remove(item)
+            Next
+        End If
     End Sub
+
+    Public Function SetNewFile(ByVal strFullFileName As String, ByVal strFilter As String) As String
+        If IsFileExsts(strFullFileName) = True Then
+            Dim msg As MsgBoxResult = MsgBox("已存在文件： " & strFullFileName & "  是否覆盖（是）或另存为（否）？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
+            Select Case msg
+                Case MsgBoxResult.Yes
+                    Return strFullFileName
+                Case MsgBoxResult.No
+                    Dim oSaveFileDialog As New SaveFileDialog
+                    With oSaveFileDialog
+                        .Title = "选择文件"
+                        .Filter = strFilter  ' "AutoCAD文件(*.dwg)|*.dwg"
+                        .InitialDirectory = GetParentFolder(strFullFileName)
+                        If .ShowDialog = DialogResult.OK Then
+                            Return .FileName
+                        Else
+                            Return "取消"
+                        End If
+                    End With
+                Case MsgBoxResult.Cancel
+                    Return "取消"
+            End Select
+        Else
+            'Dim oSaveFileDialog As New SaveFileDialog
+            'With oSaveFileDialog
+            '    .Title = "选择文件"
+            '    .Filter = strFilter  ' "AutoCAD文件(*.dwg)|*.dwg"
+            '    .InitialDirectory = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
+            '    If .ShowDialog = DialogResult.OK Then
+            '        Return .FileName
+            '    Else
+            '        Return "取消"
+            '    End If
+            'End With
+
+        End If
+        Return strFullFileName
+    End Function
+
+    '设置文件只读属性
+    Public Function SetFileReadOnly(ByVal strFullFileName As String, ByVal bIsReadOnly As Boolean) As Boolean
+        If IsFileExsts(strFullFileName) = False Then
+            Return False
+        End If
+
+        Dim myFile As New FileInfo(strFullFileName)
+        If bIsReadOnly = True Then  '设置
+            myFile.Attributes = FileAttributes.ReadOnly
+            Return True
+        Else    'false为可写
+            myFile.Attributes = FileAttributes.Normal
+            Return True
+        End If
+    End Function
+
+    '获取文件只读属性
+    Public Function GetFileReadOnly(ByVal strFullFileName As String) As Boolean
+        Dim myFile As New FileInfo(strFullFileName)
+        GetFileReadOnly = myFile.IsReadOnly
+    End Function
+
+
 
 End Module

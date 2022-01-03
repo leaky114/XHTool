@@ -22,162 +22,162 @@ Partial Class frmGetPart
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnAdd = New System.Windows.Forms.Button()
-        Me.btnMoveOut = New System.Windows.Forms.Button()
-        Me.lblDescribe = New System.Windows.Forms.Label()
-        Me.lvwFileList = New System.Windows.Forms.ListView()
-        Me.chFilename = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chNumber = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chWeight = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chArea = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.btnClose = New System.Windows.Forms.Button()
-        Me.btnClear = New System.Windows.Forms.Button()
-        Me.txtWeight = New System.Windows.Forms.TextBox()
-        Me.txtArea = New System.Windows.Forms.TextBox()
-        Me.btnCopyG = New System.Windows.Forms.Button()
-        Me.btnCopyA = New System.Windows.Forms.Button()
+        Me.btn添加 = New System.Windows.Forms.Button()
+        Me.btn移出 = New System.Windows.Forms.Button()
+        Me.lbl描述 = New System.Windows.Forms.Label()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ch文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch数量 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch质量 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch面积 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.btn清空 = New System.Windows.Forms.Button()
+        Me.txt质量 = New System.Windows.Forms.TextBox()
+        Me.txt面积 = New System.Windows.Forms.TextBox()
+        Me.btn复制质量 = New System.Windows.Forms.Button()
+        Me.btn复制面积 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnAdd
+        'btn添加
         '
-        Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAdd.Location = New System.Drawing.Point(17, 342)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(65, 28)
-        Me.btnAdd.TabIndex = 38
-        Me.btnAdd.TabStop = False
-        Me.btnAdd.Text = "添加"
-        Me.btnAdd.UseVisualStyleBackColor = True
+        Me.btn添加.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加.Location = New System.Drawing.Point(17, 342)
+        Me.btn添加.Name = "btn添加"
+        Me.btn添加.Size = New System.Drawing.Size(65, 28)
+        Me.btn添加.TabIndex = 38
+        Me.btn添加.TabStop = False
+        Me.btn添加.Text = "添加"
+        Me.btn添加.UseVisualStyleBackColor = True
         '
-        'btnMoveOut
+        'btn移出
         '
-        Me.btnMoveOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveOut.Location = New System.Drawing.Point(90, 342)
-        Me.btnMoveOut.Name = "btnMoveOut"
-        Me.btnMoveOut.Size = New System.Drawing.Size(65, 28)
-        Me.btnMoveOut.TabIndex = 37
-        Me.btnMoveOut.Text = "移出"
-        Me.btnMoveOut.UseVisualStyleBackColor = True
+        Me.btn移出.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn移出.Location = New System.Drawing.Point(90, 342)
+        Me.btn移出.Name = "btn移出"
+        Me.btn移出.Size = New System.Drawing.Size(65, 28)
+        Me.btn移出.TabIndex = 37
+        Me.btn移出.Text = "移出"
+        Me.btn移出.UseVisualStyleBackColor = True
         '
-        'lblDescribe
+        'lbl描述
         '
-        Me.lblDescribe.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblDescribe.AutoSize = True
-        Me.lblDescribe.Location = New System.Drawing.Point(15, 309)
-        Me.lblDescribe.Name = "lblDescribe"
-        Me.lblDescribe.Size = New System.Drawing.Size(221, 12)
-        Me.lblDescribe.TabIndex = 36
-        Me.lblDescribe.Text = "总质量：                    总面积："
+        Me.lbl描述.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbl描述.AutoSize = True
+        Me.lbl描述.Location = New System.Drawing.Point(15, 309)
+        Me.lbl描述.Name = "lbl描述"
+        Me.lbl描述.Size = New System.Drawing.Size(221, 12)
+        Me.lbl描述.TabIndex = 36
+        Me.lbl描述.Text = "总质量：                    总面积："
         '
-        'lvwFileList
+        'lvw文件列表
         '
-        Me.lvwFileList.AllowDrop = True
-        Me.lvwFileList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFileList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chFilename, Me.chNumber, Me.chWeight, Me.chArea})
-        Me.lvwFileList.FullRowSelect = True
-        Me.lvwFileList.Location = New System.Drawing.Point(12, 10)
-        Me.lvwFileList.Name = "lvwFileList"
-        Me.lvwFileList.Size = New System.Drawing.Size(436, 285)
-        Me.lvwFileList.TabIndex = 35
-        Me.lvwFileList.TabStop = False
-        Me.lvwFileList.UseCompatibleStateImageBehavior = False
-        Me.lvwFileList.View = System.Windows.Forms.View.Details
+        Me.lvw文件列表.AllowDrop = True
+        Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch文件名, Me.ch数量, Me.ch质量, Me.ch面积})
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(12, 10)
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(436, 285)
+        Me.lvw文件列表.TabIndex = 35
+        Me.lvw文件列表.TabStop = False
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
-        'chFilename
+        'ch文件名
         '
-        Me.chFilename.Text = "文件名"
-        Me.chFilename.Width = 220
+        Me.ch文件名.Text = "文件名"
+        Me.ch文件名.Width = 220
         '
-        'chNumber
+        'ch数量
         '
-        Me.chNumber.Text = "数量"
-        Me.chNumber.Width = 50
+        Me.ch数量.Text = "数量"
+        Me.ch数量.Width = 50
         '
-        'chWeight
+        'ch质量
         '
-        Me.chWeight.Text = "质量"
-        Me.chWeight.Width = 80
+        Me.ch质量.Text = "质量"
+        Me.ch质量.Width = 80
         '
-        'chArea
+        'ch面积
         '
-        Me.chArea.Text = "面积"
-        Me.chArea.Width = 80
+        Me.ch面积.Text = "面积"
+        Me.ch面积.Width = 80
         '
-        'btnClose
+        'btn关闭
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.AutoSize = True
-        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(383, 342)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(65, 28)
-        Me.btnClose.TabIndex = 34
-        Me.btnClose.Text = "关闭"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.AutoSize = True
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(383, 342)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(65, 28)
+        Me.btn关闭.TabIndex = 34
+        Me.btn关闭.Text = "关闭"
         '
-        'btnClear
+        'btn清空
         '
-        Me.btnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClear.Location = New System.Drawing.Point(163, 342)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(65, 28)
-        Me.btnClear.TabIndex = 39
-        Me.btnClear.Text = "清空"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.btn清空.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn清空.Location = New System.Drawing.Point(163, 342)
+        Me.btn清空.Name = "btn清空"
+        Me.btn清空.Size = New System.Drawing.Size(65, 28)
+        Me.btn清空.TabIndex = 39
+        Me.btn清空.Text = "清空"
+        Me.btn清空.UseVisualStyleBackColor = True
         '
-        'txtWeight
+        'txt质量
         '
-        Me.txtWeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtWeight.Location = New System.Drawing.Point(62, 304)
-        Me.txtWeight.Name = "txtWeight"
-        Me.txtWeight.Size = New System.Drawing.Size(77, 21)
-        Me.txtWeight.TabIndex = 40
+        Me.txt质量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txt质量.Location = New System.Drawing.Point(62, 304)
+        Me.txt质量.Name = "txt质量"
+        Me.txt质量.Size = New System.Drawing.Size(77, 21)
+        Me.txt质量.TabIndex = 40
         '
-        'txtArea
+        'txt面积
         '
-        Me.txtArea.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtArea.Location = New System.Drawing.Point(242, 306)
-        Me.txtArea.Name = "txtArea"
-        Me.txtArea.Size = New System.Drawing.Size(77, 21)
-        Me.txtArea.TabIndex = 41
+        Me.txt面积.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txt面积.Location = New System.Drawing.Point(242, 306)
+        Me.txt面积.Name = "txt面积"
+        Me.txt面积.Size = New System.Drawing.Size(77, 21)
+        Me.txt面积.TabIndex = 41
         '
-        'btnCopyG
+        'btn复制质量
         '
-        Me.btnCopyG.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCopyG.Location = New System.Drawing.Point(147, 304)
-        Me.btnCopyG.Name = "btnCopyG"
-        Me.btnCopyG.Size = New System.Drawing.Size(24, 20)
-        Me.btnCopyG.TabIndex = 42
-        Me.btnCopyG.Text = "C"
-        Me.btnCopyG.UseVisualStyleBackColor = True
+        Me.btn复制质量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn复制质量.Location = New System.Drawing.Point(147, 304)
+        Me.btn复制质量.Name = "btn复制质量"
+        Me.btn复制质量.Size = New System.Drawing.Size(24, 20)
+        Me.btn复制质量.TabIndex = 42
+        Me.btn复制质量.Text = "C"
+        Me.btn复制质量.UseVisualStyleBackColor = True
         '
-        'btnCopyA
+        'btn复制面积
         '
-        Me.btnCopyA.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCopyA.Location = New System.Drawing.Point(325, 305)
-        Me.btnCopyA.Name = "btnCopyA"
-        Me.btnCopyA.Size = New System.Drawing.Size(24, 20)
-        Me.btnCopyA.TabIndex = 43
-        Me.btnCopyA.Text = "C"
-        Me.btnCopyA.UseVisualStyleBackColor = True
+        Me.btn复制面积.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn复制面积.Location = New System.Drawing.Point(325, 305)
+        Me.btn复制面积.Name = "btn复制面积"
+        Me.btn复制面积.Size = New System.Drawing.Size(24, 20)
+        Me.btn复制面积.TabIndex = 43
+        Me.btn复制面积.Text = "C"
+        Me.btn复制面积.UseVisualStyleBackColor = True
         '
         'frmGetPart
         '
-        Me.AcceptButton = Me.btnAdd
+        Me.AcceptButton = Me.btn添加
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(461, 378)
-        Me.Controls.Add(Me.btnCopyA)
-        Me.Controls.Add(Me.btnCopyG)
-        Me.Controls.Add(Me.txtArea)
-        Me.Controls.Add(Me.txtWeight)
-        Me.Controls.Add(Me.btnClear)
-        Me.Controls.Add(Me.btnAdd)
-        Me.Controls.Add(Me.btnMoveOut)
-        Me.Controls.Add(Me.lblDescribe)
-        Me.Controls.Add(Me.lvwFileList)
-        Me.Controls.Add(Me.btnClose)
+        Me.Controls.Add(Me.btn复制面积)
+        Me.Controls.Add(Me.btn复制质量)
+        Me.Controls.Add(Me.txt面积)
+        Me.Controls.Add(Me.txt质量)
+        Me.Controls.Add(Me.btn清空)
+        Me.Controls.Add(Me.btn添加)
+        Me.Controls.Add(Me.btn移出)
+        Me.Controls.Add(Me.lbl描述)
+        Me.Controls.Add(Me.lvw文件列表)
+        Me.Controls.Add(Me.btn关闭)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -191,19 +191,19 @@ Partial Class frmGetPart
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents btnMoveOut As System.Windows.Forms.Button
-    Friend WithEvents lblDescribe As System.Windows.Forms.Label
-    Friend WithEvents lvwFileList As System.Windows.Forms.ListView
-    Friend WithEvents chFilename As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chNumber As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chWeight As System.Windows.Forms.ColumnHeader
-    Friend WithEvents chArea As System.Windows.Forms.ColumnHeader
-    Friend WithEvents btnClose As System.Windows.Forms.Button
-    Friend WithEvents btnClear As System.Windows.Forms.Button
-    Friend WithEvents txtWeight As System.Windows.Forms.TextBox
-    Friend WithEvents txtArea As System.Windows.Forms.TextBox
-    Friend WithEvents btnCopyG As System.Windows.Forms.Button
-    Friend WithEvents btnCopyA As System.Windows.Forms.Button
+    Friend WithEvents btn添加 As System.Windows.Forms.Button
+    Friend WithEvents btn移出 As System.Windows.Forms.Button
+    Friend WithEvents lbl描述 As System.Windows.Forms.Label
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ch文件名 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ch数量 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ch质量 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ch面积 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
+    Friend WithEvents btn清空 As System.Windows.Forms.Button
+    Friend WithEvents txt质量 As System.Windows.Forms.TextBox
+    Friend WithEvents txt面积 As System.Windows.Forms.TextBox
+    Friend WithEvents btn复制质量 As System.Windows.Forms.Button
+    Friend WithEvents btn复制面积 As System.Windows.Forms.Button
 
 End Class
