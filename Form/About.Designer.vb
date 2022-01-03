@@ -31,8 +31,8 @@ Partial Class About
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.CheckUpdate = New System.Windows.Forms.Button()
+        Me.Git = New System.Windows.Forms.Button()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -135,31 +135,33 @@ Partial Class About
         Me.PictureBox1.TabIndex = 42
         Me.PictureBox1.TabStop = False
         '
-        'Button1
+        'CheckUpdate
         '
-        Me.Button1.Location = New System.Drawing.Point(180, 233)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(79, 24)
-        Me.Button1.TabIndex = 44
-        Me.Button1.Text = "检查更新"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.CheckUpdate.Location = New System.Drawing.Point(180, 233)
+        Me.CheckUpdate.Name = "CheckUpdate"
+        Me.CheckUpdate.Size = New System.Drawing.Size(79, 24)
+        Me.CheckUpdate.TabIndex = 44
+        Me.CheckUpdate.Text = "检查更新"
+        Me.CheckUpdate.UseVisualStyleBackColor = True
         '
-        'Button2
+        'Git
         '
-        Me.Button2.Location = New System.Drawing.Point(21, 233)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(87, 24)
-        Me.Button2.TabIndex = 45
-        Me.Button2.Text = "访问软件仓库"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Git.Location = New System.Drawing.Point(21, 233)
+        Me.Git.Name = "Git"
+        Me.Git.Size = New System.Drawing.Size(87, 24)
+        Me.Git.TabIndex = 45
+        Me.Git.Text = "访问软件仓库"
+        Me.Git.UseVisualStyleBackColor = True
         '
         'About
         '
+        Me.AcceptButton = Me.CheckUpdate
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.OKButton
         Me.ClientSize = New System.Drawing.Size(359, 264)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Git)
+        Me.Controls.Add(Me.CheckUpdate)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.TextBoxDescription)
@@ -190,7 +192,7 @@ Partial Class About
     Friend WithEvents TextBoxDescription As System.Windows.Forms.TextBox
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents CheckUpdate As System.Windows.Forms.Button
+    Friend WithEvents Git As System.Windows.Forms.Button
 
 End Class

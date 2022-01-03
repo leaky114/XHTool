@@ -73,6 +73,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 保存全部161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("保存全部161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 保存全部323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("保存全部323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 保存关闭161624() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("保存关闭161624", resourceCulture)
@@ -86,66 +106,6 @@ Namespace My.Resources
         Friend ReadOnly Property 保存关闭323224() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("保存关闭323224", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭工程图161624() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭工程图161624", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭工程图323224() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭工程图323224", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭部件161624() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭部件161624", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭部件323224() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭部件323224", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭零件161624() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭零件161624", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 保存关闭零件323224() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("保存关闭零件323224", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property

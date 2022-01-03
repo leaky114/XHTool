@@ -109,7 +109,7 @@ Public Class AutoPartNumberDialog
         ListView.Items.Item(index - 1).Selected = True
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles moveup.Click
         ListViewUp(ListView1)
     End Sub
 
@@ -130,7 +130,7 @@ Public Class AutoPartNumberDialog
         ListView.Items.Item(index + 1).Selected = True
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles movedown.Click
         ListViewDown(ListView1)
     End Sub
 
@@ -212,7 +212,7 @@ Public Class AutoPartNumberDialog
     End Sub
 
     '预览
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles review.Click
         Dim LVI As ListViewItem
         Dim AssNum As Integer
         Dim PartNum As Integer
@@ -310,12 +310,12 @@ Public Class AutoPartNumberDialog
         Next
     End Sub
 
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles moveout.Click
         ListViewDel(ListView1)
     End Sub
 
     '重载数据
-    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles reload.Click
         Dim AsmDoc As AssemblyDocument
         AsmDoc = ThisApplication.ActiveDocument
         LoadAssBOM(AsmDoc, ListView1)

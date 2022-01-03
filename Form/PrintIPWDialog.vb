@@ -39,11 +39,14 @@ Public Class PrintIPWDialog
             '打开工程图
             oInventorDrawingDocument = ThisApplication.Documents.Open(InvDocFullFileName, True)
 
-            Dim Print_Day As String
-            Print_Day = Today.Year & "." & Today.Month & "." & Today.Day
+            '保存文件
+            If CheckBox5.Checked = True Then
+                oInventorDrawingDocument.Save2(True)
+            End If
 
             '设置签字
-
+            Dim Print_Day As String
+            Print_Day = Today.Year & "." & Today.Month & "." & Today.Day
             If CheckBox2.CheckState = CheckState.Checked Then
                 SetSign(oInventorDrawingDocument, EngineerName, Print_Day, False)
             End If
@@ -51,6 +54,7 @@ Public Class PrintIPWDialog
             '打印文件
             PrintDrawing(oInventorDrawingDocument, sPrinterName)
 
+            '关闭文件
             If CheckBox4.Checked = True Then
                 oInventorDrawingDocument.Close(True)
             End If
@@ -72,7 +76,7 @@ Public Class PrintIPWDialog
     End Sub
 
     '添加文件
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles addfile.Click
 
         Dim NewOpenFileDialog As New OpenFileDialog
 
@@ -96,12 +100,12 @@ Public Class PrintIPWDialog
     End Sub
 
     '清空文件列表
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles clearlist.Click
         ListView1.Items.Clear()
     End Sub
 
     '添加文件夹
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles addfolder.Click
         Dim destinationFolder As String = Nothing
         Dim inf As FileAttributes
         Dim Present_Folder As String = Nothing
@@ -229,7 +233,7 @@ Public Class PrintIPWDialog
         Next strPrinter
     End Sub
 
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles loadasm.Click
         Dim oOpenFileDialog As New OpenFileDialog
         Dim AssDoc As AssemblyDocument = Nothing
 
@@ -278,7 +282,7 @@ Public Class PrintIPWDialog
 
     End Sub
 
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles remove.Click
         ListViewDel(ListView1)
     End Sub
 
@@ -289,7 +293,7 @@ Public Class PrintIPWDialog
         Next
     End Sub
 
-    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles loadidw.Click
 
 
 

@@ -2,7 +2,7 @@
 
 Public NotInheritable Class About
 
-    Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
+    Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
 
     Private Sub AboutBox1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
@@ -29,7 +29,7 @@ Public NotInheritable Class About
         Me.Close()
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckUpdate.Click
         'Try
         '    Dim simupdate As String
 
@@ -42,7 +42,7 @@ Public NotInheritable Class About
         NewUpdater.UpDater2(True)
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Git.Click
         Process.Start(GitWeb)
     End Sub
 End Class
