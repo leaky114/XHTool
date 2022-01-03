@@ -22,17 +22,17 @@ Partial Class AllSaveAsDialog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox
-        Me.ListBox1 = New System.Windows.Forms.ListBox
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.AddFolder = New System.Windows.Forms.Button()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'OK_Button
@@ -74,16 +74,16 @@ Partial Class AllSaveAsDialog
         Me.CheckBox2.Text = "Adobe.pdf"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
-        'Button3
+        'AddFolder
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(23, 81)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(81, 33)
-        Me.Button3.TabIndex = 21
-        Me.Button3.Text = "添加文件夹"
-        Me.Button3.UseVisualStyleBackColor = True
-        Me.Button3.Visible = False
+        Me.AddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.AddFolder.Location = New System.Drawing.Point(23, 81)
+        Me.AddFolder.Name = "AddFolder"
+        Me.AddFolder.Size = New System.Drawing.Size(81, 33)
+        Me.AddFolder.TabIndex = 21
+        Me.AddFolder.Text = "添加文件夹"
+        Me.AddFolder.UseVisualStyleBackColor = True
+        Me.AddFolder.Visible = False
         '
         'RadioButton1
         '
@@ -150,6 +150,7 @@ Partial Class AllSaveAsDialog
         '
         'AllSaveAsDialog
         '
+        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
@@ -162,7 +163,7 @@ Partial Class AllSaveAsDialog
         Me.Controls.Add(Me.RadioButton1)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.AddFolder)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -180,7 +181,7 @@ Partial Class AllSaveAsDialog
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents AddFolder As System.Windows.Forms.Button
     Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox

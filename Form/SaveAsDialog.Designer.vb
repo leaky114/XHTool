@@ -22,16 +22,16 @@ Partial Class SaveAsDialog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.ListBox1 = New System.Windows.Forms.ListBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.addfile = New System.Windows.Forms.Button()
+        Me.clearlist = New System.Windows.Forms.Button()
+        Me.addfolder = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -64,35 +64,35 @@ Partial Class SaveAsDialog
         Me.ListBox1.Size = New System.Drawing.Size(340, 304)
         Me.ListBox1.TabIndex = 15
         '
-        'Button1
+        'addfile
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(9, 349)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 33)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "添加文件"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.addfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.addfile.Location = New System.Drawing.Point(9, 349)
+        Me.addfile.Name = "addfile"
+        Me.addfile.Size = New System.Drawing.Size(69, 33)
+        Me.addfile.TabIndex = 0
+        Me.addfile.Text = "添加文件"
+        Me.addfile.UseVisualStyleBackColor = True
         '
-        'Button2
+        'clearlist
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(161, 349)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 33)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "清除列表"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.clearlist.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.clearlist.Location = New System.Drawing.Point(161, 349)
+        Me.clearlist.Name = "clearlist"
+        Me.clearlist.Size = New System.Drawing.Size(69, 33)
+        Me.clearlist.TabIndex = 20
+        Me.clearlist.Text = "清除列表"
+        Me.clearlist.UseVisualStyleBackColor = True
         '
-        'Button3
+        'addfolder
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(79, 349)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(81, 33)
-        Me.Button3.TabIndex = 21
-        Me.Button3.Text = "添加文件夹"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.addfolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.addfolder.Location = New System.Drawing.Point(79, 349)
+        Me.addfolder.Name = "addfolder"
+        Me.addfolder.Size = New System.Drawing.Size(81, 33)
+        Me.addfolder.TabIndex = 21
+        Me.addfolder.Text = "添加文件夹"
+        Me.addfolder.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
@@ -136,7 +136,7 @@ Partial Class SaveAsDialog
         '
         'SaveAsDialog
         '
-        Me.AcceptButton = Me.Button1
+        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
@@ -145,9 +145,9 @@ Partial Class SaveAsDialog
         Me.Controls.Add(Me.CheckBox3)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.addfolder)
+        Me.Controls.Add(Me.clearlist)
+        Me.Controls.Add(Me.addfile)
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
@@ -166,9 +166,9 @@ Partial Class SaveAsDialog
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents addfile As System.Windows.Forms.Button
+    Friend WithEvents clearlist As System.Windows.Forms.Button
+    Friend WithEvents addfolder As System.Windows.Forms.Button
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox

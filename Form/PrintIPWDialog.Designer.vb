@@ -24,11 +24,12 @@ Partial Class PrintIPWDialog
     Private Sub InitializeComponent()
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.addfile = New System.Windows.Forms.Button()
+        Me.clearlist = New System.Windows.Forms.Button()
+        Me.addfolder = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,9 +38,9 @@ Partial Class PrintIPWDialog
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.loadasm = New System.Windows.Forms.Button()
+        Me.loadidw = New System.Windows.Forms.Button()
+        Me.remove = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
@@ -49,7 +50,7 @@ Partial Class PrintIPWDialog
         'OK_Button
         '
         Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(614, 408)
+        Me.OK_Button.Location = New System.Drawing.Point(699, 408)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(57, 30)
         Me.OK_Button.TabIndex = 1
@@ -60,56 +61,57 @@ Partial Class PrintIPWDialog
         '
         Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(677, 408)
+        Me.Cancel_Button.Location = New System.Drawing.Point(762, 408)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(57, 30)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.TabStop = False
         Me.Cancel_Button.Text = "关闭"
         '
-        'Button1
+        'addfile
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(104, 408)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 30)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "添加文件"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.addfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.addfile.Location = New System.Drawing.Point(104, 408)
+        Me.addfile.Name = "addfile"
+        Me.addfile.Size = New System.Drawing.Size(69, 30)
+        Me.addfile.TabIndex = 1
+        Me.addfile.Text = "添加文件"
+        Me.addfile.UseVisualStyleBackColor = True
         '
-        'Button2
+        'clearlist
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(509, 408)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 30)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "清除列表"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.clearlist.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.clearlist.Location = New System.Drawing.Point(624, 408)
+        Me.clearlist.Name = "clearlist"
+        Me.clearlist.Size = New System.Drawing.Size(69, 30)
+        Me.clearlist.TabIndex = 3
+        Me.clearlist.Text = "清除列表"
+        Me.clearlist.UseVisualStyleBackColor = True
         '
-        'Button3
+        'addfolder
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(175, 408)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(81, 30)
-        Me.Button3.TabIndex = 2
-        Me.Button3.Text = "添加文件夹"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.addfolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.addfolder.Location = New System.Drawing.Point(175, 408)
+        Me.addfolder.Name = "addfolder"
+        Me.addfolder.Size = New System.Drawing.Size(81, 30)
+        Me.addfolder.TabIndex = 2
+        Me.addfolder.Text = "添加文件夹"
+        Me.addfolder.UseVisualStyleBackColor = True
         '
         'Label1
         '
         Me.Label1.BackColor = System.Drawing.SystemColors.Window
         Me.Label1.Font = New System.Drawing.Font("宋体", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.Red
-        Me.Label1.Location = New System.Drawing.Point(152, 142)
+        Me.Label1.Location = New System.Drawing.Point(70, 159)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(408, 80)
+        Me.Label1.Size = New System.Drawing.Size(686, 49)
         Me.Label1.TabIndex = 32
-        Me.Label1.Text = "建议打开部件模型提高程序加载工程图的效率！"
+        Me.Label1.Text = "建议打开模型提高程序加载工程图的效率！"
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.CheckBox5)
         Me.GroupBox1.Controls.Add(Me.CheckBox4)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -120,16 +122,31 @@ Partial Class PrintIPWDialog
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
         Me.GroupBox1.Location = New System.Drawing.Point(13, 342)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(720, 60)
+        Me.GroupBox1.Size = New System.Drawing.Size(805, 60)
         Me.GroupBox1.TabIndex = 33
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "选项"
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Checked = True
+        Me.CheckBox5.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox5.Location = New System.Drawing.Point(619, 26)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(84, 16)
+        Me.CheckBox5.TabIndex = 40
+        Me.CheckBox5.Text = "打印前保存"
+        Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'CheckBox4
         '
         Me.CheckBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Location = New System.Drawing.Point(620, 27)
+        Me.CheckBox4.Checked = True
+        Me.CheckBox4.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox4.Location = New System.Drawing.Point(707, 26)
         Me.CheckBox4.Name = "CheckBox4"
         Me.CheckBox4.Size = New System.Drawing.Size(84, 16)
         Me.CheckBox4.TabIndex = 39
@@ -189,6 +206,8 @@ Partial Class PrintIPWDialog
         '
         Me.CheckBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = True
+        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox2.Location = New System.Drawing.Point(486, 26)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(48, 16)
@@ -209,45 +228,45 @@ Partial Class PrintIPWDialog
         Me.CheckBox1.Text = "所有颜色打印为黑色"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
-        'Button4
+        'loadasm
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(15, 408)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(84, 30)
-        Me.Button4.TabIndex = 0
-        Me.Button4.Text = "从部件导入"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.loadasm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.loadasm.Location = New System.Drawing.Point(15, 408)
+        Me.loadasm.Name = "loadasm"
+        Me.loadasm.Size = New System.Drawing.Size(84, 30)
+        Me.loadasm.TabIndex = 0
+        Me.loadasm.Text = "从部件导入"
+        Me.loadasm.UseVisualStyleBackColor = True
         '
-        'Button5
+        'loadidw
         '
-        Me.Button5.Location = New System.Drawing.Point(260, 408)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(104, 30)
-        Me.Button5.TabIndex = 34
-        Me.Button5.Text = "导入已打开文件"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.loadidw.Location = New System.Drawing.Point(260, 408)
+        Me.loadidw.Name = "loadidw"
+        Me.loadidw.Size = New System.Drawing.Size(104, 30)
+        Me.loadidw.TabIndex = 34
+        Me.loadidw.Text = "导入已打开文件"
+        Me.loadidw.UseVisualStyleBackColor = True
         '
-        'Button6
+        'remove
         '
-        Me.Button6.Location = New System.Drawing.Point(455, 408)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(51, 30)
-        Me.Button6.TabIndex = 35
-        Me.Button6.Text = "移出"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.remove.Location = New System.Drawing.Point(570, 408)
+        Me.remove.Name = "remove"
+        Me.remove.Size = New System.Drawing.Size(51, 30)
+        Me.remove.TabIndex = 35
+        Me.remove.Text = "移出"
+        Me.remove.UseVisualStyleBackColor = True
         '
         'ListView1
         '
         Me.ListView1.AllowColumnReorder = True
         Me.ListView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.AutoArrange = False
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(15, 11)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(718, 314)
+        Me.ListView1.Size = New System.Drawing.Size(803, 314)
         Me.ListView1.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListView1.TabIndex = 36
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -260,19 +279,19 @@ Partial Class PrintIPWDialog
         '
         'PrintIPWDialog
         '
-        Me.AcceptButton = Me.Button1
+        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(746, 450)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
+        Me.ClientSize = New System.Drawing.Size(831, 450)
+        Me.Controls.Add(Me.remove)
+        Me.Controls.Add(Me.loadidw)
+        Me.Controls.Add(Me.loadasm)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.addfolder)
+        Me.Controls.Add(Me.clearlist)
+        Me.Controls.Add(Me.addfile)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
         Me.Controls.Add(Me.ListView1)
@@ -291,8 +310,8 @@ Partial Class PrintIPWDialog
     End Sub
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents clearlist As System.Windows.Forms.Button
+    Friend WithEvents addfolder As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
@@ -302,12 +321,13 @@ Partial Class PrintIPWDialog
     Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents addfile As System.Windows.Forms.Button
+    Friend WithEvents loadasm As System.Windows.Forms.Button
+    Friend WithEvents loadidw As System.Windows.Forms.Button
+    Friend WithEvents remove As System.Windows.Forms.Button
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
 
 End Class

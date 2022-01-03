@@ -31,14 +31,14 @@ Partial Class InventoryCoding
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.loadfile = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ListView1
         '
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader3, Me.ColumnHeader2, Me.ColumnHeader1, Me.ColumnHeader4})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(12, 13)
@@ -107,21 +107,21 @@ Partial Class InventoryCoding
         Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.ProgressBar1.TabIndex = 35
         '
-        'Button2
+        'load
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(296, 277)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 33)
-        Me.Button2.TabIndex = 36
-        Me.Button2.Text = "装载"
+        Me.loadfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.loadfile.Location = New System.Drawing.Point(296, 277)
+        Me.loadfile.Name = "load"
+        Me.loadfile.Size = New System.Drawing.Size(69, 33)
+        Me.loadfile.TabIndex = 36
+        Me.loadfile.Text = "装载"
         '
         'InventoryCoding
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(593, 322)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.loadfile)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Cancel_Button)
@@ -147,5 +147,5 @@ Partial Class InventoryCoding
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents loadfile As System.Windows.Forms.Button
 End Class

@@ -8,9 +8,9 @@ Imports Microsoft.Office.Interop
 Public Class InventoryCoding
 
  
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub loadfile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles loadfile.Click
 
-        Button2.Enabled = False
+        loadfile.Enabled = False
         ListView1.Items.Clear()
 
         SetStatusBarText()
@@ -56,7 +56,7 @@ Public Class InventoryCoding
             ProgressBar1.Value = ProgressBar1.Value + 1
         Next
 
-        Button2.Enabled = True
+        loadfile.Enabled = True
 
     End Sub
 

@@ -110,7 +110,7 @@ Public Class AllSaveAsDialog
 
         If RadioButton1.Checked = True Then
             RadioButton2.Checked = False
-            Button3.Enabled = False
+            AddFolder.Enabled = False
             'Else
             '    RadioButton2.Checked = True
         End If
@@ -123,7 +123,7 @@ Public Class AllSaveAsDialog
 
         If RadioButton2.Checked = True Then
             RadioButton1.Checked = False
-            Button3.Enabled = True
+            AddFolder.Enabled = True
 
             Dim destinationFolder As String = Nothing
             Dim inf As FileAttributes
@@ -161,7 +161,7 @@ Public Class AllSaveAsDialog
 
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddFolder.Click
         Dim destinationFolder As String = Nothing
         Dim inf As FileAttributes
         Dim NewFolderBrowserDialog As New FolderBrowserDialog

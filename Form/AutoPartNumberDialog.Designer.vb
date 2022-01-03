@@ -24,9 +24,9 @@ Partial Class AutoPartNumberDialog
     Private Sub InitializeComponent()
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.moveup = New System.Windows.Forms.Button()
+        Me.review = New System.Windows.Forms.Button()
+        Me.movedown = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -38,11 +38,11 @@ Partial Class AutoPartNumberDialog
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.moveout = New System.Windows.Forms.Button()
+        Me.reload = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.selectall = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
@@ -66,44 +66,44 @@ Partial Class AutoPartNumberDialog
         Me.Cancel_Button.TabIndex = 6
         Me.Cancel_Button.Text = "关闭"
         '
-        'Button1
+        'moveup
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(107, 385)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 33)
-        Me.Button1.TabIndex = 0
-        Me.Button1.TabStop = False
-        Me.Button1.Text = "上移"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.moveup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.moveup.Location = New System.Drawing.Point(107, 385)
+        Me.moveup.Name = "moveup"
+        Me.moveup.Size = New System.Drawing.Size(69, 33)
+        Me.moveup.TabIndex = 0
+        Me.moveup.TabStop = False
+        Me.moveup.Text = "上移"
+        Me.moveup.UseVisualStyleBackColor = True
         '
-        'Button2
+        'review
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(413, 385)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 33)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "预览"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.review.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.review.Location = New System.Drawing.Point(413, 385)
+        Me.review.Name = "review"
+        Me.review.Size = New System.Drawing.Size(69, 33)
+        Me.review.TabIndex = 4
+        Me.review.Text = "预览"
+        Me.review.UseVisualStyleBackColor = True
         '
-        'Button3
+        'movedown
         '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Location = New System.Drawing.Point(178, 385)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(81, 33)
-        Me.Button3.TabIndex = 21
-        Me.Button3.TabStop = False
-        Me.Button3.Text = "下移"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.movedown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.movedown.Location = New System.Drawing.Point(178, 385)
+        Me.movedown.Name = "movedown"
+        Me.movedown.Size = New System.Drawing.Size(81, 33)
+        Me.movedown.TabIndex = 21
+        Me.movedown.TabStop = False
+        Me.movedown.Text = "下移"
+        Me.movedown.UseVisualStyleBackColor = True
         '
         'ListView1
         '
         Me.ListView1.AllowDrop = True
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(13, 12)
@@ -192,25 +192,25 @@ Partial Class AutoPartNumberDialog
         Me.ComboBox1.TabIndex = 2
         Me.ComboBox1.Text = "100"
         '
-        'Button4
+        'moveout
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(264, 385)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(69, 33)
-        Me.Button4.TabIndex = 29
-        Me.Button4.Text = "移出"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.moveout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.moveout.Location = New System.Drawing.Point(264, 385)
+        Me.moveout.Name = "moveout"
+        Me.moveout.Size = New System.Drawing.Size(69, 33)
+        Me.moveout.TabIndex = 29
+        Me.moveout.Text = "移出"
+        Me.moveout.UseVisualStyleBackColor = True
         '
-        'Button5
+        'reload
         '
-        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button5.Location = New System.Drawing.Point(338, 385)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(69, 33)
-        Me.Button5.TabIndex = 30
-        Me.Button5.Text = "重载"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.reload.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.reload.Location = New System.Drawing.Point(338, 385)
+        Me.reload.Name = "reload"
+        Me.reload.Size = New System.Drawing.Size(69, 33)
+        Me.reload.TabIndex = 30
+        Me.reload.Text = "重载"
+        Me.reload.UseVisualStyleBackColor = True
         '
         'Label4
         '
@@ -230,17 +230,17 @@ Partial Class AutoPartNumberDialog
         Me.TextBox2.Size = New System.Drawing.Size(361, 21)
         Me.TextBox2.TabIndex = 32
         '
-        'Button6
+        'selectall
         '
-        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Location = New System.Drawing.Point(34, 385)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(69, 33)
-        Me.Button6.TabIndex = 33
-        Me.Button6.TabStop = False
-        Me.Button6.Text = "全选"
-        Me.Button6.UseVisualStyleBackColor = True
-        Me.Button6.Visible = False
+        Me.selectall.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.selectall.Location = New System.Drawing.Point(34, 385)
+        Me.selectall.Name = "selectall"
+        Me.selectall.Size = New System.Drawing.Size(69, 33)
+        Me.selectall.TabIndex = 33
+        Me.selectall.TabStop = False
+        Me.selectall.Text = "全选"
+        Me.selectall.UseVisualStyleBackColor = True
+        Me.selectall.Visible = False
         '
         'Button7
         '
@@ -254,16 +254,17 @@ Partial Class AutoPartNumberDialog
         '
         'AutoPartNumberDialog
         '
+        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(661, 427)
         Me.Controls.Add(Me.Button7)
-        Me.Controls.Add(Me.Button6)
+        Me.Controls.Add(Me.selectall)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.reload)
+        Me.Controls.Add(Me.moveout)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.TextBox3)
@@ -271,9 +272,9 @@ Partial Class AutoPartNumberDialog
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ListView1)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.movedown)
+        Me.Controls.Add(Me.review)
+        Me.Controls.Add(Me.moveup)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -291,9 +292,9 @@ Partial Class AutoPartNumberDialog
     End Sub
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents moveup As System.Windows.Forms.Button
+    Friend WithEvents review As System.Windows.Forms.Button
+    Friend WithEvents movedown As System.Windows.Forms.Button
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
@@ -305,11 +306,11 @@ Partial Class AutoPartNumberDialog
     Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents moveout As System.Windows.Forms.Button
+    Friend WithEvents reload As System.Windows.Forms.Button
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents selectall As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button
 
 End Class

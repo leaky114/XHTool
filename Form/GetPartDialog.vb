@@ -7,7 +7,7 @@ Imports Inventor
 Public Class SearchCoding
 
     '添加
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles add.Click
         'Try
         SetStatusBarText()
 
@@ -92,7 +92,7 @@ Public Class SearchCoding
     End Sub
 
     '移出
-    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles moveout.Click
         ListViewDel(ListView1)
         Dim SumMass As Double = 0
         Dim SumArea As Double = 0
@@ -121,7 +121,7 @@ Public Class SearchCoding
     End Sub
 
     '清空
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles clear.Click
         ListView1.Items.Clear()
         TextBox1.Clear()
         TextBox2.Clear()

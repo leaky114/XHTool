@@ -177,7 +177,7 @@ Public Class iPopertiesDialog
     End Sub
 
     '添加文件
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles addfile.Click
         '打开文件
         Dim NewOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
@@ -197,7 +197,7 @@ Public Class iPopertiesDialog
     End Sub
 
     '清空文件列表
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles clearlist.Click
         ListBox1.Items.Clear()
     End Sub
 End Class

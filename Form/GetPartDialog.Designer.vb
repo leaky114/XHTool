@@ -22,8 +22,8 @@ Partial Class SearchCoding
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.add = New System.Windows.Forms.Button()
+        Me.moveout = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -31,33 +31,33 @@ Partial Class SearchCoding
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.clear = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Button6
+        'add
         '
-        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button6.Location = New System.Drawing.Point(14, 321)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(69, 33)
-        Me.Button6.TabIndex = 38
-        Me.Button6.TabStop = False
-        Me.Button6.Text = "添加"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.add.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.add.Location = New System.Drawing.Point(14, 321)
+        Me.add.Name = "add"
+        Me.add.Size = New System.Drawing.Size(69, 33)
+        Me.add.TabIndex = 38
+        Me.add.TabStop = False
+        Me.add.Text = "添加"
+        Me.add.UseVisualStyleBackColor = True
         '
-        'Button4
+        'moveout
         '
-        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button4.Location = New System.Drawing.Point(89, 321)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(69, 33)
-        Me.Button4.TabIndex = 37
-        Me.Button4.Text = "移出"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.moveout.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.moveout.Location = New System.Drawing.Point(89, 321)
+        Me.moveout.Name = "moveout"
+        Me.moveout.Size = New System.Drawing.Size(69, 33)
+        Me.moveout.TabIndex = 37
+        Me.moveout.Text = "移出"
+        Me.moveout.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -73,8 +73,8 @@ Partial Class SearchCoding
         '
         Me.ListView1.AllowDrop = True
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(12, 10)
@@ -116,15 +116,15 @@ Partial Class SearchCoding
         Me.Cancel_Button.TabIndex = 34
         Me.Cancel_Button.Text = "关闭"
         '
-        'Button1
+        'clear
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(164, 321)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 33)
-        Me.Button1.TabIndex = 39
-        Me.Button1.Text = "清空"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.clear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.clear.Location = New System.Drawing.Point(164, 321)
+        Me.clear.Name = "clear"
+        Me.clear.Size = New System.Drawing.Size(69, 33)
+        Me.clear.TabIndex = 39
+        Me.clear.Text = "清空"
+        Me.clear.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -160,6 +160,7 @@ Partial Class SearchCoding
         '
         'SearchCoding
         '
+        Me.AcceptButton = Me.add
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(470, 366)
@@ -167,9 +168,9 @@ Partial Class SearchCoding
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.clear)
+        Me.Controls.Add(Me.add)
+        Me.Controls.Add(Me.moveout)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.Cancel_Button)
@@ -186,8 +187,8 @@ Partial Class SearchCoding
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Button6 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents add As System.Windows.Forms.Button
+    Friend WithEvents moveout As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ListView1 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
@@ -195,7 +196,7 @@ Partial Class SearchCoding
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents clear As System.Windows.Forms.Button
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents Button2 As System.Windows.Forms.Button

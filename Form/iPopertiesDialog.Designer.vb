@@ -22,28 +22,28 @@ Partial Class iPopertiesDialog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.ListBox1 = New System.Windows.Forms.ListBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.DateTimeP = New System.Windows.Forms.DateTimePicker
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.DoubleP = New System.Windows.Forms.TextBox
-        Me.PropertyName = New System.Windows.Forms.TextBox
-        Me.StringP = New System.Windows.Forms.TextBox
-        Me.StringRadioButton = New System.Windows.Forms.RadioButton
-        Me.BoolRadioButton = New System.Windows.Forms.RadioButton
-        Me.DateRadioButton = New System.Windows.Forms.RadioButton
-        Me.DoubleRadioButton = New System.Windows.Forms.RadioButton
-        Me.BoolP = New System.Windows.Forms.CheckBox
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
-        Me.TabControl1 = New System.Windows.Forms.TabControl
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.addfile = New System.Windows.Forms.Button()
+        Me.clearlist = New System.Windows.Forms.Button()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.DateTimeP = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DoubleP = New System.Windows.Forms.TextBox()
+        Me.PropertyName = New System.Windows.Forms.TextBox()
+        Me.StringP = New System.Windows.Forms.TextBox()
+        Me.StringRadioButton = New System.Windows.Forms.RadioButton()
+        Me.BoolRadioButton = New System.Windows.Forms.RadioButton()
+        Me.DateRadioButton = New System.Windows.Forms.RadioButton()
+        Me.DoubleRadioButton = New System.Windows.Forms.RadioButton()
+        Me.BoolP = New System.Windows.Forms.CheckBox()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage2.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -78,27 +78,27 @@ Partial Class iPopertiesDialog
         Me.ListBox1.TabIndex = 15
         Me.ListBox1.Visible = False
         '
-        'Button1
+        'addfile
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(12, 189)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 33)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "添加文件"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
+        Me.addfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.addfile.Location = New System.Drawing.Point(12, 189)
+        Me.addfile.Name = "addfile"
+        Me.addfile.Size = New System.Drawing.Size(69, 33)
+        Me.addfile.TabIndex = 0
+        Me.addfile.Text = "添加文件"
+        Me.addfile.UseVisualStyleBackColor = True
+        Me.addfile.Visible = False
         '
-        'Button2
+        'clearlist
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(86, 189)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(69, 33)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "清除列表"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
+        Me.clearlist.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.clearlist.Location = New System.Drawing.Point(86, 189)
+        Me.clearlist.Name = "clearlist"
+        Me.clearlist.Size = New System.Drawing.Size(69, 33)
+        Me.clearlist.TabIndex = 20
+        Me.clearlist.Text = "清除列表"
+        Me.clearlist.UseVisualStyleBackColor = True
+        Me.clearlist.Visible = False
         '
         'TabPage2
         '
@@ -272,16 +272,16 @@ Partial Class iPopertiesDialog
         '
         'iPopertiesDialog
         '
-        Me.AcceptButton = Me.Button1
+        Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(299, 231)
         Me.Controls.Add(Me.Cancel_Button)
         Me.Controls.Add(Me.OK_Button)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.clearlist)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.addfile)
         Me.Controls.Add(Me.ListBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.ImeMode = System.Windows.Forms.ImeMode.Off
@@ -302,8 +302,8 @@ Partial Class iPopertiesDialog
     Friend WithEvents OK_Button As System.Windows.Forms.Button
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents addfile As System.Windows.Forms.Button
+    Friend WithEvents clearlist As System.Windows.Forms.Button
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents DateTimeP As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label1 As System.Windows.Forms.Label
