@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports Inventor.DocumentTypeEnum
 
-Public Class SaveAll
+Public Class SaveAllDialog
     Dim RadioState As Short
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
@@ -13,7 +13,7 @@ Public Class SaveAll
         End If
 
         If CheckBox1.Checked = True Then    '部件
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
+            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
                 If oInventorDocument.DocumentType = kAssemblyDocumentObject Then
                     With oInventorDocument
                         If IsFileExsts(.FullDocumentName) = True Then
@@ -33,7 +33,7 @@ Public Class SaveAll
         End If
 
         If CheckBox2.Checked = True Then     '零件
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
+            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
                 If oInventorDocument.DocumentType = kPartDocumentObject Then
                     With oInventorDocument
                         If IsFileExsts(.FullDocumentName) = True Then
@@ -53,7 +53,7 @@ Public Class SaveAll
         End If
 
         If CheckBox3.Checked = True Then    '工程图
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
+            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
                 If oInventorDocument.DocumentType = kDrawingDocumentObject Then
                     With oInventorDocument
                         If IsFileExsts(.FullDocumentName) = True Then

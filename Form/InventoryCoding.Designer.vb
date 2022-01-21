@@ -27,9 +27,9 @@ Partial Class InventoryCoding
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Cancel_Button = New System.Windows.Forms.Button()
-        Me.OK_Button = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnClose = New System.Windows.Forms.Button()
+        Me.searchcoding = New System.Windows.Forms.Button()
+        Me.writecoding = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.loadfile = New System.Windows.Forms.Button()
         Me.SuspendLayout()
@@ -69,49 +69,50 @@ Partial Class InventoryCoding
         Me.ColumnHeader4.Text = "文件"
         Me.ColumnHeader4.Width = 200
         '
-        'Cancel_Button
+        'btnClose
         '
-        Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Cancel_Button.AutoSize = True
-        Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(521, 277)
-        Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(69, 33)
-        Me.Cancel_Button.TabIndex = 32
-        Me.Cancel_Button.Text = "关闭"
+        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClose.AutoSize = True
+        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnClose.Location = New System.Drawing.Point(521, 277)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(69, 33)
+        Me.btnClose.TabIndex = 32
+        Me.btnClose.Text = "关闭"
         '
-        'OK_Button
+        'searchcoding
         '
-        Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(371, 277)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(69, 33)
-        Me.OK_Button.TabIndex = 31
-        Me.OK_Button.Text = "查询"
+        Me.searchcoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.searchcoding.Location = New System.Drawing.Point(371, 277)
+        Me.searchcoding.Name = "searchcoding"
+        Me.searchcoding.Size = New System.Drawing.Size(69, 33)
+        Me.searchcoding.TabIndex = 31
+        Me.searchcoding.Text = "查询"
         '
-        'Button1
+        'writecoding
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(446, 277)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(69, 33)
-        Me.Button1.TabIndex = 34
-        Me.Button1.Text = "写入"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.writecoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.writecoding.Location = New System.Drawing.Point(446, 277)
+        Me.writecoding.Name = "writecoding"
+        Me.writecoding.Size = New System.Drawing.Size(69, 33)
+        Me.writecoding.TabIndex = 34
+        Me.writecoding.Text = "写入"
+        Me.writecoding.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
+        Me.ProgressBar1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ProgressBar1.Location = New System.Drawing.Point(12, 280)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(235, 24)
+        Me.ProgressBar1.Size = New System.Drawing.Size(278, 24)
         Me.ProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.ProgressBar1.TabIndex = 35
         '
-        'load
+        'loadfile
         '
         Me.loadfile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.loadfile.Location = New System.Drawing.Point(296, 277)
-        Me.loadfile.Name = "load"
+        Me.loadfile.Name = "loadfile"
         Me.loadfile.Size = New System.Drawing.Size(69, 33)
         Me.loadfile.TabIndex = 36
         Me.loadfile.Text = "装载"
@@ -123,9 +124,9 @@ Partial Class InventoryCoding
         Me.ClientSize = New System.Drawing.Size(593, 322)
         Me.Controls.Add(Me.loadfile)
         Me.Controls.Add(Me.ProgressBar1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Cancel_Button)
-        Me.Controls.Add(Me.OK_Button)
+        Me.Controls.Add(Me.writecoding)
+        Me.Controls.Add(Me.btnClose)
+        Me.Controls.Add(Me.searchcoding)
         Me.Controls.Add(Me.ListView1)
         Me.MaximizeBox = False
         Me.Name = "InventoryCoding"
@@ -142,10 +143,10 @@ Partial Class InventoryCoding
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
+    Friend WithEvents btnClose As System.Windows.Forms.Button
+    Friend WithEvents searchcoding As System.Windows.Forms.Button
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents writecoding As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents loadfile As System.Windows.Forms.Button
 End Class

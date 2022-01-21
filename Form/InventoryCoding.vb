@@ -60,15 +60,15 @@ Public Class InventoryCoding
 
     End Sub
 
-    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
+    Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
 
-    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
+    Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles searchcoding.Click
 
         On Error Resume Next
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
-        OK_Button.Enabled = False
+        searchcoding.Enabled = False
 
         Dim excelApp As Excel.Application
         excelApp = New Excel.Application
@@ -77,55 +77,56 @@ Public Class InventoryCoding
         'Excel_File_Name = "E:\软件\Invenotr\Inventor编程\InventorAddIn\code\bin\最新物料编码.xls"
 
         Dim wb As Excel.Workbook = excelApp.Workbooks.Open(Excel_File_Name, 0, True)
-        Dim sht As Excel.Worksheet
-
-        sht = wb.Sheets(Sheet_Name)
-        sht = wb.Sheets("物料")
+        Dim sht As Excel.Worksheet = Nothing
 
         Dim userange As Excel.Range = Nothing
 
-        Dim Table_Array(10) As String
+        For Each sht In wb.Sheets
+            'sht = wb.Sheets(Sheet_Name)
+            'sht = wb.Sheets("物料")
 
-        Table_Array = Split("A,C,D,E", ",")
+            Dim Table_Array(10) As String
 
-        Dim MatchRow As Double   '寻找到的行
+            Table_Array = Split("A,C,D,E", ",")
 
-        With ProgressBar1
-            .Minimum = 0
-            .Maximum = ListView1.Items.Count
-            .Value = 0
-        End With
+            Dim MatchRow As Double   '寻找到的行
 
-        For Each LVI As ListViewItem In ListView1.Items
-            For Each a In Table_Array
-                userange = sht.Range(a & ":" & a)
-                MatchRow = 0
-                MatchRow = excelApp.WorksheetFunction.Match(LVI.Text, userange, 0)
+            With ProgressBar1
+                .Minimum = 0
+                .Maximum = ListView1.Items.Count
+                .Value = 0
+            End With
 
-                If MatchRow <> 0.0 Then
+            For Each LVI As ListViewItem In ListView1.Items
+                For Each a In Table_Array
+                    userange = sht.Range(a & ":" & a)
+                    MatchRow = 0
+                    MatchRow = excelApp.WorksheetFunction.Match(LVI.Text, userange, 0)
 
-                    '当前值
-                    Dim NowRangeValue As String = LVI.SubItems(2).Text
+                    If MatchRow <> 0.0 Then
 
-                    Dim FindRange As String  '寻找的单元
-                    Dim FindRangeValue As String    '寻找的值
+                        '当前值
+                        Dim NowRangeValue As String = LVI.SubItems(2).Text
 
-                    'FindRange = "B" & MatchRow
-                    FindRange = Col_Index_Num & MatchRow
-                    FindRangeValue = sht.Range(FindRange).Value
+                        Dim FindRange As String  '寻找的单元
+                        Dim FindRangeValue As String    '寻找的值
 
-                    If NowRangeValue <> FindRangeValue Then
-                        LVI.SubItems(2).Text = FindRangeValue
-                        LVI.UseItemStyleForSubItems = False
-                        LVI.SubItems(2).ForeColor = Drawing.Color.Red
-                        Exit For
+                        'FindRange = "B" & MatchRow
+                        FindRange = Col_Index_Num & MatchRow
+                        FindRangeValue = sht.Range(FindRange).Value
+
+                        If NowRangeValue <> FindRangeValue Then
+                            LVI.SubItems(2).Text = FindRangeValue
+                            LVI.UseItemStyleForSubItems = False
+                            LVI.SubItems(2).ForeColor = Drawing.Color.Red
+                            Exit For
+                        End If
                     End If
-                End If
+                Next
+
+                ProgressBar1.Value = ProgressBar1.Value + 1
             Next
-
-            ProgressBar1.Value = ProgressBar1.Value + 1
         Next
-
         '关闭文件
         wb.Close()
         ' 8.退出Excel程序
@@ -137,16 +138,16 @@ Public Class InventoryCoding
         System.Runtime.InteropServices.Marshal.ReleaseComObject(wb)
         System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
 
-        OK_Button.Enabled = True
+        searchcoding.Enabled = True
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub writecoding_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles writecoding.Click
 
         Dim oInventorDocument As Inventor.Document
         Dim FullDocumentName As String
         Dim oCoding As String
 
-        Button1.Enabled = False
+        writecoding.Enabled = False
 
         With ProgressBar1
             .Minimum = 0
@@ -167,7 +168,7 @@ Public Class InventoryCoding
             ProgressBar1.Value = ProgressBar1.Value + 1
         Next
 
-        Button1.Enabled = True
+        writecoding.Enabled = True
     End Sub
 
 

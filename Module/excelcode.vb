@@ -69,7 +69,8 @@ Module excelcode
         excelApp = New Excel.Application
         'excelApp.Visible = True
         Dim wb As Excel.Workbook = excelApp.Workbooks.Open(Excel_File_Name, 0, True)
-        Dim sht As Excel.Worksheet
+        Dim sht As Excel.Worksheet = Nothing
+        Dim FindRowValue As String = Nothing
         sht = wb.Sheets(Sheet_Name)
 
         Dim userange As Excel.Range = Nothing
@@ -80,19 +81,20 @@ Module excelcode
 
         Dim MatchRow As Double
 
-        For Each a In Table_Array
-            userange = sht.Range(a & ":" & a)
-            MatchRow = excelApp.WorksheetFunction.Match(StochNum, userange, 0)
-            If MatchRow <> 0 Then
-                Exit For
-            End If
+        For Each sht In wb.Sheets
+            For Each a In Table_Array
+                userange = sht.Range(a & ":" & a)
+                MatchRow = excelApp.WorksheetFunction.Match(StochNum, userange, 0)
+                If MatchRow <> 0 Then
+                    Exit For
+                End If
+            Next
+
+            Dim FindRow As String
+            FindRow = Col_Index_Num & MatchRow
+
+            FindRowValue = sht.Range(FindRow).Value
         Next
-
-        Dim FindRow As String
-        FindRow = Col_Index_Num & MatchRow
-        Dim FindRowValue As String
-        FindRowValue = sht.Range(FindRow).Value
-
 
 
         '关闭文件
