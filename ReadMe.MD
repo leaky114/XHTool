@@ -21,17 +21,16 @@ Inventor 2015 以下版本，更高版本请自行编译。
 - 工程图尺寸添加直径
 - 检查工程图零件序号完整性
 - 新建工程图零件序号
-- 
-
 
 # 更新日志
+[更新日志](https://gitcode.net/leaky114/inventoraddin/-/blob/master/CHANGELOG)
 
 
 # 关于作者
 一个机械工程师，一个把重复简单劳动自动化者。
 
 # 联系作者
-微信(!#^-4767-0633)
+微信搜索(!#^-4767-0633)
 
 # 捐赠
-![微信付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E5%BE%AE%E4%BF%A1.bmp) | ![支付宝付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E6%94%AF%E4%BB%98%E5%AE%9D.bmp)
+![微信付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E5%BE%AE%E4%BF%A1.bmp)  ![支付宝付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E6%94%AF%E4%BB%98%E5%AE%9D.bmp)
