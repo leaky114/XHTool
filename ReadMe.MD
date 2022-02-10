@@ -31,7 +31,7 @@ Inventor 2015 以下版本，更高版本请自行编译。
 一个机械工程师，一个把重复简单劳动自动化者。
 
 # 联系作者
-![微信]()
+微信(!#^-4767-0633)
 
 # 捐赠
 ![微信付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E5%BE%AE%E4%BF%A1.bmp) | ![支付宝付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E6%94%AF%E4%BB%98%E5%AE%9D.bmp)
