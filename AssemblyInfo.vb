@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("InventorAddIn")> 
+<Assembly: AssemblyTitle("InAI")> 
 <Assembly: AssemblyDescription("InventorAddIn For Inventor 2015")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("InventorAddIn")> 
-<Assembly: AssemblyCopyright("")> 
+<Assembly: AssemblyProduct("InAI")> 
+<Assembly: AssemblyCopyright("leaky114")> 
 <Assembly: AssemblyTrademark("")> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM

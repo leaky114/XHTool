@@ -22,6 +22,7 @@ Partial Class frmChangeIpro
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChangeIpro))
         Me.btnOK = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.lblDescribe = New System.Windows.Forms.Label()
@@ -37,7 +38,7 @@ Partial Class frmChangeIpro
         Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnOK.Location = New System.Drawing.Point(152, 112)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(65, 25)
+        Me.btnOK.Size = New System.Drawing.Size(65, 28)
         Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "确定"
         '
@@ -47,7 +48,7 @@ Partial Class frmChangeIpro
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Location = New System.Drawing.Point(225, 112)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(65, 25)
+        Me.btnCancel.Size = New System.Drawing.Size(65, 28)
         Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "取消"
         '
@@ -115,9 +116,11 @@ Partial Class frmChangeIpro
         Me.Controls.Add(Me.txtNum)
         Me.Controls.Add(Me.lblDescribe)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmChangeIpro"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "调整IPro数据顺序"

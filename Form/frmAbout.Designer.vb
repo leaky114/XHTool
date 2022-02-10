@@ -41,9 +41,9 @@ Partial Class frmAbout
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnOK.Location = New System.Drawing.Point(257, 233)
+        Me.btnOK.Location = New System.Drawing.Point(275, 233)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(90, 25)
+        Me.btnOK.Size = New System.Drawing.Size(75, 28)
         Me.btnOK.TabIndex = 40
         Me.btnOK.Text = "确定"
         '
@@ -115,7 +115,7 @@ Partial Class frmAbout
         '
         'picZhiFuBao
         '
-        Me.picZhiFuBao.Image = Global.InventorAddIn.My.Resources.Resources.支付宝
+        Me.picZhiFuBao.Image = Global.InAI.My.Resources.Resources.支付宝
         Me.picZhiFuBao.InitialImage = Nothing
         Me.picZhiFuBao.Location = New System.Drawing.Point(14, 126)
         Me.picZhiFuBao.Name = "picZhiFuBao"
@@ -126,7 +126,7 @@ Partial Class frmAbout
         '
         'picWeiXin
         '
-        Me.picWeiXin.Image = Global.InventorAddIn.My.Resources.Resources.微信
+        Me.picWeiXin.Image = Global.InAI.My.Resources.Resources.微信
         Me.picWeiXin.InitialImage = Nothing
         Me.picWeiXin.Location = New System.Drawing.Point(14, 12)
         Me.picWeiXin.Name = "picWeiXin"
@@ -137,18 +137,18 @@ Partial Class frmAbout
         '
         'btnCheckUpdate
         '
-        Me.btnCheckUpdate.Location = New System.Drawing.Point(162, 233)
+        Me.btnCheckUpdate.Location = New System.Drawing.Point(192, 233)
         Me.btnCheckUpdate.Name = "btnCheckUpdate"
-        Me.btnCheckUpdate.Size = New System.Drawing.Size(90, 25)
+        Me.btnCheckUpdate.Size = New System.Drawing.Size(75, 28)
         Me.btnCheckUpdate.TabIndex = 44
         Me.btnCheckUpdate.Text = "检查更新"
         Me.btnCheckUpdate.UseVisualStyleBackColor = True
         '
         'btnGit
         '
-        Me.btnGit.Location = New System.Drawing.Point(17, 233)
+        Me.btnGit.Location = New System.Drawing.Point(15, 233)
         Me.btnGit.Name = "btnGit"
-        Me.btnGit.Size = New System.Drawing.Size(90, 25)
+        Me.btnGit.Size = New System.Drawing.Size(90, 28)
         Me.btnGit.TabIndex = 45
         Me.btnGit.Text = "访问软件仓库"
         Me.btnGit.UseVisualStyleBackColor = True
@@ -159,7 +159,7 @@ Partial Class frmAbout
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnOK
-        Me.ClientSize = New System.Drawing.Size(359, 264)
+        Me.ClientSize = New System.Drawing.Size(359, 270)
         Me.Controls.Add(Me.btnGit)
         Me.Controls.Add(Me.btnCheckUpdate)
         Me.Controls.Add(Me.picZhiFuBao)

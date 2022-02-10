@@ -28,21 +28,21 @@ Partial Class frmiPoperties
         Me.btnAddFile = New System.Windows.Forms.Button()
         Me.btnClearList = New System.Windows.Forms.Button()
         Me.tpCustom = New System.Windows.Forms.TabPage()
-        Me.BoolP = New System.Windows.Forms.CheckBox()
-        Me.rdoDouble = New System.Windows.Forms.RadioButton()
-        Me.rdoDate = New System.Windows.Forms.RadioButton()
-        Me.rdoBool = New System.Windows.Forms.RadioButton()
-        Me.rdoString = New System.Windows.Forms.RadioButton()
-        Me.txtString = New System.Windows.Forms.TextBox()
-        Me.txtProperty = New System.Windows.Forms.TextBox()
-        Me.txtDouble = New System.Windows.Forms.TextBox()
-        Me.lblProperty = New System.Windows.Forms.Label()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
+        Me.lblProperty = New System.Windows.Forms.Label()
+        Me.txtDouble = New System.Windows.Forms.TextBox()
+        Me.txtProperty = New System.Windows.Forms.TextBox()
+        Me.txtString = New System.Windows.Forms.TextBox()
+        Me.rdoString = New System.Windows.Forms.RadioButton()
+        Me.rdoBool = New System.Windows.Forms.RadioButton()
+        Me.rdoDate = New System.Windows.Forms.RadioButton()
+        Me.rdoDouble = New System.Windows.Forms.RadioButton()
+        Me.BoolP = New System.Windows.Forms.CheckBox()
         Me.tpProject = New System.Windows.Forms.TabPage()
-        Me.cmbProject = New System.Windows.Forms.ComboBox()
-        Me.lblProject = New System.Windows.Forms.Label()
-        Me.lblData = New System.Windows.Forms.Label()
         Me.txtData = New System.Windows.Forms.TextBox()
+        Me.lblData = New System.Windows.Forms.Label()
+        Me.lblProject = New System.Windows.Forms.Label()
+        Me.cmbProject = New System.Windows.Forms.ComboBox()
         Me.tab1 = New System.Windows.Forms.TabControl()
         Me.tpCustom.SuspendLayout()
         Me.tpProject.SuspendLayout()
@@ -51,20 +51,20 @@ Partial Class frmiPoperties
         '
         'btnStart
         '
-        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(169, 189)
+        Me.btnStart.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnStart.Location = New System.Drawing.Point(160, 189)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(57, 33)
+        Me.btnStart.Size = New System.Drawing.Size(70, 28)
         Me.btnStart.TabIndex = 1
         Me.btnStart.Text = "开始"
         '
         'btnClose
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClose.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(230, 189)
+        Me.btnClose.Location = New System.Drawing.Point(238, 189)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(57, 33)
+        Me.btnClose.Size = New System.Drawing.Size(70, 28)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "关闭"
         '
@@ -72,7 +72,7 @@ Partial Class frmiPoperties
         '
         Me.lstFileLIst.FormattingEnabled = True
         Me.lstFileLIst.ItemHeight = 12
-        Me.lstFileLIst.Location = New System.Drawing.Point(12, 190)
+        Me.lstFileLIst.Location = New System.Drawing.Point(12, 226)
         Me.lstFileLIst.Name = "lstFileLIst"
         Me.lstFileLIst.Size = New System.Drawing.Size(271, 148)
         Me.lstFileLIst.TabIndex = 15
@@ -81,9 +81,9 @@ Partial Class frmiPoperties
         'btnAddFile
         '
         Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(12, 189)
+        Me.btnAddFile.Location = New System.Drawing.Point(4, 189)
         Me.btnAddFile.Name = "btnAddFile"
-        Me.btnAddFile.Size = New System.Drawing.Size(69, 33)
+        Me.btnAddFile.Size = New System.Drawing.Size(70, 28)
         Me.btnAddFile.TabIndex = 0
         Me.btnAddFile.Text = "添加文件"
         Me.btnAddFile.UseVisualStyleBackColor = True
@@ -92,9 +92,9 @@ Partial Class frmiPoperties
         'btnClearList
         '
         Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(86, 189)
+        Me.btnClearList.Location = New System.Drawing.Point(82, 189)
         Me.btnClearList.Name = "btnClearList"
-        Me.btnClearList.Size = New System.Drawing.Size(69, 33)
+        Me.btnClearList.Size = New System.Drawing.Size(70, 28)
         Me.btnClearList.TabIndex = 20
         Me.btnClearList.Text = "清除列表"
         Me.btnClearList.UseVisualStyleBackColor = True
@@ -115,53 +115,47 @@ Partial Class frmiPoperties
         Me.tpCustom.Location = New System.Drawing.Point(4, 22)
         Me.tpCustom.Name = "tpCustom"
         Me.tpCustom.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpCustom.Size = New System.Drawing.Size(267, 146)
+        Me.tpCustom.Size = New System.Drawing.Size(286, 146)
         Me.tpCustom.TabIndex = 1
         Me.tpCustom.Text = "自定义"
         Me.tpCustom.UseVisualStyleBackColor = True
         '
-        'BoolP
+        'dtpDate
         '
-        Me.BoolP.AutoSize = True
-        Me.BoolP.Location = New System.Drawing.Point(83, 64)
-        Me.BoolP.Name = "BoolP"
-        Me.BoolP.Size = New System.Drawing.Size(102, 16)
-        Me.BoolP.TabIndex = 3
-        Me.BoolP.Text = "True 或 False"
-        Me.BoolP.UseVisualStyleBackColor = True
+        Me.dtpDate.Location = New System.Drawing.Point(81, 115)
+        Me.dtpDate.Name = "dtpDate"
+        Me.dtpDate.Size = New System.Drawing.Size(127, 21)
+        Me.dtpDate.TabIndex = 11
         '
-        'rdoDouble
+        'lblProperty
         '
-        Me.rdoDouble.AutoSize = True
-        Me.rdoDouble.Location = New System.Drawing.Point(15, 91)
-        Me.rdoDouble.Name = "rdoDouble"
-        Me.rdoDouble.Size = New System.Drawing.Size(47, 16)
-        Me.rdoDouble.TabIndex = 8
-        Me.rdoDouble.TabStop = True
-        Me.rdoDouble.Text = "实数"
-        Me.rdoDouble.UseVisualStyleBackColor = True
+        Me.lblProperty.AutoSize = True
+        Me.lblProperty.Location = New System.Drawing.Point(17, 15)
+        Me.lblProperty.Name = "lblProperty"
+        Me.lblProperty.Size = New System.Drawing.Size(41, 12)
+        Me.lblProperty.TabIndex = 13
+        Me.lblProperty.Text = "特性名"
         '
-        'rdoDate
+        'txtDouble
         '
-        Me.rdoDate.AutoSize = True
-        Me.rdoDate.Location = New System.Drawing.Point(15, 115)
-        Me.rdoDate.Name = "rdoDate"
-        Me.rdoDate.Size = New System.Drawing.Size(47, 16)
-        Me.rdoDate.TabIndex = 9
-        Me.rdoDate.TabStop = True
-        Me.rdoDate.Text = "日期"
-        Me.rdoDate.UseVisualStyleBackColor = True
+        Me.txtDouble.Location = New System.Drawing.Point(81, 87)
+        Me.txtDouble.Name = "txtDouble"
+        Me.txtDouble.Size = New System.Drawing.Size(127, 21)
+        Me.txtDouble.TabIndex = 4
         '
-        'rdoBool
+        'txtProperty
         '
-        Me.rdoBool.AutoSize = True
-        Me.rdoBool.Location = New System.Drawing.Point(15, 67)
-        Me.rdoBool.Name = "rdoBool"
-        Me.rdoBool.Size = New System.Drawing.Size(59, 16)
-        Me.rdoBool.TabIndex = 7
-        Me.rdoBool.TabStop = True
-        Me.rdoBool.Text = "布尔值"
-        Me.rdoBool.UseVisualStyleBackColor = True
+        Me.txtProperty.Location = New System.Drawing.Point(81, 9)
+        Me.txtProperty.Name = "txtProperty"
+        Me.txtProperty.Size = New System.Drawing.Size(127, 21)
+        Me.txtProperty.TabIndex = 12
+        '
+        'txtString
+        '
+        Me.txtString.Location = New System.Drawing.Point(81, 36)
+        Me.txtString.Name = "txtString"
+        Me.txtString.Size = New System.Drawing.Size(127, 21)
+        Me.txtString.TabIndex = 2
         '
         'rdoString
         '
@@ -174,42 +168,48 @@ Partial Class frmiPoperties
         Me.rdoString.Text = "字串"
         Me.rdoString.UseVisualStyleBackColor = True
         '
-        'txtString
+        'rdoBool
         '
-        Me.txtString.Location = New System.Drawing.Point(81, 36)
-        Me.txtString.Name = "txtString"
-        Me.txtString.Size = New System.Drawing.Size(127, 21)
-        Me.txtString.TabIndex = 2
+        Me.rdoBool.AutoSize = True
+        Me.rdoBool.Location = New System.Drawing.Point(15, 67)
+        Me.rdoBool.Name = "rdoBool"
+        Me.rdoBool.Size = New System.Drawing.Size(59, 16)
+        Me.rdoBool.TabIndex = 7
+        Me.rdoBool.TabStop = True
+        Me.rdoBool.Text = "布尔值"
+        Me.rdoBool.UseVisualStyleBackColor = True
         '
-        'txtProperty
+        'rdoDate
         '
-        Me.txtProperty.Location = New System.Drawing.Point(81, 9)
-        Me.txtProperty.Name = "txtProperty"
-        Me.txtProperty.Size = New System.Drawing.Size(127, 21)
-        Me.txtProperty.TabIndex = 12
+        Me.rdoDate.AutoSize = True
+        Me.rdoDate.Location = New System.Drawing.Point(15, 115)
+        Me.rdoDate.Name = "rdoDate"
+        Me.rdoDate.Size = New System.Drawing.Size(47, 16)
+        Me.rdoDate.TabIndex = 9
+        Me.rdoDate.TabStop = True
+        Me.rdoDate.Text = "日期"
+        Me.rdoDate.UseVisualStyleBackColor = True
         '
-        'txtDouble
+        'rdoDouble
         '
-        Me.txtDouble.Location = New System.Drawing.Point(81, 87)
-        Me.txtDouble.Name = "txtDouble"
-        Me.txtDouble.Size = New System.Drawing.Size(127, 21)
-        Me.txtDouble.TabIndex = 4
+        Me.rdoDouble.AutoSize = True
+        Me.rdoDouble.Location = New System.Drawing.Point(15, 91)
+        Me.rdoDouble.Name = "rdoDouble"
+        Me.rdoDouble.Size = New System.Drawing.Size(47, 16)
+        Me.rdoDouble.TabIndex = 8
+        Me.rdoDouble.TabStop = True
+        Me.rdoDouble.Text = "实数"
+        Me.rdoDouble.UseVisualStyleBackColor = True
         '
-        'lblProperty
+        'BoolP
         '
-        Me.lblProperty.AutoSize = True
-        Me.lblProperty.Location = New System.Drawing.Point(17, 15)
-        Me.lblProperty.Name = "lblProperty"
-        Me.lblProperty.Size = New System.Drawing.Size(41, 12)
-        Me.lblProperty.TabIndex = 13
-        Me.lblProperty.Text = "特性名"
-        '
-        'dtpDate
-        '
-        Me.dtpDate.Location = New System.Drawing.Point(81, 115)
-        Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(127, 21)
-        Me.dtpDate.TabIndex = 11
+        Me.BoolP.AutoSize = True
+        Me.BoolP.Location = New System.Drawing.Point(83, 64)
+        Me.BoolP.Name = "BoolP"
+        Me.BoolP.Size = New System.Drawing.Size(102, 16)
+        Me.BoolP.TabIndex = 3
+        Me.BoolP.Text = "True 或 False"
+        Me.BoolP.UseVisualStyleBackColor = True
         '
         'tpProject
         '
@@ -225,24 +225,12 @@ Partial Class frmiPoperties
         Me.tpProject.Text = "项目"
         Me.tpProject.UseVisualStyleBackColor = True
         '
-        'cmbProject
+        'txtData
         '
-        Me.cmbProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbProject.FormattingEnabled = True
-        Me.cmbProject.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "预估成本", "供应商", "Web链接"})
-        Me.cmbProject.Location = New System.Drawing.Point(70, 10)
-        Me.cmbProject.Name = "cmbProject"
-        Me.cmbProject.Size = New System.Drawing.Size(145, 20)
-        Me.cmbProject.TabIndex = 18
-        '
-        'lblProject
-        '
-        Me.lblProject.AutoSize = True
-        Me.lblProject.Location = New System.Drawing.Point(12, 14)
-        Me.lblProject.Name = "lblProject"
-        Me.lblProject.Size = New System.Drawing.Size(53, 12)
-        Me.lblProject.TabIndex = 19
-        Me.lblProject.Text = "项目名："
+        Me.txtData.Location = New System.Drawing.Point(70, 39)
+        Me.txtData.Name = "txtData"
+        Me.txtData.Size = New System.Drawing.Size(143, 21)
+        Me.txtData.TabIndex = 21
         '
         'lblData
         '
@@ -253,12 +241,24 @@ Partial Class frmiPoperties
         Me.lblData.TabIndex = 20
         Me.lblData.Text = "数  据："
         '
-        'txtData
+        'lblProject
         '
-        Me.txtData.Location = New System.Drawing.Point(70, 39)
-        Me.txtData.Name = "txtData"
-        Me.txtData.Size = New System.Drawing.Size(143, 21)
-        Me.txtData.TabIndex = 21
+        Me.lblProject.AutoSize = True
+        Me.lblProject.Location = New System.Drawing.Point(12, 14)
+        Me.lblProject.Name = "lblProject"
+        Me.lblProject.Size = New System.Drawing.Size(53, 12)
+        Me.lblProject.TabIndex = 19
+        Me.lblProject.Text = "项目名："
+        '
+        'cmbProject
+        '
+        Me.cmbProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbProject.FormattingEnabled = True
+        Me.cmbProject.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "预估成本", "供应商", "Web链接"})
+        Me.cmbProject.Location = New System.Drawing.Point(70, 10)
+        Me.cmbProject.Name = "cmbProject"
+        Me.cmbProject.Size = New System.Drawing.Size(145, 20)
+        Me.cmbProject.TabIndex = 18
         '
         'tab1
         '
@@ -267,7 +267,7 @@ Partial Class frmiPoperties
         Me.tab1.Location = New System.Drawing.Point(12, 12)
         Me.tab1.Name = "tab1"
         Me.tab1.SelectedIndex = 0
-        Me.tab1.Size = New System.Drawing.Size(275, 172)
+        Me.tab1.Size = New System.Drawing.Size(294, 172)
         Me.tab1.TabIndex = 19
         '
         'frmiPoperties
@@ -276,7 +276,7 @@ Partial Class frmiPoperties
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(299, 231)
+        Me.ClientSize = New System.Drawing.Size(318, 231)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.btnClearList)

@@ -28,10 +28,10 @@ Partial Class frmAutoPartNumber
         Me.btnReview = New System.Windows.Forms.Button()
         Me.btnMoveDown = New System.Windows.Forms.Button()
         Me.lvwFile = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chOriginalFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chNewFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chFolder = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.txtBasicNum = New System.Windows.Forms.TextBox()
         Me.lblBasicNum = New System.Windows.Forms.Label()
         Me.lblAmsChange = New System.Windows.Forms.Label()
@@ -51,7 +51,7 @@ Partial Class frmAutoPartNumber
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnStart.Location = New System.Drawing.Point(511, 385)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(65, 25)
+        Me.btnStart.Size = New System.Drawing.Size(65, 28)
         Me.btnStart.TabIndex = 5
         Me.btnStart.Text = "开始"
         '
@@ -62,7 +62,7 @@ Partial Class frmAutoPartNumber
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(584, 385)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(65, 25)
+        Me.btnClose.Size = New System.Drawing.Size(65, 28)
         Me.btnClose.TabIndex = 6
         Me.btnClose.Text = "关闭"
         '
@@ -71,7 +71,7 @@ Partial Class frmAutoPartNumber
         Me.btnMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMoveUp.Location = New System.Drawing.Point(93, 385)
         Me.btnMoveUp.Name = "btnMoveUp"
-        Me.btnMoveUp.Size = New System.Drawing.Size(65, 25)
+        Me.btnMoveUp.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveUp.TabIndex = 0
         Me.btnMoveUp.TabStop = False
         Me.btnMoveUp.Text = "上移"
@@ -82,7 +82,7 @@ Partial Class frmAutoPartNumber
         Me.btnReview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReview.Location = New System.Drawing.Point(385, 385)
         Me.btnReview.Name = "btnReview"
-        Me.btnReview.Size = New System.Drawing.Size(65, 25)
+        Me.btnReview.Size = New System.Drawing.Size(65, 28)
         Me.btnReview.TabIndex = 4
         Me.btnReview.Text = "预览"
         Me.btnReview.UseVisualStyleBackColor = True
@@ -92,7 +92,7 @@ Partial Class frmAutoPartNumber
         Me.btnMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMoveDown.Location = New System.Drawing.Point(166, 385)
         Me.btnMoveDown.Name = "btnMoveDown"
-        Me.btnMoveDown.Size = New System.Drawing.Size(65, 25)
+        Me.btnMoveDown.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveDown.TabIndex = 21
         Me.btnMoveDown.TabStop = False
         Me.btnMoveDown.Text = "下移"
@@ -104,7 +104,7 @@ Partial Class frmAutoPartNumber
         Me.lvwFile.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFile.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.lvwFile.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chOriginalFileName, Me.chType, Me.chNewFileName, Me.chFolder})
         Me.lvwFile.FullRowSelect = True
         Me.lvwFile.Location = New System.Drawing.Point(13, 12)
         Me.lvwFile.Name = "lvwFile"
@@ -114,25 +114,25 @@ Partial Class frmAutoPartNumber
         Me.lvwFile.UseCompatibleStateImageBehavior = False
         Me.lvwFile.View = System.Windows.Forms.View.Details
         '
-        'ColumnHeader1
+        'chOriginalFileName
         '
-        Me.ColumnHeader1.Text = "原文件名"
-        Me.ColumnHeader1.Width = 150
+        Me.chOriginalFileName.Text = "原文件名"
+        Me.chOriginalFileName.Width = 150
         '
-        'ColumnHeader2
+        'chType
         '
-        Me.ColumnHeader2.Text = "类型"
-        Me.ColumnHeader2.Width = 50
+        Me.chType.Text = "类型"
+        Me.chType.Width = 50
         '
-        'ColumnHeader3
+        'chNewFileName
         '
-        Me.ColumnHeader3.Text = "新文件名"
-        Me.ColumnHeader3.Width = 250
+        Me.chNewFileName.Text = "新文件名"
+        Me.chNewFileName.Width = 250
         '
-        'ColumnHeader4
+        'chFolder
         '
-        Me.ColumnHeader4.Text = "文件夹"
-        Me.ColumnHeader4.Width = 250
+        Me.chFolder.Text = "文件夹"
+        Me.chFolder.Width = 250
         '
         'txtBasicNum
         '
@@ -197,7 +197,7 @@ Partial Class frmAutoPartNumber
         Me.btnMoveOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMoveOut.Location = New System.Drawing.Point(239, 385)
         Me.btnMoveOut.Name = "btnMoveOut"
-        Me.btnMoveOut.Size = New System.Drawing.Size(65, 25)
+        Me.btnMoveOut.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveOut.TabIndex = 29
         Me.btnMoveOut.Text = "移出"
         Me.btnMoveOut.UseVisualStyleBackColor = True
@@ -207,7 +207,7 @@ Partial Class frmAutoPartNumber
         Me.btnReLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReLoad.Location = New System.Drawing.Point(312, 385)
         Me.btnReLoad.Name = "btnReLoad"
-        Me.btnReLoad.Size = New System.Drawing.Size(65, 25)
+        Me.btnReLoad.Size = New System.Drawing.Size(65, 28)
         Me.btnReLoad.TabIndex = 30
         Me.btnReLoad.Text = "重载"
         Me.btnReLoad.UseVisualStyleBackColor = True
@@ -235,7 +235,7 @@ Partial Class frmAutoPartNumber
         Me.btnSelectall.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSelectall.Location = New System.Drawing.Point(20, 385)
         Me.btnSelectall.Name = "btnSelectall"
-        Me.btnSelectall.Size = New System.Drawing.Size(65, 25)
+        Me.btnSelectall.Size = New System.Drawing.Size(65, 28)
         Me.btnSelectall.TabIndex = 33
         Me.btnSelectall.TabStop = False
         Me.btnSelectall.Text = "全选"
@@ -291,20 +291,19 @@ Partial Class frmAutoPartNumber
 
     End Sub
     Friend WithEvents btnStart As System.Windows.Forms.Button
-    Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents btnMoveUp As System.Windows.Forms.Button
     Friend WithEvents btnReview As System.Windows.Forms.Button
     Friend WithEvents btnMoveDown As System.Windows.Forms.Button
     Friend WithEvents lvwFile As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chOriginalFileName As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chType As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chNewFileName As System.Windows.Forms.ColumnHeader
     Friend WithEvents txtBasicNum As System.Windows.Forms.TextBox
     Friend WithEvents lblBasicNum As System.Windows.Forms.Label
     Friend WithEvents lblAmsChange As System.Windows.Forms.Label
     Friend WithEvents lblPartChange As System.Windows.Forms.Label
     Friend WithEvents txtPartChange As System.Windows.Forms.TextBox
-    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents chFolder As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmbAmsChange As System.Windows.Forms.ComboBox
     Friend WithEvents btnMoveOut As System.Windows.Forms.Button
     Friend WithEvents btnReLoad As System.Windows.Forms.Button
@@ -312,5 +311,6 @@ Partial Class frmAutoPartNumber
     Friend WithEvents txtNewFileName As System.Windows.Forms.TextBox
     Friend WithEvents btnSelectall As System.Windows.Forms.Button
     Friend WithEvents btnOK As System.Windows.Forms.Button
+    Friend WithEvents btnClose As System.Windows.Forms.Button
 
 End Class
