@@ -50,9 +50,9 @@ Partial Class frmPrint
         'btnStart
         '
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(697, 413)
+        Me.btnStart.Location = New System.Drawing.Point(695, 413)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(57, 25)
+        Me.btnStart.Size = New System.Drawing.Size(57, 28)
         Me.btnStart.TabIndex = 1
         Me.btnStart.TabStop = False
         Me.btnStart.Text = "开始"
@@ -61,9 +61,9 @@ Partial Class frmPrint
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(762, 413)
+        Me.btnClose.Location = New System.Drawing.Point(760, 413)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(57, 25)
+        Me.btnClose.Size = New System.Drawing.Size(57, 28)
         Me.btnClose.TabIndex = 1
         Me.btnClose.TabStop = False
         Me.btnClose.Text = "关闭"
@@ -71,9 +71,9 @@ Partial Class frmPrint
         'btnAddFile
         '
         Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(110, 413)
+        Me.btnAddFile.Location = New System.Drawing.Point(107, 413)
         Me.btnAddFile.Name = "btnAddFile"
-        Me.btnAddFile.Size = New System.Drawing.Size(85, 25)
+        Me.btnAddFile.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFile.TabIndex = 1
         Me.btnAddFile.Text = "添加文件"
         Me.btnAddFile.UseVisualStyleBackColor = True
@@ -81,9 +81,9 @@ Partial Class frmPrint
         'btnClearList
         '
         Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(604, 413)
+        Me.btnClearList.Location = New System.Drawing.Point(476, 413)
         Me.btnClearList.Name = "btnClearList"
-        Me.btnClearList.Size = New System.Drawing.Size(85, 25)
+        Me.btnClearList.Size = New System.Drawing.Size(85, 28)
         Me.btnClearList.TabIndex = 3
         Me.btnClearList.Text = "清除列表"
         Me.btnClearList.UseVisualStyleBackColor = True
@@ -91,9 +91,9 @@ Partial Class frmPrint
         'btnAddFolder
         '
         Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(203, 413)
+        Me.btnAddFolder.Location = New System.Drawing.Point(200, 413)
         Me.btnAddFolder.Name = "btnAddFolder"
-        Me.btnAddFolder.Size = New System.Drawing.Size(85, 25)
+        Me.btnAddFolder.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFolder.TabIndex = 2
         Me.btnAddFolder.Text = "添加文件夹"
         Me.btnAddFolder.UseVisualStyleBackColor = True
@@ -231,27 +231,27 @@ Partial Class frmPrint
         'btnLoadAsm
         '
         Me.btnLoadAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadAsm.Location = New System.Drawing.Point(17, 413)
+        Me.btnLoadAsm.Location = New System.Drawing.Point(14, 413)
         Me.btnLoadAsm.Name = "btnLoadAsm"
-        Me.btnLoadAsm.Size = New System.Drawing.Size(85, 25)
+        Me.btnLoadAsm.Size = New System.Drawing.Size(85, 28)
         Me.btnLoadAsm.TabIndex = 0
         Me.btnLoadAsm.Text = "从部件导入"
         Me.btnLoadAsm.UseVisualStyleBackColor = True
         '
         'btnLoadIdw
         '
-        Me.btnLoadIdw.Location = New System.Drawing.Point(296, 413)
+        Me.btnLoadIdw.Location = New System.Drawing.Point(293, 413)
         Me.btnLoadIdw.Name = "btnLoadIdw"
-        Me.btnLoadIdw.Size = New System.Drawing.Size(85, 25)
+        Me.btnLoadIdw.Size = New System.Drawing.Size(110, 28)
         Me.btnLoadIdw.TabIndex = 34
         Me.btnLoadIdw.Text = "导入已打开文件"
         Me.btnLoadIdw.UseVisualStyleBackColor = True
         '
         'btnRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(545, 413)
+        Me.btnRemove.Location = New System.Drawing.Point(411, 413)
         Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(51, 25)
+        Me.btnRemove.Size = New System.Drawing.Size(57, 28)
         Me.btnRemove.TabIndex = 35
         Me.btnRemove.Text = "移出"
         Me.btnRemove.UseVisualStyleBackColor = True
@@ -299,6 +299,7 @@ Partial Class frmPrint
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmPrint"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"

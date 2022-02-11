@@ -74,27 +74,27 @@ Partial Class frmInventoryCoding
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.AutoSize = True
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(521, 277)
+        Me.btnClose.Location = New System.Drawing.Point(510, 277)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(69, 33)
+        Me.btnClose.Size = New System.Drawing.Size(69, 28)
         Me.btnClose.TabIndex = 32
         Me.btnClose.Text = "关闭"
         '
         'btnSearchCoding
         '
         Me.btnSearchCoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSearchCoding.Location = New System.Drawing.Point(371, 277)
+        Me.btnSearchCoding.Location = New System.Drawing.Point(356, 277)
         Me.btnSearchCoding.Name = "btnSearchCoding"
-        Me.btnSearchCoding.Size = New System.Drawing.Size(69, 33)
+        Me.btnSearchCoding.Size = New System.Drawing.Size(69, 28)
         Me.btnSearchCoding.TabIndex = 31
         Me.btnSearchCoding.Text = "查询"
         '
         'btnWriteCoding
         '
         Me.btnWriteCoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnWriteCoding.Location = New System.Drawing.Point(446, 277)
+        Me.btnWriteCoding.Location = New System.Drawing.Point(433, 277)
         Me.btnWriteCoding.Name = "btnWriteCoding"
-        Me.btnWriteCoding.Size = New System.Drawing.Size(69, 33)
+        Me.btnWriteCoding.Size = New System.Drawing.Size(69, 28)
         Me.btnWriteCoding.TabIndex = 34
         Me.btnWriteCoding.Text = "写入"
         Me.btnWriteCoding.UseVisualStyleBackColor = True
@@ -104,16 +104,16 @@ Partial Class frmInventoryCoding
         Me.prgProcess.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.prgProcess.Location = New System.Drawing.Point(12, 280)
         Me.prgProcess.Name = "prgProcess"
-        Me.prgProcess.Size = New System.Drawing.Size(278, 24)
+        Me.prgProcess.Size = New System.Drawing.Size(261, 24)
         Me.prgProcess.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.prgProcess.TabIndex = 35
         '
         'btnLoadFile
         '
         Me.btnLoadFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadFile.Location = New System.Drawing.Point(296, 277)
+        Me.btnLoadFile.Location = New System.Drawing.Point(279, 277)
         Me.btnLoadFile.Name = "btnLoadFile"
-        Me.btnLoadFile.Size = New System.Drawing.Size(69, 33)
+        Me.btnLoadFile.Size = New System.Drawing.Size(69, 28)
         Me.btnLoadFile.TabIndex = 36
         Me.btnLoadFile.Text = "装载"
         '

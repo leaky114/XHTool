@@ -43,7 +43,7 @@ Partial Class frmGetPart
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAdd.Location = New System.Drawing.Point(17, 330)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(65, 25)
+        Me.btnAdd.Size = New System.Drawing.Size(65, 28)
         Me.btnAdd.TabIndex = 38
         Me.btnAdd.TabStop = False
         Me.btnAdd.Text = "添加"
@@ -54,7 +54,7 @@ Partial Class frmGetPart
         Me.btnMoveOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnMoveOut.Location = New System.Drawing.Point(90, 330)
         Me.btnMoveOut.Name = "btnMoveOut"
-        Me.btnMoveOut.Size = New System.Drawing.Size(65, 25)
+        Me.btnMoveOut.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveOut.TabIndex = 37
         Me.btnMoveOut.Text = "移出"
         Me.btnMoveOut.UseVisualStyleBackColor = True
@@ -112,7 +112,7 @@ Partial Class frmGetPart
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(392, 330)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(65, 25)
+        Me.btnClose.Size = New System.Drawing.Size(65, 28)
         Me.btnClose.TabIndex = 34
         Me.btnClose.Text = "关闭"
         '
@@ -121,7 +121,7 @@ Partial Class frmGetPart
         Me.btnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnClear.Location = New System.Drawing.Point(163, 330)
         Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(65, 25)
+        Me.btnClear.Size = New System.Drawing.Size(65, 28)
         Me.btnClear.TabIndex = 39
         Me.btnClear.Text = "清空"
         Me.btnClear.UseVisualStyleBackColor = True

@@ -33,9 +33,9 @@ Partial Class frmInputBox
         'btnOK
         '
         Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnOK.Location = New System.Drawing.Point(280, 123)
+        Me.btnOK.Location = New System.Drawing.Point(281, 123)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(65, 25)
+        Me.btnOK.Size = New System.Drawing.Size(65, 28)
         Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "确定"
         '
@@ -43,9 +43,9 @@ Partial Class frmInputBox
         '
         Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(353, 123)
+        Me.btnCancel.Location = New System.Drawing.Point(354, 123)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(65, 25)
+        Me.btnCancel.Size = New System.Drawing.Size(65, 28)
         Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "取消"
         '

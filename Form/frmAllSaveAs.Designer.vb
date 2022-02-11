@@ -40,7 +40,7 @@ Partial Class frmAllSaveAs
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnStart.Location = New System.Drawing.Point(298, 89)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(90, 25)
+        Me.btnStart.Size = New System.Drawing.Size(90, 28)
         Me.btnStart.TabIndex = 1
         Me.btnStart.Text = "开始"
         '
@@ -50,7 +50,7 @@ Partial Class frmAllSaveAs
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(396, 89)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(90, 25)
+        Me.btnClose.Size = New System.Drawing.Size(90, 28)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "关闭"
         '
@@ -79,7 +79,7 @@ Partial Class frmAllSaveAs
         Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnAddFolder.Location = New System.Drawing.Point(8, 89)
         Me.btnAddFolder.Name = "btnAddFolder"
-        Me.btnAddFolder.Size = New System.Drawing.Size(90, 25)
+        Me.btnAddFolder.Size = New System.Drawing.Size(90, 28)
         Me.btnAddFolder.TabIndex = 21
         Me.btnAddFolder.Text = "添加文件夹"
         Me.btnAddFolder.UseVisualStyleBackColor = True
@@ -170,6 +170,7 @@ Partial Class frmAllSaveAs
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAllSaveAs"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "全部另存为"
