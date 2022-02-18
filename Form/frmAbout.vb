@@ -4,6 +4,7 @@ Public NotInheritable Class frmAbout
 
     Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
 
+
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
         Dim ApplicationTitle As String
@@ -22,7 +23,7 @@ Public NotInheritable Class frmAbout
         Me.lblCompanyName.Text = String.Format("公司 {0}", My.Application.Info.CompanyName)
         Me.txtDescription.Text = My.Application.Info.Description & vbCrLf & _
                                       vbCrLf & _
-                                    My.Application.Info.DirectoryPath
+                                    My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".dll"
     End Sub
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click

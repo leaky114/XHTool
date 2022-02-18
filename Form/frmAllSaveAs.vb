@@ -111,8 +111,8 @@ Public Class frmAllSaveAs
         If rdoLocal.Checked = True Then
             rdoSameFolder.Checked = False
             btnAddFolder.Enabled = False
-            'Else
-            '    RadioButton2.Checked = True
+            txtString.Enabled = False
+          
         End If
 
     End Sub
