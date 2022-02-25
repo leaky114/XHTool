@@ -33,5 +33,12 @@ Inventor 2015 以下版本，更高版本请自行编译。
 # 联系作者
 微信搜索(!#^-4767-0633)
 
-# 捐赠
-![]()  ![]()
+# 截图
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/1.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/7.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/8.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/13.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/14.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/15.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/16.png)
+- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/17.png)
