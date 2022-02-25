@@ -66,6 +66,9 @@ Module InventorBasic
     Public OPosition(9) As Point   '点
     Public TempPoint(9) As SketchPoint   '临时绘制的点
 
+    Public IsShowUpdateMsg As Boolean    '检查更新时是否显示是最新版本的msgbox
+
+
     '-------------------------------------------------------------------------------
     Public Sub SetStatusBarText(Optional ByVal StatusBarText As String = "就绪")
         ThisApplication.StatusBarText = StatusBarText

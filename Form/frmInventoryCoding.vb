@@ -28,35 +28,115 @@ Public Class frmInventoryCoding
             Exit Sub
         End If
 
-        ' 获取所有引用文档
-        Dim oAllReferencedDocuments As DocumentsEnumerator
-        oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
+        '==============================================================================================
+        '基于bom结构化数据，可跳过参考的文件
+        ' Set a reference to the BOM
+        Dim oBOM As BOM
+        oBOM = oAssemblyDocument.ComponentDefinition.BOM
+        oBOM.StructuredViewEnabled = True
 
-        With prgProcess
-            .Minimum = 0
-            .Maximum = oAllReferencedDocuments.Count
-            .Value = 0
-        End With
+        'Set a reference to the "Structured" BOMView
+        Dim oBOMView As BOMView
+
+        '获取结构化的bom页面
+        For Each oBOMView In oBOM.BOMViews
+            If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                '遍历这个bom页面
+                QueryBOMRowToLoadiPro(oBOMView.BOMRows, lvwFileList)
+            End If
+        Next
+        '==============================================================================================
+
+
+        '' 获取所有引用文档
+        'Dim oAllReferencedDocuments As DocumentsEnumerator
+        'oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
+
+        'With prgProcess
+        '    .Minimum = 0
+        '    .Maximum = oAllReferencedDocuments.Count
+        '    .Value = 0
+        'End With
 
 
         ' 遍历这些文档
 
+        'For Each ReferencedDocument As Document In oAllReferencedDocuments
+        '    Debug.Print(ReferencedDocument.DisplayName)
+        '    Dim oStockNumPartName As StockNumPartName
+        '    oStockNumPartName = GetPropitems(ReferencedDocument)
 
-        For Each ReferencedDocument As Document In oAllReferencedDocuments
-            Debug.Print(ReferencedDocument.DisplayName)
+        '    Dim LVI As ListViewItem
+        '    LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
+        '    LVI.SubItems.Add(oStockNumPartName.PartName)
+        '    LVI.SubItems.Add(oStockNumPartName.PartNum)
+        '    LVI.SubItems.Add(ReferencedDocument.FullDocumentName)
+
+        '    prgProcess.Value = prgProcess.Value + 1
+        'Next
+
+        btnLoadFile.Enabled = True
+
+    End Sub
+
+    Public Sub QueryBOMRowToLoadiPro(ByVal oBOMRows As BOMRowsEnumerator, olistiview As ListView)
+        Dim i As Integer
+
+        Dim iStepCount As Short
+        iStepCount = oBOMRows.Count
+
+        'Create a new ProgressBar object.
+        'Dim oProgressBar As Inventor.ProgressBar
+
+        'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
+
+        For i = 1 To oBOMRows.Count
+            ' Get the current row.
+            Dim oBOMRow As BOMRow
+            oBOMRow = oBOMRows.Item(i)
+
+            Dim oFullFileName As String
+            oFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+            '测试文件
+            Debug.Print(oFullFileName)
+
+            ' Set the message for the progress bar
+            'oProgressBar.Message = oFullFileName
+
+            If IsFileExsts(oFullFileName) = False Then   '跳过不存在的文件
+                GoTo 999
+            End If
+
+            If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                GoTo 999
+            End If
+
+            Dim oInventorDocument As Inventor.Document
+            oInventorDocument = ThisApplication.Documents.Open(oFullFileName, False)  '打开文件，不显示
+
+
             Dim oStockNumPartName As StockNumPartName
-            oStockNumPartName = GetPropitems(ReferencedDocument)
+            oStockNumPartName = GetPropitems(oInventorDocument)
 
             Dim LVI As ListViewItem
             LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
             LVI.SubItems.Add(oStockNumPartName.PartName)
             LVI.SubItems.Add(oStockNumPartName.PartNum)
-            LVI.SubItems.Add(ReferencedDocument.FullDocumentName)
+            LVI.SubItems.Add(oFullFileName)
+            oInventorDocument.Close(True)
+           
 
-            prgProcess.Value = prgProcess.Value + 1
+            '遍历下一级
+            If (Not oBOMRow.ChildRows Is Nothing) Then
+                Call QueryBOMRowToLoadiPro(oBOMRow.ChildRows, olistiview)
+            End If
+
+999:
+            'oProgressBar.UpdateProgress()
         Next
 
-        btnLoadFile.Enabled = True
+        'oProgressBar.Close()
 
     End Sub
 
@@ -171,5 +251,8 @@ Public Class frmInventoryCoding
         btnWriteCoding.Enabled = True
     End Sub
 
+    Private Sub lvwFileList_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lvwFileList.MouseDoubleClick
+        ThisApplication.Documents.Open(lvwFileList.SelectedItems(0).SubItems(3).Text)
+    End Sub
 
 End Class

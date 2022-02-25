@@ -40,7 +40,11 @@ Public NotInheritable Class frmAbout
         '    MsgBox(ex.Message)
         'End Try
 
-        NewUpdater.UpDater2(True)
+        'NewUpdater.UpDater2(True)
+
+        IsShowUpdateMsg = True
+        Dim frmupdate As New frmUpdate
+        frmupdate.ShowDialog()
     End Sub
 
     Private Sub btnGit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGit.Click

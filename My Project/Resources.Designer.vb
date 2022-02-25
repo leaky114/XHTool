@@ -913,6 +913,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 统计161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("统计161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 统计323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("统计323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 自定义日期161624() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("自定义日期161624", resourceCulture)

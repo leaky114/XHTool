@@ -34,4 +34,4 @@ Inventor 2015 以下版本，更高版本请自行编译。
 微信搜索(!#^-4767-0633)
 
 # 捐赠
-![微信付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E5%BE%AE%E4%BF%A1.bmp)  ![支付宝付款码](https://gitcode.net/leaky114/inventoraddin/-/raw/master/Resources/%E6%94%AF%E4%BB%98%E5%AE%9D.bmp)
+![]()  ![]()

@@ -55,7 +55,7 @@ Partial Class frmPrint
         Me.btnStart.Size = New System.Drawing.Size(57, 28)
         Me.btnStart.TabIndex = 1
         Me.btnStart.TabStop = False
-        Me.btnStart.Text = "开始"
+        Me.btnStart.Text = "打印"
         '
         'btnClose
         '

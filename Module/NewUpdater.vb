@@ -64,6 +64,8 @@ Module NewUpdater
 
                     simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
                     If IsFileExsts(simupdate) = True Then
+
+
                         Process.Start(simupdate)
                     Else
                         MsgBox("缺失升级程序 simupdater.exe，请到本软件仓库下载。", MsgBoxStyle.OkOnly, "检查更新")
@@ -77,7 +79,7 @@ Module NewUpdater
             End If
         Catch ex As Exception
             'MsgBox(ex.Message)
-            MsgBox("未链接到服务器。", MsgBoxStyle.OkOnly, "检查更新")
+            'MsgBox("未链接到服务器。", MsgBoxStyle.OkOnly, "检查更新")
         End Try
     End Sub
 
