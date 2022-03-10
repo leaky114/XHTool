@@ -26,6 +26,9 @@ Inventor 2015 以下版本，更高版本请自行编译。
 # 更新日志
 [更新日志](https://gitcode.net/leaky114/inventoraddin/-/blob/master/CHANGELOG)
 
+# 支持库文件
+[相关库文件](https://gitcode.net/leaky114/inventoraddin/-/tree/master/library)
+
 
 # 关于作者
 一个机械工程师，一个把重复简单劳动自动化者。
