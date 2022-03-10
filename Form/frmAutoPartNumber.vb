@@ -269,6 +269,8 @@ Public Class frmAutoPartNumber
 
         LV.Items.Clear()
 
+        LV.BeginUpdate()
+
         '获取结构化的bom页面
         For Each oBOMView As BOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
@@ -300,6 +302,8 @@ Public Class frmAutoPartNumber
                 Next
             End If
         Next
+
+        LV.EndUpdate()
 
     End Sub
 

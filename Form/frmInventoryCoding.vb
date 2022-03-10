@@ -11,6 +11,7 @@ Public Class frmInventoryCoding
     Private Sub btnLoadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadFile.Click
 
         btnLoadFile.Enabled = False
+
         lvwFileList.Items.Clear()
 
         SetStatusBarText()
@@ -38,6 +39,8 @@ Public Class frmInventoryCoding
         'Set a reference to the "Structured" BOMView
         Dim oBOMView As BOMView
 
+        lvwFileList.BeginUpdate()
+
         '获取结构化的bom页面
         For Each oBOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
@@ -45,6 +48,8 @@ Public Class frmInventoryCoding
                 QueryBOMRowToLoadiPro(oBOMView.BOMRows, lvwFileList)
             End If
         Next
+
+        lvwFileList.EndUpdate()
         '==============================================================================================
 
 

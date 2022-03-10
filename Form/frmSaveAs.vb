@@ -17,17 +17,18 @@ Public Class frmSaveAs
         Dim JpgFullFileName As String = Nothing      'jpg文件全文件名
         Dim IdwFullFileName As String = Nothing   '工程图全文件名
 
-        If lstFileList.Items.Count = 0 Then
+        If lvwFileListView.Items.Count = 0 Then
             MsgBox("未添加工程图文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
             Exit Sub
         End If
 
-        For i = 0 To lstFileList.Items.Count - 1
-            lstFileList.SelectedIndex = i
+        For i = 0 To lvwFileListView.Items.Count - 1
+
+            'lvwFileListView.SelectedIndices.Item = i
             '打开文件
 
 
-            IdwFullFileName = lstFileList.Items(i)
+            IdwFullFileName = lvwFileListView.Items(i).Text
 
             If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
@@ -91,8 +92,8 @@ Public Class frmSaveAs
                     oInventorDocument.SaveAs(PdfFullFileName, True)
             End Select
 
-         
-                '关闭，不保存文件
+
+            '关闭，不保存文件
             oInventorDocument.Close(True)
 
 999:
@@ -104,7 +105,7 @@ Public Class frmSaveAs
 
     '关闭
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        lstFileList.Items.Clear()
+        lvwFileListView.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
     End Sub
@@ -121,7 +122,7 @@ Public Class frmSaveAs
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
                     For Each FullFileName As String In .FileNames
-                        lstFileList.Items.Add(FullFileName)
+                        lvwFileListView.Items.Add(FullFileName)
                     Next
                 End If
             Else
@@ -132,7 +133,7 @@ Public Class frmSaveAs
 
     '清空文件列表
     Private Sub btnClearList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearList.Click
-        lstFileList.Items.Clear()
+        lvwFileListView.Items.Clear()
     End Sub
 
     '添加文件夹
@@ -161,7 +162,7 @@ Public Class frmSaveAs
             Present_Folder = My.Computer.FileSystem.GetParentPath(destinationFolder)
         End If
 
-        GetAllFile(Present_Folder, destinationFolder, lstFileList)
+        GetAllFile(Present_Folder, destinationFolder, lvwFileListView)
 
     End Sub
 
@@ -192,9 +193,7 @@ Public Class frmSaveAs
 
     '移除选择列
     Private Sub btnRemove_Click(sender As System.Object, e As System.EventArgs) Handles btnRemove.Click
-        If lstFileList.SelectedItem <> 0 Then
-            lstFileList.Items.Remove(lstFileList.SelectedItem)
-        End If
+        ListViewDel(lvwFileListView)
     End Sub
 
     '选择文件夹

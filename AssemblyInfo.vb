@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("InAI")> 
 <Assembly: AssemblyDescription("InventorAddIn For Inventor 2015")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("InAI")> 
+<Assembly: AssemblyProduct("InAI For 2015")> 
 <Assembly: AssemblyCopyright("leaky114")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -28,5 +28,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.22.2.16")> 
-<Assembly: AssemblyFileVersionAttribute("1.22.2.16")> 
+<Assembly: AssemblyVersion("1.22.03.10")> 
+<Assembly: AssemblyFileVersionAttribute("1.22.03.10")> 

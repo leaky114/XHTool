@@ -15,9 +15,16 @@ Public Class frmUpdate
         Dim DisplayVersion As String
         DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
 
+        Dim UpdateDownloadUrl As String
+        Dim UpdateInfoFileName As String = "Update.xml"
+        UpdateDownloadUrl = "\\likai-pc\发行版\更新包\" & DisplayVersion & "\{0}"
+
+        Dim UpdateParameter As String
+        UpdateParameter = UpdateDownloadUrl & " " & UpdateInfoFileName
+
         simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
         If IsFileExsts(simupdate) = True Then
-            Process.Start(simupdate, DisplayVersion)
+            Process.Start(simupdate, "\\likai-pc\发行版\更新包\2011\{0} update.xml")
         Else
             MsgBox("缺失升级程序 simupdater.exe，请到本软件仓库下载。", MsgBoxStyle.OkOnly, "检查更新")
             Process.Start(GitWeb)
@@ -40,7 +47,6 @@ Public Class frmUpdate
                 Case "1"
                     chk检查更新.Checked = True
             End Select
-
 
             Dim fileReader As System.IO.StreamReader
             fileReader = My.Computer.FileSystem.OpenTextFileReader(InNewVison)
@@ -76,20 +82,20 @@ Public Class frmUpdate
                     '读取更新日志
                     Dim readText As String = File.ReadAllText(ChangeLog)
                     txtWhatNew.Text = readText
-                    Me.ShowDialog()
+                    'Me.ShowDialog()
                 Else
                     If IsShowUpdateMsg = True Then
                         MsgBox("当前为最新版。", MsgBoxStyle.OkOnly, "检查更新")
                     End If
                     Me.Close()
-                    End If
-
+                End If
 
             End If
         Catch ex As Exception
-            Me.Close()
+
             'MsgBox(ex.Message)
             'MsgBox("未链接到服务器。", MsgBoxStyle.OkOnly, "检查更新")
+            Me.Close()
         End Try
     End Sub
 

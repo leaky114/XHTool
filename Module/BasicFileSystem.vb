@@ -191,10 +191,11 @@ Module BasicFileSystem
         End If
     End Function
 
+
     '删除一个文件(文件名,是否删除到回收站选项)
     Public Function DelFile(ByVal FullFileName As String, ByVal RecycleOption As FileIO.RecycleOption) As Boolean
         If IsFileExsts(FullFileName) Then
-            My.Computer.FileSystem.DeleteFile(FullFileName, FileIO.UIOption.OnlyErrorDialogs, RecycleOption, FileIO.UICancelOption.DoNothing)
+            My.Computer.FileSystem.DeleteFile(FullFileName, FileIO.UIOption.OnlyErrorDialogs, RecycleOption, FileIO.UICancelOption.ThrowException)
         End If
         DelFile = IsFileExsts(FullFileName) Xor True
     End Function
@@ -206,7 +207,6 @@ Module BasicFileSystem
                 DelFile(f, FileIO.RecycleOption.SendToRecycleBin)
             Next
         End If
-        Return True
     End Function
 
     '删除文件夹(文件夹)
@@ -245,7 +245,7 @@ Module BasicFileSystem
     End Function
 
     '扫描文件夹
-    Public Sub GetAllFile(ByVal Boot_Folder As String, ByVal Source_Folder As String, ByVal olistbox As Object)
+    Public Sub GetAllFile(ByVal Boot_Folder As String, ByVal Source_Folder As String, ByVal olistbox As Object) ' ListBox)
         ' 源文件夹父文件夹 ,源文件夹 , 目标文件夹
         Dim strDir As String() = System.IO.Directory.GetDirectories(Source_Folder)
         Dim strFile As String() = System.IO.Directory.GetFiles(Source_Folder)
@@ -262,7 +262,12 @@ Module BasicFileSystem
                 'Debug.Print(strFile(i))
                 File_Attribute = My.Computer.FileSystem.GetFileInfo(strFile(i))
                 If (LCase(File_Attribute.Extension) = IDW) And (Strings.InStr(File_Attribute.FullName, "OldVersions") = 0) Then
-                    olistbox.Items.Add(File_Attribute.FullName)
+
+
+                    AddItemToListView(olistbox, File_Attribute.FullName)
+
+                    'olistbox.Items.Add(File_Attribute.FullName)
+
                 End If
             Next
         End If
@@ -287,31 +292,18 @@ Module BasicFileSystem
                 inf = My.Computer.FileSystem.GetDirectoryInfo(strDir(i))
                 If inf.Name = "OldVersions" Then
                     '按文件删除，速度太慢，改为直接删除文件夹
-                    'Dim strFile As String() = System.IO.Directory.GetFiles(strDir(i))
+                    Dim strFile As String() = System.IO.Directory.GetFiles(strDir(i))
 
-                    'For Each f As String In strFile
-                    '    SetStatusBarText(f)
-                    '    Select Case DeletePermanently
-                    '        Case True   '永久删除
-                    '            DelFile(f, FileIO.RecycleOption.DeletePermanently)
-                    '        Case False  '删除到垃圾箱
-                    '            DelFile(f, FileIO.RecycleOption.SendToRecycleBin)
-                    '    End Select
+                    For Each f As String In strFile
+                        SetStatusBarText(f)
+                        Select Case DeletePermanently
+                            Case True   '永久删除
+                                DelFile(f, FileIO.RecycleOption.DeletePermanently)
+                            Case False  '删除到垃圾箱
+                                DelFile(f, FileIO.RecycleOption.SendToRecycleBin)
+                        End Select
 
-                    'Next
-
-                    '按文件夹名删除
-                    Dim directoryname As String
-                    directoryname = inf.FullName
-                    SetStatusBarText(directoryname)
-
-                    Select Case DeletePermanently
-                        Case True   '永久删除
-                            DelFolder(directoryname, FileIO.RecycleOption.DeletePermanently)
-
-                        Case False  '删除到垃圾箱
-                            DelFolder(directoryname, FileIO.RecycleOption.SendToRecycleBin)
-                    End Select
+                    Next
 
                 End If
                 DelOldFile(strDir(i), DeletePermanently)
@@ -327,8 +319,6 @@ Module BasicFileSystem
 
         Dim strDir As String() = System.IO.Directory.GetDirectories(Boot_Folder)
         Dim i As Integer
-
-        SetStatusBarText("扫描文件夹.......")
 
         If strDir.Length > 0 Then
             For i = 0 To strDir.Length - 1
@@ -350,6 +340,27 @@ Module BasicFileSystem
             Next
 
         End If
+    End Sub
+
+    '检查 listview中是否存在重复项，再添加
+    Public Function AddItemToListView(olistiview As ListView, ItemText As String) As Boolean
+
+        For Each oListViewItem As ListViewItem In olistiview.Items
+            If oListViewItem.Text = ItemText Then
+                AddItemToListView = False
+                Exit Function
+            End If
+        Next
+        olistiview.Items.Add(ItemText)
+        AddItemToListView = True
+
+    End Function
+
+    '移出 listview 中的选择项
+    Public Sub ListViewDel(ByVal ListView As ListView)
+        For i As Integer = ListView.SelectedIndices.Count - 1 To 0 Step -1
+            ListView.Items.RemoveAt(ListView.SelectedIndices(i))
+        Next
     End Sub
 
 End Module

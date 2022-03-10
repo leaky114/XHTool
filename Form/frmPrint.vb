@@ -20,12 +20,15 @@ Public Class frmPrint
         Dim sPrinterName As String = ""
         sPrinterName = cmbPrinter.Text
 
-        For i = 0 To lvwFileListView.Items.Count - 1
-            lvwFileListView.Items(i).Selected = True
+        'For i = 0 To lvwFileListView.Items.Count - 1
+
+        For Each olistviewitem As ListViewItem In lvwFileListView.Items
+            'lvwFileListView.Items(i).Selected = True
+            olistviewitem.Selected = True
             '打开文件
             Dim InvDocFullFileName As String  '工程图全文件名
 
-            InvDocFullFileName = lvwFileListView.Items(i).Text
+            InvDocFullFileName = olistviewitem.Text
 
             If IsFileExsts(InvDocFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
@@ -89,19 +92,25 @@ Public Class frmPrint
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
-                    For Each FullFileName As String In .FileNames
-                        lvwFileListView.Items.Add(FullFileName)
+                    For Each IdwFullFileName As String In .FileNames
+
+                        AddItemToListView(lvwFileListView, IdwFullFileName)
+
                     Next
                 End If
             Else
                 Exit Sub
             End If
+
+            Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+
         End With
     End Sub
 
     '清空文件列表
     Private Sub btnClearList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearList.Click
         lvwFileListView.Items.Clear()
+        Me.Text = "批量打印"
     End Sub
 
     '添加文件夹
@@ -134,6 +143,7 @@ Public Class frmPrint
 
         GetAllFile(Present_Folder, destinationFolder, lvwFileListView)
 
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
     '打印文档，打印机名称
@@ -253,45 +263,119 @@ Public Class frmPrint
             End If
         End With
 
-        ' 获取所有引用文档
-        Dim oAllReferencedDocuments As DocumentsEnumerator
-        oAllReferencedDocuments = AssDoc.AllReferencedDocuments
 
-        ' 遍历这些文档
+        '        ' 获取所有引用文档
+        '        Dim oAllReferencedDocuments As DocumentsEnumerator
+        '        oAllReferencedDocuments = AssDoc.AllReferencedDocuments
 
-        For Each ReferencedDocument As Inventor.Document In oAllReferencedDocuments
+        '        ' 遍历这些文档
 
-            Dim FullFileName As String
-            FullFileName = ReferencedDocument.FullDocumentName
+        '        For Each ReferencedDocument As Inventor.Document In oAllReferencedDocuments
+
+        '            Dim FullFileName As String
+        '            FullFileName = ReferencedDocument.FullDocumentName
+
+        '            Dim IdwFullFileName As String
+        '            IdwFullFileName = GetNewExtensionFileName(FullFileName, ".idw")
+
+        '            If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
+        '                GoTo 999
+        '            End If
+
+        '            If InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+        '                GoTo 999
+        '            End If
+
+        '            lvwFileListView.Items.Add(IdwFullFileName)
+
+        '999:
+        '        Next
+
+
+        '===================================
+        '基于bom结构化数据，可跳过参考的文件
+        ' Set a reference to the BOM
+        Dim oBOM As BOM
+        oBOM = AssDoc.ComponentDefinition.BOM
+        oBOM.StructuredViewEnabled = True
+
+        'Set a reference to the "Structured" BOMView
+        Dim oBOMView As BOMView
+
+        Me.Cursor = Cursors.WaitCursor
+
+        lvwFileListView.BeginUpdate()
+
+        '获取结构化的bom页面
+        For Each oBOMView In oBOM.BOMViews
+            If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                '遍历这个bom页面
+                QueryBOMRowToLoadFile(oBOMView.BOMRows, lvwFileListView)
+            End If
+        Next
+
+        lvwFileListView.EndUpdate()
+        Me.Cursor = Cursors.Default
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+    End Sub
+
+    Private Sub QueryBOMRowToLoadFile(ByVal oBOMRows As BOMRowsEnumerator, olistiview As ListView)
+        Dim i As Integer
+
+        Dim iStepCount As Short
+        iStepCount = oBOMRows.Count
+
+        'Create a new ProgressBar object.
+        'Dim oProgressBar As Inventor.ProgressBar
+
+        'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
+
+        For i = 1 To oBOMRows.Count
+            ' Get the current row.
+            Dim oBOMRow As BOMRow
+            oBOMRow = oBOMRows.Item(i)
+
+            Dim oFullFileName As String
+            oFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+            '测试文件
+            Debug.Print(oFullFileName)
+
+            ' Set the message for the progress bar
+            'oProgressBar.Message = oFullFileName
 
             Dim IdwFullFileName As String
-            IdwFullFileName = GetNewExtensionFileName(FullFileName, ".idw")
+            IdwFullFileName = GetNewExtensionFileName(oFullFileName, ".idw")
 
             If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
             End If
 
-            If InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
                 GoTo 999
             End If
 
-            lvwFileListView.Items.Add(IdwFullFileName)
+            AddItemToListView(lvwFileListView, IdwFullFileName)
+
+            '遍历下一级
+            If (Not oBOMRow.ChildRows Is Nothing) Then
+                Call QueryBOMRowToLoadFile(oBOMRow.ChildRows, olistiview)
+            End If
 
 999:
+            'oProgressBar.UpdateProgress()
         Next
 
+        'oProgressBar.Close()
+
     End Sub
 
-    Private Sub btnRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemove.Click
-        ListViewDel(lvwFileListView)
+
+    Private Sub btnRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
     End Sub
 
-    '移出项
-    Private Sub ListViewDel(ByVal ListView As ListView)
-        For i As Integer = ListView.SelectedIndices.Count - 1 To 0 Step -1
-            ListView.Items.RemoveAt(ListView.SelectedIndices(i))
-        Next
-    End Sub
+  
 
     Private Sub btnLoadIdw_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadIdw.Click
         Try
@@ -305,13 +389,97 @@ Public Class frmPrint
 
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
                 If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
-                    lvwFileListView.Items.Add(oInventorDocument.FullDocumentName)
+
+                    AddItemToListView(lvwFileListView, oInventorDocument.FullDocumentName)
+
                 End If
             Next
-
+            Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
+
+   
+    '移除
+    Private Sub tsmiRemove_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemove.Click
+        ListViewDel(lvwFileListView)
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+    End Sub
+
+
+    '筛选移除
+    Private Sub tsmiRemoveFilter_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemoveFilter.Click
+        Dim strFilter As String
+
+        Dim frmInputBox As New frmInputBox
+999:
+        With frmInputBox
+            .txtInPut.Text = ""
+            .Text = "筛选文件"
+            .lblDescribe.Text = "按图号输入筛选字段。"
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+
+        If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txtInPut.Text <> "") Then
+            strFilter = frmInputBox.txtInPut.Text
+        Else
+            Exit Sub
+        End If
+
+        For Each oListViewItem As ListViewItem In lvwFileListView.Items
+            Dim InvDocFullFileName As String  '工程图全文件名
+            InvDocFullFileName = oListViewItem.Text
+
+            Dim InvDocFullFileONlyName As String
+            InvDocFullFileONlyName = GetFileNameInfo(InvDocFullFileName).ONlyName
+
+            If InStr(InvDocFullFileONlyName, strFilter) <> 0 Then
+                oListViewItem.Remove()
+            End If
+
+        Next
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+    End Sub
+
+
+    '筛选保留
+    Private Sub tsmiSaveFilter_Click(sender As System.Object, e As System.EventArgs) Handles tsmiSaveFilter.Click
+        Dim strFilter As String
+
+        Dim frmInputBox As New frmInputBox
+999:
+        With frmInputBox
+            .txtInPut.Text = ""
+            .Text = "筛选文件"
+            .lblDescribe.Text = "按图号输入筛选字段。"
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+
+        If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txtInPut.Text <> "") Then
+            strFilter = frmInputBox.txtInPut.Text
+        Else
+            Exit Sub
+        End If
+
+        For Each oListViewItem As ListViewItem In lvwFileListView.Items
+            Dim InvDocFullFileName As String  '工程图全文件名
+            InvDocFullFileName = oListViewItem.Text
+
+            Dim InvDocFullFileONlyName As String
+            InvDocFullFileONlyName = GetFileNameInfo(InvDocFullFileName).ONlyName
+
+            If InStr(InvDocFullFileONlyName, strFilter) = 0 Then
+                oListViewItem.Remove()
+            End If
+
+        Next
+
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+    End Sub
+
+
 
 End Class

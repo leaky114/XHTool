@@ -22,6 +22,7 @@ Partial Class frmPrint
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnAddFile = New System.Windows.Forms.Button()
@@ -40,11 +41,15 @@ Partial Class frmPrint
         Me.chkBlack = New System.Windows.Forms.CheckBox()
         Me.btnLoadAsm = New System.Windows.Forms.Button()
         Me.btnLoadIdw = New System.Windows.Forms.Button()
-        Me.btnRemove = New System.Windows.Forms.Button()
         Me.lvwFileListView = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.cmsRemove = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmiRemove = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiRemoveFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiSaveFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpOption.SuspendLayout()
         CType(Me.nudCopies, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmsRemove.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnStart
@@ -71,7 +76,7 @@ Partial Class frmPrint
         'btnAddFile
         '
         Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(107, 413)
+        Me.btnAddFile.Location = New System.Drawing.Point(118, 413)
         Me.btnAddFile.Name = "btnAddFile"
         Me.btnAddFile.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFile.TabIndex = 1
@@ -81,7 +86,7 @@ Partial Class frmPrint
         'btnClearList
         '
         Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(476, 413)
+        Me.btnClearList.Location = New System.Drawing.Point(446, 413)
         Me.btnClearList.Name = "btnClearList"
         Me.btnClearList.Size = New System.Drawing.Size(85, 28)
         Me.btnClearList.TabIndex = 3
@@ -91,7 +96,7 @@ Partial Class frmPrint
         'btnAddFolder
         '
         Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(200, 413)
+        Me.btnAddFolder.Location = New System.Drawing.Point(219, 413)
         Me.btnAddFolder.Name = "btnAddFolder"
         Me.btnAddFolder.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFolder.TabIndex = 2
@@ -231,7 +236,7 @@ Partial Class frmPrint
         'btnLoadAsm
         '
         Me.btnLoadAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadAsm.Location = New System.Drawing.Point(14, 413)
+        Me.btnLoadAsm.Location = New System.Drawing.Point(17, 413)
         Me.btnLoadAsm.Name = "btnLoadAsm"
         Me.btnLoadAsm.Size = New System.Drawing.Size(85, 28)
         Me.btnLoadAsm.TabIndex = 0
@@ -240,21 +245,12 @@ Partial Class frmPrint
         '
         'btnLoadIdw
         '
-        Me.btnLoadIdw.Location = New System.Drawing.Point(293, 413)
+        Me.btnLoadIdw.Location = New System.Drawing.Point(320, 413)
         Me.btnLoadIdw.Name = "btnLoadIdw"
         Me.btnLoadIdw.Size = New System.Drawing.Size(110, 28)
         Me.btnLoadIdw.TabIndex = 34
         Me.btnLoadIdw.Text = "导入已打开文件"
         Me.btnLoadIdw.UseVisualStyleBackColor = True
-        '
-        'btnRemove
-        '
-        Me.btnRemove.Location = New System.Drawing.Point(411, 413)
-        Me.btnRemove.Name = "btnRemove"
-        Me.btnRemove.Size = New System.Drawing.Size(57, 28)
-        Me.btnRemove.TabIndex = 35
-        Me.btnRemove.Text = "移出"
-        Me.btnRemove.UseVisualStyleBackColor = True
         '
         'lvwFileListView
         '
@@ -263,6 +259,7 @@ Partial Class frmPrint
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwFileListView.AutoArrange = False
         Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
+        Me.lvwFileListView.ContextMenuStrip = Me.cmsRemove
         Me.lvwFileListView.FullRowSelect = True
         Me.lvwFileListView.Location = New System.Drawing.Point(15, 11)
         Me.lvwFileListView.Name = "lvwFileListView"
@@ -277,6 +274,30 @@ Partial Class frmPrint
         Me.ColumnHeader1.Text = "文件名"
         Me.ColumnHeader1.Width = 650
         '
+        'cmsRemove
+        '
+        Me.cmsRemove.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiRemove, Me.tsmiRemoveFilter, Me.tsmiSaveFilter})
+        Me.cmsRemove.Name = "cmsRemove"
+        Me.cmsRemove.Size = New System.Drawing.Size(125, 70)
+        '
+        'tsmiRemove
+        '
+        Me.tsmiRemove.Name = "tsmiRemove"
+        Me.tsmiRemove.Size = New System.Drawing.Size(124, 22)
+        Me.tsmiRemove.Text = "移除"
+        '
+        'tsmiRemoveFilter
+        '
+        Me.tsmiRemoveFilter.Name = "tsmiRemoveFilter"
+        Me.tsmiRemoveFilter.Size = New System.Drawing.Size(124, 22)
+        Me.tsmiRemoveFilter.Text = "筛选移除"
+        '
+        'tsmiSaveFilter
+        '
+        Me.tsmiSaveFilter.Name = "tsmiSaveFilter"
+        Me.tsmiSaveFilter.Size = New System.Drawing.Size(124, 22)
+        Me.tsmiSaveFilter.Text = "筛选保留"
+        '
         'frmPrint
         '
         Me.AcceptButton = Me.btnStart
@@ -284,7 +305,6 @@ Partial Class frmPrint
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
         Me.ClientSize = New System.Drawing.Size(831, 450)
-        Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnLoadIdw)
         Me.Controls.Add(Me.btnLoadAsm)
         Me.Controls.Add(Me.grpOption)
@@ -306,6 +326,7 @@ Partial Class frmPrint
         Me.grpOption.ResumeLayout(False)
         Me.grpOption.PerformLayout()
         CType(Me.nudCopies, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmsRemove.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -325,10 +346,13 @@ Partial Class frmPrint
     Friend WithEvents btnAddFile As System.Windows.Forms.Button
     Friend WithEvents btnLoadAsm As System.Windows.Forms.Button
     Friend WithEvents btnLoadIdw As System.Windows.Forms.Button
-    Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents chkClose As System.Windows.Forms.CheckBox
     Friend WithEvents chkSave As System.Windows.Forms.CheckBox
+    Friend WithEvents cmsRemove As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents tsmiRemoveFilter As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiSaveFilter As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiRemove As System.Windows.Forms.ToolStripMenuItem
 
 End Class
