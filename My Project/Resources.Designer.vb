@@ -463,6 +463,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 快速打开161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("快速打开161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 快速打开323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("快速打开323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 打印161624() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("打印161624", resourceCulture)

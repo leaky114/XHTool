@@ -8,6 +8,7 @@ Imports Inventor.IOMechanismEnum
 Imports System.Windows.Forms
 Imports Inventor.PrintOrientationEnum
 Imports System.Text
+Imports System.Collections.ObjectModel
 
 Module InventorBasic
 
@@ -366,11 +367,17 @@ Module InventorBasic
         For Each propitem In oPropSet    '设置iproperty
             Select Case propitem.DisplayName
                 Case Map_PartName
-                    propitem.Value = StockNumPartName.PartName
+                    If StockNumPartName.PartName <> "" Then
+                        propitem.Value = StockNumPartName.PartName
+                    End If
                 Case Map_StochNum
-                    propitem.Value = StockNumPartName.StockNum
+                    If StockNumPartName.StockNum <> "" Then
+                        propitem.Value = StockNumPartName.StockNum
+                    End If
                 Case Map_PartNum
-                    propitem.Value = StockNumPartName.PartNum
+                    If StockNumPartName.PartNum <> "" Then
+                        propitem.Value = StockNumPartName.PartNum
+                    End If
                 Case "描述"
                     ' propitem.Value = ""
             End Select
@@ -1707,7 +1714,7 @@ Module InventorBasic
     End Sub
 
     '打开活动文件对应的工程图
-    Public Sub OpenDrawingDocument(ByVal oInventorDocument As Inventor.Document)
+    Public Sub OpenDrawingDocument(ByVal InventorDocument As Inventor.Document)
 
         Try
             SetStatusBarText()
@@ -1725,20 +1732,69 @@ Module InventorBasic
             Dim InventorFullName As String   '模型文件
             Dim IdwFullFileName As String  '工程图全文件名
 
-            InventorFullName = oInventorDocument.FullDocumentName
+            InventorFullName = InventorDocument.FullDocumentName
             IdwFullFileName = Strings.Replace(InventorFullName, LCaseGetFileExtension(InventorFullName), ".idw")
 
+            '当前文件夹查询没有就 到父文件夹查询
+            If IsFileExsts(IdwFullFileName) = False Then
+                SearchDrawingDocumentInPresentFolder(InventorDocument, 3)
+
+            End If
+
+            '查询到工程图
             If IsFileExsts(IdwFullFileName) Then
                 ThisApplication.Documents.Open(IdwFullFileName)
             Else
-                MsgBox(InventorFullName & "没有对应的工程图。", MsgBoxStyle.Information, "打开工程图")
+                If SearchDrawingDocumentInPresentFolder(InventorDocument, 3) = False Then
+                    MsgBox(InventorFullName & "没有对应的工程图。", MsgBoxStyle.Information, "打开工程图")
+                End If
             End If
-
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
+
+    '到父文件夹查询工程图  ，inventor 文档 ，向上查询的层级
+    Public Function SearchDrawingDocumentInPresentFolder(ByVal InventorDocument As Inventor.Document, PresidentLevel As Integer) As Boolean
+        Dim PrsentFolder As String   '父文件夹
+        Dim InventorFullFileName As String   '模型文件全名
+        Dim InventorFileName As String   '模型文件名
+        Dim IdwFullFileName As String  '工程图全文件名
+        Dim IdwFileName As String '工程图名
+        Dim i As Integer
+
+        InventorFullFileName = InventorDocument.FullDocumentName
+        InventorFileName = GetFileNameInfo(InventorFullFileName).SigleName
+        IdwFileName = GetFileNameInfo(InventorFullFileName).ONlyName + IDW
+
+        i = 0
+
+        PrsentFolder = System.IO.Directory.GetParent(InventorFullFileName).FullName
+        Do
+            If IsDirectoryExists(PrsentFolder) = True Then
+                PrsentFolder = System.IO.Directory.GetParent(PrsentFolder).FullName
+                i = i + 1
+            Else
+                Exit Do
+            End If
+        Loop While (i <> PresidentLevel)
+
+        Dim Files As ReadOnlyCollection(Of String)
+        Files = My.Computer.FileSystem.GetFiles(PrsentFolder, FileIO.SearchOption.SearchAllSubDirectories, IdwFileName)
+
+        If files.Count <> 0 Then
+            For Each IdwFullFileName In files
+                ThisApplication.Documents.Open(IdwFullFileName)
+            Next
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+
 
     '-------------------------------------------------------------------------------------------------------
     '批量替换部件下子集的名字

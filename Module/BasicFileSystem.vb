@@ -4,6 +4,8 @@ Imports System.Text.Encoding
 Imports System.IO.FileStream
 Imports System.Windows.Forms
 Imports Microsoft.VisualBasic.FileIO
+Imports System.Collections.Generic
+Imports System.Collections.ObjectModel
 
 Module BasicFileSystem
 
