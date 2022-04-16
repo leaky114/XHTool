@@ -4,7 +4,7 @@ Module NewUpdater
     Const InNewVisonTXT As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
     Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
 
-    Public Sub UpDater1()
+    Public Sub UpDate1()
         Try
 
             '  Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
@@ -32,7 +32,7 @@ Module NewUpdater
         End Try
     End Sub
 
-    Public Sub UpDater2(ByVal IsPutOutMsg As Boolean)
+    Public Sub UpDate2(ByVal IsPutOutMsg As Boolean)
         Try
 
             Dim fileReader As System.IO.StreamReader
@@ -90,4 +90,42 @@ Module NewUpdater
         Return ShortVersion
     End Function
 
+    Public Function CreateInAIUpdate() As Boolean
+        Dim path As String = My.Application.Info.DirectoryPath & "\InAIUpdate.exe" '文件释放路径
+        Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
+        Dim b() As Byte = resources.GetObject("InAIUpdate")
+        Dim s As IO.Stream
+        Try
+            s = IO.File.Create(path)
+            s.Write(b, 0, b.Length)
+            s.Close()
+            'MessageBox.Show("资源释放成功")
+            Return True
+        Catch ex As Exception
+            'MessageBox.Show("资源释放失败！Result=" + ex.Message)
+        End Try
+    End Function
+
+    Public Sub Update3()
+        Try
+            Dim path As String = My.Application.Info.DirectoryPath & "\InAIUpdate.exe" '文件释放路径
+
+            Dim DisplayVersion As String
+            DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
+
+            Dim MyVersion As String = _
+                My.Application.Info.Version.Major & "." & _
+            My.Application.Info.Version.Minor & "." & _
+            Format(My.Application.Info.Version.Build, "00") & "." & _
+           Format(My.Application.Info.Version.Revision, "00")
+
+            Dim arguments As String
+            arguments = DisplayVersion & " " & MyVersion
+
+            Process.Start(path, arguments)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 End Module

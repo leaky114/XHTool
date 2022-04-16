@@ -42,9 +42,13 @@ Public NotInheritable Class frmAbout
 
         'NewUpdater.UpDater2(True)
 
-        IsShowUpdateMsg = True
-        Dim frmupdate As New frmUpdate
-        frmupdate.ShowDialog()
+        'IsShowUpdateMsg = True
+        'Dim frmupdate As New frmUpdate
+        'frmupdate.ShowDialog()
+
+        If NewUpdater.CreateInAIUpdate() = True Then
+            NewUpdater.Update3()
+        End If
     End Sub
 
     Private Sub btnGit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGit.Click
