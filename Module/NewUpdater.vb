@@ -90,15 +90,26 @@ Module NewUpdater
         Return ShortVersion
     End Function
 
-    Public Function CreateInAIUpdate() As Boolean
-        Dim path As String = My.Application.Info.DirectoryPath & "\InAIUpdate.exe" '文件释放路径
-        Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
-        Dim b() As Byte = resources.GetObject("InAIUpdate")
-        Dim s As IO.Stream
+    Public Function CreateUpdate() As Boolean
         Try
+
+            Dim path As String = My.Application.Info.DirectoryPath & "\simupdater.exe" '文件释放路径
+            Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
+            Dim b() As Byte = resources.GetObject("simupdater")
+            Dim s As IO.Stream
             s = IO.File.Create(path)
             s.Write(b, 0, b.Length)
             s.Close()
+
+
+            path = My.Application.Info.DirectoryPath & "\SimpleUpdater.dll" '文件释放路径
+
+            b = resources.GetObject("SimpleUpdater")
+            s = IO.File.Create(path)
+            s.Write(b, 0, b.Length)
+            s.Close()
+
+
             'MessageBox.Show("资源释放成功")
             Return True
         Catch ex As Exception
@@ -108,7 +119,7 @@ Module NewUpdater
 
     Public Sub Update3()
         Try
-            Dim path As String = My.Application.Info.DirectoryPath & "\InAIUpdate.exe" '文件释放路径
+            Dim path As String = My.Application.Info.DirectoryPath & "\simupdater.exe '文件释放路径"
 
             Dim DisplayVersion As String
             DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion

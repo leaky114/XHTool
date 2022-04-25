@@ -46,7 +46,7 @@ Public NotInheritable Class frmAbout
         'Dim frmupdate As New frmUpdate
         'frmupdate.ShowDialog()
 
-        If NewUpdater.CreateInAIUpdate() = True Then
+        If NewUpdater.CreateUpdate() = True Then
             NewUpdater.Update3()
         End If
     End Sub
