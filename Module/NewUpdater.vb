@@ -1,52 +1,52 @@
 ﻿Imports FSLib.App.SimpleUpdater
+Imports System.Windows.Forms
 Module NewUpdater
 
-    Const InNewVisonTXT As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
-    Const GitWeb As String = "https://codechina.csdn.net/leaky114/inventoraddin"
+    Public NewVersion As String
+    Public MyVersion As String
 
-    Public Sub UpDate1()
+    'Public Sub UpDater1()
+    '    Try
+
+    '        '  Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
+
+    '        Dim UpdaterInstance = FSLib.App.SimpleUpdater.Updater.CreateUpdaterInstance()
+
+    '        With UpdaterInstance.Context
+    '            .UpdateDownloadUrl = "\\likai-pc\发行版\更新包\{0}"   '获得或设置用于更新的模板地址
+    '            .UpdateInfoFileName = "update.xml"                      '获得或设置更新时使用的 XML 文件名
+
+    '            .MultipleDownloadCount = 5                      '获得或设置同时下载的文件数，默认为 3
+
+    '        End With
+
+    '        '开始更新
+
+    '        UpdaterInstance.BeginCheckUpdateInProcess()
+    '        UpdaterInstance.Dispose()
+
+    '    Catch ex As Exception
+    '        'MsgBox(ex.Message)
+    '    End Try
+    'End Sub
+
+    Public Sub UpDater2(ByVal btnCheckUpDate As Button)
         Try
-
-            '  Updater.CheckUpdateSimple("\\likai-pc\发行版\更新包\{0}", "update.xml")
-
-            Dim UpdaterInstance = FSLib.App.SimpleUpdater.Updater.CreateUpdaterInstance()
-
-            With UpdaterInstance.Context
-                .UpdateDownloadUrl = "\\likai-pc\发行版\更新包\{0}"   '获得或设置用于更新的模板地址
-                .UpdateInfoFileName = "update.xml"                      '获得或设置更新时使用的 XML 文件名
-
-                .MultipleDownloadCount = 5                      '获得或设置同时下载的文件数，默认为 3
-
-            End With
-
-            '开始更新
-
-            UpdaterInstance.BeginCheckUpdateInProcess()
-
-            UpdaterInstance.Dispose()
-
-        Catch ex As Exception
-
-            'MsgBox(ex.Message)
-
-        End Try
-    End Sub
-
-    Public Sub UpDate2(ByVal IsPutOutMsg As Boolean)
-        Try
+            Dim NewVersionInfo As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
 
             Dim fileReader As System.IO.StreamReader
-            fileReader = My.Computer.FileSystem.OpenTextFileReader(InNewVisonTXT)
-            Dim NewVersion As String
+            fileReader = My.Computer.FileSystem.OpenTextFileReader(NewVersionInfo)
+
             NewVersion = fileReader.ReadLine()
-            fileReader.Close()
+
             'MsgBox(NewVersion)
 
-            Dim MyVersion As String = _
+            MyVersion = _
             My.Application.Info.Version.Major & "." & _
             My.Application.Info.Version.Minor & "." & _
-            Format(My.Application.Info.Version.Build, "00") & "." & _
-           Format(My.Application.Info.Version.Revision, "00")
+          Format(My.Application.Info.Version.Build, "00") & "." & _
+          Format(My.Application.Info.Version.Revision, "00")
+
 
             'MsgBox(MyVersion)
 
@@ -58,29 +58,24 @@ Module NewUpdater
                 shortNewVersion = ShortVersion(NewVersion)
 
                 If shortNewVersion > shortMyversion Then
-                    MsgBox("InventorAddIn插件" & vbCrLf & "当前版本：" & MyVersion & vbCrLf & "检查到 新版本：" & NewVersion, MsgBoxStyle.OkOnly, " 检查更新")
+                    'MsgBox("InventorAddIn插件" & vbCrLf & "当前版本：" & MyVersion & vbCrLf & "检查到 新版本：" & NewVersion, MsgBoxStyle.OkOnly, " 检查更新")
+                    'simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
+                    'Process.Start(simupdate)
 
-                    Dim simupdate As String
-
-                    simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
-                    If IsFileExsts(simupdate) = True Then
-
-
-                        Process.Start(simupdate)
-                    Else
-                        MsgBox("缺失升级程序 simupdater.exe，请到本软件仓库下载。", MsgBoxStyle.OkOnly, "检查更新")
-                        Process.Start(GitWeb)
-                    End If
+                    btnCheckUpDate.Text = "检查到新版" & NewVersion
                 Else
-                    If IsPutOutMsg = True Then
-                        MsgBox("当前是最新版本。", MsgBoxStyle.OkOnly, "检查更新")
-                    End If
+                    With btnCheckUpDate
+                        .Text = "当前为最新版"
+                        .Visible = False
+                    End With
+
                 End If
             End If
         Catch ex As Exception
             'MsgBox(ex.Message)
-            'MsgBox("未链接到服务器。", MsgBoxStyle.OkOnly, "检查更新")
+
         End Try
+
     End Sub
 
     Public Function ShortVersion(ByVal LongVesion As String) As Long
@@ -90,25 +85,52 @@ Module NewUpdater
         Return ShortVersion
     End Function
 
+    Public Sub UpDate3()
+        Try
+            Dim strSimpleUpdater As String
+
+            strSimpleUpdater = ThisApplication.InstallPath & "\Bin\SimpleUpdater.exe"
+
+            Dim DisplayVersion As String
+            DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
+
+            Dim strArguments As String
+
+            'SimpleUpdater.exe /startupdate /cv "1.2.3.4" /url "\\likai-pc\发行版\更新包\2015\{0}" /infofile "update.xml" /p "Inventor.exe" /hideCheckUI
+
+            strArguments = "/startupdate /cv """ & MyVersion & """ /url  ""\\likai-pc\发行版\更新包\" & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
+
+            If IsFileExsts(strSimpleUpdater) = True Then
+                Process.Start(strSimpleUpdater, strArguments)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
     Public Function CreateUpdate() As Boolean
         Try
 
-            Dim path As String = My.Application.Info.DirectoryPath & "\simupdater.exe" '文件释放路径
-            Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
-            Dim b() As Byte = resources.GetObject("simupdater")
-            Dim s As IO.Stream
-            s = IO.File.Create(path)
-            s.Write(b, 0, b.Length)
-            s.Close()
+            Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径
+
+            If IsFileExsts(path) = False Then
+
+                Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
+                Dim b() As Byte = resources.GetObject("SimpleUpdaterexe")
+                Dim s As IO.Stream
+                s = IO.File.Create(path)
+                s.Write(b, 0, b.Length)
+                s.Close()
 
 
-            path = My.Application.Info.DirectoryPath & "\SimpleUpdater.dll" '文件释放路径
+                path = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe.config" '文件释放路径
 
-            b = resources.GetObject("SimpleUpdater")
-            s = IO.File.Create(path)
-            s.Write(b, 0, b.Length)
-            s.Close()
-
+                b = resources.GetObject("SimpleUpdaterexeconfig")
+                s = IO.File.Create(path)
+                s.Write(b, 0, b.Length)
+                s.Close()
+            End If
 
             'MessageBox.Show("资源释放成功")
             Return True
@@ -117,26 +139,4 @@ Module NewUpdater
         End Try
     End Function
 
-    Public Sub Update3()
-        Try
-            Dim path As String = My.Application.Info.DirectoryPath & "\simupdater.exe '文件释放路径"
-
-            Dim DisplayVersion As String
-            DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
-
-            Dim MyVersion As String = _
-                My.Application.Info.Version.Major & "." & _
-            My.Application.Info.Version.Minor & "." & _
-            Format(My.Application.Info.Version.Build, "00") & "." & _
-           Format(My.Application.Info.Version.Revision, "00")
-
-            Dim arguments As String
-            arguments = DisplayVersion & " " & MyVersion
-
-            Process.Start(path, arguments)
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 End Module

@@ -56,6 +56,7 @@ Partial Class frmQuitOpen
         Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lvwFileListView.FullRowSelect = True
         Me.lvwFileListView.Location = New System.Drawing.Point(12, 12)
+        Me.lvwFileListView.MultiSelect = False
         Me.lvwFileListView.Name = "lvwFileListView"
         Me.lvwFileListView.Size = New System.Drawing.Size(663, 118)
         Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending

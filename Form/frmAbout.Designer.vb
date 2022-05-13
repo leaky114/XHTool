@@ -137,9 +137,9 @@ Partial Class frmAbout
         '
         'btnCheckUpdate
         '
-        Me.btnCheckUpdate.Location = New System.Drawing.Point(192, 233)
+        Me.btnCheckUpdate.Location = New System.Drawing.Point(127, 233)
         Me.btnCheckUpdate.Name = "btnCheckUpdate"
-        Me.btnCheckUpdate.Size = New System.Drawing.Size(75, 28)
+        Me.btnCheckUpdate.Size = New System.Drawing.Size(140, 28)
         Me.btnCheckUpdate.TabIndex = 44
         Me.btnCheckUpdate.Text = "检查更新"
         Me.btnCheckUpdate.UseVisualStyleBackColor = True

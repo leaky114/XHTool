@@ -24,6 +24,12 @@ Public NotInheritable Class frmAbout
         Me.txtDescription.Text = My.Application.Info.Description & vbCrLf & _
                                       vbCrLf & _
                                     My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".dll"
+
+        '释放更新程序
+        NewUpdater.CreateUpdate()
+
+        NewUpdater.UpDater2(btnCheckUpdate)
+
     End Sub
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
@@ -31,24 +37,19 @@ Public NotInheritable Class frmAbout
     End Sub
 
     Private Sub btnCheckUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckUpdate.Click
-        'Try
-        '    Dim simupdate As String
 
-        '    simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
-        '    Process.Start(simupdate)
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
-
-        'NewUpdater.UpDater2(True)
+        '启动更新程序
+        NewUpdater.Update3()
 
         'IsShowUpdateMsg = True
         'Dim frmupdate As New frmUpdate
         'frmupdate.ShowDialog()
 
-        If NewUpdater.CreateUpdate() = True Then
-            NewUpdater.Update3()
-        End If
+        'If NewUpdater.CreateUpdate() = True Then
+        'NewUpdater.Update3()
+        ''End If
+        Me.Close()
+
     End Sub
 
     Private Sub btnGit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGit.Click
