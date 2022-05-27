@@ -1,4 +1,4 @@
-﻿Imports FSLib.App.SimpleUpdater
+﻿'Imports FSLib.App.SimpleUpdater
 Imports System.Windows.Forms
 Module NewUpdater
 
@@ -30,7 +30,7 @@ Module NewUpdater
     '    End Try
     'End Sub
 
-    Public Sub UpDater2(ByVal btnCheckUpDate As Button)
+    Public Function CheckNewVesion() As String
         Try
             Dim NewVersionInfo As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
 
@@ -62,21 +62,22 @@ Module NewUpdater
                     'simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
                     'Process.Start(simupdate)
 
-                    btnCheckUpDate.Text = "检查到新版" & NewVersion
-                Else
-                    With btnCheckUpDate
-                        .Text = "当前为最新版"
-                        .Visible = False
-                    End With
+                    'btnCheckUpDate.Text = "检查到新版" & NewVersion
 
+                    Return NewVersion
+                Else
+
+                    Return "New"
                 End If
+            Else
+                Return "Null"
             End If
         Catch ex As Exception
             'MsgBox(ex.Message)
-
+            Return "Null"
         End Try
 
-    End Sub
+    End Function
 
     Public Function ShortVersion(ByVal LongVesion As String) As Long
 
@@ -109,7 +110,7 @@ Module NewUpdater
         End Try
     End Sub
 
-    Public Function CreateUpdate() As Boolean
+    Public Function CreateUpdateExe() As Boolean
         Try
 
             Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径

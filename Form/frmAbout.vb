@@ -1,4 +1,4 @@
-﻿Imports FSLib.App.SimpleUpdater
+﻿'Imports FSLib.App.SimpleUpdater
 
 Public NotInheritable Class frmAbout
 
@@ -26,9 +26,19 @@ Public NotInheritable Class frmAbout
                                     My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".dll"
 
         '释放更新程序
-        NewUpdater.CreateUpdate()
+        NewUpdater.CreateUpdateExe()
 
-        NewUpdater.UpDater2(btnCheckUpdate)
+        '检查释放有新版本
+        Select Case NewUpdater.CheckNewVesion()
+            Case "New"
+                With btnCheckUpdate
+                    .Text = "当前为最新版"
+                    .Visible = False
+                End With
+
+            Case Else
+                btnCheckUpdate.Text = "检查到新版" & NewVersion
+        End Select
 
     End Sub
 

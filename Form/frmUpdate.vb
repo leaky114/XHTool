@@ -1,5 +1,5 @@
 ﻿Imports System.Windows.Forms
-Imports FSLib.App.SimpleUpdater
+'Imports FSLib.App.SimpleUpdater
 Imports System.IO
 
 Public Class frmUpdate

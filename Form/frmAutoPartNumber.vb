@@ -75,7 +75,8 @@ Public Class frmAutoPartNumber
 999:
             Next
 
-            MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
+            SetStatusBarText("自动命名图号完成！")
+            'MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
             btnStart.Enabled = True
 
         Catch ex As Exception

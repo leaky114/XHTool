@@ -31,7 +31,7 @@ Partial Class frmQuitOpen
         'OK_Button
         '
         Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(520, 136)
+        Me.OK_Button.Location = New System.Drawing.Point(667, 296)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(75, 28)
         Me.OK_Button.TabIndex = 2
@@ -41,7 +41,7 @@ Partial Class frmQuitOpen
         '
         Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(600, 136)
+        Me.Cancel_Button.Location = New System.Drawing.Point(747, 296)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(75, 28)
         Me.Cancel_Button.TabIndex = 3
@@ -50,7 +50,8 @@ Partial Class frmQuitOpen
         'lvwFileListView
         '
         Me.lvwFileListView.AllowColumnReorder = True
-        Me.lvwFileListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwFileListView.AutoArrange = False
         Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
@@ -58,7 +59,7 @@ Partial Class frmQuitOpen
         Me.lvwFileListView.Location = New System.Drawing.Point(12, 12)
         Me.lvwFileListView.MultiSelect = False
         Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(663, 118)
+        Me.lvwFileListView.Size = New System.Drawing.Size(810, 266)
         Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwFileListView.TabIndex = 37
         Me.lvwFileListView.UseCompatibleStateImageBehavior = False
@@ -73,11 +74,10 @@ Partial Class frmQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(687, 176)
+        Me.ClientSize = New System.Drawing.Size(834, 336)
         Me.Controls.Add(Me.lvwFileListView)
         Me.Controls.Add(Me.OK_Button)
         Me.Controls.Add(Me.Cancel_Button)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmQuitOpen"

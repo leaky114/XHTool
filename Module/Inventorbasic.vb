@@ -1351,37 +1351,66 @@ Module InventorBasic
                 partslistrow.Item(1).Value = 0
             End If
         Next
-        '
-        '        '点击每个序号组
-        '        Dim oBalloon As Balloon
-        '        For i = 1 To oActiveSheet.PartsLists.Item(1).PartsListRows.Count
-        '            oBalloon =   ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
-        '            '遍历序号组中的序号，不为0就设置序号，并加1，设置下一个，有序号则跳过
-        '            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-        '                If oBalloonValueSet.Value = 0 Then
-        '                    oBalloonValueSet.Value = i
-        '                    i = i + 1
-        '                End If
-        '            Next
-        '            '多加的1要减去
-        '            i = i - 1
-        '        Next
+
+        '获取当前balloon的textstyle
+        Dim OldBalloonTextStyl As String = oDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle.TextStyle.Name
+
+        '获取当前balloonstyle
+        Dim oActiveBalloonStyle As BalloonStyle = oDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle
+
+        '新建 ZeroBalloonText
+        Try
+            If oDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText") Is Nothing Then
+
+            End If
+        Catch ex As Exception
+            Dim oZeroBalloonText As TextStyle
+            oZeroBalloonText = oDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl).Copy("ZeroBalloonText")
+
+            Dim oZeroBalloonTextColor As Color = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
+            oZeroBalloonText.Color = oZeroBalloonTextColor
+        End Try
+
+        '设置当前balloon style 为新的 zeroballoonstyle
+        oActiveBalloonStyle.TextStyle = oDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText")
+
+        ' '' ''
+        ' '' ''        '点击每个序号组
+        ' '' ''        Dim oBalloon As Balloon
+        ' '' ''        For i = 1 To oActiveSheet.PartsLists.Item(1).PartsListRows.Count
+        ' '' ''            oBalloon =   ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
+        ' '' ''            '遍历序号组中的序号，不为0就设置序号，并加1，设置下一个，有序号则跳过
+        ' '' ''            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
+        ' '' ''                If oBalloonValueSet.Value = 0 Then
+        ' '' ''                    oBalloonValueSet.Value = i
+        ' '' ''                    i = i + 1
+        ' '' ''                End If
+        ' '' ''            Next
+        ' '' ''            '多加的1要减去
+        ' '' ''            i = i - 1
+        ' '' ''        Next
 
         '点击每个序号组
-        Dim oBalloon As Balloon
-        Do
-            oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
+        Try
+            Dim oBalloon As Balloon
+            Do
+                oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
 
-            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                'If (oBalloonValueSet.Value >= FirstBalloonNumber) Then
-                If oBalloonValueSet.Value = 0 Then
-                    oBalloonValueSet.Value = BalloonNumber
-                    BalloonNumber = BalloonNumber + 1
-                End If
-            Next
-        Loop While True
+                For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
+                    'If (oBalloonValueSet.Value >= FirstBalloonNumber) Then
+                    If oBalloonValueSet.Value = 0 Then
+                        oBalloonValueSet.Value = BalloonNumber
+                        BalloonNumber = BalloonNumber + 1
+                    End If
+                Next
+            Loop While True
+        Catch ex As Exception
 
-        Return True
+            'esc 退出后，还原balloon style
+            oActiveBalloonStyle.TextStyle = oDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl)
+
+            Return True
+        End Try
     End Function
 
     '检查序号完整性

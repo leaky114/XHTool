@@ -102,8 +102,8 @@ Partial Class frmAutoPartNumber
         '
         Me.lvwFile.AllowDrop = True
         Me.lvwFile.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwFile.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chOriginalFileName, Me.chType, Me.chNewFileName, Me.chFolder})
         Me.lvwFile.FullRowSelect = True
         Me.lvwFile.Location = New System.Drawing.Point(13, 12)

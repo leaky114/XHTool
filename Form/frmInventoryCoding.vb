@@ -4,9 +4,9 @@ Imports Inventor.SelectTypeEnum
 Imports Inventor.DocumentTypeEnum
 Imports Inventor
 Imports Microsoft.Office.Interop
+Imports stdole
 
 Public Class frmInventoryCoding
-
 
     Private Sub btnLoadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadFile.Click
 
