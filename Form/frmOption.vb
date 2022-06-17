@@ -222,11 +222,19 @@ Public Class frmOption
 
     Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
 
-        If txtBOM导出项.Text = "" Then
-            txtBOM导出项.Text = cbo添加.Text
-        Else
-            txtBOM导出项.Text = txtBOM导出项.Text & "|" & cbo添加.Text
-        End If
+        'If txtBOM导出项.Text = "" Then
+        '    txtBOM导出项.Text = cbo添加.Text
+        'Else
+
+        '//先获取复制文本
+        Dim newstr As String = cbo添加.Text & "|"
+
+        '//获取textBox2 中的光标
+        Dim index As Integer = txtBOM导出项.SelectionStart
+        txtBOM导出项.Text = txtBOM导出项.Text.Insert(index, newstr)
+        txtBOM导出项.SelectionStart = index + newstr.Length
+        txtBOM导出项.Focus()
+        'End If
 
     End Sub
 
@@ -240,12 +248,12 @@ Public Class frmOption
 
     Private Sub btnExcelFilePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcelFilePath.Click
         Dim NewOpenFileDialog As New OpenFileDialog
-
         With NewOpenFileDialog
             .Title = "打开"
             .FileName = ""
-            '.Filter = "AutoDesk Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
-            .Multiselect = True '多开文件打开
+            .InitialDirectory = GetFileNameInfo(Excel_File_Name).Folder
+            .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
+            .Multiselect = False '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
                     txtexcel文件.Text = .FileName
@@ -254,5 +262,22 @@ Public Class frmOption
                 Exit Sub
             End If
         End With
+    End Sub
+
+    Private Sub btnOpenExcelFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenExcelFile.Click
+        If IsFileExsts(Excel_File_Name) = True Then
+            Process.Start(Excel_File_Name)
+        Else
+            'excel文件不存在，到服务器下载
+            Dim documentURL As String
+            documentURL = "\\Likai-pc\发行版\2011\最新物料编码.xlsx"
+
+            If IsFileExsts(documentURL) = True Then
+                Dim wc As New System.Net.WebClient
+                wc.DownloadFile(documentURL, Excel_File_Name)
+                Process.Start(Excel_File_Name)
+            End If
+
+        End If
     End Sub
 End Class

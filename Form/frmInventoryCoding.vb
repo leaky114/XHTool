@@ -19,6 +19,9 @@ Public Class frmInventoryCoding
         If IsInventorOpenDoc() = False Then
             Exit Sub
         End If
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            Exit Sub
+        End If
 
         Dim oAssemblyDocument As AssemblyDocument
 
@@ -150,7 +153,6 @@ Public Class frmInventoryCoding
     End Sub
 
     Private Sub btnSearchCoding_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCoding.Click
-
         On Error Resume Next
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
         btnSearchCoding.Enabled = False
@@ -172,7 +174,7 @@ Public Class frmInventoryCoding
 
             Dim Table_Array(10) As String
 
-            Table_Array = Split("A,C,D,E", ",")
+            Table_Array = Split(Table_Arrays, ",")
 
             Dim MatchRow As Double   '寻找到的行
 

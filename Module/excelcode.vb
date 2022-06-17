@@ -61,14 +61,14 @@ Module excelcode
     End Function
 
 
-    Public Function FindSrtingInSheet(ByVal Excel_File_Name As String, ByVal StochNum As String, ByVal Sheet_Name As String, _
+    Public Function FindSrtingInSheet(ByVal oExcel_File_Name As String, ByVal StochNum As String, ByVal Sheet_Name As String, _
                                 ByVal Table_Arrays As String, ByVal Col_Index_Num As String, ByVal range_lookup As Integer) As String
 
         On Error Resume Next
         Dim excelApp As Excel.Application
         excelApp = New Excel.Application
         'excelApp.Visible = True
-        Dim wb As Excel.Workbook = excelApp.Workbooks.Open(Excel_File_Name, 0, True)
+        Dim wb As Excel.Workbook = excelApp.Workbooks.Open(oExcel_File_Name, 0, True)
         Dim sht As Excel.Worksheet = Nothing
         Dim FindRowValue As String = Nothing
         sht = wb.Sheets(Sheet_Name)

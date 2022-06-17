@@ -74,6 +74,7 @@ Partial Class frmOption
         Me.btnExcelFilePath = New System.Windows.Forms.Button()
         Me.txtexcel文件 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.btnOpenExcelFile = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -504,6 +505,7 @@ Partial Class frmOption
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.btnOpenExcelFile)
         Me.GroupBox8.Controls.Add(Me.txt查询列)
         Me.GroupBox8.Controls.Add(Me.Label16)
         Me.GroupBox8.Controls.Add(Me.txt查找范围)
@@ -597,6 +599,15 @@ Partial Class frmOption
         Me.Label13.Size = New System.Drawing.Size(71, 12)
         Me.Label13.TabIndex = 7
         Me.Label13.Text = "Excel文件："
+        '
+        'btnOpenExcelFile
+        '
+        Me.btnOpenExcelFile.Location = New System.Drawing.Point(513, 48)
+        Me.btnOpenExcelFile.Name = "btnOpenExcelFile"
+        Me.btnOpenExcelFile.Size = New System.Drawing.Size(52, 20)
+        Me.btnOpenExcelFile.TabIndex = 17
+        Me.btnOpenExcelFile.Text = "打开"
+        Me.btnOpenExcelFile.UseVisualStyleBackColor = True
         '
         'frmOption
         '
@@ -695,5 +706,6 @@ Partial Class frmOption
     Friend WithEvents txt数据表 As System.Windows.Forms.TextBox
     Friend WithEvents txt查询列 As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents btnOpenExcelFile As System.Windows.Forms.Button
 
 End Class

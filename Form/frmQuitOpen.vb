@@ -16,11 +16,15 @@ Public Class frmQuitOpen
         Me.Close()
     End Sub
 
-    Private Sub lvwFileListView_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvwFileListView.SelectedIndexChanged
+    Private Sub lvwFileListView_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvwFileListView.MouseDoubleClick
         If lvwFileListView.SelectedItems.Count <> 0 Then
             'ThisApplication.Documents.Open(lvwFileListView.SelectedItems(0).Text)
             Process.Start(lvwFileListView.SelectedItems(0).Text)
         End If
         Me.Close()
+    End Sub
+
+    Private Sub frmQuitOpen_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

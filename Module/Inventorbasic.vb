@@ -9,6 +9,8 @@ Imports System.Windows.Forms
 Imports Inventor.PrintOrientationEnum
 Imports System.Text
 Imports System.Collections.ObjectModel
+Imports Microsoft.Office.Interop.Excel.XlFileFormat
+Imports Microsoft.Office.Interop
 
 Module InventorBasic
 
@@ -1434,20 +1436,93 @@ Module InventorBasic
         Dim oPartsListRows As PartsListRows = oActiveSheet.PartsLists.Item(1).PartsListRows
 
         Dim strList As String = ""
+
+        '新建颜色
+        Dim oColor As Color
+        oColor = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
+
+        Dim strPartName As String
         For Each oPartsListRow As PartsListRow In oPartsListRows
-            If oPartsListRow.Ballooned = False Then
-                strList = strList & oPartsListRow.Item(1).Value & " , "
-            End If
+            'If oPartsListRow.Ballooned = False Then
+            'strList = strList & oPartsListRow.Item(1).Value & " , "
+
+            strPartName = GetFileNameInfo(oPartsListRow.ReferencedFiles(1).FullFileName).ONlyName
+
+            '设置颜色
+            SetPartCorlor(oDrawingDocument, strPartName, oColor, oPartsListRow.Ballooned)
+            'End If
         Next
 
-        If Strings.Len(strList) > 1 Then
-            MsgBox("明细表：" & strList & " 无序号", MsgBoxStyle.Information, "检查序号完整性")
-            Return False
-        Else
-            Return True
-        End If
+        Return True
+
+        'If Strings.Len(strList) > 1 Then
+        '    MsgBox("明细表：" & strList & " 无序号", MsgBoxStyle.Information, "检查序号完整性")
+        '    Return False
+        'Else
+        '    Return True
+        'End If
 
     End Function
+
+    '设置工程图零件颜色(工程图，零件，颜色，是否有序号)
+    Public Sub SetPartCorlor(ByVal oDrawingDocument As DrawingDocument, ByVal partStr As String, ByVal oColor As Color, ByVal oPartsListRowBallooned As Boolean)
+
+        Dim oTrans As Transaction
+        Dim refAssyDef As ComponentDefinition = Nothing
+
+        oTrans = ThisApplication.TransactionManager.StartTransaction(oDrawingDocument, "Colorize [PART]")
+        '遍历图纸
+        For Each sheet As Sheet In oDrawingDocument.Sheets
+            '遍历视图
+            For Each view As DrawingView In sheet.DrawingViews
+
+                If view.ReferencedDocumentDescriptor.ReferencedDocumentType = DocumentTypeEnum.kPresentationDocumentObject Then
+                    refAssyDef = view.ReferencedDocumentDescriptor.ReferencedDocument.ReferencedDocuments(1).ComponentDefinition
+                ElseIf view.ReferencedFile.DocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then
+                    refAssyDef = view.ReferencedFile.DocumentDescriptor.ReferencedDocument.ComponentDefinition
+                End If
+
+                If (refAssyDef Is Nothing) Then
+                    Continue For
+                End If
+
+                For Each occurrence As ComponentOccurrence In refAssyDef.Occurrences
+                    If occurrence.Name Like partStr & ":*" Then
+
+                        Try
+                            Dim ViewCurves As DrawingCurvesEnumerator = view.DrawingCurves(occurrence)
+
+                            If oPartsListRowBallooned = True Then
+                                '已有序号，判断颜色属性
+                                '设置颜色
+                                Dim oBlackColor As Color = ThisApplication.TransientObjects.CreateColor(0, 0, 0)
+
+                                For Each c As DrawingCurve In ViewCurves
+                                    Select Case c.Color.ColorSourceType
+                                        Case ColorSourceTypeEnum.kAutomaticColorSource, ColorSourceTypeEnum.kLayerColorSource
+                                            Exit For
+                                        Case ColorSourceTypeEnum.kOverrideColorSource
+                                            c.Color = Nothing
+                                            c.Color.ColorSourceType = ColorSourceTypeEnum.kLayerColorSource
+                                            'c.Color = oBlackColor
+                                    End Select
+                                Next
+
+                            Else
+                                '没有序号，设置彩色
+                                For Each c As DrawingCurve In ViewCurves
+                                    c.Color = oColor
+                                Next
+                            End If
+
+                        Catch ex As Exception
+                        End Try
+                    End If
+                Next
+            Next
+        Next
+        oTrans.End()
+    End Sub
 
     Public Function InsertSerialNumber(ByVal oDrawingDocument As DrawingDocument) As Boolean
         Dim oActiveSheet As Sheet
@@ -1934,8 +2009,10 @@ Module InventorBasic
     End Function
 
     '导出 bom 平面性
-    Public Function ExportBOMAsFlat(ByVal oAssemblyDocument As AssemblyDocument, ByVal ExcelFullFileName As String) As Boolean
+    Public Function ExportBOMAsFlat(ByVal oAssemblyDocument As AssemblyDocument, ByVal oCsv_File_Name As String) As Boolean
         Dim FirstLevelOnly As Boolean
+
+
         FirstLevelOnly = False
 
         '==============================================================================================
@@ -1953,10 +2030,10 @@ Module InventorBasic
         'ColumnsTitle = "库存编号|空格|零件代号|材料|质量|所属装配代号|数量|总数量|描述"
 
         Dim IOS2 As System.IO.StreamWriter
-        If IsFileExsts(ExcelFullFileName) = False Then
-            IOS2 = New IO.StreamWriter(ExcelFullFileName, False, System.Text.Encoding.Default)
+        If IsFileExsts(oCsv_File_Name) = False Then
+            IOS2 = New IO.StreamWriter(oCsv_File_Name, False, System.Text.Encoding.Default)
         Else
-            IOS2 = New IO.StreamWriter(ExcelFullFileName, True, System.Text.Encoding.Default)
+            IOS2 = New IO.StreamWriter(oCsv_File_Name, True, System.Text.Encoding.Default)
         End If
 
         '写BOM表头
@@ -1971,17 +2048,60 @@ Module InventorBasic
         For Each oBOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
                 '遍历这个bom页面
-                QueryBOMRowPropertieToExcel(ExcelFullFileName, oBOMView.BOMRows, FirstLevelOnly, BOMTiTle, "0", 1)
+                QueryBOMRowPropertieToExcel(oCsv_File_Name, oBOMView.BOMRows, FirstLevelOnly, BOMTiTle, "0", 1)
             End If
         Next
 
+        '转换excel文件格式
+        '===========================================================================
+
+        Dim oExcel_File_Name As String
+        oExcel_File_Name = Strings.Replace(oCsv_File_Name, "csv", "xlsx")
+        If IsFileExsts(oExcel_File_Name) Then
+            DelFile(oExcel_File_Name, FileIO.RecycleOption.SendToRecycleBin)
+        End If
+
+        Dim excelApp As Excel.Application
+        excelApp = New Excel.Application
+        excelApp.Visible = false
+        Dim oWorkbook As Excel.Workbook
+        oWorkbook = excelApp.Workbooks.Open(oCsv_File_Name)
+
+        '另存为xlsx格式
+        DelFile(oExcel_File_Name, FileIO.RecycleOption.SendToRecycleBin)
+        oWorkbook.SaveAs(oExcel_File_Name, xlWorkbookDefault)
+        oWorkbook.Close(False)
+        '删除 csv
+        DelFile(oCsv_File_Name, FileIO.RecycleOption.SendToRecycleBin)
+
+        oWorkbook = excelApp.Workbooks.Open(oExcel_File_Name)
+
+        Dim oWorksheet As Excel.Worksheet
+        oWorksheet = oWorkbook.Worksheets(1)
+
+        '设边框线
+        'oWorksheet.Cells.Borders.LineStyle = 1
+        '所有单元格列宽自动调整
+        oWorksheet.Cells.EntireColumn.AutoFit()
+        '所有单元格行高自动调整
+        oWorksheet.Cells.EntireRow.AutoFit()
+
+        oWorkbook.Close(True)
+        '===========================================================================
+
+        excelApp.Quit()
+
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+
+        Process.Start(oExcel_File_Name)
         Return True
 
     End Function
 
     '在 bom平面性导出，遍历bom 行文件ipro
-    Private Sub QueryBOMRowPropertieToExcel(ByVal ExcelFullFileName As String, ByVal oBOMRows As BOMRowsEnumerator, ByVal FirstLevelOnly As Boolean, ByVal ColumnsTitle As String, _
+    Private Sub QueryBOMRowPropertieToExcel(ByVal oCsv_File_Name As String, ByVal oBOMRows As BOMRowsEnumerator, ByVal FirstLevelOnly As Boolean, ByVal ColumnsTitle As String, _
                                             ByVal Level As String, ByVal PresentNumber As Integer)
+        On Error Resume Next
 
         Dim i As Short
         Dim j As Short
@@ -2093,9 +2213,11 @@ Module InventorBasic
                             Case "材料"
                                 Dim strMaterialName As String
                                 If oInventorDocument.DocumentType = kPartDocumentObject Then
-                                    Dim IptDoc As PartDocument
-                                    IptDoc = oInventorDocument
-                                    strMaterialName = IptDoc.ComponentDefinition.Material.Name
+                                    'Dim IptDoc As PartDocument
+                                    'IptDoc = oInventorDocument
+                                    'strMaterialName = IptDoc.ComponentDefinition.Material.Name
+                                    propitem = oPropSet.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kMaterialDesignTrackingProperties)
+                                    strMaterialName = propitem.Value
                                 Else
                                     strMaterialName = ""
                                 End If
@@ -2154,10 +2276,10 @@ Module InventorBasic
 
                     '写数据到文件
                     Dim IOS As System.IO.StreamWriter
-                    If IsFileExsts(ExcelFullFileName) = False Then
-                        IOS = New IO.StreamWriter(ExcelFullFileName, False, System.Text.Encoding.Default)
+                    If IsFileExsts(oCsv_File_Name) = False Then
+                        IOS = New IO.StreamWriter(oCsv_File_Name, False, System.Text.Encoding.Default)
                     Else
-                        IOS = New IO.StreamWriter(ExcelFullFileName, True, System.Text.Encoding.Default)
+                        IOS = New IO.StreamWriter(oCsv_File_Name, True, System.Text.Encoding.Default)
                     End If
                     IOS.WriteLine(ColumnsTitleValue)
                     IOS.Close()
@@ -2177,10 +2299,10 @@ Module InventorBasic
         '写数据到文件
 
         Dim IOS2 As System.IO.StreamWriter
-        If IsFileExsts(ExcelFullFileName) = False Then
-            IOS2 = New IO.StreamWriter(ExcelFullFileName, False, System.Text.Encoding.Default)
+        If IsFileExsts(oCsv_File_Name) = False Then
+            IOS2 = New IO.StreamWriter(oCsv_File_Name, False, System.Text.Encoding.Default)
         Else
-            IOS2 = New IO.StreamWriter(ExcelFullFileName, True, System.Text.Encoding.Default)
+            IOS2 = New IO.StreamWriter(oCsv_File_Name, True, System.Text.Encoding.Default)
         End If
         '写空白行
         IOS2.WriteLine("")
@@ -2220,7 +2342,7 @@ Module InventorBasic
 
                     '遍历下一级
                     If (Not oRow.ChildRows Is Nothing) And FirstLevelOnly = False Then
-                        Call QueryBOMRowPropertieToExcel(ExcelFullFileName, oRow.ChildRows, FirstLevelOnly, ColumnsTitle, PointItemNumber, oRow.ItemQuantity)
+                        Call QueryBOMRowPropertieToExcel(oCsv_File_Name, oRow.ChildRows, FirstLevelOnly, ColumnsTitle, PointItemNumber, oRow.ItemQuantity)
                     End If
 99:
                     'oProgressBar.UpdateProgress()
