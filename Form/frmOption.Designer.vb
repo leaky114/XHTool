@@ -28,6 +28,8 @@ Partial Class frmOption
         Me.cbo文件名 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbo供应商 = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.cbo存货编码 = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -65,6 +67,7 @@ Partial Class frmOption
         Me.Label11 = New System.Windows.Forms.Label()
         Me.chk检查更新 = New System.Windows.Forms.CheckBox()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.btnOpenExcelFile = New System.Windows.Forms.Button()
         Me.txt查询列 = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txt查找范围 = New System.Windows.Forms.TextBox()
@@ -74,7 +77,6 @@ Partial Class frmOption
         Me.btnExcelFilePath = New System.Windows.Forms.Button()
         Me.txtexcel文件 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.btnOpenExcelFile = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -87,8 +89,8 @@ Partial Class frmOption
         '
         'btnOK
         '
-        Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnOK.Location = New System.Drawing.Point(425, 399)
+        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOK.Location = New System.Drawing.Point(453, 439)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 28)
         Me.btnOK.TabIndex = 0
@@ -96,9 +98,9 @@ Partial Class frmOption
         '
         'btnCancel
         '
-        Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(516, 399)
+        Me.btnCancel.Location = New System.Drawing.Point(544, 439)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 28)
         Me.btnCancel.TabIndex = 1
@@ -127,7 +129,7 @@ Partial Class frmOption
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 23)
+        Me.Label1.Location = New System.Drawing.Point(21, 24)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 12)
         Me.Label1.TabIndex = 3
@@ -135,6 +137,8 @@ Partial Class frmOption
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbo供应商)
+        Me.GroupBox1.Controls.Add(Me.Label17)
         Me.GroupBox1.Controls.Add(Me.cbo存货编码)
         Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -143,17 +147,36 @@ Partial Class frmOption
         Me.GroupBox1.Controls.Add(Me.cbo图号)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 14)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(191, 101)
+        Me.GroupBox1.Size = New System.Drawing.Size(191, 143)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "IPro映射"
+        Me.GroupBox1.Text = "iProperty映射"
+        '
+        'cbo供应商
+        '
+        Me.cbo供应商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo供应商.FormattingEnabled = True
+        Me.cbo供应商.Items.AddRange(New Object() {"供应商", "成本中心", "描述"})
+        Me.cbo供应商.Location = New System.Drawing.Point(85, 105)
+        Me.cbo供应商.Name = "cbo供应商"
+        Me.cbo供应商.Size = New System.Drawing.Size(86, 20)
+        Me.cbo供应商.TabIndex = 8
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(21, 108)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(65, 12)
+        Me.Label17.TabIndex = 7
+        Me.Label17.Text = "采购来源："
         '
         'cbo存货编码
         '
         Me.cbo存货编码.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo存货编码.FormattingEnabled = True
         Me.cbo存货编码.Items.AddRange(New Object() {"成本中心", "描述"})
-        Me.cbo存货编码.Location = New System.Drawing.Point(86, 75)
+        Me.cbo存货编码.Location = New System.Drawing.Point(85, 75)
         Me.cbo存货编码.Name = "cbo存货编码"
         Me.cbo存货编码.Size = New System.Drawing.Size(86, 20)
         Me.cbo存货编码.TabIndex = 6
@@ -161,7 +184,7 @@ Partial Class frmOption
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(22, 77)
+        Me.Label12.Location = New System.Drawing.Point(21, 80)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(65, 12)
         Me.Label12.TabIndex = 5
@@ -182,12 +205,12 @@ Partial Class frmOption
         Me.GroupBox2.Controls.Add(Me.txt图号映射)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Location = New System.Drawing.Point(16, 129)
+        Me.GroupBox2.Location = New System.Drawing.Point(16, 163)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(191, 75)
         Me.GroupBox2.TabIndex = 5
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "对称零件IPro映射"
+        Me.GroupBox2.Text = "对称零件iProperty映射"
         '
         'txt文件名映射
         '
@@ -229,7 +252,7 @@ Partial Class frmOption
         Me.GroupBox4.Controls.Add(Me.chk签字后打印)
         Me.GroupBox4.Controls.Add(Me.txt打印日期)
         Me.GroupBox4.Controls.Add(Me.Label6)
-        Me.GroupBox4.Location = New System.Drawing.Point(217, 14)
+        Me.GroupBox4.Location = New System.Drawing.Point(224, 14)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(207, 98)
         Me.GroupBox4.TabIndex = 7
@@ -291,13 +314,14 @@ Partial Class frmOption
         '
         'GroupBox5
         '
+        Me.GroupBox5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.GroupBox5.Controls.Add(Me.btnClear)
         Me.GroupBox5.Controls.Add(Me.btnReDo)
         Me.GroupBox5.Controls.Add(Me.btnAdd)
         Me.GroupBox5.Controls.Add(Me.cbo添加)
         Me.GroupBox5.Controls.Add(Me.txtBOM导出项)
         Me.GroupBox5.Controls.Add(Me.Label8)
-        Me.GroupBox5.Location = New System.Drawing.Point(16, 214)
+        Me.GroupBox5.Location = New System.Drawing.Point(16, 255)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(584, 84)
         Me.GroupBox5.TabIndex = 8
@@ -335,7 +359,7 @@ Partial Class frmOption
         '
         Me.cbo添加.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo添加.FormattingEnabled = True
-        Me.cbo添加.Items.AddRange(New Object() {"材料", "空格", "存货编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量"})
+        Me.cbo添加.Items.AddRange(New Object() {"|", "材料", "空格", "库存编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量", "供应商"})
         Me.cbo添加.Location = New System.Drawing.Point(272, 50)
         Me.cbo添加.Name = "cbo添加"
         Me.cbo添加.Size = New System.Drawing.Size(170, 20)
@@ -347,7 +371,7 @@ Partial Class frmOption
         Me.txtBOM导出项.Name = "txtBOM导出项"
         Me.txtBOM导出项.Size = New System.Drawing.Size(433, 21)
         Me.txtBOM导出项.TabIndex = 6
-        Me.txtBOM导出项.Text = "库存编号|空格|零件代号|材料|质量|所属装配代号|数量|总数量|描述"
+        Me.txtBOM导出项.Text = "库存编号|成本中心|零件代号|材料|质量|所属装配代号|数量|总数量|描述"
         '
         'Label8
         '
@@ -388,7 +412,7 @@ Partial Class frmOption
         '
         'txt比例
         '
-        Me.txt比例.Location = New System.Drawing.Point(80, 17)
+        Me.txt比例.Location = New System.Drawing.Point(54, 17)
         Me.txt比例.Name = "txt比例"
         Me.txt比例.Size = New System.Drawing.Size(64, 21)
         Me.txt比例.TabIndex = 6
@@ -398,7 +422,7 @@ Partial Class frmOption
         Me.GroupBox3.Controls.Add(Me.CheckBox3)
         Me.GroupBox3.Controls.Add(Me.txt比例)
         Me.GroupBox3.Controls.Add(Me.Label5)
-        Me.GroupBox3.Location = New System.Drawing.Point(435, 129)
+        Me.GroupBox3.Location = New System.Drawing.Point(447, 15)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(163, 68)
         Me.GroupBox3.TabIndex = 6
@@ -424,9 +448,9 @@ Partial Class frmOption
         Me.GroupBox6.Controls.Add(Me.Label10)
         Me.GroupBox6.Controls.Add(Me.cbo质量精度)
         Me.GroupBox6.Controls.Add(Me.Label9)
-        Me.GroupBox6.Location = New System.Drawing.Point(435, 14)
+        Me.GroupBox6.Location = New System.Drawing.Point(224, 122)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(165, 96)
+        Me.GroupBox6.Size = New System.Drawing.Size(165, 85)
         Me.GroupBox6.TabIndex = 11
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "精度设置"
@@ -455,9 +479,9 @@ Partial Class frmOption
         Me.GroupBox7.Controls.Add(Me.CheckBox4)
         Me.GroupBox7.Controls.Add(Me.txt图号)
         Me.GroupBox7.Controls.Add(Me.Label11)
-        Me.GroupBox7.Location = New System.Drawing.Point(217, 129)
+        Me.GroupBox7.Location = New System.Drawing.Point(447, 122)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(204, 68)
+        Me.GroupBox7.Size = New System.Drawing.Size(163, 68)
         Me.GroupBox7.TabIndex = 12
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "质量映射："
@@ -477,9 +501,9 @@ Partial Class frmOption
         '
         'txt图号
         '
-        Me.txt图号.Location = New System.Drawing.Point(66, 17)
+        Me.txt图号.Location = New System.Drawing.Point(54, 18)
         Me.txt图号.Name = "txt图号"
-        Me.txt图号.Size = New System.Drawing.Size(112, 21)
+        Me.txt图号.Size = New System.Drawing.Size(64, 21)
         Me.txt图号.TabIndex = 6
         '
         'Label11
@@ -493,10 +517,11 @@ Partial Class frmOption
         '
         'chk检查更新
         '
+        Me.chk检查更新.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chk检查更新.AutoSize = True
         Me.chk检查更新.Checked = True
         Me.chk检查更新.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk检查更新.Location = New System.Drawing.Point(25, 406)
+        Me.chk检查更新.Location = New System.Drawing.Point(25, 441)
         Me.chk检查更新.Name = "chk检查更新"
         Me.chk检查更新.Size = New System.Drawing.Size(108, 16)
         Me.chk检查更新.TabIndex = 13
@@ -505,6 +530,7 @@ Partial Class frmOption
         '
         'GroupBox8
         '
+        Me.GroupBox8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.GroupBox8.Controls.Add(Me.btnOpenExcelFile)
         Me.GroupBox8.Controls.Add(Me.txt查询列)
         Me.GroupBox8.Controls.Add(Me.Label16)
@@ -515,12 +541,21 @@ Partial Class frmOption
         Me.GroupBox8.Controls.Add(Me.btnExcelFilePath)
         Me.GroupBox8.Controls.Add(Me.txtexcel文件)
         Me.GroupBox8.Controls.Add(Me.Label13)
-        Me.GroupBox8.Location = New System.Drawing.Point(16, 308)
+        Me.GroupBox8.Location = New System.Drawing.Point(16, 349)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(582, 76)
         Me.GroupBox8.TabIndex = 14
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "ERP查询"
+        '
+        'btnOpenExcelFile
+        '
+        Me.btnOpenExcelFile.Location = New System.Drawing.Point(513, 48)
+        Me.btnOpenExcelFile.Name = "btnOpenExcelFile"
+        Me.btnOpenExcelFile.Size = New System.Drawing.Size(52, 20)
+        Me.btnOpenExcelFile.TabIndex = 17
+        Me.btnOpenExcelFile.Text = "打开"
+        Me.btnOpenExcelFile.UseVisualStyleBackColor = True
         '
         'txt查询列
         '
@@ -528,7 +563,6 @@ Partial Class frmOption
         Me.txt查询列.Name = "txt查询列"
         Me.txt查询列.Size = New System.Drawing.Size(89, 21)
         Me.txt查询列.TabIndex = 15
-        Me.txt查询列.Text = "B"
         '
         'Label16
         '
@@ -545,7 +579,6 @@ Partial Class frmOption
         Me.txt查找范围.Name = "txt查找范围"
         Me.txt查找范围.Size = New System.Drawing.Size(89, 21)
         Me.txt查找范围.TabIndex = 13
-        Me.txt查找范围.Text = "A,C,D,E,F"
         '
         'Label15
         '
@@ -600,22 +633,13 @@ Partial Class frmOption
         Me.Label13.TabIndex = 7
         Me.Label13.Text = "Excel文件："
         '
-        'btnOpenExcelFile
-        '
-        Me.btnOpenExcelFile.Location = New System.Drawing.Point(513, 48)
-        Me.btnOpenExcelFile.Name = "btnOpenExcelFile"
-        Me.btnOpenExcelFile.Size = New System.Drawing.Size(52, 20)
-        Me.btnOpenExcelFile.TabIndex = 17
-        Me.btnOpenExcelFile.Text = "打开"
-        Me.btnOpenExcelFile.UseVisualStyleBackColor = True
-        '
         'frmOption
         '
         Me.AcceptButton = Me.btnOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(618, 444)
+        Me.ClientSize = New System.Drawing.Size(631, 476)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.btnCancel)
@@ -707,5 +731,7 @@ Partial Class frmOption
     Friend WithEvents txt查询列 As System.Windows.Forms.TextBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents btnOpenExcelFile As System.Windows.Forms.Button
+    Friend WithEvents cbo供应商 As System.Windows.Forms.ComboBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
 
 End Class

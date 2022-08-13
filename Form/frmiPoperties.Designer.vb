@@ -51,8 +51,8 @@ Partial Class frmiPoperties
         '
         'btnStart
         '
-        Me.btnStart.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnStart.Location = New System.Drawing.Point(160, 189)
+        Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnStart.Location = New System.Drawing.Point(159, 189)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Size = New System.Drawing.Size(70, 28)
         Me.btnStart.TabIndex = 1
@@ -60,9 +60,9 @@ Partial Class frmiPoperties
         '
         'btnClose
         '
-        Me.btnClose.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(238, 189)
+        Me.btnClose.Location = New System.Drawing.Point(237, 189)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(70, 28)
         Me.btnClose.TabIndex = 1
@@ -80,8 +80,8 @@ Partial Class frmiPoperties
         '
         'btnAddFile
         '
-        Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(4, 189)
+        Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddFile.Location = New System.Drawing.Point(3, 189)
         Me.btnAddFile.Name = "btnAddFile"
         Me.btnAddFile.Size = New System.Drawing.Size(70, 28)
         Me.btnAddFile.TabIndex = 0
@@ -91,8 +91,8 @@ Partial Class frmiPoperties
         '
         'btnClearList
         '
-        Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(82, 189)
+        Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClearList.Location = New System.Drawing.Point(81, 189)
         Me.btnClearList.Name = "btnClearList"
         Me.btnClearList.Size = New System.Drawing.Size(70, 28)
         Me.btnClearList.TabIndex = 20
@@ -220,7 +220,7 @@ Partial Class frmiPoperties
         Me.tpProject.Location = New System.Drawing.Point(4, 22)
         Me.tpProject.Name = "tpProject"
         Me.tpProject.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpProject.Size = New System.Drawing.Size(267, 146)
+        Me.tpProject.Size = New System.Drawing.Size(286, 146)
         Me.tpProject.TabIndex = 0
         Me.tpProject.Text = "项目"
         Me.tpProject.UseVisualStyleBackColor = True
@@ -276,7 +276,7 @@ Partial Class frmiPoperties
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(318, 231)
+        Me.ClientSize = New System.Drawing.Size(317, 229)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.btnClearList)
@@ -290,7 +290,7 @@ Partial Class frmiPoperties
         Me.Name = "frmiPoperties"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "量产iPoperties"
+        Me.Text = "量产iProperty"
         Me.tpCustom.ResumeLayout(False)
         Me.tpCustom.PerformLayout()
         Me.tpProject.ResumeLayout(False)

@@ -12,25 +12,24 @@ Public Class frmInventoryCoding
 
         btnLoadFile.Enabled = False
 
-        lvwFileList.Items.Clear()
+        lvwFileListView.Items.Clear()
 
         SetStatusBarText()
 
-        If IsInventorOpenDoc() = False Then
+        If IsInventorOpenDocument() = False Then
             Exit Sub
         End If
-        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
             Exit Sub
         End If
 
         Dim oAssemblyDocument As AssemblyDocument
-
-        oAssemblyDocument = ThisApplication.ActiveDocument
-
-        If oAssemblyDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件")
-            Exit Sub
-        End If
+        oAssemblyDocument = oInventorDocument
 
         '==============================================================================================
         '基于bom结构化数据，可跳过参考的文件
@@ -38,21 +37,34 @@ Public Class frmInventoryCoding
         Dim oBOM As BOM
         oBOM = oAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
+        oBOM.StructuredViewFirstLevelOnly = False
 
         'Set a reference to the "Structured" BOMView
         Dim oBOMView As BOMView
 
-        lvwFileList.BeginUpdate()
+        lvwFileListView.BeginUpdate()
 
         '获取结构化的bom页面
         For Each oBOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
                 '遍历这个bom页面
-                QueryBOMRowToLoadiPro(oBOMView.BOMRows, lvwFileList)
+
+                QueryBOMRowToLoadiPro(oBOMView.BOMRows, lvwFileListView)
             End If
         Next
 
-        lvwFileList.EndUpdate()
+
+        '设置标准件颜色
+        For Each oListViewItem As ListViewItem In lvwFileListView.Items
+
+            If Strings.Left(oListViewItem.Text, 2) = "GB" Then
+                'oListViewItem.UseItemStyleForSubItems = False
+                oListViewItem.BackColor = Drawing.Color.LightGreen
+            End If
+        Next
+
+
+        lvwFileListView.EndUpdate()
         '==============================================================================================
 
 
@@ -88,58 +100,68 @@ Public Class frmInventoryCoding
     End Sub
 
     Public Sub QueryBOMRowToLoadiPro(ByVal oBOMRows As BOMRowsEnumerator, olistiview As ListView)
+        On Error Resume Next
+
         Dim i As Integer
 
-        Dim iStepCount As Short
-        iStepCount = oBOMRows.Count
+        Dim intStepCount As Integer
+        intStepCount = oBOMRows.Count
 
         'Create a new ProgressBar object.
         'Dim oProgressBar As Inventor.ProgressBar
 
         'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
 
-        For i = 1 To oBOMRows.Count
+
+        For i = 1 To intStepCount
             ' Get the current row.
             Dim oBOMRow As BOMRow
             oBOMRow = oBOMRows.Item(i)
 
-            Dim oFullFileName As String
-            oFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+            Dim strFullFileName As String
+            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
 
             '测试文件
-            Debug.Print(oFullFileName)
+            Debug.Print(strFullFileName)
 
             ' Set the message for the progress bar
             'oProgressBar.Message = oFullFileName
 
-            If IsFileExsts(oFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
             End If
 
-            If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                GoTo 999
-            End If
+            'If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            '    GoTo 999
+            'End If
 
             Dim oInventorDocument As Inventor.Document
-            oInventorDocument = ThisApplication.Documents.Open(oFullFileName, False)  '打开文件，不显示
+            oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
 
 
             Dim oStockNumPartName As StockNumPartName
             oStockNumPartName = GetPropitems(oInventorDocument)
 
-            Dim LVI As ListViewItem
-            LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
-            LVI.SubItems.Add(oStockNumPartName.PartName)
-            LVI.SubItems.Add(oStockNumPartName.PartNum)
-            LVI.SubItems.Add(oFullFileName)
-            oInventorDocument.Close(True)
-           
+            If IsItemInListView(olistiview, oStockNumPartName.StockNum) = False Then
 
-            '遍历下一级
-            If (Not oBOMRow.ChildRows Is Nothing) Then
-                Call QueryBOMRowToLoadiPro(oBOMRow.ChildRows, olistiview)
+                Dim oListViewItem As ListViewItem
+                oListViewItem = lvwFileListView.Items.Add(oStockNumPartName.StockNum)
+
+                With oListViewItem
+                    .SubItems.Add(oStockNumPartName.PartName)
+                    .SubItems.Add(oStockNumPartName.PartNum)
+                    .SubItems.Add(strFullFileName)
+                End With
+                oInventorDocument.Close(True)
             End If
 
+            If chkChild.Checked = True Then
+
+                '遍历下一级
+                If (Not oBOMRow.ChildRows Is Nothing) Then
+                    Call QueryBOMRowToLoadiPro(oBOMRow.ChildRows, olistiview)
+                End If
+            End If
 999:
             'oProgressBar.UpdateProgress()
         Next
@@ -157,55 +179,55 @@ Public Class frmInventoryCoding
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
         btnSearchCoding.Enabled = False
 
-        Dim excelApp As Excel.Application
-        excelApp = New Excel.Application
+        Dim oExcelApplication As Excel.Application
+        oExcelApplication = New Excel.Application
+        oExcelApplication.Visible = False
 
-        'excelApp.Visible = True
         'Excel_File_Name = "E:\软件\Invenotr\Inventor编程\InventorAddIn\code\bin\最新物料编码.xls"
 
-        Dim wb As Excel.Workbook = excelApp.Workbooks.Open(Excel_File_Name, 0, True)
-        Dim sht As Excel.Worksheet = Nothing
+        Dim oWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(ExcelFullFileName, 0, True)
+        Dim oWorksheet As Excel.Worksheet = Nothing
 
-        Dim userange As Excel.Range = Nothing
+        Dim oRange As Excel.Range = Nothing
 
-        For Each sht In wb.Sheets
+        For Each oWorksheet In oWorkbook.Sheets
             'sht = wb.Sheets(Sheet_Name)
             'sht = wb.Sheets("物料")
 
-            Dim Table_Array(10) As String
+            Dim arrTable(20) As String
 
-            Table_Array = Split(Table_Arrays, ",")
+            arrTable = Split(TableArrays, ",")
 
-            Dim MatchRow As Double   '寻找到的行
+            Dim dblMatchRow As Double   '寻找到的行
 
             With prgProcess
                 .Minimum = 0
-                .Maximum = lvwFileList.Items.Count
+                .Maximum = lvwFileListView.Items.Count
                 .Value = 0
             End With
 
-            For Each LVI As ListViewItem In lvwFileList.Items
-                For Each a In Table_Array
-                    userange = sht.Range(a & ":" & a)
-                    MatchRow = 0
-                    MatchRow = excelApp.WorksheetFunction.Match(LVI.Text, userange, 0)
+            For Each oListViewItem As ListViewItem In lvwFileListView.Items
+                For Each strTable As String In arrTable
+                    oRange = oWorksheet.Range(strTable & ":" & strTable)
+                    dblMatchRow = 0
+                    dblMatchRow = oExcelApplication.WorksheetFunction.Match(oListViewItem.Text, oRange, 0)
 
-                    If MatchRow <> 0.0 Then
+                    If dblMatchRow <> 0.0 Then
 
                         '当前值
-                        Dim NowRangeValue As String = LVI.SubItems(2).Text
+                        Dim strNowRangeValue As String = oListViewItem.SubItems(2).Text
 
-                        Dim FindRange As String  '寻找的单元
-                        Dim FindRangeValue As String    '寻找的值
+                        Dim strFindRange As String  '寻找的单元
+                        Dim strFindRangeValue As String    '寻找的值
 
                         'FindRange = "B" & MatchRow
-                        FindRange = Col_Index_Num & MatchRow
-                        FindRangeValue = sht.Range(FindRange).Value
+                        strFindRange = ColIndexNum & dblMatchRow
+                        strFindRangeValue = oWorksheet.Range(strFindRange).Value
 
-                        If NowRangeValue <> FindRangeValue Then
-                            LVI.SubItems(2).Text = FindRangeValue
-                            LVI.UseItemStyleForSubItems = False
-                            LVI.SubItems(2).ForeColor = Drawing.Color.Red
+                        If strNowRangeValue <> strFindRangeValue Then
+                            oListViewItem.SubItems(2).Text = strFindRangeValue
+                            oListViewItem.UseItemStyleForSubItems = False
+                            oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red
                             Exit For
                         End If
                     End If
@@ -215,15 +237,15 @@ Public Class frmInventoryCoding
             Next
         Next
         '关闭文件
-        wb.Close()
+        oWorkbook.Close()
         ' 8.退出Excel程序
-        excelApp.Quit()
+        oExcelApplication.Quit()
 
         '9.释放资源
-        System.Runtime.InteropServices.Marshal.ReleaseComObject(userange)
-        System.Runtime.InteropServices.Marshal.ReleaseComObject(sht)
-        System.Runtime.InteropServices.Marshal.ReleaseComObject(wb)
-        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(oRange)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(oWorksheet)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(oWorkbook)
+        System.Runtime.InteropServices.Marshal.ReleaseComObject(oExcelApplication)
 
         btnSearchCoding.Enabled = True
     End Sub
@@ -231,25 +253,25 @@ Public Class frmInventoryCoding
     Private Sub btnWriteCoding_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnWriteCoding.Click
 
         Dim oInventorDocument As Inventor.Document
-        Dim FullDocumentName As String
-        Dim oCoding As String
+        Dim strInventorFullFileName As String
+        Dim strERPCoding As String
 
         btnWriteCoding.Enabled = False
 
         With prgProcess
             .Minimum = 0
-            .Maximum = lvwFileList.Items.Count
+            .Maximum = lvwFileListView.Items.Count
             .Value = 0
         End With
 
-        For Each LVI As ListViewItem In lvwFileList.Items
+        For Each oListViewItem As ListViewItem In lvwFileListView.Items
 
-            If LVI.SubItems(2).ForeColor = Drawing.Color.Red Then
-                LVI.SubItems(2).ForeColor = Drawing.Color.Black  '写入后变为黑色
-                oCoding = LVI.SubItems(2).Text
-                FullDocumentName = LVI.SubItems(3).Text
-                oInventorDocument = ThisApplication.Documents.Open(FullDocumentName, False)
-                SetPropitem(oInventorDocument, "成本中心", oCoding)
+            If oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red Then
+                oListViewItem.SubItems(2).ForeColor = Drawing.Color.Black  '写入后变为黑色
+                strERPCoding = oListViewItem.SubItems(2).Text
+                strInventorFullFileName = oListViewItem.SubItems(3).Text
+                oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
+                SetPropitem(oInventorDocument, Map_ERPCode, strERPCoding)
             End If
 
             prgProcess.Value = prgProcess.Value + 1
@@ -258,8 +280,64 @@ Public Class frmInventoryCoding
         btnWriteCoding.Enabled = True
     End Sub
 
-    Private Sub lvwFileList_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lvwFileList.MouseDoubleClick
-        ThisApplication.Documents.Open(lvwFileList.SelectedItems(0).SubItems(3).Text)
+    Private Sub lvwFileListView_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwFileListView.ColumnClick
+        If _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
+            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
+            lvwFileListView.ListViewItemSorter = Sorter
+            _ListViewSorter = clsListViewSorter.EnumSortOrder.Descending
+        Else
+            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Ascending)
+            lvwFileListView.ListViewItemSorter = Sorter
+            _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending
+        End If
+
     End Sub
 
+    Private Sub lvwFileListView_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lvwFileListView.MouseDoubleClick
+        ThisApplication.Documents.Open(lvwFileListView.SelectedItems(0).SubItems(3).Text)
+    End Sub
+
+    Private Sub lvwFileListView_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwFileListView.SelectedIndexChanged
+        Try
+            If (lvwFileListView.SelectedIndices.Count > 0 And chkSelectPart.Checked = True) Then
+                Dim index As Integer = lvwFileListView.SelectedIndices(0)  '选中行的下一行索引
+                If index < lvwFileListView.Items.Count Then
+
+                    Dim oListViewItem As ListViewItem = lvwFileListView.Items(index)
+                    Dim strInventorFullFileName As String  '文件全名
+                    strInventorFullFileName = oListViewItem.SubItems(3).Text
+
+                    Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+                    oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+                    'Dim strInventorAssemblyFullFileName As String
+                    'strInventorAssemblyFullFileName = oInventorAssemblyDocument.FullFileName
+
+                    ' 获取装配定义
+                    Dim oAssemblyComponentDefinition As AssemblyComponentDefinition
+                    oAssemblyComponentDefinition = oInventorAssemblyDocument.ComponentDefinition
+
+                    ' 获取装配子集
+                    Dim oComponentOccurrences As ComponentOccurrences
+                    oComponentOccurrences = oAssemblyComponentDefinition.Occurrences
+
+                    '遍历
+                    For Each oComponentOccurrence As ComponentOccurrence In oComponentOccurrences
+                        If oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName = strInventorFullFileName Then
+                            ThisApplication.CommandManager.DoSelect(oComponentOccurrence)
+                        Else
+                            ThisApplication.CommandManager.DoUnSelect(oComponentOccurrence)
+                        End If
+                    Next
+
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub frmInventoryCoding_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        btnLoadFile_Click(sender, e)
+    End Sub
 End Class

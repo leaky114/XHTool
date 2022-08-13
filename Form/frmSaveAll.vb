@@ -8,69 +8,55 @@ Public Class frmSaveAll
 
         SetStatusBarText()
 
-        If IsInventorOpenDoc() = False Then
+        If IsInventorOpenDocument() = False Then
             Exit Sub
         End If
 
-        If chkAsm.Checked = True Then    '部件
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-                If oInventorDocument.DocumentType = kAssemblyDocumentObject Then
-                    With oInventorDocument
-                        If IsFileExsts(.FullDocumentName) = True Then
-                            Select Case RadioState
-                                Case 1    '全部保存
-                                    .Save2(True)
-                                Case 2    '全部保存关闭
-                                    .Save2(True)
-                                    .Close()
-                                Case 3   '全部关闭
-                                    .Close(True)
-                            End Select
-                        End If
-                    End With
-                End If
-            Next
-        End If
+        For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
+            If IsFileExsts(oInventorDocument.FullDocumentName) = False Then
+                Continue For
+            End If
 
-        If chkPart.Checked = True Then     '零件
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-                If oInventorDocument.DocumentType = kPartDocumentObject Then
-                    With oInventorDocument
-                        If IsFileExsts(.FullDocumentName) = True Then
-                            Select Case RadioState
-                                Case 1    '全部保存
-                                    .Save2(True)
-                                Case 2    '全部保存关闭
-                                    .Save2(True)
-                                    .Close()
-                                Case 3   '全部关闭
-                                    .Close(True)
-                            End Select
-                        End If
-                    End With
-                End If
-            Next
-        End If
+            Select Case oInventorDocument.DocumentType
+                Case kAssemblyDocumentObject
+                    If chkAsm.Checked = True Then
+                        Select Case RadioState
+                            Case 1    '全部保存
+                                oInventorDocument.Save2(True)
+                            Case 2    '全部保存关闭
+                                oInventorDocument.Save2(True)
+                                oInventorDocument.Close()
+                            Case 3   '全部关闭
+                                oInventorDocument.Close(True)
+                        End Select
+                    End If
+                Case kPartDocumentObject
+                    If chkPart.Checked = True Then
+                        Select Case RadioState
+                            Case 1    '全部保存
+                                oInventorDocument.Save2(True)
+                            Case 2    '全部保存关闭
+                                oInventorDocument.Save2(True)
+                                oInventorDocument.Close()
+                            Case 3   '全部关闭
+                                oInventorDocument.Close(True)
+                        End Select
+                    End If
+                Case kDrawingDocumentObject
+                    If chkIdw.Checked = True Then
+                        Select Case RadioState
+                            Case 1    '全部保存
+                                oInventorDocument.Save2(True)
+                            Case 2    '全部保存关闭
+                                oInventorDocument.Save2(True)
+                                oInventorDocument.Close()
+                            Case 3   '全部关闭
+                                oInventorDocument.Close(True)
+                        End Select
+                    End If
+            End Select
+        Next
 
-        If chkIdw.Checked = True Then    '工程图
-            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-                If oInventorDocument.DocumentType = kDrawingDocumentObject Then
-                    With oInventorDocument
-                        If IsFileExsts(.FullDocumentName) = True Then
-                            Select Case RadioState
-                                Case 1    '全部保存
-                                    .Save2(True)
-                                Case 2    '全部保存关闭
-                                    .Save2(True)
-                                    .Close()
-                                Case 3   '全部关闭
-                                    .Close(True)
-                            End Select
-                        End If
-                    End With
-                End If
-            Next
-        End If
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()

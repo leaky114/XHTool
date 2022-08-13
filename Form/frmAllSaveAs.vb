@@ -13,8 +13,8 @@ Public Class frmAllSaveAs
 
         Dim oInventorDocument As Inventor.Document
 
-        Dim DwgFullFileName As String = ""      'dwg 文件全文件名
-        Dim PdfFullFileName As String = ""      'pdf 文件全文件名
+        Dim strPdfFullFileName As String = ""      'dwg 文件全文件名
+        Dim strDwgFullFileName As String = ""      'pdf 文件全文件名
 
         For Each oInventorDocument In ThisApplication.Documents
             If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
@@ -28,10 +28,10 @@ Public Class frmAllSaveAs
         For i = 0 To lstFileList.Items.Count - 1
             oInventorDocument = ThisApplication.Documents.ItemByName(lstFileList.Items(i))
 
-            Dim IdwFullFileName As String  '工程图全文件名
-            IdwFullFileName = oInventorDocument.FullDocumentName
+            Dim strInventorDrawingFullFileName As String '工程图全文件名
+            strInventorDrawingFullFileName = oInventorDocument.FullDocumentName
 
-            ThisApplication.Documents.ItemByName(IdwFullFileName).Activate()
+            ThisApplication.Documents.ItemByName(strInventorDrawingFullFileName).Activate()
 
             'If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
             '    GoTo 999
@@ -42,22 +42,22 @@ Public Class frmAllSaveAs
             'End If
 
             If rdoLocal.Checked = True Then
-                DwgFullFileName = Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".dwg")
-                PdfFullFileName = Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".pdf")
+                strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
+                strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
             End If
 
             If rdoSameFolder.Checked = True Then
 
-                Dim Present_Folder As String       '指定文件夹
-                Present_Folder = txtString.Text
+                Dim strPresent_Folder As String       '指定文件夹
+                strPresent_Folder = txtString.Text
 
-                If IsDirectoryExists(Present_Folder) = True Then
+                If IsDirectoryExists(strPresent_Folder) = True Then
 
-                    DwgFullFileName = Strings.Replace(IdwFullFileName, GetFileNameInfo(IdwFullFileName).Folder, Present_Folder)
-                    PdfFullFileName = Strings.Replace(IdwFullFileName, GetFileNameInfo(IdwFullFileName).Folder, Present_Folder)
+                    strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, strPresent_Folder)
+                    strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, strPresent_Folder)
 
-                    DwgFullFileName = Strings.Replace(DwgFullFileName, LCaseGetFileExtension(IdwFullFileName), ".dwg")
-                    PdfFullFileName = Strings.Replace(PdfFullFileName, LCaseGetFileExtension(IdwFullFileName), ".pdf")
+                    strPdfFullFileName = Strings.Replace(strPdfFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
+                    strDwgFullFileName = Strings.Replace(strDwgFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
                 Else
                     MsgBox("指定文件夹不存在。", MsgBoxStyle.Critical, "全部另存为")
                     Exit Sub
@@ -65,23 +65,23 @@ Public Class frmAllSaveAs
 
             End If
 
-            Dim SaveModel As Integer
+            Dim intSaveModel As Integer
 
-            SaveModel = chkfwg.CheckState + chkpdf.CheckState * 2
+            intSaveModel = chkfwg.CheckState + chkpdf.CheckState * 2
 
-            If SaveModel = 0 Then
+            If intSaveModel = 0 Then
                 MsgBox("未选择另存为的文件类型！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
                 Exit Sub
             End If
 
-            Select Case SaveModel
+            Select Case intSaveModel
                 Case 1
-                    oInventorDocument.SaveAs(DwgFullFileName, True)
+                    oInventorDocument.SaveAs(strPdfFullFileName, True)
                 Case 2
-                    oInventorDocument.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(strDwgFullFileName, True)
                 Case 3
-                    oInventorDocument.SaveAs(DwgFullFileName, True)
-                    oInventorDocument.SaveAs(PdfFullFileName, True)
+                    oInventorDocument.SaveAs(strPdfFullFileName, True)
+                    oInventorDocument.SaveAs(strDwgFullFileName, True)
             End Select
 
             If chkCloseFile.Checked = True Then
@@ -119,41 +119,40 @@ Public Class frmAllSaveAs
 
     '指定文件夹
     Private Sub rdoSameFolder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoSameFolder.CheckedChanged
-        Dim NeFolderBrowserDialog As New FolderBrowserDialog
+        Dim oNeFolderBrowserDialog As New FolderBrowserDialog
 
         If rdoSameFolder.Checked = True Then
             rdoLocal.Checked = False
             btnAddFolder.Enabled = True
 
-            Dim destinationFolder As String = Nothing
-            Dim inf As FileAttributes
-            Dim Present_Folder As String = Nothing
+            Dim strDestinationFolder As String = Nothing
+            Dim oFileAttributes As FileAttributes
 
-            destinationFolder = txtString.Text
+            strDestinationFolder = txtString.Text
 
-            If IsDirectoryExists(destinationFolder) = False Then
-                destinationFolder = System.Environment.SpecialFolder.MyComputer
+            If IsDirectoryExists(strDestinationFolder) = False Then
+                strDestinationFolder = System.Environment.SpecialFolder.MyComputer
             End If
 
-            With NeFolderBrowserDialog
+            With oNeFolderBrowserDialog
                 .Description = "选择文件夹"
                 .ShowNewFolderButton = True
-                .SelectedPath = destinationFolder
+                .SelectedPath = strDestinationFolder
                 If .ShowDialog() = Windows.Forms.DialogResult.OK Then
-                    destinationFolder = .SelectedPath
+                    strDestinationFolder = .SelectedPath
                 Else
                     Exit Sub
                 End If
             End With
 
             '是否为文件夹，在其后添加 \
-            inf = FileSystem.GetAttr(destinationFolder)
+            oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
 
-            If inf = FileAttributes.Directory Then
-                destinationFolder = destinationFolder + "\"
+            If oFileAttributes = FileAttributes.Directory Then
+                strDestinationFolder = strDestinationFolder + "\"
             End If
 
-            txtString.Text = destinationFolder
+            txtString.Text = strDestinationFolder
 
             'Else
             '    RadioButton2.Checked = True
@@ -162,29 +161,29 @@ Public Class frmAllSaveAs
     End Sub
 
     Private Sub btnAddFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFolder.Click
-        Dim destinationFolder As String = Nothing
-        Dim inf As FileAttributes
-        Dim NewFolderBrowserDialog As New FolderBrowserDialog
+        Dim strDestinationFolder As String = Nothing
+        Dim oFileAttributes As FileAttributes
+        Dim oNewFolderBrowserDialog As New FolderBrowserDialog
 
-        With NewFolderBrowserDialog
+        With oNewFolderBrowserDialog
             .ShowNewFolderButton = False
             .Description = "添加文件夹"
             .RootFolder = System.Environment.SpecialFolder.Desktop
             If .ShowDialog() = Windows.Forms.DialogResult.OK Then
-                destinationFolder = .SelectedPath.ToString
+                strDestinationFolder = .SelectedPath.ToString
             Else
                 Exit Sub
             End If
         End With
 
         '是否为文件夹，在其后添加 \
-        inf = FileSystem.GetAttr(destinationFolder)
+        oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
 
-        If inf = FileAttributes.Directory Then
-            destinationFolder = destinationFolder + "\"
+        If oFileAttributes = FileAttributes.Directory Then
+            strDestinationFolder = strDestinationFolder + "\"
         End If
 
-        txtString.Text = destinationFolder
+        txtString.Text = strDestinationFolder
 
     End Sub
 

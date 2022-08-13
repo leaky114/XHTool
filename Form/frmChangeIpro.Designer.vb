@@ -123,7 +123,7 @@ Partial Class frmChangeIpro
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "调整IPro数据顺序"
+        Me.Text = "调整iProperty数据顺序"
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()

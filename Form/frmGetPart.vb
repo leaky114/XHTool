@@ -11,7 +11,7 @@ Public Class frmGetPart
         'Try
         SetStatusBarText()
 
-        If IsInventorOpenDoc() = False Then
+        If IsInventorOpenDocument() = False Then
             Exit Sub
         End If
 
@@ -41,50 +41,50 @@ Public Class frmGetPart
 
             'FNI = GetFileNameInfo(FullFileName)
 
-            Dim LVI As ListViewItem
+            Dim oListViewItem As ListViewItem
             'LVI = ListView1.Items.Add(FNI.ONlyName)
-            LVI = lvwFileList.Items.Add(oSelect.name)
+            oListViewItem = lvwFileList.Items.Add(oSelect.name)
 
-            Dim 数量 As Integer = 1
+            Dim intQuantity As Integer = 1
             '数量 = InputBox("输入数量", "数量", "1")
-            LVI.SubItems.Add(数量)
+            oListViewItem.SubItems.Add(intQuantity)
 
             'Dim InventorDoc2 As Inventor.Document
             'InventorDoc2 = ThisApplication.Documents.Open(FullFileName, False)
             'LVI.SubItems.Add(GetMass(InventorDoc2) * 数量)
             'LVI.SubItems.Add(GetArea(InventorDoc2) * 数量)
 
-            Dim valMass As Double
-            valMass = oSelect.MassProperties.mass
-            valMass = valMass + 0.00000001
+            Dim dblMass As Double
+            dblMass = oSelect.MassProperties.mass
+            dblMass = dblMass + 0.00000001
 
-            Dim Val_Mass_Accuracy As Integer
-            Val_Mass_Accuracy = Val(Mass_Accuracy)
-            valMass = Math.Round(valMass, Val_Mass_Accuracy)
+            Dim intMassAccuracy As Integer
+            intMassAccuracy = Val(Mass_Accuracy)
+            dblMass = Math.Round(dblMass, intMassAccuracy)
 
-            Dim valArea As Double
-            valArea = oSelect.MassProperties.area / 10000
-            valArea = valArea + 0.00000001
+            Dim dblArea As Double
+            dblArea = oSelect.MassProperties.area / 10000
+            dblArea = dblArea + 0.00000001
 
             Dim Val_Area_Accuracy As Integer
             Val_Area_Accuracy = Val(Area_Accuracy)
-            valArea = Math.Round(valArea, Val_Area_Accuracy)
+            dblArea = Math.Round(dblArea, Val_Area_Accuracy)
 
-            LVI.SubItems.Add(valMass * 数量)
-            LVI.SubItems.Add(valArea * 数量)
+            oListViewItem.SubItems.Add(dblMass * intQuantity)
+            oListViewItem.SubItems.Add(dblArea * intQuantity)
             'End If
         Next
 
-        Dim SumMass As Double = 0
-        Dim SumArea As Double = 0
+        Dim dblSumMass As Double = 0
+        Dim dblSumArea As Double = 0
 
         For Each LVI As ListViewItem In lvwFileList.Items
-            SumMass = SumMass + LVI.SubItems(1).Text * LVI.SubItems(2).Text
-            SumArea = SumArea + LVI.SubItems(1).Text * LVI.SubItems(3).Text
+            dblSumMass = dblSumMass + LVI.SubItems(1).Text * LVI.SubItems(2).Text
+            dblSumArea = dblSumArea + LVI.SubItems(1).Text * LVI.SubItems(3).Text
         Next
 
-        txtWeight.Text = SumMass
-        txtArea.Text = SumArea
+        txtWeight.Text = dblSumMass.ToString
+        txtArea.Text = dblSumArea.ToString
 
         'Catch ex As Exception
         '    MsgBox(ex.Message)
@@ -94,16 +94,16 @@ Public Class frmGetPart
     '移出
     Private Sub btnMoveOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveOut.Click
         ListViewDel(lvwFileList)
-        Dim SumMass As Double = 0
-        Dim SumArea As Double = 0
+        Dim dblSumMass As Double = 0
+        Dim dblSumArea As Double = 0
 
-        For Each LVI As ListViewItem In lvwFileList.Items
-            SumMass = SumMass + LVI.SubItems(1).Text * LVI.SubItems(2).Text
-            SumArea = SumArea + LVI.SubItems(1).Text * LVI.SubItems(3).Text
+        For Each oListViewItem As ListViewItem In lvwFileList.Items
+            dblSumMass = dblSumMass + oListViewItem.SubItems(1).Text * oListViewItem.SubItems(2).Text
+            dblSumArea = dblSumArea + oListViewItem.SubItems(1).Text * oListViewItem.SubItems(3).Text
         Next
 
-        txtWeight.Text = SumMass
-        txtArea.Text = SumArea
+        txtWeight.Text = dblSumMass
+        txtArea.Text = dblSumArea
     End Sub
 
     '退出
@@ -136,5 +136,4 @@ Public Class frmGetPart
     Private Sub btnCopyA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopyA.Click
         My.Computer.Clipboard.SetText(txtArea.Text)
     End Sub
-
 End Class

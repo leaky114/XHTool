@@ -8,32 +8,33 @@ Public Class frmSign
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDoc() = False Then
+            If IsInventorOpenDocument() = False Then
                 Exit Sub
             End If
 
-            If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
+            Dim oInventorDocument As Inventor.Document
+            oInventorDocument = ThisApplication.ActiveDocument
+
+            If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
                 MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
                 Exit Sub
             End If
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = ThisApplication.ActiveDocument
+            oInventorDrawingDocument = oInventorDocument
 
-            Dim Print_Date As String
+            Dim strPrintDate As String
 
-            Print_Date = dtpDate.Value.Date.Year & "." & dtpDate.Value.Date.Month & "." & dtpDate.Value.Date.Day
+            strPrintDate = dtpDate.Value.Date.Year & "." & dtpDate.Value.Date.Month & "." & dtpDate.Value.Date.Day
 
-            Select Case chkSignPrint.CheckState
-                Case CheckState.Unchecked
-                    IsOpenPrint = -1
-                Case CheckState.Indeterminate
-                    IsOpenPrint = 0
-                Case CheckState.Checked
+            Select Case chkSignPrint.Checked
+                Case True
                     IsOpenPrint = 1
+                Case False
+                    IsOpenPrint = 0
             End Select
 
-            If SetSign(oInventorDrawingDocument, txtEngineer.Text, Print_Date, True) Then
+            If SetSign(oInventorDrawingDocument, txtEngineer.Text, strPrintDate, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
                 SetStatusBarText("错误")
@@ -56,12 +57,11 @@ Public Class frmSign
         txtEngineer.Text = EngineerName
         dtpDate.Value = Today.Date
         Select Case IsOpenPrint
-            Case -1
-                chkSignPrint.CheckState = CheckState.Unchecked
             Case 0
-                chkSignPrint.CheckState = CheckState.Indeterminate
+                chkSignPrint.Checked = False
             Case 1
-                chkSignPrint.CheckState = CheckState.Checked
+                chkSignPrint.Checked = True
+
         End Select
 
     End Sub

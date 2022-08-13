@@ -22,7 +22,7 @@ Partial Class frmInventoryCoding
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lvwFileList = New System.Windows.Forms.ListView()
+        Me.lvwFileListView = New System.Windows.Forms.ListView()
         Me.chType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chCoding = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -32,49 +32,52 @@ Partial Class frmInventoryCoding
         Me.btnWriteCoding = New System.Windows.Forms.Button()
         Me.prgProcess = New System.Windows.Forms.ProgressBar()
         Me.btnLoadFile = New System.Windows.Forms.Button()
+        Me.chkChild = New System.Windows.Forms.CheckBox()
+        Me.chkSelectPart = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
-        'lvwFileList
+        'lvwFileListView
         '
-        Me.lvwFileList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFileList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chType, Me.chName, Me.chCoding, Me.chFileName})
-        Me.lvwFileList.FullRowSelect = True
-        Me.lvwFileList.Location = New System.Drawing.Point(12, 13)
-        Me.lvwFileList.Name = "lvwFileList"
-        Me.lvwFileList.Size = New System.Drawing.Size(569, 254)
-        Me.lvwFileList.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwFileList.TabIndex = 0
-        Me.lvwFileList.UseCompatibleStateImageBehavior = False
-        Me.lvwFileList.View = System.Windows.Forms.View.Details
+        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chType, Me.chName, Me.chCoding, Me.chFileName})
+        Me.lvwFileListView.FullRowSelect = True
+        Me.lvwFileListView.Location = New System.Drawing.Point(12, 13)
+        Me.lvwFileListView.MultiSelect = False
+        Me.lvwFileListView.Name = "lvwFileListView"
+        Me.lvwFileListView.Size = New System.Drawing.Size(730, 370)
+        Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.lvwFileListView.TabIndex = 0
+        Me.lvwFileListView.UseCompatibleStateImageBehavior = False
+        Me.lvwFileListView.View = System.Windows.Forms.View.Details
         '
         'chType
         '
         Me.chType.Text = "规格(图号)"
-        Me.chType.Width = 150
+        Me.chType.Width = 200
         '
         'chName
         '
         Me.chName.Text = "存货名称"
-        Me.chName.Width = 120
+        Me.chName.Width = 146
         '
         'chCoding
         '
         Me.chCoding.Text = "存货编码"
-        Me.chCoding.Width = 80
+        Me.chCoding.Width = 103
         '
         'chFileName
         '
-        Me.chFileName.Text = "文件"
-        Me.chFileName.Width = 200
+        Me.chFileName.Text = "文件(双击打开)"
+        Me.chFileName.Width = 258
         '
         'btnClose
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.AutoSize = True
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(510, 277)
+        Me.btnClose.Location = New System.Drawing.Point(671, 389)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(69, 28)
         Me.btnClose.TabIndex = 32
@@ -83,7 +86,7 @@ Partial Class frmInventoryCoding
         'btnSearchCoding
         '
         Me.btnSearchCoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSearchCoding.Location = New System.Drawing.Point(356, 277)
+        Me.btnSearchCoding.Location = New System.Drawing.Point(517, 389)
         Me.btnSearchCoding.Name = "btnSearchCoding"
         Me.btnSearchCoding.Size = New System.Drawing.Size(69, 28)
         Me.btnSearchCoding.TabIndex = 31
@@ -92,7 +95,7 @@ Partial Class frmInventoryCoding
         'btnWriteCoding
         '
         Me.btnWriteCoding.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnWriteCoding.Location = New System.Drawing.Point(433, 277)
+        Me.btnWriteCoding.Location = New System.Drawing.Point(594, 389)
         Me.btnWriteCoding.Name = "btnWriteCoding"
         Me.btnWriteCoding.Size = New System.Drawing.Size(69, 28)
         Me.btnWriteCoding.TabIndex = 34
@@ -102,44 +105,69 @@ Partial Class frmInventoryCoding
         'prgProcess
         '
         Me.prgProcess.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.prgProcess.Location = New System.Drawing.Point(12, 280)
+        Me.prgProcess.Location = New System.Drawing.Point(12, 392)
         Me.prgProcess.Name = "prgProcess"
-        Me.prgProcess.Size = New System.Drawing.Size(261, 24)
+        Me.prgProcess.Size = New System.Drawing.Size(243, 24)
         Me.prgProcess.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.prgProcess.TabIndex = 35
         '
         'btnLoadFile
         '
         Me.btnLoadFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadFile.Location = New System.Drawing.Point(279, 277)
+        Me.btnLoadFile.Location = New System.Drawing.Point(440, 389)
         Me.btnLoadFile.Name = "btnLoadFile"
         Me.btnLoadFile.Size = New System.Drawing.Size(69, 28)
         Me.btnLoadFile.TabIndex = 36
         Me.btnLoadFile.Text = "装载"
         '
+        'chkChild
+        '
+        Me.chkChild.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkChild.AutoSize = True
+        Me.chkChild.Location = New System.Drawing.Point(360, 395)
+        Me.chkChild.Name = "chkChild"
+        Me.chkChild.Size = New System.Drawing.Size(72, 16)
+        Me.chkChild.TabIndex = 38
+        Me.chkChild.Text = "包含子集"
+        Me.chkChild.UseVisualStyleBackColor = True
+        '
+        'chkSelectPart
+        '
+        Me.chkSelectPart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkSelectPart.AutoSize = True
+        Me.chkSelectPart.Location = New System.Drawing.Point(282, 395)
+        Me.chkSelectPart.Name = "chkSelectPart"
+        Me.chkSelectPart.Size = New System.Drawing.Size(72, 16)
+        Me.chkSelectPart.TabIndex = 39
+        Me.chkSelectPart.Text = "提示选择"
+        Me.chkSelectPart.UseVisualStyleBackColor = True
+        '
         'frmInventoryCoding
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(593, 322)
+        Me.CancelButton = Me.btnClose
+        Me.ClientSize = New System.Drawing.Size(754, 428)
+        Me.Controls.Add(Me.chkSelectPart)
+        Me.Controls.Add(Me.chkChild)
         Me.Controls.Add(Me.btnLoadFile)
         Me.Controls.Add(Me.prgProcess)
         Me.Controls.Add(Me.btnWriteCoding)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnSearchCoding)
-        Me.Controls.Add(Me.lvwFileList)
+        Me.Controls.Add(Me.lvwFileListView)
         Me.MaximizeBox = False
         Me.Name = "frmInventoryCoding"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "导入存货编码"
+        Me.Text = "导入ERP编码"
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lvwFileList As System.Windows.Forms.ListView
+    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
     Friend WithEvents chCoding As System.Windows.Forms.ColumnHeader
     Friend WithEvents chName As System.Windows.Forms.ColumnHeader
     Friend WithEvents chType As System.Windows.Forms.ColumnHeader
@@ -149,4 +177,6 @@ Partial Class frmInventoryCoding
     Friend WithEvents btnWriteCoding As System.Windows.Forms.Button
     Friend WithEvents prgProcess As System.Windows.Forms.ProgressBar
     Friend WithEvents btnLoadFile As System.Windows.Forms.Button
+    Friend WithEvents chkChild As System.Windows.Forms.CheckBox
+    Friend WithEvents chkSelectPart As System.Windows.Forms.CheckBox
 End Class

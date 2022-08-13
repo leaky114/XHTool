@@ -7,6 +7,7 @@ Imports Microsoft.VisualBasic
 Imports System.Collections.ObjectModel
 Imports stdole
 Imports System.Drawing
+Imports Inventor.DocumentTypeEnum
 
 Public Class frmPrint
 
@@ -17,20 +18,23 @@ Public Class frmPrint
             Exit Sub
         End If
 
-        Dim sPrinterName As String = ""
-        sPrinterName = cmbPrinter.Text
+        Dim strPrinterName As String = ""
+        strPrinterName = cmbPrinter.Text
 
         'For i = 0 To lvwFileListView.Items.Count - 1
 
-        For Each olistviewitem As ListViewItem In lvwFileListView.Items
+        For Each oListViewItem As ListViewItem In lvwFileListView.Items
             'lvwFileListView.Items(i).Selected = True
-            olistviewitem.Selected = True
+            oListViewItem.Selected = True
+
+            Me.Text = "批量打印  (第" & oListViewItem.Index + 1 & "张，共" & lvwFileListView.Items.Count & "张）"
+
             '打开文件
-            Dim InvDocFullFileName As String  '工程图全文件名
+            Dim strInventorDrawingFullFileName As String  '工程图全文件名
 
-            InvDocFullFileName = olistviewitem.Text
+            strInventorDrawingFullFileName = oListViewItem.Text
 
-            If IsFileExsts(InvDocFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExsts(strInventorDrawingFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
             End If
 
@@ -40,7 +44,7 @@ Public Class frmPrint
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             '打开工程图
-            oInventorDrawingDocument = ThisApplication.Documents.Open(InvDocFullFileName, True)
+            oInventorDrawingDocument = ThisApplication.Documents.Open(strInventorDrawingFullFileName, True)
 
             '保存文件
             If chkSave.Checked = True Then
@@ -48,14 +52,24 @@ Public Class frmPrint
             End If
 
             '设置签字
-            Dim Print_Day As String
-            Print_Day = Today.Year & "." & Today.Month & "." & Today.Day
+            Dim strPrintDate As String
+            strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
             If chkSign.CheckState = CheckState.Checked Then
-                SetSign(oInventorDrawingDocument, EngineerName, Print_Day, False)
+                SetSign(oInventorDrawingDocument, EngineerName, strPrintDate, False)
             End If
 
             '打印文件
-            PrintDrawing(oInventorDrawingDocument, sPrinterName)
+            PrintDrawing(oInventorDrawingDocument, strPrinterName)
+
+            '另存为pdf
+            If chkSaveAsPdf.Checked = True Then
+                SaveAsPdf(oInventorDrawingDocument)
+            End If
+
+            '另存为dwg
+            If chkSaveAsDwg.Checked = True Then
+                SaveAsDwg(oInventorDrawingDocument)
+            End If
 
             '关闭文件
             If chkClose.Checked = True Then
@@ -68,6 +82,8 @@ Public Class frmPrint
 
         lvwFileListView.Items.Clear()
         SetStatusBarText("批量打印工程图完成")
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Close()
 
     End Sub
 
@@ -81,20 +97,22 @@ Public Class frmPrint
     '添加文件
     Private Sub btnAddFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFile.Click
 
-        Dim NewOpenFileDialog As New OpenFileDialog
+        Dim oOpenFileDialog As New OpenFileDialog
 
         lblsuggest.Visible = False
 
-        With NewOpenFileDialog
+        With oOpenFileDialog
             .Title = "打开"
             .FileName = ""
             .Filter = "AutoDesk Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
-                    For Each IdwFullFileName As String In .FileNames
+                    For Each strInventorDrawingFullFileName As String In .FileNames
 
-                        AddItemToListView(lvwFileListView, IdwFullFileName)
+                        If IsItemInListView(lvwFileListView, strInventorDrawingFullFileName) = False Then
+                            lvwFileListView.Items.Add(strInventorDrawingFullFileName)
+                        End If
 
                     Next
                 End If
@@ -115,9 +133,9 @@ Public Class frmPrint
 
     '添加文件夹
     Private Sub btnAddFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFolder.Click
-        Dim destinationFolder As String = Nothing
-        Dim inf As FileAttributes
-        Dim Present_Folder As String = Nothing
+        Dim strDestinationFolder As String = Nothing
+        Dim oFileAttributes As FileAttributes
+        Dim strPresentFolder As String = Nothing
         Dim oFolderBrowserDialog As New FolderBrowserDialog
 
         lblsuggest.Visible = False
@@ -127,21 +145,21 @@ Public Class frmPrint
             .Description = "添加文件夹"
             .RootFolder = System.Environment.SpecialFolder.Desktop
             If .ShowDialog() = Windows.Forms.DialogResult.OK Then
-                destinationFolder = .SelectedPath
+                strDestinationFolder = .SelectedPath
             Else
                 Exit Sub
             End If
         End With
 
         '是否为文件夹，在其后添加 \，得到父文件夹
-        inf = FileSystem.GetAttr(destinationFolder)
+        oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
 
-        If inf = FileAttributes.Directory Then
-            destinationFolder = destinationFolder + "\"
-            Present_Folder = My.Computer.FileSystem.GetParentPath(destinationFolder)
+        If oFileAttributes = FileAttributes.Directory Then
+            strDestinationFolder = strDestinationFolder + "\"
+            strPresentFolder = My.Computer.FileSystem.GetParentPath(strDestinationFolder)
         End If
 
-        GetAllFile(Present_Folder, destinationFolder, lvwFileListView)
+        GetAllFile(strPresentFolder, strDestinationFolder, lvwFileListView)
 
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
@@ -151,11 +169,11 @@ Public Class frmPrint
 
         ' Set a reference to the print manager object of the active document.
         ' This will fail if a drawing document is not active.
-        Dim oPrintMgr As DrawingPrintManager
+        Dim oDrawingPrintManagerr As DrawingPrintManager
 
-        oPrintMgr = oInventorDrawingDocument.PrintManager
+        oDrawingPrintManagerr = oInventorDrawingDocument.PrintManager
 
-        With oPrintMgr
+        With oDrawingPrintManagerr
             ' Get the name of the printer that will be used.
             .Printer = sPrinterName
 
@@ -231,21 +249,20 @@ Public Class frmPrint
     End Sub
 
     Private Sub frmPrint_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim prtdoc As New Printing.PrintDocument
-        Dim strDefaultPrinter As String = prtdoc.PrinterSettings.PrinterName
+        Dim oPrintDocument As New Printing.PrintDocument
+        Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
-        Dim strPrinter As String
-        For Each strPrinter In Printing.PrinterSettings.InstalledPrinters
-            cmbPrinter.Items.Add(strPrinter)
-            If strPrinter = strDefaultPrinter Then
-                cmbPrinter.SelectedIndex = cmbPrinter.Items.IndexOf(strPrinter)
+        For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
+            cmbPrinter.Items.Add(strPrinterName)
+            If strPrinterName = strDefaultPrinter Then
+                cmbPrinter.SelectedIndex = cmbPrinter.Items.IndexOf(strPrinterName)
             End If
-        Next strPrinter
+        Next
     End Sub
 
     Private Sub btnLoadAsm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAsm.Click
         Dim oOpenFileDialog As New OpenFileDialog
-        Dim AssDoc As AssemblyDocument = Nothing
+        Dim oAssemblyDocument As Inventor.AssemblyDocument = Nothing
 
         lblsuggest.Visible = False
 
@@ -256,7 +273,7 @@ Public Class frmPrint
             .FileName = ""
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
-                    AssDoc = ThisApplication.Documents.Open(.FileName)
+                    oAssemblyDocument = ThisApplication.Documents.Open(.FileName)
                 End If
             Else
                 Exit Sub
@@ -296,7 +313,7 @@ Public Class frmPrint
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
         Dim oBOM As BOM
-        oBOM = AssDoc.ComponentDefinition.BOM
+        oBOM = oAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
 
         'Set a reference to the "Structured" BOMView
@@ -319,7 +336,7 @@ Public Class frmPrint
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
-    Private Sub QueryBOMRowToLoadFile(ByVal oBOMRows As BOMRowsEnumerator, olistiview As ListView)
+    Private Sub QueryBOMRowToLoadFile(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView)
         Dim i As Integer
 
         Dim iStepCount As Short
@@ -344,18 +361,20 @@ Public Class frmPrint
             ' Set the message for the progress bar
             'oProgressBar.Message = oFullFileName
 
-            Dim IdwFullFileName As String
-            IdwFullFileName = GetNewExtensionFileName(oFullFileName, ".idw")
+            Dim strInventorDrawingFullFileName As String
+            strInventorDrawingFullFileName = GetNewExtensionFileName(oFullFileName, ".idw")
 
-            If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExsts(strInventorDrawingFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
             End If
 
-            If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                GoTo 999
-            End If
+            'If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            '    GoTo 999
+            'End If
 
-            AddItemToListView(lvwFileListView, IdwFullFileName)
+            If IsItemInListView(lvwFileListView, strInventorDrawingFullFileName) = False Then
+                lvwFileListView.Items.Add(strInventorDrawingFullFileName)
+            End If
 
             '遍历下一级
             If (Not oBOMRow.ChildRows Is Nothing) Then
@@ -370,27 +389,22 @@ Public Class frmPrint
 
     End Sub
 
-
-    Private Sub btnRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
-  
-
     Private Sub btnLoadIdw_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadIdw.Click
         Try
             lblsuggest.Visible = False
 
             SetStatusBarText()
 
-            If IsInventorOpenDoc() = False Then
+            If IsInventorOpenDocument() = False Then
                 Exit Sub
             End If
 
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
                 If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
 
-                    AddItemToListView(lvwFileListView, oInventorDocument.FullDocumentName)
+                    If IsItemInListView(lvwFileListView, oInventorDocument.FullDocumentName) = False Then
+                        lvwFileListView.Items.Add(oInventorDocument.FullDocumentName)
+                    End If
 
                 End If
             Next
@@ -400,13 +414,11 @@ Public Class frmPrint
         End Try
     End Sub
 
-   
     '移除
     Private Sub tsmiRemove_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemove.Click
         ListViewDel(lvwFileListView)
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
-
 
     '筛选移除
     Private Sub tsmiRemoveFilter_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemoveFilter.Click
@@ -429,13 +441,13 @@ Public Class frmPrint
         End If
 
         For Each oListViewItem As ListViewItem In lvwFileListView.Items
-            Dim InvDocFullFileName As String  '工程图全文件名
-            InvDocFullFileName = oListViewItem.Text
+            Dim strInventorDrawingFullFileName As String  '工程图全文件名
+            strInventorDrawingFullFileName = oListViewItem.Text
 
-            Dim InvDocFullFileONlyName As String
-            InvDocFullFileONlyName = GetFileNameInfo(InvDocFullFileName).ONlyName
+            Dim strInventorDrawingFileOnlyName As String
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).ONlyName
 
-            If InStr(InvDocFullFileONlyName, strFilter) <> 0 Then
+            If InStr(strInventorDrawingFileOnlyName, strFilter) <> 0 Then
                 oListViewItem.Remove()
             End If
 
@@ -465,13 +477,13 @@ Public Class frmPrint
         End If
 
         For Each oListViewItem As ListViewItem In lvwFileListView.Items
-            Dim InvDocFullFileName As String  '工程图全文件名
-            InvDocFullFileName = oListViewItem.Text
+            Dim strInventorDrawingFullFileName As String  '工程图全文件名
+            strInventorDrawingFullFileName = oListViewItem.Text
 
-            Dim InvDocFullFileONlyName As String
-            InvDocFullFileONlyName = GetFileNameInfo(InvDocFullFileName).ONlyName
+            Dim strInventorDrawingFileOnlyName As String
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).ONlyName
 
-            If InStr(InvDocFullFileONlyName, strFilter) = 0 Then
+            If InStr(strInventorDrawingFileOnlyName, strFilter) = 0 Then
                 oListViewItem.Remove()
             End If
 
@@ -482,4 +494,59 @@ Public Class frmPrint
 
 
 
+    Private Sub btnLoadActiveAsm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadActiveAsm.Click
+
+        lblsuggest.Visible = False
+
+        lvwFileListView.Items.Clear()
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        Dim oAssemblyDocument As AssemblyDocument
+        oAssemblyDocument = oInventorDocument
+
+        '===================================
+        '基于bom结构化数据，可跳过参考的文件
+        ' Set a reference to the BOM
+        Dim oBOM As BOM
+        oBOM = oAssemblyDocument.ComponentDefinition.BOM
+        oBOM.StructuredViewEnabled = True
+
+        'Set a reference to the "Structured" BOMView
+        Dim oBOMView As BOMView
+
+        Me.Cursor = Cursors.WaitCursor
+
+        lvwFileListView.BeginUpdate()
+
+        '获取结构化的bom页面
+        For Each oBOMView In oBOM.BOMViews
+            If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                '遍历这个bom页面
+                QueryBOMRowToLoadFile(oBOMView.BOMRows, lvwFileListView)
+            End If
+        Next
+
+        lvwFileListView.EndUpdate()
+        Me.Cursor = Cursors.Default
+        Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+    End Sub
+
+    Private Sub lvwFileListView_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvwFileListView.MouseDoubleClick
+        ThisApplication.Documents.Open(lvwFileListView.SelectedItems(0).Text)
+    End Sub
+
+    
 End Class

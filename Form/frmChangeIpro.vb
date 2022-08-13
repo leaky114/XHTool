@@ -7,9 +7,9 @@ Public Class frmChangeIpro
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        SetPropitem(oInventorDocument, Map_StochNum, txtNum.Text)
+        SetPropitem(oInventorDocument, Map_DrawingNnumber, txtNum.Text)
         SetPropitem(oInventorDocument, Map_PartName, txtFileName.Text)
-        SetPropitem(oInventorDocument, "描述", txtDescribe.Text)
+        SetPropitem(oInventorDocument, Map_Describe, txtDescribe.Text)
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -32,14 +32,14 @@ Public Class frmChangeIpro
         oPropSet = oPropSets.Item(3)
 
         '获取iproperty
-        Dim StockNumPartName As StockNumPartName = Nothing
+        ''Dim oStockNumPartName As StockNumPartName = Nothing
         For Each propitem In oPropSet
             Select Case propitem.DisplayName
-                Case Map_StochNum
+                Case Map_DrawingNnumber
                     txtNum.Text = propitem.Value
                 Case Map_PartName
                     txtFileName.Text = propitem.Value
-                Case "描述"
+                Case Map_Describe
                     txtDescribe.Text = propitem.Value
             End Select
         Next
@@ -47,17 +47,17 @@ Public Class frmChangeIpro
     End Sub
 
     Private Sub btnUp1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUp1.Click
-        Dim Str_TempText As String
-        Str_TempText = txtNum.Text
+        Dim strTemp As String
+        strTemp = txtNum.Text
         txtNum.Text = txtFileName.Text
-        txtFileName.Text = Str_TempText
+        txtFileName.Text = strTemp
     End Sub
 
     Private Sub btnUp2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUp2.Click
-        Dim Str_TempText As String
-        Str_TempText = txtFileName.Text
+        Dim strTemp As String
+        strTemp = txtFileName.Text
         txtFileName.Text = txtDescribe.Text
-        txtDescribe.Text = Str_TempText
+        txtDescribe.Text = strTemp
     End Sub
 
 End Class

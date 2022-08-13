@@ -21,10 +21,9 @@ Public Class frmiPoperties
         oUserPropertySet = oUSet
 
         '获取最大PropID
-        Dim oP As Inventor.Property
-        For Each oP In oUserPropertySet
-            If oP.PropId > PropID Then
-                PropID = oP.PropId
+        For Each oProperty As Inventor.Property In oUserPropertySet
+            If oProperty.PropId > PropID Then
+                PropID = oProperty.PropId
             End If
         Next
 
@@ -61,7 +60,7 @@ Public Class frmiPoperties
                     '打开文件
                     oInventorDocDocument = ThisApplication.Documents.ItemByName(lstFileLIst.Items(i).ToString)
                     '打开 项目 选项卡
-                    Dim oDTProps As PropertySet = oInventorDocDocument.PropertySets.Item("Design Tracking Properties")
+                    Dim oPropertySet As PropertySet = oInventorDocDocument.PropertySets.Item("Design Tracking Properties")
 
                     '用内部定义名的代码
                     'Dim oDesignerProp As Inventor.Property = oDTProps.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kDesignerDesignTrackingProperties)
@@ -70,13 +69,13 @@ Public Class frmiPoperties
 
                     '用显示名 displayname 的代码
                     '定义单个项目
-                    Dim oDesignerProp As Inventor.Property
+                    'Dim oProperty As Inventor.Property
 
                     '遍历选项卡下的每个单项目
-                    For Each oDesignerProp In oDTProps
-                        If oDesignerProp.DisplayName = cmbProject.Text Then
+                    For Each oProperty As Inventor.Property In oPropertySet
+                        If oProperty.DisplayName = cmbProject.Text Then
                             '项目名对应，设置数据
-                            oDesignerProp.Value = txtData.Text.ToString
+                            oProperty.Value = txtData.Text.ToString
                         End If
                     Next
 
@@ -101,7 +100,7 @@ Public Class frmiPoperties
                     '打开 项目 选项卡
                     'Dim oDTProps As PropertySet = thisApprenticeDoc.PropertySets.Item("User Defined Properties")
 
-                    Dim pEachScale As Inventor.Property
+                    Dim oProperty As Inventor.Property
 
                     'Try
                     '    '若该iProperty已经存在，则直接修改其值
@@ -115,16 +114,16 @@ Public Class frmiPoperties
 
                     'Try
                     '若该iProperty已经存在，则直接修改其值
-                    pEachScale = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txtProperty.Text)
+                    oProperty = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txtProperty.Text)
                     Select Case oOption
                         Case enumPType.eString
-                            pEachScale.Value = txtString.Text
+                            oProperty.Value = txtString.Text
                         Case enumPType.eBool
-                            pEachScale.Value = BoolP.Checked
+                            oProperty.Value = BoolP.Checked
                         Case enumPType.eDouble
-                            pEachScale.Value = Convert.ToDouble(txtDouble.Text)
+                            oProperty.Value = Convert.ToDouble(txtDouble.Text)
                         Case enumPType.eDate
-                            pEachScale.Value = dtpDate.Value
+                            oProperty.Value = dtpDate.Value
                     End Select
 
                     'Catch
@@ -179,16 +178,16 @@ Public Class frmiPoperties
     '添加文件
     Private Sub btnAddFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFile.Click
         '打开文件
-        Dim NewOpenFileDialog As New OpenFileDialog '声名新open 窗口
+        Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-        With NewOpenFileDialog
+        With oOpenFileDialog
             .Title = "打开"
             .Filter = "AutoCAD Inventor 文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt" '添加过滤文件
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
-                    For Each FullFileName As String In .FileNames
-                        lstFileLIst.Items.Add(FullFileName)
+                    For Each strFullFileName As String In .FileNames
+                        lstFileLIst.Items.Add(strFullFileName)
                     Next
 
                 End If

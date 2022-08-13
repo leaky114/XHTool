@@ -27,7 +27,7 @@ Partial Class frmAutoPartNumber
         Me.btnMoveUp = New System.Windows.Forms.Button()
         Me.btnReview = New System.Windows.Forms.Button()
         Me.btnMoveDown = New System.Windows.Forms.Button()
-        Me.lvwFile = New System.Windows.Forms.ListView()
+        Me.lvwFileListView = New System.Windows.Forms.ListView()
         Me.chOriginalFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chNewFileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -49,7 +49,7 @@ Partial Class frmAutoPartNumber
         'btnStart
         '
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(511, 385)
+        Me.btnStart.Location = New System.Drawing.Point(514, 391)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Size = New System.Drawing.Size(65, 28)
         Me.btnStart.TabIndex = 5
@@ -60,7 +60,7 @@ Partial Class frmAutoPartNumber
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.AutoSize = True
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(584, 385)
+        Me.btnClose.Location = New System.Drawing.Point(587, 391)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(65, 28)
         Me.btnClose.TabIndex = 6
@@ -69,7 +69,7 @@ Partial Class frmAutoPartNumber
         'btnMoveUp
         '
         Me.btnMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveUp.Location = New System.Drawing.Point(93, 385)
+        Me.btnMoveUp.Location = New System.Drawing.Point(96, 391)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveUp.TabIndex = 0
@@ -80,7 +80,7 @@ Partial Class frmAutoPartNumber
         'btnReview
         '
         Me.btnReview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReview.Location = New System.Drawing.Point(385, 385)
+        Me.btnReview.Location = New System.Drawing.Point(388, 391)
         Me.btnReview.Name = "btnReview"
         Me.btnReview.Size = New System.Drawing.Size(65, 28)
         Me.btnReview.TabIndex = 4
@@ -90,7 +90,7 @@ Partial Class frmAutoPartNumber
         'btnMoveDown
         '
         Me.btnMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveDown.Location = New System.Drawing.Point(166, 385)
+        Me.btnMoveDown.Location = New System.Drawing.Point(169, 391)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveDown.TabIndex = 21
@@ -98,21 +98,21 @@ Partial Class frmAutoPartNumber
         Me.btnMoveDown.Text = "下移"
         Me.btnMoveDown.UseVisualStyleBackColor = True
         '
-        'lvwFile
+        'lvwFileListView
         '
-        Me.lvwFile.AllowDrop = True
-        Me.lvwFile.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvwFile.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chOriginalFileName, Me.chType, Me.chNewFileName, Me.chFolder})
-        Me.lvwFile.FullRowSelect = True
-        Me.lvwFile.Location = New System.Drawing.Point(13, 12)
-        Me.lvwFile.Name = "lvwFile"
-        Me.lvwFile.Size = New System.Drawing.Size(636, 281)
-        Me.lvwFile.TabIndex = 22
-        Me.lvwFile.TabStop = False
-        Me.lvwFile.UseCompatibleStateImageBehavior = False
-        Me.lvwFile.View = System.Windows.Forms.View.Details
+        Me.lvwFileListView.AllowDrop = True
+        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chOriginalFileName, Me.chType, Me.chNewFileName, Me.chFolder})
+        Me.lvwFileListView.FullRowSelect = True
+        Me.lvwFileListView.Location = New System.Drawing.Point(13, 12)
+        Me.lvwFileListView.Name = "lvwFileListView"
+        Me.lvwFileListView.Size = New System.Drawing.Size(639, 287)
+        Me.lvwFileListView.TabIndex = 22
+        Me.lvwFileListView.TabStop = False
+        Me.lvwFileListView.UseCompatibleStateImageBehavior = False
+        Me.lvwFileListView.View = System.Windows.Forms.View.Details
         '
         'chOriginalFileName
         '
@@ -137,7 +137,7 @@ Partial Class frmAutoPartNumber
         'txtBasicNum
         '
         Me.txtBasicNum.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtBasicNum.Location = New System.Drawing.Point(79, 315)
+        Me.txtBasicNum.Location = New System.Drawing.Point(79, 321)
         Me.txtBasicNum.Name = "txtBasicNum"
         Me.txtBasicNum.Size = New System.Drawing.Size(134, 21)
         Me.txtBasicNum.TabIndex = 0
@@ -146,7 +146,7 @@ Partial Class frmAutoPartNumber
         '
         Me.lblBasicNum.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblBasicNum.AutoSize = True
-        Me.lblBasicNum.Location = New System.Drawing.Point(22, 318)
+        Me.lblBasicNum.Location = New System.Drawing.Point(22, 324)
         Me.lblBasicNum.Name = "lblBasicNum"
         Me.lblBasicNum.Size = New System.Drawing.Size(53, 12)
         Me.lblBasicNum.TabIndex = 25
@@ -156,7 +156,7 @@ Partial Class frmAutoPartNumber
         '
         Me.lblAmsChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblAmsChange.AutoSize = True
-        Me.lblAmsChange.Location = New System.Drawing.Point(219, 318)
+        Me.lblAmsChange.Location = New System.Drawing.Point(219, 324)
         Me.lblAmsChange.Name = "lblAmsChange"
         Me.lblAmsChange.Size = New System.Drawing.Size(65, 12)
         Me.lblAmsChange.TabIndex = 26
@@ -166,7 +166,7 @@ Partial Class frmAutoPartNumber
         '
         Me.lblPartChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblPartChange.AutoSize = True
-        Me.lblPartChange.Location = New System.Drawing.Point(397, 318)
+        Me.lblPartChange.Location = New System.Drawing.Point(397, 324)
         Me.lblPartChange.Name = "lblPartChange"
         Me.lblPartChange.Size = New System.Drawing.Size(65, 12)
         Me.lblPartChange.TabIndex = 28
@@ -175,7 +175,7 @@ Partial Class frmAutoPartNumber
         'txtPartChange
         '
         Me.txtPartChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtPartChange.Location = New System.Drawing.Point(478, 315)
+        Me.txtPartChange.Location = New System.Drawing.Point(478, 321)
         Me.txtPartChange.Name = "txtPartChange"
         Me.txtPartChange.Size = New System.Drawing.Size(73, 21)
         Me.txtPartChange.TabIndex = 2
@@ -186,7 +186,7 @@ Partial Class frmAutoPartNumber
         Me.cmbAmsChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmbAmsChange.FormattingEnabled = True
         Me.cmbAmsChange.Items.AddRange(New Object() {"100", "10000"})
-        Me.cmbAmsChange.Location = New System.Drawing.Point(292, 315)
+        Me.cmbAmsChange.Location = New System.Drawing.Point(292, 321)
         Me.cmbAmsChange.Name = "cmbAmsChange"
         Me.cmbAmsChange.Size = New System.Drawing.Size(99, 20)
         Me.cmbAmsChange.TabIndex = 2
@@ -195,7 +195,7 @@ Partial Class frmAutoPartNumber
         'btnMoveOut
         '
         Me.btnMoveOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnMoveOut.Location = New System.Drawing.Point(239, 385)
+        Me.btnMoveOut.Location = New System.Drawing.Point(242, 391)
         Me.btnMoveOut.Name = "btnMoveOut"
         Me.btnMoveOut.Size = New System.Drawing.Size(65, 28)
         Me.btnMoveOut.TabIndex = 29
@@ -205,7 +205,7 @@ Partial Class frmAutoPartNumber
         'btnReLoad
         '
         Me.btnReLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReLoad.Location = New System.Drawing.Point(312, 385)
+        Me.btnReLoad.Location = New System.Drawing.Point(315, 391)
         Me.btnReLoad.Name = "btnReLoad"
         Me.btnReLoad.Size = New System.Drawing.Size(65, 28)
         Me.btnReLoad.TabIndex = 30
@@ -216,7 +216,7 @@ Partial Class frmAutoPartNumber
         '
         Me.lblNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblNewFileName.AutoSize = True
-        Me.lblNewFileName.Location = New System.Drawing.Point(20, 346)
+        Me.lblNewFileName.Location = New System.Drawing.Point(20, 352)
         Me.lblNewFileName.Name = "lblNewFileName"
         Me.lblNewFileName.Size = New System.Drawing.Size(53, 12)
         Me.lblNewFileName.TabIndex = 31
@@ -225,7 +225,7 @@ Partial Class frmAutoPartNumber
         'txtNewFileName
         '
         Me.txtNewFileName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtNewFileName.Location = New System.Drawing.Point(79, 342)
+        Me.txtNewFileName.Location = New System.Drawing.Point(79, 348)
         Me.txtNewFileName.Name = "txtNewFileName"
         Me.txtNewFileName.Size = New System.Drawing.Size(361, 21)
         Me.txtNewFileName.TabIndex = 32
@@ -233,7 +233,7 @@ Partial Class frmAutoPartNumber
         'btnSelectall
         '
         Me.btnSelectall.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSelectall.Location = New System.Drawing.Point(20, 385)
+        Me.btnSelectall.Location = New System.Drawing.Point(23, 391)
         Me.btnSelectall.Name = "btnSelectall"
         Me.btnSelectall.Size = New System.Drawing.Size(65, 28)
         Me.btnSelectall.TabIndex = 33
@@ -245,7 +245,7 @@ Partial Class frmAutoPartNumber
         'btnOK
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(446, 340)
+        Me.btnOK.Location = New System.Drawing.Point(446, 346)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(25, 25)
         Me.btnOK.TabIndex = 34
@@ -258,7 +258,7 @@ Partial Class frmAutoPartNumber
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(661, 427)
+        Me.ClientSize = New System.Drawing.Size(664, 433)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnSelectall)
         Me.Controls.Add(Me.txtNewFileName)
@@ -271,7 +271,7 @@ Partial Class frmAutoPartNumber
         Me.Controls.Add(Me.lblAmsChange)
         Me.Controls.Add(Me.lblBasicNum)
         Me.Controls.Add(Me.txtBasicNum)
-        Me.Controls.Add(Me.lvwFile)
+        Me.Controls.Add(Me.lvwFileListView)
         Me.Controls.Add(Me.btnMoveDown)
         Me.Controls.Add(Me.btnReview)
         Me.Controls.Add(Me.btnMoveUp)
@@ -294,7 +294,7 @@ Partial Class frmAutoPartNumber
     Friend WithEvents btnMoveUp As System.Windows.Forms.Button
     Friend WithEvents btnReview As System.Windows.Forms.Button
     Friend WithEvents btnMoveDown As System.Windows.Forms.Button
-    Friend WithEvents lvwFile As System.Windows.Forms.ListView
+    Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
     Friend WithEvents chOriginalFileName As System.Windows.Forms.ColumnHeader
     Friend WithEvents chType As System.Windows.Forms.ColumnHeader
     Friend WithEvents chNewFileName As System.Windows.Forms.ColumnHeader

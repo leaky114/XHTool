@@ -27,13 +27,16 @@ Partial Class frmInputBox
         Me.lblDescribe = New System.Windows.Forms.Label()
         Me.txtInPut = New System.Windows.Forms.TextBox()
         Me.picICON = New System.Windows.Forms.PictureBox()
+        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.btnPaste = New System.Windows.Forms.Button()
+        Me.btnOther = New System.Windows.Forms.Button()
         CType(Me.picICON, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOK
         '
         Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnOK.Location = New System.Drawing.Point(281, 123)
+        Me.btnOK.Location = New System.Drawing.Point(283, 125)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(65, 28)
         Me.btnOK.TabIndex = 0
@@ -43,7 +46,7 @@ Partial Class frmInputBox
         '
         Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(354, 123)
+        Me.btnCancel.Location = New System.Drawing.Point(356, 125)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(65, 28)
         Me.btnCancel.TabIndex = 1
@@ -72,13 +75,47 @@ Partial Class frmInputBox
         Me.picICON.TabIndex = 3
         Me.picICON.TabStop = False
         '
+        'btnCopy
+        '
+        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnCopy.Location = New System.Drawing.Point(10, 125)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(65, 28)
+        Me.btnCopy.TabIndex = 4
+        Me.btnCopy.Text = "复制"
+        Me.btnCopy.UseVisualStyleBackColor = True
+        '
+        'btnPaste
+        '
+        Me.btnPaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnPaste.Location = New System.Drawing.Point(83, 125)
+        Me.btnPaste.Name = "btnPaste"
+        Me.btnPaste.Size = New System.Drawing.Size(65, 28)
+        Me.btnPaste.TabIndex = 5
+        Me.btnPaste.Text = "粘贴"
+        Me.btnPaste.UseVisualStyleBackColor = True
+        '
+        'btnOther
+        '
+        Me.btnOther.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnOther.Location = New System.Drawing.Point(156, 125)
+        Me.btnOther.Name = "btnOther"
+        Me.btnOther.Size = New System.Drawing.Size(65, 28)
+        Me.btnOther.TabIndex = 6
+        Me.btnOther.Text = "其他可变"
+        Me.btnOther.UseVisualStyleBackColor = True
+        Me.btnOther.Visible = False
+        '
         'frmInputBox
         '
         Me.AcceptButton = Me.btnOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(438, 156)
+        Me.ClientSize = New System.Drawing.Size(443, 161)
+        Me.Controls.Add(Me.btnOther)
+        Me.Controls.Add(Me.btnPaste)
+        Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.picICON)
         Me.Controls.Add(Me.btnCancel)
@@ -101,5 +138,8 @@ Partial Class frmInputBox
     Friend WithEvents lblDescribe As System.Windows.Forms.Label
     Friend WithEvents txtInPut As System.Windows.Forms.TextBox
     Friend WithEvents picICON As System.Windows.Forms.PictureBox
+    Friend WithEvents btnCopy As System.Windows.Forms.Button
+    Friend WithEvents btnPaste As System.Windows.Forms.Button
+    Friend WithEvents btnOther As System.Windows.Forms.Button
 
 End Class

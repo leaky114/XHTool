@@ -8,9 +8,10 @@ Public Class frmOption
             Exit Sub
         End If
 
-        Map_StochNum = cbo图号.Text
+        Map_DrawingNnumber = cbo图号.Text
         Map_PartName = cbo文件名.Text
-        Map_PartNum = cbo存货编码.Text
+        Map_ERPCode = cbo存货编码.Text
+        Map_Vendor = cbo供应商.Text
         Map_Mir_StochNum = txt图号映射.Text
         Map_Mir_PartName = txt文件名映射.Text
         Map_DrawingScale = txt比例.Text
@@ -19,10 +20,10 @@ Public Class frmOption
         BOMTiTle = txtBOM导出项.Text
         Map_Mass = txt图号.Text
 
-        Excel_File_Name = txtexcel文件.Text
-        Sheet_Name = txt数据表.Text
-        Table_Arrays = txt查找范围.Text
-        Col_Index_Num = txt查询列.Text
+        ExcelFullFileName = txtexcel文件.Text
+        SheetName = txt数据表.Text
+        TableArrays = txt查找范围.Text
+        ColIndexNum = txt查询列.Text
 
         '打印签字
         Select Case chk签字后打印.Checked
@@ -36,7 +37,6 @@ Public Class frmOption
         Select Case chk签字.Checked
             Case False
                 IsDayAndName = "-1"
-
             Case True
                 IsDayAndName = "1"
         End Select
@@ -95,35 +95,37 @@ Public Class frmOption
                 Area_Accuracy = "6"
         End Select
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapStochNum", Map_StochNum)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartName", Map_PartName)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartNum", Map_PartNum)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapStochNum", Map_DrawingNnumber)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartName", Map_PartName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartNum", Map_ERPCode)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirStochNum", Map_Mir_StochNum)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirPartName", Map_Mir_PartName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirStochNum", Map_Mir_StochNum)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirPartName", Map_Mir_PartName)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapDrawingScale", Map_DrawingScale)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetDrawingScale", IsSetDrawingScale)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapDrawingScale", Map_DrawingScale)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetDrawingScale", IsSetDrawingScale)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", " MapMass", Map_Mass)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetMass", IsSetMass)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMass", Map_Mass)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetMass", IsSetMass)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPrintDay", Map_PrintDay)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsOpenPrint", IsOpenPrint)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPrintDay", Map_PrintDay)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsOpenPrint", IsOpenPrint)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "EngineerName", EngineerName)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsDayAndName", IsDayAndName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "EngineerName", EngineerName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsDayAndName", IsDayAndName)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "BOMTiTle", BOMTiTle)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Mass_Accuracy", Mass_Accuracy)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Area_Accuracy", Area_Accuracy)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "BOMTiTle", BOMTiTle)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Mass_Accuracy", Mass_Accuracy)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Area_Accuracy", Area_Accuracy)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
 
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Excel_File_Name", Excel_File_Name)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", Sheet_Name)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", Table_Arrays)
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", Col_Index_Num)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Excel_File_Name", ExcelFullFileName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", SheetName)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", TableArrays)
+        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", ColIndexNum)
+
+        WrXml.XmlWriteSetting()
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -137,9 +139,11 @@ Public Class frmOption
 
     Private Sub frmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '初始化映射
-        cbo图号.Text = Map_StochNum
+        cbo图号.Text = Map_DrawingNnumber
         cbo文件名.Text = Map_PartName
-        cbo存货编码.Text = Map_PartNum
+        cbo存货编码.Text = Map_ERPCode
+        cbo供应商.Text = Map_Vendor
+
         cbo添加.Text = cbo添加.Items(0)
 
         Select Case Mass_Accuracy
@@ -213,10 +217,10 @@ Public Class frmOption
                 chk检查更新.Checked = True
         End Select
 
-        txtexcel文件.Text = Excel_File_Name
-        txt数据表.Text = Sheet_Name
-        txt查找范围.Text = Table_Arrays
-        txt查询列.Text = Col_Index_Num
+        txtexcel文件.Text = ExcelFullFileName
+        txt数据表.Text = SheetName
+        txt查找范围.Text = TableArrays
+        txt查询列.Text = ColIndexNum
 
     End Sub
 
@@ -247,11 +251,11 @@ Public Class frmOption
     End Sub
 
     Private Sub btnExcelFilePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcelFilePath.Click
-        Dim NewOpenFileDialog As New OpenFileDialog
-        With NewOpenFileDialog
+        Dim oOpenFileDialog As New OpenFileDialog
+        With oOpenFileDialog
             .Title = "打开"
             .FileName = ""
-            .InitialDirectory = GetFileNameInfo(Excel_File_Name).Folder
+            .InitialDirectory = GetFileNameInfo(ExcelFullFileName).Folder
             .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
             .Multiselect = False '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
@@ -265,8 +269,8 @@ Public Class frmOption
     End Sub
 
     Private Sub btnOpenExcelFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenExcelFile.Click
-        If IsFileExsts(Excel_File_Name) = True Then
-            Process.Start(Excel_File_Name)
+        If IsFileExsts(ExcelFullFileName) = True Then
+            Process.Start(ExcelFullFileName)
         Else
             'excel文件不存在，到服务器下载
             Dim documentURL As String
@@ -274,8 +278,8 @@ Public Class frmOption
 
             If IsFileExsts(documentURL) = True Then
                 Dim wc As New System.Net.WebClient
-                wc.DownloadFile(documentURL, Excel_File_Name)
-                Process.Start(Excel_File_Name)
+                wc.DownloadFile(documentURL, ExcelFullFileName)
+                Process.Start(ExcelFullFileName)
             End If
 
         End If

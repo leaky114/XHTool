@@ -38,7 +38,7 @@ Partial Class frmAllSaveAs
         'btnStart
         '
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(298, 89)
+        Me.btnStart.Location = New System.Drawing.Point(305, 92)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Size = New System.Drawing.Size(90, 28)
         Me.btnStart.TabIndex = 1
@@ -48,7 +48,7 @@ Partial Class frmAllSaveAs
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(396, 89)
+        Me.btnClose.Location = New System.Drawing.Point(403, 92)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(90, 28)
         Me.btnClose.TabIndex = 1
@@ -77,7 +77,7 @@ Partial Class frmAllSaveAs
         'btnAddFolder
         '
         Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(8, 89)
+        Me.btnAddFolder.Location = New System.Drawing.Point(8, 92)
         Me.btnAddFolder.Name = "btnAddFolder"
         Me.btnAddFolder.Size = New System.Drawing.Size(90, 28)
         Me.btnAddFolder.TabIndex = 21
@@ -154,7 +154,7 @@ Partial Class frmAllSaveAs
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(494, 124)
+        Me.ClientSize = New System.Drawing.Size(501, 127)
         Me.Controls.Add(Me.chkSaveFile)
         Me.Controls.Add(Me.lstFileList)
         Me.Controls.Add(Me.chkCloseFile)

@@ -23,6 +23,8 @@ Module StringsModel
                         Return "其它非字母汉字字符"
                     Case 0 To 31, 127
                         Return "控制字符"
+                    Case 215
+                        Return "×"
                     Case Else
                         Return "Unicode字符"
                 End Select
@@ -32,12 +34,12 @@ Module StringsModel
     End Function
 
     '获取文件名和图号
-    Public Function GetStockNumPartName(ByVal FullFileName As String) As StockNumPartName
+    Public Function GetStockNumPartName(ByVal strFullFileName As String) As StockNumPartName
         Dim i As Integer
         Dim s As String
         Dim FileName As String
 
-        FileName = GetFileNameInfo(FullFileName).ONlyName
+        FileName = GetFileNameInfo(strFullFileName).OnlyName
         i = 1
         Do
             s = Mid(FileName, i, 1)

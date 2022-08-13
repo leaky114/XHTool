@@ -23,6 +23,7 @@ Partial Class frmPrint
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrint))
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnAddFile = New System.Windows.Forms.Button()
@@ -30,6 +31,8 @@ Partial Class frmPrint
         Me.btnAddFolder = New System.Windows.Forms.Button()
         Me.lblsuggest = New System.Windows.Forms.Label()
         Me.grpOption = New System.Windows.Forms.GroupBox()
+        Me.chkSaveAsDwg = New System.Windows.Forms.CheckBox()
+        Me.chkSaveAsPdf = New System.Windows.Forms.CheckBox()
         Me.chkSave = New System.Windows.Forms.CheckBox()
         Me.chkClose = New System.Windows.Forms.CheckBox()
         Me.lblCopies = New System.Windows.Forms.Label()
@@ -47,6 +50,7 @@ Partial Class frmPrint
         Me.tsmiRemove = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiRemoveFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiSaveFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnLoadActiveAsm = New System.Windows.Forms.Button()
         Me.grpOption.SuspendLayout()
         CType(Me.nudCopies, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsRemove.SuspendLayout()
@@ -55,7 +59,7 @@ Partial Class frmPrint
         'btnStart
         '
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(695, 413)
+        Me.btnStart.Location = New System.Drawing.Point(890, 478)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Size = New System.Drawing.Size(57, 28)
         Me.btnStart.TabIndex = 1
@@ -66,7 +70,7 @@ Partial Class frmPrint
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(760, 413)
+        Me.btnClose.Location = New System.Drawing.Point(955, 478)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(57, 28)
         Me.btnClose.TabIndex = 1
@@ -76,7 +80,7 @@ Partial Class frmPrint
         'btnAddFile
         '
         Me.btnAddFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFile.Location = New System.Drawing.Point(118, 413)
+        Me.btnAddFile.Location = New System.Drawing.Point(116, 478)
         Me.btnAddFile.Name = "btnAddFile"
         Me.btnAddFile.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFile.TabIndex = 1
@@ -86,7 +90,7 @@ Partial Class frmPrint
         'btnClearList
         '
         Me.btnClearList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnClearList.Location = New System.Drawing.Point(446, 413)
+        Me.btnClearList.Location = New System.Drawing.Point(570, 478)
         Me.btnClearList.Name = "btnClearList"
         Me.btnClearList.Size = New System.Drawing.Size(85, 28)
         Me.btnClearList.TabIndex = 3
@@ -96,7 +100,7 @@ Partial Class frmPrint
         'btnAddFolder
         '
         Me.btnAddFolder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAddFolder.Location = New System.Drawing.Point(219, 413)
+        Me.btnAddFolder.Location = New System.Drawing.Point(217, 478)
         Me.btnAddFolder.Name = "btnAddFolder"
         Me.btnAddFolder.Size = New System.Drawing.Size(85, 28)
         Me.btnAddFolder.TabIndex = 2
@@ -116,6 +120,9 @@ Partial Class frmPrint
         '
         'grpOption
         '
+        Me.grpOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grpOption.Controls.Add(Me.chkSaveAsDwg)
+        Me.grpOption.Controls.Add(Me.chkSaveAsPdf)
         Me.grpOption.Controls.Add(Me.chkSave)
         Me.grpOption.Controls.Add(Me.chkClose)
         Me.grpOption.Controls.Add(Me.lblCopies)
@@ -125,12 +132,38 @@ Partial Class frmPrint
         Me.grpOption.Controls.Add(Me.chkPaperA3)
         Me.grpOption.Controls.Add(Me.chkSign)
         Me.grpOption.Controls.Add(Me.chkBlack)
-        Me.grpOption.Location = New System.Drawing.Point(13, 342)
+        Me.grpOption.Location = New System.Drawing.Point(13, 410)
         Me.grpOption.Name = "grpOption"
-        Me.grpOption.Size = New System.Drawing.Size(805, 60)
+        Me.grpOption.Size = New System.Drawing.Size(996, 60)
         Me.grpOption.TabIndex = 33
         Me.grpOption.TabStop = False
         Me.grpOption.Text = "选项"
+        '
+        'chkSaveAsDwg
+        '
+        Me.chkSaveAsDwg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkSaveAsDwg.AutoSize = True
+        Me.chkSaveAsDwg.Checked = True
+        Me.chkSaveAsDwg.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkSaveAsDwg.Location = New System.Drawing.Point(890, 27)
+        Me.chkSaveAsDwg.Name = "chkSaveAsDwg"
+        Me.chkSaveAsDwg.Size = New System.Drawing.Size(90, 16)
+        Me.chkSaveAsDwg.TabIndex = 42
+        Me.chkSaveAsDwg.Text = "同步存为Dwg"
+        Me.chkSaveAsDwg.UseVisualStyleBackColor = True
+        '
+        'chkSaveAsPdf
+        '
+        Me.chkSaveAsPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkSaveAsPdf.AutoSize = True
+        Me.chkSaveAsPdf.Checked = True
+        Me.chkSaveAsPdf.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkSaveAsPdf.Location = New System.Drawing.Point(799, 27)
+        Me.chkSaveAsPdf.Name = "chkSaveAsPdf"
+        Me.chkSaveAsPdf.Size = New System.Drawing.Size(90, 16)
+        Me.chkSaveAsPdf.TabIndex = 41
+        Me.chkSaveAsPdf.Text = "同步存为Pdf"
+        Me.chkSaveAsPdf.UseVisualStyleBackColor = True
         '
         'chkSave
         '
@@ -236,7 +269,7 @@ Partial Class frmPrint
         'btnLoadAsm
         '
         Me.btnLoadAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnLoadAsm.Location = New System.Drawing.Point(17, 413)
+        Me.btnLoadAsm.Location = New System.Drawing.Point(15, 478)
         Me.btnLoadAsm.Name = "btnLoadAsm"
         Me.btnLoadAsm.Size = New System.Drawing.Size(85, 28)
         Me.btnLoadAsm.TabIndex = 0
@@ -245,7 +278,8 @@ Partial Class frmPrint
         '
         'btnLoadIdw
         '
-        Me.btnLoadIdw.Location = New System.Drawing.Point(320, 413)
+        Me.btnLoadIdw.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnLoadIdw.Location = New System.Drawing.Point(444, 478)
         Me.btnLoadIdw.Name = "btnLoadIdw"
         Me.btnLoadIdw.Size = New System.Drawing.Size(110, 28)
         Me.btnLoadIdw.TabIndex = 34
@@ -255,15 +289,16 @@ Partial Class frmPrint
         'lvwFileListView
         '
         Me.lvwFileListView.AllowColumnReorder = True
-        Me.lvwFileListView.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwFileListView.AutoArrange = False
         Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lvwFileListView.ContextMenuStrip = Me.cmsRemove
         Me.lvwFileListView.FullRowSelect = True
         Me.lvwFileListView.Location = New System.Drawing.Point(15, 11)
         Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(803, 314)
+        Me.lvwFileListView.Size = New System.Drawing.Size(998, 390)
         Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwFileListView.TabIndex = 36
         Me.lvwFileListView.UseCompatibleStateImageBehavior = False
@@ -271,8 +306,8 @@ Partial Class frmPrint
         '
         'ColumnHeader1
         '
-        Me.ColumnHeader1.Text = "文件名"
-        Me.ColumnHeader1.Width = 650
+        Me.ColumnHeader1.Text = "文件名(双击打开)"
+        Me.ColumnHeader1.Width = 978
         '
         'cmsRemove
         '
@@ -298,13 +333,24 @@ Partial Class frmPrint
         Me.tsmiSaveFilter.Size = New System.Drawing.Size(124, 22)
         Me.tsmiSaveFilter.Text = "筛选保留"
         '
+        'btnLoadActiveAsm
+        '
+        Me.btnLoadActiveAsm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnLoadActiveAsm.Location = New System.Drawing.Point(318, 478)
+        Me.btnLoadActiveAsm.Name = "btnLoadActiveAsm"
+        Me.btnLoadActiveAsm.Size = New System.Drawing.Size(110, 28)
+        Me.btnLoadActiveAsm.TabIndex = 37
+        Me.btnLoadActiveAsm.Text = "导入当前部件"
+        Me.btnLoadActiveAsm.UseVisualStyleBackColor = True
+        '
         'frmPrint
         '
         Me.AcceptButton = Me.btnStart
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(831, 450)
+        Me.ClientSize = New System.Drawing.Size(1026, 515)
+        Me.Controls.Add(Me.btnLoadActiveAsm)
         Me.Controls.Add(Me.btnLoadIdw)
         Me.Controls.Add(Me.btnLoadAsm)
         Me.Controls.Add(Me.grpOption)
@@ -315,12 +361,9 @@ Partial Class frmPrint
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnStart)
         Me.Controls.Add(Me.lvwFileListView)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmPrint"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"
         Me.grpOption.ResumeLayout(False)
@@ -354,5 +397,8 @@ Partial Class frmPrint
     Friend WithEvents tsmiRemoveFilter As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiSaveFilter As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiRemove As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents chkSaveAsPdf As System.Windows.Forms.CheckBox
+    Friend WithEvents chkSaveAsDwg As System.Windows.Forms.CheckBox
+    Friend WithEvents btnLoadActiveAsm As System.Windows.Forms.Button
 
 End Class

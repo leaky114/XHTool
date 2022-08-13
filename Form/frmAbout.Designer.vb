@@ -41,7 +41,7 @@ Partial Class frmAbout
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnOK.Location = New System.Drawing.Point(275, 233)
+        Me.btnOK.Location = New System.Drawing.Point(274, 238)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 28)
         Me.btnOK.TabIndex = 40
@@ -51,7 +51,7 @@ Partial Class frmAbout
         '
         Me.lblVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(125, 35)
+        Me.lblVersion.Location = New System.Drawing.Point(124, 35)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblVersion.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblVersion.Name = "lblVersion"
@@ -64,7 +64,7 @@ Partial Class frmAbout
         '
         Me.lblCopyright.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCopyright.AutoSize = True
-        Me.lblCopyright.Location = New System.Drawing.Point(125, 61)
+        Me.lblCopyright.Location = New System.Drawing.Point(124, 61)
         Me.lblCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblCopyright.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblCopyright.Name = "lblCopyright"
@@ -77,7 +77,7 @@ Partial Class frmAbout
         '
         Me.lblCompanyName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCompanyName.AutoSize = True
-        Me.lblCompanyName.Location = New System.Drawing.Point(125, 86)
+        Me.lblCompanyName.Location = New System.Drawing.Point(124, 86)
         Me.lblCompanyName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblCompanyName.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblCompanyName.Name = "lblCompanyName"
@@ -90,7 +90,7 @@ Partial Class frmAbout
         '
         Me.lblProductName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblProductName.AutoSize = True
-        Me.lblProductName.Location = New System.Drawing.Point(125, 11)
+        Me.lblProductName.Location = New System.Drawing.Point(124, 11)
         Me.lblProductName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblProductName.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblProductName.Name = "lblProductName"
@@ -102,7 +102,7 @@ Partial Class frmAbout
         'txtDescription
         '
         Me.txtDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtDescription.Location = New System.Drawing.Point(128, 107)
+        Me.txtDescription.Location = New System.Drawing.Point(127, 107)
         Me.txtDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)
         Me.txtDescription.Multiline = True
         Me.txtDescription.Name = "txtDescription"
@@ -137,7 +137,8 @@ Partial Class frmAbout
         '
         'btnCheckUpdate
         '
-        Me.btnCheckUpdate.Location = New System.Drawing.Point(127, 233)
+        Me.btnCheckUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCheckUpdate.Location = New System.Drawing.Point(122, 238)
         Me.btnCheckUpdate.Name = "btnCheckUpdate"
         Me.btnCheckUpdate.Size = New System.Drawing.Size(140, 28)
         Me.btnCheckUpdate.TabIndex = 44
@@ -146,7 +147,8 @@ Partial Class frmAbout
         '
         'btnGit
         '
-        Me.btnGit.Location = New System.Drawing.Point(15, 233)
+        Me.btnGit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnGit.Location = New System.Drawing.Point(10, 238)
         Me.btnGit.Name = "btnGit"
         Me.btnGit.Size = New System.Drawing.Size(90, 28)
         Me.btnGit.TabIndex = 45
@@ -159,7 +161,7 @@ Partial Class frmAbout
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnOK
-        Me.ClientSize = New System.Drawing.Size(359, 270)
+        Me.ClientSize = New System.Drawing.Size(358, 275)
         Me.Controls.Add(Me.btnGit)
         Me.Controls.Add(Me.btnCheckUpdate)
         Me.Controls.Add(Me.picZhiFuBao)
