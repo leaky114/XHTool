@@ -144,6 +144,7 @@ Partial Class frmInventoryCoding
         '
         'frmInventoryCoding
         '
+        Me.AcceptButton = Me.btnLoadFile
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose

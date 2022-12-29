@@ -22,6 +22,9 @@ Public Class frmSaveAs
             Exit Sub
         End If
 
+        btnStart.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
+
         For i = 0 To lvwFileListView.Items.Count - 1
 
             'lvwFileListView.SelectedIndices.Item = i
@@ -34,7 +37,6 @@ Public Class frmSaveAs
             'If InStr(InvDocFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
             'End If
-
 
             Dim intSaveModel As Integer
 
@@ -51,7 +53,6 @@ Public Class frmSaveAs
                 strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
                 'strJpgFullFileName= Strings.Replace(IdwFullFileName, LCaseGetFileExtension(IdwFullFileName), ".bmp")
             End If
-
 
             '同一文件夹
             If rdoSameFolder.Checked = True Then
@@ -89,7 +90,6 @@ Public Class frmSaveAs
                     oInventorDocument.SaveAs(strPdfFullFileName, True)
             End Select
 
-
             '关闭，不保存文件
             oInventorDocument.Close(True)
 
@@ -97,14 +97,16 @@ Public Class frmSaveAs
 
         Next
 
-        Me.Dispose()
+        btnStart.Enabled = True
+        'ThisApplication.Cursor  = Cursors.WaitCursor
+
     End Sub
 
     '关闭
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         lvwFileListView.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
     End Sub
 
     '添加文件
@@ -118,9 +120,17 @@ Public Class frmSaveAs
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
+
+                    btnAddFile.Enabled = False
+                    'ThisApplication.Cursor  = Cursors.WaitCursor
+
                     For Each strFullFileName As String In .FileNames
                         lvwFileListView.Items.Add(strFullFileName)
                     Next
+
+                    btnAddFile.Enabled = True
+                    'ThisApplication.Cursor  = Cursors.Default
+
                 End If
             Else
                 Exit Sub
@@ -151,6 +161,9 @@ Public Class frmSaveAs
             End If
         End With
 
+        btnAddFolder.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
+
         '是否为文件夹，在其后添加 \，得到父文件夹
         oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
 
@@ -161,6 +174,8 @@ Public Class frmSaveAs
 
         GetAllFile(strPresentFolder, strDestinationFolder, lvwFileListView)
 
+        btnAddFolder.Enabled = True
+        'ThisApplication.Cursor  = Cursors.Default
     End Sub
 
     '当前文件夹
@@ -177,7 +192,6 @@ Public Class frmSaveAs
     '指定文件夹
     Private Sub rdoSameFolder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoSameFolder.CheckedChanged
 
-
         If rdoSameFolder.Checked = True Then
             rdoLocal.Checked = False
             txtString.Enabled = True
@@ -189,12 +203,12 @@ Public Class frmSaveAs
     End Sub
 
     '移除选择列
-    Private Sub btnRemove_Click(sender As System.Object, e As System.EventArgs) Handles btnRemove.Click
+    Private Sub btnRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemove.Click
         ListViewDel(lvwFileListView)
     End Sub
 
     '选择文件夹
-    Private Sub btnOpenFolder_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFolder.Click
+    Private Sub btnOpenFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFolder.Click
         Dim strDestinationFolder As String = Nothing
         Dim oFileAttributes As FileAttributes
         Dim strPresentFolder As String = Nothing

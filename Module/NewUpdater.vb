@@ -32,7 +32,7 @@ Module NewUpdater
 
     Public Function CheckNewVesion() As String
         Try
-            Dim NewVersionInfo As String = "\\Likai-pc\发行版\2011\NewVersion.txt"
+            Dim NewVersionInfo As String = "\\Likai-pc\发行版\更新包\NewVersion.txt"
 
             Dim fileReader As System.IO.StreamReader
             fileReader = My.Computer.FileSystem.OpenTextFileReader(NewVersionInfo)
@@ -41,12 +41,9 @@ Module NewUpdater
 
             'MsgBox(NewVersion)
 
-            MyVersion = _
-            My.Application.Info.Version.Major & "." & _
-            My.Application.Info.Version.Minor & "." & _
-          Format(My.Application.Info.Version.Build, "00") & "." & _
+            MyVersion = My.Application.Info.Version.Minor & _
+          Format(My.Application.Info.Version.Build, "00") & _
           Format(My.Application.Info.Version.Revision, "00")
-
 
             'MsgBox(MyVersion)
 
@@ -64,10 +61,11 @@ Module NewUpdater
 
                     'btnCheckUpDate.Text = "检查到新版" & NewVersion
 
-                    Return NewVersion
+                    'Return NewVersion
+                    Return "New"
                 Else
 
-                    Return "New"
+                    Return "Null"
                 End If
             Else
                 Return "Null"
@@ -92,8 +90,26 @@ Module NewUpdater
 
             strSimpleUpdater = ThisApplication.InstallPath & "\Bin\SimpleUpdater.exe"
 
+            If IsFileExsts(strSimpleUpdater) = False Then
+                Dim strNewSimpleUpdater As String = "\\Likai-pc\发行版\更新包\SimpleUpdater.exe"
+                My.Computer.Network.DownloadFile(strNewSimpleUpdater, strSimpleUpdater)
+            End If
+
+            MyVersion = _
+                   My.Application.Info.Version.Major & "." & _
+                   My.Application.Info.Version.Minor & "." & _
+                 Format(My.Application.Info.Version.Build, "00") & "." & _
+                 Format(My.Application.Info.Version.Revision, "00")
+
             Dim DisplayVersion As String
             DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
+
+            Select Case DisplayVersion
+                Case Is >= 2015
+                    DisplayVersion = 2015
+                Case Is >= 2011
+                    DisplayVersion = 2011
+            End Select
 
             Dim strArguments As String
 
@@ -110,34 +126,33 @@ Module NewUpdater
         End Try
     End Sub
 
-    Public Function CreateUpdateExe() As Boolean
-        Try
+    'Public Function CreateUpdateExe() As Boolean
+    '    Try
 
-            Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径
+    '        Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径
 
-            If IsFileExsts(path) = False Then
+    '        If IsFileExsts(path) = False Then
 
-                Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
-                Dim b() As Byte = resources.GetObject("SimpleUpdaterexe")
-                Dim s As IO.Stream
-                s = IO.File.Create(path)
-                s.Write(b, 0, b.Length)
-                s.Close()
+    '            Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
+    '            Dim b() As Byte = resources.GetObject("SimpleUpdaterexe")
+    '            Dim s As IO.Stream
+    '            s = IO.File.Create(path)
+    '            s.Write(b, 0, b.Length)
+    '            s.Close()
 
+    '            'path = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe.config" '文件释放路径
 
-                path = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe.config" '文件释放路径
+    '            'b = resources.GetObject("SimpleUpdaterexeconfig")
+    '            's = IO.File.Create(path)
+    '            's.Write(b, 0, b.Length)
+    '            's.Close()
+    '        End If
 
-                b = resources.GetObject("SimpleUpdaterexeconfig")
-                s = IO.File.Create(path)
-                s.Write(b, 0, b.Length)
-                s.Close()
-            End If
-
-            'MessageBox.Show("资源释放成功")
-            Return True
-        Catch ex As Exception
-            'MessageBox.Show("资源释放失败！Result=" + ex.Message)
-        End Try
-    End Function
+    '        'MessageBox.Show("资源释放成功")
+    '        Return True
+    '    Catch ex As Exception
+    '        'MessageBox.Show("资源释放失败！Result=" + ex.Message)
+    '    End Try
+    'End Function
 
 End Module

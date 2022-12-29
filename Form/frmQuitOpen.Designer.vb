@@ -22,30 +22,20 @@ Partial Class frmQuitOpen
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.OK_Button = New System.Windows.Forms.Button()
-        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.btnClose = New System.Windows.Forms.Button()
         Me.lvwFileListView = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
-        'OK_Button
+        'btnClose
         '
-        Me.OK_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OK_Button.Location = New System.Drawing.Point(776, 266)
-        Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(75, 28)
-        Me.OK_Button.TabIndex = 2
-        Me.OK_Button.Text = "确定"
-        '
-        'Cancel_Button
-        '
-        Me.Cancel_Button.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(856, 266)
-        Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(75, 28)
-        Me.Cancel_Button.TabIndex = 3
-        Me.Cancel_Button.Text = "取消"
+        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnClose.Location = New System.Drawing.Point(856, 266)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 28)
+        Me.btnClose.TabIndex = 3
+        Me.btnClose.Text = "关闭"
         '
         'lvwFileListView
         '
@@ -74,21 +64,21 @@ Partial Class frmQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btnClose
         Me.ClientSize = New System.Drawing.Size(943, 306)
         Me.Controls.Add(Me.lvwFileListView)
-        Me.Controls.Add(Me.OK_Button)
-        Me.Controls.Add(Me.Cancel_Button)
+        Me.Controls.Add(Me.btnClose)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmQuitOpen"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "快速打开"
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents OK_Button As System.Windows.Forms.Button
-    Friend WithEvents Cancel_Button As System.Windows.Forms.Button
+    Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
 

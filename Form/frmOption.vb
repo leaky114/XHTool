@@ -20,8 +20,7 @@ Public Class frmOption
         BOMTiTle = txtBOM导出项.Text
         Map_Mass = txt图号.Text
 
-        ExcelFullFileName = txtexcel文件.Text
-        SheetName = txt数据表.Text
+        BasicExcelFullFileName = txt基础数据文件.Text
         TableArrays = txt查找范围.Text
         ColIndexNum = txt查询列.Text
 
@@ -133,7 +132,7 @@ Public Class frmOption
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
 
     End Sub
 
@@ -217,8 +216,7 @@ Public Class frmOption
                 chk检查更新.Checked = True
         End Select
 
-        txtexcel文件.Text = ExcelFullFileName
-        txt数据表.Text = SheetName
+        txt基础数据文件.Text = BasicExcelFullFileName
         txt查找范围.Text = TableArrays
         txt查询列.Text = ColIndexNum
 
@@ -231,7 +229,7 @@ Public Class frmOption
         'Else
 
         '//先获取复制文本
-        Dim newstr As String = cbo添加.Text & "|"
+        Dim newstr As String = cbo添加.Text
 
         '//获取textBox2 中的光标
         Dim index As Integer = txtBOM导出项.SelectionStart
@@ -250,27 +248,14 @@ Public Class frmOption
         txtBOM导出项.Text = BOMTiTle
     End Sub
 
-    Private Sub btnExcelFilePath_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcelFilePath.Click
-        Dim oOpenFileDialog As New OpenFileDialog
-        With oOpenFileDialog
-            .Title = "打开"
-            .FileName = ""
-            .InitialDirectory = GetFileNameInfo(ExcelFullFileName).Folder
-            .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
-            .Multiselect = False '多开文件打开
-            If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
-                    txtexcel文件.Text = .FileName
-                End If
-            Else
-                Exit Sub
-            End If
-        End With
-    End Sub
+    Private Sub btnOpenExcelFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenBasicExcelFile.Click
 
-    Private Sub btnOpenExcelFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenExcelFile.Click
-        If IsFileExsts(ExcelFullFileName) = True Then
-            Process.Start(ExcelFullFileName)
+        'If IsFileExsts(txt自定义数据文件.Text) = True Then
+        '    Process.Start(txt自定义数据文件.Text)
+        'End If
+
+        If IsFileExsts(BasicExcelFullFileName) = True Then
+            Process.Start(BasicExcelFullFileName)
         Else
             'excel文件不存在，到服务器下载
             Dim documentURL As String
@@ -278,10 +263,42 @@ Public Class frmOption
 
             If IsFileExsts(documentURL) = True Then
                 Dim wc As New System.Net.WebClient
-                wc.DownloadFile(documentURL, ExcelFullFileName)
-                Process.Start(ExcelFullFileName)
+                wc.DownloadFile(documentURL, BasicExcelFullFileName)
+                Process.Start(BasicExcelFullFileName)
             End If
 
         End If
     End Sub
+
+    Private Sub txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.MouseDoubleClick
+        If e.Button = System.Windows.Forms.MouseButtons.Left Then
+
+            Dim oOpenFileDialog As New OpenFileDialog
+            With oOpenFileDialog
+                .Title = "打开"
+                .FileName = ""
+                .InitialDirectory = GetFileNameInfo(BasicExcelFullFileName).Folder
+                .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
+                .Multiselect = False '多开文件打开
+                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                    If .FileName <> "" Then '如果有选中文件
+                        txt基础数据文件.Text = .FileName
+                    End If
+                Else
+                    Exit Sub
+                End If
+            End With
+        End If
+    End Sub
+
+    Private Sub txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
+        Dim k As ToolTip
+
+        k = New ToolTip()
+        k.AutoPopDelay = 2000 '显示出气泡后的延时时间（毫秒）
+        k.InitialDelay = 50 '出现前的延时（毫秒）
+        k.ToolTipTitle = "" '提示信息标题
+        k.SetToolTip(txt基础数据文件, "双击更改文件") '提示信息内容
+    End Sub
+
 End Class

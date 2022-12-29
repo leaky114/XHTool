@@ -36,6 +36,7 @@ Partial Class frmInputBox
         'btnOK
         '
         Me.btnOK.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnOK.Location = New System.Drawing.Point(283, 125)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(65, 28)

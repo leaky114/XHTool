@@ -31,9 +31,9 @@ Partial Class frmPrint
         Me.btnAddFolder = New System.Windows.Forms.Button()
         Me.lblsuggest = New System.Windows.Forms.Label()
         Me.grpOption = New System.Windows.Forms.GroupBox()
+        Me.chkSaveSign = New System.Windows.Forms.CheckBox()
         Me.chkSaveAsDwg = New System.Windows.Forms.CheckBox()
         Me.chkSaveAsPdf = New System.Windows.Forms.CheckBox()
-        Me.chkSave = New System.Windows.Forms.CheckBox()
         Me.chkClose = New System.Windows.Forms.CheckBox()
         Me.lblCopies = New System.Windows.Forms.Label()
         Me.lblPrinter = New System.Windows.Forms.Label()
@@ -59,18 +59,18 @@ Partial Class frmPrint
         'btnStart
         '
         Me.btnStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnStart.Location = New System.Drawing.Point(890, 478)
+        Me.btnStart.Location = New System.Drawing.Point(785, 478)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(57, 28)
+        Me.btnStart.Size = New System.Drawing.Size(86, 28)
         Me.btnStart.TabIndex = 1
         Me.btnStart.TabStop = False
-        Me.btnStart.Text = "打印"
+        Me.btnStart.Text = "开始打印"
         '
         'btnClose
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(955, 478)
+        Me.btnClose.Location = New System.Drawing.Point(879, 478)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(57, 28)
         Me.btnClose.TabIndex = 1
@@ -121,9 +121,9 @@ Partial Class frmPrint
         'grpOption
         '
         Me.grpOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grpOption.Controls.Add(Me.chkSaveSign)
         Me.grpOption.Controls.Add(Me.chkSaveAsDwg)
         Me.grpOption.Controls.Add(Me.chkSaveAsPdf)
-        Me.grpOption.Controls.Add(Me.chkSave)
         Me.grpOption.Controls.Add(Me.chkClose)
         Me.grpOption.Controls.Add(Me.lblCopies)
         Me.grpOption.Controls.Add(Me.lblPrinter)
@@ -134,18 +134,27 @@ Partial Class frmPrint
         Me.grpOption.Controls.Add(Me.chkBlack)
         Me.grpOption.Location = New System.Drawing.Point(13, 410)
         Me.grpOption.Name = "grpOption"
-        Me.grpOption.Size = New System.Drawing.Size(996, 60)
+        Me.grpOption.Size = New System.Drawing.Size(922, 60)
         Me.grpOption.TabIndex = 33
         Me.grpOption.TabStop = False
         Me.grpOption.Text = "选项"
+        '
+        'chkSaveSign
+        '
+        Me.chkSaveSign.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkSaveSign.AutoSize = True
+        Me.chkSaveSign.Location = New System.Drawing.Point(482, 26)
+        Me.chkSaveSign.Name = "chkSaveSign"
+        Me.chkSaveSign.Size = New System.Drawing.Size(72, 16)
+        Me.chkSaveSign.TabIndex = 43
+        Me.chkSaveSign.Text = "保存签字"
+        Me.chkSaveSign.UseVisualStyleBackColor = True
         '
         'chkSaveAsDwg
         '
         Me.chkSaveAsDwg.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkSaveAsDwg.AutoSize = True
-        Me.chkSaveAsDwg.Checked = True
-        Me.chkSaveAsDwg.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSaveAsDwg.Location = New System.Drawing.Point(890, 27)
+        Me.chkSaveAsDwg.Location = New System.Drawing.Point(815, 26)
         Me.chkSaveAsDwg.Name = "chkSaveAsDwg"
         Me.chkSaveAsDwg.Size = New System.Drawing.Size(90, 16)
         Me.chkSaveAsDwg.TabIndex = 42
@@ -156,27 +165,12 @@ Partial Class frmPrint
         '
         Me.chkSaveAsPdf.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkSaveAsPdf.AutoSize = True
-        Me.chkSaveAsPdf.Checked = True
-        Me.chkSaveAsPdf.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSaveAsPdf.Location = New System.Drawing.Point(799, 27)
+        Me.chkSaveAsPdf.Location = New System.Drawing.Point(724, 26)
         Me.chkSaveAsPdf.Name = "chkSaveAsPdf"
         Me.chkSaveAsPdf.Size = New System.Drawing.Size(90, 16)
         Me.chkSaveAsPdf.TabIndex = 41
         Me.chkSaveAsPdf.Text = "同步存为Pdf"
         Me.chkSaveAsPdf.UseVisualStyleBackColor = True
-        '
-        'chkSave
-        '
-        Me.chkSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkSave.AutoSize = True
-        Me.chkSave.Checked = True
-        Me.chkSave.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSave.Location = New System.Drawing.Point(619, 26)
-        Me.chkSave.Name = "chkSave"
-        Me.chkSave.Size = New System.Drawing.Size(84, 16)
-        Me.chkSave.TabIndex = 40
-        Me.chkSave.Text = "打印前保存"
-        Me.chkSave.UseVisualStyleBackColor = True
         '
         'chkClose
         '
@@ -184,7 +178,7 @@ Partial Class frmPrint
         Me.chkClose.AutoSize = True
         Me.chkClose.Checked = True
         Me.chkClose.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkClose.Location = New System.Drawing.Point(707, 26)
+        Me.chkClose.Location = New System.Drawing.Point(632, 26)
         Me.chkClose.Name = "chkClose"
         Me.chkClose.Size = New System.Drawing.Size(84, 16)
         Me.chkClose.TabIndex = 39
@@ -233,7 +227,7 @@ Partial Class frmPrint
         Me.chkPaperA3.AutoSize = True
         Me.chkPaperA3.Checked = True
         Me.chkPaperA3.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkPaperA3.Location = New System.Drawing.Point(541, 26)
+        Me.chkPaperA3.Location = New System.Drawing.Point(558, 26)
         Me.chkPaperA3.Name = "chkPaperA3"
         Me.chkPaperA3.Size = New System.Drawing.Size(72, 16)
         Me.chkPaperA3.TabIndex = 34
@@ -246,7 +240,7 @@ Partial Class frmPrint
         Me.chkSign.AutoSize = True
         Me.chkSign.Checked = True
         Me.chkSign.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSign.Location = New System.Drawing.Point(486, 26)
+        Me.chkSign.Location = New System.Drawing.Point(433, 26)
         Me.chkSign.Name = "chkSign"
         Me.chkSign.Size = New System.Drawing.Size(48, 16)
         Me.chkSign.TabIndex = 33
@@ -261,9 +255,9 @@ Partial Class frmPrint
         Me.chkBlack.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBlack.Location = New System.Drawing.Point(349, 26)
         Me.chkBlack.Name = "chkBlack"
-        Me.chkBlack.Size = New System.Drawing.Size(132, 16)
+        Me.chkBlack.Size = New System.Drawing.Size(84, 16)
         Me.chkBlack.TabIndex = 32
-        Me.chkBlack.Text = "所有颜色打印为黑色"
+        Me.chkBlack.Text = "打印为黑色"
         Me.chkBlack.UseVisualStyleBackColor = True
         '
         'btnLoadAsm
@@ -289,16 +283,17 @@ Partial Class frmPrint
         'lvwFileListView
         '
         Me.lvwFileListView.AllowColumnReorder = True
+        Me.lvwFileListView.AllowDrop = True
         Me.lvwFileListView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwFileListView.AutoArrange = False
         Me.lvwFileListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1})
         Me.lvwFileListView.ContextMenuStrip = Me.cmsRemove
         Me.lvwFileListView.FullRowSelect = True
         Me.lvwFileListView.Location = New System.Drawing.Point(15, 11)
         Me.lvwFileListView.Name = "lvwFileListView"
-        Me.lvwFileListView.Size = New System.Drawing.Size(998, 390)
+        Me.lvwFileListView.Size = New System.Drawing.Size(922, 390)
         Me.lvwFileListView.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwFileListView.TabIndex = 36
         Me.lvwFileListView.UseCompatibleStateImageBehavior = False
@@ -345,11 +340,11 @@ Partial Class frmPrint
         '
         'frmPrint
         '
-        Me.AcceptButton = Me.btnStart
+        Me.AcceptButton = Me.btnLoadIdw
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnClose
-        Me.ClientSize = New System.Drawing.Size(1026, 515)
+        Me.ClientSize = New System.Drawing.Size(950, 515)
         Me.Controls.Add(Me.btnLoadActiveAsm)
         Me.Controls.Add(Me.btnLoadIdw)
         Me.Controls.Add(Me.btnLoadAsm)
@@ -364,6 +359,7 @@ Partial Class frmPrint
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmPrint"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"
         Me.grpOption.ResumeLayout(False)
@@ -392,7 +388,6 @@ Partial Class frmPrint
     Friend WithEvents lvwFileListView As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents chkClose As System.Windows.Forms.CheckBox
-    Friend WithEvents chkSave As System.Windows.Forms.CheckBox
     Friend WithEvents cmsRemove As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents tsmiRemoveFilter As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmiSaveFilter As System.Windows.Forms.ToolStripMenuItem
@@ -400,5 +395,6 @@ Partial Class frmPrint
     Friend WithEvents chkSaveAsPdf As System.Windows.Forms.CheckBox
     Friend WithEvents chkSaveAsDwg As System.Windows.Forms.CheckBox
     Friend WithEvents btnLoadActiveAsm As System.Windows.Forms.Button
+    Friend WithEvents chkSaveSign As System.Windows.Forms.CheckBox
 
 End Class

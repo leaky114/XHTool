@@ -24,14 +24,15 @@ Public Class frmAllSaveAs
 
         btnStart.Enabled = False
         btnClose.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
 
         For i = 0 To lstFileList.Items.Count - 1
             oInventorDocument = ThisApplication.Documents.ItemByName(lstFileList.Items(i))
 
-            Dim strInventorDrawingFullFileName As String '工程图全文件名
-            strInventorDrawingFullFileName = oInventorDocument.FullDocumentName
+            Dim strInventorDrawingFullDocumentName As String '工程图全文件名
+            strInventorDrawingFullDocumentName = oInventorDocument.FullDocumentName
 
-            ThisApplication.Documents.ItemByName(strInventorDrawingFullFileName).Activate()
+            ThisApplication.Documents.ItemByName(strInventorDrawingFullDocumentName).Activate()
 
             'If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
             '    GoTo 999
@@ -42,8 +43,12 @@ Public Class frmAllSaveAs
             'End If
 
             If rdoLocal.Checked = True Then
-                strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
-                strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
+                'strPdfFullFileName = Strings.Replace(strInventorDrawingFullDocumentName, LCaseGetFileExtension(strInventorDrawingFullDocumentName), DWG)
+                'strDwgFullFileName = Strings.Replace(strInventorDrawingFullDocumentName, LCaseGetFileExtension(strInventorDrawingFullDocumentName), PDF)
+
+                strPdfFullFileName = GetNewExtensionFileName(strInventorDrawingFullDocumentName, PDF)
+                strDwgFullFileName = GetNewExtensionFileName(strInventorDrawingFullDocumentName, DWG)
+
             End If
 
             If rdoSameFolder.Checked = True Then
@@ -53,11 +58,14 @@ Public Class frmAllSaveAs
 
                 If IsDirectoryExists(strPresent_Folder) = True Then
 
-                    strPdfFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, strPresent_Folder)
-                    strDwgFullFileName = Strings.Replace(strInventorDrawingFullFileName, GetFileNameInfo(strInventorDrawingFullFileName).Folder, strPresent_Folder)
+                    strPdfFullFileName = Strings.Replace(strInventorDrawingFullDocumentName, GetFileNameInfo(strInventorDrawingFullDocumentName).Folder, strPresent_Folder)
+                    strDwgFullFileName = Strings.Replace(strInventorDrawingFullDocumentName, GetFileNameInfo(strInventorDrawingFullDocumentName).Folder, strPresent_Folder)
 
-                    strPdfFullFileName = Strings.Replace(strPdfFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".dwg")
-                    strDwgFullFileName = Strings.Replace(strDwgFullFileName, LCaseGetFileExtension(strInventorDrawingFullFileName), ".pdf")
+                    strPdfFullFileName = GetNewExtensionFileName(strInventorDrawingFullDocumentName, PDF)
+                    strDwgFullFileName = GetNewExtensionFileName(strInventorDrawingFullDocumentName, DWG)
+
+                    'strPdfFullFileName = Strings.Replace(strPdfFullFileName, LCaseGetFileExtension(strInventorDrawingFullDocumentName), DWG)
+                    'strDwgFullFileName = Strings.Replace(strDwgFullFileName, LCaseGetFileExtension(strInventorDrawingFullDocumentName), PDF)
                 Else
                     MsgBox("指定文件夹不存在。", MsgBoxStyle.Critical, "全部另存为")
                     Exit Sub
@@ -96,7 +104,10 @@ Public Class frmAllSaveAs
 
         Next
 
-        Me.Dispose()
+        btnStart.Enabled = True
+        btnClose.Enabled = True
+        'ThisApplication.Cursor  = Cursors.Default
+
     End Sub
 
     '关闭
@@ -112,7 +123,7 @@ Public Class frmAllSaveAs
             rdoSameFolder.Checked = False
             btnAddFolder.Enabled = False
             txtString.Enabled = False
-          
+
         End If
 
     End Sub

@@ -14,14 +14,18 @@ Inventor 2015 以下版本，更高版本请自行编译。
 - 移动指定文件
 - 查找缺失文件
 - 清理旧版文件
+- 设置ERP编码
 - 导入ERP编码(Excel文件支持)
 - 查询ERP编码(Excel文件支持)
+- 导入ERP编码到BOM表(Excel文件支持)
 - 批量打印工程图
 - 工程图文件批量另存
 - 工程图尺寸圆整
 - 工程图尺寸添加直径
 - 检查工程图零件序号完整性
 - 新建工程图零件序号
+- 根据模板文件替换工程图标题栏和图框
+
 
 # 更新日志
 [更新日志](https://gitcode.net/leaky114/inventoraddin/-/blob/master/CHANGELOG)

@@ -57,25 +57,24 @@ Public Class frmSaveAll
             End Select
         Next
 
-
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
     End Sub
 
-    Private Sub rdoSaveAll_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoSaveAll.CheckedChanged
+    Private Sub rdoSaveAll_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoSaveAll.CheckedChanged
         RadioState = 1
     End Sub
 
-    Private Sub rdoAllSaveClose_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoAllSaveClose.CheckedChanged
+    Private Sub rdoAllSaveClose_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoAllSaveClose.CheckedChanged
         RadioState = 2
     End Sub
 
-    Private Sub rdoAllClose_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdoAllClose.CheckedChanged
+    Private Sub rdoAllClose_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdoAllClose.CheckedChanged
         RadioState = 3
     End Sub
 End Class

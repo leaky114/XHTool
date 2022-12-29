@@ -18,6 +18,7 @@ Public Class frmAutoPartNumber
         Try
 
             btnStart.Enabled = False
+            'ThisApplication.Cursor  = Cursors.WaitCursor
 
             For i = 0 To lvwFileListView.Items.Count - 1
                 oListViewItem = lvwFileListView.Items(i)
@@ -67,11 +68,14 @@ Public Class frmAutoPartNumber
 
                     Dim oInventorDrawingDocument As Inventor.DrawingDocument
                     oInventorDrawingDocument = ThisApplication.Documents.Open(strNewDrawingFullFileName, False)  '打开文件，不显示
-                    With oInventorDrawingDocument
-                        .ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
-                        .Save2()
-                        .Close()
-                    End With
+
+                    ReplaceFileReference(oInventorDrawingDocument, strOldFullFileName, strNewFullFileName)
+
+                    'With oInventorDrawingDocument
+                    '    .ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
+                    '    .Save2()
+                    '    .Close()
+                    'End With
 
                 End If
 
@@ -80,9 +84,11 @@ Public Class frmAutoPartNumber
 999:
             Next
 
+            Me.TopMost = False
             SetStatusBarText("自动命名图号完成！")
-            'MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
+            MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
             btnStart.Enabled = True
+            'ThisApplication.Cursor  = Cursors.Default
 
         Catch ex As Exception
             btnStart.Enabled = True
@@ -92,7 +98,7 @@ Public Class frmAutoPartNumber
     End Sub
 
     '关闭
-    Private Sub btnClose_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         lvwFileListView.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
@@ -140,7 +146,7 @@ Public Class frmAutoPartNumber
         ListViewDown(lvwFileListView)
     End Sub
 
-    Private Sub lvwFileListView_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwFileListView.ColumnClick
+    Private Sub lvwFileListView_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwFileListView.ColumnClick
         If _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
             Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
             lvwFileListView.ListViewItemSorter = Sorter
@@ -241,15 +247,23 @@ Public Class frmAutoPartNumber
         intPartNum = 1
         strBasicStockNum = txtBasicNum.Text
 
+        If (IsNumeric(txtPartChange.Text) = False) Or (IsNumeric(cmbAmsChange.Text) = False) Then
+            MsgBox("变量非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+            Exit Sub
+        End If
+
+        Dim intPartChange As Integer = Val(txtPartChange.Text)
+        Dim intAmsChange As Integer = Val(cmbAmsChange.Text)
+
         For i = 0 To lvwFileListView.Items.Count - 1
             oListViewItem = lvwFileListView.Items(i)
             If oListViewItem.SubItems(1).Text = ".ipt" Then
-                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * Val(txtPartChange.Text)).ToString)) & intPartNum * Val(txtPartChange.Text)
+                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
                 oStockNumPartName.PartName = oListViewItem.Text
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
                 intPartNum = intPartNum + 1
             ElseIf oListViewItem.SubItems(1).Text = ".iam" Then
-                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * Val(cmbAmsChange.Text)).ToString)) & intAssNum * Val(cmbAmsChange.Text)
+                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * intAmsChange).ToString)) & intAssNum * intAmsChange
                 oStockNumPartName.PartName = oListViewItem.Text
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
                 intAssNum = intAssNum + 1
@@ -312,7 +326,7 @@ Public Class frmAutoPartNumber
                         oFileNameInfo = GetFileNameInfo(strFullFileName)
 
                         Dim oListViewItem As ListViewItem
-                        oListViewItem = oListView.Items.Add(oFileNameInfo.ONlyName)
+                        oListViewItem = oListView.Items.Add(oFileNameInfo.OnlyName)
                         With oListViewItem
                             .SubItems.Add(oFileNameInfo.ExtensionName)
                             .SubItems.Add("")
@@ -435,6 +449,12 @@ Public Class frmAutoPartNumber
         lvwFileListView.InsertionMark.Color = System.Drawing.Color.ForestGreen
         lvwFileListView.DoDragDrop(e.Item, DragDropEffects.Move)
 
+    End Sub
+
+    Private Sub txtPartChange_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtPartChange.TextChanged
+        If IsNumeric(txtPartChange.Text) = False Then
+            MsgBox("非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+        End If
     End Sub
 
 End Class

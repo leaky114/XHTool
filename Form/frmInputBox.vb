@@ -30,6 +30,8 @@ Public Class frmInputBox
     End Sub
 
     Private Sub btnOther_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOther.Click
+        btnOther.Enabled = False
+
         Select Case btnOther.Text
 
             Case "查询编码"
@@ -63,15 +65,26 @@ Public Class frmInputBox
                     End Select
                 Next
 
-                strPartNum = FindSrtingInSheet(ExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
+                strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
                 If strPartNum <> 0 Then
                     'MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
                     'SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
-                    txtInPut.Text = strPartNum
+                    Select Case txtInPut.Text
+                        Case ""
+                            txtInPut.Text = strPartNum
+                        Case Else
+                            If txtInPut.Text <> strPartNum Then
+                                If MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
+                                    txtInPut.Text = strPartNum
+                                End If
+                            End If
+                    End Select
                 Else
                     MsgBox("未查询到ERP编码。", MsgBoxStyle.OkOnly, "查询ERP编码")
                 End If
 
         End Select
+
+        btnOther.Enabled = True
     End Sub
 End Class

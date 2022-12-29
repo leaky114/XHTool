@@ -10,6 +10,7 @@ Imports Inventor.PrintOrientationEnum
 Imports System.Text
 Imports System.Collections.ObjectModel
 Imports Microsoft.Office.Interop.Excel.XlFileFormat
+Imports Microsoft.Office.Interop.Excel.XlCellType
 Imports Microsoft.Office.Interop
 
 Module InventorBasic
@@ -18,7 +19,12 @@ Module InventorBasic
         Dim IsGet As Boolean
         Dim StockNum As String    '
         Dim PartName As String      '
-        Dim PartNum As String       '
+        Dim ERPCode As String       '
+    End Structure
+
+    Public Structure BalloonDate
+        Dim Balloon As Balloon
+        Dim Position As Point2d
     End Structure
 
     Public ThisApplication As Inventor.Application
@@ -34,6 +40,7 @@ Module InventorBasic
     Public IPT As String = ".ipt"
     Public IDW As String = ".idw"
     Public OLD As String = ".old"
+    Public PDF As String = ".pdf"
 
     Public ContentCenterFiles As String  '零件库文件夹
 
@@ -57,7 +64,6 @@ Module InventorBasic
     Public EngineerName As String '工程师
 
     Public Map_Vendor As String '供应商
-
 
     Public BOMTiTle As String       '导出BOM用的项目
 
@@ -99,6 +105,20 @@ Module InventorBasic
         End Try
 
     End Function
+
+    '替换模型参考（工程图文档，原文档，新文档）
+    Public Sub ReplaceFileReference(ByVal oDocument As Document, ByVal strRefToRemove As String, ByVal strRefToInclude As String)
+        'oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
+
+        For Each oDocumentDescriptor As DocumentDescriptor In oDocument.ReferencedDocumentDescriptors
+            If oDocumentDescriptor.FullDocumentName = strRefToRemove Then
+                oDocumentDescriptor.ReferencedFileDescriptor.ReplaceReference(strRefToInclude)
+            End If
+        Next
+        oDocument.Update()
+        oDocument.Save2()
+        oDocument.Close()
+    End Sub
 
     '更改零件/部件文件名
     Public Function RenameAssPartDocumentName(ByVal oInventorDocument As Inventor.Document, ByVal _
@@ -210,16 +230,13 @@ Module InventorBasic
                     strNewIdwFullFileName = GetNewExtensionFileName(strNewFullFileName, IDW)   '新工程图
                     FileSystem.FileCopy(strOldIdwFullFileName, strNewIdwFullFileName)             '复制为新工程图
 
-                    'MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & NewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
-                    'Windows.Forms.Clipboard.SetText(NewFullFileName)
-                    'ThisApplication.Documents.Open(NewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
-                    'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Save2() '保存链接并关闭工程图
-                    'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Close()
-
                     oInventorDocument = ThisApplication.Documents.Open(strNewIdwFullFileName, False)  '打开文件，不显示
-                    oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
-                    oInventorDocument.Save2()
-                    oInventorDocument.Close()
+
+                    ReplaceFileReference(oInventorDocument, strOldFullFileName, strNewFullFileName)
+                    'oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
+
+                    'oInventorDocument.Save2()
+                    'oInventorDocument.Close()
 
                     If IsSaveAsOld = MsgBoxResult.Yes Then
                         strTempFullFileName = strOldIdwFullFileName & OLD    '暂时更改旧工程图文件的名字存档
@@ -363,7 +380,6 @@ Module InventorBasic
 
         If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             MsgBox("无法修改资源中心文件： " & strFullFileName, MsgBoxStyle.Information, "修改iProperty")
-
             Return True
             Exit Function
         End If
@@ -388,8 +404,8 @@ Module InventorBasic
                         propitem.Value = oStockNumPartName.StockNum
                     End If
                 Case Map_ERPCode
-                    If oStockNumPartName.PartNum <> "" Then
-                        propitem.Value = oStockNumPartName.PartNum
+                    If oStockNumPartName.ERPCode <> "" Then
+                        propitem.Value = oStockNumPartName.ERPCode
                     End If
                 Case "描述"
                     ' propitem.Value = ""
@@ -417,8 +433,14 @@ Module InventorBasic
                 'RefDocs = AsmDoc.AllReferencedDocuments
                 FirstLevelOnly = False
             Case Else
-                Return True
+                Return False
         End Select
+
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        'System.Threading.Thread.Sleep(5000)
+        'oInteraction.Stop()
 
         '==============================================================================================
         '基于bom结构化数据，可跳过参考的文件
@@ -426,6 +448,7 @@ Module InventorBasic
         Dim oBOM As BOM
         oBOM = oAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
+        oBOM.StructuredViewFirstLevelOnly = False
 
         'Set a reference to the "Structured" BOMView
         Dim oBOMView As BOMView
@@ -434,10 +457,12 @@ Module InventorBasic
         For Each oBOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
                 '遍历这个bom页面
+
                 QueryBOMRowToSetiPro(oBOMView.BOMRows, FirstLevelOnly)
             End If
         Next
         '==============================================================================================
+        oInteraction.Stop()
         Return True
     End Function
 
@@ -449,9 +474,9 @@ Module InventorBasic
         intStepCount = oBOMRows.Count
 
         'Create a new ProgressBar object.
-        Dim oProgressBar As Inventor.ProgressBar
+        'Dim oProgressBar As Inventor.ProgressBar
 
-        oProgressBar = ThisApplication.CreateProgressBar(False, intStepCount, "当前文件： ")
+        'oProgressBar = ThisApplication.CreateProgressBar(False, intStepCount, "当前文件： ")
 
         For i = 1 To oBOMRows.Count
             ' Get the current row.
@@ -466,7 +491,9 @@ Module InventorBasic
             Debug.Print(strFullFileName)
 
             ' Set the message for the progress bar
-            oProgressBar.Message = strFullFileName
+            'oProgressBar.Message = strFullFileName
+
+            SetStatusBarText(strFullFileName)
 
             If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
                 GoTo 999
@@ -475,6 +502,11 @@ Module InventorBasic
             If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
                 GoTo 999
             End If
+
+            Select Case Strings.Left(GetFileNameInfo(strFullFileName).OnlyName, 2)    '跳过标准件
+                Case "GB", "JB"
+                    GoTo 999
+            End Select
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
@@ -487,10 +519,10 @@ Module InventorBasic
             End If
 
 999:
-            oProgressBar.UpdateProgress()
+            'oProgressBar.UpdateProgress()
         Next
 
-        oProgressBar.Close()
+        'oProgressBar.Close()
 
     End Sub
 
@@ -694,7 +726,7 @@ Module InventorBasic
                     strTempFullFileName = strOldFullFileName & OLD
                     ReFileName(strOldFullFileName, strTempFullFileName)
                     MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & strNewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
-                    Windows.Forms.Clipboard.SetText(strNewFullFileName)
+                    System.Windows.Forms.Clipboard.SetText(strNewFullFileName)
                     ThisApplication.Documents.Open(strNewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
                     ThisApplication.Documents.ItemByName(strNewIdwFullFileName).Save2() '保存链接并关闭工程图
                     ThisApplication.Documents.ItemByName(strNewIdwFullFileName).Close()
@@ -845,7 +877,7 @@ Module InventorBasic
                 Try
                     '若该iProperty已经存在，则直接修改其值
                     pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(strPropertyName)
-                    pEachScale.Value = StrScale
+                    pEachScale.Value = strScale
 
                 Catch
                     ' 若该iProperty不存在，则添加一个
@@ -1123,7 +1155,7 @@ Module InventorBasic
         Dim StockNumPartName As StockNumPartName = Nothing
         For Each propitem In oPropertySet
             Select Case propitem.DisplayName
-                Case strpropitemName
+                Case strPropitemName
                     Return propitem.Value
             End Select
         Next
@@ -1176,7 +1208,7 @@ Module InventorBasic
                 Case Map_DrawingNnumber
                     oStockNumPartName.StockNum = propitem.Value
                 Case Map_ERPCode
-                    oStockNumPartName.PartNum = propitem.Value
+                    oStockNumPartName.ERPCode = propitem.Value
             End Select
         Next
 
@@ -1195,7 +1227,6 @@ Module InventorBasic
         oPropertySets = oInventorDocument.PropertySets
         oPropertySet = oPropertySets.Item(3)
 
-
         For Each propitem In oPropertySet
             Select Case propitem.DisplayName
                 Case Map_PartName
@@ -1203,7 +1234,7 @@ Module InventorBasic
                 Case Map_DrawingNnumber
                     propitem.Value = oStockNumPartName.StockNum
                 Case Map_ERPCode
-                    propitem.Value = oStockNumPartName.PartNum
+                    propitem.Value = oStockNumPartName.ERPCode
             End Select
         Next
 
@@ -1212,7 +1243,6 @@ Module InventorBasic
         Return True
 
     End Function
-
 
     '提取iproperty更改文件名
     Public Function GetIpropertyToRename(ByVal oInventorDoc As Inventor.Document, ByVal oOldComponentOccurrence As ComponentOccurrence) As Boolean
@@ -1352,9 +1382,9 @@ Module InventorBasic
         End If
 
         Dim intFirstBalloonNumber As Integer
-        Dim intBalloonNumber As Integer
-        intFirstBalloonNumber = InputBox("输入第一个序号：", "重建序号", "1")
+        intFirstBalloonNumber = Integer.Parse(InputBox("输入第一个序号：", "重建序号", "1"))
 
+        Dim intBalloonNumber As Integer
         intBalloonNumber = intFirstBalloonNumber
 
         '        '设置序号为0
@@ -1466,7 +1496,6 @@ Module InventorBasic
                 SetPartCorlor(oDrawingDocument, strPartName, oColor, oPartsListRow.Ballooned)
             End If
 
-
         Next
 
         If Strings.Len(strList) > 1 Then
@@ -1521,6 +1550,7 @@ Module InventorBasic
                                         Case ColorSourceTypeEnum.kOverrideColorSource
                                             c.Color = Nothing
                                             c.Color.ColorSourceType = ColorSourceTypeEnum.kLayerColorSource
+                                            c.LineWeight = c.Segments(1).Layer.LineWeight
                                             'c.Color = oBlackColor
                                     End Select
                                 Next
@@ -1529,6 +1559,7 @@ Module InventorBasic
                                 '没有序号，设置彩色
                                 For Each c As DrawingCurve In ViewCurves
                                     c.Color = oColor
+                                    c.LineWeight = c.Segments(1).Layer.LineWeight
                                 Next
                             End If
 
@@ -1598,6 +1629,10 @@ Module InventorBasic
                                        "3——外购件", _
                                        "设置虚拟件", 2)
 
+        If IsNumeric(strBOMStructureType) = False Then
+            Return False
+        End If
+
         Select Case strBOMStructureType
             Case ""
                 Return True
@@ -1647,7 +1682,6 @@ Module InventorBasic
             If InStr(oComponentDefinition.Document.FullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
                 Continue For
             End If
-
 
             ''      遍历下一级
             'If Not oBOMRow.ChildRows Is Nothing Then
@@ -1736,7 +1770,6 @@ Module InventorBasic
 
             Dim strInventorFullFileName As String   '模型文件
 
-
             strInventorFullFileName = oComponentDefinition.Document.FullFileName
 
             If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
@@ -1761,7 +1794,7 @@ Module InventorBasic
 
             '      遍历下一级
             If Not oRow.ChildRows Is Nothing Then
-                Call CheckIsInvHaveIdwSub(oRow.ChildRows, StrInName)
+                Call CheckIsInvHaveIdwSub(oRow.ChildRows, strInName)
             End If
 
         Next
@@ -1875,7 +1908,6 @@ Module InventorBasic
         '    SearchDrawingDocumentInPresentFolder(oInventorDocument, 3)
         'End If
 
-
         '查询到工程图
         If IsFileExsts(strDrawingFullFileName) Then
             ThisApplication.Documents.Open(strDrawingFullFileName)
@@ -1940,8 +1972,6 @@ Module InventorBasic
         Next
 
     End Function
-
-
 
     '-------------------------------------------------------------------------------------------------------
     '批量替换部件下子集的名字
@@ -2052,7 +2082,8 @@ Module InventorBasic
     End Function
 
     '导出 bom 平面性
-    Public Function ExportBOMAsFlat(ByVal oAssemblyDocument As Inventor.AssemblyDocument, ByVal strCsvFullFileName As String) As Boolean
+    Public Function ExportBOMAsFlat(ByVal oAssemblyDocument As Inventor.AssemblyDocument, ByVal strCsvFullFileName As String, _
+                                    ByVal IsExpandOutSourcedParts As Boolean) As Boolean
         Dim FirstLevelOnly As Boolean
 
         FirstLevelOnly = False
@@ -2090,12 +2121,13 @@ Module InventorBasic
         For Each oBOMView In oBOM.BOMViews
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
                 '遍历这个bom页面
-                QueryBOMRowPropertieToExcel(strCsvFullFileName, oBOMView.BOMRows, FirstLevelOnly, BOMTiTle, "0", 1)
+                QueryBOMRowPropertieToExcel(strCsvFullFileName, oBOMView.BOMRows, FirstLevelOnly, BOMTiTle, "0", 1, IsExpandOutSourcedParts)
             End If
         Next
 
         '转换excel文件格式
         '===========================================================================
+        SetStatusBarText("开始转换文件...")
 
         Dim strExcelFullFileName As String
         strExcelFullFileName = Strings.Replace(strCsvFullFileName, "csv", "xlsx")
@@ -2118,13 +2150,21 @@ Module InventorBasic
         '删除 csv
         DelFile(strCsvFullFileName, FileIO.RecycleOption.SendToRecycleBin)
 
+        SetStatusBarText("开始设置表格格式...")
+
         oWorkbook = oExcelApplication.Workbooks.Open(strExcelFullFileName)
 
         Dim oWorksheet As Excel.Worksheet
         oWorksheet = oWorkbook.Worksheets(1)
 
         '设边框线
-        'oWorksheet.Cells.Borders.LineStyle = 1
+
+        Dim oRange As Excel.Range
+        Dim lastCell As Excel.Range
+        lastCell = oWorksheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell)
+        oRange = oWorksheet.Range("A1", lastCell)
+        oRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous
+
         '所有单元格列宽自动调整
         oWorksheet.Cells.EntireColumn.AutoFit()
         '所有单元格行高自动调整
@@ -2137,6 +2177,7 @@ Module InventorBasic
 
         System.Runtime.InteropServices.Marshal.ReleaseComObject(oExcelApplication)
 
+        SetStatusBarText("BOM导出到文件：" & vbCrLf & strExcelFullFileName)
         MsgBox("BOM导出到文件：" & vbCrLf & strExcelFullFileName, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "导出BOM")
 
         Process.Start(strExcelFullFileName)
@@ -2148,7 +2189,8 @@ Module InventorBasic
     '在 bom平面性导出，遍历bom 行文件ipro
     Private Sub QueryBOMRowPropertieToExcel(ByVal strCsvFullFileName As String, ByVal oBOMRows As BOMRowsEnumerator, _
                                             ByVal FirstLevelOnly As Boolean, ByVal strColumnsTitle As String, _
-                                            ByVal strLevel As String, ByVal intPresentNumber As Integer)
+                                            ByVal strLevel As String, ByVal intPresentNumber As Integer, ByVal IsExpandOutSourcedParts As Boolean)
+
         On Error Resume Next
 
         Dim i As Short
@@ -2162,7 +2204,7 @@ Module InventorBasic
         'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
 
         '赋值数组
-        Dim oBOMRowData(2000, 1) As String
+        Dim oBOMRowData(5000, 1) As String
 
         ReDim oBOMRowData(oBOMRows.Count - 1, 1)
 
@@ -2210,8 +2252,6 @@ Module InventorBasic
 
             '寻找指针的行，开始提取数据
 
-
-
             For j = 1 To oBOMRows.Count
                 Dim oBOMRow As BOMRow
                 oBOMRow = oBOMRows.Item(j)
@@ -2255,14 +2295,16 @@ Module InventorBasic
                         Select Case arrColumnsTitle(k)
                             Case "空格"
                                 arrColumnsTitleValue(k) = ""
-                            Case Map_PartName
+                            Case Map_PartName      '映射文件名
                                 arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_PartName)
-                            Case Map_DrawingNnumber
+                            Case Map_DrawingNnumber   '映射图号
                                 arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_DrawingNnumber)
-                            Case Map_Describe
+                            Case Map_Describe      '映射描述
                                 arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_Describe)
-                            Case Map_ERPCode
+                            Case Map_ERPCode       '映射erp编码
                                 arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_ERPCode)
+                            Case Map_Vendor  '映射供应商
+                                arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_Vendor)
                             Case "材料"
                                 Dim strMaterialName As String
                                 If oInventorDocument.DocumentType = kPartDocumentObject Then
@@ -2276,7 +2318,6 @@ Module InventorBasic
                                 End If
                                 arrColumnsTitleValue(k) = strMaterialName
 
-                       
                             Case "质量"
                                 Dim strMass As String
                                 strMass = GetMass(oInventorDocument)
@@ -2292,9 +2333,14 @@ Module InventorBasic
                                 StockNumPartName = GetStockNumPartName(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName)
                                 arrColumnsTitleValue(k) = StockNumPartName.StockNum & StockNumPartName.PartName
                             Case "所属装配代号"
-                                Dim StockNumPartName As StockNumPartName
-                                StockNumPartName = GetStockNumPartName(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName)
-                                arrColumnsTitleValue(k) = StockNumPartName.StockNum
+                                'Dim StockNumPartName As StockNumPartName
+                                'StockNumPartName = GetStockNumPartName(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName)
+                                'arrColumnsTitleValue(k) = StockNumPartName.StockNum
+
+                                Dim oParentInventorDocument As Inventor.Document
+
+                                oParentInventorDocument = ThisApplication.Documents.Open(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName, False)
+                                arrColumnsTitleValue(k) = GetPropitem(oParentInventorDocument, Map_DrawingNnumber)
 
                             Case "总数量"
                                 arrColumnsTitleValue(k) = (oBOMRow.ItemQuantity * intPresentNumber).ToString
@@ -2314,13 +2360,13 @@ Module InventorBasic
                         arrColumnsTitleValue(k) = Strings.Replace(arrColumnsTitleValue(k), ",", "，")
                     Next k
 
-                    oInventorDocument.Close(False)
+                    'oInventorDocument.Close(False)
 
                     Select Case oInventorDocument.DocumentType
                         Case kAssemblyDocumentObject
-                            Threading.Thread.Sleep(500)
+                            Threading.Thread.Sleep(300)
                         Case kPartDocumentObject
-                            Threading.Thread.Sleep(200)
+                            Threading.Thread.Sleep(100)
                     End Select
 
                     '集合数组数据
@@ -2443,10 +2489,14 @@ Module InventorBasic
                         oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)
                         strVendor = GetPropitem(oInventorDocument, Map_Vendor)
 
-                        If strVendor = "自制件" Or strVendor = "" Then
-                            Call QueryBOMRowPropertieToExcel(strCsvFullFileName, oBOMRow.ChildRows, FirstLevelOnly, strColumnsTitle, 0, oBOMRow.ItemQuantity * intPresentNumber)
-                        End If
-
+                        Select Case IsExpandOutSourcedParts
+                            Case True   '展开全部子级
+                                Call QueryBOMRowPropertieToExcel(strCsvFullFileName, oBOMRow.ChildRows, FirstLevelOnly, strColumnsTitle, 0, oBOMRow.ItemQuantity * intPresentNumber, IsExpandOutSourcedParts)
+                            Case False    '仅展开自制件或空白
+                                If strVendor = "自制件" Or strVendor = "" Then
+                                    Call QueryBOMRowPropertieToExcel(strCsvFullFileName, oBOMRow.ChildRows, FirstLevelOnly, strColumnsTitle, 0, oBOMRow.ItemQuantity * intPresentNumber, IsExpandOutSourcedParts)
+                                End If
+                        End Select
 
                     End If
 99:
@@ -2455,7 +2505,6 @@ Module InventorBasic
                 End If
 
             Next j
-
 
         Next i
 
@@ -2724,7 +2773,6 @@ Module InventorBasic
         End Try
     End Function
 
-
     '设置当前部件下级为虚拟件
     Public Function SetVendor(ByVal oInventorDocument As Inventor.Document) As Boolean
         '设置结构类型
@@ -2755,5 +2803,280 @@ Module InventorBasic
         SetPropitem(oInventorDocument, Map_Vendor, strVendor)
 
         Return True
+    End Function
+
+    '替换图框和标题栏
+    Public Sub ReplaceBorderTitleBlock(ByVal oInventorDocument As Inventor.Document, ByVal strTemplateDrawingDocumentName As String)
+        On Error Resume Next
+
+        Dim oSheets As Sheets
+        oSheets = oInventorDocument.Sheets
+
+        Dim oSheet As Sheet
+
+        Dim strOldTitleBlockName As String = Nothing
+
+        '删除旧图框和标题栏
+        For Each oSheet In oSheets
+            oSheet.Activate()
+            strOldTitleBlockName = oSheet.TitleBlock.Name
+            oSheet.TitleBlock.Delete()
+            oSheet.Border.Delete()
+        Next
+
+        '复制新标题栏
+        'Re-Activate the first sheet again
+        oSheets.Item(1).Activate()
+        'Attempt to delete all TitleBlockDefinitions
+        Dim oTitleBlockDefinitions As TitleBlockDefinitions
+        oTitleBlockDefinitions = oInventorDocument.TitleBlockDefinitions
+
+        Dim oTitleBlockDefinition As TitleBlockDefinition
+        For Each oTitleBlockDefinition In oTitleBlockDefinitions
+            If oTitleBlockDefinition.IsReferenced = False Then
+                oTitleBlockDefinition.Delete()
+            ElseIf oTitleBlockDefinition.IsReferenced = True Then
+                '         s = MsgBox("Title Block Def Named '" & oTBDef.Name & "' is referenced, and will not be deleted.", vbOKOnly + vbInformation, "CAN'T BE DELETED")
+            End If
+        Next
+
+        Dim oTemplateDrawingDocument As DrawingDocument
+        oTemplateDrawingDocument = ThisApplication.Documents.Open(strTemplateDrawingDocumentName, False)
+
+        Dim oTemplateTitleBlockDefinitions As TitleBlockDefinitions
+        oTemplateTitleBlockDefinitions = oTemplateDrawingDocument.TitleBlockDefinitions
+
+        Dim oTemplateTitleBlockDefinition As TitleBlockDefinition
+
+        Dim oNewTitleBlockDefinition As TitleBlockDefinition = Nothing
+        For Each oTemplateTitleBlockDefinition In oTemplateTitleBlockDefinitions
+            'If oTemplateTitleBlockDefinition.Name = "NX-零件" Then
+            oNewTitleBlockDefinition = oTemplateTitleBlockDefinition.CopyTo(oInventorDocument, True)
+            'End If
+        Next
+
+        '复制新图框
+        Dim oTemplateBorderDefinitions As BorderDefinitions
+        oTemplateBorderDefinitions = oTemplateDrawingDocument.BorderDefinitions
+
+        Dim oTemplateBorderDefinition As BorderDefinition
+
+        Dim oNewBorderDefinition As BorderDefinition = Nothing
+
+        For Each oTemplateBorderDefinition In oTemplateBorderDefinitions
+            'If oTemplateBorderDefinition.Name = "NX" Then
+            oNewBorderDefinition = oTemplateBorderDefinition.CopyTo(oInventorDocument, True)
+            'End If
+        Next
+
+        '设置新图框和标题栏
+        Select Case strOldTitleBlockName
+            Case "SH-零件", "NX-零件"
+                oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-零件")
+            Case "SH-部件", "NX-部件"
+                oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-部件")
+            Case "NX-零件对称"
+                oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-零件对称")
+            Case "NX-部件对称"
+                oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-部件对称")
+            Case Else
+                strOldTitleBlockName = InputBox("输入需插入的标题栏序号 ？" & vbCrLf & _
+                                                "1——零件" & vbCrLf & _
+                                             "2——部件" & vbCrLf & _
+                                             "3——零件对称" & vbCrLf & _
+                                             "4——零件对称" & vbCrLf, "插入标题栏", "1")
+                Select Case strOldTitleBlockName
+                    Case "1"
+                        oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-零件")
+                    Case "2"
+                        oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-部件")
+                    Case "3"
+                        oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-零件对称")
+                    Case "4"
+                        oNewTitleBlockDefinition = oInventorDocument.TitleBlockDefinitions.Item("NX-部件对称")
+                End Select
+        End Select
+
+        oNewBorderDefinition = oInventorDocument.BorderDefinitions.Item("NX")
+
+        For Each oSheet In oSheets
+            oSheet.Activate()
+            oSheet.AddTitleBlock(oNewTitleBlockDefinition, TitleBlockLocationEnum.kBottomRightPosition)
+            oSheet.AddBorder(oNewBorderDefinition)
+        Next
+        oTemplateDrawingDocument.Close(True)
+        oSheets.Item(1).Activate()
+    End Sub
+
+    Public Function RebuildRingSerialNumber(ByVal oDrawingDocument As DrawingDocument) As Boolean
+
+        Dim oActiveSheet As Sheet
+        oActiveSheet = oDrawingDocument.ActiveSheet
+
+        If oActiveSheet.PartsLists.Count = 0 Then
+            MsgBox("该工程图无明细表", MsgBoxStyle.Critical)
+            'Return False
+            Exit Function
+        End If
+
+        '开始设置序号
+        Dim intFirstBalloonNumber As Integer
+        intFirstBalloonNumber = Integer.Parse(InputBox("输入第一个序号", "自动新建序号", 1))
+        'intFistBalloonValue = 1
+
+        Dim intBalloonNumber As Integer
+        intBalloonNumber = intFirstBalloonNumber
+
+        '获取当前balloon的textstyle
+        Dim OldBalloonTextStyl As String = oDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle.TextStyle.Name
+
+        '获取当前balloonstyle
+        Dim oActiveBalloonStyle As BalloonStyle = oDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle
+
+        '新建 ZeroBalloonText
+        Try
+            If oDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText") Is Nothing Then
+
+            End If
+        Catch ex As Exception
+            Dim oZeroBalloonText As TextStyle
+            oZeroBalloonText = oDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl).Copy("ZeroBalloonText")
+
+            Dim oZeroBalloonTextColor As Color = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
+            oZeroBalloonText.Color = oZeroBalloonTextColor
+        End Try
+
+        '设置当前balloon style 为新的 zeroballoonstyle
+        oActiveBalloonStyle.TextStyle = oDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText")
+
+        Try
+            Dim oDrawingView As DrawingView
+            Do
+
+                oDrawingView = ThisApplication.CommandManager.Pick(kDrawingViewFilter, "选择一个视图")
+
+                '100个临时balloon
+                Dim arrayTempBalloonDate(99) As BalloonDate
+                'MsgBox(oDrawingView.Name)
+
+                '视图中心点
+                Dim oCenterPoint2d As Point2d
+                oCenterPoint2d = oDrawingView.Position
+
+                Dim i As Integer = 0
+
+                '获取当前视图中的balloon
+                Dim oBalloon As Balloon
+                For Each oBalloon In oActiveSheet.Balloons
+
+                    For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
+                        If oBalloonValueSet.Value >= intBalloonNumber Then
+                            oBalloonValueSet.Value = 0
+                        End If
+                    Next
+
+                    If oBalloon.ParentView.Name = oDrawingView.Name Then
+
+                        arrayTempBalloonDate(i).Balloon = oBalloon
+                        arrayTempBalloonDate(i).Position = oBalloon.Position
+                        arrayTempBalloonDate(i).Position.X = oBalloon.Position.X - oCenterPoint2d.X
+                        arrayTempBalloonDate(i).Position.Y = oBalloon.Position.Y - oCenterPoint2d.Y
+                        i = i + 1
+                    End If
+
+                Next
+
+                '获取视图包含的balloon个数
+                Dim intArrayBalloonDateLength As Integer
+                intArrayBalloonDateLength = Array.IndexOf(arrayTempBalloonDate, Nothing)
+
+                '重新定义balloon数组
+                Array.Resize(arrayTempBalloonDate, intArrayBalloonDateLength)
+
+                'MsgBox(“”)
+
+                For i = 0 To intArrayBalloonDateLength - 1
+                    Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
+                Next
+
+                Debug.Print("")
+
+                Dim j As Integer
+                Dim tempBalloondate As BalloonDate
+
+                '=============================================
+                '按X值开始排序
+
+                'For i = 0 To intArrayBalloonDateLength
+                '    For j = 0 To intArrayBalloonDateLength - 1
+                '        If arrayBalloonDate(j).Position.X > arrayBalloonDate(j + 1).Position.X Then
+                '            tempBalloondate = arrayBalloonDate(j)
+                '            arrayBalloonDate(j) = arrayBalloonDate(j + 1)
+                '            arrayBalloonDate(j + 1) = tempBalloondate
+                '        End If
+                '    Next
+                'Next
+                '=============================================
+                '按极角排序
+                For i = 0 To intArrayBalloonDateLength - 1
+                    For j = 0 To intArrayBalloonDateLength - 2
+                        If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) < _
+                            Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
+                            tempBalloondate = arrayTempBalloonDate(j)
+                            arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
+                            arrayTempBalloonDate(j + 1) = tempBalloondate
+                        End If
+                    Next
+
+                Next
+
+                '=============================================
+                For i = 0 To intArrayBalloonDateLength - 1
+                    Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
+                Next
+
+                '重新写序号
+                Dim ofirstballoon As Balloon
+                ofirstballoon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择第一个序号")
+
+                '选择的balloon在数组中的位置
+                Dim intfirstballoon As Integer
+
+                For j = 0 To intArrayBalloonDateLength - 1
+                    If arrayTempBalloonDate(j).Balloon Is ofirstballoon Then
+                        intfirstballoon = j
+                    End If
+                Next
+
+                For j = intfirstballoon To intArrayBalloonDateLength - 1
+                    oBalloon = arrayTempBalloonDate(j).Balloon
+                    For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
+                        If oBalloonValueSet.Value = 0 Then
+                            oBalloonValueSet.Value = intBalloonNumber
+                            intBalloonNumber = intBalloonNumber + 1
+                        End If
+                    Next
+                Next j
+
+                For j = 0 To intfirstballoon
+                    oBalloon = arrayTempBalloonDate(j).Balloon
+                    For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
+                        If oBalloonValueSet.Value = 0 Then
+                            oBalloonValueSet.Value = intBalloonNumber
+                            intBalloonNumber = intBalloonNumber + 1
+                        End If
+                    Next
+                Next j
+
+                'end the transactio
+
+            Loop While True
+        Catch ex As Exception
+
+            'esc 退出后，还原balloon style
+            oActiveBalloonStyle.TextStyle = oDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl)
+
+        End Try
+
     End Function
 End Module

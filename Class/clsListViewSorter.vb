@@ -1,5 +1,4 @@
-﻿
-Imports System.Windows.Forms
+﻿Imports System.Windows.Forms
 
 Public Class clsListViewSorter
     Implements System.Collections.IComparer
@@ -18,6 +17,7 @@ Public Class clsListViewSorter
     End Sub
 
     Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
+        On Error Resume Next
 
         Dim xString As String
         Dim YString As String

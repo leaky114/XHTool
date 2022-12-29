@@ -241,9 +241,6 @@
   <data name="打开ERP数据文件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\打开ERP数据文件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="关闭工程图323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭工程图323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="快速打开323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\快速打开323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -276,9 +273,6 @@
   </data>
   <data name="关于323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\关于323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="关闭部件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭部件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="清除签字323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\清除签字323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -319,9 +313,6 @@
   <data name="空白323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\空白323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="关闭工程图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭工程图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="打印161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\打印161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -333,9 +324,6 @@
   </data>
   <data name="设置比例161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\设置比例161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="关闭零件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭零件161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="打开文件夹323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\打开文件夹323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -433,9 +421,6 @@
   <data name="工程图161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\工程图161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="关闭部件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭部件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="查找部件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\查找部件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -463,9 +448,6 @@
   <data name="自定义日期161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\自定义日期161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="关闭零件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\关闭零件323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="量产iPropertys161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\量产iPropertys161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -481,11 +463,41 @@
   <data name="支付宝" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\支付宝.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SimpleUpdaterexe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Release\SimpleUpdater.exe;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="导入材料编码161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\导入材料编码161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SimpleUpdaterexeconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Release\SimpleUpdater.exe.config;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  <data name="导入材料编码323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\导入材料编码323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="导入ERP到BOM161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\导入ERP到BOM161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="导入ERP到BOM323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\导入ERP到BOM323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="采购来源161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\采购来源161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="采购来源323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\采购来源323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换图框标题栏161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换图框标题栏161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换图框标题栏323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换图框标题栏323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="自动重建序号161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\自动重建序号161624.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="自动重建序号323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\自动重建序号323224.ICO;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="关闭文档161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\关闭文档161624.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="关闭文档323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\关闭文档323224.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

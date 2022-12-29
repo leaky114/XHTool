@@ -110,7 +110,7 @@ Public Class frmGetPart
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         lvwFileList.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
     End Sub
 
     '移出项

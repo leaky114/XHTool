@@ -55,19 +55,19 @@ Module StringsModel
                 GetStockNumPartName.IsGet = False
                 GetStockNumPartName.StockNum = ""
                 GetStockNumPartName.PartName = FileName
-                GetStockNumPartName.PartNum = ""
+                GetStockNumPartName.ERPCode = ""
                 'MsgBox(FullFileName & "  无图号！", MsgBoxStyle.Information)
             Case s = ""  '无汉字
                 GetStockNumPartName.IsGet = False
                 GetStockNumPartName.StockNum = FileName
                 GetStockNumPartName.PartName = ""
-                GetStockNumPartName.PartNum = ""
+                GetStockNumPartName.ERPCode = ""
                 'MsgBox(FullFileName & "  无零件名！", MsgBoxStyle.Information)
             Case Else       '正常情况
                 GetStockNumPartName.IsGet = True
                 GetStockNumPartName.StockNum = Left(FileName, i - 2)
                 GetStockNumPartName.PartName = Mid(FileName, i - 1, Len(FileName) - i + 2)
-                GetStockNumPartName.PartNum = ""
+                GetStockNumPartName.ERPCode = ""
         End Select
     End Function
 

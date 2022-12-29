@@ -13,10 +13,14 @@ Public Class frmPrint
 
     '批量打印开始
     Private Sub btnStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStart.Click
+        On Error Resume Next
+
         If lvwFileListView.Items.Count = 0 Then
             MsgBox("未添加工程图文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
             Exit Sub
         End If
+
+        btnStart.Enabled = False
 
         Dim strPrinterName As String = ""
         strPrinterName = cmbPrinter.Text
@@ -45,16 +49,30 @@ Public Class frmPrint
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             '打开工程图
             oInventorDrawingDocument = ThisApplication.Documents.Open(strInventorDrawingFullFileName, True)
+            oInventorDrawingDocument.Update()
+
+            '刷新sheets
+
+            If oInventorDrawingDocument.Sheets Is Nothing Then GoTo 999
+
+            SetStatusBarText("正在更新工程图 ......")
+
+            Dim oSheet As Inventor.Sheet
+            For Each oSheet In oInventorDrawingDocument.Sheets
+                For Each oDwgView In oSheet.DrawingViews
+                    Do While oDwgView.IsUpdateComplete = False
+                        ThisApplication.UserInterfaceManager.DoEvents()
+                    Loop
+                Next
+            Next
 
             '保存文件
-            If chkSave.Checked = True Then
-                oInventorDrawingDocument.Save2(True)
-            End If
+            oInventorDrawingDocument.Save()
 
             '设置签字
             Dim strPrintDate As String
             strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
-            If chkSign.CheckState = CheckState.Checked Then
+            If chkSign.Checked = True Then
                 SetSign(oInventorDrawingDocument, EngineerName, strPrintDate, False)
             End If
 
@@ -71,6 +89,14 @@ Public Class frmPrint
                 SaveAsDwg(oInventorDrawingDocument)
             End If
 
+            If chkSaveSign.Checked = False Then
+                '清除签字
+                SetSign(oInventorDrawingDocument, "", "", False)
+            Else
+                '保存签字
+                oInventorDrawingDocument.Save2(True)
+            End If
+
             '关闭文件
             If chkClose.Checked = True Then
                 oInventorDrawingDocument.Close(True)
@@ -81,6 +107,7 @@ Public Class frmPrint
         'MsgBox("批量打印工程图完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量打印")
 
         lvwFileListView.Items.Clear()
+        btnStart.Enabled = True
         SetStatusBarText("批量打印工程图完成")
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
@@ -91,7 +118,7 @@ Public Class frmPrint
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         lvwFileListView.Items.Clear()
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
     End Sub
 
     '添加文件
@@ -108,6 +135,10 @@ Public Class frmPrint
             .Multiselect = True '多开文件打开
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
+
+                    btnAddFile.Enabled = False
+                    'ThisApplication.Cursor  = Cursors.WaitCursor
+
                     For Each strInventorDrawingFullFileName As String In .FileNames
 
                         If IsItemInListView(lvwFileListView, strInventorDrawingFullFileName) = False Then
@@ -115,6 +146,9 @@ Public Class frmPrint
                         End If
 
                     Next
+
+                    btnAddFile.Enabled = True
+                    'ThisApplication.Cursor  = Cursors.Default
                 End If
             Else
                 Exit Sub
@@ -151,6 +185,9 @@ Public Class frmPrint
             End If
         End With
 
+        btnAddFolder.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
+
         '是否为文件夹，在其后添加 \，得到父文件夹
         oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
 
@@ -160,6 +197,9 @@ Public Class frmPrint
         End If
 
         GetAllFile(strPresentFolder, strDestinationFolder, lvwFileListView)
+
+        btnAddFolder.Enabled = True
+        'ThisApplication.Cursor  = Cursors.Default
 
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
@@ -280,7 +320,6 @@ Public Class frmPrint
             End If
         End With
 
-
         '        ' 获取所有引用文档
         '        Dim oAllReferencedDocuments As DocumentsEnumerator
         '        oAllReferencedDocuments = AssDoc.AllReferencedDocuments
@@ -308,7 +347,6 @@ Public Class frmPrint
         '999:
         '        Next
 
-
         '===================================
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
@@ -319,7 +357,8 @@ Public Class frmPrint
         'Set a reference to the "Structured" BOMView
         Dim oBOMView As BOMView
 
-        Me.Cursor = Cursors.WaitCursor
+        btnLoadAsm.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
 
         lvwFileListView.BeginUpdate()
 
@@ -332,7 +371,8 @@ Public Class frmPrint
         Next
 
         lvwFileListView.EndUpdate()
-        Me.Cursor = Cursors.Default
+        'ThisApplication.Cursor  = Cursors.Default
+        btnLoadAsm.Enabled = True
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
@@ -399,6 +439,9 @@ Public Class frmPrint
                 Exit Sub
             End If
 
+            btnLoadIdw.Enabled = False
+            'ThisApplication.Cursor  = Cursors.WaitCursor
+
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
                 If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
 
@@ -408,6 +451,10 @@ Public Class frmPrint
 
                 End If
             Next
+
+            btnLoadIdw.Enabled = True
+            'ThisApplication.Cursor  = Cursors.Default
+
             Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -415,13 +462,13 @@ Public Class frmPrint
     End Sub
 
     '移除
-    Private Sub tsmiRemove_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemove.Click
+    Private Sub tsmiRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmiRemove.Click
         ListViewDel(lvwFileListView)
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
     '筛选移除
-    Private Sub tsmiRemoveFilter_Click(sender As System.Object, e As System.EventArgs) Handles tsmiRemoveFilter.Click
+    Private Sub tsmiRemoveFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmiRemoveFilter.Click
         Dim strFilter As String
 
         Dim frmInputBox As New frmInputBox
@@ -445,7 +492,7 @@ Public Class frmPrint
             strInventorDrawingFullFileName = oListViewItem.Text
 
             Dim strInventorDrawingFileOnlyName As String
-            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).ONlyName
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).OnlyName
 
             If InStr(strInventorDrawingFileOnlyName, strFilter) <> 0 Then
                 oListViewItem.Remove()
@@ -455,9 +502,8 @@ Public Class frmPrint
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
-
     '筛选保留
-    Private Sub tsmiSaveFilter_Click(sender As System.Object, e As System.EventArgs) Handles tsmiSaveFilter.Click
+    Private Sub tsmiSaveFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmiSaveFilter.Click
         Dim strFilter As String
 
         Dim frmInputBox As New frmInputBox
@@ -481,7 +527,7 @@ Public Class frmPrint
             strInventorDrawingFullFileName = oListViewItem.Text
 
             Dim strInventorDrawingFileOnlyName As String
-            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).ONlyName
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorDrawingFullFileName).OnlyName
 
             If InStr(strInventorDrawingFileOnlyName, strFilter) = 0 Then
                 oListViewItem.Remove()
@@ -491,8 +537,6 @@ Public Class frmPrint
 
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
-
-
 
     Private Sub btnLoadActiveAsm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadActiveAsm.Click
 
@@ -527,7 +571,8 @@ Public Class frmPrint
         'Set a reference to the "Structured" BOMView
         Dim oBOMView As BOMView
 
-        Me.Cursor = Cursors.WaitCursor
+        btnLoadActiveAsm.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
 
         lvwFileListView.BeginUpdate()
 
@@ -540,7 +585,8 @@ Public Class frmPrint
         Next
 
         lvwFileListView.EndUpdate()
-        Me.Cursor = Cursors.Default
+        btnLoadActiveAsm.Enabled = True
+        'ThisApplication.Cursor  = Cursors.Default
         Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
     End Sub
 
@@ -548,5 +594,64 @@ Public Class frmPrint
         ThisApplication.Documents.Open(lvwFileListView.SelectedItems(0).Text)
     End Sub
 
-    
+    '拖入文件夹 和 文件
+    Private Sub lvwFileListView_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvwFileListView.DragDrop
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+
+            Dim File_lists() As String
+            Dim File_Attribute As FileInfo
+
+            Dim strDestinationFolder As String = Nothing
+            Dim oFileAttributes As FileAttributes
+            Dim strPresentFolder As String = Nothing
+
+            lblsuggest.Visible = False
+
+            Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+
+            ' Assign the files to an array.
+            File_lists = e.Data.GetData(DataFormats.FileDrop)
+            ' Loop through the array and add the files to the list.
+            lvwFileListView.BeginUpdate()
+
+            For Each strInventorDrawingFullFileName As String In File_lists
+                File_Attribute = My.Computer.FileSystem.GetFileInfo(strInventorDrawingFullFileName)
+
+                Select Case File_Attribute.Attributes
+                    Case FileAttributes.Device
+
+                    Case FileAttributes.Directory
+                        strDestinationFolder = strInventorDrawingFullFileName
+
+                        oFileAttributes = FileSystem.GetAttr(strDestinationFolder)
+
+                        If oFileAttributes = FileAttributes.Directory Then
+                            strDestinationFolder = strDestinationFolder + "\"
+                            strPresentFolder = My.Computer.FileSystem.GetParentPath(strDestinationFolder)
+                        End If
+
+                        GetAllFile(strPresentFolder, strDestinationFolder, lvwFileListView)
+
+                    Case Else
+                        If IsItemInListView(lvwFileListView, strInventorDrawingFullFileName) = False Then
+                            If LCaseGetFileExtension(strInventorDrawingFullFileName) = IDW Then
+                                lvwFileListView.Items.Add(strInventorDrawingFullFileName)
+                            End If
+                        End If
+
+                End Select
+            Next
+
+            lvwFileListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+            lvwFileListView.EndUpdate()
+            Me.Text = "批量打印  (共" & lvwFileListView.Items.Count & "张）"
+        End If
+    End Sub
+
+    '拖拽文件夹和文件
+    Private Sub lvwFileListView_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvwFileListView.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.All
+        End If
+    End Sub
 End Class

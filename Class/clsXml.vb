@@ -145,5 +145,3 @@ Public Class clsXml
         Return Node.InnerText
     End Function
 End Class
-
-

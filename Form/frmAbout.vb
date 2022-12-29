@@ -4,7 +4,6 @@ Public NotInheritable Class frmAbout
 
     Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
 
-
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' 设置此窗体的标题。
         Dim ApplicationTitle As String
@@ -26,30 +25,31 @@ Public NotInheritable Class frmAbout
                                     My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".dll"
 
         '释放更新程序
-        NewUpdater.CreateUpdateExe()
+        'NewUpdater.CreateUpdateExe()
 
         '检查释放有新版本
-        Select Case NewUpdater.CheckNewVesion()
-            Case "New"
-                With btnCheckUpdate
-                    .Text = "当前为最新版"
-                    .Visible = False
-                End With
+        'Select Case NewUpdater.CheckNewVesion()
+        '    Case "New"
+        '        With btnCheckUpdate
+        '            .Text = "当前为最新版"
+        '            .Visible = False
+        '        End With
 
-            Case Else
-                btnCheckUpdate.Text = "检查到新版" & NewVersion
-        End Select
+        '    Case Else
+        '        btnCheckUpdate.Text = "检查到新版" & NewVersion
+        'End Select
 
     End Sub
 
     Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-        Me.Close()
+        Me.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.Dispose()
     End Sub
 
     Private Sub btnCheckUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckUpdate.Click
 
         '启动更新程序
-        NewUpdater.Update3()
+        NewUpdater.UpDate3()
 
         'IsShowUpdateMsg = True
         'Dim frmupdate As New frmUpdate

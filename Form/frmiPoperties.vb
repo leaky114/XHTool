@@ -51,6 +51,9 @@ Public Class frmiPoperties
             Exit Sub
         End If
 
+        btnStart.Enabled = False
+        'ThisApplication.Cursor  = Cursors.WaitCursor
+
         Select Case tab1.SelectedIndex
 
             Case 0
@@ -145,13 +148,18 @@ Public Class frmiPoperties
                     '关闭文件
                     'InventorDoc.Close()
                 Next
+
         End Select
+
+        btnStart.Enabled = True
+        'ThisApplication.Cursor  = Cursors.Default
         MsgBox("量产工程图文件完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "量产")
+
     End Sub
 
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+        Me.Dispose()
     End Sub
 
     Private Sub frmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -184,7 +192,7 @@ Public Class frmiPoperties
             .Title = "打开"
             .Filter = "AutoCAD Inventor 文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt" '添加过滤文件
             .Multiselect = True '多开文件打开
-            If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
                     For Each strFullFileName As String In .FileNames
                         lstFileLIst.Items.Add(strFullFileName)

@@ -192,7 +192,6 @@ Module BasicFileSystem
         End If
     End Function
 
-
     '删除一个文件(文件名,是否删除到回收站选项)
     Public Function DelFile(ByVal strFullFileName As String, ByVal oRecycleOption As FileIO.RecycleOption) As Boolean
         If IsFileExsts(strFullFileName) Then
@@ -262,7 +261,7 @@ Module BasicFileSystem
             For i = 0 To strFile.Length - 1
                 'Debug.Print(strFile(i))
                 oFileInfo = My.Computer.FileSystem.GetFileInfo(strFile(i))
-                If (LCase(oFileInfo.Extension) = idw) And (Strings.InStr(oFileInfo.FullName, "OldVersions") = 0) Then
+                If (LCase(oFileInfo.Extension) = IDW) And (Strings.InStr(oFileInfo.FullName, "OldVersions") = 0) Then
                     If IsItemInListView(olistbox, oFileInfo.FullName) = False Then
                         olistbox.Items.Add(oFileInfo.FullName)
                     End If
@@ -343,13 +342,18 @@ Module BasicFileSystem
     '检查 listview中是否存在重复项，再添加
     Public Function IsItemInListView(ByVal oListiView As ListView, ByVal strItem As String) As Boolean
 
+        '检查为空值时跳过
+        If strItem = "" Then
+            Return False
+        End If
+
         For Each oListViewItem As ListViewItem In oListiView.Items
             If oListViewItem.Text = strItem Then
-                ISItemInListView = True
+                IsItemInListView = True
                 Exit Function
             End If
         Next
-        ISItemInListView = False
+        IsItemInListView = False
 
     End Function
 

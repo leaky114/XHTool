@@ -138,9 +138,9 @@ Partial Class frmAbout
         'btnCheckUpdate
         '
         Me.btnCheckUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCheckUpdate.Location = New System.Drawing.Point(122, 238)
+        Me.btnCheckUpdate.Location = New System.Drawing.Point(184, 238)
         Me.btnCheckUpdate.Name = "btnCheckUpdate"
-        Me.btnCheckUpdate.Size = New System.Drawing.Size(140, 28)
+        Me.btnCheckUpdate.Size = New System.Drawing.Size(75, 28)
         Me.btnCheckUpdate.TabIndex = 44
         Me.btnCheckUpdate.Text = "检查更新"
         Me.btnCheckUpdate.UseVisualStyleBackColor = True
