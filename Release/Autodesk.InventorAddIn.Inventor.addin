@@ -1,0 +1,15 @@
+<Addin Type="Standard">
+   <ClassId>{0a8e6d1d-68ec-48be-9e61-32779d2aae77}</ClassId>
+   <ClientId>{0a8e6d1d-68ec-48be-9e61-32779d2aae77}</ClientId>
+   <DisplayName>InAI</DisplayName>
+   <Description>A Inventor Addin By Leaky114@Bilibili</Description>
+   <Assembly>InventorAddIn.dll</Assembly>
+   <LoadOnStartUp>1</LoadOnStartUp>
+   <UserUnloadable>1</UserUnloadable>
+   <OSType>Win64</OSType>
+   <Hidden>0</Hidden>
+   <SupportedSoftwareVersionGreaterThan>7..</SupportedSoftwareVersionGreaterThan>
+   <DataVersion>1</DataVersion>
+   <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>
+
