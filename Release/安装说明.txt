@@ -1,0 +1,9 @@
+1、复制  Autodesk.InventorAddIn.Inventor.addin，到 
+C:\Users\【user】\AppData\Roaming\Autodesk\Inventor 2015\Addins
+注意【user】为本用户名
+or
+C:\ProgramData\Autodesk\Inventor 2015\Addins
+
+实在不知道复制到哪里，搜索 Inventor.addin
+
+2、解压本文件到 C:\Program Files\Autodesk\Inventor 2015\Bin\  文件夹下
