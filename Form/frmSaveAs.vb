@@ -24,8 +24,9 @@ Public Class frmSaveAs
             Exit Sub
         End If
 
-        'btnStart.Enabled = False
-        'ThisApplication.Cursor  = Cursors.WaitCursor
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
         For i = 0 To lvw文件列表.Items.Count - 1
             '当前项标记颜色
@@ -108,9 +109,11 @@ Public Class frmSaveAs
 999:
         Next
 
+        oInteraction.Stop()
+
         MsgBox("批量另存完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量另存")
-        'btnStart.Enabled = True
-        'ThisApplication.Cursor  = Cursors.WaitCursor
+
+
 
     End Sub
 
@@ -196,10 +199,16 @@ Public Class frmSaveAs
             strExtension = IDW
         End If
 
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
         GetAllFile(strPresentFolder, strDestinationFolder, lvw文件列表, strExtension)
 
+        oInteraction.Stop()
         btn添加文件夹.Enabled = True
-        'ThisApplication.Cursor  = Cursors.Default
+
+
     End Sub
 
     '当前文件夹

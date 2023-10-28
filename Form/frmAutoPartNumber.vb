@@ -18,7 +18,12 @@ Public Class frmAutoPartNumber
         Try
 
             btn开始.Enabled = False
-            'ThisApplication.Cursor  = Cursors.WaitCursor
+            Me.TopMost = False
+
+            Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+            oInteraction.Start()
+            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
 
             For i = 0 To lvw文件列表.Items.Count - 1
                 oListViewItem = lvw文件列表.Items(i)
@@ -81,13 +86,15 @@ Public Class frmAutoPartNumber
 999:
             Next
 
-            Me.TopMost = False
+            Me.TopMost = True
             SetStatusBarText("自动命名图号完成！")
             MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
             btn开始.Enabled = True
-            'ThisApplication.Cursor  = Cursors.Default
+
+            oInteraction.Stop()
 
         Catch ex As Exception
+            Me.TopMost = True
             btn开始.Enabled = True
             MsgBox(ex.Message)
         End Try
@@ -238,7 +245,10 @@ Public Class frmAutoPartNumber
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
         LoadAssBOM(oInventorAssemblyDocument, lvw文件列表)
+
+        btn确定新文件名.Image = My.Resources.确定161632.ToBitmap
     End Sub
 
     '载入数据函数
@@ -318,9 +328,11 @@ Public Class frmAutoPartNumber
 
     '重载数据
     Private Sub btn重载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn重载.Click
-        Dim oAssemblyDocument As AssemblyDocument
-        oAssemblyDocument = ThisApplication.ActiveDocument
-        LoadAssBOM(oAssemblyDocument, lvw文件列表)
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        LoadAssBOM(oInventorAssemblyDocument, lvw文件列表)
+
     End Sub
 
     Private Sub btn确定新文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定新文件名.Click
@@ -420,10 +432,10 @@ Public Class frmAutoPartNumber
         End If
     End Sub
 
-    Private Sub txt新文件名_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt新文件名.KeyPress
-        If Asc(e.KeyChar) = Keys.Enter Then
-            btn确定新文件名.PerformClick()
-        End If
-    End Sub
+    'Private Sub txt新文件名_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt新文件名.KeyPress
+    '    If Asc(e.KeyChar) = Keys.Enter Then
+    '        btn确定新文件名.PerformClick()
+    '    End If
+    'End Sub
 
 End Class

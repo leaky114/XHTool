@@ -31,7 +31,11 @@ Public NotInheritable Class frmSearchERPCode
 
         Dim arraystrERPCode() As String
 
+        'Me.UseWaitCursor = True
+
         arraystrERPCode = FindAllSrtingInSheet(BasicExcelFullFileName, strDrawingNo, TableArrays, ColIndexNum, 0)
+
+        'Me.UseWaitCursor = False
 
         If arraystrERPCode(0) Is Nothing Then
             txtERP编码.Text = "未查询到ERP编码。"

@@ -12,6 +12,8 @@ Public Class frmSaveAll
             Exit Sub
         End If
 
+        Me.TopMost = False
+
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
             If IsFileExsts(oInventorDocument.FullDocumentName) = False Then
                 Continue For
@@ -78,7 +80,4 @@ Public Class frmSaveAll
         RadioState = 3
     End Sub
 
-    Private Sub frmSaveAll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

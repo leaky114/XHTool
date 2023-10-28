@@ -63,6 +63,9 @@ Module WrXml
         XWriter.WriteElementString("NewVersionTxt", NewVersionTxt)
 
         XWriter.WriteElementString("TitleBlockIdwDoc", TitleBlockIdwDoc)
+
+        XWriter.WriteElementString("PrintSetting", PrintSetting)
+
         XWriter.WriteEndElement()
 
         XWriter.Close()
@@ -133,6 +136,8 @@ Module WrXml
 
                             Case "TitleBlockIdwDoc" : TitleBlockIdwDoc = XReader.Value
 
+                            Case "PrintSetting" : PrintSetting = XReader.Value
+
                         End Select
                 End Select
             End While
@@ -175,6 +180,8 @@ Module WrXml
         NewVersionTxt = "NewVersion.txt"
 
         TitleBlockIdwDoc = My.Application.Info.DirectoryPath & "\模板.idw"
+
+        PrintSetting = "1101111001"
 
     End Sub
 

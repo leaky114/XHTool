@@ -130,7 +130,4 @@ Public Class frmGetPart
         My.Computer.Clipboard.SetText(txt面积.Text)
     End Sub
 
-    Private Sub frmGetPart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

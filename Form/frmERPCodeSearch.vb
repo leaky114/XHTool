@@ -32,6 +32,7 @@ Public Class frmERPCodeSearch
 
         arraystrinfo = ERPCodeSearch(BasicExcelFullFileName, strERPCode, TableArrays, ColIndexNum, 0)
 
+
         If arraystrinfo(0) Is Nothing Then
             txt返回值.Text = "未查询到ERP编码。"
             Me.Height = 280

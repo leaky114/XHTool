@@ -41,11 +41,13 @@ Module IamModule
 999:
             With frmInputBox
                 .txt输入.Text = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
+
                 .Text = "检查包号指定字符的工程图"
                 .lbl描述.Text = "输入要检查的部分图号的。" & vbCrLf & "如要检查全部AAA-BBB000下的零件是否有工程图，输入AAA-BBB即可。"
                 .StartPosition = FormStartPosition.CenterScreen
-                .ShowDialog()
                 strPartDrawingNnumber = .txt输入.Text
+                .txt输入.SelectAll()
+                .ShowDialog()
             End With
 
             If (frmInputBox.DialogResult = System.Windows.Forms.DialogResult.OK) And (strPartDrawingNnumber <> "") Then
@@ -813,48 +815,7 @@ Module IamModule
         'End Try
     End Sub
 
-    '一键全部可见
-    Public Sub OneKeyShowAll()
-
-        Try
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            SetStatusBarText()
-
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
-                'Return False
-                Exit Sub
-            End If
-
-            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
-            oInventorAssemblyDocument = ThisApplication.ActiveDocument
-
-            '关闭屏幕更新
-            ThisApplication.ScreenUpdating = False
-
-            Dim oAsmDocDef As AssemblyComponentDefinition
-            oAsmDocDef = oInventorAssemblyDocument.ComponentDefinition
-
-            Dim oViewRepper As RepresentationsManager
-            oViewRepper = oAsmDocDef.RepresentationsManager
-
-            Dim actView As DesignViewRepresentation
-            actView = oViewRepper.ActiveDesignViewRepresentation
-            actView.ShowAll()
-
-            '打开屏幕更新
-            ThisApplication.ScreenUpdating = True
-
-            '刷新浏览器
-            oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-    End Sub
+   
 
     '打开部件中所有子集对应的工程图 ，部件文件，指定的图号
     Public Function OpenAllDrwInAsmSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal strStockNum As String) As Boolean
@@ -1341,8 +1302,9 @@ Module IamModule
 
                             Case "质量"
                                 Dim strMass As String
-                                strMass = GetMass(oInventorDocument)
+                                strMass = GetMass(oInventorDocument).ToString
                                 arrColumnsTitleValue(k) = strMass
+
                             Case "面积"
                                 Dim strArea As String
                                 strArea = GetArea(oInventorDocument)
@@ -1376,6 +1338,9 @@ Module IamModule
 
                                 'propitem = oPropertySet.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kVendorDesignTrackingProperties)
                                 'arrColumnsTitleValue(k) = propitem.Value
+
+                            Case "总质量"
+                                arrColumnsTitleValue(k) = (GetMass(oInventorDocument) * oBOMRow.ItemQuantity * intPresentNumber).ToString
 
                         End Select
                         arrColumnsTitleValue(k) = Strings.Replace(arrColumnsTitleValue(k), ",", "，")
@@ -1492,50 +1457,52 @@ Module IamModule
 
     '打开指定工程图
     Public Sub OpenAllDrwInAsm()
-        Try
-            SetStatusBarText()
+        'Try
+        On Error Resume Next
 
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
+        SetStatusBarText()
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
 
-            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
-            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+            Exit Sub
+        End If
 
-            Dim strPartDrawingNnumber As String
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        Dim strPartDrawingNnumber As String
 999:
-            Dim frmInputBox As New frmInputBox
-            With frmInputBox
-                .txt输入.Text = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
-                .Text = "打开指定工程图"
-                .lbl描述.Text = "输入包含指定的字段的图号。" & vbCrLf & "如要打开 AAA-BBB000.aim 下的工程图，输入AAA-BBB即可。"
-                .StartPosition = FormStartPosition.CenterScreen
-                .ShowDialog()
-                strPartDrawingNnumber = .txt输入.Text
-            End With
+        Dim frmInputBox As New frmInputBox
+        With frmInputBox
+            .txt输入.Text = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
+            .Text = "打开指定工程图"
+            .lbl描述.Text = "输入包含指定的字段的图号。" & vbCrLf & "如要打开 AAA-BBB000.aim 下的工程图，输入AAA-BBB即可。"
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+            strPartDrawingNnumber = .txt输入.Text
+        End With
 
-            If (frmInputBox.DialogResult = System.Windows.Forms.DialogResult.OK) And (strPartDrawingNnumber <> "") Then
-                If OpenAllDrwInAsmSub(oInventorAssemblyDocument, frmInputBox.txt输入.Text) Then
-                    MsgBox("打开了部件所有子集对应的工程图。", MsgBoxStyle.Information)
-                Else
-                    SetStatusBarText("错误")
-                End If
-            ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
-                Exit Sub
+        If (frmInputBox.DialogResult = System.Windows.Forms.DialogResult.OK) And (strPartDrawingNnumber <> "") Then
+            If OpenAllDrwInAsmSub(oInventorAssemblyDocument, frmInputBox.txt输入.Text) Then
+                MsgBox("打开了部件所有子集对应的工程图。", MsgBoxStyle.Information)
             Else
-                MsgBox("请输入部分图号！", MsgBoxStyle.Information)
                 SetStatusBarText("错误")
-                GoTo 999
-                Exit Sub
             End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
+            Exit Sub
+        Else
+            MsgBox("请输入部分图号！", MsgBoxStyle.Information)
+            SetStatusBarText("错误")
+            GoTo 999
+            Exit Sub
+        End If
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
 
     End Sub
 
@@ -2229,5 +2196,444 @@ Module IamModule
         Next
         Return True
     End Function
+
+
+    '一键全部可见
+    Public Sub OneKeyShowAll()
+
+        Try
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            SetStatusBarText()
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                'Return False
+                Exit Sub
+            End If
+
+            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+            '关闭屏幕更新
+            ThisApplication.ScreenUpdating = False
+
+            Dim oAsmDocDef As AssemblyComponentDefinition
+            oAsmDocDef = oInventorAssemblyDocument.ComponentDefinition
+
+            Dim oViewRepper As RepresentationsManager
+            oViewRepper = oAsmDocDef.RepresentationsManager
+
+            Dim actView As DesignViewRepresentation
+            actView = oViewRepper.ActiveDesignViewRepresentation
+            actView.ShowAll()
+
+            '打开屏幕更新
+            ThisApplication.ScreenUpdating = True
+
+            '刷新浏览器
+            oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+
+    End Sub
+
+    '设置标准件可见性
+    Public Sub SetStandIptVisible()
+        Try
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            SetStatusBarText()
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                'Return False
+                Exit Sub
+            End If
+
+            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+            '关闭屏幕更新
+            'ThisApplication.ScreenUpdating = False
+
+            Dim oCompocc As ComponentOccurrence
+
+            Dim IsVisible As Boolean
+
+            Select Case MsgBox("设置标准件可见性。" & vbCrLf & vbCrLf & "是——全部可见" & vbCrLf & vbCrLf & "否——全部隐藏", MsgBoxStyle.Information + MsgBoxStyle.YesNoCancel)
+                Case MsgBoxResult.Yes
+                    IsVisible = True
+                Case MsgBoxResult.No
+                    IsVisible = False
+                Case Else
+                    GoTo 999
+            End Select
+
+            For Each oCompocc In oInventorAssemblyDocument.ComponentDefinition.Occurrences
+                If oCompocc.Definition.BOMStructure = kPurchasedBOMStructure Then
+                    oCompocc.Visible = IsVisible
+                End If
+            Next
+
+999:
+            ''打开屏幕更新
+            'ThisApplication.ScreenUpdating = True
+
+            '刷新浏览器
+            oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    '替换为库文件
+    Public Sub ReplaceWithContentCenterFile()
+        Try
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            SetStatusBarText()
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                'Return False
+                Exit Sub
+            End If
+
+            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+            '关闭屏幕更新
+            'ThisApplication.ScreenUpdating = False
+
+            '==============================================================================================
+            '基于bom结构化数据，可跳过参考的文件
+            ' Set a reference to the BOM
+            Dim oBOM As BOM
+            oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
+            oBOM.StructuredViewEnabled = True
+            oBOM.StructuredViewFirstLevelOnly = True
+
+            'Set a reference to the "Structured" BOMView
+            Dim oBOMView As BOMView
+
+            '获取结构化的bom页面
+            For Each oBOMView In oBOM.BOMViews
+                If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                    '遍历这个bom页面
+
+                    'Dim i As Integer
+                    'Dim intStepCount As Integer
+                    'intStepCount = oBOMView.BOMRows.Count
+
+                    Dim oBOMRow As BOMRow   '每一行bom
+
+                    For Each oBOMRow In oBOMView.BOMRows
+
+                        Dim strFullFileName As String
+
+                        strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+                        '测试文件
+                        Debug.Print(strFullFileName)
+
+
+                        SetStatusBarText(strFullFileName)
+
+                        If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                            Continue For
+                        End If
+
+                        If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                            Continue For
+                        End If
+
+                        Dim oFileNameInfo As FileNameInfo
+                        oFileNameInfo = GetFileNameInfo(strFullFileName)
+
+                        Dim arrFullFileName As String()
+                        Dim strContentCenterFileFullFileName As String = Nothing
+                        arrFullFileName = Directory.GetFiles(ContentCenterFiles, oFileNameInfo.SigleName, SearchOption.AllDirectories)
+
+                        If arrFullFileName.Length <> 0 Then
+                            strContentCenterFileFullFileName = arrFullFileName(0)
+
+                            Dim oCompocc As ComponentOccurrence
+                            For Each oCompocc In oInventorAssemblyDocument.ComponentDefinition.Occurrences
+                                If oCompocc.ReferencedDocumentDescriptor.FullDocumentName = strFullFileName Then
+                                    oCompocc.Replace(strContentCenterFileFullFileName, False)
+                                End If
+                            Next
+                        End If
+
+                    Next
+
+                End If
+            Next
+            '==============================================================================================
+
+
+            ''打开屏幕更新
+            'ThisApplication.ScreenUpdating = True
+
+            '刷新浏览器
+            oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+
+            MsgBox("替换为库文件完成。", MsgBoxStyle.Information)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+    End Sub
+
+
+    '创建展开图
+    Public Sub CreateFlat()
+        On Error Resume Next
+
+        'Try
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        SetStatusBarText()
+
+        Dim oInventorDocument As Inventor.Document
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        Dim oInventorPartDocument As Inventor.PartDocument
+
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        Dim strBasicIdwFileFullName As String
+        strBasicIdwFileFullName = TitleBlockIdwDoc    '工程图模板
+
+        If IsFileExsts(strBasicIdwFileFullName) = False Then
+            Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
+
+            MsgBox("未找到工程图模板：" & vbCrLf & strBasicIdwFileFullName & vbCrLf & "请选择工程图模板文件。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+
+            With oOpenFileDialog
+                .Title = "打开工程图模板文件"
+                .Filter = "AutoDesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
+                .Multiselect = False  '多开文件打开
+                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                    If .FileName <> "" Then '如果有选中文件
+                        strBasicIdwFileFullName = .FileName
+                    Else
+                        Exit Sub
+                    End If
+                Else
+                    Exit Sub
+                End If
+            End With
+
+        End If
+
+        Dim strInventorDrawingFolder As String = Nothing
+        Select Case MsgBox("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+            Case MsgBoxResult.Yes
+                Dim oFolderBrowserDialog As New FolderBrowserDialog
+
+                With oFolderBrowserDialog
+                    .ShowNewFolderButton = False
+                    .Description = "选择文件夹"
+                    .RootFolder = System.Environment.SpecialFolder.Desktop
+                    If .ShowDialog = DialogResult.OK Then
+                        strInventorDrawingFolder = .SelectedPath
+                    Else
+                        Exit Sub
+                    End If
+                End With
+
+            Case MsgBoxResult.No
+                strInventorDrawingFolder = "当前文件夹"
+            Case MsgBoxResult.Cancel
+                Exit Sub
+        End Select
+
+
+        Dim IsClose As Boolean
+        Select Case MsgBox("创建工程图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+            Case MsgBoxResult.Yes
+                IsClose = True
+            Case MsgBoxResult.No
+                IsClose = False
+            Case MsgBoxResult.Cancel
+                Exit Sub
+        End Select
+
+        Select Case oInventorDocument.DocumentType
+            Case kAssemblyDocumentObject
+
+                oInventorAssemblyDocument = oInventorDocument
+
+                '==============================================================================================
+                '基于bom结构化数据，可跳过参考的文件
+                ' Set a reference to the BOM
+                Dim oBOM As BOM
+                oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
+                oBOM.StructuredViewEnabled = True
+                oBOM.StructuredViewFirstLevelOnly = False
+
+                'Set a reference to the "Structured" BOMView
+                Dim oBOMView As BOMView
+
+                '获取结构化的bom页面
+                For Each oBOMView In oBOM.BOMViews
+                    If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                        '遍历这个bom页面
+                        Dim i As Integer
+
+                        Dim intStepCount As Integer
+                        intStepCount = oBOMView.BOMRows.Count
+
+                        For i = 1 To intStepCount
+                            ' Get the current row.
+                            Dim oBOMRow As BOMRow
+                            oBOMRow = oBOMView.BOMRows.Item(i)
+
+                            Dim strFullFileName As String
+                            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+                            '测试文件
+                            Debug.Print(strFullFileName)
+
+                            ' Set the message for the progress bar
+                            'oProgressBar.Message = oFullFileName
+
+                            If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                                GoTo 999
+                            End If
+
+                            If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                                GoTo 999
+                            End If
+
+                            If oBOMRow.ReferencedFileDescriptor.ReferencedFileType = FileTypeEnum.kPartFileType Then
+
+                                'oInventorPartDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
+
+                                oInventorPartDocument = ThisApplication.Documents.ItemByName(strFullFileName)
+                                CreateFlatSub(oInventorPartDocument, strBasicIdwFileFullName, strInventorDrawingFolder, IsClose)
+                            End If
+999:
+                        Next
+                    End If
+                Next
+                MsgBox("钣金件批量生成展开图完成。", MsgBoxStyle.Information)
+
+            Case kPartDocumentObject
+                oInventorPartDocument = oInventorDocument
+                CreateFlatSub(oInventorPartDocument, strBasicIdwFileFullName, strInventorDrawingFolder, IsClose)
+        End Select
+
+
+
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
+
+    End Sub
+
+    '创建展开图sub
+    Public Sub CreateFlatSub(ByVal oInventorDocument As Inventor.PartDocument, ByVal strBasicIdwFileFullName As String, _
+                             ByVal strInventorDrawingFolder As String, ByVal IsClose As Boolean)
+        On Error Resume Next
+
+        Dim oBaseViewOptions As NameValueMap = ThisApplication.TransientObjects.CreateNameValueMap
+        Dim oTG As TransientGeometry = ThisApplication.TransientGeometry
+        Dim oPoint As Point2d
+
+        'Check to see if part is a sheetmetal part
+        If (oInventorDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
+            Exit Sub
+        End If
+
+        Dim oSMDef As SheetMetalComponentDefinition
+        oSMDef = oInventorDocument.ComponentDefinition
+        If oSMDef.HasFlatPattern = False Then
+            'create flat pattern
+            ThisApplication.ScreenUpdating = False
+            oSMDef.Unfold()
+            oSMDef.FlatPattern.ExitEdit()
+            ThisApplication.ScreenUpdating = True
+        End If
+
+        Dim oFlatPattern As FlatPattern
+        Dim intFlatExtentsLength As Double    '"展开长"  转换单位为mm
+        Dim intFlatExtentsWidth As Double       '展开宽
+        oFlatPattern = oSMDef.FlatPattern
+        intFlatExtentsLength = oFlatPattern.Length * 10
+        intFlatExtentsWidth = oFlatPattern.Width * 10
+
+
+        Dim douScale As Double
+        If intFlatExtentsLength > intFlatExtentsWidth Then
+            douScale = 150 / intFlatExtentsLength
+        Else
+            douScale = 150 / intFlatExtentsWidth
+        End If
+
+        If douScale > 1 Then
+            douScale = 1
+        End If
+
+        oPoint = oTG.CreatePoint2d(12, 18)
+
+        oBaseViewOptions.Add("SheetMetalFoldedModel", False)
+
+        Dim oInventorDrawingDocument As Inventor.DrawingDocument
+
+        oInventorDrawingDocument = ThisApplication.Documents.Add(DocumentTypeEnum.kDrawingDocumentObject, strBasicIdwFileFullName)
+        Dim oSheet As Sheet = oInventorDrawingDocument.ActiveSheet
+        Dim oBaseView As DrawingView = oSheet.DrawingViews.AddBaseView(oInventorDocument, oPoint, douScale,
+                ViewOrientationTypeEnum.kDefaultViewOrientation,
+                DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle,
+                , , oBaseViewOptions)
+
+        Dim strInventorDocumentFullFileName As String
+        strInventorDocumentFullFileName = oInventorDocument.FullFileName
+
+        Dim oFileNameInfo As FileNameInfo
+        oFileNameInfo = GetFileNameInfo(strInventorDocumentFullFileName)
+
+        If strInventorDrawingFolder = "当前文件夹" Then
+            strInventorDrawingFolder = oFileNameInfo.Folder
+        End If
+
+        strInventorDrawingFolder = strInventorDrawingFolder & "\钣金展开\"
+        If IsDirectoryExists(strInventorDrawingFolder) = False Then
+            IO.Directory.CreateDirectory(strInventorDrawingFolder)
+        End If
+
+        Dim strInventorDrawingDocumentFullFileName As String
+
+        strInventorDrawingDocumentFullFileName = strInventorDrawingFolder & oFileNameInfo.OnlyName & "-展开.idw"
+
+        If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+            oInventorDocument.Save2()
+        End If
+
+
+        oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+        oInventorDrawingDocument.Save2()
+
+        If IsClose = True Then
+            oInventorDrawingDocument.Close()
+        End If
+        ''oInventorDocument.Close()
+    End Sub
 
 End Module

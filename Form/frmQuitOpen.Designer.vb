@@ -75,6 +75,7 @@ Partial Class frmQuitOpen
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "快速打开"
+        Me.TopMost = True
         Me.ResumeLayout(False)
 
     End Sub

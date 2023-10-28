@@ -31,24 +31,36 @@ Public Class frmPlayer
 
         oInventorAssemblyDocument = oInventorDocument
 
-        ThisApplication.CommandManager.Pick(kMateConstraintObject, "选择一个约束")
 
-        For Each constrt As Object In oInventorAssemblyDocument.SelectSet
-            Select Case constrt.type
+        Dim oselect As Object
+        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+
+        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+            'For Each oSelect As Object In InventorDoc.SelectSet
+            oselect = oInventorAssemblyDocument.SelectSet(1)
+            Select Case oselect.type
                 Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
-
-                    Dim oAssemblyConstraint As AssemblyConstraint
-                    oAssemblyConstraint = constrt
-
-                    btn选择约束.Text = oAssemblyConstraint.Name
-                    txt开始.Text = oAssemblyConstraint.DriveSettings.StartValue
-                    txt结束.Text = oAssemblyConstraint.DriveSettings.EndValue
-                    txt步长.Text = oAssemblyConstraint.DriveSettings.FrameRate
+                    oAssemblyConstraint = oselect
                 Case Else
-                    MsgBox("请选择一个约束。")
+                    MsgBox("选择一个约束。")
+                    Exit Sub
             End Select
-        Next
+        Else
+            MsgBox("选择一个约束。")
+            Exit Sub
+        End If
+
+
+        If oAssemblyConstraint Is Nothing Then       '取消选择
+            Exit Sub
+        End If
+
+        btn选择约束.Text = oAssemblyConstraint.Name
+        txt开始.Text = oAssemblyConstraint.DriveSettings.StartValue
+        txt结束.Text = oAssemblyConstraint.DriveSettings.EndValue
+        txt步长.Text = oAssemblyConstraint.DriveSettings.FrameRate
+        txt延时.Text = oAssemblyConstraint.DriveSettings.PauseDelay
 
         IsAddNew = True
 
@@ -78,27 +90,25 @@ Public Class frmPlayer
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
-        Dim lvItem As ListViewItem
-        lvItem = lvw文件列表.SelectedItems(0)
+        'Dim lvItem As ListViewItem
+        'lvItem = lvw文件列表.SelectedItems(0)
 
-        If lvItem Is Nothing Then
-            Exit Sub
-        End If
+        'If lvItem Is Nothing Then
+        '    Exit Sub
+        'End If
 
         Dim oAssemblyConstraint As AssemblyConstraint
         For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
-            If oAssemblyConstraint.Name = lvItem.Text Then
+            If oAssemblyConstraint.Name = btn选择约束.Text Then
 
                 With oAssemblyConstraint.DriveSettings
                     .StartValue = txt开始.Text.ToString
                     .EndValue = txt结束.Text.ToString
+                    .PauseDelay = txt延时.Text.ToString
                     .GoToStart()
                     .PlayForward()
                     .PlayReverse()
                 End With
-
-
-
 
                 Exit Sub
             End If
@@ -111,30 +121,29 @@ Public Class frmPlayer
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
-        Dim lvItem As ListViewItem
-        lvItem = lvw文件列表.SelectedItems(0)
-
-        If lvItem Is Nothing Then
-            Exit Sub
-        End If
 
         Dim oAssemblyConstraint As AssemblyConstraint
-        For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
-            If oAssemblyConstraint.Name = lvItem.Text Then
 
-                With oAssemblyConstraint.DriveSettings
-                    .StartValue = txt开始.Text.ToString
-                    .EndValue = txt结束.Text.ToString
-                    .GoToStart()
-                    .PlayForward()
-                    .PlayReverse()
-                End With
+        For Each lvItem As ListViewItem In lvw文件列表.Items
 
+            For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
 
+                If oAssemblyConstraint.Name = lvItem.Text Then
 
-
-                Exit Sub
-            End If
+                    If lvItem.SubItems(1).Text = True Then
+                        oAssemblyConstraint.Suppressed = True
+                    Else
+                        With oAssemblyConstraint.DriveSettings
+                            .StartValue = txt开始.Text.ToString
+                            .EndValue = txt结束.Text.ToString
+                            .PauseDelay = txt延时.Text.ToString
+                            .GoToStart()
+                            .PlayForward()
+                            .PlayReverse()
+                        End With
+                    End If
+                End If
+            Next
 
         Next
     End Sub
@@ -143,7 +152,6 @@ Public Class frmPlayer
         Dim oListViewItem As ListViewItem
 
         If IsAddNew = True Then
-
             oListViewItem = lvw文件列表.Items.Add(btn选择约束.Text)
             With oListViewItem
                 .SubItems.Add(CheckBox抑制.Checked)
@@ -172,6 +180,30 @@ Public Class frmPlayer
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
+        Dim oselect As Object
+        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+
+        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+            'For Each oSelect As Object In InventorDoc.SelectSet
+            oselect = oInventorAssemblyDocument.SelectSet(1)
+            Select Case oselect.type
+                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                    kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
+                    oAssemblyConstraint = oselect
+                Case Else
+                    MsgBox("选择一个约束。")
+                    Exit Sub
+            End Select
+        Else
+            MsgBox("选择一个约束。")
+            Exit Sub
+        End If
+
+        'If oAssemblyConstraint Is Nothing Then       '取消选择
+        '    Exit Sub
+        'End If
+
+        btn选择约束.Text = oAssemblyConstraint.Name
 
         'Dim oComponentOccurrence As ComponentOccurrence   '选择的部件或零件
 
@@ -214,33 +246,27 @@ Public Class frmPlayer
         '    End Select
         'Next
 
-        Dim oselect As Object
-        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+    End Sub
 
-        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
-            'For Each oSelect As Object In InventorDoc.SelectSet
-            oselect = oInventorAssemblyDocument.SelectSet(1)
-            Select Case oselect.type
-                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
-                    kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
-                    oAssemblyConstraint = oselect
-                Case Else
+    Private Sub lvw文件列表_Click(sender As Object, e As EventArgs) Handles lvw文件列表.Click
+        Dim oListViewItem As ListViewItem
 
+        oListViewItem = lvw文件列表.SelectedItems(0)
+        With oListViewItem
+            btn选择约束.Text = .Text
 
-
+            Select Case .SubItems(1).Text
+                Case "True"
+                    CheckBox抑制.Checked = True
+                Case "False"
+                    CheckBox抑制.Checked = False
             End Select
+            txt开始.Text = .SubItems(2).Text
+            txt结束.Text = .SubItems(3).Text
+            txt步长.Text = .SubItems(4).Text
+            txt延时.Text = .SubItems(5).Text
+        End With
 
-            'Next
-        Else
-            oAssemblyConstraint = ThisApplication.CommandManager.Pick( kFlushConstraintObject, "选择约束")
-
-        End If
-
-        If oAssemblyConstraint Is Nothing Then       '取消选择
-            Exit Sub
-        End If
-
-        btn选择约束.Text = oAssemblyConstraint.Name
 
 
     End Sub

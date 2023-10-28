@@ -99,6 +99,9 @@ Module InventorBasic
     '标题栏模板
     Public TitleBlockIdwDoc As String
 
+    '批量打印设置
+    Public PrintSetting As String
+
     '声明并初始化变量
     Public _ListViewSorter As clsListViewSorter.EnumSortOrder = clsListViewSorter.EnumSortOrder.Ascending
 
@@ -137,9 +140,6 @@ Module InventorBasic
             SetMass(oInventorDocument)
             'End If
         End If
-
-      
-
 
 
     End Sub
@@ -497,9 +497,10 @@ Module InventorBasic
                 Return False
         End Select
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        'Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+
+        'oInteraction.Start()
+        'oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         'System.Threading.Thread.Sleep(5000)
         'oInteraction.Stop()
 
@@ -523,7 +524,7 @@ Module InventorBasic
             End If
         Next
         '==============================================================================================
-        oInteraction.Stop()
+        'oInteraction.Stop()
         Return True
     End Function
 

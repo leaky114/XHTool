@@ -9,8 +9,6 @@ Imports Microsoft.VisualBasic
 Imports System.Collections.ObjectModel
 Imports System.Runtime.InteropServices
 
-
-
 Public Class frmain
 
     Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
@@ -22,25 +20,65 @@ Public Class frmain
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
 
-        ' 创建进度条
-        Dim progressBar As Inventor.ProgressBar = ThisApplication.CreateProgressBar(True, 10, "Progress Bar Demo")
-        progressBar.Message = "Processing..."
+        '' 创建进度条
+        'Dim progressBar As Inventor.ProgressBar = ThisApplication.CreateProgressBar(True, 10, "Progress Bar Demo")
+        'progressBar.Message = "Processing..."
 
-        ' 更新进度条
-        For i = 1 To 10
-            progressBar.UpdateProgress()
-            System.Threading.Thread.Sleep(1000)
-        Next
+        '' 更新进度条
+        'For i = 1 To 10
+        '    progressBar.UpdateProgress()
+        '    System.Threading.Thread.Sleep(1000)
+        'Next
 
-        ' 隐藏并销毁进度条
-        progressBar.Close()
+        '' 隐藏并销毁进度条
+        'progressBar.Close()
+
+        'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
 
     End Sub
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        AddPanelToToolsTab()
-        
+        'AddPanelToToolsTab()
+        'If NewUpdater.GetGitVersion = "New" Then
+        '    If MsgBox("检查到InAI新版：" & NewVersion & "，是否下载？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "更新") = MsgBoxResult.Yes Then
+        '        Process.Start("https://github.com/leaky114/InAI/tree/master/Release")
+        '    End If
+        'End If
+        '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        'On Error Resume Next
+        'Dim oCommandManager As CommandManager
+        'Dim oUserInterfaceManager As UserInterfaceManager
+        ''Dim oIPictureDisp32 As Object  '大图标
+        ''Dim oIPictureDisp8 As Object   '小图标
+
+        'Dim smallPicture As stdole.IPictureDisp
+        'Dim largePicture As stdole.IPictureDisp
+
+        ''Try
+        'oCommandManager = ThisApplication.CommandManager
+        'oUserInterfaceManager = ThisApplication.UserInterfaceManager
+
+        'If oUserInterfaceManager.InterfaceStyle = InterfaceStyleEnum.kRibbonInterface Then
+        '    Dim oRibbon As Inventor.Ribbon
+        '    Dim oRibbonTab As Inventor.RibbonTab
+        '    Dim oRibbonPanel As Inventor.RibbonPanel
+
+        '    Dim oButtonDefinitions As Inventor.ObjectCollection
+        '    oButtonDefinitions = ThisApplication.TransientObjects.CreateObjectCollection
+
+
+
+        '    '部件环境
+        '    oRibbon = oUserInterfaceManager.Ribbons.Item("Assembly")
+
+        '    oRibbonTab = oRibbon.RibbonTabs.Item("id_TabAssemble")
+
+        'End If
+
+        '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
     End Sub
 
@@ -820,5 +858,39 @@ Public Class frmain
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+    End Sub
+
+    Private Sub 标准件可见性ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 标准件可见性ToolStripMenuItem.Click
+        SetStandIptVisible()
+    End Sub
+
+    Private Sub 替换为库文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 替换为库文件ToolStripMenuItem.Click
+        ReplaceWithContentCenterFile()
+    End Sub
+
+    Private Sub 编辑尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 编辑尺寸ToolStripMenuItem.Click
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+
+            If ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
+                MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim frmEditDimension As New frmEditDimension
+            frmEditDimension.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 生成展开图ToolStripMenuItem.Click
+        CreateFlat()
     End Sub
 End Class

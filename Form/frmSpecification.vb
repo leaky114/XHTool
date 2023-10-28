@@ -95,11 +95,13 @@ Public Class frmSpecification
 
     Private Sub 添加自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 添加自定义ToolStripButton.Click
         Dim strChildNodeValue As String
+        Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求")
         If strChildNodeValue <> "" Then
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
         End If
+        Me.TopMost = True
     End Sub
 
     Private Sub 修改自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 修改自定义ToolStripButton.Click
@@ -110,12 +112,13 @@ Public Class frmSpecification
         Else
             Exit Sub
         End If
-
+        Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求", strChildNodeValue)
         If strChildNodeValue <> "" Then
             lst技术要求文本.Items(lst技术要求文本.SelectedIndex) = strChildNodeValue
             boolIsUserChange = True
         End If
+        Me.TopMost = True
     End Sub
 
     Private Sub 保存基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 保存基础数据ToolStripButton.Click
@@ -143,10 +146,11 @@ Public Class frmSpecification
 
     Private Sub 修改基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 修改基础数据ToolStripButton.Click
         Dim strChildNodeValue As String
-
+        Me.TopMost = False
         If lst基础数据列表.SelectedItems.Count <> 0 Then
             strChildNodeValue = lst基础数据列表.SelectedItems(0).ToString
         Else
+            Me.TopMost = True
             Exit Sub
         End If
 
@@ -155,6 +159,7 @@ Public Class frmSpecification
             lst基础数据列表.Items(lst基础数据列表.SelectedIndex) = strChildNodeValue
             boolIsBasicChange = True
         End If
+        Me.TopMost = True
     End Sub
 
     Private Sub 删除基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 删除基础数据ToolStripButton.Click
@@ -166,11 +171,14 @@ Public Class frmSpecification
 
     Private Sub 添加基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 添加基础数据ToolStripButton.Click
         Dim strChildNodeValue As String
+
+        Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求")
         If strChildNodeValue <> "" Then
             lst基础数据列表.Items.Add(strChildNodeValue)
             boolIsBasicChange = True
         End If
+        Me.TopMost = True
     End Sub
 
     Private Sub 保存自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 保存自定义ToolStripButton.Click
@@ -246,6 +254,8 @@ Public Class frmSpecification
     Private Sub 新建自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 新建自定义ToolStripButton.Click
         Dim strChildNodeName As String
 
+        Me.TopMost = False
+
         strChildNodeName = InputBox("输入新技术要求名称！", "技术要求")
 
         If strChildNodeName <> "" Then
@@ -273,6 +283,9 @@ Public Class frmSpecification
             boolIsUserChange = False
 
         End If
+
+        Me.TopMost = True
+
     End Sub
 
     Private Sub 自动编号ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 自动编号ToolStripMenuItem.Click
@@ -328,7 +341,7 @@ Public Class frmSpecification
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information, "添加Φ")
+            MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
             Exit Sub
         End If
 

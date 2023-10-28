@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("InAI")> 
-<Assembly: AssemblyDescription("InventorAddIn For Inventor 2016")> 
+<Assembly: AssemblyDescription("InventorAddIn For Inventor 2016-2024")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("InAI For 2016-2024")> 
-<Assembly: AssemblyCopyright("")> 
+<Assembly: AssemblyProduct("InAI For Inventor")> 
+<Assembly: AssemblyCopyright("leaky114@Bilibili")> 
 <Assembly: AssemblyTrademark("")> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
@@ -28,5 +28,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.23.7.7")> 
-<Assembly: AssemblyFileVersionAttribute("1.23.7.7")> 
+<Assembly: AssemblyVersion("1.23.10.27")> 
+<Assembly: AssemblyFileVersionAttribute("1.23.10.27")> 

@@ -225,6 +225,7 @@ Partial Class frmSaveAs
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量另存"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

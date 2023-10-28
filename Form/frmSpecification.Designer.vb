@@ -82,7 +82,7 @@ Partial Class frmSpecification
         'GroupBox基础数据
         '
         Me.GroupBox基础数据.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox基础数据.Controls.Add(Me.ToolStrip基础数据)
         Me.GroupBox基础数据.Controls.Add(Me.TreeView基础数据树)
         Me.GroupBox基础数据.Controls.Add(Me.lst基础数据列表)
@@ -157,7 +157,7 @@ Partial Class frmSpecification
         'TreeView基础数据树
         '
         Me.TreeView基础数据树.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TreeView基础数据树.Location = New System.Drawing.Point(13, 44)
         Me.TreeView基础数据树.Name = "TreeView基础数据树"
         Me.TreeView基础数据树.Size = New System.Drawing.Size(141, 151)
@@ -166,8 +166,8 @@ Partial Class frmSpecification
         'lst基础数据列表
         '
         Me.lst基础数据列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lst基础数据列表.FormattingEnabled = True
         Me.lst基础数据列表.HorizontalScrollbar = True
         Me.lst基础数据列表.ItemHeight = 12
@@ -179,7 +179,7 @@ Partial Class frmSpecification
         'GroupBox技术要求
         '
         Me.GroupBox技术要求.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox技术要求.Controls.Add(Me.GroupBox导入自定义)
         Me.GroupBox技术要求.Controls.Add(Me.ToolStrip自定义数据)
         Me.GroupBox技术要求.Controls.Add(Me.TreeView自定义)
@@ -226,8 +226,8 @@ Partial Class frmSpecification
         'txt导入文本
         '
         Me.txt导入文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txt导入文本.Location = New System.Drawing.Point(16, 18)
         Me.txt导入文本.Multiline = True
         Me.txt导入文本.Name = "txt导入文本"
@@ -394,7 +394,7 @@ Partial Class frmSpecification
         'TreeView自定义
         '
         Me.TreeView自定义.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TreeView自定义.Location = New System.Drawing.Point(13, 45)
         Me.TreeView自定义.Name = "TreeView自定义"
         Me.TreeView自定义.Size = New System.Drawing.Size(141, 189)
@@ -403,8 +403,8 @@ Partial Class frmSpecification
         'lst技术要求文本
         '
         Me.lst技术要求文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lst技术要求文本.FormattingEnabled = True
         Me.lst技术要求文本.HorizontalScrollbar = True
         Me.lst技术要求文本.ItemHeight = 12
@@ -448,6 +448,7 @@ Partial Class frmSpecification
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "技术要求"
+        Me.TopMost = True
         Me.GroupBox基础数据.ResumeLayout(False)
         Me.GroupBox基础数据.PerformLayout()
         Me.ToolStrip基础数据.ResumeLayout(False)

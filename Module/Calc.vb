@@ -26,4 +26,23 @@
     'End Function
 
 
+    '将布尔值转换为整数
+    Public Function BoolToInt(ByVal boolValue As Boolean) As Integer
+        If boolValue Then
+            Return 1
+        Else
+            Return 0
+        End If
+    End Function
+
+    '将整数转换为布尔值
+    Public Function IntToBool(ByVal intValue As Integer) As Boolean
+        If intValue = 0 Then
+            Return False
+        ElseIf intValue = 1 Then
+            Return True
+        Else
+            Throw New ArgumentException("intValue must be 0 or 1")
+        End If
+    End Function
 End Module

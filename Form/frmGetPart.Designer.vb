@@ -167,6 +167,7 @@ Partial Class frmGetPart
         Me.AcceptButton = Me.btn添加
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(461, 378)
         Me.Controls.Add(Me.btn复制面积)
         Me.Controls.Add(Me.btn复制质量)

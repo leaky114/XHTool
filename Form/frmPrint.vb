@@ -8,6 +8,7 @@ Imports System.Collections.ObjectModel
 Imports System.Drawing
 Imports System.IO
 Imports System.Windows.Forms
+Imports System.Xml
 
 Public Class frmPrint
 
@@ -21,6 +22,10 @@ Public Class frmPrint
         End If
 
         btn开始.Enabled = False
+
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
         Dim strPrinterName As String = ""
         strPrinterName = cmb打印机.Text
@@ -46,16 +51,17 @@ Public Class frmPrint
             '    GoTo 999
             'End If
 
-            Me.TopMost = False
+            'Me.TopMost = False
+
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             '打开工程图
             oInventorDrawingDocument = ThisApplication.Documents.Open(strInventorDrawingFullFileName, True)
 
-            Me.TopMost = True
+            'Me.TopMost = True
 
             '刷新sheets
             If chk刷新工程图.Checked = True Then
-                SetStatusBarText("正在更新工程图 ......")
+                SetStatusBarText("正在更新工程图 ...")
                 oInventorDrawingDocument.Rebuild()
             End If
 
@@ -79,18 +85,10 @@ Public Class frmPrint
             '打印文件
             PrintDrawing(oInventorDrawingDocument, strPrinterName, chk打印为黑色.Checked, nud份数.Value, chk匹配A3.Checked)
 
-            Me.TopMost = False
+            'Me.TopMost = False
 
             Dim strIdwFullFileName As String
             strIdwFullFileName = oInventorDrawingDocument.FullFileName
-
-            '另存为pdf
-            If chk存为pdf.Checked = True Then
-                Dim strPdfFullFileName As String        'pdf文件全文件名
-                strPdfFullFileName = GetChangeExtension(strIdwFullFileName, DWG)
-                IdwSaveAsDwgSub(strIdwFullFileName, strPdfFullFileName)
-                IdwSaveAsPdfSub(strIdwFullFileName, PDF)
-            End If
 
             '另存为pdf
             If chk存为pdf.Checked = True Then
@@ -124,6 +122,9 @@ Public Class frmPrint
         'MsgBox("批量打印工程图完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量打印")
 
         btn开始.Enabled = True
+
+        oInteraction.Stop()
+
         SetStatusBarText("批量打印工程图完成")
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
 
@@ -242,38 +243,56 @@ Public Class frmPrint
             End If
         Next
 
-        If IsSign = 1 Then
-            chk签字.Checked = True
-        Else
-            chk签字.Checked = False
-        End If
+        'If IsSign = 1 Then
+        '    chk签字.Checked = True
+        'Else
+        '    chk签字.Checked = False
+        'End If
 
-        If IsPaperA3 = 1 Then
-            chk匹配A3.Checked = True
-        Else
-            chk匹配A3.Checked = False
-        End If
+        'If IsPaperA3 = 1 Then
+        '    chk匹配A3.Checked = True
+        'Else
+        '    chk匹配A3.Checked = False
+        'End If
 
-        Select Case SaveAsDawAndPdf
-            Case "不另存"
-                chk存为dwg.Checked = False
-                chk存为pdf.Checked = False
-            Case "另存为dwg"
-                chk存为dwg.Checked = True
-                chk存为pdf.Checked = False
-            Case "另存为pdf"
-                chk存为dwg.Checked = False
-                chk存为pdf.Checked = True
-            Case "另存为dwg和pdf"
-                chk存为dwg.Checked = True
-                chk存为pdf.Checked = True
-        End Select
+        'Select Case SaveAsDawAndPdf
+        '    Case "不另存"
+        '        chk存为dwg.Checked = False
+        '        chk存为pdf.Checked = False
+        '    Case "另存为dwg"
+        '        chk存为dwg.Checked = True
+        '        chk存为pdf.Checked = False
+        '    Case "另存为pdf"
+        '        chk存为dwg.Checked = False
+        '        chk存为pdf.Checked = True
+        '    Case "另存为dwg和pdf"
+        '        chk存为dwg.Checked = True
+        '        chk存为pdf.Checked = True
+        'End Select
+
+
+        Dim binaryArray(PrintSetting.Length - 1) As String
+
+        For i As Integer = 0 To PrintSetting.Length - 1
+            binaryArray(i) = Strings.Mid(PrintSetting, i + 1, 1)
+        Next
+
+        chk匹配A3.Checked = IntToBool(binaryArray(0))
+        chk签字.Checked = IntToBool(binaryArray(1))
+        chk刷新工程图.Checked = IntToBool(binaryArray(2))
+        chk存为pdf.Checked = IntToBool(binaryArray(3))
+        chk关闭窗口.Checked = IntToBool(binaryArray(4))
+        chk打印为黑色.Checked = IntToBool(binaryArray(5))
+        chk打印后关闭.Checked = IntToBool(binaryArray(6))
+        chk保存签字.Checked = IntToBool(binaryArray(7))
+        chk保存工程图.Checked = IntToBool(binaryArray(8))
+        chk存为dwg.Checked = IntToBool(binaryArray(9))
 
     End Sub
 
     Private Sub btn从部件导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn从部件导入.Click
         Dim oOpenFileDialog As New OpenFileDialog
-        Dim oAssemblyDocument As Inventor.AssemblyDocument = Nothing
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument = Nothing
 
         lbl建议.Visible = False
 
@@ -284,7 +303,7 @@ Public Class frmPrint
             .FileName = ""
             If .ShowDialog = Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
-                    oAssemblyDocument = ThisApplication.Documents.Open(.FileName)
+                    oInventorAssemblyDocument = ThisApplication.Documents.Open(.FileName)
                 End If
             Else
                 Exit Sub
@@ -322,7 +341,7 @@ Public Class frmPrint
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
         Dim oBOM As BOM
-        oBOM = oAssemblyDocument.ComponentDefinition.BOM
+        oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
 
         'Set a reference to the "Structured" BOMView
@@ -535,14 +554,14 @@ Public Class frmPrint
             Exit Sub
         End If
 
-        Dim oAssemblyDocument As AssemblyDocument
-        oAssemblyDocument = oInventorDocument
+        Dim oInventorAssemblyDocument As AssemblyDocument
+        oInventorAssemblyDocument = oInventorDocument
 
         '===================================
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
         Dim oBOM As BOM
-        oBOM = oAssemblyDocument.ComponentDefinition.BOM
+        oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
 
         'Set a reference to the "Structured" BOMView
@@ -630,5 +649,13 @@ Public Class frmPrint
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.All
         End If
+    End Sub
+
+    Private Sub btn保存配置_Click(sender As Object, e As EventArgs) Handles btn保存配置.Click
+        PrintSetting = BoolToInt(chk匹配A3.Checked) & BoolToInt(chk签字.Checked) & BoolToInt(chk刷新工程图.Checked) & _
+             BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) & _
+            BoolToInt(chk打印后关闭.Checked) & BoolToInt(chk保存签字.Checked) & BoolToInt(chk保存工程图.Checked) & BoolToInt(chk存为dwg.Checked)
+
+        InAISettingXmlWriteSetting()
     End Sub
 End Class

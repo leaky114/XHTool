@@ -48,8 +48,8 @@ Partial Class frmImportCodeToIam
         'lvw文件列表
         '
         Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch图号, Me.ch名称, Me.ch编码, Me.ch供应商, Me.ch文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.ContextMenuStrip右键菜单
         Me.lvw文件列表.FullRowSelect = True

@@ -550,4 +550,67 @@
   <data name="设置属性323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\设置属性323224.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="标准件可见性161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性161624.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="标准件可见性323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性323224.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换为库文件161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换为库文件161624.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换为库文件323224" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换为库文件323224.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="标准件可见性1616241" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性161624.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="标准件可见性3232241" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性323224.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="确定161632" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\确定161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="编辑尺寸161632" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\编辑尺寸161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="编辑尺寸323232" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\编辑尺寸323232.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="还原161632" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\还原161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="选择161632" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换为库文件1616241" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换为库文件161624.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="替换为库文件3232241" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\替换为库文件323224.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="标准件可见性1616242" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性161624.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="标准件可见性3232242" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\标准件可见性323224.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="确定1616322" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\确定161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="编辑尺寸1616321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\编辑尺寸161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="编辑尺寸3232321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\编辑尺寸323232.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="还原1616322" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\还原161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="选择1616322" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择161632.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="创建展开161624" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\创建展开161624.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

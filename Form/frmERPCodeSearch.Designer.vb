@@ -105,6 +105,7 @@ Partial Class frmERPCodeSearch
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ERP编码反查"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

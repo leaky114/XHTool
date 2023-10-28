@@ -193,8 +193,10 @@ Partial Class frmSetWriteOnly
         '
         'frmSetWriteOnly
         '
+        Me.AcceptButton = Me.btn开始
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(1067, 401)
         Me.Controls.Add(Me.CheckBox本部件)
         Me.Controls.Add(Me.CheckBox工程图)
@@ -214,6 +216,7 @@ Partial Class frmSetWriteOnly
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量只读"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

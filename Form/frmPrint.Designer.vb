@@ -31,6 +31,7 @@ Partial Class frmPrint
         Me.btn添加文件夹 = New System.Windows.Forms.Button()
         Me.lbl建议 = New System.Windows.Forms.Label()
         Me.grp选项 = New System.Windows.Forms.GroupBox()
+        Me.btn保存配置 = New System.Windows.Forms.Button()
         Me.chk关闭窗口 = New System.Windows.Forms.CheckBox()
         Me.chk刷新工程图 = New System.Windows.Forms.CheckBox()
         Me.chk保存工程图 = New System.Windows.Forms.CheckBox()
@@ -124,6 +125,7 @@ Partial Class frmPrint
         'grp选项
         '
         Me.grp选项.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grp选项.Controls.Add(Me.btn保存配置)
         Me.grp选项.Controls.Add(Me.chk关闭窗口)
         Me.grp选项.Controls.Add(Me.chk刷新工程图)
         Me.grp选项.Controls.Add(Me.chk保存工程图)
@@ -145,6 +147,15 @@ Partial Class frmPrint
         Me.grp选项.TabStop = False
         Me.grp选项.Text = "选项"
         '
+        'btn保存配置
+        '
+        Me.btn保存配置.Location = New System.Drawing.Point(723, 37)
+        Me.btn保存配置.Name = "btn保存配置"
+        Me.btn保存配置.Size = New System.Drawing.Size(86, 28)
+        Me.btn保存配置.TabIndex = 47
+        Me.btn保存配置.Text = "保存配置"
+        Me.btn保存配置.UseVisualStyleBackColor = True
+        '
         'chk关闭窗口
         '
         Me.chk关闭窗口.AutoSize = True
@@ -154,7 +165,7 @@ Partial Class frmPrint
         Me.chk关闭窗口.Name = "chk关闭窗口"
         Me.chk关闭窗口.Size = New System.Drawing.Size(72, 16)
         Me.chk关闭窗口.TabIndex = 46
-        Me.chk关闭窗口.Text = "关闭窗口"
+        Me.chk关闭窗口.Text = "退出打印"
         Me.chk关闭窗口.UseVisualStyleBackColor = True
         '
         'chk刷新工程图
@@ -319,8 +330,8 @@ Partial Class frmPrint
         Me.lvw文件列表.AllowColumnReorder = True
         Me.lvw文件列表.AllowDrop = True
         Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw文件列表.AutoArrange = False
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
@@ -342,24 +353,24 @@ Partial Class frmPrint
         '
         Me.cms右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi移出, Me.tsmi筛选移出, Me.tsmi筛选保留})
         Me.cms右键菜单.Name = "cmsRemove"
-        Me.cms右键菜单.Size = New System.Drawing.Size(153, 92)
+        Me.cms右键菜单.Size = New System.Drawing.Size(125, 70)
         '
         'tsmi移出
         '
         Me.tsmi移出.Name = "tsmi移出"
-        Me.tsmi移出.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi移出.Size = New System.Drawing.Size(124, 22)
         Me.tsmi移出.Text = "移出"
         '
         'tsmi筛选移出
         '
         Me.tsmi筛选移出.Name = "tsmi筛选移出"
-        Me.tsmi筛选移出.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi筛选移出.Size = New System.Drawing.Size(124, 22)
         Me.tsmi筛选移出.Text = "筛选移出"
         '
         'tsmi筛选保留
         '
         Me.tsmi筛选保留.Name = "tsmi筛选保留"
-        Me.tsmi筛选保留.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi筛选保留.Size = New System.Drawing.Size(124, 22)
         Me.tsmi筛选保留.Text = "筛选保留"
         '
         'btn导入当前部件
@@ -434,5 +445,6 @@ Partial Class frmPrint
     Friend WithEvents chk刷新工程图 As System.Windows.Forms.CheckBox
     Friend WithEvents chk保存工程图 As System.Windows.Forms.CheckBox
     Friend WithEvents chk关闭窗口 As System.Windows.Forms.CheckBox
+    Friend WithEvents btn保存配置 As System.Windows.Forms.Button
 
 End Class

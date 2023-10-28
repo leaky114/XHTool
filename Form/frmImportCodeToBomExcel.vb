@@ -24,7 +24,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
         End If
 
         btn确定.Enabled = False
-        'ThisApplication.Cursor  = Cursors.WaitCursor
+        Me.UseWaitCursor = True
 
         intLastLine = txt最后行.Text
         strDataColumn = cmb查找列.Text
@@ -117,6 +117,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
 
         MsgBox("写入ERP编码完成！", MsgBoxStyle.OkOnly, "导入ERP编码")
 
+        Me.UseWaitCursor = False
         btn确定.Enabled = True
 
         Process.Start(strBomExcelFile)
@@ -140,7 +141,4 @@ Public NotInheritable Class frmImportCodeToBomExcel
         End With
     End Sub
 
-    Private Sub frmImportCodeToBomExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

@@ -11,6 +11,11 @@ Public Class frmOption
         '//先获取复制文本
         Dim newstr As String = cbo添加.Text
 
+        If newstr = "| (分隔符)" Then
+            newstr = "|"
+        End If
+
+
         '//获取textBox2 中的光标
         Dim index As Integer = txtBOM导出项.SelectionStart
         txtBOM导出项.Text = txtBOM导出项.Text.Insert(index, newstr)

@@ -45,6 +45,7 @@ Public Class frmSetWriteOnly
             End If
         Next
 
+        btn导入当前部件_Click(sender, e)
 
         MsgBox("设置文件属性完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
 

@@ -66,14 +66,14 @@ Public Class frmChangeIpro
         Next
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
-            Dim oPartDocument As Inventor.PartDocument = oInventorDocument
+            Dim oInventorPartDocument As Inventor.PartDocument = oInventorDocument
             cmb材料.Items.Clear()
 
-            For Each oMaterial In oPartDocument.Materials
+            For Each oMaterial In oInventorPartDocument.Materials
                 cmb材料.Items.Add(oMaterial.Name)
             Next
             cmb材料.DropDownStyle = ComboBoxStyle.DropDownList
-            cmb材料.Text = oPartDocument.ComponentDefinition.Material.Name.ToString
+            cmb材料.Text = oInventorPartDocument.ComponentDefinition.Material.Name.ToString
         Else
             cmb材料.Enabled = False
         End If
@@ -103,11 +103,10 @@ Public Class frmChangeIpro
 
         btn查询.Enabled = False
 
-        'Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        'oInteraction.Start()
-        'oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-        'System.Threading.Thread.Sleep(5000)
-        'oInteraction.Stop()
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
 
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument
@@ -156,6 +155,7 @@ Public Class frmChangeIpro
 
         'oInteraction.Stop()
         btn查询.Enabled = True
+        oInteraction.Stop()
 
     End Sub
 

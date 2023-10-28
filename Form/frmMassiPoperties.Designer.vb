@@ -270,7 +270,7 @@ Partial Class frmMassiPoperties
         Me.tab1.Size = New System.Drawing.Size(294, 172)
         Me.tab1.TabIndex = 19
         '
-        'frmiPoperties
+        'frmMassiPoperties
         '
         Me.AcceptButton = Me.btn开始
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -287,10 +287,11 @@ Partial Class frmMassiPoperties
         Me.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmiPoperties"
+        Me.Name = "frmMassiPoperties"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "量产iProperty"
+        Me.TopMost = True
         Me.tp自定义.ResumeLayout(False)
         Me.tp自定义.PerformLayout()
         Me.tp项目.ResumeLayout(False)

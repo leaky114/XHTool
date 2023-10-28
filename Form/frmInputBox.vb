@@ -16,7 +16,7 @@ Public Class frmInputBox
     End Sub
 
     Private Sub frmInputBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        txt输入.Focus()
+        txt输入.SelectAll()
     End Sub
 
     Private Sub btn复制_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制.Click

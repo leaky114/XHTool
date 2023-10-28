@@ -167,6 +167,7 @@ Partial Class frmSaveAll
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "全部保存"
+        Me.TopMost = True
         Me.grp文件类型.ResumeLayout(False)
         Me.grp文件类型.PerformLayout()
         Me.grp执行操作.ResumeLayout(False)

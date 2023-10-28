@@ -62,7 +62,7 @@ Module OpenFrom
             End If
 
             Dim AutoPartNumber As New frmAutoPartNumber
-            AutoPartNumber.Show()
+            AutoPartNumber.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -74,14 +74,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
+            'If IsInventorOpenDocument() = False Then
+            '    Exit Sub
+            'End If
 
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
+            'If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+            '    MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            '    Exit Sub
+            'End If
 
             Dim frmSpecification As New frmSpecification
             frmSpecification.ShowDialog()
@@ -96,7 +96,7 @@ Module OpenFrom
         Try
             SetStatusBarText()
             Dim frmPrint As New frmPrint
-            frmPrint.Show()
+            frmPrint.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -108,7 +108,7 @@ Module OpenFrom
         Try
             SetStatusBarText()
             Dim frmSearchERPCode As New frmSearchERPCode
-            frmSearchERPCode.Show()
+            frmSearchERPCode.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -120,7 +120,7 @@ Module OpenFrom
         Try
             SetStatusBarText()
             Dim frmERPCodeSearch As New frmERPCodeSearch
-            frmERPCodeSearch.Show()
+            frmERPCodeSearch.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -141,8 +141,8 @@ Module OpenFrom
                 Exit Sub
             End If
 
-            Dim frmInventoryCoding As New frmImportCodeToIam
-            frmInventoryCoding.Show()
+            Dim frmImportCodeToIam As New frmImportCodeToIam
+            frmImportCodeToIam.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -154,12 +154,12 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
+            'If IsInventorOpenDocument() = False Then
+            '    Exit Sub
+            'End If
 
             Dim frmImportCodeToBomExcel As New frmImportCodeToBomExcel
-            frmImportCodeToBomExcel.Show()
+            frmImportCodeToBomExcel.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -242,7 +242,7 @@ Module OpenFrom
             End If
 
             Dim frmGetPart As New frmGetPart
-            frmGetPart.Show()
+            frmGetPart.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -265,7 +265,31 @@ Module OpenFrom
             End If
 
             Dim frmSetWriteOnly As New frmSetWriteOnly
-            frmSetWriteOnly.Show()
+            frmSetWriteOnly.ShowDialog()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+
+    '打开编辑尺寸窗口
+    Public Sub FrmEditDimensionShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
+                MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim frmEditDimension As New frmEditDimension
+            frmEditDimension.ShowDialog()
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

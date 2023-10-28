@@ -37,7 +37,7 @@ Module IdwModule
             Dim strInventorDrawingDocumentFullFileName As String
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
-            If strInventorDrawingDocumentFullFileName = "" Then
+            If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
                 MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
                 Exit Sub
             End If
@@ -147,7 +147,7 @@ Module IdwModule
             Dim strInventorDrawingDocumentFullFileName As String
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
-            If strInventorDrawingDocumentFullFileName = "" Then
+            If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
                 MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
                 Exit Sub
             End If
@@ -354,7 +354,9 @@ Module IdwModule
             For Each oDrawingDim In oSheet.DrawingDimensions
 
                 If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
-                    Call oDrawingDim.CenterText()
+
+                    oDrawingDim.CenterText()
+
                 End If
             Next
 
@@ -396,7 +398,7 @@ Module IdwModule
                 Do
                     oDrawingDim = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要文字居中的尺寸，ESC键取消。")
                     If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
-                        Call oDrawingDim.CenterText()
+                        oDrawingDim.CenterText()
                     End If
 
                 Loop Until (oDrawingDim Is Nothing)
@@ -1057,7 +1059,7 @@ Module IdwModule
             SetStatusBarText("重建序号完成")
             'MsgBox("设置工程图自定义属性：比例完成", MsgBoxStyle.Information)
 
-            If MsgBox("是否重写BOM序号？", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
+            If MsgBox("明细栏是否排序？", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
 
                 oActiveSheet = oInventorDrawingDocument.ActiveSheet
 

@@ -75,6 +75,7 @@ Partial Class frmOption
         Me.txt图框模板文件 = New System.Windows.Forms.TextBox()
         Me.lbl模板工程图 = New System.Windows.Forms.Label()
         Me.GroupBoxERP查询 = New System.Windows.Forms.GroupBox()
+        Me.btn选择erp数据库 = New System.Windows.Forms.Button()
         Me.btn更新数据库 = New System.Windows.Forms.Button()
         Me.btn打开erp数据库 = New System.Windows.Forms.Button()
         Me.txt查询列 = New System.Windows.Forms.TextBox()
@@ -90,7 +91,6 @@ Partial Class frmOption
         Me.cbo添加 = New System.Windows.Forms.ComboBox()
         Me.txtBOM导出项 = New System.Windows.Forms.TextBox()
         Me.lblBOM导出项目 = New System.Windows.Forms.Label()
-        Me.btn选择erp数据库 = New System.Windows.Forms.Button()
         Me.TabControl.SuspendLayout()
         Me.TabPage常规.SuspendLayout()
         Me.GroupBox快速打印.SuspendLayout()
@@ -663,6 +663,15 @@ Partial Class frmOption
         Me.GroupBoxERP查询.TabStop = False
         Me.GroupBoxERP查询.Text = "ERP查询"
         '
+        'btn选择erp数据库
+        '
+        Me.btn选择erp数据库.Location = New System.Drawing.Point(518, 16)
+        Me.btn选择erp数据库.Name = "btn选择erp数据库"
+        Me.btn选择erp数据库.Size = New System.Drawing.Size(52, 25)
+        Me.btn选择erp数据库.TabIndex = 19
+        Me.btn选择erp数据库.Text = "选择"
+        Me.btn选择erp数据库.UseVisualStyleBackColor = True
+        '
         'btn更新数据库
         '
         Me.btn更新数据库.Location = New System.Drawing.Point(423, 51)
@@ -775,7 +784,7 @@ Partial Class frmOption
         '
         Me.cbo添加.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo添加.FormattingEnabled = True
-        Me.cbo添加.Items.AddRange(New Object() {"|", "材料", "空格", "库存编号", "零件代号", "成本中心", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "面积", "总数量", "供应商"})
+        Me.cbo添加.Items.AddRange(New Object() {"| (分隔符)", "材料", "成本中心", "供应商", "空格", "库存编号", "零件代号", "面积", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "总数量", "总质量"})
         Me.cbo添加.Location = New System.Drawing.Point(335, 50)
         Me.cbo添加.Name = "cbo添加"
         Me.cbo添加.Size = New System.Drawing.Size(170, 20)
@@ -798,15 +807,6 @@ Partial Class frmOption
         Me.lblBOM导出项目.TabIndex = 4
         Me.lblBOM导出项目.Text = "BOM导出项目："
         '
-        'btn选择erp数据库
-        '
-        Me.btn选择erp数据库.Location = New System.Drawing.Point(518, 16)
-        Me.btn选择erp数据库.Name = "btn选择erp数据库"
-        Me.btn选择erp数据库.Size = New System.Drawing.Size(52, 25)
-        Me.btn选择erp数据库.TabIndex = 19
-        Me.btn选择erp数据库.Text = "选择"
-        Me.btn选择erp数据库.UseVisualStyleBackColor = True
-        '
         'frmOption
         '
         Me.AcceptButton = Me.btn确定
@@ -825,6 +825,7 @@ Partial Class frmOption
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "应用程序选项"
+        Me.TopMost = True
         Me.TabControl.ResumeLayout(False)
         Me.TabPage常规.ResumeLayout(False)
         Me.GroupBox快速打印.ResumeLayout(False)

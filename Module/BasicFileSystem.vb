@@ -135,7 +135,7 @@ Module BasicFileSystem
     '重命名(旧文件名,新文件名)
     Public Function ReFileName(ByVal strOldFullFileName As String, ByVal strNewFullFileName As String) As Boolean
         If IsFileExsts(strNewFullFileName) = False And IsFileExsts(strOldFullFileName) = True Then
-            IO.File.Move(strOldFullFileName, GetSingleName(strNewFullFileName))
+            System.IO.File.Move(strOldFullFileName, strNewFullFileName)
             ReFileName = IsFileExsts(strNewFullFileName)
         Else
             ReFileName = False

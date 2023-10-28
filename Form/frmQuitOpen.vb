@@ -27,7 +27,4 @@ Public Class frmQuitOpen
         Me.Dispose()
     End Sub
 
-    Private Sub frmQuitOpen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

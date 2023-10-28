@@ -35,14 +35,14 @@ Public Class frmImportCodeToIam
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
-        Dim oAssemblyDocument As AssemblyDocument
-        oAssemblyDocument = oInventorDocument
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = oInventorDocument
 
         '==============================================================================================
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
         Dim oBOM As BOM
-        oBOM = oAssemblyDocument.ComponentDefinition.BOM
+        oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
         oBOM.StructuredViewFirstLevelOnly = False
 
@@ -71,9 +71,12 @@ Public Class frmImportCodeToIam
 
         lvw文件列表.EndUpdate()
         Me.Text = "导入ERP编码 ( 共" & lvw文件列表.Items.Count & "个文件)"
+
         oInteraction.Stop()
+
         btn装载.Enabled = True
-        'ThisApplication.Cursor  = Cursors.Default
+
+
         '==============================================================================================
 
         '' 获取所有引用文档
@@ -198,6 +201,7 @@ Public Class frmImportCodeToIam
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
         btn查询.Enabled = False
 
+
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
@@ -248,12 +252,31 @@ Public Class frmImportCodeToIam
                         strFindRange = ColIndexNum & dblMatchRow
                         strFindRangeValue = oWorksheet.Range(strFindRange).Value
 
-                        If strNowRangeValue <> strFindRangeValue Then
+                        If strNowRangeValue = "" Then      '当前erp编码为空值
                             oListViewItem.SubItems(2).Text = strFindRangeValue
                             oListViewItem.UseItemStyleForSubItems = False
                             oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red
                             Exit For
+                        Else
+                            If strNowRangeValue = strFindRangeValue Then   '查询值等于当前值
+                                Exit For
+                            Else
+                                Me.TopMost = False
+                                If MsgBox(oListViewItem.Text & "(" & strNowRangeValue & ") 查询到新的编码：" & vbCrLf & strFindRangeValue & vbCrLf & "是否替换？", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                                    oListViewItem.SubItems(2).Text = strFindRangeValue
+                                    oListViewItem.UseItemStyleForSubItems = False
+                                    oListViewItem.SubItems(2).ForeColor = Drawing.Color.DarkOrange
+                                    Me.TopMost = True
+                                    Exit For
+                                Else
+                                    Me.TopMost = True
+                                    Exit For
+                                End If
+
+                            End If
                         End If
+
+
                     End If
                 Next
 
@@ -303,7 +326,7 @@ Public Class frmImportCodeToIam
 
         For Each oListViewItem As ListViewItem In lvw文件列表.Items
 
-            If oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red Then
+            If oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red Or oListViewItem.SubItems(2).ForeColor = Drawing.Color.DarkOrange Then
                 oListViewItem.SubItems(2).ForeColor = Drawing.Color.Black  '写入后变为黑色
                 strERPCoding = oListViewItem.SubItems(2).Text
                 strInventorFullFileName = oListViewItem.SubItems(4).Text

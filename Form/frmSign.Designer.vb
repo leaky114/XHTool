@@ -113,6 +113,7 @@ Partial Class frmSign
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " 签字"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

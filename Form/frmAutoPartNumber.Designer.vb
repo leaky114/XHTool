@@ -101,8 +101,8 @@ Partial Class frmAutoPartNumber
         '
         Me.lvw文件列表.AllowDrop = True
         Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch原文件名, Me.ch类型, Me.ch新文件名, Me.ch文件夹})
         Me.lvw文件列表.FullRowSelect = True
         Me.lvw文件列表.Location = New System.Drawing.Point(13, 12)
@@ -236,12 +236,11 @@ Partial Class frmAutoPartNumber
         Me.btn确定新文件名.Name = "btn确定新文件名"
         Me.btn确定新文件名.Size = New System.Drawing.Size(25, 25)
         Me.btn确定新文件名.TabIndex = 34
-        Me.btn确定新文件名.Text = "√"
         Me.btn确定新文件名.UseVisualStyleBackColor = True
         '
         'frmAutoPartNumber
         '
-        Me.AcceptButton = Me.btn开始
+        Me.AcceptButton = Me.btn确定新文件名
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭

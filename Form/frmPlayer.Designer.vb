@@ -42,6 +42,7 @@ Partial Class frmPlayer
         Me.btn确定编辑 = New System.Windows.Forms.Button()
         Me.btn预览 = New System.Windows.Forms.Button()
         Me.btn选择约束 = New System.Windows.Forms.Button()
+        Me.ch运动 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'btn添加
@@ -71,7 +72,7 @@ Partial Class frmPlayer
         Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch约束名称, Me.ch抑制, Me.ch开始, Me.ch结束, Me.ch步长, Me.ch延时})
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch约束名称, Me.ch抑制, Me.ch运动, Me.ch开始, Me.ch结束, Me.ch步长, Me.ch延时})
         Me.lvw文件列表.FullRowSelect = True
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 55)
         Me.lvw文件列表.Name = "lvw文件列表"
@@ -210,6 +211,10 @@ Partial Class frmPlayer
         Me.btn选择约束.Text = "选择约束"
         Me.btn选择约束.UseVisualStyleBackColor = True
         '
+        'ch运动
+        '
+        Me.ch运动.Text = "运动"
+        '
         'frmPlayer
         '
         Me.AcceptButton = Me.btn添加
@@ -263,5 +268,6 @@ Partial Class frmPlayer
     Friend WithEvents btn确定编辑 As System.Windows.Forms.Button
     Friend WithEvents btn预览 As System.Windows.Forms.Button
     Friend WithEvents btn选择约束 As System.Windows.Forms.Button
+    Friend WithEvents ch运动 As System.Windows.Forms.ColumnHeader
 
 End Class

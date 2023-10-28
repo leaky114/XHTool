@@ -34,7 +34,7 @@ Module IptModule
         End If
 
         Dim oInventorDocument As Inventor.Document
-        oInventorDocument = ThisApplication.ActiveDocument
+        oInventorDocument = ThisApplication.ActiveEditDocument
 
         If oInventorDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
@@ -68,7 +68,7 @@ Module IptModule
             End If
 
             Dim oInventorDocument As Inventor.Document
-            oInventorDocument = ThisApplication.ActiveDocument
+            oInventorDocument = ThisApplication.ActiveEditDocument
 
             Dim strInventorDocument As String
             strInventorDocument = oInventorDocument.FullFileName
