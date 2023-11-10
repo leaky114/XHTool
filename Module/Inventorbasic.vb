@@ -1035,28 +1035,45 @@ Module InventorBasic
         Dim strDrawingFullFileName As String  '工程图全文件名
         strDrawingFullFileName = GetChangeExtension(strInventorFullFileName, IDW)
 
-        ''当前文件夹查询没有就 到父文件夹查询
-        'If IsFileExsts(strDrawingFullFileName) = False Then
-        '    SearchDrawingDocumentInPresentFolder(oInventorDocument, 3, IDW)
-        'End If
 
         '查询到工程图
+        '同一文件夹找到工程图
         If IsFileExsts(strDrawingFullFileName) Then
             ThisApplication.Documents.Open(strDrawingFullFileName)
         Else
+            '当前文件夹返回3层父文件夹找
             strDrawingFullFileName = SearchDrawingDocumentInPresentFolder(oInventorDocument.FullDocumentName, 3, IDW)
+
             If strDrawingFullFileName = "NULL" Then
-                If MsgBox(strInventorFullFileName & "没有对应的工程图，是否查找AutoCad文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
-                    strDrawingFullFileName = SearchDrawingDocumentInPresentFolder(oInventorDocument.FullDocumentName, 3, DWG)
-                    If strDrawingFullFileName = "NULL" Then
-                        MsgBox(strInventorFullFileName & "没有对应的AutoCad文件！", MsgBoxStyle.Information)
-                    Else
-                        Process.Start(strDrawingFullFileName)
+
+                '到项目文件夹找工程图
+                Dim WorkSpaceFloder As String
+                WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+
+                Dim strFileName As String
+                strDrawingFullFileName = GetChangeExtension(strInventorFullFileName, IDW)
+                strFileName = GetFileNameInfo(strDrawingFullFileName).SigleName
+
+                Dim arrFullFileName As String()
+                arrFullFileName = Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
+
+                If arrFullFileName.Length = 0 Then
+                    If MsgBox(strInventorFullFileName & "没有对应的工程图，是否查找AutoCad文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
+                        strDrawingFullFileName = SearchDrawingDocumentInPresentFolder(oInventorDocument.FullDocumentName, 3, DWG)
+                        If strDrawingFullFileName = "NULL" Then
+                            MsgBox(strInventorFullFileName & "没有对应的AutoCad文件！", MsgBoxStyle.Information)
+                        Else
+                            Process.Start(strDrawingFullFileName)
+                        End If
                     End If
+                Else
+                    strDrawingFullFileName = arrFullFileName(0)
+                    ThisApplication.Documents.Open(strDrawingFullFileName)
                 End If
             Else
                 ThisApplication.Documents.Open(strDrawingFullFileName)
             End If
+
         End If
         'Catch ex As Exception
         '    MsgBox(ex.Message)

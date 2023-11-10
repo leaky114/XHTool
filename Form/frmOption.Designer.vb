@@ -91,6 +91,11 @@ Partial Class frmOption
         Me.cbo添加 = New System.Windows.Forms.ComboBox()
         Me.txtBOM导出项 = New System.Windows.Forms.TextBox()
         Me.lblBOM导出项目 = New System.Windows.Forms.Label()
+        Me.TabPage钣金 = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl.SuspendLayout()
         Me.TabPage常规.SuspendLayout()
         Me.GroupBox快速打印.SuspendLayout()
@@ -104,6 +109,8 @@ Partial Class frmOption
         Me.GroupBox图框模板.SuspendLayout()
         Me.GroupBoxERP查询.SuspendLayout()
         Me.GroupBoxBOM导出项目.SuspendLayout()
+        Me.TabPage钣金.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btn确定
@@ -142,6 +149,7 @@ Partial Class frmOption
         '
         Me.TabControl.Controls.Add(Me.TabPage常规)
         Me.TabControl.Controls.Add(Me.TabPage文件)
+        Me.TabControl.Controls.Add(Me.TabPage钣金)
         Me.TabControl.Location = New System.Drawing.Point(5, 10)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
@@ -807,6 +815,53 @@ Partial Class frmOption
         Me.lblBOM导出项目.TabIndex = 4
         Me.lblBOM导出项目.Text = "BOM导出项目："
         '
+        'TabPage钣金
+        '
+        Me.TabPage钣金.Controls.Add(Me.GroupBox1)
+        Me.TabPage钣金.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage钣金.Name = "TabPage钣金"
+        Me.TabPage钣金.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage钣金.TabIndex = 2
+        Me.TabPage钣金.Text = "钣金"
+        Me.TabPage钣金.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 14)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(594, 93)
+        Me.GroupBox1.TabIndex = 24
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "图框模板"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(519, 57)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(52, 25)
+        Me.Button1.TabIndex = 17
+        Me.Button1.Text = "选择"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(103, 59)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(408, 21)
+        Me.TextBox1.TabIndex = 8
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(8, 63)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(77, 12)
+        Me.Label1.TabIndex = 7
+        Me.Label1.Text = "模板工程图："
+        '
         'frmOption
         '
         Me.AcceptButton = Me.btn确定
@@ -849,6 +904,9 @@ Partial Class frmOption
         Me.GroupBoxERP查询.PerformLayout()
         Me.GroupBoxBOM导出项目.ResumeLayout(False)
         Me.GroupBoxBOM导出项目.PerformLayout()
+        Me.TabPage钣金.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -922,5 +980,10 @@ Partial Class frmOption
     Friend WithEvents btn图框配置 As System.Windows.Forms.Button
     Friend WithEvents btn配置文件 As System.Windows.Forms.Button
     Friend WithEvents btn选择erp数据库 As System.Windows.Forms.Button
+    Friend WithEvents TabPage钣金 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

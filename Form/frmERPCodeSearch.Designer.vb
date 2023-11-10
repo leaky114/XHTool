@@ -87,7 +87,7 @@ Partial Class frmERPCodeSearch
         '
         'frmERPCodeSearch
         '
-        Me.AcceptButton = Me.btn编码反查
+        Me.AcceptButton = Me.btn粘贴
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
@@ -105,7 +105,6 @@ Partial Class frmERPCodeSearch
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ERP编码反查"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

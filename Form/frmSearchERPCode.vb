@@ -65,11 +65,13 @@ Public NotInheritable Class frmSearchERPCode
         'oInteraction.Stop()
         Me.Height = 280
         btn查询编码.Enabled = True
+        btn复制编码.Focus()
 
     End Sub
 
     Private Sub btn粘贴到规格_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴到规格.Click
         txt规格图号.Text = My.Computer.Clipboard.GetText
+        btn查询编码.Focus()
     End Sub
 
     Private Sub btn复制编码_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制编码.Click
@@ -87,11 +89,11 @@ Public NotInheritable Class frmSearchERPCode
         Me.Height = 156
     End Sub
 
-    Private Sub txt规格图号_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt规格图号.KeyPress
-        If Asc(e.KeyChar) = Keys.Enter Then
-            btn查询编码.PerformClick()
-        End If
-    End Sub
+    'Private Sub txt规格图号_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt规格图号.KeyPress
+    '    If Asc(e.KeyChar) = Keys.Enter Then
+    '        btn查询编码.PerformClick()
+    '    End If
+    'End Sub
 
     Private Sub lvw编码列表_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvw编码列表.SelectedIndexChanged
         If lvw编码列表.SelectedIndices.Count > 0 Then

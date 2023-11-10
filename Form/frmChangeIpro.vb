@@ -155,6 +155,8 @@ Public Class frmChangeIpro
 
         'oInteraction.Stop()
         btn查询.Enabled = True
+
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
 
     End Sub

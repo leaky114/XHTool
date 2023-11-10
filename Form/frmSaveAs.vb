@@ -109,6 +109,7 @@ Public Class frmSaveAs
 999:
         Next
 
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
 
         MsgBox("批量另存完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量另存")
@@ -205,6 +206,7 @@ Public Class frmSaveAs
 
         GetAllFile(strPresentFolder, strDestinationFolder, lvw文件列表, strExtension)
 
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
         btn添加文件夹.Enabled = True
 

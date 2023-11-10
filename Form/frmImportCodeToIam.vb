@@ -72,6 +72,7 @@ Public Class frmImportCodeToIam
         lvw文件列表.EndUpdate()
         Me.Text = "导入ERP编码 ( 共" & lvw文件列表.Items.Count & "个文件)"
 
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
 
         btn装载.Enabled = True
@@ -300,6 +301,8 @@ Public Class frmImportCodeToIam
         GC.WaitForPendingFinalizers()
 
         btn查询.Enabled = True
+
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
     End Sub
 
@@ -338,6 +341,8 @@ Public Class frmImportCodeToIam
         Next
 
         btn写入.Enabled = True
+
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
     End Sub
 

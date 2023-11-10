@@ -4,6 +4,7 @@ Public Class frmERPCodeSearch
 
     Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
         txtERP编码.Text = My.Computer.Clipboard.GetText
+        btn编码反查.Focus()
     End Sub
 
     Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
@@ -54,13 +55,14 @@ Public Class frmERPCodeSearch
         'oInteraction.Stop()
         Me.Height = 280
         btn编码反查.Enabled = True
+
     End Sub
 
-    Private Sub txtERP编码_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtERP编码.KeyPress
-        If Asc(e.KeyChar) = Keys.Enter Then
-            btn编码反查.PerformClick()
-        End If
-    End Sub
+    'Private Sub txtERP编码_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtERP编码.KeyPress
+    '    If Asc(e.KeyChar) = Keys.Enter Then
+    '        btn编码反查.PerformClick()
+    '    End If
+    'End Sub
 
     Private Sub frmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Height = 124

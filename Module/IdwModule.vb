@@ -751,29 +751,35 @@ Module IdwModule
             Dim oTransaction As Transaction
             oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
 
+            Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+            oInteraction.Start()
+            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
             '新建颜色
             Dim oColor As Color
             oColor = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
 
+            'ThisApplication.ScreenUpdating = False
+
             Dim strPartName As String
-
-            ThisApplication.ScreenUpdating = False
-
             For Each oPartsListRow As Inventor.PartsListRow In oPartsListRows
-
                 If oPartsListRow.Ballooned = False Then
                     strList = strList & oPartsListRow.Item(1).Value & " , "
                 End If
 
                 If oPartsListRow.ReferencedFiles.Count <> 0 Then
                     strPartName = GetFileNameInfo(oPartsListRow.ReferencedFiles(1).FullFileName).OnlyName
+                    SetStatusBarText("正在描绘：" & oPartsListRow.ReferencedFiles(1).FullFileName)
                     '设置颜色
                     SetPartCorlor(oInventorDrawingDocument, strPartName, oColor, oPartsListRow.Ballooned)
                 End If
-
             Next
 
-            ThisApplication.ScreenUpdating = True
+
+            'ThisApplication.ScreenUpdating = True
+
+            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+            oInteraction.Stop()
 
             If Strings.Len(strList) > 1 Then
                 MsgBox("明细表：" & strList & " 无序号。", MsgBoxStyle.Information)

@@ -9,36 +9,7 @@ Public Class frmEditDimension
     Private strDimensionConstraintValue As String
     Private oDimensionConstraint As DimensionConstraint
 
-    Private Sub txt参数一_KeyDown1(sender As Object, e As KeyEventArgs) Handles txt参数一.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Dim oInventorPartDocument As Inventor.PartDocument
-            oInventorPartDocument = ThisApplication.ActiveEditDocument
-
-            oDimensionConstraint.Parameter.Expression = txt参数一.Text
-
-            Select Case oDimensionConstraint.Parameter.Units
-                Case "mm"
-                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value * 10 - 50
-                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value * 10 + 50
-                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value * 10
-                Case "cm"
-                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value - 5
-                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value + 5
-                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value
-                Case "deg"
-                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value * 180 / Math.PI - 45
-                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value * 180 / Math.PI + 45
-                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value * 180 / Math.PI
-            End Select
-
-            oInventorPartDocument.Update()
-            ThisApplication.ActiveView.Update()
-
-        End If
-    End Sub
-
-
-    Private Sub btn选择一_Click_1(sender As Object, e As EventArgs) Handles btn选择一.Click
+    Private Sub btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一.Click
         Dim oInventorPartDocument As Inventor.PartDocument
         oInventorPartDocument = ThisApplication.ActiveEditDocument
 
@@ -50,7 +21,6 @@ Public Class frmEditDimension
         If ThisApplication.ActiveDocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then
             strDimensionConstraintFileName = oDimensionConstraint.ContainingOccurrence.ReferencedDocumentDescriptor.FullDocumentName
 
-
             If strDimensionConstraintFileName <> oInventorPartDocument.FullFileName Then
                 MsgBox("请选择当前编辑零件。", MsgBoxStyle.Information)
                 Exit Sub
@@ -60,9 +30,8 @@ Public Class frmEditDimension
         strDimensionConstraintName = oDimensionConstraint.Parameter.Name
         strDimensionConstraintValue = oDimensionConstraint.Parameter.Expression
 
-
         Me.Text = "编辑尺寸：" & strDimensionConstraintName
-        txt参数一.Text = strDimensionConstraintValue
+        txt参数.Text = strDimensionConstraintValue
 
         Select Case oDimensionConstraint.Parameter.Units
             Case "mm"
@@ -95,7 +64,7 @@ Public Class frmEditDimension
                 oDimensionConstraint.Parameter.Value = TrackBar参数一.Value * Math.PI / 180
         End Select
 
-        txt参数一.Text = TrackBar参数一.Value
+        txt参数.Text = TrackBar参数一.Value
 
         oInventorPartDocument.Update()
         ThisApplication.ActiveView.Update()
@@ -107,7 +76,7 @@ Public Class frmEditDimension
         oInventorPartDocument = ThisApplication.ActiveEditDocument
 
         oDimensionConstraint.Parameter.Expression = strDimensionConstraintValue
-        txt参数一.Text = strDimensionConstraintValue
+        txt参数.Text = strDimensionConstraintValue
 
         Select Case oDimensionConstraint.Parameter.Units
             Case "mm"
@@ -142,12 +111,10 @@ Public Class frmEditDimension
             oInventorPartDocument.Update()
             ThisApplication.ActiveView.Update()
         End If
-
-
     End Sub
 
     Private Sub btn确定_Click(sender As Object, e As EventArgs) Handles btn确定.Click
-        strDimensionConstraintValue = txt参数一.Text
+        strDimensionConstraintValue = txt参数.Text
 
         Select Case oDimensionConstraint.Parameter.Units
             Case "mm"
@@ -194,7 +161,7 @@ Public Class frmEditDimension
             strDimensionConstraintValue = oDimensionConstraint.Parameter.Expression
 
             Me.Text = "编辑尺寸：" & strDimensionConstraintName
-            txt参数一.Text = strDimensionConstraintValue
+            txt参数.Text = strDimensionConstraintValue
 
             Select Case oDimensionConstraint.Parameter.Units
                 Case "mm"
@@ -228,6 +195,37 @@ Public Class frmEditDimension
         btn确定.Image = My.Resources.确定161632.ToBitmap
 
 
-
     End Sub
+
+    Private Sub txt参数_KeyDown(sender As Object, e As KeyEventArgs) Handles txt参数.KeyDown
+        'MsgBox(e.KeyCode)
+
+        If e.KeyCode = Keys.Enter Then
+
+            Dim oInventorPartDocument As Inventor.PartDocument
+            oInventorPartDocument = ThisApplication.ActiveEditDocument
+
+            oDimensionConstraint.Parameter.Expression = txt参数.Text
+
+            Select Case oDimensionConstraint.Parameter.Units
+                Case "mm"
+                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value * 10 - 50
+                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value * 10 + 50
+                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value * 10
+                Case "cm"
+                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value - 5
+                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value + 5
+                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value
+                Case "deg"
+                    TrackBar参数一.Minimum = oDimensionConstraint.Parameter.Value * 180 / Math.PI - 45
+                    TrackBar参数一.Maximum = oDimensionConstraint.Parameter.Value * 180 / Math.PI + 45
+                    TrackBar参数一.Value = oDimensionConstraint.Parameter.Value * 180 / Math.PI
+            End Select
+
+            oInventorPartDocument.Update()
+            ThisApplication.ActiveView.Update()
+
+        End If
+    End Sub
+
 End Class

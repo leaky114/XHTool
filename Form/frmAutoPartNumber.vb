@@ -91,6 +91,7 @@ Public Class frmAutoPartNumber
             MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
             btn开始.Enabled = True
 
+            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
             oInteraction.Stop()
 
         Catch ex As Exception
@@ -229,16 +230,17 @@ Public Class frmAutoPartNumber
             oListViewItem = lvw文件列表.Items(i)
             If oListViewItem.SubItems(1).Text = IPT Then
                 oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
-                oStockNumPartName.PartName = oListViewItem.Text
+                oStockNumPartName.PartName = GetStockNumPartName(oListViewItem.Text).PartName
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
                 intPartNum = intPartNum + 1
             ElseIf oListViewItem.SubItems(1).Text = IAM Then
                 oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * intAmsChange).ToString)) & intAssNum * intAmsChange
-                oStockNumPartName.PartName = oListViewItem.Text
+                oStockNumPartName.PartName = GetStockNumPartName(oListViewItem.Text).PartName
                 oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
                 intAssNum = intAssNum + 1
             End If
         Next
+
     End Sub
 
     Private Sub frmAutoPartNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
