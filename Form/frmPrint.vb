@@ -123,6 +123,7 @@ Public Class frmPrint
 
         btn开始.Enabled = True
 
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
 
         SetStatusBarText("批量打印工程图完成")

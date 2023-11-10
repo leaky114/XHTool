@@ -1054,6 +1054,7 @@ Module IamModule
 
                 ExportBOMAsFlatSub(oInventorAssemblyDocument, strCsvFullFileName, IsExpandOutSourcedParts)
 
+                oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
                 oInteraction.Stop()
 
                 SetStatusBarText(" 导出BOM平面性完成")

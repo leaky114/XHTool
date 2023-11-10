@@ -104,7 +104,7 @@ Module OpenFrom
     End Sub
 
     '打开查询erp编码窗口
-    Public Sub FrmQueryERPcodeshow()
+    Public Sub FrmSearchERPCodeShow()
         Try
             SetStatusBarText()
             Dim frmSearchERPCode As New frmSearchERPCode
@@ -116,7 +116,7 @@ Module OpenFrom
     End Sub
 
     '打开反查erp编码
-    Public Sub ReverseCheckERPCodesshow()
+    Public Sub FrmReverseCheckERPCodesShow()
         Try
             SetStatusBarText()
             Dim frmERPCodeSearch As New frmERPCodeSearch
@@ -159,7 +159,7 @@ Module OpenFrom
             'End If
 
             Dim frmImportCodeToBomExcel As New frmImportCodeToBomExcel
-            frmImportCodeToBomExcel.ShowDialog()
+            frmImportCodeToBomExcel.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -242,7 +242,7 @@ Module OpenFrom
             End If
 
             Dim frmGetPart As New frmGetPart
-            frmGetPart.ShowDialog()
+            frmGetPart.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -288,7 +288,7 @@ Module OpenFrom
             End If
 
             Dim frmEditDimension As New frmEditDimension
-            frmEditDimension.ShowDialog()
+            frmEditDimension.Show()
 
         Catch ex As Exception
             MsgBox(ex.Message)

@@ -8,7 +8,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
         Me.Dispose()
     End Sub
 
-    Private Sub 确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub btn导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入.Click
         On Error Resume Next
 
         Dim strBomExcelFile As String
@@ -23,7 +23,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
             Exit Sub
         End If
 
-        btn确定.Enabled = False
+        btn导入.Enabled = False
         Me.UseWaitCursor = True
 
         intLastLine = txt最后行.Text
@@ -56,12 +56,15 @@ Public NotInheritable Class frmImportCodeToBomExcel
 
             prgProcess.Minimum = 0
             prgProcess.Maximum = intLastLine
+
             For i = 1 To intLastLine
                 prgProcess.Value = i
                 strERPCode = ""
                 strRangeName = strDataColumn & i
                 oBOMRange = oBOMWorksheet.Range(strRangeName)
                 strDrawingNo = oBOMRange.Text.ToString
+
+                lbl进度文件.Text = "当前零件： " & strDrawingNo
 
                 Debug.Print(strDrawingNo)
 
@@ -84,6 +87,8 @@ Public NotInheritable Class frmImportCodeToBomExcel
                         strERPCode = ""
                     End If
                 Next
+
+                'lbl进度文件.Text = "当前零件： " & strDrawingNo & "——" & strERPCode
 
                 Debug.Print(strERPCode)
                 If strERPCode <> "" Then
@@ -118,7 +123,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
         MsgBox("写入ERP编码完成！", MsgBoxStyle.OkOnly, "导入ERP编码")
 
         Me.UseWaitCursor = False
-        btn确定.Enabled = True
+        btn导入.Enabled = True
 
         Process.Start(strBomExcelFile)
     End Sub
@@ -134,6 +139,7 @@ Public NotInheritable Class frmImportCodeToBomExcel
             If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                 If .FileName <> "" Then '如果有选中文件
                     txtExcel文件.Text = .FileName
+                    btn导入.Focus()
                 End If
             Else
                 Exit Sub

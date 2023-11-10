@@ -87,6 +87,7 @@ Partial Class frmSearchERPCode
         Me.btn查询编码.Size = New System.Drawing.Size(65, 28)
         Me.btn查询编码.TabIndex = 1
         Me.btn查询编码.Text = "查询编码"
+        Me.btn查询编码.UseVisualStyleBackColor = True
         '
         'btn粘贴到规格
         '
@@ -134,7 +135,7 @@ Partial Class frmSearchERPCode
         '
         'frmSearchERPCode
         '
-        Me.AcceptButton = Me.btn查询编码
+        Me.AcceptButton = Me.btn粘贴到规格
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭

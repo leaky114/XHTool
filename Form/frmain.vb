@@ -34,6 +34,7 @@ Public Class frmain
         'progressBar.Close()
 
         'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
+      
 
     End Sub
 
@@ -224,20 +225,16 @@ Public Class frmain
         SetDocumentIpropertyFromFileName()
     End Sub
 
-   
-
     '获取当前部件中的文件名修改ipropty
     Private Sub Button获取部件修改ipropty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button获取部件修改ipropty.Click
         SetDocumentsInAssIpropertyFromFileName()
     End Sub
-
 
     '更改零件/部件文件名
     Private Sub Button更改零件部件文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button更改零件部件文件名.Click
         RenameAssPartDocumentName()
 
     End Sub
-
 
     ''提取iproperty更改文件名
     'Private Sub Button提取iproperty更改文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -599,13 +596,9 @@ Public Class frmain
         GetAsmMissDocument()
     End Sub
 
-
-
     Private Sub 距离对齐ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 距离对齐ToolStripMenuItem.Click
         AlignComponentsInTheCenter()
     End Sub
-
-
 
     Private Sub 另存为DWGToolStripMenuItem_Click(sender As Object, e As EventArgs)
         IdwSaveAsDwg()
@@ -695,11 +688,11 @@ Public Class frmain
     End Sub
 
     Private Sub 查询ERP编码ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 查询ERP编码ToolStripMenuItem.Click
-        FrmQueryERPcodeshow()
+        FrmSearchERPCodeShow()
     End Sub
 
     Private Sub ERP反查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ERP反查ToolStripMenuItem.Click
-        ReverseCheckERPCodesshow()
+        FrmReverseCheckERPCodesShow()
     End Sub
 
     Private Sub 导出BOM平面性ToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导出BOM平面性ToolStripMenuItem.Click
