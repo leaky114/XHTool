@@ -128,7 +128,7 @@ Module OpenFrom
     End Sub
 
     '导入ERP编码到excel文件
-    Public Sub FrmImportCodeToIamShow()
+    Public Sub FrmImportERPCodeToIamShow()
         Try
             SetStatusBarText()
 
@@ -142,7 +142,7 @@ Module OpenFrom
             End If
 
             Dim frmImportCodeToIam As New frmImportCodeToIam
-            frmImportCodeToIam.ShowDialog()
+            frmImportCodeToIam.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -159,7 +159,8 @@ Module OpenFrom
             'End If
 
             Dim frmImportCodeToBomExcel As New frmImportCodeToBomExcel
-            frmImportCodeToBomExcel.Show()
+            frmImportCodeToBomExcel.ShowInTaskbar = False
+            frmImportCodeToBomExcel.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

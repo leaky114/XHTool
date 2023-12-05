@@ -2637,4 +2637,124 @@ Module IamModule
         ''oInventorDocument.Close()
     End Sub
 
+    Public Sub FindAndReplace()
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        Dim oOldComponentOccurrence As ComponentOccurrence   '选择的部件或零件
+
+        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+            'For Each oSelect As Object In InventorDoc.SelectSet
+            oOldComponentOccurrence = oInventorAssemblyDocument.SelectSet(1)
+            'Next
+        Else
+            oOldComponentOccurrence = ThisApplication.CommandManager.Pick(kAssemblyOccurrenceFilter, "选择要替换的未加载零件或部件")
+        End If
+
+        If oOldComponentOccurrence Is Nothing Then       '取消选择
+            Exit Sub
+        End If
+
+        Dim WorkSpaceFloder As String
+        WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+
+        Select Case oOldComponentOccurrence.DefinitionDocumentType
+            Case kAssemblyDocumentObject, kPartDocumentObject
+
+                Dim strOldFullDocumentName As String
+                strOldFullDocumentName = oOldComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
+
+
+                Dim strOldDocumentName As String
+                strOldDocumentName = GetOnlyname(strOldFullDocumentName)
+
+                strOldDocumentName = InputBox("替换的文件：" & GetSingleName(strOldFullDocumentName), "查找替换", strOldDocumentName)
+
+                If strOldDocumentName = "" Then
+                    Exit Sub
+                Else
+                    strOldDocumentName = "*" & strOldDocumentName & "*" & LCaseGetFileExtension(strOldFullDocumentName)
+                End If
+
+                Dim arrFullFileName As String()
+
+                '查找当前项目
+                arrFullFileName = Directory.GetFiles(ContentCenterFiles, strOldDocumentName, SearchOption.AllDirectories)
+
+                '查找零件库
+                If arrFullFileName.Length = 0 Then
+                    arrFullFileName = Directory.GetFiles(WorkSpaceFloder, strOldDocumentName, SearchOption.AllDirectories)
+                End If
+
+                If arrFullFileName.Length = 0 Then
+                    MsgBox("未找到文件：" & strOldDocumentName, MsgBoxStyle.Information)
+                    Exit Sub
+                End If
+
+                Dim strFullFileName As String = Nothing
+
+                Dim frmQuitOpen As New frmQuitOpen
+
+                For Each strFullFileName In arrFullFileName
+                    If InStr(strFullFileName, "OldVersions") = 0 Then
+                        Dim lvi As ListViewItem = frmQuitOpen.lvw文件列表.Items.Add(strFullFileName)
+
+                        '同一个文件标注为蓝色
+                        If strFullFileName = strOldFullDocumentName Then
+                            lvi.ForeColor = System.Drawing.Color.RoyalBlue
+                        End If
+
+                    End If
+                Next
+
+                Select Case frmQuitOpen.lvw文件列表.Items.Count
+                    Case 0
+
+                        'Case 1
+                        '    MsgBox("未找到同名文件", MsgBoxStyle.Information)
+                        '    Dim strFileExtensionName As String = Nothing
+                        '    strFileExtensionName = LCase(GetFileNameInfo(strFullFileName).ExtensionName)
+
+                        '    Select Case strFileExtensionName
+                        '        Case IAM, IPT
+                        '            oOldComponentOccurrence.Replace(strFullFileName, True)
+
+
+                        '    End Select
+                        '    frmQuitOpen.Close()
+                    Case Else
+
+                        frmQuitOpen.ShowDialog()
+
+                        Select Case MsgBox("是否全部替换为" & strQuitOpenSelectFileFullName & "？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
+                            Case MsgBoxResult.Yes
+                                oOldComponentOccurrence.Replace(strQuitOpenSelectFileFullName, True)
+                                MsgBox("替换完成！", MsgBoxStyle.Information)
+                            Case MsgBoxResult.No
+                                oOldComponentOccurrence.Replace(strQuitOpenSelectFileFullName, False)
+                                MsgBox("替换完成！", MsgBoxStyle.Information)
+                            Case Else
+
+                        End Select
+
+                End Select
+
+            Case Else
+
+        End Select
+
+    End Sub
+
 End Module

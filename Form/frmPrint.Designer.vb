@@ -67,7 +67,6 @@ Partial Class frmPrint
         Me.btn开始.Name = "btn开始"
         Me.btn开始.Size = New System.Drawing.Size(86, 28)
         Me.btn开始.TabIndex = 1
-        Me.btn开始.TabStop = False
         Me.btn开始.Text = "开始打印"
         '
         'btn关闭
@@ -77,8 +76,7 @@ Partial Class frmPrint
         Me.btn关闭.Location = New System.Drawing.Point(769, 443)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(57, 28)
-        Me.btn关闭.TabIndex = 1
-        Me.btn关闭.TabStop = False
+        Me.btn关闭.TabIndex = 20
         Me.btn关闭.Text = "关闭"
         '
         'btn添加文件
@@ -87,7 +85,7 @@ Partial Class frmPrint
         Me.btn添加文件.Location = New System.Drawing.Point(116, 443)
         Me.btn添加文件.Name = "btn添加文件"
         Me.btn添加文件.Size = New System.Drawing.Size(85, 28)
-        Me.btn添加文件.TabIndex = 1
+        Me.btn添加文件.TabIndex = 15
         Me.btn添加文件.Text = "添加文件"
         Me.btn添加文件.UseVisualStyleBackColor = True
         '
@@ -97,7 +95,7 @@ Partial Class frmPrint
         Me.btn清空列表.Location = New System.Drawing.Point(570, 443)
         Me.btn清空列表.Name = "btn清空列表"
         Me.btn清空列表.Size = New System.Drawing.Size(85, 28)
-        Me.btn清空列表.TabIndex = 3
+        Me.btn清空列表.TabIndex = 19
         Me.btn清空列表.Text = "清除列表"
         Me.btn清空列表.UseVisualStyleBackColor = True
         '
@@ -107,7 +105,7 @@ Partial Class frmPrint
         Me.btn添加文件夹.Location = New System.Drawing.Point(217, 443)
         Me.btn添加文件夹.Name = "btn添加文件夹"
         Me.btn添加文件夹.Size = New System.Drawing.Size(85, 28)
-        Me.btn添加文件夹.TabIndex = 2
+        Me.btn添加文件夹.TabIndex = 14
         Me.btn添加文件夹.Text = "添加文件夹"
         Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
@@ -152,7 +150,7 @@ Partial Class frmPrint
         Me.btn保存配置.Location = New System.Drawing.Point(723, 37)
         Me.btn保存配置.Name = "btn保存配置"
         Me.btn保存配置.Size = New System.Drawing.Size(86, 28)
-        Me.btn保存配置.TabIndex = 47
+        Me.btn保存配置.TabIndex = 14
         Me.btn保存配置.Text = "保存配置"
         Me.btn保存配置.UseVisualStyleBackColor = True
         '
@@ -164,7 +162,7 @@ Partial Class frmPrint
         Me.chk关闭窗口.Location = New System.Drawing.Point(635, 25)
         Me.chk关闭窗口.Name = "chk关闭窗口"
         Me.chk关闭窗口.Size = New System.Drawing.Size(72, 16)
-        Me.chk关闭窗口.TabIndex = 46
+        Me.chk关闭窗口.TabIndex = 8
         Me.chk关闭窗口.Text = "退出打印"
         Me.chk关闭窗口.UseVisualStyleBackColor = True
         '
@@ -174,7 +172,7 @@ Partial Class frmPrint
         Me.chk刷新工程图.Location = New System.Drawing.Point(432, 25)
         Me.chk刷新工程图.Name = "chk刷新工程图"
         Me.chk刷新工程图.Size = New System.Drawing.Size(84, 16)
-        Me.chk刷新工程图.TabIndex = 45
+        Me.chk刷新工程图.TabIndex = 6
         Me.chk刷新工程图.Text = "刷新工程图"
         Me.chk刷新工程图.UseVisualStyleBackColor = True
         '
@@ -184,7 +182,7 @@ Partial Class frmPrint
         Me.chk保存工程图.Location = New System.Drawing.Point(432, 53)
         Me.chk保存工程图.Name = "chk保存工程图"
         Me.chk保存工程图.Size = New System.Drawing.Size(84, 16)
-        Me.chk保存工程图.TabIndex = 44
+        Me.chk保存工程图.TabIndex = 12
         Me.chk保存工程图.Text = "保存工程图"
         Me.chk保存工程图.UseVisualStyleBackColor = True
         '
@@ -194,7 +192,7 @@ Partial Class frmPrint
         Me.chk保存签字.Location = New System.Drawing.Point(344, 53)
         Me.chk保存签字.Name = "chk保存签字"
         Me.chk保存签字.Size = New System.Drawing.Size(72, 16)
-        Me.chk保存签字.TabIndex = 43
+        Me.chk保存签字.TabIndex = 11
         Me.chk保存签字.Text = "保存签字"
         Me.chk保存签字.UseVisualStyleBackColor = True
         '
@@ -204,7 +202,7 @@ Partial Class frmPrint
         Me.chk存为dwg.Location = New System.Drawing.Point(528, 53)
         Me.chk存为dwg.Name = "chk存为dwg"
         Me.chk存为dwg.Size = New System.Drawing.Size(90, 16)
-        Me.chk存为dwg.TabIndex = 42
+        Me.chk存为dwg.TabIndex = 13
         Me.chk存为dwg.Text = "同步存为Dwg"
         Me.chk存为dwg.UseVisualStyleBackColor = True
         '
@@ -214,7 +212,7 @@ Partial Class frmPrint
         Me.chk存为pdf.Location = New System.Drawing.Point(528, 25)
         Me.chk存为pdf.Name = "chk存为pdf"
         Me.chk存为pdf.Size = New System.Drawing.Size(90, 16)
-        Me.chk存为pdf.TabIndex = 41
+        Me.chk存为pdf.TabIndex = 7
         Me.chk存为pdf.Text = "同步存为Pdf"
         Me.chk存为pdf.UseVisualStyleBackColor = True
         '
@@ -227,7 +225,7 @@ Partial Class frmPrint
         Me.chk打印后关闭.Location = New System.Drawing.Point(248, 53)
         Me.chk打印后关闭.Name = "chk打印后关闭"
         Me.chk打印后关闭.Size = New System.Drawing.Size(84, 16)
-        Me.chk打印后关闭.TabIndex = 39
+        Me.chk打印后关闭.TabIndex = 10
         Me.chk打印后关闭.Text = "打印后关闭"
         Me.chk打印后关闭.UseVisualStyleBackColor = True
         '
@@ -255,7 +253,7 @@ Partial Class frmPrint
         Me.nud份数.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nud份数.Name = "nud份数"
         Me.nud份数.Size = New System.Drawing.Size(46, 21)
-        Me.nud份数.TabIndex = 36
+        Me.nud份数.TabIndex = 3
         Me.nud份数.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'cmb打印机
@@ -266,7 +264,7 @@ Partial Class frmPrint
         Me.cmb打印机.Name = "cmb打印机"
         Me.cmb打印机.Size = New System.Drawing.Size(174, 20)
         Me.cmb打印机.Sorted = True
-        Me.cmb打印机.TabIndex = 35
+        Me.cmb打印机.TabIndex = 2
         '
         'chk匹配A3
         '
@@ -277,7 +275,7 @@ Partial Class frmPrint
         Me.chk匹配A3.Location = New System.Drawing.Point(248, 25)
         Me.chk匹配A3.Name = "chk匹配A3"
         Me.chk匹配A3.Size = New System.Drawing.Size(72, 16)
-        Me.chk匹配A3.TabIndex = 34
+        Me.chk匹配A3.TabIndex = 4
         Me.chk匹配A3.Text = "匹配A3纸"
         Me.chk匹配A3.UseVisualStyleBackColor = True
         '
@@ -289,7 +287,7 @@ Partial Class frmPrint
         Me.chk签字.Location = New System.Drawing.Point(344, 25)
         Me.chk签字.Name = "chk签字"
         Me.chk签字.Size = New System.Drawing.Size(48, 16)
-        Me.chk签字.TabIndex = 33
+        Me.chk签字.TabIndex = 5
         Me.chk签字.Text = "签字"
         Me.chk签字.UseVisualStyleBackColor = True
         '
@@ -301,7 +299,7 @@ Partial Class frmPrint
         Me.chk打印为黑色.Location = New System.Drawing.Point(150, 53)
         Me.chk打印为黑色.Name = "chk打印为黑色"
         Me.chk打印为黑色.Size = New System.Drawing.Size(84, 16)
-        Me.chk打印为黑色.TabIndex = 32
+        Me.chk打印为黑色.TabIndex = 9
         Me.chk打印为黑色.Text = "打印为黑色"
         Me.chk打印为黑色.UseVisualStyleBackColor = True
         '
@@ -311,7 +309,7 @@ Partial Class frmPrint
         Me.btn从部件导入.Location = New System.Drawing.Point(15, 443)
         Me.btn从部件导入.Name = "btn从部件导入"
         Me.btn从部件导入.Size = New System.Drawing.Size(85, 28)
-        Me.btn从部件导入.TabIndex = 0
+        Me.btn从部件导入.TabIndex = 15
         Me.btn从部件导入.Text = "从部件导入"
         Me.btn从部件导入.UseVisualStyleBackColor = True
         '
@@ -321,7 +319,7 @@ Partial Class frmPrint
         Me.btn导入已打开文件.Location = New System.Drawing.Point(444, 443)
         Me.btn导入已打开文件.Name = "btn导入已打开文件"
         Me.btn导入已打开文件.Size = New System.Drawing.Size(110, 28)
-        Me.btn导入已打开文件.TabIndex = 34
+        Me.btn导入已打开文件.TabIndex = 0
         Me.btn导入已打开文件.Text = "导入已打开文件"
         Me.btn导入已打开文件.UseVisualStyleBackColor = True
         '
@@ -379,7 +377,7 @@ Partial Class frmPrint
         Me.btn导入当前部件.Location = New System.Drawing.Point(318, 443)
         Me.btn导入当前部件.Name = "btn导入当前部件"
         Me.btn导入当前部件.Size = New System.Drawing.Size(110, 28)
-        Me.btn导入当前部件.TabIndex = 37
+        Me.btn导入当前部件.TabIndex = 18
         Me.btn导入当前部件.Text = "导入当前部件"
         Me.btn导入当前部件.UseVisualStyleBackColor = True
         '

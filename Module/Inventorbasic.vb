@@ -102,8 +102,12 @@ Module InventorBasic
     '批量打印设置
     Public PrintSetting As String
 
+    '快速打开选择的文件
+    Public strQuitOpenSelectFileFullName As String
+
     '声明并初始化变量
     Public _ListViewSorter As clsListViewSorter.EnumSortOrder = clsListViewSorter.EnumSortOrder.Ascending
+
 
 
     '-------------------------------------------------------------------------------------------------------
@@ -229,19 +233,25 @@ Module InventorBasic
                 Case 0
 
                 Case 1
-                    Dim strFileExtensionName As String = Nothing
-                    strFileExtensionName = LCase(GetFileNameInfo(strFullFileName).ExtensionName)
+                    strQuitOpenSelectFileFullName = strFullFileName
 
-                    Select Case strFileExtensionName
-                        Case IAM, IPT, IDW
-                            ThisApplication.Documents.Open(strFullFileName)
-                        Case Else
-                            Process.Start(strFullFileName)
-                    End Select
-                    frmQuitOpen.Close()
                 Case Else
                     frmQuitOpen.ShowDialog()
+
             End Select
+
+
+            Dim strFileExtensionName As String = Nothing
+            strFileExtensionName = LCase(GetFileNameInfo(strQuitOpenSelectFileFullName).ExtensionName)
+
+            Select Case strFileExtensionName
+                Case IAM, IPT, IDW
+                    ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
+                Case Else
+                    Process.Start(strQuitOpenSelectFileFullName)
+            End Select
+            frmQuitOpen.Close()
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

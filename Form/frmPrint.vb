@@ -657,6 +657,7 @@ Public Class frmPrint
              BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) & _
             BoolToInt(chk打印后关闭.Checked) & BoolToInt(chk保存签字.Checked) & BoolToInt(chk保存工程图.Checked) & BoolToInt(chk存为dwg.Checked)
 
-        InAISettingXmlWriteSetting()
+        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, IniFile)
+
     End Sub
 End Class

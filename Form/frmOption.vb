@@ -127,35 +127,6 @@ Public Class frmOption
                 Area_Accuracy = "6"
         End Select
 
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapStochNum", Map_DrawingNnumber)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartName", Map_PartName)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPartNum", Map_ERPCode)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirStochNum", Map_Mir_StochNum)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMirPartName", Map_Mir_PartName)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapDrawingScale", Map_DrawingScale)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetDrawingScale", IsSetDrawingScale)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapMass", Map_Mass)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsSetMass", IsSetMass)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "MapPrintDay", Map_PrintDay)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsOpenPrint", IsOpenPrint)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "EngineerName", EngineerName)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "IsDayAndName", IsDayAndName)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "BOMTiTle", BOMTiTle)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Mass_Accuracy", Mass_Accuracy)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Area_Accuracy", Area_Accuracy)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
-
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Excel_File_Name", ExcelFullFileName)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Sheet_Name", SheetName)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Table_Array", TableArrays)
-        'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "Col_Index_Num", ColIndexNum)
-
         Printer = cmb打印机.Text
 
         '匹配A3
@@ -179,7 +150,8 @@ Public Class frmOption
 
         TitleBlockIdwDoc = txt图框模板文件.Text
 
-        WrXml.InAISettingXmlWriteSetting()
+        WrIni.InAISettingIniWriteSetting()
+        'WrXml.InAISettingXmlWriteSetting()
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()

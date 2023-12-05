@@ -39,8 +39,7 @@ Partial Class frmImportCodeToBomExcel
         '
         'btn导入
         '
-        Me.btn导入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn导入.Location = New System.Drawing.Point(360, 105)
+        Me.btn导入.Location = New System.Drawing.Point(360, 97)
         Me.btn导入.Name = "btn导入"
         Me.btn导入.Size = New System.Drawing.Size(65, 28)
         Me.btn导入.TabIndex = 1
@@ -48,9 +47,8 @@ Partial Class frmImportCodeToBomExcel
         '
         'btn关闭
         '
-        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(435, 105)
+        Me.btn关闭.Location = New System.Drawing.Point(435, 97)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 28)
         Me.btn关闭.TabIndex = 2
@@ -58,8 +56,7 @@ Partial Class frmImportCodeToBomExcel
         '
         'txt最后行
         '
-        Me.txt最后行.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txt最后行.Location = New System.Drawing.Point(3, 27)
+        Me.txt最后行.Location = New System.Drawing.Point(3, 12)
         Me.txt最后行.Name = "txt最后行"
         Me.txt最后行.Size = New System.Drawing.Size(44, 21)
         Me.txt最后行.TabIndex = 14
@@ -67,10 +64,9 @@ Partial Class frmImportCodeToBomExcel
         '
         'cmb查找列
         '
-        Me.cmb查找列.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmb查找列.FormattingEnabled = True
         Me.cmb查找列.Items.AddRange(New Object() {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"})
-        Me.cmb查找列.Location = New System.Drawing.Point(168, 27)
+        Me.cmb查找列.Location = New System.Drawing.Point(168, 12)
         Me.cmb查找列.Name = "cmb查找列"
         Me.cmb查找列.Size = New System.Drawing.Size(46, 20)
         Me.cmb查找列.Sorted = True
@@ -79,10 +75,9 @@ Partial Class frmImportCodeToBomExcel
         '
         'cmb写入列
         '
-        Me.cmb写入列.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmb写入列.FormattingEnabled = True
         Me.cmb写入列.Items.AddRange(New Object() {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"})
-        Me.cmb写入列.Location = New System.Drawing.Point(314, 27)
+        Me.cmb写入列.Location = New System.Drawing.Point(314, 12)
         Me.cmb写入列.Name = "cmb写入列"
         Me.cmb写入列.Size = New System.Drawing.Size(46, 20)
         Me.cmb写入列.Sorted = True
@@ -91,9 +86,8 @@ Partial Class frmImportCodeToBomExcel
         '
         'lbl最后行
         '
-        Me.lbl最后行.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl最后行.AutoSize = True
-        Me.lbl最后行.Location = New System.Drawing.Point(53, 32)
+        Me.lbl最后行.Location = New System.Drawing.Point(53, 17)
         Me.lbl最后行.Name = "lbl最后行"
         Me.lbl最后行.Size = New System.Drawing.Size(41, 12)
         Me.lbl最后行.TabIndex = 17
@@ -101,9 +95,8 @@ Partial Class frmImportCodeToBomExcel
         '
         'lbl查找列
         '
-        Me.lbl查找列.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl查找列.AutoSize = True
-        Me.lbl查找列.Location = New System.Drawing.Point(121, 32)
+        Me.lbl查找列.Location = New System.Drawing.Point(121, 17)
         Me.lbl查找列.Name = "lbl查找列"
         Me.lbl查找列.Size = New System.Drawing.Size(41, 12)
         Me.lbl查找列.TabIndex = 18
@@ -111,9 +104,8 @@ Partial Class frmImportCodeToBomExcel
         '
         'lbl写入列
         '
-        Me.lbl写入列.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl写入列.AutoSize = True
-        Me.lbl写入列.Location = New System.Drawing.Point(267, 32)
+        Me.lbl写入列.Location = New System.Drawing.Point(267, 17)
         Me.lbl写入列.Name = "lbl写入列"
         Me.lbl写入列.Size = New System.Drawing.Size(41, 12)
         Me.lbl写入列.TabIndex = 19
@@ -121,8 +113,7 @@ Partial Class frmImportCodeToBomExcel
         '
         'txtExcel文件
         '
-        Me.txtExcel文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtExcel文件.Location = New System.Drawing.Point(3, 63)
+        Me.txtExcel文件.Location = New System.Drawing.Point(3, 48)
         Me.txtExcel文件.Name = "txtExcel文件"
         Me.txtExcel文件.Size = New System.Drawing.Size(402, 21)
         Me.txtExcel文件.TabIndex = 20
@@ -130,8 +121,7 @@ Partial Class frmImportCodeToBomExcel
         '
         'btn打开excel文件
         '
-        Me.btn打开excel文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn打开excel文件.Location = New System.Drawing.Point(416, 62)
+        Me.btn打开excel文件.Location = New System.Drawing.Point(416, 47)
         Me.btn打开excel文件.Name = "btn打开excel文件"
         Me.btn打开excel文件.Size = New System.Drawing.Size(49, 25)
         Me.btn打开excel文件.TabIndex = 0
@@ -140,8 +130,7 @@ Partial Class frmImportCodeToBomExcel
         '
         'prgProcess
         '
-        Me.prgProcess.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.prgProcess.Location = New System.Drawing.Point(3, 108)
+        Me.prgProcess.Location = New System.Drawing.Point(3, 100)
         Me.prgProcess.Name = "prgProcess"
         Me.prgProcess.Size = New System.Drawing.Size(312, 22)
         Me.prgProcess.Style = System.Windows.Forms.ProgressBarStyle.Continuous
@@ -150,7 +139,7 @@ Partial Class frmImportCodeToBomExcel
         'lbl进度文件
         '
         Me.lbl进度文件.AutoSize = True
-        Me.lbl进度文件.Location = New System.Drawing.Point(10, 89)
+        Me.lbl进度文件.Location = New System.Drawing.Point(9, 76)
         Me.lbl进度文件.Name = "lbl进度文件"
         Me.lbl进度文件.Size = New System.Drawing.Size(65, 12)
         Me.lbl进度文件.TabIndex = 23
@@ -162,7 +151,7 @@ Partial Class frmImportCodeToBomExcel
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(503, 139)
+        Me.ClientSize = New System.Drawing.Size(503, 133)
         Me.Controls.Add(Me.lbl进度文件)
         Me.Controls.Add(Me.prgProcess)
         Me.Controls.Add(Me.btn打开excel文件)
@@ -175,13 +164,13 @@ Partial Class frmImportCodeToBomExcel
         Me.Controls.Add(Me.txt最后行)
         Me.Controls.Add(Me.btn导入)
         Me.Controls.Add(Me.btn关闭)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmImportCodeToBomExcel"
-        Me.ShowInTaskbar = False
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码到Bom表"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

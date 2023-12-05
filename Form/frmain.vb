@@ -8,6 +8,9 @@ Imports Microsoft
 Imports Microsoft.VisualBasic
 Imports System.Collections.ObjectModel
 Imports System.Runtime.InteropServices
+Imports System.Diagnostics
+Imports System.Net
+
 
 Public Class frmain
 
@@ -34,7 +37,70 @@ Public Class frmain
         'progressBar.Close()
 
         'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
-      
+
+        'Dim oDoc As DrawingDocument
+        'oDoc = ThisApplication.ActiveDocument
+
+        'Dim oSheet As Sheet
+        'oSheet = oDoc.ActiveSheet
+
+        'Dim oCurve1 As DrawingCurve
+        'oCurve1 = oDoc.SelectSet(1).Parent
+
+        'Dim oCurve2 As DrawingCurve
+        'oCurve2 = oDoc.SelectSet(2).Parent
+
+        'Dim oIntent1 As GeometryIntent
+        'oIntent1 = oSheet.CreateGeometryIntent(oCurve1)
+
+        'Dim oIntent2 As GeometryIntent
+        'oIntent2 = oSheet.CreateGeometryIntent(oCurve2)
+
+        'Dim oPt As Point2d
+        'oPt = ThisApplication.TransientGeometry.CreatePoint2d(15, 15)
+
+        'Dim oLinDim As LinearGeneralDimension
+        'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oPt, oIntent1, oIntent2)
+
+        Dim oInventorDrawingDocument As Inventor.DrawingDocument
+        oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+        'Dim oSheet As Sheet
+        'oSheet = oInventorDrawingDocument.ActiveSheet
+
+        Dim selectedLines1 As DrawingCurveSegment
+        Dim selectedLines2 As DrawingCurveSegment
+        Dim selectedLines3 As DrawingCurveSegment
+        Dim selectedLines4 As DrawingCurveSegment
+
+        selectedLines1 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第一条线")
+        selectedLines2 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第二条线")
+        selectedLines3 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第三条线")
+        selectedLines4 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第四条线")
+
+        Dim line1 As LineSegment = CType(selectedLines1, Inventor.LineSegment)
+        Dim line2 As LineSegment = CType(selectedLines2, Inventor.LineSegment)
+        Dim line3 As LineSegment = CType(selectedLines3, Inventor.LineSegment)
+        Dim line4 As LineSegment = CType(selectedLines4, Inventor.LineSegment)
+
+        ' 获取 l1, l2 的交点 p1
+        Dim intersectionPoint1 As Point2d = line1.IntersectWithCurve(line2)
+
+        ' 获取 l3, l4 的交点 p2
+        Dim intersectionPoint2 As Point2d = line3.IntersectWithCurve(line4)
+
+        ' 计算并标注 p1, p2 的距离尺寸
+        Dim distance As Double = intersectionPoint1.DistanceTo(intersectionPoint2)
+        Dim annotation As DimensionConstraint = oInventorDrawingDocument.ActiveSheet. _
+            DimensionConstraints.AddTwoPointDistance(selectedLines1.StartPoint, selectedLines3.StartPoint, _
+                                                  DimensionOrientationEnum.kAlignedDim, distance)
+
+        ' 刷新文档
+        oInventorDrawingDocument.Update()
+
+        'Dim oLinDim As LinearGeneralDimension
+        'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oSketchPoint1, oIntent1, oIntent2)
+
 
     End Sub
 
@@ -43,7 +109,30 @@ Public Class frmain
         'AddPanelToToolsTab()
         'If NewUpdater.GetGitVersion = "New" Then
         '    If MsgBox("检查到InAI新版：" & NewVersion & "，是否下载？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "更新") = MsgBoxResult.Yes Then
-        '        Process.Start("https://github.com/leaky114/InAI/tree/master/Release")
+
+
+        '' 查找进程 "inventor.exe"  
+        'Dim process As Process = process.GetProcessById(process.GetProcessesByName("inventor").FirstOrDefault().Id)
+
+        '' 检查进程是否存在  
+        'If process IsNot Nothing Then
+        '    ' 结束进程  
+        '    process.Kill()
+        '    '            MsgBox("进程已结束.")
+        'Else
+        '    '           MsgBox("未找到进程.")
+        'End If
+
+        '' 指定要下载的文件的HTTP地址和本地保存路径  
+        'Dim url As String = "https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll"
+        'Dim savePath As String = My.Application.Info.DirectoryPath & "\InventorAddIn.dll"
+
+        'DownNetFile(url, savePath)
+        'MsgBox("ok")
+
+        'Process.Start("https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll")
+
+
         '    End If
         'End If
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -80,6 +169,47 @@ Public Class frmain
 
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+        'Dim oInventorDocument As Inventor.Document
+        'oInventorDocument = ThisApplication.ActiveEditDocument
+
+        'For Each o As Inventor.Document In oInventorDocument.ReferencingDocuments
+        '    Debug.Print(o.FullDocumentName)
+        'Next
+
+        On Error Resume Next
+
+        Dim t As System.IO.StreamWriter = New System.IO.StreamWriter("d:\inventor.txt")
+
+        For i = 1 To ThisApplication.UserInterfaceManager.Ribbons.Count
+            Dim partRibbon As Ribbon = ThisApplication.UserInterfaceManager.Ribbons.Item(i)
+            t.Write(i & Space(4) & partRibbon.InternalName & vbCrLf)
+
+            For j = 1 To partRibbon.RibbonTabs.Count
+                Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item(j)
+                t.Write(Space(4) & j & Space(4) & toolsTab.InternalName & Space(4) & toolsTab.DisplayName & vbCrLf)
+
+                For k = 1 To toolsTab.RibbonPanels.Count
+                    Dim Ribbon_Panel As RibbonPanel = toolsTab.RibbonPanels.Item(k)
+                    t.Write(Space(8) & k & Space(4) & Ribbon_Panel.InternalName & Space(4) & Ribbon_Panel.DisplayName & vbCrLf)
+
+                    For ii = 1 To Ribbon_Panel.CommandControls.Count
+                        Dim commandcontrol As CommandControl = Ribbon_Panel.CommandControls.Item(ii)
+                        t.Write(Space(16) & ii & Space(4) & commandcontrol.InternalName & Space(4) & commandcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
+
+                        For jj = 1 To commandcontrol.ChildControls.Count
+                            Dim commandchildcontrol As CommandControl = commandcontrol.ChildControls.Item(jj)
+                            t.Write(Space(24) & jj & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
+                            commandchildcontrol = Nothing
+                        Next
+                        commandcontrol = Nothing
+                    Next
+                    Ribbon_Panel = Nothing
+                Next
+                toolsTab = Nothing
+            Next
+            partRibbon = Nothing
+        Next
+        t.Close()
 
     End Sub
 
@@ -127,11 +257,19 @@ Public Class frmain
         ContentCenterFiles = ThisApplication.FileOptions.ContentCenterPath  '初始化零件库
         Debug.Print(ContentCenterFiles)
 
-        '初始化默认值
-        WrXml.InAISettingDefaultValue()
 
-        '获取自定义值
-        WrXml.InAISettingXmlReadSetting()
+        IniFile = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.ini", "\InAISetting.ini")
+        If IsFileExsts(IniFile) = False Then
+            '初始化默认值
+            WrXml.InAISettingDefaultValue()
+
+            '获取自定义值
+            WrXml.InAISettingXmlReadSetting()
+
+            WrIni.InAISettingIniWriteSetting()
+        End If
+
+        WrIni.InAISettingIniReadSetting()
 
         '更新数据库文件
         If BasicExcelFullFileName = "" Then
@@ -312,7 +450,7 @@ Public Class frmain
     End Sub
 
 
-   
+
 
     '帮助
     Private Sub 帮助ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 帮助ToolStripMenuItem.Click
@@ -700,7 +838,7 @@ Public Class frmain
     End Sub
 
     Private Sub 导入ERPToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导入ERPToolStripMenuItem.Click
-        FrmImportCodeToIamShow()
+        FrmImportERPCodeToIamShow()
     End Sub
 
     Private Sub 导入ERP到BOMToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导入ERP到BOMToolStripMenuItem.Click
@@ -755,8 +893,6 @@ Public Class frmain
     Private Sub 另存为DWGToolStripMenuItem_Click_2(sender As Object, e As EventArgs) Handles 另存为DWGToolStripMenuItem.Click
         IdwSaveAsDwg()
     End Sub
-
- 
 
     Private Sub 打开指定工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开指定工程图ToolStripMenuItem.Click
         OpenAllDrwInAsm()
@@ -827,7 +963,7 @@ Public Class frmain
         End If
 
         ' Get the rebuild command
-      
+
 
 
     End Sub
@@ -885,5 +1021,9 @@ Public Class frmain
 
     Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 生成展开图ToolStripMenuItem.Click
         CreateFlat()
+    End Sub
+
+    Private Sub 查找替换ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 查找替换ToolStripMenuItem.Click
+        FindandReplace()
     End Sub
 End Class

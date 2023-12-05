@@ -2,6 +2,9 @@ Option Strict Off
 Option Explicit On
 Module ini
 
+    Public IniFile As String
+
+
     '//声明从INI配置文件中获取类型为Int的配置项的值的系统函数
     Public Declare Function GetPrivateProfileInt Lib "kernel32" Alias "GetPrivateProfileIntA" (ByVal lpAppName As String, ByVal lpKeyName As String, ByVal nDefault As Integer, ByVal lpFileName As String) As Integer
 

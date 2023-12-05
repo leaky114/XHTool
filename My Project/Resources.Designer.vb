@@ -61,7 +61,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property inventor() As System.Drawing.Icon
             Get
@@ -71,7 +71,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 保存全部161624() As System.Drawing.Icon
             Get
@@ -81,7 +81,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 保存全部323224() As System.Drawing.Icon
             Get
@@ -91,7 +91,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 保存关闭161624() As System.Drawing.Icon
             Get
@@ -101,7 +101,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 保存关闭323224() As System.Drawing.Icon
             Get
@@ -111,7 +111,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 修改文件iProperty161624() As System.Drawing.Icon
             Get
@@ -121,7 +121,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 修改文件iProperty323224() As System.Drawing.Icon
             Get
@@ -131,7 +131,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 修改部件iProperty161624() As System.Drawing.Icon
             Get
@@ -141,7 +141,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 修改部件iProperty323224() As System.Drawing.Icon
             Get
@@ -151,7 +151,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部另存为161624() As System.Drawing.Icon
             Get
@@ -161,7 +161,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部另存为323224() As System.Drawing.Icon
             Get
@@ -171,7 +171,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部可见161624() As System.Drawing.Icon
             Get
@@ -181,7 +181,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部可见323224() As System.Drawing.Icon
             Get
@@ -191,7 +191,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部尺寸居中161624() As System.Drawing.Icon
             Get
@@ -201,7 +201,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 全部尺寸居中323224() As System.Drawing.Icon
             Get
@@ -211,7 +211,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 关于161624() As System.Drawing.Icon
             Get
@@ -221,7 +221,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 关于323224() As System.Drawing.Icon
             Get
@@ -231,7 +231,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 关闭文档161624() As System.Drawing.Icon
             Get
@@ -241,7 +241,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 关闭文档323224() As System.Drawing.Icon
             Get
@@ -251,7 +251,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 创建展开161624() As System.Drawing.Icon
             Get
@@ -261,7 +261,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 刷新引用161624() As System.Drawing.Icon
             Get
@@ -271,7 +271,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 刷新引用323224() As System.Drawing.Icon
             Get
@@ -281,7 +281,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 另存为Dwg161624() As System.Drawing.Icon
             Get
@@ -291,7 +291,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 另存为Dwg323224() As System.Drawing.Icon
             Get
@@ -301,7 +301,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 另存为Pdf161624() As System.Drawing.Icon
             Get
@@ -311,7 +311,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 另存为Pdf323224() As System.Drawing.Icon
             Get
@@ -321,7 +321,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 对称件iProperty161624() As System.Drawing.Icon
             Get
@@ -331,7 +331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 对称件iProperty323224() As System.Drawing.Icon
             Get
@@ -341,7 +341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 对齐原始坐标面161624() As System.Drawing.Icon
             Get
@@ -351,7 +351,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 对齐原始坐标面323224() As System.Drawing.Icon
             Get
@@ -361,7 +361,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导入ERP到BOM161624() As System.Drawing.Icon
             Get
@@ -371,7 +371,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导入ERP到BOM323224() As System.Drawing.Icon
             Get
@@ -381,7 +381,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导入材料编码161624() As System.Drawing.Icon
             Get
@@ -391,7 +391,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导入材料编码323224() As System.Drawing.Icon
             Get
@@ -401,7 +401,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导出平面BOM161624() As System.Drawing.Icon
             Get
@@ -411,7 +411,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导出平面BOM323224() As System.Drawing.Icon
             Get
@@ -421,7 +421,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导出树形BOM161624() As System.Drawing.Icon
             Get
@@ -431,7 +431,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 导出树形BOM323224() As System.Drawing.Icon
             Get
@@ -441,7 +441,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 尺寸圆整161624() As System.Drawing.Icon
             Get
@@ -451,7 +451,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 尺寸圆整323224() As System.Drawing.Icon
             Get
@@ -461,7 +461,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 尺寸居中161624() As System.Drawing.Icon
             Get
@@ -471,7 +471,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 尺寸居中323224() As System.Drawing.Icon
             Get
@@ -481,7 +481,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 居中对齐161624() As System.Drawing.Icon
             Get
@@ -491,7 +491,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 居中对齐323224() As System.Drawing.Icon
             Get
@@ -501,7 +501,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 工程图161624() As System.Drawing.Icon
             Get
@@ -511,7 +511,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 工程图323224() As System.Drawing.Icon
             Get
@@ -521,7 +521,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 帮助161624() As System.Drawing.Icon
             Get
@@ -531,7 +531,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 帮助323224() As System.Drawing.Icon
             Get
@@ -551,7 +551,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 快速打印161624() As System.Drawing.Icon
             Get
@@ -561,7 +561,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 快速打印323224() As System.Drawing.Icon
             Get
@@ -571,7 +571,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 快速打开161624() As System.Drawing.Icon
             Get
@@ -581,7 +581,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 快速打开323224() As System.Drawing.Icon
             Get
@@ -591,7 +591,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开ERP数据文件161624() As System.Drawing.Icon
             Get
@@ -601,7 +601,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开ERP数据文件323224() As System.Drawing.Icon
             Get
@@ -611,7 +611,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开全部工程图161624() As System.Drawing.Icon
             Get
@@ -621,7 +621,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开全部工程图323224() As System.Drawing.Icon
             Get
@@ -631,7 +631,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开文件夹161624() As System.Drawing.Icon
             Get
@@ -641,7 +641,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 打开文件夹323224() As System.Drawing.Icon
             Get
@@ -651,7 +651,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 批量另存为161624() As System.Drawing.Icon
             Get
@@ -661,7 +661,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 批量另存为323224() As System.Drawing.Icon
             Get
@@ -671,7 +671,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 批量打印161624() As System.Drawing.Icon
             Get
@@ -681,7 +681,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 批量打印323224() As System.Drawing.Icon
             Get
@@ -691,7 +691,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 技术要求161624() As System.Drawing.Icon
             Get
@@ -701,7 +701,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 技术要求323224() As System.Drawing.Icon
             Get
@@ -711,7 +711,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 提取iPro修改文件名161624() As System.Drawing.Icon
             Get
@@ -721,7 +721,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 提取iPro修改文件名323224() As System.Drawing.Icon
             Get
@@ -731,7 +731,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 插入序号161624() As System.Drawing.Icon
             Get
@@ -741,7 +741,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 插入序号323224() As System.Drawing.Icon
             Get
@@ -761,7 +761,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 新建序号161624() As System.Drawing.Icon
             Get
@@ -771,7 +771,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 新建序号323224() As System.Drawing.Icon
             Get
@@ -781,7 +781,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 更改文件名161624() As System.Drawing.Icon
             Get
@@ -791,7 +791,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 更改文件名323224() As System.Drawing.Icon
             Get
@@ -801,7 +801,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 更改镜像文件名161624() As System.Drawing.Icon
             Get
@@ -811,7 +811,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 更改镜像文件名323224() As System.Drawing.Icon
             Get
@@ -821,7 +821,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 替换为库文件161624() As System.Drawing.Icon
             Get
@@ -831,17 +831,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 替换为库文件1616241() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("替换为库文件1616241", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 替换为库文件323224() As System.Drawing.Icon
             Get
@@ -851,17 +841,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 替换为库文件3232241() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("替换为库文件3232241", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 替换图框标题栏161624() As System.Drawing.Icon
             Get
@@ -871,7 +851,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 替换图框标题栏323224() As System.Drawing.Icon
             Get
@@ -881,7 +861,27 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Public ReadOnly Property 查找替换161624() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("查找替换161624", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Public ReadOnly Property 查找替换323224() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("查找替换323224", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查找缺失文件的部件161624() As System.Drawing.Icon
             Get
@@ -891,7 +891,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查找缺失文件的部件323224() As System.Drawing.Icon
             Get
@@ -901,7 +901,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查找部件161624() As System.Drawing.Icon
             Get
@@ -911,7 +911,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查找部件323224() As System.Drawing.Icon
             Get
@@ -921,7 +921,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查询材料编码161624() As System.Drawing.Icon
             Get
@@ -931,7 +931,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 查询材料编码323224() As System.Drawing.Icon
             Get
@@ -941,7 +941,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 标准件可见性161624() As System.Drawing.Icon
             Get
@@ -951,27 +951,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 标准件可见性1616241() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("标准件可见性1616241", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 标准件可见性1616242() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("标准件可见性1616242", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 标准件可见性323224() As System.Drawing.Icon
             Get
@@ -981,27 +961,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 标准件可见性3232241() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("标准件可见性3232241", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 标准件可见性3232242() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("标准件可见性3232242", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 检查序号完整性161624() As System.Drawing.Icon
             Get
@@ -1011,7 +971,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 检查序号完整性323224() As System.Drawing.Icon
             Get
@@ -1021,7 +981,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 检查是否有工程图161624() As System.Drawing.Icon
             Get
@@ -1031,7 +991,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 检查是否有工程图323224() As System.Drawing.Icon
             Get
@@ -1041,7 +1001,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 添加直径161624() As System.Drawing.Icon
             Get
@@ -1051,7 +1011,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 添加直径323224() As System.Drawing.Icon
             Get
@@ -1061,7 +1021,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清理旧版文件161624() As System.Drawing.Icon
             Get
@@ -1071,7 +1031,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清理旧版文件323224() As System.Drawing.Icon
             Get
@@ -1081,7 +1041,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除日期161624() As System.Drawing.Icon
             Get
@@ -1091,7 +1051,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除日期323224() As System.Drawing.Icon
             Get
@@ -1101,7 +1061,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除签字161624() As System.Drawing.Icon
             Get
@@ -1111,7 +1071,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除签字323224() As System.Drawing.Icon
             Get
@@ -1121,7 +1081,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除随机颜色161624() As System.Drawing.Icon
             Get
@@ -1131,7 +1091,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 清除随机颜色323224() As System.Drawing.Icon
             Get
@@ -1141,7 +1101,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 生成图号161624() As System.Drawing.Icon
             Get
@@ -1151,7 +1111,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 生成图号323224() As System.Drawing.Icon
             Get
@@ -1161,7 +1121,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 确定161632() As System.Drawing.Icon
             Get
@@ -1171,7 +1131,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 确定1616322() As System.Drawing.Icon
             Get
@@ -1181,7 +1141,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 移动指定文件161624() As System.Drawing.Icon
             Get
@@ -1191,7 +1151,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 移动指定文件323224() As System.Drawing.Icon
             Get
@@ -1201,7 +1161,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 空白323224() As System.Drawing.Icon
             Get
@@ -1211,7 +1171,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 统计161624() As System.Drawing.Icon
             Get
@@ -1221,7 +1181,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 统计323224() As System.Drawing.Icon
             Get
@@ -1231,7 +1191,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 编辑尺寸161632() As System.Drawing.Icon
             Get
@@ -1241,17 +1201,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 编辑尺寸1616321() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("编辑尺寸1616321", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 编辑尺寸323232() As System.Drawing.Icon
             Get
@@ -1261,17 +1211,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        '''</summary>
-        Public ReadOnly Property 编辑尺寸3232321() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("编辑尺寸3232321", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自动重建序号161624() As System.Drawing.Icon
             Get
@@ -1281,7 +1221,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自动重建序号323224() As System.Drawing.Icon
             Get
@@ -1291,7 +1231,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自定义日期161624() As System.Drawing.Icon
             Get
@@ -1301,7 +1241,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自定义日期323224() As System.Drawing.Icon
             Get
@@ -1311,7 +1251,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自定义签字161624() As System.Drawing.Icon
             Get
@@ -1321,7 +1261,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 自定义签字323224() As System.Drawing.Icon
             Get
@@ -1331,7 +1271,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设值随机颜色161624() As System.Drawing.Icon
             Get
@@ -1341,7 +1281,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设值随机颜色323224() As System.Drawing.Icon
             Get
@@ -1351,7 +1291,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置161624() As System.Drawing.Icon
             Get
@@ -1361,7 +1301,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置323224() As System.Drawing.Icon
             Get
@@ -1371,7 +1311,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置BOM结构161624() As System.Drawing.Icon
             Get
@@ -1381,7 +1321,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置BOM结构323224() As System.Drawing.Icon
             Get
@@ -1391,7 +1331,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置属性161624() As System.Drawing.Icon
             Get
@@ -1401,7 +1341,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置属性323224() As System.Drawing.Icon
             Get
@@ -1411,7 +1351,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置描述161624() As System.Drawing.Icon
             Get
@@ -1421,7 +1361,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置描述323224() As System.Drawing.Icon
             Get
@@ -1431,7 +1371,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置日期161624() As System.Drawing.Icon
             Get
@@ -1441,7 +1381,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置日期323224() As System.Drawing.Icon
             Get
@@ -1451,7 +1391,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置材料编码161624() As System.Drawing.Icon
             Get
@@ -1461,7 +1401,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置材料编码323224() As System.Drawing.Icon
             Get
@@ -1471,7 +1411,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置比例161624() As System.Drawing.Icon
             Get
@@ -1481,7 +1421,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置比例323224() As System.Drawing.Icon
             Get
@@ -1491,7 +1431,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置签字161624() As System.Drawing.Icon
             Get
@@ -1501,7 +1441,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 设置签字323224() As System.Drawing.Icon
             Get
@@ -1511,7 +1451,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 调整IPro顺序161624() As System.Drawing.Icon
             Get
@@ -1521,7 +1461,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 调整IPro顺序323224() As System.Drawing.Icon
             Get
@@ -1531,7 +1471,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 还原161632() As System.Drawing.Icon
             Get
@@ -1541,7 +1481,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 还原1616322() As System.Drawing.Icon
             Get
@@ -1551,7 +1491,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 还原旧图161624() As System.Drawing.Icon
             Get
@@ -1561,7 +1501,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 还原旧图323224() As System.Drawing.Icon
             Get
@@ -1571,7 +1511,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 选择161632() As System.Drawing.Icon
             Get
@@ -1581,7 +1521,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 选择1616322() As System.Drawing.Icon
             Get
@@ -1591,7 +1531,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 部件161624() As System.Drawing.Icon
             Get
@@ -1601,7 +1541,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 部件323224() As System.Drawing.Icon
             Get
@@ -1611,7 +1551,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 部件替换文件名161624() As System.Drawing.Icon
             Get
@@ -1621,7 +1561,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 部件替换文件名323224() As System.Drawing.Icon
             Get
@@ -1631,7 +1571,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 采购来源161624() As System.Drawing.Icon
             Get
@@ -1641,7 +1581,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 采购来源323224() As System.Drawing.Icon
             Get
@@ -1651,7 +1591,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 重写BOM161624() As System.Drawing.Icon
             Get
@@ -1661,7 +1601,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 重写BOM323224() As System.Drawing.Icon
             Get
@@ -1671,7 +1611,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 量产iPropertys161624() As System.Drawing.Icon
             Get
@@ -1681,7 +1621,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 量产iPropertys323224() As System.Drawing.Icon
             Get
@@ -1691,7 +1631,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 零件161624() As System.Drawing.Icon
             Get
@@ -1701,7 +1641,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''  查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Public ReadOnly Property 零件323224() As System.Drawing.Icon
             Get

@@ -38,8 +38,12 @@ Module IdwModule
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
             If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
-                MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
-                Exit Sub
+                'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
+                'Exit Sub
+
+                strInventorDrawingDocumentFullFileName = My.Computer.FileSystem.SpecialDirectories.Desktop & "\" & oInventorDrawingDocument.DisplayName & IDW
+                oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+
             End If
 
             Dim strDwgFullFileName As String        'cad 文件全文件名
@@ -148,8 +152,11 @@ Module IdwModule
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
             If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
-                MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
-                Exit Sub
+                'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
+                'Exit Sub
+
+                strInventorDrawingDocumentFullFileName = My.Computer.FileSystem.SpecialDirectories.Temp & "\" & oInventorDrawingDocument.DisplayName & IDW
+                oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
             End If
 
             Dim strPdfFullFileName As String        'pdf文件全文件名
