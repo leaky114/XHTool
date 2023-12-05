@@ -37,6 +37,7 @@ Public Class frmain
         'progressBar.Close()
 
         'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
+      
 
         'Dim oDoc As DrawingDocument
         'oDoc = ThisApplication.ActiveDocument
