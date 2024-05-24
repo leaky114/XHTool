@@ -11,6 +11,7 @@ Imports System.Windows.Forms
 Imports System.Xml
 
 Public Class frmPrint
+    Private IsStopPrint As Double '中断打印标记
 
     '批量打印开始
     Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
@@ -22,18 +23,25 @@ Public Class frmPrint
         End If
 
         btn开始.Enabled = False
+        IsStopPrint = False
 
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
         Dim strPrinterName As String = ""
-        strPrinterName = cmb打印机.Text
+        strPrinterName = cbo打印机.Text
 
         'For i = 0 To lvwFileListView.Items.Count - 1
 
         For Each oListViewItem As ListViewItem In lvw文件列表.Items
-            'lvwFileListView.Items(i).Selected = True
+
+            System.Windows.Forms.Application.DoEvents()
+
+            If IsStopPrint = True Then
+                Exit For
+            End If
+
             oListViewItem.ForeColor = Drawing.Color.BlueViolet
 
             Me.Text = "批量打印  (第" & oListViewItem.Index + 1 & "张，共" & lvw文件列表.Items.Count & "张）"
@@ -47,9 +55,9 @@ Public Class frmPrint
                 GoTo 999
             End If
 
-            'If InStr(InvDocFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            'if InStr(InvDocFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
-            'End If
+            'End if
 
             'Me.TopMost = False
 
@@ -65,7 +73,7 @@ Public Class frmPrint
                 oInventorDrawingDocument.Rebuild()
             End If
 
-            'If oInventorDrawingDocument.Sheets Is Nothing Then GoTo 999
+            'if oInventorDrawingDocument.Sheets Is Nothing Then GoTo 999
             'Dim oSheet As Inventor.Sheet
             'For Each oSheet In oInventorDrawingDocument.Sheets
             '    For Each oDwgView In oSheet.DrawingViews
@@ -87,24 +95,47 @@ Public Class frmPrint
 
             'Me.TopMost = False
 
-            Dim strIdwFullFileName As String
-            strIdwFullFileName = oInventorDrawingDocument.FullFileName
+            Dim strInventorDrawingDocumentFullFileName As String
+            strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
             '另存为pdf
             If chk存为pdf.Checked = True Then
                 Dim strPdfFullFileName As String        'pdf文件全文件名
-                strIdwFullFileName = oInventorDrawingDocument.FullFileName
-                strPdfFullFileName = GetChangeExtension(strIdwFullFileName, PDF)
-                IdwSaveAsPdfSub(strIdwFullFileName, strPdfFullFileName)
+
+                If str另存到子文件夹 = "1" Then
+                    Dim strChildDirectory As String
+
+                    strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\PDF\"
+                    If IsDirectoryExists(strChildDirectory) = False Then
+                        IO.Directory.CreateDirectory(strChildDirectory)
+                    End If
+                    strPdfFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & PDF
+                Else
+                    strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
+                End If
+
+                IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
 
             End If
 
             '另存为dwg
             If chk存为dwg.Checked = True Then
-                Dim strDwgFullFileName As String        'cad 文件全文件名
-                strIdwFullFileName = oInventorDrawingDocument.FullFileName
-                strDwgFullFileName = GetChangeExtension(strIdwFullFileName, DWG)
-                IdwSaveAsDwgSub(strIdwFullFileName, strDwgFullFileName)
+                Dim strDwgFullFileName As String
+
+                If str另存到子文件夹 = "1" Then
+                    Dim strChildDirectory As String
+
+                    strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\CAD\"
+                    If IsDirectoryExists(strChildDirectory) = False Then
+                        IO.Directory.CreateDirectory(strChildDirectory)
+                    End If
+                    strDwgFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & DWG
+                Else
+                    strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
+                End If
+
+                IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+
             End If
 
             '保存文件
@@ -232,29 +263,29 @@ Public Class frmPrint
         Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
         For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
-            cmb打印机.Items.Add(strPrinterName)
+            cbo打印机.Items.Add(strPrinterName)
             If strPrinterName = strDefaultPrinter Then
-                cmb打印机.SelectedIndex = cmb打印机.Items.IndexOf(strPrinterName)
+                cbo打印机.SelectedIndex = cbo打印机.Items.IndexOf(strPrinterName)
             End If
         Next
 
-        For Each cmblist In cmb打印机.Items
+        For Each cmblist In cbo打印机.Items
             If cmblist = Printer Then
-                cmb打印机.Text = Printer
+                cbo打印机.Text = Printer
             End If
         Next
 
-        'If IsSign = 1 Then
+        'if IsSign = 1 Then
         '    chk签字.Checked = True
         'Else
         '    chk签字.Checked = False
-        'End If
+        'End if
 
-        'If IsPaperA3 = 1 Then
+        'if IsPaperA3 = 1 Then
         '    chk匹配A3.Checked = True
         'Else
         '    chk匹配A3.Checked = False
-        'End If
+        'End if
 
         'Select Case SaveAsDawAndPdf
         '    Case "不另存"
@@ -325,13 +356,13 @@ Public Class frmPrint
         '            Dim IdwFullFileName As String
         '            IdwFullFileName = GetNewExtensionFileName(FullFileName, idw)
 
-        '            If IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
+        '            if IsFileExsts(IdwFullFileName) = False Then   '跳过不存在的文件
         '                GoTo 999
-        '            End If
+        '            End if
 
-        '            If InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+        '            if InStr(FullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
         '                GoTo 999
-        '            End If
+        '            End if
 
         '            lvwFileListView.Items.Add(IdwFullFileName)
 
@@ -399,9 +430,9 @@ Public Class frmPrint
                 GoTo 999
             End If
 
-            'If InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            'if InStr(oFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
-            'End If
+            'End if
 
             If IsItemInListView(lvw文件列表, strInventorDrawingFullFileName) = False Then
                 lvw文件列表.Items.Add(strInventorDrawingFullFileName)
@@ -657,7 +688,11 @@ Public Class frmPrint
              BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) & _
             BoolToInt(chk打印后关闭.Checked) & BoolToInt(chk保存签字.Checked) & BoolToInt(chk保存工程图.Checked) & BoolToInt(chk存为dwg.Checked)
 
-        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, IniFile)
+        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, Inifile)
 
+    End Sub
+
+    Private Sub btn中断_Click(sender As Object, e As EventArgs) Handles btn中断.Click
+        IsStopPrint = True
     End Sub
 End Class

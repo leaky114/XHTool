@@ -20,9 +20,9 @@ Public Class frmInputBox
     End Sub
 
     Private Sub btn复制_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制.Click
-        If txt输入.Text <> Nothing Then
+        if txt输入.Text <> Nothing Then
             My.Computer.Clipboard.SetText(txt输入.Text)
-        End If
+        End if
     End Sub
 
     Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
@@ -37,9 +37,9 @@ Public Class frmInputBox
             Case "查询编码"
                 SetStatusBarText()
 
-                If IsInventorOpenDocument() = False Then
+                if IsInventorOpenDocument() = False Then
                     Exit Sub
-                End If
+                End if
 
                 Dim oInventorDocument As Inventor.Document      '当前文件
                 oInventorDocument = ThisApplication.ActiveEditDocument
@@ -66,22 +66,22 @@ Public Class frmInputBox
                 Next
 
                 strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
-                If strPartNum <> 0 Then
+                if strPartNum <> 0 Then
                     'MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
                     'SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
                     Select Case txt输入.Text
                         Case ""
                             txt输入.Text = strPartNum
                         Case Else
-                            If txt输入.Text <> strPartNum Then
-                                If MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
+                            if txt输入.Text <> strPartNum Then
+                                if MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
                                     txt输入.Text = strPartNum
-                                End If
-                            End If
+                                End if
+                            End if
                     End Select
                 Else
                     MsgBox("未查询到ERP编码。", MsgBoxStyle.OkOnly, "查询ERP编码")
-                End If
+                End if
 
         End Select
 
@@ -89,9 +89,9 @@ Public Class frmInputBox
     End Sub
 
     Private Sub txt输入_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt输入.KeyPress
-        If Asc(e.KeyChar) = Keys.Enter Then
+        if Asc(e.KeyChar) = Keys.Enter Then
             btn确定.PerformClick()
-        End If
+        End if
     End Sub
 
 End Class

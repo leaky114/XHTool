@@ -6,9 +6,9 @@ Partial Class frmMassiPoperties
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -22,7 +22,7 @@ Partial Class frmMassiPoperties
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btn开始 = New System.Windows.Forms.Button()
+        Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.lst文件列表 = New System.Windows.Forms.ListBox()
         Me.btn添加文件 = New System.Windows.Forms.Button()
@@ -42,21 +42,21 @@ Partial Class frmMassiPoperties
         Me.txt数据 = New System.Windows.Forms.TextBox()
         Me.lbl数据 = New System.Windows.Forms.Label()
         Me.lbl项目名 = New System.Windows.Forms.Label()
-        Me.cmb项目名 = New System.Windows.Forms.ComboBox()
+        Me.cbo项目名 = New System.Windows.Forms.ComboBox()
         Me.tab1 = New System.Windows.Forms.TabControl()
         Me.tp自定义.SuspendLayout()
         Me.tp项目.SuspendLayout()
         Me.tab1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btn开始
+        'btn确定
         '
-        Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn开始.Location = New System.Drawing.Point(159, 189)
-        Me.btn开始.Name = "btn开始"
-        Me.btn开始.Size = New System.Drawing.Size(70, 28)
-        Me.btn开始.TabIndex = 1
-        Me.btn开始.Text = "开始"
+        Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn确定.Location = New System.Drawing.Point(159, 189)
+        Me.btn确定.Name = "btn确定"
+        Me.btn确定.Size = New System.Drawing.Size(70, 28)
+        Me.btn确定.TabIndex = 2
+        Me.btn确定.Text = "确定"
         '
         'btn关闭
         '
@@ -65,7 +65,7 @@ Partial Class frmMassiPoperties
         Me.btn关闭.Location = New System.Drawing.Point(237, 189)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(70, 28)
-        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.TabIndex = 3
         Me.btn关闭.Text = "关闭"
         '
         'lst文件列表
@@ -95,7 +95,7 @@ Partial Class frmMassiPoperties
         Me.btn清除列表.Location = New System.Drawing.Point(81, 189)
         Me.btn清除列表.Name = "btn清除列表"
         Me.btn清除列表.Size = New System.Drawing.Size(70, 28)
-        Me.btn清除列表.TabIndex = 20
+        Me.btn清除列表.TabIndex = 1
         Me.btn清除列表.Text = "清除列表"
         Me.btn清除列表.UseVisualStyleBackColor = True
         Me.btn清除列表.Visible = False
@@ -122,7 +122,7 @@ Partial Class frmMassiPoperties
         '
         'dtp日期
         '
-        Me.dtp日期.Location = New System.Drawing.Point(81, 115)
+        Me.dtp日期.Location = New System.Drawing.Point(81, 113)
         Me.dtp日期.Name = "dtp日期"
         Me.dtp日期.Size = New System.Drawing.Size(127, 21)
         Me.dtp日期.TabIndex = 11
@@ -145,14 +145,14 @@ Partial Class frmMassiPoperties
         '
         'txt特性名
         '
-        Me.txt特性名.Location = New System.Drawing.Point(81, 9)
+        Me.txt特性名.Location = New System.Drawing.Point(81, 11)
         Me.txt特性名.Name = "txt特性名"
         Me.txt特性名.Size = New System.Drawing.Size(127, 21)
         Me.txt特性名.TabIndex = 12
         '
         'txt字符串
         '
-        Me.txt字符串.Location = New System.Drawing.Point(81, 36)
+        Me.txt字符串.Location = New System.Drawing.Point(81, 35)
         Me.txt字符串.Name = "txt字符串"
         Me.txt字符串.Size = New System.Drawing.Size(127, 21)
         Me.txt字符串.TabIndex = 2
@@ -160,7 +160,7 @@ Partial Class frmMassiPoperties
         'rdo字符串
         '
         Me.rdo字符串.AutoSize = True
-        Me.rdo字符串.Location = New System.Drawing.Point(15, 43)
+        Me.rdo字符串.Location = New System.Drawing.Point(15, 37)
         Me.rdo字符串.Name = "rdo字符串"
         Me.rdo字符串.Size = New System.Drawing.Size(47, 16)
         Me.rdo字符串.TabIndex = 6
@@ -171,7 +171,7 @@ Partial Class frmMassiPoperties
         'rdo布尔值
         '
         Me.rdo布尔值.AutoSize = True
-        Me.rdo布尔值.Location = New System.Drawing.Point(15, 67)
+        Me.rdo布尔值.Location = New System.Drawing.Point(15, 63)
         Me.rdo布尔值.Name = "rdo布尔值"
         Me.rdo布尔值.Size = New System.Drawing.Size(59, 16)
         Me.rdo布尔值.TabIndex = 7
@@ -193,7 +193,7 @@ Partial Class frmMassiPoperties
         'rdo实数
         '
         Me.rdo实数.AutoSize = True
-        Me.rdo实数.Location = New System.Drawing.Point(15, 91)
+        Me.rdo实数.Location = New System.Drawing.Point(15, 89)
         Me.rdo实数.Name = "rdo实数"
         Me.rdo实数.Size = New System.Drawing.Size(47, 16)
         Me.rdo实数.TabIndex = 8
@@ -204,7 +204,7 @@ Partial Class frmMassiPoperties
         'Bool布尔值
         '
         Me.Bool布尔值.AutoSize = True
-        Me.Bool布尔值.Location = New System.Drawing.Point(83, 64)
+        Me.Bool布尔值.Location = New System.Drawing.Point(83, 63)
         Me.Bool布尔值.Name = "Bool布尔值"
         Me.Bool布尔值.Size = New System.Drawing.Size(102, 16)
         Me.Bool布尔值.TabIndex = 3
@@ -216,7 +216,7 @@ Partial Class frmMassiPoperties
         Me.tp项目.Controls.Add(Me.txt数据)
         Me.tp项目.Controls.Add(Me.lbl数据)
         Me.tp项目.Controls.Add(Me.lbl项目名)
-        Me.tp项目.Controls.Add(Me.cmb项目名)
+        Me.tp项目.Controls.Add(Me.cbo项目名)
         Me.tp项目.Location = New System.Drawing.Point(4, 22)
         Me.tp项目.Name = "tp项目"
         Me.tp项目.Padding = New System.Windows.Forms.Padding(3)
@@ -230,12 +230,12 @@ Partial Class frmMassiPoperties
         Me.txt数据.Location = New System.Drawing.Point(70, 39)
         Me.txt数据.Name = "txt数据"
         Me.txt数据.Size = New System.Drawing.Size(143, 21)
-        Me.txt数据.TabIndex = 21
+        Me.txt数据.TabIndex = 1
         '
         'lbl数据
         '
         Me.lbl数据.AutoSize = True
-        Me.lbl数据.Location = New System.Drawing.Point(12, 41)
+        Me.lbl数据.Location = New System.Drawing.Point(12, 43)
         Me.lbl数据.Name = "lbl数据"
         Me.lbl数据.Size = New System.Drawing.Size(53, 12)
         Me.lbl数据.TabIndex = 20
@@ -250,15 +250,15 @@ Partial Class frmMassiPoperties
         Me.lbl项目名.TabIndex = 19
         Me.lbl项目名.Text = "项目名："
         '
-        'cmb项目名
+        'cbo项目名
         '
-        Me.cmb项目名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmb项目名.FormattingEnabled = True
-        Me.cmb项目名.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "预估成本", "供应商", "Web链接"})
-        Me.cmb项目名.Location = New System.Drawing.Point(70, 10)
-        Me.cmb项目名.Name = "cmb项目名"
-        Me.cmb项目名.Size = New System.Drawing.Size(145, 20)
-        Me.cmb项目名.TabIndex = 18
+        Me.cbo项目名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo项目名.FormattingEnabled = True
+        Me.cbo项目名.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "预估成本", "供应商", "Web链接"})
+        Me.cbo项目名.Location = New System.Drawing.Point(70, 10)
+        Me.cbo项目名.Name = "cbo项目名"
+        Me.cbo项目名.Size = New System.Drawing.Size(145, 20)
+        Me.cbo项目名.TabIndex = 0
         '
         'tab1
         '
@@ -268,17 +268,16 @@ Partial Class frmMassiPoperties
         Me.tab1.Name = "tab1"
         Me.tab1.SelectedIndex = 0
         Me.tab1.Size = New System.Drawing.Size(294, 172)
-        Me.tab1.TabIndex = 19
+        Me.tab1.TabIndex = 4
         '
         'frmMassiPoperties
         '
-        Me.AcceptButton = Me.btn开始
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(317, 229)
         Me.Controls.Add(Me.btn关闭)
-        Me.Controls.Add(Me.btn开始)
+        Me.Controls.Add(Me.btn确定)
         Me.Controls.Add(Me.btn清除列表)
         Me.Controls.Add(Me.tab1)
         Me.Controls.Add(Me.btn添加文件)
@@ -300,7 +299,7 @@ Partial Class frmMassiPoperties
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btn开始 As System.Windows.Forms.Button
+    Friend WithEvents btn确定 As System.Windows.Forms.Button
     Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents lst文件列表 As System.Windows.Forms.ListBox
     Friend WithEvents btn添加文件 As System.Windows.Forms.Button
@@ -320,7 +319,7 @@ Partial Class frmMassiPoperties
     Friend WithEvents txt数据 As System.Windows.Forms.TextBox
     Friend WithEvents lbl数据 As System.Windows.Forms.Label
     Friend WithEvents lbl项目名 As System.Windows.Forms.Label
-    Friend WithEvents cmb项目名 As System.Windows.Forms.ComboBox
+    Friend WithEvents cbo项目名 As System.Windows.Forms.ComboBox
     Friend WithEvents tab1 As System.Windows.Forms.TabControl
 
 End Class

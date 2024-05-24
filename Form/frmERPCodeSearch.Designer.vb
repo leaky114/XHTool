@@ -6,9 +6,9 @@ Partial Class frmERPCodeSearch
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -33,10 +33,10 @@ Partial Class frmERPCodeSearch
         'btn粘贴
         '
         Me.btn粘贴.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn粘贴.Location = New System.Drawing.Point(257, 10)
+        Me.btn粘贴.Location = New System.Drawing.Point(257, 8)
         Me.btn粘贴.Name = "btn粘贴"
         Me.btn粘贴.Size = New System.Drawing.Size(81, 28)
-        Me.btn粘贴.TabIndex = 10
+        Me.btn粘贴.TabIndex = 1
         Me.btn粘贴.Text = "粘贴"
         Me.btn粘贴.UseVisualStyleBackColor = True
         '
@@ -47,7 +47,7 @@ Partial Class frmERPCodeSearch
         Me.btn编码反查.Location = New System.Drawing.Point(186, 54)
         Me.btn编码反查.Name = "btn编码反查"
         Me.btn编码反查.Size = New System.Drawing.Size(81, 28)
-        Me.btn编码反查.TabIndex = 11
+        Me.btn编码反查.TabIndex = 2
         Me.btn编码反查.Text = "编码反查"
         '
         'lblERP编码
@@ -66,7 +66,7 @@ Partial Class frmERPCodeSearch
         Me.btn关闭.Location = New System.Drawing.Point(273, 54)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 28)
-        Me.btn关闭.TabIndex = 12
+        Me.btn关闭.TabIndex = 3
         Me.btn关闭.Text = "关闭"
         '
         'txtERP编码

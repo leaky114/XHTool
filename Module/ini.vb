@@ -1,8 +1,10 @@
 Option Strict Off
 Option Explicit On
+
+Imports Microsoft.Win32
 Module ini
 
-    Public IniFile As String
+    Public Inifile As String
 
 
     '//声明从INI配置文件中获取类型为Int的配置项的值的系统函数
@@ -40,10 +42,11 @@ Module ini
     Public Function WriteStrINI(ByVal sectionName As String, ByVal keyName As String, ByVal setValue As String, ByVal iniPath As String) As Integer
         Dim rc As Integer
         rc = WritePrivateProfileString(sectionName, keyName, setValue, iniPath)
-        If rc Then
+        if rc Then
             rc = 1
-        End If
+        End if
         WriteStrINI = rc
     End Function
 
+   
 End Module

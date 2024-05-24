@@ -3,9 +3,14 @@
 Public Class clsListViewSorter
     Implements System.Collections.IComparer
 
+    Public col As Integer
+
+
+
     Public Enum EnumSortOrder As Integer
         Ascending = 0
         Descending = 1
+        None = 2
     End Enum
 
     Public SortOrder As EnumSortOrder
@@ -30,7 +35,7 @@ Public Class clsListViewSorter
 
         ' Get the appropriate text values depending on whether we are being asked
         ' to sort on the first column (0) or subitem columns (>0)
-        If SortColumn = 0 Then
+        if SortColumn = 0 Then
             ' SortColumn is 0, we need to compare the
             ' Text property of the Item itself
             xString = l1.Text
@@ -40,26 +45,30 @@ Public Class clsListViewSorter
             ' property of the SubItem
             xString = l1.SubItems(SortColumn).ToString
             YString = l2.SubItems(SortColumn).ToString
-        End If
+        End if
 
         ' Do the comparison
-        If xString = YString Then
+        if xString = YString Then
             ' Values are equal
             Return 0
-        ElseIf xString > YString Then
+        Elseif xString > YString Then
             ' X is greater than Y
-            If SortOrder = EnumSortOrder.Ascending Then
+            if SortOrder = EnumSortOrder.Ascending Then
                 Return 1
             Else
                 Return -1
-            End If
-        ElseIf xString < YString Then
+            End if
+        Elseif xString < YString Then
             ' Y is greater than X
-            If SortOrder = EnumSortOrder.Ascending Then
+            if SortOrder = EnumSortOrder.Ascending Then
                 Return -1
             Else
                 Return 1
-            End If
-        End If
+            End if
+        End if
     End Function
+
+
 End Class
+
+

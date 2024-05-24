@@ -6,9 +6,9 @@ Partial Class frmPlayer
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -27,6 +27,7 @@ Partial Class frmPlayer
         Me.lvw文件列表 = New System.Windows.Forms.ListView()
         Me.ch约束名称 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch抑制 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch运动 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch开始 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch结束 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch步长 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -42,7 +43,6 @@ Partial Class frmPlayer
         Me.btn确定编辑 = New System.Windows.Forms.Button()
         Me.btn预览 = New System.Windows.Forms.Button()
         Me.btn选择约束 = New System.Windows.Forms.Button()
-        Me.ch运动 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'btn添加
@@ -91,6 +91,10 @@ Partial Class frmPlayer
         '
         Me.ch抑制.Text = "抑制"
         Me.ch抑制.Width = 50
+        '
+        'ch运动
+        '
+        Me.ch运动.Text = "运动"
         '
         'ch开始
         '
@@ -146,21 +150,21 @@ Partial Class frmPlayer
         '
         'txt开始
         '
-        Me.txt开始.Location = New System.Drawing.Point(202, 19)
+        Me.txt开始.Location = New System.Drawing.Point(202, 18)
         Me.txt开始.Name = "txt开始"
         Me.txt开始.Size = New System.Drawing.Size(72, 21)
         Me.txt开始.TabIndex = 44
         '
         'txt结束
         '
-        Me.txt结束.Location = New System.Drawing.Point(298, 19)
+        Me.txt结束.Location = New System.Drawing.Point(298, 18)
         Me.txt结束.Name = "txt结束"
         Me.txt结束.Size = New System.Drawing.Size(72, 21)
         Me.txt结束.TabIndex = 45
         '
         'txt步长
         '
-        Me.txt步长.Location = New System.Drawing.Point(391, 19)
+        Me.txt步长.Location = New System.Drawing.Point(391, 18)
         Me.txt步长.Name = "txt步长"
         Me.txt步长.Size = New System.Drawing.Size(72, 21)
         Me.txt步长.TabIndex = 46
@@ -177,14 +181,14 @@ Partial Class frmPlayer
         '
         'txt延时
         '
-        Me.txt延时.Location = New System.Drawing.Point(488, 19)
+        Me.txt延时.Location = New System.Drawing.Point(488, 18)
         Me.txt延时.Name = "txt延时"
         Me.txt延时.Size = New System.Drawing.Size(72, 21)
         Me.txt延时.TabIndex = 49
         '
         'btn确定编辑
         '
-        Me.btn确定编辑.Location = New System.Drawing.Point(573, 12)
+        Me.btn确定编辑.Location = New System.Drawing.Point(573, 13)
         Me.btn确定编辑.Name = "btn确定编辑"
         Me.btn确定编辑.Size = New System.Drawing.Size(59, 30)
         Me.btn确定编辑.TabIndex = 50
@@ -210,10 +214,6 @@ Partial Class frmPlayer
         Me.btn选择约束.TabIndex = 52
         Me.btn选择约束.Text = "选择约束"
         Me.btn选择约束.UseVisualStyleBackColor = True
-        '
-        'ch运动
-        '
-        Me.ch运动.Text = "运动"
         '
         'frmPlayer
         '

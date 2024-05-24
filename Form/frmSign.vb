@@ -8,17 +8,17 @@ Public Class frmSign
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.ActiveDocument
 
-            If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
+            if oInventorDocument.DocumentType <> kDrawingDocumentObject Then
                 MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             oInventorDrawingDocument = oInventorDocument
@@ -34,11 +34,11 @@ Public Class frmSign
                     IsOpenPrint = 0
             End Select
 
-            If SetSign(oInventorDrawingDocument, txt工程师.Text, strPrintDate, True) Then
+            if SetSign(oInventorDrawingDocument, txt工程师.Text, strPrintDate, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
                 SetStatusBarText("错误")
-            End If
+            End if
 
         Catch ex As Exception
             MsgBox(ex.Message)

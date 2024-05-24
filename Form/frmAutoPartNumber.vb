@@ -30,10 +30,17 @@ Public Class frmAutoPartNumber
 
                 strOldFullFileName = oListViewItem.SubItems(3).Text & "\" & oListViewItem.Text & oListViewItem.SubItems(1).Text
 
+                SetStatusBarText(strOldFullFileName)
+
                 If oListViewItem.SubItems(2).Text = "" Then
                     GoTo 999
                 End If
                 strNewFullFileName = oListViewItem.SubItems(3).Text & "\" & oListViewItem.SubItems(2).Text & oListViewItem.SubItems(1).Text
+
+                '同名不跳过
+                If strOldFullFileName = strNewFullFileName Then
+                    GoTo 999
+                End If
 
                 '打开旧文件,不显示
                 Dim oOldInventorDocument As Inventor.Document
@@ -73,16 +80,15 @@ Public Class frmAutoPartNumber
 
                     ReplaceFileReference(strNewDrawingFullFileName, strOldFullFileName, strNewFullFileName)
 
-                    'With oInventorDrawingDocument
-                    '    .ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
-                    '    .Save2()
-                    '    .Close()
-                    'End With
-
                 End If
 
                 ThisApplication.ActiveDocument.Update()
 
+                '变更扩展名为old
+                If chk备份文件.Checked = True Then
+                    AddOldExtension(strOldFullFileName)
+                    AddOldExtension(strOldDrawingFullFileName)
+                End If
 999:
             Next
 
@@ -117,76 +123,54 @@ Public Class frmAutoPartNumber
         ListViewDown(lvw文件列表)
     End Sub
 
-    Private Sub lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
-        If _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
-            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
-            lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = clsListViewSorter.EnumSortOrder.Descending
+    ''排序
+    'Private Sub lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
+    '    '    if _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
+    '    '        Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
+    '    '        lvw文件列表.ListViewItemSorter = Sorter
+    '    '        _ListViewSorter = clsListViewSorter.EnumSortOrder.Descending
+    '    '    Else
+    '    '        Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Ascending)
+    '    '        lvw文件列表.ListViewItemSorter = Sorter
+    '    '        _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending
+    '    '    End if
+
+
+    'End Sub
+
+    '列头点击事件处理程序
+    Private Sub listView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
+        ' 获取当前排序的列索引
+        Dim columnIndex As Integer = e.Column
+
+        ' 判断是否当前列为排序列
+        If columnIndex = lvw文件列表.Sorting AndAlso lvw文件列表.Sorting <> SortOrder.None Then
+            ' 如果当前列已经是排序列，则切换排序方式
+            If lvw文件列表.Sorting = SortOrder.Ascending Then
+                lvw文件列表.Sorting = SortOrder.Descending
+            Else
+                lvw文件列表.Sorting = SortOrder.Ascending
+            End If
         Else
-            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Ascending)
-            lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending
+            ' 如果当前列不是排序列，则按默认升序排序
+            lvw文件列表.Sorting = SortOrder.Ascending
         End If
+
+        ' 设置当前排序列索引
+        lvw文件列表.Sorting = columnIndex
+
+        ''根据排序方式设置列头图像()
+        'if lvw文件列表.Sorting = SortOrder.Ascending Then
+        '    lvw文件列表.Columns(columnIndex).ImageKey = ""
+        'Elseif lvw文件列表.Sorting = SortOrder.Descending Then
+        '    lvw文件列表.Columns(columnIndex).ImageKey = ""
+        'Else
+        '    lvw文件列表.Columns(columnIndex).ImageKey = Nothing
+        'End if
+
+        ' 执行排序操作
+        lvw文件列表.Sort()
     End Sub
-
-    'Private Sub ListView1_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragDrop
-    '    '判断是否选择拖放的项，
-
-    '    If ListView1.SelectedItems.Count = 0 Then
-    '        Exit Sub
-    '    End If
-
-    '    '定义项的坐标点
-    '    Dim cp As System.Drawing.Point
-    '    cp = ListView1.PointToClient(New System.Drawing.Point(e.X, e.Y))
-    '    Dim dragToItem As ListViewItem
-    '    dragToItem = ListView1.GetItemAt(cp.X, cp.Y)
-
-    '    If dragToItem Is Nothing Then
-    '        Exit Sub
-    '    End If
-
-    '    Dim dragIndex As Integer = dragToItem.Index
-    '    Dim sel As ListViewItem()
-    '    ReDim sel(ListView1.SelectedItems.Count)
-
-    '    For i = 0 To ListView1.SelectedItems.Count
-    '        sel(i) = ListView1.SelectedItems(i)
-    '    Next
-
-    '    For i = 0 To sel.GetLength(0)
-    '        Dim dragItem As ListViewItem
-    '        dragItem = sel(i)
-    '        Dim itemIndex As Integer = dragIndex
-
-    '        If (itemIndex = dragItem.Index) Then
-    '            Exit Sub
-    '        End If
-
-    '        If (dragItem.Index < itemIndex) Then
-    '            Exit Sub
-    '        Else
-    '            itemIndex = dragIndex + i
-    '            Dim insertItem As ListViewItem = dragItem.Clone()
-    '            ListView1.Items.Insert(itemIndex, insertItem)
-    '            ListView1.Items.Remove(dragItem)
-    '        End If
-
-    '    Next
-
-    'End Sub
-
-    'Private Sub ListView1_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragEnter
-    '    For i = 0 To e.Data.GetFormats().Length - 1
-    '        If (e.Data.GetFormats.Equals("System.Windows.Forms.ListView+SelectedListViewItemCollection")) Then
-    '            e.Effect = DragDropEffects.Move
-    '        End If
-    '    Next
-    'End Sub
-
-    'Private Sub ListView1_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles ListView1.ItemDrag
-    '    ListView1.DoDragDrop(ListView1.SelectedItems, DragDropEffects.Move)
-    'End Sub
 
     '键盘上下键移动
     Private Sub lvw文件列表_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvw文件列表.KeyDown
@@ -229,14 +213,14 @@ Public Class frmAutoPartNumber
         For i = 0 To lvw文件列表.Items.Count - 1
             oListViewItem = lvw文件列表.Items(i)
             If oListViewItem.SubItems(1).Text = IPT Then
-                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
-                oStockNumPartName.PartName = GetStockNumPartName(oListViewItem.Text).PartName
-                oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
+                oStockNumPartName.图号 = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
+                oStockNumPartName.零件名称 = GetStockNumPartName(oListViewItem.Text).零件名称
+                oListViewItem.SubItems(2).Text = oStockNumPartName.图号 & oStockNumPartName.零件名称
                 intPartNum = intPartNum + 1
             ElseIf oListViewItem.SubItems(1).Text = IAM Then
-                oStockNumPartName.StockNum = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * intAmsChange).ToString)) & intAssNum * intAmsChange
-                oStockNumPartName.PartName = GetStockNumPartName(oListViewItem.Text).PartName
-                oListViewItem.SubItems(2).Text = oStockNumPartName.StockNum & oStockNumPartName.PartName
+                oStockNumPartName.图号 = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intAssNum * intAmsChange).ToString)) & intAssNum * intAmsChange
+                oStockNumPartName.零件名称 = GetStockNumPartName(oListViewItem.Text).零件名称
+                oListViewItem.SubItems(2).Text = oStockNumPartName.图号 & oStockNumPartName.零件名称
                 intAssNum = intAssNum + 1
             End If
         Next
@@ -250,7 +234,14 @@ Public Class frmAutoPartNumber
 
         LoadAssBOM(oInventorAssemblyDocument, lvw文件列表)
 
-        btn确定新文件名.Image = My.Resources.确定161632.ToBitmap
+        Dim toolTip As New ToolTip()
+        toolTip.AutoPopDelay = 0
+        toolTip.InitialDelay = 0
+        toolTip.ReshowDelay = 500
+        toolTip.SetToolTip(btn确定新文件名, "确定新文件名")
+        toolTip.SetToolTip(chk备份文件, "将原文件扩展名变更为 old 文件")
+
+        btn确定新文件名.Image = My.Resources.确定16.ToBitmap
     End Sub
 
     '载入数据函数
@@ -268,7 +259,7 @@ Public Class frmAutoPartNumber
 
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strInventorAssemblyFullFileName)
-        txt基准图号.Text = oStockNumPartName.StockNum
+        txt基准图号.Text = oStockNumPartName.图号
 
         oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
@@ -434,10 +425,83 @@ Public Class frmAutoPartNumber
         End If
     End Sub
 
-    'Private Sub txt新文件名_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt新文件名.KeyPress
-    '    If Asc(e.KeyChar) = Keys.Enter Then
-    '        btn确定新文件名.PerformClick()
-    '    End If
-    'End Sub
+    '移除
+    Private Sub tsmi移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi移出.Click
+        ListViewDel(lvw文件列表)
+    End Sub
 
+    '筛选移除
+    Private Sub tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
+        Dim strFilter As String
+
+        Me.TopMost = False
+
+        Dim frmInputBox As New frmInputBox
+999:
+        With frmInputBox
+            .txt输入.Text = ""
+            .Text = "筛选文件"
+            .lbl描述.Text = "输入需要移除的筛选字段，将移除包含字段的零部件。"
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+
+        If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txt输入.Text <> "") Then
+            strFilter = frmInputBox.txt输入.Text
+        Else
+            Me.TopMost = True
+            Exit Sub
+        End If
+
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            Dim strInventorFullFileName As String  '工程图全文件名
+            strInventorFullFileName = oListViewItem.Text
+
+            Dim strInventorDrawingFileOnlyName As String
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorFullFileName).OnlyName
+
+            If InStr(strInventorDrawingFileOnlyName, strFilter) <> 0 Then
+                oListViewItem.Remove()
+            End If
+
+        Next
+        Me.TopMost = True
+    End Sub
+
+    '筛选保留
+    Private Sub tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
+        Dim strFilter As String
+        Me.TopMost = False
+        Dim frmInputBox As New frmInputBox
+999:
+        With frmInputBox
+            .txt输入.Text = ""
+            .Text = "筛选文件"
+            .lbl描述.Text = "输入需要保留的筛选字段，将保留包含字段的工程图。"
+            .StartPosition = FormStartPosition.CenterScreen
+            .ShowDialog()
+        End With
+
+        If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txt输入.Text <> "") Then
+            strFilter = frmInputBox.txt输入.Text
+        Else
+            Me.TopMost = True
+            Exit Sub
+        End If
+
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            Dim strInventorFullFileName As String  '工程图全文件名
+            strInventorFullFileName = oListViewItem.Text
+
+            Dim strInventorDrawingFileOnlyName As String
+            strInventorDrawingFileOnlyName = GetFileNameInfo(strInventorFullFileName).OnlyName
+
+            If InStr(strInventorDrawingFileOnlyName, strFilter) = 0 Then
+                oListViewItem.Remove()
+            End If
+
+        Next
+
+        Me.TopMost = True
+    End Sub
 End Class

@@ -8,20 +8,20 @@ Public Class frmSaveAll
 
         SetStatusBarText()
 
-        If IsInventorOpenDocument() = False Then
+        if IsInventorOpenDocument() = False Then
             Exit Sub
-        End If
+        End if
 
         Me.TopMost = False
 
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-            If IsFileExsts(oInventorDocument.FullDocumentName) = False Then
+            if IsFileExsts(oInventorDocument.FullDocumentName) = False Then
                 Continue For
-            End If
+            End if
 
             Select Case oInventorDocument.DocumentType
                 Case kAssemblyDocumentObject
-                    If chk部件.Checked = True Then
+                    if chk部件.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -31,9 +31,9 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End If
+                    End if
                 Case kPartDocumentObject
-                    If chk零件图.Checked = True Then
+                    if chk零件图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -43,9 +43,9 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End If
+                    End if
                 Case kDrawingDocumentObject
-                    If chk工程图.Checked = True Then
+                    if chk工程图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -55,7 +55,7 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End If
+                    End if
             End Select
         Next
 

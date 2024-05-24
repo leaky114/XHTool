@@ -6,9 +6,9 @@ Partial Class frmSearchERPCode
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -43,15 +43,17 @@ Partial Class frmSearchERPCode
         Me.btn关闭.Location = New System.Drawing.Point(274, 85)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 28)
-        Me.btn关闭.TabIndex = 3
+        Me.btn关闭.TabIndex = 5
         Me.btn关闭.Text = "关闭"
         '
         'txtERP编码
         '
         Me.txtERP编码.Location = New System.Drawing.Point(85, 50)
         Me.txtERP编码.Name = "txtERP编码"
+        Me.txtERP编码.ReadOnly = True
         Me.txtERP编码.Size = New System.Drawing.Size(164, 21)
-        Me.txtERP编码.TabIndex = 8
+        Me.txtERP编码.TabIndex = 2
+        Me.txtERP编码.TabStop = False
         '
         'txt规格图号
         '
@@ -85,7 +87,7 @@ Partial Class frmSearchERPCode
         Me.btn查询编码.Location = New System.Drawing.Point(203, 85)
         Me.btn查询编码.Name = "btn查询编码"
         Me.btn查询编码.Size = New System.Drawing.Size(65, 28)
-        Me.btn查询编码.TabIndex = 1
+        Me.btn查询编码.TabIndex = 4
         Me.btn查询编码.Text = "查询编码"
         Me.btn查询编码.UseVisualStyleBackColor = True
         '
@@ -95,7 +97,7 @@ Partial Class frmSearchERPCode
         Me.btn粘贴到规格.Location = New System.Drawing.Point(258, 12)
         Me.btn粘贴到规格.Name = "btn粘贴到规格"
         Me.btn粘贴到规格.Size = New System.Drawing.Size(81, 28)
-        Me.btn粘贴到规格.TabIndex = 0
+        Me.btn粘贴到规格.TabIndex = 1
         Me.btn粘贴到规格.Text = "粘贴到规格"
         Me.btn粘贴到规格.UseVisualStyleBackColor = True
         '
@@ -105,7 +107,7 @@ Partial Class frmSearchERPCode
         Me.btn复制编码.Location = New System.Drawing.Point(258, 47)
         Me.btn复制编码.Name = "btn复制编码"
         Me.btn复制编码.Size = New System.Drawing.Size(81, 28)
-        Me.btn复制编码.TabIndex = 2
+        Me.btn复制编码.TabIndex = 3
         Me.btn复制编码.Text = "复制编码"
         Me.btn复制编码.UseVisualStyleBackColor = True
         '
@@ -120,6 +122,7 @@ Partial Class frmSearchERPCode
         Me.lvw编码列表.Name = "lvw编码列表"
         Me.lvw编码列表.Size = New System.Drawing.Size(332, 116)
         Me.lvw编码列表.TabIndex = 10
+        Me.lvw编码列表.TabStop = False
         Me.lvw编码列表.UseCompatibleStateImageBehavior = False
         Me.lvw编码列表.View = System.Windows.Forms.View.Details
         '

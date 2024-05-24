@@ -6,9 +6,9 @@ Partial Class frmInputBox
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -40,7 +40,7 @@ Partial Class frmInputBox
         Me.btn确定.Location = New System.Drawing.Point(283, 125)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(65, 28)
-        Me.btn确定.TabIndex = 0
+        Me.btn确定.TabIndex = 4
         Me.btn确定.Text = "确定"
         '
         'btn取消
@@ -50,7 +50,7 @@ Partial Class frmInputBox
         Me.btn取消.Location = New System.Drawing.Point(356, 125)
         Me.btn取消.Name = "btn取消"
         Me.btn取消.Size = New System.Drawing.Size(65, 28)
-        Me.btn取消.TabIndex = 1
+        Me.btn取消.TabIndex = 5
         Me.btn取消.Text = "取消"
         '
         'lbl描述
@@ -82,7 +82,7 @@ Partial Class frmInputBox
         Me.btn复制.Location = New System.Drawing.Point(10, 125)
         Me.btn复制.Name = "btn复制"
         Me.btn复制.Size = New System.Drawing.Size(65, 28)
-        Me.btn复制.TabIndex = 4
+        Me.btn复制.TabIndex = 1
         Me.btn复制.Text = "复制"
         Me.btn复制.UseVisualStyleBackColor = True
         '
@@ -92,7 +92,7 @@ Partial Class frmInputBox
         Me.btn粘贴.Location = New System.Drawing.Point(83, 125)
         Me.btn粘贴.Name = "btn粘贴"
         Me.btn粘贴.Size = New System.Drawing.Size(65, 28)
-        Me.btn粘贴.TabIndex = 5
+        Me.btn粘贴.TabIndex = 2
         Me.btn粘贴.Text = "粘贴"
         Me.btn粘贴.UseVisualStyleBackColor = True
         '
@@ -102,7 +102,7 @@ Partial Class frmInputBox
         Me.btn其他.Location = New System.Drawing.Point(156, 125)
         Me.btn其他.Name = "btn其他"
         Me.btn其他.Size = New System.Drawing.Size(65, 28)
-        Me.btn其他.TabIndex = 6
+        Me.btn其他.TabIndex = 3
         Me.btn其他.Text = "其他可变"
         Me.btn其他.UseVisualStyleBackColor = True
         Me.btn其他.Visible = False

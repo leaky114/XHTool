@@ -6,9 +6,9 @@ Partial Class frmSaveAs
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -22,7 +22,7 @@ Partial Class frmSaveAs
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btn开始 = New System.Windows.Forms.Button()
+        Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.btn添加文件 = New System.Windows.Forms.Button()
         Me.btn清空列表 = New System.Windows.Forms.Button()
@@ -39,14 +39,14 @@ Partial Class frmSaveAs
         Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
-        'btn开始
+        'btn确定
         '
-        Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn开始.Location = New System.Drawing.Point(385, 298)
-        Me.btn开始.Name = "btn开始"
-        Me.btn开始.Size = New System.Drawing.Size(57, 28)
-        Me.btn开始.TabIndex = 1
-        Me.btn开始.Text = "开始"
+        Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn确定.Location = New System.Drawing.Point(385, 298)
+        Me.btn确定.Name = "btn确定"
+        Me.btn确定.Size = New System.Drawing.Size(57, 28)
+        Me.btn确定.TabIndex = 10
+        Me.btn确定.Text = "确定"
         '
         'btn关闭
         '
@@ -55,7 +55,7 @@ Partial Class frmSaveAs
         Me.btn关闭.Location = New System.Drawing.Point(448, 298)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(57, 28)
-        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.TabIndex = 11
         Me.btn关闭.Text = "关闭"
         '
         'btn添加文件
@@ -64,7 +64,7 @@ Partial Class frmSaveAs
         Me.btn添加文件.Location = New System.Drawing.Point(23, 298)
         Me.btn添加文件.Name = "btn添加文件"
         Me.btn添加文件.Size = New System.Drawing.Size(69, 28)
-        Me.btn添加文件.TabIndex = 0
+        Me.btn添加文件.TabIndex = 6
         Me.btn添加文件.Text = "添加文件"
         Me.btn添加文件.UseVisualStyleBackColor = True
         '
@@ -74,7 +74,7 @@ Partial Class frmSaveAs
         Me.btn清空列表.Location = New System.Drawing.Point(189, 298)
         Me.btn清空列表.Name = "btn清空列表"
         Me.btn清空列表.Size = New System.Drawing.Size(69, 28)
-        Me.btn清空列表.TabIndex = 20
+        Me.btn清空列表.TabIndex = 8
         Me.btn清空列表.Text = "清空列表"
         Me.btn清空列表.UseVisualStyleBackColor = True
         '
@@ -84,7 +84,7 @@ Partial Class frmSaveAs
         Me.btn添加文件夹.Location = New System.Drawing.Point(100, 298)
         Me.btn添加文件夹.Name = "btn添加文件夹"
         Me.btn添加文件夹.Size = New System.Drawing.Size(81, 28)
-        Me.btn添加文件夹.TabIndex = 21
+        Me.btn添加文件夹.TabIndex = 7
         Me.btn添加文件夹.Text = "添加文件夹"
         Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
@@ -97,7 +97,7 @@ Partial Class frmSaveAs
         Me.chkDwg.Location = New System.Drawing.Point(20, 245)
         Me.chkDwg.Name = "chkDwg"
         Me.chkDwg.Size = New System.Drawing.Size(90, 16)
-        Me.chkDwg.TabIndex = 22
+        Me.chkDwg.TabIndex = 0
         Me.chkDwg.Text = "AutoCAD.dwg"
         Me.chkDwg.UseVisualStyleBackColor = True
         '
@@ -108,7 +108,7 @@ Partial Class frmSaveAs
         Me.chkPdf.Location = New System.Drawing.Point(135, 245)
         Me.chkPdf.Name = "chkPdf"
         Me.chkPdf.Size = New System.Drawing.Size(78, 16)
-        Me.chkPdf.TabIndex = 23
+        Me.chkPdf.TabIndex = 1
         Me.chkPdf.Text = "Adobe.pdf"
         Me.chkPdf.UseVisualStyleBackColor = True
         '
@@ -119,7 +119,7 @@ Partial Class frmSaveAs
         Me.chkStep.Location = New System.Drawing.Point(231, 245)
         Me.chkStep.Name = "chkStep"
         Me.chkStep.Size = New System.Drawing.Size(72, 16)
-        Me.chkStep.TabIndex = 24
+        Me.chkStep.TabIndex = 2
         Me.chkStep.Text = "Step文件"
         Me.chkStep.UseVisualStyleBackColor = True
         '
@@ -128,8 +128,10 @@ Partial Class frmSaveAs
         Me.txt文件夹路径.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txt文件夹路径.Location = New System.Drawing.Point(20, 267)
         Me.txt文件夹路径.Name = "txt文件夹路径"
+        Me.txt文件夹路径.ReadOnly = True
         Me.txt文件夹路径.Size = New System.Drawing.Size(445, 21)
         Me.txt文件夹路径.TabIndex = 29
+        Me.txt文件夹路径.TabStop = False
         '
         'rdo同一文件夹
         '
@@ -138,7 +140,7 @@ Partial Class frmSaveAs
         Me.rdo同一文件夹.Location = New System.Drawing.Point(416, 245)
         Me.rdo同一文件夹.Name = "rdo同一文件夹"
         Me.rdo同一文件夹.Size = New System.Drawing.Size(95, 16)
-        Me.rdo同一文件夹.TabIndex = 28
+        Me.rdo同一文件夹.TabIndex = 4
         Me.rdo同一文件夹.Text = "同一个文件夹"
         Me.rdo同一文件夹.UseVisualStyleBackColor = True
         '
@@ -150,7 +152,7 @@ Partial Class frmSaveAs
         Me.rdo当前文件夹.Location = New System.Drawing.Point(318, 245)
         Me.rdo当前文件夹.Name = "rdo当前文件夹"
         Me.rdo当前文件夹.Size = New System.Drawing.Size(83, 16)
-        Me.rdo当前文件夹.TabIndex = 27
+        Me.rdo当前文件夹.TabIndex = 3
         Me.rdo当前文件夹.TabStop = True
         Me.rdo当前文件夹.Text = "当前文件夹"
         Me.rdo当前文件夹.UseVisualStyleBackColor = True
@@ -161,18 +163,17 @@ Partial Class frmSaveAs
         Me.btn移出.Location = New System.Drawing.Point(266, 298)
         Me.btn移出.Name = "btn移出"
         Me.btn移出.Size = New System.Drawing.Size(69, 28)
-        Me.btn移出.TabIndex = 30
+        Me.btn移出.TabIndex = 9
         Me.btn移出.Text = "移除"
         Me.btn移出.UseVisualStyleBackColor = True
         '
         'btn设置文件夹
         '
         Me.btn设置文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn设置文件夹.Location = New System.Drawing.Point(471, 267)
+        Me.btn设置文件夹.Location = New System.Drawing.Point(471, 264)
         Me.btn设置文件夹.Name = "btn设置文件夹"
-        Me.btn设置文件夹.Size = New System.Drawing.Size(34, 21)
-        Me.btn设置文件夹.TabIndex = 31
-        Me.btn设置文件夹.Text = "..."
+        Me.btn设置文件夹.Size = New System.Drawing.Size(26, 26)
+        Me.btn设置文件夹.TabIndex = 5
         Me.btn设置文件夹.UseVisualStyleBackColor = True
         '
         'lvw文件列表
@@ -198,7 +199,6 @@ Partial Class frmSaveAs
         '
         'frmSaveAs
         '
-        Me.AcceptButton = Me.btn开始
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
@@ -216,7 +216,7 @@ Partial Class frmSaveAs
         Me.Controls.Add(Me.btn清空列表)
         Me.Controls.Add(Me.btn添加文件)
         Me.Controls.Add(Me.btn关闭)
-        Me.Controls.Add(Me.btn开始)
+        Me.Controls.Add(Me.btn确定)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -230,7 +230,7 @@ Partial Class frmSaveAs
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btn开始 As System.Windows.Forms.Button
+    Friend WithEvents btn确定 As System.Windows.Forms.Button
     Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents btn添加文件 As System.Windows.Forms.Button
     Friend WithEvents btn清空列表 As System.Windows.Forms.Button

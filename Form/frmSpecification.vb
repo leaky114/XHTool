@@ -17,13 +17,13 @@ Public Class frmSpecification
         On Error Resume Next
 
         '加载配置文件
-        strSpecificationIni = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", _
+        strSpecificationIni = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", _
                                                                       "Specification.ini", "\Specification.ini")
 
-        If IsFileExsts(strSpecificationIni) = False Then
+        if IsFileExsts(strSpecificationIni) = False Then
             MsgBox("未找到配置文件 Specification.ini", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "技术要求")
             Exit Sub
-        End If
+        End if
 
         Dim oPrasentNode As TreeNode
 
@@ -49,21 +49,22 @@ Public Class frmSpecification
             intNumber = intNumber + 1
             strNode = GetStrFromINI("技术要求", intNumber.ToString, "", strSpecificationIni)
         Loop
+
         TreeView自定义.ExpandAll()
         boolIsUserChange = False
 
     End Sub
 
     Private Sub TreeView基础数据树_NodeMouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles TreeView基础数据树.NodeMouseClick
-        If e.Node.Text = "通用技术标准" Or e.Node.Text = "技术要求" Then
+        if e.Node.Text = "通用技术标准" Or e.Node.Text = "技术要求" Then
             Exit Sub
-        End If
+        End if
 
-        If boolIsBasicChange = True Then
-            If MsgBox(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+        if boolIsBasicChange = True Then
+            if MsgBox(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
                 保存基础数据ToolStripButton.PerformClick()
-            End If
-        End If
+            End if
+        End if
 
         lst基础数据列表.Items.Clear()
 
@@ -87,37 +88,37 @@ Public Class frmSpecification
     End Sub
 
     Private Sub 删除自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 删除自定义ToolStripButton.Click
-        If lst技术要求文本.SelectedItems.Count <> 0 Then
+        if lst技术要求文本.SelectedItems.Count <> 0 Then
             lst技术要求文本.Items.Remove(lst技术要求文本.SelectedItems.Item(0))
             boolIsUserChange = True
-        End If
+        End if
     End Sub
 
     Private Sub 添加自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 添加自定义ToolStripButton.Click
         Dim strChildNodeValue As String
         Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求")
-        If strChildNodeValue <> "" Then
+        if strChildNodeValue <> "" Then
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
-        End If
+        End if
         Me.TopMost = True
     End Sub
 
     Private Sub 修改自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 修改自定义ToolStripButton.Click
         Dim strChildNodeValue As String
 
-        If lst技术要求文本.SelectedItems.Count <> 0 Then
+        if lst技术要求文本.SelectedItems.Count <> 0 Then
             strChildNodeValue = lst技术要求文本.SelectedItems(0).ToString
         Else
             Exit Sub
-        End If
+        End if
         Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求", strChildNodeValue)
-        If strChildNodeValue <> "" Then
+        if strChildNodeValue <> "" Then
             lst技术要求文本.Items(lst技术要求文本.SelectedIndex) = strChildNodeValue
             boolIsUserChange = True
-        End If
+        End if
         Me.TopMost = True
     End Sub
 
@@ -147,26 +148,26 @@ Public Class frmSpecification
     Private Sub 修改基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 修改基础数据ToolStripButton.Click
         Dim strChildNodeValue As String
         Me.TopMost = False
-        If lst基础数据列表.SelectedItems.Count <> 0 Then
+        if lst基础数据列表.SelectedItems.Count <> 0 Then
             strChildNodeValue = lst基础数据列表.SelectedItems(0).ToString
         Else
             Me.TopMost = True
             Exit Sub
-        End If
+        End if
 
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求", strChildNodeValue)
-        If strChildNodeValue <> "" Then
+        if strChildNodeValue <> "" Then
             lst基础数据列表.Items(lst基础数据列表.SelectedIndex) = strChildNodeValue
             boolIsBasicChange = True
-        End If
+        End if
         Me.TopMost = True
     End Sub
 
     Private Sub 删除基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 删除基础数据ToolStripButton.Click
-        If lst基础数据列表.SelectedItems.Count <> 0 Then
+        if lst基础数据列表.SelectedItems.Count <> 0 Then
             lst基础数据列表.Items.Remove(lst基础数据列表.SelectedItems.Item(0))
             boolIsBasicChange = True
-        End If
+        End if
     End Sub
 
     Private Sub 添加基础数据ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 添加基础数据ToolStripButton.Click
@@ -174,10 +175,10 @@ Public Class frmSpecification
 
         Me.TopMost = False
         strChildNodeValue = InputBox("输入技术要求。 ", "技术要求")
-        If strChildNodeValue <> "" Then
+        if strChildNodeValue <> "" Then
             lst基础数据列表.Items.Add(strChildNodeValue)
             boolIsBasicChange = True
-        End If
+        End if
         Me.TopMost = True
     End Sub
 
@@ -208,27 +209,27 @@ Public Class frmSpecification
 
         Dim strChildNodeValue As String
 
-        If lst基础数据列表.SelectedItems.Count <> 0 Then
+        if lst基础数据列表.SelectedItems.Count <> 0 Then
             strChildNodeValue = lst基础数据列表.SelectedItems(0).ToString
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
         Else
             MsgBox("请选择基础数据。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "技术要求")
             Exit Sub
-        End If
+        End if
 
     End Sub
 
     Private Sub TreeView自定义_NodeMouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles TreeView自定义.NodeMouseClick
-        If e.Node.Text = "通用技术标准" Or e.Node.Text = "技术要求" Then
+        if e.Node.Text = "通用技术标准" Or e.Node.Text = "技术要求" Then
             Exit Sub
-        End If
+        End if
 
-        If boolIsUserChange = True Then
-            If MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+        if boolIsUserChange = True Then
+            if MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
                 保存自定义ToolStripButton.PerformClick()
-            End If
-        End If
+            End if
+        End if
 
         lst技术要求文本.Items.Clear()
 
@@ -258,13 +259,13 @@ Public Class frmSpecification
 
         strChildNodeName = InputBox("输入新技术要求名称！", "技术要求")
 
-        If strChildNodeName <> "" Then
+        if strChildNodeName <> "" Then
             TreeView自定义.Nodes.Add(strChildNodeName)
-            If boolIsUserChange = True Then
-                If MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+            if boolIsUserChange = True Then
+                if MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
                     保存自定义ToolStripButton.PerformClick()
-                End If
-            End If
+                End if
+            End if
             lst技术要求文本.Items.Clear()
 
             Dim strChildNodeValue As String
@@ -282,7 +283,7 @@ Public Class frmSpecification
 
             boolIsUserChange = False
 
-        End If
+        End if
 
         Me.TopMost = True
 
@@ -296,10 +297,10 @@ Public Class frmSpecification
         For intNumber = 1 To lst技术要求文本.Items.Count
             strChildNodeValue = lst技术要求文本.Items(intNumber - 1).ToString
             strFlag = intNumber.ToString & "."
-            If Strings.Left(strChildNodeValue, 2) <> strFlag Then
+            if Strings.Left(strChildNodeValue, 2) <> strFlag Then
                 strChildNodeValue = strFlag & strChildNodeValue
                 lst技术要求文本.Items(intNumber - 1) = strChildNodeValue
-            End If
+            End if
         Next
         boolIsUserChange = True
     End Sub
@@ -312,10 +313,10 @@ Public Class frmSpecification
         For intNumber = 1 To lst技术要求文本.Items.Count
             strChildNodeValue = lst技术要求文本.Items(intNumber - 1).ToString
             strFlag = intNumber.ToString & "."
-            If Strings.Left(strChildNodeValue, 2) = strFlag Then
+            if Strings.Left(strChildNodeValue, 2) = strFlag Then
                 strChildNodeValue = Strings.Replace(strChildNodeValue, strFlag, "")
                 lst技术要求文本.Items(intNumber - 1) = strChildNodeValue
-            End If
+            End if
         Next
         boolIsUserChange = True
     End Sub
@@ -323,27 +324,27 @@ Public Class frmSpecification
     Private Sub 字体ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 字体ToolStripButton.Click
         Dim oFontDialog As New FontDialog
         With oFontDialog
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then
                 字体ToolStripButton.Font = .Font
                 字体ToolStripButton.Text = .Font.Name
-            End If
+            End if
         End With
     End Sub
 
     Private Sub btn插入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn插入.Click
         SetStatusBarText()
 
-        If IsInventorOpenDocument() = False Then
+        if IsInventorOpenDocument() = False Then
             Exit Sub
-        End If
+        End if
 
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
-        If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
+        if oInventorDocument.DocumentType <> kDrawingDocumentObject Then
             MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
             Exit Sub
-        End If
+        End if
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         Dim oActiveSheet As Sheet
@@ -402,15 +403,15 @@ Public Class frmSpecification
     End Sub
 
     Private Sub 上移ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 上移ToolStripButton.Click
-        If ListBoxUp(lst技术要求文本) = True Then
+        if ListBoxUp(lst技术要求文本) = True Then
             boolIsUserChange = True
-        End If
+        End if
     End Sub
 
     Private Sub 下移ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 下移ToolStripButton.Click
-        If ListBoxDown(lst技术要求文本) = True Then
+        if ListBoxDown(lst技术要求文本) = True Then
             boolIsUserChange = True
-        End If
+        End if
     End Sub
 
     Private Sub 导入文本ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 导输入文本ToolStripMenuItem.Click
@@ -427,13 +428,13 @@ Public Class frmSpecification
             .InitialDirectory = My.Application.Info.DirectoryPath
             .Filter = "文本文档(*.txt)|*.txt" '添加过滤文件
             .Multiselect = False '多开文件打开
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
                     strTextFileFullName = .FileName
-                End If
+                End if
             Else
                 Exit Sub
-            End If
+            End if
         End With
 
         Dim arrstrReader() As String

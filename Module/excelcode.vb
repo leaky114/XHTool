@@ -35,7 +35,7 @@ Module excelcode
 
         'For Each a In oCol_Index_Num
         VLookUpValue = oExcelApplication.WorksheetFunction.VLookup(strStochNum, oRange, strColIndexNum, intRangeLookUp)
-        If VLookUpValue <> Nothing Then
+        if VLookUpValue <> Nothing Then
             oWorkbook.Saved = True
             oWorkbook.Close()
             oExcelApplication.Quit()
@@ -47,7 +47,7 @@ Module excelcode
             System.Runtime.InteropServices.Marshal.ReleaseComObject(oExcelApplication)
 
             Return VLookUpValue
-        End If
+        End if
         'Next
 
         '关闭文件
@@ -100,9 +100,9 @@ Module excelcode
             For Each a In Table_Array
                 oRange = oWorksheet.Range(a & ":" & a)
                 MatchRow = oExcelApplication.WorksheetFunction.Match(strStochNum, oRange, 0)
-                If MatchRow <> 0 Then
+                if MatchRow <> 0 Then
                     Exit For
-                End If
+                End if
             Next
 
             Dim strFindRow As String
@@ -165,7 +165,7 @@ Module excelcode
 
                 With oRange
                     c = .Find(strStochNum, LookIn:=xlValues, LookAt:=True, SearchOrder:=xlByColumns)
-                    If Not c Is Nothing Then
+                    if Not c Is Nothing Then
                         strFirstAddress = c.Address
                         Do
                             MatchRow = c.Row
@@ -176,7 +176,7 @@ Module excelcode
                             i = i + 1
                             c = .FindNext(c)
                         Loop While Not c Is Nothing And c.Address <> strFirstAddress
-                    End If
+                    End if
                 End With
             Next
         Next
@@ -236,7 +236,7 @@ Module excelcode
 
             With oRange
                 c = .Find(strERPCode, LookIn:=xlValues, LookAt:=True, SearchOrder:=xlByColumns)
-                If Not c Is Nothing Then
+                if Not c Is Nothing Then
                     strFirstAddress = c.Address
                     Do
                         MatchRow = c.Row
@@ -247,12 +247,12 @@ Module excelcode
                         i = i + 1
                         c = .FindNext(c)
                     Loop While Not c Is Nothing And c.Address <> strFirstAddress
-                End If
+                End if
             End With
 
-            If MatchRow = 0 Then
+            if MatchRow = 0 Then
                 Return tempFindAllSrtingInSheet
-            End If
+            End if
 
             i = 0
             For Each strTable In Table_Array

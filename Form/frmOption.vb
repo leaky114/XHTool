@@ -4,16 +4,16 @@ Imports System.Windows.Forms
 Public Class frmOption
 
     Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
-        'If txtBOM导出项.Text = "" Then
+        'if txtBOM导出项.Text = "" Then
         '    txtBOM导出项.Text = cbo添加.Text
         'Else
 
         '//先获取复制文本
         Dim newstr As String = cbo添加.Text
 
-        If newstr = "| (分隔符)" Then
+        if newstr = "| (分隔符)" Then
             newstr = "|"
-        End If
+        End if
 
 
         '//获取textBox2 中的光标
@@ -21,7 +21,7 @@ Public Class frmOption
         txtBOM导出项.Text = txtBOM导出项.Text.Insert(index, newstr)
         txtBOM导出项.SelectionStart = index + newstr.Length
         txtBOM导出项.Focus()
-        'End If
+        'End if
 
     End Sub
 
@@ -36,10 +36,10 @@ Public Class frmOption
     End Sub
 
     Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
-        If cbo图号.Text = cbo文件名.Text Then
+        if cbo图号.Text = cbo文件名.Text Then
             MsgBox("映射设置相同！", MsgBoxStyle.Exclamation, "设置")
             Exit Sub
-        End If
+        End if
 
         Map_DrawingNnumber = cbo图号.Text
         Map_PartName = cbo文件名.Text
@@ -57,45 +57,37 @@ Public Class frmOption
         TableArrays = txt查找范围.Text
         ColIndexNum = txt查询列.Text
 
+        str变更工程图扩展名 = Iif(chk备份工程图.Checked, "1", "-1")
+        str另存到子文件夹 = IIf(chk另存到子文件夹.Checked, "1", "-1")
+        str查找文件夹层数 = NUD查找文件夹层数.Value
+        Is检查重复图号 = IIf(chk检查重复图号.Checked, "1", "-1")
+
+
+        str模型匹配检查 = Iif(chk模型匹配检查.Checked, "1", "-1")
+        str逆时针序号 = Iif(chk逆时针序号.Checked, "1", "-1")
+
+
         '打印签字
-        Select Case chk签字后打印.Checked
-            Case False
-                IsOpenPrint = "-1"
-            Case True
-                IsOpenPrint = "1"
-        End Select
+        IsOpenPrint = Iif(chk签字后打印.Checked, "1", "-1")
+
 
         '同时签字
-        Select Case chk同时签字.Checked
-            Case False
-                IsDayAndName = "-1"
-            Case True
-                IsDayAndName = "1"
-        End Select
+        IsDayAndName = Iif(chk同时签字.Checked, "1", "-1")
+
 
         '打开工程图时写入
-        Select Case chk保存比例.Checked
-            Case False
-                IsSetDrawingScale = "-1"
-            Case True
-                IsSetDrawingScale = "1"
-        End Select
+
+        IsSetDrawingScale = Iif(chk保存比例.Checked, "1", "-1")
+
 
         '打开工程图时写入
-        Select Case chk保存质量.Checked
-            Case False
-                IsSetMass = "-1"
-            Case True
-                IsSetMass = "1"
-        End Select
+
+        IsSetMass = Iif(chk保存质量.Checked, "1", "-1")
+
 
         '启动检查更新
-        Select Case chk检查更新.Checked
-            Case False
-                CheckUpdate = "-1"
-            Case True
-                CheckUpdate = "1"
-        End Select
+        CheckUpdate = Iif(chk检查更新.Checked, "1", "-1")
+
 
         '质量精度：
         Select Case cbo质量精度.Text
@@ -127,28 +119,50 @@ Public Class frmOption
                 Area_Accuracy = "6"
         End Select
 
-        Printer = cmb打印机.Text
+        Printer = cbo打印机.Text
 
         '匹配A3
-        Select Case chk匹配A3纸.Checked
-            Case False
-                IsPaperA3 = "-1"
-            Case True
-                IsPaperA3 = "1"
-        End Select
+        IsPaperA3 = Iif(chk匹配A3纸.Checked, "1", "-1")
 
         '签字
-        Select Case chk签字.Checked
-            Case False
-                IsSign = "-1"
-            Case True
-                IsSign = "1"
-        End Select
+        IsSign = Iif(chk签字.Checked, "1", "-1")
+
 
         '另存为
         SaveAsDawAndPdf = cbo另存为.Text
 
-        TitleBlockIdwDoc = txt图框模板文件.Text
+
+        str展开图模板 = txt展开图模板.Text
+        str向上线宽 = cbo向上线宽.Text
+        str向下线宽 = cbo向下线宽.Text
+
+        str向上线型 = cbo向上线型.Text
+        str向下线型 = cbo向下线型.Text
+
+        str展开图标注 = Iif(chk展开图标注.Checked, "1", "-1")
+
+
+        str工程图模板 = txt工程图模板.Text
+        str自动展开图 = Iif(chk钣金自动展开.Checked, "1", "-1")
+        str第三视角 = Iif(chk第三视角.Checked, "1", "-1")
+        str相切边 = Iif(chk相切边.Checked, "1", "-1")
+        str螺纹特征 = Iif(chk螺纹特征.Checked, "1", "-1")
+        str标注尺寸 = Iif(chk标注尺寸.Checked, "1", "-1")
+        str样式 = Iif(rdo不显示隐藏线.Checked, "不显示隐藏线", "显示隐藏线")
+
+
+        str选择视图.str左视图 = Iif(chk左视图.Checked, "1", "-1")
+        str选择视图.str右视图 = Iif(chk右视图.Checked, "1", "-1")
+        str选择视图.str俯视图 = Iif(chk俯视图.Checked, "1", "-1")
+        str选择视图.str仰视图 = Iif(chk仰视图.Checked, "1", "-1")
+
+        str页边距.short上边距 = NumericUpDown页边距上.Value
+        str页边距.short下边距 = NumericUpDown页边距下.Value
+        str页边距.short左边距 = NumericUpDown页边距左.Value
+        str页边距.short右边距 = NumericUpDown页边距右.Value
+
+        str部件图框 = txt部件图框.Text
+        str零件图框 = txt零件图框.Text
 
         WrIni.InAISettingIniWriteSetting()
         'WrXml.InAISettingXmlWriteSetting()
@@ -157,15 +171,15 @@ Public Class frmOption
         Me.Close()
     End Sub
     Private Sub btn图框配置_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn图框配置.Click
-        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "TitleBlock.ini", "\TitleBlock.ini")
+        Dim FPath As String = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "TitleBlock.ini", "\TitleBlock.ini")
         Process.Start("NOTEPAD.EXE", FPath)
     End Sub
 
     Private Sub btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
 
-        'If IsFileExsts(txt自定义数据文件.Text) = True Then
+        'if IsFileExsts(txt自定义数据文件.Text) = True Then
         '    Process.Start(txt自定义数据文件.Text)
-        'End If
+        'End if
 
         If IsFileExsts(BasicExcelFullFileName) = True Then
             Process.Start(BasicExcelFullFileName)
@@ -184,7 +198,7 @@ Public Class frmOption
     End Sub
 
     Private Sub btn配置文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn配置文件.Click
-        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
+        Dim FPath As String = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.ini", "\InAISetting.ini")
         Process.Start("NOTEPAD.EXE", FPath)
     End Sub
 
@@ -252,87 +266,120 @@ Public Class frmOption
         txtBOM导出项.Text = BOMTiTle
         txt图号.Text = Map_Mass
 
-        Select Case IsOpenPrint
-            Case "-1"
-                chk签字后打印.Checked = False
-            Case "1"
-                chk签字后打印.Checked = True
-        End Select
 
-        Select Case IsDayAndName
-            Case "-1"
-                chk同时签字.Checked = False
-            Case "1"
-                chk同时签字.Checked = True
-        End Select
+        chk签字后打印.Checked = IIf(IsOpenPrint = "1", True, False)
 
-        Select Case IsSetDrawingScale
-            Case "-1"
-                chk保存比例.Checked = False
-            Case "1"
-                chk保存比例.Checked = True
-        End Select
+        chk同时签字.Checked = IIf(IsDayAndName = "1", True, False)
 
-        Select Case IsSetMass
-            Case "-1"
-                chk保存质量.Checked = False
-            Case "1"
-                chk保存质量.Checked = True
-        End Select
+        chk保存比例.Checked = IIf(IsSetDrawingScale = "1", True, False)
 
-        Select Case CheckUpdate
-            Case "-1"
-                chk检查更新.Checked = False
-            Case "1"
-                chk检查更新.Checked = True
-        End Select
+        chk保存质量.Checked = IIf(IsSetMass = "1", True, False)
+
+        chk检查更新.Checked = IIf(CheckUpdate = "1", True, False)
 
         txt基础数据文件.Text = BasicExcelFullFileName
         txt查找范围.Text = TableArrays
         txt查询列.Text = ColIndexNum
 
+        chk备份工程图.Checked = IIf(str变更工程图扩展名 = "1", True, False)
+        chk另存到子文件夹.Checked = IIf(str另存到子文件夹 = "1", True, False)
+        NUD查找文件夹层数.Value = str查找文件夹层数
+        chk检查重复图号.Checked = IIf(Is检查重复图号 = "1", True, False)
+
+
+        chk模型匹配检查.Checked = IIf(str模型匹配检查 = "1", True, False)
+        chk逆时针序号.Checked = IIf(str逆时针序号 = "1", True, False)
+
+
         '默认打印机
         Dim oPrintDocument As New Printing.PrintDocument
         Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
-        cmb打印机.Items.Clear()
+        cbo打印机.Items.Clear()
         For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
-            cmb打印机.Items.Add(strPrinterName)
+            cbo打印机.Items.Add(strPrinterName)
             If strPrinterName = strDefaultPrinter Then
-                cmb打印机.SelectedIndex = cmb打印机.Items.IndexOf(strPrinterName)
+                cbo打印机.SelectedIndex = cbo打印机.Items.IndexOf(strPrinterName)
             End If
         Next
 
-        For Each cmblist In cmb打印机.Items
+        For Each cmblist In cbo打印机.Items
             If cmblist = Printer Then
-                cmb打印机.Text = Printer
+                cbo打印机.Text = Printer
             End If
         Next
 
         '匹配A3
-        Select Case IsPaperA3
-            Case -1
-                chk匹配A3纸.Checked = False
-            Case 1
-                chk匹配A3纸.Checked = True
-        End Select
+        chk匹配A3纸.Checked = IIf(IsPaperA3 = "1", True, False)
 
         '签字
-        Select Case IsSign
-            Case -1
-                chk签字.Checked = False
-            Case 1
-                chk签字.Checked = True
-        End Select
+        chk签字.Checked = IIf(IsSign = "1", True, False)
 
         '另存为
         cbo另存为.Text = SaveAsDawAndPdf
 
-        txt图框模板文件.Text = TitleBlockIdwDoc
+
+        txt展开图模板.Text = str展开图模板
+        btn向上颜色.BackColor = ColorTranslator.FromHtml(str向上颜色)
+        btn向下颜色.BackColor = ColorTranslator.FromHtml(str向下颜色)
+
+        cbo向上线宽.Text = str向上线宽
+        cbo向下线宽.Text = str向下线宽
+
+        cbo向上线型.Text = str向上线型
+        cbo向下线型.Text = str向下线型
+
+        chk展开图标注.Checked = IIf(str展开图标注 = "1", True, False)
+
+
+        txt工程图模板.Text = str工程图模板
+        chk钣金自动展开.Checked = IIf(str自动展开图 = "1", True, False)
+        chk第三视角.Checked = IIf(str第三视角 = "1", True, False)
+        chk相切边.Checked = IIf(str相切边 = "1", True, False)
+        chk螺纹特征.Checked = IIf(str螺纹特征 = "1", True, False)
+        chk标注尺寸.Checked = IIf(str标注尺寸 = "1", True, False)
+
+        rdo显示隐藏线.Checked = IIf(str样式 = "显示隐藏线", True, False)
+        rdo不显示隐藏线.Checked = rdo显示隐藏线.Checked Xor True
+
+        chk左视图.Checked = Iif(str选择视图.str左视图 = "1", True, False)
+        chk右视图.Checked = Iif(str选择视图.str右视图 = "1", True, False)
+        chk俯视图.Checked = Iif(str选择视图.str俯视图 = "1", True, False)
+        chk仰视图.Checked = Iif(str选择视图.str仰视图 = "1", True, False)
+
+        NumericUpDown页边距上.Value = Val(str页边距.short上边距)
+        NumericUpDown页边距下.Value = Val(str页边距.short下边距)
+        NumericUpDown页边距左.Value = Val(str页边距.short左边距)
+        NumericUpDown页边距右.Value = Val(str页边距.short右边距)
+
+        txt部件图框.Text = str部件图框
+        txt零件图框.Text = str零件图框
+
+        '==================================================================
+        Dim toolTip As New ToolTip()
+        toolTip.AutoPopDelay = 0
+        toolTip.InitialDelay = 0
+        toolTip.ReshowDelay = 500
+        toolTip.SetToolTip(chk备份工程图, "更改零部件文件名时，工程图扩展名添加  .old")
+        toolTip.SetToolTip(chk模型匹配检查, "打开工程图时检查文件名是否与引用的模型文件一致")
+        toolTip.SetToolTip(btn选择erp数据库, "选择ERP数据库文件")
+        toolTip.SetToolTip(btn选择工程图模板, "选择工程图模板文件")
+        toolTip.SetToolTip(btn展开图模板, "选择展开图模板文件")
+        toolTip.SetToolTip(chk另存到子文件夹, "另存dwg，pdf文件到子文件夹 \CAD\ 或 \PDF\下")
+        toolTip.SetToolTip(chk逆时针序号, "按逆时针自动重建序号")
+        toolTip.SetToolTip(NUD查找文件夹层数, "设置查找文件时，向上父文件夹的层数")
+        toolTip.SetToolTip(chk检查重复图号, "更改文件名时，在当前项目文件夹下，检查图号是否重复")
+
+        btn选择erp数据库.Image = My.Resources.快速打开16.ToBitmap
+        btn选择工程图模板.Image = My.Resources.快速打开16.ToBitmap
+        btn展开图模板.Image = My.Resources.快速打开16.ToBitmap
+
+
+
 
     End Sub
     Private Sub txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.DoubleClick
-        'If e.Button = System.Windows.Forms.MouseButtons.Left Then
+        'if e.Button = System.Windows.Forms.MouseButtons.Left Then
 
         '    Dim oOpenFileDialog As New OpenFileDialog
         '    With oOpenFileDialog
@@ -342,15 +389,15 @@ Public Class frmOption
         '        .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
         '        .Multiselect = False '多开文件打开
         '        .CheckFileExists = False
-        '        If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-        '            If .FileName <> "" Then '如果有选中文件
+        '        if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+        '            if .FileName <> "" Then '如果有选中文件
         '                txt基础数据文件.Text = .FileName
-        '            End If
+        '            End if
         '        Else
         '            Exit Sub
-        '        End If
+        '        End if
         '    End With
-        'End If
+        'End if
     End Sub
 
     'Private Sub txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
@@ -366,23 +413,22 @@ Public Class frmOption
     Private Sub btn选择工程图模板_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择工程图模板.Click
         Dim oOpenFileDialog As New OpenFileDialog
         With oOpenFileDialog
-            .Title = "打开"
+            .Title = "打开工程图模板"
             .FileName = ""
             .InitialDirectory = ThisApplication.FileOptions.DefaultTemplateDrawingStandard
             .Filter = "Inventor工程图文件(*.idw)|*.idw" '添加过滤文件
             .Multiselect = False '多开文件打开
             .CheckFileExists = True
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
-                    txt图框模板文件.Text = .FileName
-                    TitleBlockIdwDoc = .FileName
-                End If
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
+                    txt工程图模板.Text = .FileName
+                    str工程图模板 = .FileName
+                End if
             Else
                 Exit Sub
-            End If
+            End if
         End With
     End Sub
-
 
     Private Sub btn选择erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择erp数据库.Click
         Dim oOpenFileDialog As New OpenFileDialog
@@ -393,15 +439,54 @@ Public Class frmOption
             .Filter = "Excel(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
             .Multiselect = False '多开文件打开
             .CheckFileExists = False
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
                     txt基础数据文件.Text = .FileName
                     BasicExcelFullFileName = .FileName
-                End If
+                End if
             Else
                 Exit Sub
-            End If
+            End if
         End With
 
     End Sub
+
+    Private Sub btn颜色上_Click(sender As Object, e As EventArgs) Handles btn向上颜色.Click
+        Dim colorDialog As New ColorDialog()
+        if colorDialog.ShowDialog() = DialogResult.OK Then
+            Dim selectedColor As Color = colorDialog.Color
+            btn向上颜色.BackColor = selectedColor
+            str向上颜色 = String.Format("#{0:X2}{1:X2}{2:X2}", selectedColor.R, selectedColor.G, selectedColor.B)
+        End if
+    End Sub
+
+    Private Sub btn颜色下_Click(sender As Object, e As EventArgs) Handles btn向下颜色.Click
+        Dim colorDialog As New ColorDialog()
+        if colorDialog.ShowDialog() = DialogResult.OK Then
+            Dim selectedColor As Color = colorDialog.Color
+            btn向下颜色.BackColor = selectedColor
+            str向下颜色 = String.Format("#{0:X2}{1:X2}{2:X2}", selectedColor.R, selectedColor.G, selectedColor.B)
+        End if
+    End Sub
+
+    Private Sub btn展开图模板_Click(sender As Object, e As EventArgs) Handles btn展开图模板.Click
+        Dim oOpenFileDialog As New OpenFileDialog
+        With oOpenFileDialog
+            .Title = "打开展开图模板"
+            .FileName = ""
+            .InitialDirectory = ThisApplication.FileOptions.DefaultTemplateDrawingStandard
+            .Filter = "Inventor工程图文件(*.idw)|*.idw" '添加过滤文件
+            .Multiselect = False '多开文件打开
+            .CheckFileExists = True
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
+                    txt展开图模板.Text = .FileName
+                    str展开图模板 = .FileName
+                End if
+            Else
+                Exit Sub
+            End if
+        End With
+    End Sub
+
 End Class

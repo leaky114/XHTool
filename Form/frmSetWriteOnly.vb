@@ -12,7 +12,7 @@ Imports System.Windows.Forms
 Public Class frmSetWriteOnly
 
     '量产开始
-    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         On Error Resume Next
         Dim strInventorDocumentFullFileName As String
         Dim strInventorDrawingFullFileName As String
@@ -65,7 +65,7 @@ Public Class frmSetWriteOnly
         lvw文件列表.Items.Clear()
     End Sub
 
-  
+
 
     '移除选择列
     Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
@@ -116,6 +116,7 @@ Public Class frmSetWriteOnly
             End If
         Next
 
+
         lvw文件列表.EndUpdate()
         btn导入当前部件.Enabled = True
         'ThisApplication.Cursor  = Cursors.Default
@@ -151,12 +152,12 @@ Public Class frmSetWriteOnly
             End If
 
             Dim strInventorDocumentFileName As String
-            strInventorDocumentFileName = GetFileNameInfo(oInventorDocumentFullFileName).SigleName
+            strInventorDocumentFileName = GetFileNameInfo(oInventorDocumentFullFileName).FileName
 
             Dim strInventorDrawingFullFileName As String
             strInventorDrawingFullFileName = GetChangeExtension(oInventorDocumentFullFileName, IDW)
             Dim strInventorDrawingFileName As String
-            strInventorDrawingFileName = GetFileNameInfo(strInventorDrawingFullFileName).SigleName
+            strInventorDrawingFileName = GetFileNameInfo(strInventorDrawingFullFileName).FileName
 
 
             Dim oListViewItem As ListViewItem
@@ -164,13 +165,14 @@ Public Class frmSetWriteOnly
 
 
                 oListViewItem = lvw文件列表.Items.Add(strInventorDocumentFileName)
+                oListViewItem.Checked = True
 
                 With oListViewItem
 
                     If GetFileReadOnly(oInventorDocumentFullFileName) = True Then
-                        .SubItems.Add("True")
+                        .SubItems.Add("只读")
                     Else
-                        .SubItems.Add("False")
+                        .SubItems.Add("可写")
                     End If
 
                     .SubItems.Add(oInventorDocumentFullFileName)
@@ -178,9 +180,9 @@ Public Class frmSetWriteOnly
                     If IsFileExsts(strInventorDrawingFullFileName) = True Then
                         .SubItems.Add(strInventorDrawingFileName)
                         If GetFileReadOnly(strInventorDrawingFullFileName) = True Then
-                            .SubItems.Add("True")
+                            .SubItems.Add("只读")
                         Else
-                            .SubItems.Add("False")
+                            .SubItems.Add("可写")
                         End If
 
                         .SubItems.Add(strInventorDrawingFullFileName)

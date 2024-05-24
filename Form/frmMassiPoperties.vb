@@ -22,21 +22,20 @@ Public Class frmMassiPoperties
 
         '获取最大PropID
         For Each oProperty As Inventor.Property In oUserPropertySet
-            If oProperty.PropId > PropID Then
+            if oProperty.PropId > PropID Then
                 PropID = oProperty.PropId
-            End If
+            End if
         Next
 
         '可接受的PropID范围是: 2 ~ 254 , 256 ~ 0x80000000
-        If PropID < 2 Then
+        if PropID < 2 Then
             PropID = 2
-        End If
+        End if
     End Sub
 
     '量产开始
-    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
-        'Dim thisApprenticeApp = New Inventor.ApprenticeServerComponent()
-        'Dim thisApprenticeDoc As Inventor.ApprenticeServerDocument
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+
         Dim oInventorDocDocument As Inventor.Document
 
         For Each oInventorDocDocument In ThisApplication.Documents
@@ -46,12 +45,12 @@ Public Class frmMassiPoperties
             End Select
         Next
 
-        If lst文件列表.Items.Count = 0 Then
+        if lst文件列表.Items.Count = 0 Then
             MsgBox("未有打开的工程图文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "量产")
             Exit Sub
-        End If
+        End if
 
-        btn开始.Enabled = False
+        btn确定.Enabled = False
         'ThisApplication.Cursor  = Cursors.WaitCursor
 
         Select Case tab1.SelectedIndex
@@ -76,10 +75,10 @@ Public Class frmMassiPoperties
 
                     '遍历选项卡下的每个单项目
                     For Each oProperty As Inventor.Property In oPropertySet
-                        If oProperty.DisplayName = cmb项目名.Text Then
+                        if oProperty.DisplayName = cbo项目名.Text Then
                             '项目名对应，设置数据
                             oProperty.Value = txt数据.Text.ToString
-                        End If
+                        End if
                     Next
 
                     '保存到文件
@@ -91,10 +90,10 @@ Public Class frmMassiPoperties
 
             Case 1
 
-                If txt特性名.Text = "" Then
+                if txt特性名.Text = "" Then
                     MsgBox("请输入新特性的名字！")
                     Exit Sub
-                End If
+                End if
 
                 For i = 0 To lst文件列表.Items.Count - 1
                     lst文件列表.SelectedIndex = i
@@ -151,7 +150,7 @@ Public Class frmMassiPoperties
 
         End Select
 
-        btn开始.Enabled = True
+        btn确定.Enabled = True
         'ThisApplication.Cursor  = Cursors.Default
         MsgBox("量产工程图文件完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "量产")
 
@@ -163,7 +162,7 @@ Public Class frmMassiPoperties
     End Sub
 
     Private Sub frmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        cmb项目名.Text = EngineerName
+        cbo项目名.Text = EngineerName
         rdo字符串.Checked = True
     End Sub
 
@@ -192,14 +191,14 @@ Public Class frmMassiPoperties
             .Filter = "AutoCAD Inventor 文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt" '添加过滤文件
             .Title = "打开"
             .Multiselect = True '多开文件打开
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
                     For Each strFullFileName As String In .FileNames
                         lst文件列表.Items.Add(strFullFileName)
                     Next
 
-                End If
-            End If
+                End if
+            End if
         End With
     End Sub
 

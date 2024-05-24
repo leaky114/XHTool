@@ -19,160 +19,6 @@ Imports System.Windows.Forms
 
 Module InventorBasic
 
-    Public Structure StockNumPartName
-        Dim IsGet As Boolean
-        Dim StockNum As String    '
-        Dim PartName As String      '
-        Dim ERPCode As String       '
-    End Structure
-
-    Public Structure BalloonDate
-        Dim Balloon As Balloon
-        Dim Position As Point2d
-    End Structure
-
-    Public ThisApplication As Inventor.Application
-
-    'Public ThisApprenticeApp As Inventor.ApprenticeServerComponent   '学徒服务器
-
-    Public WithEvents ThisApplicationEvents As ApplicationEvents
-
-    Public ClientID As String
-
-    Public DWG As String = ".dwg"
-    Public IAM As String = ".iam"
-    Public IPT As String = ".ipt"
-    Public IDW As String = ".idw"
-    Public OLD As String = ".old"
-    Public PDF As String = ".pdf"
-    Public STP As String = ".stp"
-
-    Public ContentCenterFiles As String  '零件库文件夹
-
-    Public DisplayVersion As String
-
-    Public IsAutoSetPartName As Boolean  'true 为进行中，false则退出进程
-
-    Public Map_DrawingNnumber As String   '映射图号
-    Public Map_PartName As String   '映射文件名
-    Public Map_ERPCode As String    '映射存货编码
-    Public Map_Describe As String = "描述"     '映射描述
-
-    Public Map_Mir_StochNum As String   '映射对称件图号
-    Public Map_Mir_PartName As String   '映射对称件文件名
-
-    Public Map_DrawingScale As String '映射比例
-    Public Map_Mass As String '映射质量
-
-    Public Map_PrintDay As String '映射打印时间
-    Public IsOpenPrint As String    '设置打印时间后是否进入打印预览
-    Public IsDayAndName As String   '同时签字
-
-    Public EngineerName As String '工程师
-
-    Public Map_Vendor As String '供应商
-
-    Public BOMTiTle As String       '导出BOM用的项目
-
-    Public Mass_Accuracy As String '质量精度
-    Public Area_Accuracy As String  '面积精度
-
-    Public IsSetDrawingScale As String    '打开工程图时是否写 比例 到ipro   是赋值为1
-    Public IsSetMass As String   '打开工程图时是否写 质量 到ipro  是赋值为1
-
-    Public CheckUpdate As String    '启动检查更新
-
-    Public TotalItem As Integer 'BOM序号
-
-    Public OPosition(9) As Point   '点
-    Public TempPoint(9) As SketchPoint   '临时绘制的点
-
-    Public IsShowUpdateMsg As Boolean    '检查更新时是否显示是最新版本的msgbox
-
-    '默认打印设值
-    Public Printer As String   '默认打印机
-
-    Public IsPaperA3 As Integer   '1：匹配A3纸，0：按原图纸大小打印
-    Public IsSign As Integer       '1：签字，0：不签字
-    Public SaveAsDawAndPdf As String
-
-    '标题栏模板
-    Public TitleBlockIdwDoc As String
-
-    '批量打印设置
-    Public PrintSetting As String
-
-    '快速打开选择的文件
-    Public strQuitOpenSelectFileFullName As String
-
-    '声明并初始化变量
-    Public _ListViewSorter As clsListViewSorter.EnumSortOrder = clsListViewSorter.EnumSortOrder.Ascending
-
-
-
-    '-------------------------------------------------------------------------------------------------------
-
-    '保存文件时的事件
-    'Public Sub ThisApplicationEvents_OnOnSaveDocument(ByVal DocumentObject As Inventor._Document, _
-    '                                                ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-    '                                                 ByVal Context As Inventor.NameValueMap, _
-    '                                                 ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnSaveDocument
-
-    'End Sub
-
-    '打开文件时的事件
-    Public Sub ThisApplicationEvents_OnOpenDocument(ByVal oInventorDocument As Inventor.Document, _
-                                    ByVal FullDocumentName As String, _
-                                   ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-                                  ByVal Context As Inventor.NameValueMap, _
-                                  ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnOpenDocument
-
-
-        '视图全部缩放，这个功能有问题，取消
-        'ThisApplication.CommandManager.ControlDefinitions.Item("AppZoomAllCmd").Execute()
-
-
-        '当打开文件为工程图()
-        If oInventorDocument.DocumentType = kDrawingDocumentObject Then
-            '写入主视图比例
-            'If IsSetDrawingScale = 1 Then
-            SetDrawingScale(oInventorDocument)
-            'End If
-
-            '写入零部件质量
-            'If IsSetMass = 1 Then
-            SetMass(oInventorDocument)
-            'End If
-        End If
-
-
-    End Sub
-
-    '激活一个文档时的事件
-    Public Sub ThisApplicationEvents_OnActivateDocument(ByVal oInventorDocument As Inventor.Document, _
-                                                        ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-                                                        ByVal Context As Inventor.NameValueMap, _
-                                                        ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnActivateDocument
-
-        '在标题栏中显示当前文档路径()
-        ThisApplication.Caption = GetFileNameInfo(oInventorDocument.FullDocumentName).Folder & "\"
-
-
-        '获取文件只读属性
-        Dim oDef1 As ButtonDefinition
-        oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("InName文件只读")
-
-        oDef1.Pressed = GetFileReadOnly(oInventorDocument.FullDocumentName)
-    End Sub
-
-
-
-
-
-
-
-
-
     '-------------------------------------------------------------------------------
     Public Sub SetStatusBarText(Optional ByVal StatusBarText As String = "就绪")
         ThisApplication.StatusBarText = StatusBarText
@@ -348,6 +194,13 @@ Module InventorBasic
                 .ShowNewFolderButton = False
                 .Description = "选择文件夹"
                 .RootFolder = System.Environment.SpecialFolder.Desktop
+
+                Dim WorkSpaceFloder As String
+                WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+                If IsDirectoryExists(WorkSpaceFloder) = True Then
+                    .SelectedPath = WorkSpaceFloder
+                End If
+
                 If .ShowDialog = DialogResult.OK Then
                     strDestinationDirectory = .SelectedPath
                 Else
@@ -355,9 +208,9 @@ Module InventorBasic
                 End If
             End With
 
-            'If DestinationDirectory = "" Then
+            'if DestinationDirectory = "" Then
             '    Exit Sub
-            'End If
+            'End if
 
             Dim intDeleteRecycleOption As Integer
             Select Case MsgBox("是否永久删除旧文件，而不是移动到回收站？", MsgBoxStyle.DefaultButton2 + MsgBoxStyle.Question + MsgBoxStyle.YesNo, "删除文件")
@@ -436,16 +289,16 @@ Module InventorBasic
         For Each propitem In oPropertySet    '设置iproperty
             Select Case propitem.DisplayName
                 Case Map_PartName
-                    If oStockNumPartName.PartName <> "" Then
-                        propitem.Value = oStockNumPartName.PartName
+                    If oStockNumPartName.零件名称 <> "" Then
+                        propitem.Value = oStockNumPartName.零件名称
                     End If
                 Case Map_DrawingNnumber
-                    If oStockNumPartName.StockNum <> "" Then
-                        propitem.Value = oStockNumPartName.StockNum
+                    If oStockNumPartName.图号 <> "" Then
+                        propitem.Value = oStockNumPartName.图号
                     End If
                 Case Map_ERPCode
-                    If oStockNumPartName.ERPCode <> "" Then
-                        propitem.Value = oStockNumPartName.ERPCode
+                    If oStockNumPartName.ERP编码 <> "" Then
+                        propitem.Value = oStockNumPartName.ERP编码
                     End If
                 Case "描述"
                     ' propitem.Value = ""
@@ -621,19 +474,19 @@ Module InventorBasic
         'Do
         '    s = Mid(FileName, i, 1)
         '    i = i + 1
-        '    If s = "" Then
+        '    if s = "" Then
         '        Exit Do
-        '    End If
+        '    End if
         'Loop Until (CheckCharType(s) = "Unicode字符")
 
         ''判断图号情况
         'Select Case True       '第一个字符为汉字
         '    Case i = 2
         '        BasicNumber = InputBox("部件 " & FullFileName & "  无图号，输入图号", "输入图号", "")
-        '        If BasicNumber.ToString = "" Then
+        '        if BasicNumber.ToString = "" Then
         '            Return False
         '            Exit Function
-        '        End If
+        '        End if
         '    Case s = ""  '无汉字
         '        BasicNumber = GetFileNameInfo(FullFileName).ONlyName
         '    Case Else       '正常情况
@@ -648,7 +501,7 @@ Module InventorBasic
             Return False
         End If
         '基本图号
-        strBasicNumber = oStockNumPartName.StockNum
+        strBasicNumber = oStockNumPartName.图号
 
         Dim intPartNumberStep As Integer   '零件图号变化步长
         Dim intAssNumberStep As Integer    '部件图号变化步长
@@ -666,16 +519,16 @@ Module InventorBasic
         End If
 
         'intAssNumberStep = Convert.ToInt16(InputBox("输入部件文件的编号变化，部件XXX-0000000 下第一个部件为XXX-0000100 则 输入 100 "))
-        'If intAssNumberStep = 0 Then
+        'if intAssNumberStep = 0 Then
         '    Return False
         '    Exit Function
-        'End If
+        'End if
 
         'intPartNumberStep = Convert.ToInt16(InputBox("输入零件文件的编号变化，部件XXX-0000000 下第一个零件为XXX-0000001 则 输入 1 "))
-        'If intPartNumberStep = 0 Then
+        'if intPartNumberStep = 0 Then
         '    Return False
         '    Exit Function
-        'End If
+        'End if
 
         '重命名还是续命名
         Dim PartNumberItem As Integer     '第几个零件文件
@@ -752,7 +605,7 @@ Module InventorBasic
 
             '如果旧文件目录下有一个文件名相同的已有零件号的文件，是否替换或者重新命名当前文件
             For Each FoundFile As String In My.Computer.FileSystem.GetFiles(oOldFileNameInfo.Folder, FileIO.SearchOption.SearchTopLevelOnly) ' OldFileInfo.ExtensionName)
-                If InStr(GetFileNameInfo(FoundFile).SigleName, oOldFileNameInfo.SigleName) > 1 Then  '存在一个已命名图号的文件
+                If InStr(GetFileNameInfo(FoundFile).FileName, oOldFileNameInfo.FileName) > 1 Then  '存在一个已命名图号的文件
                     Select Case MsgBox("存在一个已命名图号的文件：" & FoundFile & " ，是-直接替换  否-重新生成替换 ", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1)
                         Case MsgBoxResult.Yes   '替换文件
                             oOldComponentOccurrence.Replace(FoundFile, True)
@@ -938,11 +791,11 @@ Module InventorBasic
         For Each propitem In oPropertySet
             Select Case propitem.DisplayName
                 Case Map_PartName
-                    oStockNumPartName.PartName = propitem.Value
+                    oStockNumPartName.零件名称 = propitem.Value
                 Case Map_DrawingNnumber
-                    oStockNumPartName.StockNum = propitem.Value
+                    oStockNumPartName.图号 = propitem.Value
                 Case Map_ERPCode
-                    oStockNumPartName.ERPCode = propitem.Value
+                    oStockNumPartName.ERP编码 = propitem.Value
             End Select
         Next
 
@@ -964,11 +817,11 @@ Module InventorBasic
         For Each propitem In oPropertySet
             Select Case propitem.DisplayName
                 Case Map_PartName
-                    propitem.Value = oStockNumPartName.PartName
+                    propitem.Value = oStockNumPartName.零件名称
                 Case Map_DrawingNnumber
-                    propitem.Value = oStockNumPartName.StockNum
+                    propitem.Value = oStockNumPartName.图号
                 Case Map_ERPCode
-                    propitem.Value = oStockNumPartName.ERPCode
+                    propitem.Value = oStockNumPartName.ERP编码
             End Select
         Next
 
@@ -1029,15 +882,15 @@ Module InventorBasic
         On Error Resume Next
         SetStatusBarText()
 
-        'If IsInventorOpenDocument() = False Then
+        'if IsInventorOpenDocument() = False Then
         '    Exit Sub
-        'End If
+        'End if
 
-        'If ThisApplication.ActiveDocument.DocumentType = kDrawingDocumentObject Then
+        'if ThisApplication.ActiveDocument.DocumentType = kDrawingDocumentObject Then
         '    MsgBox("该功能仅适用于部件或零件", MsgBoxStyle.Information)
         '    'Return False
         '    Exit Sub
-        'End If
+        'End if
 
         Dim strInventorFullFileName As String   '模型文件
         strInventorFullFileName = oInventorDocument.FullDocumentName
@@ -1052,7 +905,7 @@ Module InventorBasic
             ThisApplication.Documents.Open(strDrawingFullFileName)
         Else
             '当前文件夹返回3层父文件夹找
-            strDrawingFullFileName = SearchDrawingDocumentInPresentFolder(oInventorDocument.FullDocumentName, 3, IDW)
+            strDrawingFullFileName = SearchDocumentInPresentDirectory(oInventorDocument.FullDocumentName, Val(str查找文件夹层数), IDW)
 
             If strDrawingFullFileName = "NULL" Then
 
@@ -1062,14 +915,14 @@ Module InventorBasic
 
                 Dim strFileName As String
                 strDrawingFullFileName = GetChangeExtension(strInventorFullFileName, IDW)
-                strFileName = GetFileNameInfo(strDrawingFullFileName).SigleName
+                strFileName = GetFileNameInfo(strDrawingFullFileName).FileName
 
                 Dim arrFullFileName As String()
                 arrFullFileName = Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
 
                 If arrFullFileName.Length = 0 Then
                     If MsgBox(strInventorFullFileName & "没有对应的工程图，是否查找AutoCad文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
-                        strDrawingFullFileName = SearchDrawingDocumentInPresentFolder(oInventorDocument.FullDocumentName, 3, DWG)
+                        strDrawingFullFileName = SearchDocumentInPresentDirectory(oInventorDocument.FullDocumentName, Val(str查找文件夹层数), DWG)
                         If strDrawingFullFileName = "NULL" Then
                             MsgBox(strInventorFullFileName & "没有对应的AutoCad文件！", MsgBoxStyle.Information)
                         Else
@@ -1091,57 +944,39 @@ Module InventorBasic
 
     End Sub
 
-    '到父文件夹查询工程图  ，inventor 文档 ，向上查询的层级
-    Public Function SearchDrawingDocumentInPresentFolder(ByVal strFullFileName As String, _
+    '到父文件夹查询文件  ，原文档 ，向上查询的层级，对应的扩展名
+    Public Function SearchDocumentInPresentDirectory(ByVal strFullFileName As String, _
                                                          ByVal intPresidentLevel As Integer, _
                                                          ByVal strExtension As String) As String
         On Error Resume Next
 
-        Dim strPrsentFolder As String   '父文件夹
-        'Dim strInventorFullFileName As String   '模型文件全名
-        Dim strInventorFileName As String   '模型文件名
-        'Dim strDrawingFullFileName As String  '工程图全文件名
-        Dim strDrawingFileName As String '工程图名
+        Dim strPrsentDirectory As String   '父文件夹
+        Dim strInventorFileName As String   '文件名
+        Dim strFileNameWithNewExtensionName As String '对应的变更扩展名后的文件名
         Dim i As Integer
 
         'strInventorFullFileName = oInventorDocument.FullDocumentName
-        strInventorFileName = GetSingleName(strFullFileName)
+        strInventorFileName = GetFileName2(strFullFileName)
 
-        strDrawingFileName = GetOnlyname(strFullFileName) & strExtension
+        strFileNameWithNewExtensionName = GetFileNameWithoutExtension2(strFullFileName) & strExtension
 
         i = 0
 
-        strPrsentFolder = System.IO.Directory.GetParent(strFullFileName).FullName
-        Do
-            If IsDirectoryExists(strPrsentFolder) = True Then
-                strPrsentFolder = System.IO.Directory.GetParent(strPrsentFolder).FullName
-                i = i + 1
-            Else
-                Exit Do
-            End If
-        Loop While (i <> intPresidentLevel)
+        strPrsentDirectory = System.IO.Directory.GetParent(strFullFileName).FullName
 
-        Dim arrFiles As ReadOnlyCollection(Of String)
-        arrFiles = My.Computer.FileSystem.GetFiles(strPrsentFolder, FileIO.SearchOption.SearchAllSubDirectories, strDrawingFileName)
+        'Dim startingDirectory As String = "C:\Pathto\A" ' 替换为你的起始目录路径
+        'Dim fileName As String = "B.txt" ' 替换为你要查找的文件名
+        'Dim maxLevels As Integer = 3 ' 替换为最大向上查找的层数
+        Dim strFindFile As String = FindFile(strPrsentDirectory, strFileNameWithNewExtensionName, Val(str查找文件夹层数))
 
-        If arrFiles Is Nothing Then
+        If strFindFile IsNot Nothing Then
+            Return strFindFile
+        Else
             Return "NULL"
         End If
 
-        If arrFiles.Count = 0 Then
-            Return "NULL"
-        End If
-
-        For Each strDrawingFullFileName As String In arrFiles
-            If IsFileExsts(strDrawingFullFileName) = True Then
-                Return strDrawingFullFileName
-                Exit For
-            End If
-        Next
 
     End Function
-
-   
 
     '关闭指定文件名的文档
     Public Sub CloseFile(ByVal FileFullName As String)
@@ -1183,14 +1018,69 @@ Module InventorBasic
         oDef1.Pressed = oDef1.Pressed Xor True
         SetFileReadOnly(strInventorDocumentFullDocumentName, oDef1.Pressed)
 
-        'If oDef1.Pressed = True Then
+        'if oDef1.Pressed = True Then
         '    SetFileReadOnly(strInventorDocumentFullDocumentName, False)
         '    oDef1.Pressed = False
         'Else
         '    SetFileReadOnly(strInventorDocumentFullDocumentName, True)
         '    oDef1.Pressed = True
-        'End If
+        'End if
 
     End Sub
 
+    Public Sub OpenFilesWithFileList()
+
+        Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
+        Dim strListFile As String = Nothing
+
+        With oOpenFileDialog
+            .Title = "打开"
+            .Filter = "文本文件(*.txt)|*.txt" '添加过滤文件
+            .Multiselect = False
+            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                If .FileName <> "" Then '如果有选中文件
+                    strListFile = .FileName
+                End If
+            End If
+        End With
+
+        Dim WorkSpaceFloder As String
+        WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+
+        Dim arrFullFileName As String()
+
+        Using sr As StreamReader = New StreamReader(strListFile)
+            Dim strFileName As String
+            While Not sr.EndOfStream
+                strFileName = sr.ReadLine()
+
+                'strFileName = "*" & strFileName & "*"
+
+                arrFullFileName = IO.Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
+
+                If arrFullFileName.Length <> 0 Then
+
+                    For Each strFullFileName As String In arrFullFileName
+
+                        '旧版文件就退出，查询下一个文件 
+                        If InStr(strFullFileName, "OldVersions") <> 0 Then
+                            Exit For
+                        End If
+
+                        'If (LCaseGetFileExtension(strFullFileName) = IPT Or LCaseGetFileExtension(strFullFileName) = IAM) Then
+                        ThisApplication.Documents.Open(strFullFileName)
+                        'End If
+                    Next
+
+
+
+                End If
+
+
+            End While
+        End Using
+
+        MsgBox("按列表打开文件完成。", MsgBoxStyle.Information)
+
+    End Sub
 End Module

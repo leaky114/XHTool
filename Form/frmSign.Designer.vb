@@ -6,9 +6,9 @@ Partial Class frmSign
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -37,7 +37,7 @@ Partial Class frmSign
         Me.btn确定.Location = New System.Drawing.Point(74, 109)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(65, 25)
-        Me.btn确定.TabIndex = 0
+        Me.btn确定.TabIndex = 3
         Me.btn确定.Text = "确定"
         '
         'btn关闭
@@ -47,7 +47,7 @@ Partial Class frmSign
         Me.btn关闭.Location = New System.Drawing.Point(147, 109)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 25)
-        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.TabIndex = 4
         Me.btn关闭.Text = "取消"
         '
         'lbl工程师
@@ -73,14 +73,14 @@ Partial Class frmSign
         Me.txt工程师.Location = New System.Drawing.Point(67, 5)
         Me.txt工程师.Name = "txt工程师"
         Me.txt工程师.Size = New System.Drawing.Size(136, 21)
-        Me.txt工程师.TabIndex = 3
+        Me.txt工程师.TabIndex = 0
         '
         'dtp日期
         '
         Me.dtp日期.Location = New System.Drawing.Point(64, 35)
         Me.dtp日期.Name = "dtp日期"
         Me.dtp日期.Size = New System.Drawing.Size(139, 21)
-        Me.dtp日期.TabIndex = 4
+        Me.dtp日期.TabIndex = 1
         '
         'chk签字后打印
         '
@@ -88,7 +88,7 @@ Partial Class frmSign
         Me.chk签字后打印.Location = New System.Drawing.Point(12, 72)
         Me.chk签字后打印.Name = "chk签字后打印"
         Me.chk签字后打印.Size = New System.Drawing.Size(84, 16)
-        Me.chk签字后打印.TabIndex = 5
+        Me.chk签字后打印.TabIndex = 2
         Me.chk签字后打印.Text = "签字后打印"
         Me.chk签字后打印.UseVisualStyleBackColor = True
         '

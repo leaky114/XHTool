@@ -6,9 +6,9 @@ Partial Class frmImportCodeToIam
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -34,6 +34,7 @@ Partial Class frmImportCodeToIam
         Me.ToolStrip设置为看板件 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip设置为外购件 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip设置为外协件 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip清空供应商 = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.btn查询 = New System.Windows.Forms.Button()
         Me.btn写入 = New System.Windows.Forms.Button()
@@ -58,7 +59,8 @@ Partial Class frmImportCodeToIam
         Me.lvw文件列表.Name = "lvw文件列表"
         Me.lvw文件列表.Size = New System.Drawing.Size(799, 357)
         Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvw文件列表.TabIndex = 0
+        Me.lvw文件列表.TabIndex = 7
+        Me.lvw文件列表.TabStop = False
         Me.lvw文件列表.UseCompatibleStateImageBehavior = False
         Me.lvw文件列表.View = System.Windows.Forms.View.Details
         '
@@ -88,9 +90,9 @@ Partial Class frmImportCodeToIam
         '
         'ContextMenuStrip右键菜单
         '
-        Me.ContextMenuStrip右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStrip设置为标准件, Me.ToolStrip设置为看板件, Me.ToolStrip设置为外购件, Me.ToolStrip设置为外协件})
+        Me.ContextMenuStrip右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStrip设置为标准件, Me.ToolStrip设置为看板件, Me.ToolStrip设置为外购件, Me.ToolStrip设置为外协件, Me.ToolStrip清空供应商})
         Me.ContextMenuStrip右键菜单.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip右键菜单.Size = New System.Drawing.Size(149, 92)
+        Me.ContextMenuStrip右键菜单.Size = New System.Drawing.Size(149, 114)
         '
         'ToolStrip设置为标准件
         '
@@ -116,33 +118,39 @@ Partial Class frmImportCodeToIam
         Me.ToolStrip设置为外协件.Size = New System.Drawing.Size(148, 22)
         Me.ToolStrip设置为外协件.Text = "设置为外协件"
         '
+        'ToolStrip清空供应商
+        '
+        Me.ToolStrip清空供应商.Name = "ToolStrip清空供应商"
+        Me.ToolStrip清空供应商.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip清空供应商.Text = "清空供应商"
+        '
         'btn关闭
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.AutoSize = True
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(740, 386)
+        Me.btn关闭.Location = New System.Drawing.Point(740, 387)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(69, 28)
-        Me.btn关闭.TabIndex = 32
+        Me.btn关闭.TabIndex = 6
         Me.btn关闭.Text = "关闭"
         '
         'btn查询
         '
         Me.btn查询.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn查询.Location = New System.Drawing.Point(586, 386)
+        Me.btn查询.Location = New System.Drawing.Point(586, 387)
         Me.btn查询.Name = "btn查询"
         Me.btn查询.Size = New System.Drawing.Size(69, 28)
-        Me.btn查询.TabIndex = 31
+        Me.btn查询.TabIndex = 1
         Me.btn查询.Text = "查询"
         '
         'btn写入
         '
         Me.btn写入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn写入.Location = New System.Drawing.Point(663, 386)
+        Me.btn写入.Location = New System.Drawing.Point(663, 387)
         Me.btn写入.Name = "btn写入"
         Me.btn写入.Size = New System.Drawing.Size(69, 28)
-        Me.btn写入.TabIndex = 34
+        Me.btn写入.TabIndex = 2
         Me.btn写入.Text = "写入"
         Me.btn写入.UseVisualStyleBackColor = True
         '
@@ -158,20 +166,20 @@ Partial Class frmImportCodeToIam
         'btn装载
         '
         Me.btn装载.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn装载.Location = New System.Drawing.Point(509, 386)
+        Me.btn装载.Location = New System.Drawing.Point(509, 387)
         Me.btn装载.Name = "btn装载"
         Me.btn装载.Size = New System.Drawing.Size(69, 28)
-        Me.btn装载.TabIndex = 36
+        Me.btn装载.TabIndex = 0
         Me.btn装载.Text = "装载"
         '
         'chk展开子级
         '
         Me.chk展开子级.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chk展开子级.AutoSize = True
-        Me.chk展开子级.Location = New System.Drawing.Point(429, 392)
+        Me.chk展开子级.Location = New System.Drawing.Point(429, 393)
         Me.chk展开子级.Name = "chk展开子级"
         Me.chk展开子级.Size = New System.Drawing.Size(72, 16)
-        Me.chk展开子级.TabIndex = 38
+        Me.chk展开子级.TabIndex = 5
         Me.chk展开子级.Text = "展开子级"
         Me.chk展开子级.UseVisualStyleBackColor = True
         '
@@ -179,10 +187,10 @@ Partial Class frmImportCodeToIam
         '
         Me.chk提示选择.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chk提示选择.AutoSize = True
-        Me.chk提示选择.Location = New System.Drawing.Point(264, 392)
+        Me.chk提示选择.Location = New System.Drawing.Point(264, 393)
         Me.chk提示选择.Name = "chk提示选择"
         Me.chk提示选择.Size = New System.Drawing.Size(72, 16)
-        Me.chk提示选择.TabIndex = 39
+        Me.chk提示选择.TabIndex = 3
         Me.chk提示选择.Text = "提示选择"
         Me.chk提示选择.UseVisualStyleBackColor = True
         '
@@ -190,10 +198,10 @@ Partial Class frmImportCodeToIam
         '
         Me.chk展开外协.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chk展开外协.AutoSize = True
-        Me.chk展开外协.Location = New System.Drawing.Point(346, 392)
+        Me.chk展开外协.Location = New System.Drawing.Point(346, 393)
         Me.chk展开外协.Name = "chk展开外协"
         Me.chk展开外协.Size = New System.Drawing.Size(72, 16)
-        Me.chk展开外协.TabIndex = 40
+        Me.chk展开外协.TabIndex = 4
         Me.chk展开外协.Text = "展开外协"
         Me.chk展开外协.UseVisualStyleBackColor = True
         '
@@ -243,4 +251,5 @@ Partial Class frmImportCodeToIam
     Friend WithEvents ToolStrip设置为外协件 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip设置为标准件 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip设置为看板件 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStrip清空供应商 As System.Windows.Forms.ToolStripMenuItem
 End Class

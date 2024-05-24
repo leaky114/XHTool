@@ -10,33 +10,13 @@ Public Class frmUpdate
     Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click
-        Dim simupdate As String
-
-        Dim DisplayVersion As String
-        DisplayVersion = ThisApplication.SoftwareVersion.DisplayVersion
-
-        Dim UpdateDownloadUrl As String
-        Dim UpdateInfoFileName As String = "Update.xml"
-        UpdateDownloadUrl = "\\likai-pc\发行版\更新包\" & DisplayVersion & "\{0}"
-
-        Dim UpdateParameter As String
-        UpdateParameter = UpdateDownloadUrl & " " & UpdateInfoFileName
-
-        simupdate = My.Application.Info.DirectoryPath & "\simupdater.exe"
-        If IsFileExsts(simupdate) = True Then
-            Process.Start(simupdate, "\\likai-pc\发行版\更新包\2011\{0} update.xml")
-        Else
-            MsgBox("缺失升级程序 simupdater.exe，请到本软件仓库下载。", MsgBoxStyle.OkOnly, "检查更新")
-            Process.Start(GitWeb)
-        End If
-
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+       
     End Sub
 
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Close()
+
     End Sub
 
     Private Sub frmUpdate_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -48,19 +28,14 @@ Public Class frmUpdate
                     chk检查更新.Checked = True
             End Select
 
-            Dim fileReader As System.IO.StreamReader
-            fileReader = My.Computer.FileSystem.OpenTextFileReader(InNewVison)
-            Dim NewVersion As String = Nothing
-            NewVersion = fileReader.ReadLine()
-            fileReader.Close()
-
-            'MsgBox(NewVersion)
 
             Dim MyVersion As String = _
             My.Application.Info.Version.Major & "." & _
             My.Application.Info.Version.Minor & "." & _
             Format(My.Application.Info.Version.Build, "00") & "." & _
            Format(My.Application.Info.Version.Revision, "00")
+
+
 
             'MsgBox(MyVersion)
 
@@ -99,15 +74,4 @@ Public Class frmUpdate
         End Try
     End Sub
 
-    Private Sub chk检查更新_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chk检查更新.CheckedChanged
-        '启动检查更新
-        Select Case chk检查更新.Checked
-            Case False
-                CheckUpdate = "-1"
-            Case True
-                CheckUpdate = "1"
-        End Select
-
-        My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\InventorTool", "CheckUpdate", CheckUpdate)
-    End Sub
 End Class

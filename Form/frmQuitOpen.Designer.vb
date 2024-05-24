@@ -6,9 +6,9 @@ Partial Class frmQuitOpen
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -31,10 +31,10 @@ Partial Class frmQuitOpen
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(856, 266)
+        Me.btn关闭.Location = New System.Drawing.Point(679, 224)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(75, 28)
-        Me.btn关闭.TabIndex = 3
+        Me.btn关闭.TabIndex = 0
         Me.btn关闭.Text = "关闭"
         '
         'lvw文件列表
@@ -49,7 +49,7 @@ Partial Class frmQuitOpen
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.lvw文件列表.MultiSelect = False
         Me.lvw文件列表.Name = "lvw文件列表"
-        Me.lvw文件列表.Size = New System.Drawing.Size(919, 236)
+        Me.lvw文件列表.Size = New System.Drawing.Size(742, 194)
         Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvw文件列表.TabIndex = 37
         Me.lvw文件列表.UseCompatibleStateImageBehavior = False
@@ -58,14 +58,14 @@ Partial Class frmQuitOpen
         'ColumnHeader文件名
         '
         Me.ColumnHeader文件名.Text = "文件名(双击打开)"
-        Me.ColumnHeader文件名.Width = 900
+        Me.ColumnHeader文件名.Width = 700
         '
         'frmQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(943, 306)
+        Me.ClientSize = New System.Drawing.Size(766, 264)
         Me.Controls.Add(Me.lvw文件列表)
         Me.Controls.Add(Me.btn关闭)
         Me.MaximizeBox = False

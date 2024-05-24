@@ -45,106 +45,123 @@ Module StringsModel
         Do
             strChr = Mid(FileName, i, 1)
             i = i + 1
-            If strChr = "" Then
+            if strChr = "" Then
                 Exit Do
-            End If
+            End if
         Loop Until (CheckCharType(strChr) = "Unicode字符")
 
         '判断图号情况
         Select Case True       '第一个字符为汉字
             Case i = 2
                 GetStockNumPartName.IsGet = False
-                GetStockNumPartName.StockNum = ""
-                GetStockNumPartName.PartName = Strings.Trim(FileName)
-                GetStockNumPartName.ERPCode = ""
+                GetStockNumPartName.图号 = ""
+                GetStockNumPartName.零件名称 = Strings.Trim(FileName)
+                GetStockNumPartName.ERP编码 = ""
+                GetStockNumPartName.价格 = ""
                 'MsgBox(FullFileName & "  无图号！", MsgBoxStyle.Information)
             Case strChr = ""  '无汉字
                 GetStockNumPartName.IsGet = False
-                GetStockNumPartName.StockNum = Strings.Trim(FileName)
-                GetStockNumPartName.PartName = ""
-                GetStockNumPartName.ERPCode = ""
+                GetStockNumPartName.图号 = Strings.Trim(FileName)
+                GetStockNumPartName.零件名称 = ""
+                GetStockNumPartName.ERP编码 = ""
+                GetStockNumPartName.价格 = ""
                 'MsgBox(FullFileName & "  无零件名！", MsgBoxStyle.Information)
             Case Else       '正常情况
                 GetStockNumPartName.IsGet = True
-                GetStockNumPartName.StockNum = Strings.Trim(Left(FileName, i - 2))
-                GetStockNumPartName.PartName = Strings.Trim(Mid(FileName, i - 1, Len(FileName) - i + 2))
-                GetStockNumPartName.ERPCode = ""
+                GetStockNumPartName.图号 = Strings.Trim(Left(FileName, i - 2))
+                GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, i - 1, Len(FileName) - i + 2))
+                GetStockNumPartName.ERP编码 = ""
+                GetStockNumPartName.价格 = ""
         End Select
 
     End Function
 
     Public Function GetNumbers(ByVal strp As String) As String
         Dim strReturn As String = String.Empty
-        If strp Is Nothing OrElse strp.Trim() = "" Then
+        if strp Is Nothing OrElse strp.Trim() = "" Then
             strReturn = ""
-        End If
+        End if
         For Each chrTemp As Char In strp
-            If [Char].IsNumber(chrTemp) Then
+            if [Char].IsNumber(chrTemp) Then
                 strReturn += chrTemp.ToString()
-            End If
+            End if
         Next
         Return strReturn
     End Function
 
     'ListView上移
     Public Sub ListViewUp(ByVal oListView As ListView)
-        If oListView.SelectedItems.Count > 0 Then
+        if oListView.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = oListView.SelectedItems(0)
             Dim selectedIndex As Integer = oListView.Items.IndexOf(selectedItem)
 
-            If selectedIndex > 0 Then
+            if selectedIndex > 0 Then
+                oListView.BeginUpdate()
+
                 oListView.Items.RemoveAt(selectedIndex)
                 oListView.Items.Insert(selectedIndex - 1, selectedItem)
+
+                oListView.EndUpdate()
+
                 oListView.Items(selectedIndex - 1).Selected = True
-            End If
-        End If
+
+
+            End if
+        End if
 
     End Sub
 
     'ListView下移
     Public Sub ListViewDown(ByVal oListView As ListView)
-        If oListView.SelectedItems.Count > 0 Then
+        if oListView.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = oListView.SelectedItems(0)
             Dim selectedIndex As Integer = oListView.Items.IndexOf(selectedItem)
 
-            If selectedIndex < oListView.Items.Count - 1 Then
+            if selectedIndex < oListView.Items.Count - 1 Then
+                oListView.BeginUpdate()
+
                 oListView.Items.RemoveAt(selectedIndex)
                 oListView.Items.Insert(selectedIndex + 1, selectedItem)
+
+                oListView.EndUpdate()
+
                 oListView.Items(selectedIndex + 1).Selected = True
-            End If
-        End If
+
+
+            End if
+        End if
 
     End Sub
 
     'Listbox上移
     Public Function ListBoxUp(ByVal oListBox As ListBox) As Boolean
 
-        If oListBox.SelectedItems.Count > 0 Then
+        if oListBox.SelectedItems.Count > 0 Then
             Dim selectedIndex As Integer = oListBox.SelectedIndex
 
-            If selectedIndex > 0 Then
+            if selectedIndex > 0 Then
                 Dim selectedItem As Object = oListBox.SelectedItem
                 oListBox.Items.RemoveAt(selectedIndex)
                 oListBox.Items.Insert(selectedIndex - 1, selectedItem)
                 oListBox.SetSelected(selectedIndex - 1, True)
-            End If
-        End If
+            End if
+        End if
 
     End Function
 
     'Listbox下移
     Public Function ListBoxDown(ByVal oListBox As ListBox) As Boolean
 
-        If oListBox.SelectedItems.Count > 0 Then
+        if oListBox.SelectedItems.Count > 0 Then
             Dim selectedIndex As Integer = oListBox.SelectedIndex
 
-            If selectedIndex < oListBox.Items.Count - 1 Then
+            if selectedIndex < oListBox.Items.Count - 1 Then
                 Dim selectedItem As Object = oListBox.SelectedItem
                 oListBox.Items.RemoveAt(selectedIndex)
                 oListBox.Items.Insert(selectedIndex + 1, selectedItem)
                 oListBox.SetSelected(selectedIndex + 1, True)
-            End If
-        End If
+            End if
+        End if
 
     End Function
 End Module

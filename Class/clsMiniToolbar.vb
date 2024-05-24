@@ -21,11 +21,11 @@ Public Class clsMiniToolbar
             Return
         End Try
 
-        If invApp.Documents.Count > 0 Then
+        if invApp.Documents.Count > 0 Then
             createMiniToolbar()
         Else
             MsgBox("Need to have a document open")
-        End If
+        End if
 
     End Sub
 

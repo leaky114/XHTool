@@ -24,32 +24,31 @@ Public Class frmERPCodeSearch
         strERPCode = Replace(txtERP编码.Text, vbCrLf, "")
         strERPCode = Trim(strERPCode)
 
-        If strERPCode = "" Then
+        if strERPCode = "" Then
             btn编码反查.Enabled = True
             Exit Sub
-        End If
+        End if
 
         Dim arraystrinfo() As String
 
         arraystrinfo = ERPCodeSearch(BasicExcelFullFileName, strERPCode, TableArrays, ColIndexNum, 0)
 
-
-        If arraystrinfo(0) Is Nothing Then
+        if arraystrinfo(0) Is Nothing Then
             txt返回值.Text = "未查询到ERP编码。"
             Me.Height = 280
             btn编码反查.Enabled = True
             Exit Sub
-        End If
+        End if
 
         For Each strinfo As String In arraystrinfo
-            If txt返回值.Text = "" Then
+            if txt返回值.Text = "" Then
                 txt返回值.Text = strinfo
             Else
-                If strinfo Is Nothing Then
+                if strinfo Is Nothing Then
                 Else
                     txt返回值.Text = txt返回值.Text & vbCrLf & strinfo
-                End If
-            End If
+                End if
+            End if
         Next
 
         'oInteraction.Stop()
@@ -57,12 +56,6 @@ Public Class frmERPCodeSearch
         btn编码反查.Enabled = True
 
     End Sub
-
-    'Private Sub txtERP编码_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtERP编码.KeyPress
-    '    If Asc(e.KeyChar) = Keys.Enter Then
-    '        btn编码反查.PerformClick()
-    '    End If
-    'End Sub
 
     Private Sub frmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Height = 124

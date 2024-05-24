@@ -197,7 +197,7 @@ Module NewUpdater
 
     '        Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径
 
-    '        If IsFileExsts(path) = False Then
+    '        if IsFileExsts(path) = False Then
 
     '            Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
     '            Dim b() As Byte = resources.GetObject("SimpleUpdaterexe")
@@ -212,7 +212,7 @@ Module NewUpdater
     '            's = IO.File.Create(path)
     '            's.Write(b, 0, b.Length)
     '            's.Close()
-    '        End If
+    '        End if
 
     '        'MessageBox.Show("资源释放成功")
     '        Return True

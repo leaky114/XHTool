@@ -20,10 +20,7 @@ Public Class frmImportCodeToIam
             Exit Sub
         End If
 
-        Dim oInventorDocument As Inventor.Document
-        oInventorDocument = ThisApplication.ActiveEditDocument
-
-        If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
+        If ThisApplication.ActiveEditDocument.DocumentType <> kAssemblyDocumentObject Then
             MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
             'Me.Dispose()
             Exit Sub
@@ -36,7 +33,7 @@ Public Class frmImportCodeToIam
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
-        oInventorAssemblyDocument = oInventorDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
         '==============================================================================================
         '基于bom结构化数据，可跳过参考的文件
@@ -99,7 +96,7 @@ Public Class frmImportCodeToIam
 
         '    Dim LVI As ListViewItem
         '    LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
-        '    LVI.SubItems.Add(oStockNumPartName.PartName)
+        '    LVI.SubItems.Add(oStockNumPartName.零件名称)
         '    LVI.SubItems.Add(oStockNumPartName.PartNum)
         '    LVI.SubItems.Add(ReferencedDocument.FullDocumentName)
 
@@ -139,9 +136,9 @@ Public Class frmImportCodeToIam
                 GoTo 999
             End If
 
-            'If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            'if InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
-            'End If
+            'End if
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
@@ -153,14 +150,14 @@ Public Class frmImportCodeToIam
             Dim strVendor As String
             strVendor = GetPropitem(oInventorDocument, Map_Vendor)
 
-            If IsItemInListView(olistiview, oStockNumPartName.StockNum) = False Then
+            If IsItemInListView(olistiview, oStockNumPartName.图号) = False Then
 
                 Dim oListViewItem As ListViewItem
-                oListViewItem = lvw文件列表.Items.Add(oStockNumPartName.StockNum)
+                oListViewItem = lvw文件列表.Items.Add(oStockNumPartName.图号)
 
                 With oListViewItem
-                    .SubItems.Add(oStockNumPartName.PartName)
-                    .SubItems.Add(oStockNumPartName.ERPCode)
+                    .SubItems.Add(oStockNumPartName.零件名称)
+                    .SubItems.Add(oStockNumPartName.ERP编码)
                     .SubItems.Add(strVendor)
                     .SubItems.Add(strFullFileName)
                 End With
@@ -421,8 +418,16 @@ Public Class frmImportCodeToIam
                 Dim oInventorDocument As Inventor.Document     '当前文件
                 oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
 
+
                 Dim strVendor As String
-                strVendor = Strings.Right(e.ClickedItem.Text, 3)
+
+                Select Case e.ClickedItem.Name
+                    Case "ToolStrip清空供应商"
+                        strVendor = ""
+                    Case Else
+                        strVendor = Strings.Right(e.ClickedItem.Text, 3)
+                End Select
+
                 SetPropitem(oInventorDocument, Map_Vendor, strVendor)
 
                 lvw文件列表.SelectedItems(0).SubItems(3).Text = strVendor

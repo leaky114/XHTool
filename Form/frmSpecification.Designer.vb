@@ -6,9 +6,9 @@ Partial Class frmSpecification
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -22,7 +22,6 @@ Partial Class frmSpecification
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSpecification))
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.GroupBox基础数据 = New System.Windows.Forms.GroupBox()
         Me.ToolStrip基础数据 = New System.Windows.Forms.ToolStrip()
@@ -89,7 +88,7 @@ Partial Class frmSpecification
         Me.GroupBox基础数据.Location = New System.Drawing.Point(12, 8)
         Me.GroupBox基础数据.Name = "GroupBox基础数据"
         Me.GroupBox基础数据.Size = New System.Drawing.Size(596, 204)
-        Me.GroupBox基础数据.TabIndex = 6
+        Me.GroupBox基础数据.TabIndex = 0
         Me.GroupBox基础数据.TabStop = False
         Me.GroupBox基础数据.Text = "基础数据"
         '
@@ -100,13 +99,12 @@ Partial Class frmSpecification
         Me.ToolStrip基础数据.Location = New System.Drawing.Point(3, 17)
         Me.ToolStrip基础数据.Name = "ToolStrip基础数据"
         Me.ToolStrip基础数据.Size = New System.Drawing.Size(590, 25)
-        Me.ToolStrip基础数据.TabIndex = 19
+        Me.ToolStrip基础数据.TabIndex = 0
         Me.ToolStrip基础数据.Text = "ToolStrip2"
         '
         '配置文件ToolStripButton
         '
         Me.配置文件ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.配置文件ToolStripButton.Image = CType(resources.GetObject("配置文件ToolStripButton.Image"), System.Drawing.Image)
         Me.配置文件ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.配置文件ToolStripButton.Name = "配置文件ToolStripButton"
         Me.配置文件ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -116,7 +114,6 @@ Partial Class frmSpecification
         '保存基础数据ToolStripButton
         '
         Me.保存基础数据ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.保存基础数据ToolStripButton.Image = CType(resources.GetObject("保存基础数据ToolStripButton.Image"), System.Drawing.Image)
         Me.保存基础数据ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.保存基础数据ToolStripButton.Name = "保存基础数据ToolStripButton"
         Me.保存基础数据ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -130,7 +127,6 @@ Partial Class frmSpecification
         '添加基础数据ToolStripButton
         '
         Me.添加基础数据ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.添加基础数据ToolStripButton.Image = CType(resources.GetObject("添加基础数据ToolStripButton.Image"), System.Drawing.Image)
         Me.添加基础数据ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.添加基础数据ToolStripButton.Name = "添加基础数据ToolStripButton"
         Me.添加基础数据ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -139,7 +135,6 @@ Partial Class frmSpecification
         '修改基础数据ToolStripButton
         '
         Me.修改基础数据ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.修改基础数据ToolStripButton.Image = CType(resources.GetObject("修改基础数据ToolStripButton.Image"), System.Drawing.Image)
         Me.修改基础数据ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.修改基础数据ToolStripButton.Name = "修改基础数据ToolStripButton"
         Me.修改基础数据ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -148,7 +143,6 @@ Partial Class frmSpecification
         '删除基础数据ToolStripButton
         '
         Me.删除基础数据ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.删除基础数据ToolStripButton.Image = CType(resources.GetObject("删除基础数据ToolStripButton.Image"), System.Drawing.Image)
         Me.删除基础数据ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.删除基础数据ToolStripButton.Name = "删除基础数据ToolStripButton"
         Me.删除基础数据ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -161,7 +155,7 @@ Partial Class frmSpecification
         Me.TreeView基础数据树.Location = New System.Drawing.Point(13, 44)
         Me.TreeView基础数据树.Name = "TreeView基础数据树"
         Me.TreeView基础数据树.Size = New System.Drawing.Size(141, 151)
-        Me.TreeView基础数据树.TabIndex = 10
+        Me.TreeView基础数据树.TabIndex = 1
         '
         'lst基础数据列表
         '
@@ -174,7 +168,7 @@ Partial Class frmSpecification
         Me.lst基础数据列表.Location = New System.Drawing.Point(174, 45)
         Me.lst基础数据列表.Name = "lst基础数据列表"
         Me.lst基础数据列表.Size = New System.Drawing.Size(410, 148)
-        Me.lst基础数据列表.TabIndex = 6
+        Me.lst基础数据列表.TabIndex = 2
         '
         'GroupBox技术要求
         '
@@ -188,7 +182,7 @@ Partial Class frmSpecification
         Me.GroupBox技术要求.Location = New System.Drawing.Point(12, 237)
         Me.GroupBox技术要求.Name = "GroupBox技术要求"
         Me.GroupBox技术要求.Size = New System.Drawing.Size(596, 249)
-        Me.GroupBox技术要求.TabIndex = 7
+        Me.GroupBox技术要求.TabIndex = 1
         Me.GroupBox技术要求.TabStop = False
         Me.GroupBox技术要求.Text = "技术要求"
         '
@@ -232,7 +226,7 @@ Partial Class frmSpecification
         Me.txt导入文本.Multiline = True
         Me.txt导入文本.Name = "txt导入文本"
         Me.txt导入文本.Size = New System.Drawing.Size(558, 125)
-        Me.txt导入文本.TabIndex = 0
+        Me.txt导入文本.TabIndex = 1
         '
         'ToolStrip自定义数据
         '
@@ -241,13 +235,12 @@ Partial Class frmSpecification
         Me.ToolStrip自定义数据.Location = New System.Drawing.Point(3, 17)
         Me.ToolStrip自定义数据.Name = "ToolStrip自定义数据"
         Me.ToolStrip自定义数据.Size = New System.Drawing.Size(590, 25)
-        Me.ToolStrip自定义数据.TabIndex = 18
+        Me.ToolStrip自定义数据.TabIndex = 0
         Me.ToolStrip自定义数据.Text = "ToolStrip1"
         '
         '新建自定义ToolStripButton
         '
         Me.新建自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.新建自定义ToolStripButton.Image = CType(resources.GetObject("新建自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.新建自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.新建自定义ToolStripButton.Name = "新建自定义ToolStripButton"
         Me.新建自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -256,7 +249,6 @@ Partial Class frmSpecification
         '保存自定义ToolStripButton
         '
         Me.保存自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.保存自定义ToolStripButton.Image = CType(resources.GetObject("保存自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.保存自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.保存自定义ToolStripButton.Name = "保存自定义ToolStripButton"
         Me.保存自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -266,7 +258,6 @@ Partial Class frmSpecification
         '
         Me.导入ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.导入ToolStripButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.导入文件ToolStripMenuItem, Me.导输入文本ToolStripMenuItem})
-        Me.导入ToolStripButton.Image = CType(resources.GetObject("导入ToolStripButton.Image"), System.Drawing.Image)
         Me.导入ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.导入ToolStripButton.Name = "导入ToolStripButton"
         Me.导入ToolStripButton.Size = New System.Drawing.Size(45, 22)
@@ -276,14 +267,14 @@ Partial Class frmSpecification
         '导入文件ToolStripMenuItem
         '
         Me.导入文件ToolStripMenuItem.Name = "导入文件ToolStripMenuItem"
-        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.导入文件ToolStripMenuItem.Text = "导入文件"
         Me.导入文件ToolStripMenuItem.ToolTipText = "从文本文件导入，每行对应导入"
         '
         '导输入文本ToolStripMenuItem
         '
         Me.导输入文本ToolStripMenuItem.Name = "导输入文本ToolStripMenuItem"
-        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.导输入文本ToolStripMenuItem.Text = "导入文本"
         '
         'ToolStripSeparator1
@@ -294,7 +285,6 @@ Partial Class frmSpecification
         '添加自定义ToolStripButton
         '
         Me.添加自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.添加自定义ToolStripButton.Image = CType(resources.GetObject("添加自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.添加自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.添加自定义ToolStripButton.Name = "添加自定义ToolStripButton"
         Me.添加自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -303,7 +293,6 @@ Partial Class frmSpecification
         '插入自定义ToolStripButton
         '
         Me.插入自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.插入自定义ToolStripButton.Image = CType(resources.GetObject("插入自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.插入自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.插入自定义ToolStripButton.Name = "插入自定义ToolStripButton"
         Me.插入自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -313,7 +302,6 @@ Partial Class frmSpecification
         '修改自定义ToolStripButton
         '
         Me.修改自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.修改自定义ToolStripButton.Image = CType(resources.GetObject("修改自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.修改自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.修改自定义ToolStripButton.Name = "修改自定义ToolStripButton"
         Me.修改自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -322,7 +310,6 @@ Partial Class frmSpecification
         '删除自定义ToolStripButton
         '
         Me.删除自定义ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.删除自定义ToolStripButton.Image = CType(resources.GetObject("删除自定义ToolStripButton.Image"), System.Drawing.Image)
         Me.删除自定义ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.删除自定义ToolStripButton.Name = "删除自定义ToolStripButton"
         Me.删除自定义ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -337,7 +324,6 @@ Partial Class frmSpecification
         '
         Me.编号ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.编号ToolStripButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.自动编号ToolStripMenuItem, Me.去除编号ToolStripMenuItem})
-        Me.编号ToolStripButton.Image = CType(resources.GetObject("编号ToolStripButton.Image"), System.Drawing.Image)
         Me.编号ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.编号ToolStripButton.Name = "编号ToolStripButton"
         Me.编号ToolStripButton.Size = New System.Drawing.Size(45, 22)
@@ -374,7 +360,6 @@ Partial Class frmSpecification
         '上移ToolStripButton
         '
         Me.上移ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.上移ToolStripButton.Image = CType(resources.GetObject("上移ToolStripButton.Image"), System.Drawing.Image)
         Me.上移ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.上移ToolStripButton.Name = "上移ToolStripButton"
         Me.上移ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -384,7 +369,6 @@ Partial Class frmSpecification
         '下移ToolStripButton
         '
         Me.下移ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.下移ToolStripButton.Image = CType(resources.GetObject("下移ToolStripButton.Image"), System.Drawing.Image)
         Me.下移ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.下移ToolStripButton.Name = "下移ToolStripButton"
         Me.下移ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -411,7 +395,7 @@ Partial Class frmSpecification
         Me.lst技术要求文本.Location = New System.Drawing.Point(174, 72)
         Me.lst技术要求文本.Name = "lst技术要求文本"
         Me.lst技术要求文本.Size = New System.Drawing.Size(410, 160)
-        Me.lst技术要求文本.TabIndex = 12
+        Me.lst技术要求文本.TabIndex = 1
         '
         'txt标题文本
         '
@@ -427,7 +411,7 @@ Partial Class frmSpecification
         Me.btn插入.Location = New System.Drawing.Point(452, 492)
         Me.btn插入.Name = "btn插入"
         Me.btn插入.Size = New System.Drawing.Size(75, 28)
-        Me.btn插入.TabIndex = 5
+        Me.btn插入.TabIndex = 2
         Me.btn插入.Text = "插入"
         '
         'frmSpecification

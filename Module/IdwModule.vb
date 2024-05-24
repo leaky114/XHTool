@@ -7,6 +7,8 @@ Imports Inventor.IOMechanismEnum
 Imports Inventor.PrintOrientationEnum
 Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
+Imports Inventor.ViewOrientationTypeEnum
+Imports Inventor.DrawingViewStyleEnum
 Imports Microsoft.Office.Interop
 Imports Microsoft.Office.Interop.Excel.XlCellType
 Imports Microsoft.Office.Interop.Excel.XlFileFormat
@@ -47,10 +49,25 @@ Module IdwModule
             End If
 
             Dim strDwgFullFileName As String        'cad 文件全文件名
-            strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
+
+            If str另存到子文件夹 = "1" Then
+                Dim strChildDirectory As String
+                strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\CAD\"
+                If IsDirectoryExists(strChildDirectory) = False Then
+                    IO.Directory.CreateDirectory(strChildDirectory)
+                End If
+                strDwgFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & DWG
+            Else
+                strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
+            End If
+
             strDwgFullFileName = SetNewFile(strDwgFullFileName, "AutoCAD文件(*.dwg)|*.dwg")
 
-            If strDwgFullFileName = "取消" Then
+
+
+            If Strings.InStr(strDwgFullFileName, "取消") = 1 Then
+                strDwgFullFileName = Strings.Replace(strDwgFullFileName, "取消", "")
+                Process.Start(strDwgFullFileName)
                 Exit Sub
             End If
 
@@ -77,9 +94,9 @@ Module IdwModule
 
         'IdwDoc.SaveAs(DwgFullFileName, True)
 
-        'If IsFileExsts(DwgFullFileName) = False Then
+        'if IsFileExsts(DwgFullFileName) = False Then
         '    DwgFullFileName = Strings.Replace(DwgFullFileName, ".dwg", ".zip")
-        'End If
+        'End if
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
 
@@ -161,10 +178,22 @@ Module IdwModule
 
             Dim strPdfFullFileName As String        'pdf文件全文件名
 
-            strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
+            If str另存到子文件夹 = "1" Then
+                Dim strChildDirectory As String
+                strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\PDF\"
+                If IsDirectoryExists(strChildDirectory) = False Then
+                    IO.Directory.CreateDirectory(strChildDirectory)
+                End If
+                strPdfFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & PDF
+            Else
+                strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
+            End If
+
             strPdfFullFileName = SetNewFile(strPdfFullFileName, "Adobe PDF文件(*.pdf)|*.pdf")
 
-            If strPdfFullFileName = "取消" Then
+            If Strings.InStr(strPdfFullFileName, "取消") = 1 Then
+                strPdfFullFileName = Strings.Replace(strPdfFullFileName, "取消", "")
+                Process.Start(strPdfFullFileName)
                 Exit Sub
             End If
 
@@ -358,14 +387,17 @@ Module IdwModule
             Dim oTransaction As Transaction
             oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
 
+            Dim oarrangeDims = ThisApplication.TransientObjects.CreateObjectCollection
+
             For Each oDrawingDim In oSheet.DrawingDimensions
 
                 If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
-
                     oDrawingDim.CenterText()
-
+                    oarrangeDims.Add(oDrawingDim)
                 End If
             Next
+
+            oSheet.DrawingDimensions.Arrange(oarrangeDims)
 
             oTransaction.End()
         Catch ex As Exception
@@ -397,7 +429,7 @@ Module IdwModule
             If oInventorDrawingDocument.SelectSet.Count <> 0 Then
                 For Each oSelectSet As Object In oInventorDrawingDocument.SelectSet
                     If TypeOf oSelectSet Is LinearGeneralDimension Or TypeOf oSelectSet Is AngularGeneralDimension Then
-                        Call oSelectSet.CenterText()
+                        oSelectSet.CenterText()
                     End If
                 Next
             Else
@@ -471,7 +503,7 @@ Module IdwModule
             .Multiselect = False
             .Title = "设置镜像工程图iPro"
             .Filter = "Inventor 文件(*.ipt;*.iam)|*.ipt;*.iam|Inventor 零件(*.ipt)|*.ipt|Inventor 部件(*.iam)|*.iam"
-            .InitialDirectory = GetParentFolder(oRef.FullDocumentName)
+            .InitialDirectory = GetDirectoryName2(oRef.FullDocumentName)
             If .ShowDialog = DialogResult.OK Then
                 strMirFileFullFileName = .FileName
             Else
@@ -498,15 +530,15 @@ Module IdwModule
         Try
             '若该iProperty已经存在，则直接修改其值
             pEachScale = oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Item(Map_Mir_StochNum)
-            pEachScale.Value = oStockNumPartName.StockNum
+            pEachScale.Value = oStockNumPartName.图号
 
             pEachScale = oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Item(Map_Mir_PartName)
-            pEachScale.Value = oStockNumPartName.PartName
+            pEachScale.Value = oStockNumPartName.零件名称
 
         Catch
             ' 若该iProperty不存在，则添加一个
-            oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Add(oStockNumPartName.StockNum, Map_Mir_StochNum)
-            oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Add(oStockNumPartName.PartName, Map_Mir_PartName)
+            oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Add(oStockNumPartName.图号, Map_Mir_StochNum)
+            oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Add(oStockNumPartName.零件名称, Map_Mir_PartName)
         End Try
 
         If MsgBox("是否添加对称件说明标签？", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -528,7 +560,7 @@ Module IdwModule
                 "</Property><Property Document='drawing' PropertySet='User Defined Properties' Property='" & Map_Mir_PartName & _
                 "' FormatID='{D5CDD505-2E9C-101B-9397-08002B2CF9AE}'>" & Map_Mir_PartName & "</Property>,此图为左件"
 
-            'strTitle = "对称件：" & oStockNumPartName.StockNum & oStockNumPartName.PartName
+            'strTitle = "对称件：" & oStockNumPartName.StockNum & oStockNumPartName.零件名称
 
             Dim str1 As String = "<StyleOverride Font='"
             Dim str2 As String = "'>"
@@ -573,8 +605,8 @@ Module IdwModule
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-        If IsFileExsts(TitleBlockIdwDoc) = False Then
-            MsgBox("找不到模板文件：" & TitleBlockIdwDoc, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+        If IsFileExsts(str工程图模板) = False Then
+            MsgBox("找不到模板文件：" & str工程图模板, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
             'TitleBlockIdwDoc = My.Application.Info.DirectoryPath
             'Process.Start(TitleBlockIdwDoc)
             'TitleBlockIdwDoc = ThisApplication.FileOptions.TemplatesPath
@@ -637,7 +669,12 @@ Module IdwModule
         Next
 
         Dim oTitleBlockInventorDrawingDocument As Inventor.DrawingDocument
-        oTitleBlockInventorDrawingDocument = ThisApplication.Documents.Open(TitleBlockIdwDoc, False)
+
+        int模型匹配检查标记 = 2
+        'MsgBox(int模型匹配检查标记)
+
+        oTitleBlockInventorDrawingDocument = ThisApplication.Documents.Open(str工程图模板, False)
+
 
         Dim oTemplateTitleBlockDefinitions As TitleBlockDefinitions
         oTemplateTitleBlockDefinitions = oTitleBlockInventorDrawingDocument.TitleBlockDefinitions
@@ -646,9 +683,9 @@ Module IdwModule
 
         Dim oNewTitleBlockDefinition As TitleBlockDefinition = Nothing
         For Each oTemplateTitleBlockDefinition In oTemplateTitleBlockDefinitions
-            'If oTemplateTitleBlockDefinition.Name = "NX-零件" Then
+            'if oTemplateTitleBlockDefinition.Name = "NX-零件" Then
             oNewTitleBlockDefinition = oTemplateTitleBlockDefinition.CopyTo(oInventorDrawingDocument, True)
-            'End If
+            'End if
         Next
 
         '复制新图框
@@ -660,9 +697,9 @@ Module IdwModule
         Dim oNewBorderDefinition As BorderDefinition = Nothing
 
         For Each oTemplateBorderDefinition In oTemplateBorderDefinitions
-            'If oTemplateBorderDefinition.Name = "NX" Then
+            'if oTemplateBorderDefinition.Name = "NX" Then
             oNewBorderDefinition = oTemplateBorderDefinition.CopyTo(oInventorDrawingDocument, True)
-            'End If
+            'End if
         Next
 
         Dim strNewBorder As String = Nothing
@@ -712,6 +749,10 @@ Module IdwModule
         oSheets.Item(1).Activate()
 
         oTransaction.End()
+
+
+        int模型匹配检查标记 = 0
+        'MsgBox(int模型匹配检查标记)
 
         MsgBox("替换图框标题栏完成。", MsgBoxStyle.Information)
 
@@ -1000,27 +1041,42 @@ Module IdwModule
 
                     'For i = 0 To intArrayBalloonDateLength - 1
                     '    For j = 0 To intArrayBalloonDateLength - 2
-                    '        If arrayTempBalloonDate(j).Position.X > arrayTempBalloonDate(j + 1).Position.X Then
+                    '        if arrayTempBalloonDate(j).Position.X > arrayTempBalloonDate(j + 1).Position.X Then
                     '            tempBalloondate = arrayTempBalloonDate(j)
                     '            arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
                     '            arrayTempBalloonDate(j + 1) = tempBalloondate
-                    '        End If
+                    '        End if
                     '    Next
                     'Next
                     '=============================================
                     '按极角排序
-                    For i = 0 To intArrayBalloonDateLength - 1
-                        For j = 0 To intArrayBalloonDateLength - 2
-                            If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) < _
-                                Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
-                                tempBalloondate = arrayTempBalloonDate(j)
-                                arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
-                                arrayTempBalloonDate(j + 1) = tempBalloondate
-                            End If
-                        Next
 
-                    Next
+                    Select Case str逆时针序号
+                        Case "-1"
+                            For i = 0 To intArrayBalloonDateLength - 1
+                                For j = 0 To intArrayBalloonDateLength - 2
+                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) < _
+                                        Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
+                                        tempBalloondate = arrayTempBalloonDate(j)
+                                        arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
+                                        arrayTempBalloonDate(j + 1) = tempBalloondate
+                                    End If
+                                Next
+                            Next
+                        Case "1"     '顺时针序号
+                            For i = 0 To intArrayBalloonDateLength - 1
+                                For j = 0 To intArrayBalloonDateLength - 2
+                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) > _
+                                        Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
+                                        tempBalloondate = arrayTempBalloonDate(j)
+                                        arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
+                                        arrayTempBalloonDate(j + 1) = tempBalloondate
+                                    End If
+                                Next
+                            Next
 
+
+                    End Select
                     '=============================================
                     For i = 0 To intArrayBalloonDateLength - 1
                         Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
@@ -1183,10 +1239,10 @@ Module IdwModule
             ' '' ''            oBalloon =   ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
             ' '' ''            '遍历序号组中的序号，不为0就设置序号，并加1，设置下一个，有序号则跳过
             ' '' ''            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-            ' '' ''                If oBalloonValueSet.Value = 0 Then
+            ' '' ''                if oBalloonValueSet.Value = 0 Then
             ' '' ''                    oBalloonValueSet.Value = i
             ' '' ''                    i = i + 1
-            ' '' ''                End If
+            ' '' ''                End if
             ' '' ''            Next
             ' '' ''            '多加的1要减去
             ' '' ''            i = i - 1
@@ -1199,7 +1255,7 @@ Module IdwModule
                     oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号，ESC键取消")
 
                     For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                        'If (oBalloonValueSet.Value >= FirstBalloonNumber) Then
+                        'if (oBalloonValueSet.Value >= FirstBalloonNumber) Then
                         If oBalloonValueSet.Value = 0 Then
                             oBalloonValueSet.Value = intBalloonNumber
                             intBalloonNumber = intBalloonNumber + 1
@@ -1726,11 +1782,30 @@ Module IdwModule
             Dim strInventorDrawingDocumentFullFileName As String
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
-            Dim strDwgFullFileName As String        'cad 文件全文件名
-            strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
 
+            Dim strDwgFullFileName As String        'cad 文件全文件名
             Dim strPdfFullFileName As String        'pdf 文件全文件名
-            strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
+
+            If str另存到子文件夹 = "1" Then
+                Dim strChildDirectory As String
+
+                strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\CAD\"
+                If IsDirectoryExists(strChildDirectory) = False Then
+                    IO.Directory.CreateDirectory(strChildDirectory)
+                End If
+                strDwgFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & DWG
+
+                strChildDirectory = GetDirectoryName2(strInventorDrawingDocumentFullFileName) & "\PDF\"
+                If IsDirectoryExists(strChildDirectory) = False Then
+                    IO.Directory.CreateDirectory(strChildDirectory)
+                End If
+                strPdfFullFileName = strChildDirectory & GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & PDF
+            Else
+
+                strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
+                strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
+            End If
+
 
             Select Case SaveAsDawAndPdf
                 Case "另存为dwg和pdf"
@@ -1756,6 +1831,953 @@ Module IdwModule
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+
+    End Sub
+
+    '创建展开图
+    Public Sub CreateFlatDrawingDocument()
+        On Error Resume Next
+
+        'Try
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        SetStatusBarText()
+
+        Dim oInventorDocument As Inventor.Document
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        Dim oInventorPartDocument As Inventor.PartDocument
+
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        If IsFileExsts(str展开图模板) = False Then
+            Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
+
+            MsgBox("未找到展开图模板：" & vbCrLf & str展开图模板 & vbCrLf & "请选择展开图模板文件。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+
+            With oOpenFileDialog
+                .Title = "打开展开图模板文件"
+                .Filter = "AutoDesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
+                .Multiselect = False  '多开文件打开
+                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                    If .FileName <> "" Then '如果有选中文件
+                        str展开图模板 = .FileName
+                        ini.WriteStrINI("展开图", "展开图模板", str展开图模板, Inifile)
+                    Else
+                        Exit Sub
+                    End If
+                Else
+                    Exit Sub
+                End If
+            End With
+
+        End If
+
+        Dim strInventorDrawingFolder As String = Nothing
+        Select Case MsgBox("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+            Case MsgBoxResult.Yes
+                Dim oFolderBrowserDialog As New FolderBrowserDialog
+
+                With oFolderBrowserDialog
+                    .ShowNewFolderButton = False
+                    .Description = "选择文件夹"
+                    .RootFolder = System.Environment.SpecialFolder.Desktop
+                    If .ShowDialog = DialogResult.OK Then
+                        strInventorDrawingFolder = .SelectedPath
+                    Else
+                        Exit Sub
+                    End If
+                End With
+
+            Case MsgBoxResult.No
+                strInventorDrawingFolder = "当前文件夹"
+            Case MsgBoxResult.Cancel
+                Exit Sub
+        End Select
+
+
+        Dim IsClose As Boolean = False
+
+        'Select Case MsgBox("创建展开图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        '    Case MsgBoxResult.Yes
+        '        IsClose = True
+        '    Case MsgBoxResult.No
+        '        IsClose = False
+        '    Case MsgBoxResult.Cancel
+        '        Exit Sub
+        'End Select
+
+        Select Case oInventorDocument.DocumentType
+            Case kAssemblyDocumentObject
+
+                oInventorAssemblyDocument = oInventorDocument
+
+                '==============================================================================================
+                '基于bom结构化数据，可跳过参考的文件
+                ' Set a reference to the BOM
+                Dim oBOM As BOM
+                oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
+                oBOM.StructuredViewEnabled = True
+                oBOM.StructuredViewFirstLevelOnly = False
+
+                'Set a reference to the "Structured" BOMView
+                Dim oBOMView As BOMView
+
+                '获取结构化的bom页面
+                For Each oBOMView In oBOM.BOMViews
+                    If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                        '遍历这个bom页面
+                        Dim i As Integer
+
+                        Dim intStepCount As Integer
+                        intStepCount = oBOMView.BOMRows.Count
+
+                        For i = 1 To intStepCount
+                            ' Get the current row.
+                            Dim oBOMRow As BOMRow
+                            oBOMRow = oBOMView.BOMRows.Item(i)
+
+                            Dim strFullFileName As String
+                            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+                            '测试文件
+                            Debug.Print(strFullFileName)
+
+                            ' Set the message for the progress bar
+                            'oProgressBar.Message = oFullFileName
+
+                            If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                                GoTo 999
+                            End If
+
+                            If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                                GoTo 999
+                            End If
+
+                            If oBOMRow.ReferencedFileDescriptor.ReferencedFileType = FileTypeEnum.kPartFileType Then
+
+                                'oInventorPartDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
+
+                                oInventorPartDocument = ThisApplication.Documents.ItemByName(strFullFileName)
+                                CreateFlatDrawingDocumentSub(oInventorPartDocument, str展开图模板, strInventorDrawingFolder, IsClose)
+                            End If
+999:
+                        Next
+                    End If
+                Next
+                MsgBox("钣金件批量生成展开图完成。", MsgBoxStyle.Information)
+
+            Case kPartDocumentObject
+                oInventorPartDocument = oInventorDocument
+                CreateFlatDrawingDocumentSub(oInventorPartDocument, str展开图模板, strInventorDrawingFolder, IsClose)
+        End Select
+
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
+
+    End Sub
+
+    '创建展开图sub
+    Public Sub CreateFlatDrawingDocumentSub(ByVal oInventorDocument As Inventor.PartDocument, ByVal strBasicIdwFileFullName As String, _
+                             ByVal strInventorDrawingFolder As String, ByVal IsClose As Boolean)
+        On Error Resume Next
+
+        Dim oBaseViewOptions As NameValueMap = ThisApplication.TransientObjects.CreateNameValueMap
+        Dim oTG As TransientGeometry = ThisApplication.TransientGeometry
+        Dim oPoint As Point2d
+
+        'Check to see if part is a sheetmetal part
+        If (oInventorDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
+            Exit Sub
+        End If
+
+        Dim oSMDef As SheetMetalComponentDefinition
+        oSMDef = oInventorDocument.ComponentDefinition
+        If oSMDef.HasFlatPattern = False Then
+            'create flat pattern
+            ThisApplication.ScreenUpdating = False
+            oSMDef.Unfold()
+            oSMDef.FlatPattern.ExitEdit()
+            ThisApplication.ScreenUpdating = True
+        End If
+
+        Dim oFlatPattern As FlatPattern
+        Dim intFlatExtentsLength As Double    '"展开长"  转换单位为mm
+        Dim intFlatExtentsWidth As Double       '展开宽
+        oFlatPattern = oSMDef.FlatPattern
+        intFlatExtentsLength = oFlatPattern.Length * 10
+        intFlatExtentsWidth = oFlatPattern.Width * 10
+
+
+        Dim douScale As Double
+        If intFlatExtentsLength > intFlatExtentsWidth Then
+            douScale = 150 / intFlatExtentsLength
+        Else
+            douScale = 150 / intFlatExtentsWidth
+        End If
+
+        If douScale > 1 Then
+            douScale = 1
+        End If
+
+        oPoint = oTG.CreatePoint2d(12, 18)
+
+        oBaseViewOptions.Add("SheetMetalFoldedModel", False)
+
+        Dim oInventorDrawingDocument As Inventor.DrawingDocument
+
+        oInventorDrawingDocument = ThisApplication.Documents.Add(DocumentTypeEnum.kDrawingDocumentObject, strBasicIdwFileFullName)
+
+        Dim oSheet As Sheet = oInventorDrawingDocument.ActiveSheet
+        Dim oBaseView As DrawingView = oSheet.DrawingViews.AddBaseView(oInventorDocument, oPoint, douScale,
+                ViewOrientationTypeEnum.kDefaultViewOrientation,
+                DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle,
+                , , oBaseViewOptions)
+
+        SetBendEdgeType()
+
+        Dim strInventorDocumentFullFileName As String
+        strInventorDocumentFullFileName = oInventorDocument.FullFileName
+
+        Dim oFileNameInfo As FileNameInfo
+        oFileNameInfo = GetFileNameInfo(strInventorDocumentFullFileName)
+
+        If strInventorDrawingFolder = "当前文件夹" Then
+            strInventorDrawingFolder = oFileNameInfo.Folder
+        End If
+
+        strInventorDrawingFolder = strInventorDrawingFolder & "\钣金展开\"
+        If IsDirectoryExists(strInventorDrawingFolder) = False Then
+            IO.Directory.CreateDirectory(strInventorDrawingFolder)
+        End If
+
+        Dim strInventorDrawingDocumentFullFileName As String
+
+        strInventorDrawingDocumentFullFileName = strInventorDrawingFolder & oFileNameInfo.OnlyName & "-展开.idw"
+
+        If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+            oInventorDocument.Save2()
+        End If
+
+        CreateDrawingDocumentTitleBlock(oInventorDrawingDocument, oInventorDocument.DocumentType)
+
+        oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+        oInventorDrawingDocument.Save2()
+
+        If IsClose = True Then
+            oInventorDrawingDocument.Close()
+        End If
+        ''oInventorDocument.Close()
+    End Sub
+
+
+    '设置折弯线 线性，颜色，宽度
+    Public Sub SetBendEdgeType()
+
+        Dim oDoc As DrawingDocument
+        Dim oSheet As Sheet
+        Dim oView As DrawingView
+        Dim oCurve As DrawingCurve
+        Dim oBendNote As BendNote
+
+        oDoc = ThisApplication.ActiveDocument
+        oSheet = oDoc.ActiveSheet
+
+        On Error Resume Next
+
+        For Each oView In oSheet.DrawingViews
+            For Each oCurve In oView.DrawingCurves
+                Select Case oCurve.EdgeType
+                    Case Inventor.DrawingEdgeTypeEnum.kBendDownEdge
+                        oCurve.Color = HexColorToRGB(str向下颜色)
+                        oCurve.LineWeight = Val(str向下线宽) * 0.1
+                        oCurve.LineType = GetLineType(str向下线型)
+
+                        If str展开图标注 = "1" Then
+                            oBendNote = oSheet.DrawingNotes.BendNotes.Add(oCurve)
+                        End If
+
+                    Case Inventor.DrawingEdgeTypeEnum.kBendUpEdge
+                        ' Create the bend note
+                        oCurve.Color = HexColorToRGB(str向上颜色)
+                        oCurve.LineWeight = Val(str向上线宽) * 0.1
+                        oCurve.LineType = GetLineType(str向上线型)
+
+                        If str展开图标注 = "1" Then
+                            oBendNote = oSheet.DrawingNotes.BendNotes.Add(oCurve)
+                        End If
+                End Select
+            Next 'oCurve
+        Next 'oView
+    End Sub
+
+    '十六进制颜色到rgb
+    Public Function HexColorToRGB(ByVal hexColor As String) As Inventor.Color
+        Dim r, g, b As Integer
+
+        If hexColor.StartsWith("#") Then
+            hexColor = hexColor.Substring(1)
+        End If
+
+        If hexColor.Length = 6 Then
+            r = CInt("&H" & hexColor.Substring(0, 2))
+            g = CInt("&H" & hexColor.Substring(2, 2))
+            b = CInt("&H" & hexColor.Substring(4, 2))
+            HexColorToRGB = ThisApplication.TransientObjects.CreateColor(r, g, b)
+        ElseIf hexColor.Length = 3 Then
+            r = CInt("&H" & hexColor.Substring(0, 1) & hexColor.Substring(0, 1))
+            g = CInt("&H" & hexColor.Substring(1, 1) & hexColor.Substring(1, 1))
+            b = CInt("&H" & hexColor.Substring(2, 1) & hexColor.Substring(2, 1))
+            HexColorToRGB = ThisApplication.TransientObjects.CreateColor(r, g, b)
+        Else
+            Throw New ArgumentException("Invalid hex color format")
+        End If
+
+    End Function
+
+    '返回线型枚举数据
+    Public Function GetLineType(ByVal strLineType As String) As LineTypeEnum
+
+        Select Case strLineType
+            Case "实线"
+                GetLineType = LineTypeEnum.kContinuousLineType
+            Case "虚线"
+                GetLineType = LineTypeEnum.kDashedHiddenLineType
+            Case "间隔虚线"
+                GetLineType = LineTypeEnum.kDashedHiddenLineType
+            Case "点长划线"
+                GetLineType = LineTypeEnum.kDashDottedLineType
+            Case "双点长划线"
+                GetLineType = LineTypeEnum.kDashedDoubleDottedLineType
+            Case "三点长划线"
+                GetLineType = LineTypeEnum.kDashedTripleDottedLineType
+            Case "点线"
+                GetLineType = LineTypeEnum.kChainLineType
+            Case "长点划线"
+                GetLineType = LineTypeEnum.kLongDashDottedLineType
+            Case "双长点划线"
+                GetLineType = LineTypeEnum.kLongDashedDoubleDottedLineType
+            Case "双点划线"
+                GetLineType = LineTypeEnum.kDoubleDashedDottedLineType
+            Case "点划线"
+
+            Case "点双划线"
+
+            Case "双点双划线"
+
+            Case "三点划线"
+
+            Case "三点双划线"
+
+            Case Else
+                GetLineType = LineTypeEnum.kContinuousLineType
+        End Select
+
+        Return GetLineType
+
+    End Function
+
+    '创建工程图
+    Public Sub CreatNewDrawingDocument()
+        'On Error Resume Next
+
+        'Try
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        SetStatusBarText()
+
+        Dim oInventorDocument As Inventor.Document
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        Dim oInventorPartDocument As Inventor.PartDocument
+
+        oInventorDocument = ThisApplication.ActiveDocument
+
+
+        If IsFileExsts(str工程图模板) = False Then
+            Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
+
+            MsgBox("未找到工程图模板：" & vbCrLf & str工程图模板 & vbCrLf & "请选择工程图模板文件。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+
+            With oOpenFileDialog
+                .Title = "打开工程图模板文件"
+                .Filter = "AutoDesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
+                .Multiselect = False  '多开文件打开
+                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                    If .FileName <> "" Then '如果有选中文件
+                        str工程图模板 = .FileName
+                        ini.WriteStrINI("工程图", "工程图模板", str工程图模板, Inifile)
+                    Else
+                        Exit Sub
+                    End If
+                Else
+                    Exit Sub
+                End If
+            End With
+
+        End If
+
+        Dim strInventorDrawingFolder As String = "当前文件夹"
+
+        'Select Case MsgBox("是否指定保存工程图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        '    Case MsgBoxResult.Yes
+        '        Dim oFolderBrowserDialog As New FolderBrowserDialog
+
+        '        With oFolderBrowserDialog
+        '            .ShowNewFolderButton = False
+        '            .Description = "选择文件夹"
+        '            .RootFolder = System.Environment.SpecialFolder.Desktop
+        '            if .ShowDialog = DialogResult.OK Then
+        '                strInventorDrawingFolder = .SelectedPath
+        '            Else
+        '                Exit Sub
+        '            End if
+        '        End With
+
+        '    Case MsgBoxResult.No
+        'strInventorDrawingFolder = "当前文件夹"
+        '    Case MsgBoxResult.Cancel
+        'Exit Sub
+        'End Select
+
+
+        Dim IsClose As Boolean = False
+
+        'Select Case MsgBox("创建工程图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        '    Case MsgBoxResult.Yes
+        '        IsClose = True
+        '    Case MsgBoxResult.No
+        '        IsClose = False
+        '    Case MsgBoxResult.Cancel
+        '        Exit Sub
+        'End Select
+
+        Select Case oInventorDocument.DocumentType
+            Case kAssemblyDocumentObject
+                oInventorAssemblyDocument = oInventorDocument
+
+                CreatNewDrawingDocumentSub(oInventorAssemblyDocument, str工程图模板, strInventorDrawingFolder, IsClose)
+
+                '==============================================================================================
+                '基于bom结构化数据，可跳过参考的文件
+                ' Set a reference to the BOM
+                '                Dim oBOM As BOM
+                '                oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
+                '                oBOM.StructuredViewEnabled = True
+                '                oBOM.StructuredViewFirstLevelOnly = False
+
+                '                'Set a reference to the "Structured" BOMView
+                '                Dim oBOMView As BOMView
+
+                '                '获取结构化的bom页面
+                '                For Each oBOMView In oBOM.BOMViews
+                '                    if oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
+                '                        '遍历这个bom页面
+                '                        Dim i As Integer
+
+                '                        Dim intStepCount As Integer
+                '                        intStepCount = oBOMView.BOMRows.Count
+
+                '                        For i = 1 To intStepCount
+                '                            ' Get the current row.
+                '                            Dim oBOMRow As BOMRow
+                '                            oBOMRow = oBOMView.BOMRows.Item(i)
+
+                '                            Dim strFullFileName As String
+                '                            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+
+                '                            '测试文件
+                '                            Debug.Print(strFullFileName)
+
+                '                            ' Set the message for the progress bar
+                '                            'oProgressBar.Message = oFullFileName
+
+                '                            if IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                '                                GoTo 999
+                '                            End if
+
+                '                            if InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                '                                GoTo 999
+                '                            End if
+
+                '                            if oBOMRow.ReferencedFileDescriptor.ReferencedFileType = FileTypeEnum.kPartFileType Then
+
+                '                                'oInventorPartDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
+
+                '                                oInventorPartDocument = ThisApplication.Documents.ItemByName(strFullFileName)
+                '                                CreateIdwSub(oInventorPartDocument, strBasicIdwFileFullName, strInventorDrawingFolder, IsClose)
+                '                            End if
+                '999:
+                '                        Next
+                '                    End if
+                '                Next
+                '                MsgBox("批量生成工程图完成。", MsgBoxStyle.Information)
+
+            Case kPartDocumentObject
+                oInventorPartDocument = oInventorDocument
+                CreatNewDrawingDocumentSub(oInventorPartDocument, str工程图模板, strInventorDrawingFolder, IsClose)
+        End Select
+
+    End Sub
+
+    '创建工程图图sub
+    Public Sub CreatNewDrawingDocumentSub(ByVal oInventorDocument As Inventor.Document, ByVal strBasicIdwFileFullName As String, _
+                             ByVal strInventorDrawingFolder As String, ByVal IsClose As Boolean)
+        On Error Resume Next
+
+        Dim oBaseViewOptions As NameValueMap = ThisApplication.TransientObjects.CreateNameValueMap
+        Dim oTG As TransientGeometry = ThisApplication.TransientGeometry
+
+
+        '初始比例
+        Dim douScale As Double = 1 / 20
+
+        Dim strInventorDocumentFullFileName As String
+        strInventorDocumentFullFileName = oInventorDocument.FullFileName
+
+        'Dim oFileNameInfo As FileNameInfo
+        'oFileNameInfo = GetFileNameInfo(strInventorDocumentFullFileName)
+
+        'if strInventorDrawingFolder = "当前文件夹" Then
+        '    strInventorDrawingFolder = oFileNameInfo.Folder
+        'End if
+
+        'strInventorDrawingFolder = strInventorDrawingFolder & "\工程图\"
+        'if IsDirectoryExists(strInventorDrawingFolder) = False Then
+        '    IO.Directory.CreateDirectory(strInventorDrawingFolder)
+        'End if
+
+        Dim strInventorDrawingDocumentFullFileName As String
+
+        strInventorDrawingDocumentFullFileName = GetChangeExtension(strInventorDocumentFullFileName, IDW)
+
+        '如果工程图存在就打开工程图，不创建新的工程图
+        If IsFileExsts(strInventorDrawingDocumentFullFileName) = True Then
+            If MsgBox("确定打开已存在工程图：" & strInventorDrawingDocumentFullFileName, MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                ThisApplication.Documents.Open(strInventorDrawingDocumentFullFileName)
+                Exit Sub
+            End If
+
+        End If
+
+        '============================================
+
+        ' Now you will create a new drawing file from the selected template
+        Dim oInventorDrawingDocument As DrawingDocument
+        oInventorDrawingDocument = ThisApplication.Documents.Add(DocumentTypeEnum.kDrawingDocumentObject, strBasicIdwFileFullName, True)
+
+        'Now activate the drawing
+
+        oInventorDrawingDocument.Activate()
+        Dim oSheet As Sheet = oInventorDrawingDocument.Sheets.Item(1)
+
+        ' Now take the center point of the sheet
+        Dim oCentralPoint As Point2d
+        oCentralPoint = ThisApplication.TransientGeometry.CreatePoint2d((oSheet.Width + str页边距.short左边距 * 0.1 - str页边距.short右边距 * 0.1) * 0.5, (oSheet.Height - str页边距.short上边距 * 0.1 + str页边距.short下边距 * 0.1) * 0.5)
+
+        'Now place the base view at the center point of the sheet
+        Dim oView前视图 As DrawingView
+        oView前视图 = oSheet.DrawingViews.AddBaseView(oInventorDocument, oCentralPoint, douScale, ViewOrientationTypeEnum.kFrontViewOrientation, _
+                                                   Iif(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle, _
+                                                       DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle))
+        oView前视图.Name = "前视图"
+        oView前视图.DisplayThreadFeatures = Iif(str螺纹特征 = "1", True, False)
+        oView前视图.DisplayTangentEdges = Iif(str相切边 = "1", True, False)
+
+        'Create projected views in arbitrary locations
+
+        Dim Point2D左视图 As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X + 10, oView前视图.Center.Y)
+        Dim Point2D右视图 As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X - 10, oView前视图.Center.Y)
+        Dim Point2D俯视图 As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X, oView前视图.Center.Y - 10)
+        Dim Point2D仰视图 As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X, oView前视图.Center.Y + 10)
+
+
+        Dim oView左视图 As DrawingView = Nothing
+        If str选择视图.str左视图 = "1" Then
+            oView左视图 = oSheet.DrawingViews.AddProjectedView(oView前视图, Point2D左视图, DrawingViewStyleEnum.kFromBaseDrawingViewStyle)
+            oView左视图.Name = "左视图"
+        End If
+
+        Dim oView右视图 As DrawingView = Nothing
+        If str选择视图.str右视图 = "1" Then
+            oView右视图 = oSheet.DrawingViews.AddProjectedView(oView前视图, Point2D右视图, DrawingViewStyleEnum.kFromBaseDrawingViewStyle)
+            oView右视图.Name = "右视图"
+        End If
+
+        Dim oView俯视图 As DrawingView = Nothing
+        If str选择视图.str俯视图 = "1" Then
+            oView俯视图 = oSheet.DrawingViews.AddProjectedView(oView前视图, Point2D俯视图, DrawingViewStyleEnum.kFromBaseDrawingViewStyle)
+            oView俯视图.Name = "俯视图"
+        End If
+
+        Dim oView仰视图 As DrawingView = Nothing
+        If str选择视图.str仰视图 = "1" Then
+            oView仰视图 = oSheet.DrawingViews.AddProjectedView(oView前视图, Point2D仰视图, DrawingViewStyleEnum.kFromBaseDrawingViewStyle)
+            oView仰视图.Name = "仰视图"
+        End If
+
+        '======================
+        '还原1：1比例
+        oView前视图.Scale = 1
+
+        '视图间隔
+        Dim oSep As Double = 2
+
+        '更新视图排列
+        If str选择视图.str左视图 = "1" Then
+            oView左视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X + oView前视图.Width / 2 + oSep + oView左视图.Width / 2, oView左视图.Center.Y)
+        End If
+
+        If str选择视图.str右视图 = "1" Then
+            oView右视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X - oView前视图.Width / 2 - oSep - oView右视图.Width / 2, oView右视图.Center.Y)
+        End If
+
+        If str选择视图.str俯视图 = "1" Then
+            oView俯视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView俯视图.Center.X, oView前视图.Center.Y - oView前视图.Height / 2 - oSep - oView俯视图.Height / 2)
+        End If
+
+        If str选择视图.str仰视图 = "1" Then
+            oView仰视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView仰视图.Center.X, oView前视图.Center.Y + oView前视图.Height / 2 + oSep + oView仰视图.Height / 2)
+        End If
+
+        '===============================================
+
+        '找左右上下边界
+        Dim douDrawingViewLeftEdge As Double = oView前视图.Left
+        Dim douDrawingViewRightEdge As Double = oView前视图.Left + oView前视图.Width
+        Dim douDrawingViewTopEdge As Double = oView前视图.Top
+        Dim douDrawingViewBottonEdge As Double = oView前视图.Top - oView前视图.Height
+
+        If str选择视图.str左视图 = "1" Then        '有左视图为右边界
+            douDrawingViewRightEdge = oView左视图.Left + oView左视图.Width
+        End If
+
+        If str选择视图.str右视图 = "1" Then    '有右视图为左边界
+            douDrawingViewLeftEdge = oView右视图.Left
+        End If
+
+        If str选择视图.str俯视图 = "1" Then        '俯视图为底边
+            douDrawingViewBottonEdge = oView俯视图.Top - oView俯视图.Height
+        End If
+
+        If str选择视图.str仰视图 = "1" Then    '仰视图为顶边
+            douDrawingViewTopEdge = oView仰视图.Top
+        End If
+
+        Dim douDrawingViewWidth As Double        '视图总宽
+        Dim douDrawingViewHeight As Double       '视图总高   
+
+        douDrawingViewWidth = douDrawingViewRightEdge - douDrawingViewLeftEdge
+        douDrawingViewHeight = douDrawingViewTopEdge - douDrawingViewBottonEdge
+
+        Dim douDrawingViewWidthDividedHeight As Double
+        douDrawingViewWidthDividedHeight = douDrawingViewWidth / douDrawingViewHeight
+
+
+        '根据宽比高，大于2为A3，否则为A4
+
+        Select Case douDrawingViewWidthDividedHeight
+            Case Is > 2         '设置为a3，横向
+                oSheet.Size = DrawingSheetSizeEnum.kA3DrawingSheetSize
+                oSheet.Orientation = PageOrientationTypeEnum.kLandscapePageOrientation
+            Case Else
+                oSheet.Size = DrawingSheetSizeEnum.kA4DrawingSheetSize
+                oSheet.Orientation = PageOrientationTypeEnum.kPortraitPageOrientation
+        End Select
+
+
+        '根据页面A3或A4设置图框内宽
+        Dim douPaperWidth As Double
+        Dim douPaperHeight As Double
+
+        Select Case oSheet.Size
+            Case DrawingSheetSizeEnum.kA4DrawingSheetSize
+                douPaperWidth = (210 - str页边距.short左边距 - str页边距.short右边距) * 0.1
+                douPaperHeight = (297 - str页边距.short上边距 - str页边距.short下边距) * 0.1
+            Case DrawingSheetSizeEnum.kA3DrawingSheetSize
+                douPaperWidth = (420 - str页边距.short左边距 - str页边距.short右边距) * 0.1
+                douPaperHeight = (297 - str页边距.short上边距 - str页边距.short下边距) * 0.1
+            Case DrawingSheetSizeEnum.kA2DrawingSheetSize
+
+        End Select
+
+        '比较视图与图框宽度
+        Dim douScaleWidth As Double
+        douScaleWidth = douPaperWidth / douDrawingViewWidth
+
+
+        Select Case douScaleWidth
+            Case Is >= 1   '图框内宽大于视图宽度
+                douScaleWidth = Int(douScaleWidth)
+            Case Is >= 0.618
+                douScaleWidth = Int(1 / douScaleWidth + 2.6)
+                douScaleWidth = 1 / douScaleWidth
+            Case Else
+                douScaleWidth = Int(1 / douScaleWidth + 3.6)
+                douScaleWidth = 1 / douScaleWidth
+        End Select
+
+        Dim douScaleHeight As Double
+        douScaleHeight = douPaperHeight / douDrawingViewHeight
+
+        Select Case douScaleHeight
+            Case Is >= 1
+                douScaleHeight = Int(douScaleHeight)
+            Case Is >= 0.618
+                douScaleHeight = Int(1 / douScaleHeight + 2.6)
+                douScaleHeight = 1 / douScaleHeight
+            Case Else
+                douScaleHeight = Int(1 / douScaleHeight + 3.6)
+                douScaleHeight = 1 / douScaleHeight
+        End Select
+
+        '比较高宽2个方向的比例，选择一个小的值。
+        douScale = Math.Min(douScaleHeight, douScaleWidth)
+
+        oView前视图.Scale = douScale
+        oInventorDrawingDocument.Update()
+
+        '找左右上下边界
+        douDrawingViewLeftEdge = oView前视图.Left
+        douDrawingViewRightEdge = oView前视图.Left + oView前视图.Width
+        douDrawingViewTopEdge = oView前视图.Top
+        douDrawingViewBottonEdge = oView前视图.Top - oView前视图.Height
+
+        '刷新后重新排列位置
+        If str选择视图.str左视图 = "1" Then
+            oView左视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X + oView前视图.Width / 2 + oSep + oView左视图.Width / 2, oView左视图.Center.Y)
+            douDrawingViewRightEdge = oView左视图.Left + oView左视图.Width
+        End If
+
+
+        If str选择视图.str右视图 = "1" Then
+            oView右视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X - oView前视图.Width / 2 - oSep - oView右视图.Width / 2, oView右视图.Center.Y)
+            douDrawingViewLeftEdge = oView右视图.Left
+        End If
+
+
+        If str选择视图.str俯视图 = "1" Then
+            oView俯视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView俯视图.Center.X, oView前视图.Center.Y - oView前视图.Height / 2 - oSep - oView俯视图.Height / 2)
+            douDrawingViewBottonEdge = oView俯视图.Top - oView俯视图.Height
+        End If
+
+
+        If str选择视图.str仰视图 = "1" Then
+            oView仰视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView仰视图.Center.X, oView前视图.Center.Y + oView前视图.Height / 2 + oSep + oView仰视图.Height / 2)
+            douDrawingViewTopEdge = oView仰视图.Top
+        End If
+
+        douDrawingViewWidth = douDrawingViewRightEdge - douDrawingViewLeftEdge
+        douDrawingViewHeight = douDrawingViewTopEdge - douDrawingViewBottonEdge
+
+
+        oCentralPoint = ThisApplication.TransientGeometry.CreatePoint2d( _
+            (oView前视图.Position.X - (douDrawingViewLeftEdge + douDrawingViewWidth * 0.5 - (oSheet.Width + str页边距.short左边距 * 0.1 - str页边距.short右边距 * 0.1) * 0.5)), _
+                           (oView前视图.Position.Y - (douDrawingViewBottonEdge + douDrawingViewHeight * 0.5 - (oSheet.Height + str页边距.short下边距 * 0.1 - str页边距.short上边距 * 0.1) * 0.5)))
+
+        oView前视图.Position = oCentralPoint
+
+        '==================================================
+        '重建视图位置
+        '标注尺寸
+        If str标注尺寸 = "1" Then oSheet.DrawingDimensions.GeneralDimensions.Retrieve(oView前视图)
+
+        If str选择视图.str左视图 = "1" Then
+            oView左视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X + oView前视图.Width / 2 + oSep + oView左视图.Width / 2, oView左视图.Center.Y)
+            If str标注尺寸 = "1" Then oSheet.DrawingDimensions.GeneralDimensions.Retrieve(oView左视图)
+        End If
+
+        If str选择视图.str右视图 = "1" Then
+            oView右视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView前视图.Center.X - oView前视图.Width / 2 - oSep - oView右视图.Width / 2, oView右视图.Center.Y)
+            If str标注尺寸 = "1" Then oSheet.DrawingDimensions.GeneralDimensions.Retrieve(oView右视图)
+        End If
+
+        If str选择视图.str俯视图 = "1" Then
+            oView俯视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView俯视图.Center.X, oView前视图.Center.Y - oView前视图.Height / 2 - oSep - oView俯视图.Height / 2)
+            If str标注尺寸 = "1" Then oSheet.DrawingDimensions.GeneralDimensions.Retrieve(oView俯视图)
+        End If
+
+        If str选择视图.str仰视图 = "1" Then
+            oView仰视图.Position = ThisApplication.TransientGeometry.CreatePoint2d(oView仰视图.Center.X, oView前视图.Center.Y + oView前视图.Height / 2 + oSep + oView仰视图.Height / 2)
+            If str标注尺寸 = "1" Then oSheet.DrawingDimensions.GeneralDimensions.Retrieve(oView仰视图)
+        End If
+
+
+
+        '查询设置新标题栏
+        CreateDrawingDocumentTitleBlock(oInventorDrawingDocument, oInventorDocument.DocumentType)
+
+        oInventorDrawingDocument.Update()
+
+        '保存工程图
+        If IsFileExsts(strInventorDrawingDocumentFullFileName) = True Then
+            Select Case MsgBox("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", MsgBoxStyle.Information + MsgBoxStyle.YesNoCancel)
+                Case MsgBoxResult.Yes
+                    'DelFile(strInventorDrawingDocumentFullFileName, FileIO.RecycleOption.SendToRecycleBin)
+                    oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+                    oInventorDrawingDocument.Save2()
+                Case MsgBoxResult.No
+                    Dim oSaveFileDialog As New SaveFileDialog
+
+                    With oSaveFileDialog
+                        .Title = "保存工程图文件"
+                        .Filter = "AutoDesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
+                        If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                            If .FileName <> "" Then '如果有选中文件
+                                strInventorDrawingDocumentFullFileName = .FileName
+                            Else
+                                Exit Sub
+                            End If
+                        Else
+                            Exit Sub
+                        End If
+                    End With
+                    oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+                    oInventorDrawingDocument.Save2()
+                Case MsgBoxResult.Cancel
+
+            End Select
+        Else
+            oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
+            oInventorDrawingDocument.Save2()
+        End If
+
+
+
+        '=======================================
+
+        'if GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+        '    oInventorDocument.Save2()
+        'End if
+
+        '下面的暂时不要
+        ''if IsClose = True Then
+        ''    oInventorDrawingDocument.Close()
+        ''End if
+        ' ''oInventorDocument.Close()
+    End Sub
+
+    '查询设置新标题栏
+    Public Sub CreateDrawingDocumentTitleBlock(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal oDocumentType As Inventor.DocumentTypeEnum)
+        '新的标题栏名字
+        Dim strNewTitleBlockName As String = Nothing
+
+        '根据源文件类型得到图框名称
+        Select Case oDocumentType
+            Case kAssemblyDocumentObject
+                strNewTitleBlockName = str部件图框
+            Case kPartDocumentObject
+                strNewTitleBlockName = str零件图框
+        End Select
+
+        Dim oTitleBlockDefinition As TitleBlockDefinition
+
+        For Each oTitleBlockDefinition In oInventorDrawingDocument.TitleBlockDefinitions
+            '在工程图中查找新的标题栏名字，找到就删除原来的标题，添加新的标题栏
+            If oTitleBlockDefinition.Name = strNewTitleBlockName Then
+                '删除旧标题栏
+                oInventorDrawingDocument.ActiveSheet.TitleBlock.Delete()
+                oInventorDrawingDocument.ActiveSheet.AddTitleBlock(oTitleBlockDefinition)
+                Exit Sub
+            End If
+        Next
+
+    End Sub
+
+    '检查工程图匹配
+    Public Function CheckDrawingDocumentNameToReferencedDocument(ByVal oInventorDrawingDocument As Inventor.DrawingDocument) As Boolean
+
+        For Each oReferencedDocument In oInventorDrawingDocument.ReferencedDocumentDescriptors
+            If GetFileNameInfo(oReferencedDocument.FullDocumentName).OnlyName = GetFileNameInfo(oInventorDrawingDocument.FullDocumentName).OnlyName Then
+                Return True
+            End If
+        Next
+        Return False
+
+    End Function
+
+    '工程图另存为，并查找替换同名零部件
+    Public Sub DrawingDocumentSaveAs()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim oInventorDrawingDocument As Inventor.DrawingDocument
+            oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+            '定义旧工程图对应的零部件
+            Dim oOldInventorDocument As Inventor.Document = Nothing
+            Dim strOldInventorDocumentFullName As String = Nothing
+            strOldInventorDocumentFullName = oInventorDrawingDocument.AllReferencedDocuments(1).FullDocumentName
+
+
+            '新工程图文件名
+            Dim oNewInventorDrawingDocumentFullName As Inventor.DrawingDocument = Nothing
+            Dim strNewInventorDrawingDocumentFullName As String = Nothing
+
+            Dim oSaveFileDialog As New SaveFileDialog
+            With oSaveFileDialog
+                .Title = "另存为"
+                .FileName = ""
+                .InitialDirectory = GetFileNameInfo(oInventorDrawingDocument.FullDocumentName).Folder
+                .Filter = "Inventor工程图文件(*.idw)|*.idw" '添加过滤文件
+
+                If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                    If .FileName <> "" Then '如果有选中文件
+                        strNewInventorDrawingDocumentFullName = .FileName
+                    End If
+                Else
+                    Exit Sub
+                End If
+
+                '另存为新工程图
+                oInventorDrawingDocument.SaveAs(strNewInventorDrawingDocumentFullName, True)
+
+                '获取新工程图文件属性
+                Dim oFileNameInfo As FileNameInfo
+                oFileNameInfo = GetFileNameInfo(strNewInventorDrawingDocumentFullName)
+
+                '定义新工程图对应的零部件
+                Dim oNewInventorDocument As Inventor.Document = Nothing
+                Dim strNewInventorDocumentFullName As String = Nothing
+
+
+                '查找新零部件
+                strNewInventorDocumentFullName = SearchDocumentInPresentDirectory(strNewInventorDrawingDocumentFullName, Val(str查找文件夹层数), IPT)
+
+                If strNewInventorDocumentFullName = "NULL" Then
+                    strNewInventorDocumentFullName = SearchDocumentInPresentDirectory(strNewInventorDrawingDocumentFullName, Val(str查找文件夹层数), IAM)
+                End If
+
+                If strNewInventorDocumentFullName = "NULL" Then
+                    'ThisApplication.Documents.Open(strNewInventorDrawingDocumentFullName, True)
+                    MsgBox("未找到" & oFileNameInfo.FileName & "对应的零部件文件。")
+                    Exit Sub
+                End If
+
+                '替换工程图模型参考
+                ReplaceFileReference(strNewInventorDrawingDocumentFullName, strOldInventorDocumentFullName, strNewInventorDocumentFullName)
+                ThisApplication.Documents.Open(strNewInventorDrawingDocumentFullName, True)
+
+            End With
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
 
     End Sub
 

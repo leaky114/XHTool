@@ -14,14 +14,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+            if ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
                 MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
             Dim frmSign As New frmSign
             frmSign.ShowDialog()
@@ -36,9 +36,9 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
             Dim frmSaveAll As New frmSaveAll
             frmSaveAll.ShowDialog()
@@ -52,14 +52,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
                 MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
             Dim AutoPartNumber As New frmAutoPartNumber
             AutoPartNumber.ShowDialog()
@@ -74,14 +74,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            'If IsInventorOpenDocument() = False Then
-            '    Exit Sub
-            'End If
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
 
-            'If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            '    MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-            '    Exit Sub
-            'End If
+            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
 
             Dim frmSpecification As New frmSpecification
             frmSpecification.ShowDialog()
@@ -132,14 +132,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
                 MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
             Dim frmImportCodeToIam As New frmImportCodeToIam
             frmImportCodeToIam.Show()
@@ -154,9 +154,9 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            'If IsInventorOpenDocument() = False Then
+            'if IsInventorOpenDocument() = False Then
             '    Exit Sub
-            'End If
+            'End if
 
             Dim frmImportCodeToBomExcel As New frmImportCodeToBomExcel
             frmImportCodeToBomExcel.ShowInTaskbar = False
@@ -170,11 +170,11 @@ Module OpenFrom
     'm_打开ERP数据文件_Buttondef_OnExecute
     Public Sub OpenBasicExcel()
         Try
-            If IsFileExsts(BasicExcelFullFileName) Then
+            if IsFileExsts(BasicExcelFullFileName) Then
                 Process.Start(BasicExcelFullFileName)
             Else
                 Process.Start(My.Application.Info.DirectoryPath)
-            End If
+            End if
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -200,11 +200,11 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            Dim frmChangeIpro As New frmChangeIpro
+            Dim frmChangeIpro As New frmiProperty
             frmChangeIpro.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -216,9 +216,9 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
             Dim frmMassiPoperties As New frmMassiPoperties
             frmMassiPoperties.ShowDialog()
@@ -229,21 +229,43 @@ Module OpenFrom
     End Sub
 
     '打开统计面积质量窗口
-    Public Sub frmGetPartshow()
+    'Public Sub frmStatisticalWeightShow()
+    '    Try
+    '        SetStatusBarText()
+
+    '        if IsInventorOpenDocument() = False Then
+    '            Exit Sub
+    '        End if
+
+    '        if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+    '            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+    '            Exit Sub
+    '        End if
+
+    '        Dim frmStatisticalWeight As New frmStatisticalWeight
+    '        frmStatisticalWeight.Show()
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message)
+    '    End Try
+
+    'End Sub
+
+    '打开统计窗口
+    Public Sub FrmStatisticalShow()
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
                 MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
-            Dim frmGetPart As New frmGetPart
-            frmGetPart.Show()
+            Dim frmStatistical As New frmStatistical
+            frmStatistical.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -256,14 +278,14 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
                 MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
                 Exit Sub
-            End If
+            End if
 
             Dim frmSetWriteOnly As New frmSetWriteOnly
             frmSetWriteOnly.ShowDialog()
@@ -279,22 +301,67 @@ Module OpenFrom
         Try
             SetStatusBarText()
 
-            If IsInventorOpenDocument() = False Then
+            if IsInventorOpenDocument() = False Then
                 Exit Sub
-            End If
+            End if
 
-            If ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
-                MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
+            'if (ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
+            '    MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+            '    Exit Sub
+            'End if
 
             Dim frmEditDimension As New frmEditDimension
             frmEditDimension.Show()
 
         Catch ex As Exception
+            'MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+    '打开驱动测量窗口
+    Public Sub FrmDim2ObjectShow()
+        Try
+            SetStatusBarText()
+
+            if IsInventorOpenDocument() = False Then
+                Exit Sub
+            End if
+
+            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End if
+
+            Dim FrmDim2Object As New frmDim2Object
+            FrmDim2Object.Show()
+
+        Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
+    End Sub
+
+    '打开动画窗口
+    Public Sub FrmPlayerShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim frmPlayer As New frmPlayer
+            frmPlayer.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
 End Module

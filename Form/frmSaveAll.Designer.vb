@@ -6,9 +6,9 @@ Partial Class frmSaveAll
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
+            if disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
-            End If
+            End if
         Finally
             MyBase.Dispose(disposing)
         End Try
@@ -39,20 +39,20 @@ Partial Class frmSaveAll
         'btn确定
         '
         Me.btn确定.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btn确定.Location = New System.Drawing.Point(20, 247)
+        Me.btn确定.Location = New System.Drawing.Point(20, 245)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(65, 28)
-        Me.btn确定.TabIndex = 0
+        Me.btn确定.TabIndex = 2
         Me.btn确定.Text = "确定"
         '
         'btn关闭
         '
         Me.btn关闭.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(93, 247)
+        Me.btn关闭.Location = New System.Drawing.Point(93, 245)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 28)
-        Me.btn关闭.TabIndex = 1
+        Me.btn关闭.TabIndex = 3
         Me.btn关闭.Text = "关闭"
         '
         'grp文件类型
@@ -63,7 +63,7 @@ Partial Class frmSaveAll
         Me.grp文件类型.Location = New System.Drawing.Point(22, 13)
         Me.grp文件类型.Name = "grp文件类型"
         Me.grp文件类型.Size = New System.Drawing.Size(135, 102)
-        Me.grp文件类型.TabIndex = 1
+        Me.grp文件类型.TabIndex = 0
         Me.grp文件类型.TabStop = False
         Me.grp文件类型.Text = "文件类型"
         '
@@ -145,7 +145,7 @@ Partial Class frmSaveAll
         Me.grp执行操作.Location = New System.Drawing.Point(22, 125)
         Me.grp执行操作.Name = "grp执行操作"
         Me.grp执行操作.Size = New System.Drawing.Size(132, 103)
-        Me.grp执行操作.TabIndex = 2
+        Me.grp执行操作.TabIndex = 1
         Me.grp执行操作.TabStop = False
         Me.grp执行操作.Text = "执行操作"
         '

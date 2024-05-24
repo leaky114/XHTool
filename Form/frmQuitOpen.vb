@@ -4,7 +4,7 @@ Public Class frmQuitOpen
 
     Private Sub lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
 
-        If (lvw文件列表.SelectedItems.Count <> 0) And (e.Button = System.Windows.Forms.MouseButtons.Left) Then
+        if (lvw文件列表.SelectedItems.Count <> 0) And (e.Button = System.Windows.Forms.MouseButtons.Left) Then
             'Dim strFullFileName As String
             'strFullFileName = lvw文件列表.SelectedItems(0).Text
             'Me.Hide()
@@ -18,7 +18,7 @@ Public Class frmQuitOpen
             strQuitOpenSelectFileFullName = lvw文件列表.SelectedItems(0).Text
             Me.Hide()
 
-        End If
+        End if
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         'Me.Dispose()

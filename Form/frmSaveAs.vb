@@ -11,7 +11,7 @@ Imports System.Windows.Forms
 Public Class frmSaveAs
 
     '量产开始
-    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
+    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         On Error Resume Next
         Dim strDwgFullFileName As String = Nothing         'dwg 文件全文件名
         Dim strPdfFullFileName As String = Nothing         'pdf 文件全文件名
@@ -38,9 +38,9 @@ Public Class frmSaveAs
                 GoTo 999
             End If
 
-            'If InStr(InvDocFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            'if InStr(InvDocFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
-            'End If
+            'End if
 
             Dim intSaveModel As Integer
 
@@ -53,9 +53,9 @@ Public Class frmSaveAs
 
             '当前文件夹
             If rdo当前文件夹.Checked = True Then
-                strDwgFullFileName = GetChangeExtension(strInventorFullFileName, DWG)   'Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".dwg")
-                strPdfFullFileName = GetChangeExtension(strInventorFullFileName, PDF) 'Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".pdf")
-                strStpFullFileName = GetChangeExtension(strInventorFullFileName, STP) ' Strings.Replace(strInventorFullFileName, LCaseGetFileExtension(strInventorFullFileName), ".bmp")
+                strDwgFullFileName = GetChangeExtension(strInventorFullFileName, DWG)
+                strPdfFullFileName = GetChangeExtension(strInventorFullFileName, PDF)
+                strStpFullFileName = GetChangeExtension(strInventorFullFileName, STP)
             End If
 
             '同一文件夹
@@ -69,13 +69,9 @@ Public Class frmSaveAs
                     'Exit Sub
                 End If
 
-                'strDwgFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
-                'strPdfFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
-                'strJpgFullFileName = Strings.Replace(strInventorFullFileName, GetParentFolder(strInventorFullFileName), Present_Folder)
-
-                strDwgFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & DWG
-                strPdfFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & PDF
-                strStpFullFileName = Present_Folder & "\" & GetOnlyname(strInventorFullFileName) & STP
+                strDwgFullFileName = Present_Folder & "\" & GetFileNameWithoutExtension2(strInventorFullFileName) & DWG
+                strPdfFullFileName = Present_Folder & "\" & GetFileNameWithoutExtension2(strInventorFullFileName) & PDF
+                strStpFullFileName = Present_Folder & "\" & GetFileNameWithoutExtension2(strInventorFullFileName) & STP
 
             End If
 
@@ -113,7 +109,6 @@ Public Class frmSaveAs
         oInteraction.Stop()
 
         MsgBox("批量另存完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量另存")
-
 
 
     End Sub
@@ -297,6 +292,12 @@ Public Class frmSaveAs
     End Sub
 
     Private Sub frmSaveAs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim toolTip As New ToolTip()
+        toolTip.AutoPopDelay = 0
+        toolTip.InitialDelay = 0
+        toolTip.ReshowDelay = 500
+        toolTip.SetToolTip(btn设置文件夹, "设置指定文件夹")
 
+        btn设置文件夹.Image = My.Resources.打开文件夹16.ToBitmap
     End Sub
 End Class

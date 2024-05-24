@@ -18,10 +18,10 @@ Public NotInheritable Class frmImportCodeToBomExcel
 
         strBomExcelFile = txtExcel文件.Text
 
-        If IsFileExsts(strBomExcelFile) = False Then
+        if IsFileExsts(strBomExcelFile) = False Then
             MsgBox("BOM文件错误！", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "导入ERP编码")
             Exit Sub
-        End If
+        End if
 
         btn导入.Enabled = False
         Me.UseWaitCursor = True
@@ -74,28 +74,28 @@ Public NotInheritable Class frmImportCodeToBomExcel
                     For Each a In Table_Array
                         oExcelRange = oExcelWorksheet.Range(a & ":" & a)
                         intMatchRow = oExcelApplication.WorksheetFunction.Match(strDrawingNo, oExcelRange, 0)
-                        If intMatchRow <> 0 Then
+                        if intMatchRow <> 0 Then
                             Exit For
-                        End If
+                        End if
                     Next
 
-                    If intMatchRow <> 0 Then
+                    if intMatchRow <> 0 Then
                         Dim strFindRow As String
                         strFindRow = ColIndexNum & intMatchRow
                         strERPCode = oExcelWorksheet.Range(strFindRow).Value
                     Else
                         strERPCode = ""
-                    End If
+                    End if
                 Next
 
                 'lbl进度文件.Text = "当前零件： " & strDrawingNo & "——" & strERPCode
 
                 Debug.Print(strERPCode)
-                If strERPCode <> "" Then
+                if strERPCode <> "" Then
                     strRangeName = strReturnColumn & i
                     oBOMRange = oBOMWorksheet.Range(strRangeName)
                     oBOMRange.Value = strERPCode
-                End If
+                End if
             Next
 
         Next
@@ -136,15 +136,23 @@ Public NotInheritable Class frmImportCodeToBomExcel
             .InitialDirectory = System.Environment.SpecialFolder.Desktop
             .Filter = "Excel 工作薄(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
             .Multiselect = False '多开文件打开
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
+            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                if .FileName <> "" Then '如果有选中文件
                     txtExcel文件.Text = .FileName
                     btn导入.Focus()
-                End If
+                End if
             Else
                 Exit Sub
-            End If
+            End if
         End With
     End Sub
 
+    Private Sub frmImportCodeToBomExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim toolTip As New ToolTip()
+        toolTip.AutoPopDelay = 0
+        toolTip.InitialDelay = 0
+        toolTip.ReshowDelay = 500
+        toolTip.SetToolTip(btn打开excel文件, "打开Excel文件")
+        btn打开excel文件.Image = My.Resources.快速打开16.ToBitmap
+    End Sub
 End Class

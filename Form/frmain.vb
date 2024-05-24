@@ -1,6 +1,9 @@
 ﻿Imports Inventor
 Imports Inventor.SelectionFilterEnum
 Imports Inventor.DocumentTypeEnum
+Imports Inventor.ViewOrientationTypeEnum
+Imports Inventor.DrawingViewStyleEnum
+
 Imports System.Windows.Forms
 Imports System
 Imports System.IO
@@ -108,21 +111,21 @@ Public Class frmain
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         'AddPanelToToolsTab()
-        'If NewUpdater.GetGitVersion = "New" Then
-        '    If MsgBox("检查到InAI新版：" & NewVersion & "，是否下载？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "更新") = MsgBoxResult.Yes Then
+        'if NewUpdater.GetGitVersion = "New" Then
+        '    if MsgBox("检查到InAI新版：" & NewVersion & "，是否下载？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "更新") = MsgBoxResult.Yes Then
 
 
         '' 查找进程 "inventor.exe"  
         'Dim process As Process = process.GetProcessById(process.GetProcessesByName("inventor").FirstOrDefault().Id)
 
         '' 检查进程是否存在  
-        'If process IsNot Nothing Then
+        'if process IsNot Nothing Then
         '    ' 结束进程  
         '    process.Kill()
         '    '            MsgBox("进程已结束.")
         'Else
         '    '           MsgBox("未找到进程.")
-        'End If
+        'End if
 
         '' 指定要下载的文件的HTTP地址和本地保存路径  
         'Dim url As String = "https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll"
@@ -134,8 +137,8 @@ Public Class frmain
         'Process.Start("https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll")
 
 
-        '    End If
-        'End If
+        '    End if
+        'End if
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         'On Error Resume Next
@@ -151,7 +154,7 @@ Public Class frmain
         'oCommandManager = ThisApplication.CommandManager
         'oUserInterfaceManager = ThisApplication.UserInterfaceManager
 
-        'If oUserInterfaceManager.InterfaceStyle = InterfaceStyleEnum.kRibbonInterface Then
+        'if oUserInterfaceManager.InterfaceStyle = InterfaceStyleEnum.kRibbonInterface Then
         '    Dim oRibbon As Inventor.Ribbon
         '    Dim oRibbonTab As Inventor.RibbonTab
         '    Dim oRibbonPanel As Inventor.RibbonPanel
@@ -166,7 +169,7 @@ Public Class frmain
 
         '    oRibbonTab = oRibbon.RibbonTabs.Item("id_TabAssemble")
 
-        'End If
+        'End if
 
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -177,43 +180,56 @@ Public Class frmain
         '    Debug.Print(o.FullDocumentName)
         'Next
 
-        On Error Resume Next
+        'On Error Resume Next
 
-        Dim t As System.IO.StreamWriter = New System.IO.StreamWriter("d:\inventor.txt")
+        'Dim t As System.IO.StreamWriter = New System.IO.StreamWriter("d:\inventor.txt")
 
-        For i = 1 To ThisApplication.UserInterfaceManager.Ribbons.Count
-            Dim partRibbon As Ribbon = ThisApplication.UserInterfaceManager.Ribbons.Item(i)
-            t.Write(i & Space(4) & partRibbon.InternalName & vbCrLf)
+        'For i = 1 To ThisApplication.UserInterfaceManager.Ribbons.Count
+        '    Dim partRibbon As Ribbon = ThisApplication.UserInterfaceManager.Ribbons.Item(i)
+        '    t.Write(i & Space(4) & partRibbon.InternalName & vbCrLf)
 
-            For j = 1 To partRibbon.RibbonTabs.Count
-                Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item(j)
-                t.Write(Space(4) & j & Space(4) & toolsTab.InternalName & Space(4) & toolsTab.DisplayName & vbCrLf)
+        '    For j = 1 To partRibbon.RibbonTabs.Count
+        '        Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item(j)
+        '        t.Write(Space(4) & j & Space(4) & toolsTab.InternalName & Space(4) & toolsTab.DisplayName & vbCrLf)
 
-                For k = 1 To toolsTab.RibbonPanels.Count
-                    Dim Ribbon_Panel As RibbonPanel = toolsTab.RibbonPanels.Item(k)
-                    t.Write(Space(8) & k & Space(4) & Ribbon_Panel.InternalName & Space(4) & Ribbon_Panel.DisplayName & vbCrLf)
+        '        For k = 1 To toolsTab.RibbonPanels.Count
+        '            Dim Ribbon_Panel As RibbonPanel = toolsTab.RibbonPanels.Item(k)
+        '            t.Write(Space(8) & k & Space(4) & Ribbon_Panel.InternalName & Space(4) & Ribbon_Panel.DisplayName & vbCrLf)
 
-                    For ii = 1 To Ribbon_Panel.CommandControls.Count
-                        Dim commandcontrol As CommandControl = Ribbon_Panel.CommandControls.Item(ii)
-                        t.Write(Space(16) & ii & Space(4) & commandcontrol.InternalName & Space(4) & commandcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
+        '            For ii = 1 To Ribbon_Panel.CommandControls.Count
+        '                Dim commandcontrol As CommandControl = Ribbon_Panel.CommandControls.Item(ii)
+        '                t.Write(Space(16) & ii & Space(4) & commandcontrol.InternalName & Space(4) & commandcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
 
-                        For jj = 1 To commandcontrol.ChildControls.Count
-                            Dim commandchildcontrol As CommandControl = commandcontrol.ChildControls.Item(jj)
-                            t.Write(Space(24) & jj & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
-                            commandchildcontrol = Nothing
-                        Next
-                        commandcontrol = Nothing
-                    Next
-                    Ribbon_Panel = Nothing
-                Next
-                toolsTab = Nothing
-            Next
-            partRibbon = Nothing
-        Next
-        t.Close()
+        '                For jj = 1 To commandcontrol.ChildControls.Count
+        '                    Dim commandchildcontrol As CommandControl = commandcontrol.ChildControls.Item(jj)
+        '                    t.Write(Space(24) & jj & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
+        '                    commandchildcontrol = Nothing
+        '                Next
+        '                commandcontrol = Nothing
+        '            Next
+        '            Ribbon_Panel = Nothing
+        '        Next
+        '        toolsTab = Nothing
+        '    Next
+        '    partRibbon = Nothing
+        'Next
+        't.Close()
+
+        'SetBendEdgeType()
+
+        'ReplaceDerivedPart()
+
+        '=====================
+        'AddAssemblyBrowserFolder()
+
+
+        'SuppressAllUnhealthConstraints()
+
+        DrawingDocumentSaveAs()
 
     End Sub
 
+    
 
     Private Sub frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
@@ -230,7 +246,7 @@ Public Class frmain
 
         End Try
 
-        ' If not active, create a new Inventor session
+        ' if not active, create a new Inventor session
         If ThisApplication Is Nothing Then
 
             Dim ThisApplicationType As Type = System.Type.GetTypeFromProgID("Inventor.Application")
@@ -259,13 +275,13 @@ Public Class frmain
         Debug.Print(ContentCenterFiles)
 
 
-        IniFile = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.ini", "\InAISetting.ini")
-        If IsFileExsts(IniFile) = False Then
+        Inifile = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.ini", "\InAISetting.ini")
+        If IsFileExsts(Inifile) = False Then
             '初始化默认值
             WrXml.InAISettingDefaultValue()
 
             '获取自定义值
-            WrXml.InAISettingXmlReadSetting()
+            'WrXml.InAISettingXmlReadSetting()
 
             WrIni.InAISettingIniWriteSetting()
         End If
@@ -285,7 +301,7 @@ Public Class frmain
             Dim wc As New System.Net.WebClient
             'wc.DownloadFile(documentURL, BasicExcelFullFileName)
         End If
-        'End If
+        'End if
 
         '下载帮助文件
         documentURL = "\\Likai-pc\发行版\安装包\帮助.docx"
@@ -309,43 +325,43 @@ Public Class frmain
 
     'Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
     '    '上边隐藏
-    '    If Me.Location.Y < 20 And HideSide <> 2 Then '判断当前窗体位置，如果窗体位置y值小于50那么再进行鼠标位置判断决定是否上移
-    '        If Control.MousePosition.X < Me.Location.X Or Control.MousePosition.X > Me.Location.X + Me.Width Or Control.MousePosition.Y < Me.Location.Y Or Control.MousePosition.Y > Me.Location.Y + Height Then
+    '    if Me.Location.Y < 20 And HideSide <> 2 Then '判断当前窗体位置，如果窗体位置y值小于50那么再进行鼠标位置判断决定是否上移
+    '        if Control.MousePosition.X < Me.Location.X Or Control.MousePosition.X > Me.Location.X + Me.Width Or Control.MousePosition.Y < Me.Location.Y Or Control.MousePosition.Y > Me.Location.Y + Height Then
     '            '判断鼠标位置在窗体外，则执行如下程序，注意在判断表达式中不要用等号，否则窗体会闪烁
     '            Me.Location = New System.Drawing.Point(Me.Location.X, 3 - Me.Height) '上边预留3个格供Timer2触发事件用，不留将无法把鼠标移到已隐藏的窗体上
     '            Timer2.Enabled = True
     '            Timer1.Enabled = False
     '            Me.TopMost = True '将上移后的窗体置顶
     '            HideSide = 1
-    '        End If
-    '    End If
+    '        End if
+    '    End if
 
     '    '左边隐藏
-    '    If Me.Location.X < 20 And HideSide <> 1 Then '判断当前窗体位置，如果窗体位置y值小于50那么再进行鼠标位置判断决定是否上移
-    '        If Control.MousePosition.X < Me.Location.X Or Control.MousePosition.X > Me.Location.X + Me.Width Or Control.MousePosition.Y < Me.Location.Y Or Control.MousePosition.Y > Me.Location.Y + Height Then
+    '    if Me.Location.X < 20 And HideSide <> 1 Then '判断当前窗体位置，如果窗体位置y值小于50那么再进行鼠标位置判断决定是否上移
+    '        if Control.MousePosition.X < Me.Location.X Or Control.MousePosition.X > Me.Location.X + Me.Width Or Control.MousePosition.Y < Me.Location.Y Or Control.MousePosition.Y > Me.Location.Y + Height Then
     '            '判断鼠标位置在窗体外，则执行如下程序，注意在判断表达式中不要用等号，否则窗体会闪烁
     '            Me.Location = New System.Drawing.Point(3 - Me.Width, Me.Location.Y) '上边预留3个格供Timer2触发事件用，不留将无法把鼠标移到已隐藏的窗体上
     '            Timer2.Enabled = True
     '            Timer1.Enabled = False
     '            Me.TopMost = True '将上移后的窗体置顶
     '            HideSide = 2
-    '        End If
-    '    End If
+    '        End if
+    '    End if
 
     'End Sub
 
     'Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
-    '    If Control.MousePosition.X > Me.Location.X And Control.MousePosition.X < Me.Location.X + Me.Width And Control.MousePosition.Y > Me.Location.Y And Control.MousePosition.Y < Me.Location.Y + Height And HideSide <> 0 Then
+    '    if Control.MousePosition.X > Me.Location.X And Control.MousePosition.X < Me.Location.X + Me.Width And Control.MousePosition.Y > Me.Location.Y And Control.MousePosition.Y < Me.Location.Y + Height And HideSide <> 0 Then
     '        '判断鼠标位置在窗体内，则执行如下程序，注意在判断表达式中不要用等号，否则窗体会闪烁
-    '        If HideSide = 1 Then
+    '        if HideSide = 1 Then
     '            Me.Location = New System.Drawing.Point(Me.Location.X, 0) '靠边显示窗体
-    '        ElseIf HideSide = 2 Then
+    '        Elseif HideSide = 2 Then
     '            Me.Location = New System.Drawing.Point(0, Me.Location.Y) '靠边显示窗体
-    '        End If
+    '        End if
     '        Timer2.Enabled = False
     '        Timer1.Enabled = True
     '        HideSide = 0
-    '    End If
+    '    End if
     'End Sub
 
     '窗口大小发生变化
@@ -375,83 +391,11 @@ Public Class frmain
 
     End Sub
 
-    ''提取iproperty更改文件名
-    'Private Sub Button提取iproperty更改文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    '    Try
-    '        SetStatusBarText()
-
-    '        If IsInventorOpenDocument() = False Then
-    '            Exit Sub
-    '        End If
-
-    '        '判断是否为 assdoc
-    '        Dim InventorDoc As Inventor.Document
-
-    '        InventorDoc = ThisApplication.ActiveDocument
-
-    '        If InventorDoc.DocumentType <> kAssemblyDocumentObject Then
-    '            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
-    '            Exit Sub
-    '        End If
-
-    '        Dim OldOcc As ComponentOccurrence   '选择的部件或零件
-    '        OldOcc = ThisApplication.CommandManager.Pick(kAssemblyOccurrenceFilter, "选择要更改文件名的的零件或部件")
-
-    '        If OldOcc Is Nothing Then       '取消选择
-    '            Exit Sub
-    '        End If
-
-    '        If GetIpropertyToRenameSub(InventorDoc, OldOcc) Then
-    '            SetStatusBarText("提取iproperty更改文件名完成")
-    '            'MsgBox("提取iproperty更改文件名完成", MsgBoxStyle.Information)
-
-    '        Else
-    '            SetStatusBarText("错误")
-    '            MsgBox("错误", MsgBoxStyle.Exclamation)
-
-    '        End If
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
-    ''自动生成零件号
-    'Private Sub Button自动生成零件图号_Click(ByVal sender As Object, ByVal e As System.EventArgs)
-    '    Try
-    '        If IsInventorOpenDocument() = False Then
-    '            Exit Sub
-    '        End If
-
-    '        IsAutoSetPartName = True
-
-    '        ReSetLabel()
-
-    '        Dim InventorDoc As Inventor.Document     '当前文件
-    '        InventorDoc = ThisApplication.ActiveDocument
-
-    '        If InventorDoc.DocumentType <> kAssemblyDocumentObject Then
-    '            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
-    '            Exit Sub
-    '        End If
-
-    '        If AutoSetPartNumber(InventorDoc) Then
-    '            ToolStripStatusLabel1.Text = "自动生成零件图号完成"
-    '        Else
-    '            ToolStripStatusLabel1.Text = "错误"
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
     '更改镜像零件/部件文件名
     Private Sub Button更改镜像零件文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button更改镜像零件文件名.Click
         RenameMirrorAssPartDocumentName()
+
     End Sub
-
-
-
 
     '帮助
     Private Sub 帮助ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 帮助ToolStripMenuItem.Click
@@ -679,38 +623,6 @@ Public Class frmain
 
     'End Sub
 
-    ''获取未读取的文件所在部件并打开该部件
-    'Private Sub GetUnkonwDocument()
-    '    Try
-    '        If IsInventorOpenDocument() = False Then
-    '            Exit Sub
-    '        End If
-
-    '        ReSetLabel()
-
-    '        Dim InventorDoc As Inventor.Document     '当前文件
-    '        InventorDoc = ThisApplication.ActiveDocument
-
-    '        If InventorDoc.DocumentType <> kAssemblyDocumentObject Then
-    '            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
-    '            Exit Sub
-    '        End If
-
-    '        If GetMissDocumentSub(InventorDoc) Then
-    '            ToolStripStatusLabel1.Text = "获取当前部件中的文件名修改ipropty完成"
-    '            'MsgBox("获取当前部件中的文件名修改ipropty完成", MsgBoxStyle.Information)
-
-    '        Else
-    '            ToolStripStatusLabel1.Text = "错误"
-    '            MsgBox("错误", MsgBoxStyle.Exclamation)
-
-    '        End If
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message)
-    '    End Try
-    'End Sub
-
     Private Sub 打印ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         frmPrint.Show()
     End Sub
@@ -920,14 +832,10 @@ Public Class frmain
         RefreshShowName()
     End Sub
 
-    Private Sub 统计面积质量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 统计面积质量ToolStripMenuItem.Click
-        frmGetPartshow()
-    End Sub
 
     Private Sub 设置只读ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置只读ToolStripMenuItem.Click
         FrmSetWriteOnlyShow()
     End Sub
-
 
     Private WithEvents m_快速打开_Buttondef As ButtonDefinition
 
@@ -970,24 +878,7 @@ Public Class frmain
     End Sub
 
     Private Sub 动画设计ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动画设计ToolStripMenuItem.Click
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim frmPlayer As New frmPlayer
-            frmPlayer.Show()
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        FrmPlayerShow()
     End Sub
 
     Private Sub 标准件可见性ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 标准件可见性ToolStripMenuItem.Click
@@ -998,33 +889,41 @@ Public Class frmain
         ReplaceWithContentCenterFile()
     End Sub
 
-    Private Sub 编辑尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 编辑尺寸ToolStripMenuItem.Click
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-
-            If ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
-                MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim frmEditDimension As New frmEditDimension
-            frmEditDimension.Show()
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    Private Sub 动态尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动态尺寸ToolStripMenuItem.Click
+     FrmEditDimensionShow
     End Sub
 
-    Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 生成展开图ToolStripMenuItem.Click
-        CreateFlat()
+    Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建展开图ToolStripMenuItem.Click
+        CreateFlatDrawingDocument()
     End Sub
 
     Private Sub 查找替换ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 查找替换ToolStripMenuItem.Click
-        FindandReplace()
+        FindAndReplace()
+    End Sub
+
+    Private Sub 生成工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建工程图ToolStripMenuItem.Click
+        CreatNewDrawingDocument()
+    End Sub
+
+    Private Sub 驱动测量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 驱动测量ToolStripMenuItem.Click
+      FrmDim2ObjectShow
+
+    End Sub
+
+    Private Sub 抑制错误约束ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 抑制错误约束ToolStripMenuItem.Click
+        SuppressAllUnhealthConstraints()
+    End Sub
+
+    Private Sub 统计焊缝ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 统计焊缝ToolStripMenuItem.Click
+        FrmStatisticalShow()
+
+    End Sub
+
+    Private Sub 保存为图片ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 保存为图片ToolStripMenuItem.Click
+        CreatJpg()
+    End Sub
+
+    Private Sub 按列表打开ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 按列表打开ToolStripMenuItem.Click
+        OpenFilesWithFileList()
     End Sub
 End Class

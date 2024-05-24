@@ -15,17 +15,17 @@ Public Class frmPlayer
         'Try
         SetStatusBarText()
 
-        If IsInventorOpenDocument() = False Then
+        if IsInventorOpenDocument() = False Then
             Exit Sub
-        End If
+        End if
 
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
-        If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
+        if oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
             MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
             Exit Sub
-        End If
+        End if
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
 
@@ -35,7 +35,7 @@ Public Class frmPlayer
         Dim oselect As Object
         Dim oAssemblyConstraint As AssemblyConstraint = Nothing
 
-        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+        if oInventorAssemblyDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
             oselect = oInventorAssemblyDocument.SelectSet(1)
             Select Case oselect.type
@@ -49,12 +49,12 @@ Public Class frmPlayer
         Else
             MsgBox("选择一个约束。")
             Exit Sub
-        End If
+        End if
 
 
-        If oAssemblyConstraint Is Nothing Then       '取消选择
+        if oAssemblyConstraint Is Nothing Then       '取消选择
             Exit Sub
-        End If
+        End if
 
         btn选择约束.Text = oAssemblyConstraint.Name
         txt开始.Text = oAssemblyConstraint.DriveSettings.StartValue
@@ -93,13 +93,13 @@ Public Class frmPlayer
         'Dim lvItem As ListViewItem
         'lvItem = lvw文件列表.SelectedItems(0)
 
-        'If lvItem Is Nothing Then
+        'if lvItem Is Nothing Then
         '    Exit Sub
-        'End If
+        'End if
 
         Dim oAssemblyConstraint As AssemblyConstraint
         For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
-            If oAssemblyConstraint.Name = btn选择约束.Text Then
+            if oAssemblyConstraint.Name = btn选择约束.Text Then
 
                 With oAssemblyConstraint.DriveSettings
                     .StartValue = txt开始.Text.ToString
@@ -111,7 +111,7 @@ Public Class frmPlayer
                 End With
 
                 Exit Sub
-            End If
+            End if
 
         Next
 
@@ -128,9 +128,9 @@ Public Class frmPlayer
 
             For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
 
-                If oAssemblyConstraint.Name = lvItem.Text Then
+                if oAssemblyConstraint.Name = lvItem.Text Then
 
-                    If lvItem.SubItems(1).Text = True Then
+                    if lvItem.SubItems(1).Text = True Then
                         oAssemblyConstraint.Suppressed = True
                     Else
                         With oAssemblyConstraint.DriveSettings
@@ -141,8 +141,8 @@ Public Class frmPlayer
                             .PlayForward()
                             .PlayReverse()
                         End With
-                    End If
-                End If
+                    End if
+                End if
             Next
 
         Next
@@ -151,7 +151,7 @@ Public Class frmPlayer
     Private Sub btn确定编辑_Click(sender As Object, e As EventArgs) Handles btn确定编辑.Click
         Dim oListViewItem As ListViewItem
 
-        If IsAddNew = True Then
+        if IsAddNew = True Then
             oListViewItem = lvw文件列表.Items.Add(btn选择约束.Text)
             With oListViewItem
                 .SubItems.Add(CheckBox抑制.Checked)
@@ -173,7 +173,7 @@ Public Class frmPlayer
 
             End With
 
-        End If
+        End if
     End Sub
 
     Private Sub btn选择约束_Click(sender As Object, e As EventArgs) Handles btn选择约束.Click
@@ -183,7 +183,7 @@ Public Class frmPlayer
         Dim oselect As Object
         Dim oAssemblyConstraint As AssemblyConstraint = Nothing
 
-        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+        if oInventorAssemblyDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
             oselect = oInventorAssemblyDocument.SelectSet(1)
             Select Case oselect.type
@@ -197,28 +197,28 @@ Public Class frmPlayer
         Else
             MsgBox("选择一个约束。")
             Exit Sub
-        End If
+        End if
 
-        'If oAssemblyConstraint Is Nothing Then       '取消选择
+        'if oAssemblyConstraint Is Nothing Then       '取消选择
         '    Exit Sub
-        'End If
+        'End if
 
         btn选择约束.Text = oAssemblyConstraint.Name
 
         'Dim oComponentOccurrence As ComponentOccurrence   '选择的部件或零件
 
-        'If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+        'if oInventorAssemblyDocument.SelectSet.Count <> 0 Then
         '    'For Each oSelect As Object In InventorDoc.SelectSet
         '    oComponentOccurrence = oInventorAssemblyDocument.SelectSet(1)
         '    'Next
         'Else
         '    oComponentOccurrence = ThisApplication.CommandManager.Pick(kMateConstraintObject, "选择零件或部件")
 
-        'End If
+        'End if
 
-        'If oComponentOccurrence Is Nothing Then       '取消选择
+        'if oComponentOccurrence Is Nothing Then       '取消选择
         '    Exit Sub
-        'End If
+        'End if
 
         'Dim oAssemblyConstraintsEnumerator As AssemblyConstraintsEnumerator
         'oAssemblyConstraintsEnumerator = oComponentOccurrence.Constraints

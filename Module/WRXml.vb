@@ -6,11 +6,11 @@ Module WrXml
     Public Sub InAISettingXmlWriteSetting()
         'Save Settings
         On Error Resume Next
-        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
+        Dim FPath As String = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
 
-        If File.Exists(FPath) = True Then
+        if File.Exists(FPath) = True Then
             File.Delete(FPath)
-        End If
+        End if
 
         Dim XWriter As New Xml.XmlTextWriter(FPath, System.Text.Encoding.GetEncoding("UTF-8"))
 
@@ -62,7 +62,7 @@ Module WrXml
         XWriter.WriteElementString("SimpleUpdater", SimpleUpdater)
         XWriter.WriteElementString("NewVersionTxt", NewVersionTxt)
 
-        XWriter.WriteElementString("TitleBlockIdwDoc", TitleBlockIdwDoc)
+        XWriter.WriteElementString("工程图模板", str工程图模板)
 
         XWriter.WriteElementString("PrintSetting", PrintSetting)
 
@@ -75,10 +75,10 @@ Module WrXml
     Public Sub InAISettingXmlReadSetting()
         'Load Settings
         On Error Resume Next
-        Dim FPath As String = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
+        Dim FPath As String = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.xml", "\InAISetting.xml")
         Dim txtReader As StreamReader = Nothing
 
-        If File.Exists(FPath) = True Then
+        if File.Exists(FPath) = True Then
 
             Dim XDoc As New Xml.XmlDocument
             XDoc.Load(FPath)
@@ -134,7 +134,7 @@ Module WrXml
                             Case "SimpleUpdater" : SimpleUpdater = XReader.Value
                             Case "NewVersionTxt" : NewVersionTxt = XReader.Value
 
-                            Case "TitleBlockIdwDoc" : TitleBlockIdwDoc = XReader.Value
+                            Case "Drawing_Templates" : str工程图模板 = XReader.Value
 
                             Case "PrintSetting" : PrintSetting = XReader.Value
 
@@ -142,7 +142,7 @@ Module WrXml
                 End Select
             End While
 
-        End If
+        End if
     End Sub
 
     Public Sub InAISettingDefaultValue()
@@ -179,7 +179,8 @@ Module WrXml
         SimpleUpdater = "SimpleUpdater.exe"
         NewVersionTxt = "NewVersion.txt"
 
-        TitleBlockIdwDoc = My.Application.Info.DirectoryPath & "\模板.idw"
+        str工程图模板 = My.Application.Info.DirectoryPath & "\模板.idw"
+        str展开图模板 = My.Application.Info.DirectoryPath & "\模板.idw"
 
         PrintSetting = "1101111001"
 
