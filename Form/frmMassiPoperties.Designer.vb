@@ -22,9 +22,9 @@ Partial Class frmMassiPoperties
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
-        Me.lst文件列表 = New System.Windows.Forms.ListBox()
         Me.btn添加文件 = New System.Windows.Forms.Button()
         Me.btn清除列表 = New System.Windows.Forms.Button()
         Me.tp自定义 = New System.Windows.Forms.TabPage()
@@ -44,15 +44,24 @@ Partial Class frmMassiPoperties
         Me.lbl项目名 = New System.Windows.Forms.Label()
         Me.cbo项目名 = New System.Windows.Forms.ComboBox()
         Me.tab1 = New System.Windows.Forms.TabControl()
+        Me.lvw文件列表 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.cms右键菜单 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmi移出 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi筛选移出 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi筛选保留 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn导入已打开文件 = New System.Windows.Forms.Button()
+        Me.btn添加文件夹 = New System.Windows.Forms.Button()
         Me.tp自定义.SuspendLayout()
         Me.tp项目.SuspendLayout()
         Me.tab1.SuspendLayout()
+        Me.cms右键菜单.SuspendLayout()
         Me.SuspendLayout()
         '
         'btn确定
         '
         Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn确定.Location = New System.Drawing.Point(159, 189)
+        Me.btn确定.Location = New System.Drawing.Point(327, 460)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(70, 28)
         Me.btn确定.TabIndex = 2
@@ -62,43 +71,31 @@ Partial Class frmMassiPoperties
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(237, 189)
+        Me.btn关闭.Location = New System.Drawing.Point(405, 460)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(70, 28)
         Me.btn关闭.TabIndex = 3
         Me.btn关闭.Text = "关闭"
         '
-        'lst文件列表
-        '
-        Me.lst文件列表.FormattingEnabled = True
-        Me.lst文件列表.ItemHeight = 12
-        Me.lst文件列表.Location = New System.Drawing.Point(12, 226)
-        Me.lst文件列表.Name = "lst文件列表"
-        Me.lst文件列表.Size = New System.Drawing.Size(271, 148)
-        Me.lst文件列表.TabIndex = 15
-        Me.lst文件列表.Visible = False
-        '
         'btn添加文件
         '
-        Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn添加文件.Location = New System.Drawing.Point(3, 189)
+        Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件.Location = New System.Drawing.Point(266, 318)
         Me.btn添加文件.Name = "btn添加文件"
-        Me.btn添加文件.Size = New System.Drawing.Size(70, 28)
+        Me.btn添加文件.Size = New System.Drawing.Size(91, 28)
         Me.btn添加文件.TabIndex = 0
         Me.btn添加文件.Text = "添加文件"
         Me.btn添加文件.UseVisualStyleBackColor = True
-        Me.btn添加文件.Visible = False
         '
         'btn清除列表
         '
-        Me.btn清除列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn清除列表.Location = New System.Drawing.Point(81, 189)
+        Me.btn清除列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn清除列表.Location = New System.Drawing.Point(389, 358)
         Me.btn清除列表.Name = "btn清除列表"
         Me.btn清除列表.Size = New System.Drawing.Size(70, 28)
         Me.btn清除列表.TabIndex = 1
         Me.btn清除列表.Text = "清除列表"
         Me.btn清除列表.UseVisualStyleBackColor = True
-        Me.btn清除列表.Visible = False
         '
         'tp自定义
         '
@@ -115,7 +112,7 @@ Partial Class frmMassiPoperties
         Me.tp自定义.Location = New System.Drawing.Point(4, 22)
         Me.tp自定义.Name = "tp自定义"
         Me.tp自定义.Padding = New System.Windows.Forms.Padding(3)
-        Me.tp自定义.Size = New System.Drawing.Size(286, 146)
+        Me.tp自定义.Size = New System.Drawing.Size(240, 146)
         Me.tp自定义.TabIndex = 1
         Me.tp自定义.Text = "自定义"
         Me.tp自定义.UseVisualStyleBackColor = True
@@ -220,7 +217,7 @@ Partial Class frmMassiPoperties
         Me.tp项目.Location = New System.Drawing.Point(4, 22)
         Me.tp项目.Name = "tp项目"
         Me.tp项目.Padding = New System.Windows.Forms.Padding(3)
-        Me.tp项目.Size = New System.Drawing.Size(286, 146)
+        Me.tp项目.Size = New System.Drawing.Size(240, 146)
         Me.tp项目.TabIndex = 0
         Me.tp项目.Text = "项目"
         Me.tp项目.UseVisualStyleBackColor = True
@@ -262,46 +259,112 @@ Partial Class frmMassiPoperties
         '
         'tab1
         '
+        Me.tab1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.tab1.Controls.Add(Me.tp项目)
         Me.tab1.Controls.Add(Me.tp自定义)
-        Me.tab1.Location = New System.Drawing.Point(12, 12)
+        Me.tab1.Location = New System.Drawing.Point(12, 316)
         Me.tab1.Name = "tab1"
         Me.tab1.SelectedIndex = 0
-        Me.tab1.Size = New System.Drawing.Size(294, 172)
+        Me.tab1.Size = New System.Drawing.Size(248, 172)
         Me.tab1.TabIndex = 4
+        '
+        'lvw文件列表
+        '
+        Me.lvw文件列表.AllowColumnReorder = True
+        Me.lvw文件列表.AllowDrop = True
+        Me.lvw文件列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw文件列表.AutoArrange = False
+        Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
+        Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
+        Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
+        Me.lvw文件列表.Name = "lvw文件列表"
+        Me.lvw文件列表.Size = New System.Drawing.Size(461, 286)
+        Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.lvw文件列表.TabIndex = 37
+        Me.lvw文件列表.UseCompatibleStateImageBehavior = False
+        Me.lvw文件列表.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader文件名
+        '
+        Me.ColumnHeader文件名.Text = "文件名(双击打开)"
+        Me.ColumnHeader文件名.Width = 441
+        '
+        'cms右键菜单
+        '
+        Me.cms右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi移出, Me.tsmi筛选移出, Me.tsmi筛选保留})
+        Me.cms右键菜单.Name = "cmsRemove"
+        Me.cms右键菜单.Size = New System.Drawing.Size(125, 70)
+        '
+        'tsmi移出
+        '
+        Me.tsmi移出.Name = "tsmi移出"
+        Me.tsmi移出.Size = New System.Drawing.Size(124, 22)
+        Me.tsmi移出.Text = "移出"
+        '
+        'tsmi筛选移出
+        '
+        Me.tsmi筛选移出.Name = "tsmi筛选移出"
+        Me.tsmi筛选移出.Size = New System.Drawing.Size(124, 22)
+        Me.tsmi筛选移出.Text = "筛选移出"
+        '
+        'tsmi筛选保留
+        '
+        Me.tsmi筛选保留.Name = "tsmi筛选保留"
+        Me.tsmi筛选保留.Size = New System.Drawing.Size(124, 22)
+        Me.tsmi筛选保留.Text = "筛选保留"
+        '
+        'btn导入已打开文件
+        '
+        Me.btn导入已打开文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn导入已打开文件.Location = New System.Drawing.Point(266, 358)
+        Me.btn导入已打开文件.Name = "btn导入已打开文件"
+        Me.btn导入已打开文件.Size = New System.Drawing.Size(103, 28)
+        Me.btn导入已打开文件.TabIndex = 41
+        Me.btn导入已打开文件.Text = "导入已打开文件"
+        Me.btn导入已打开文件.UseVisualStyleBackColor = True
+        '
+        'btn添加文件夹
+        '
+        Me.btn添加文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加文件夹.Location = New System.Drawing.Point(368, 318)
+        Me.btn添加文件夹.Name = "btn添加文件夹"
+        Me.btn添加文件夹.Size = New System.Drawing.Size(91, 28)
+        Me.btn添加文件夹.TabIndex = 39
+        Me.btn添加文件夹.Text = "添加文件夹"
+        Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
         'frmMassiPoperties
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(317, 229)
+        Me.ClientSize = New System.Drawing.Size(485, 500)
+        Me.Controls.Add(Me.btn导入已打开文件)
+        Me.Controls.Add(Me.btn添加文件夹)
+        Me.Controls.Add(Me.lvw文件列表)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn确定)
         Me.Controls.Add(Me.btn清除列表)
         Me.Controls.Add(Me.tab1)
         Me.Controls.Add(Me.btn添加文件)
-        Me.Controls.Add(Me.lst文件列表)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmMassiPoperties"
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "量产iProperty"
-        Me.TopMost = True
         Me.tp自定义.ResumeLayout(False)
         Me.tp自定义.PerformLayout()
         Me.tp项目.ResumeLayout(False)
         Me.tp项目.PerformLayout()
         Me.tab1.ResumeLayout(False)
+        Me.cms右键菜单.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents btn确定 As System.Windows.Forms.Button
     Friend WithEvents btn关闭 As System.Windows.Forms.Button
-    Friend WithEvents lst文件列表 As System.Windows.Forms.ListBox
     Friend WithEvents btn添加文件 As System.Windows.Forms.Button
     Friend WithEvents btn清除列表 As System.Windows.Forms.Button
     Friend WithEvents tp自定义 As System.Windows.Forms.TabPage
@@ -321,5 +384,13 @@ Partial Class frmMassiPoperties
     Friend WithEvents lbl项目名 As System.Windows.Forms.Label
     Friend WithEvents cbo项目名 As System.Windows.Forms.ComboBox
     Friend WithEvents tab1 As System.Windows.Forms.TabControl
+    Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
+    Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents btn导入已打开文件 As System.Windows.Forms.Button
+    Friend WithEvents btn添加文件夹 As System.Windows.Forms.Button
+    Friend WithEvents cms右键菜单 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents tsmi移出 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmi筛选移出 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmi筛选保留 As System.Windows.Forms.ToolStripMenuItem
 
 End Class

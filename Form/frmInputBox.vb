@@ -16,6 +16,7 @@ Public Class frmInputBox
     End Sub
 
     Private Sub frmInputBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
         txt输入.SelectAll()
     End Sub
 
@@ -44,26 +45,12 @@ Public Class frmInputBox
                 Dim oInventorDocument As Inventor.Document      '当前文件
                 oInventorDocument = ThisApplication.ActiveEditDocument
 
-                Dim oPropSets As PropertySets
-                Dim oPropSet As PropertySet
-                Dim propitem As [Property]
-
-                oPropSets = oInventorDocument.PropertySets
-                oPropSet = oPropSets.Item(3)
-
                 '获取iproperty
-                'Dim oStockNumPartName As StockNumPartName = Nothing
+
                 Dim strStochNum As String = Nothing
                 Dim strPartNum As String = Nothing
 
-                For Each propitem In oPropSet
-                    Select Case propitem.DisplayName
-                        Case Map_DrawingNnumber
-                            strStochNum = propitem.Value
-                            'PartNum = VLookUpValue(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
-                            Exit For
-                    End Select
-                Next
+                strStochNum = GetPropitem(oInventorDocument, Map_DrawingNnumber)
 
                 strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
                 if strPartNum <> 0 Then
@@ -89,9 +76,9 @@ Public Class frmInputBox
     End Sub
 
     Private Sub txt输入_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt输入.KeyPress
-        if Asc(e.KeyChar) = Keys.Enter Then
+        If Asc(e.KeyChar) = Keys.Enter Then
             btn确定.PerformClick()
-        End if
+        End If
     End Sub
 
 End Class

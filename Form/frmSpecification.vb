@@ -2,11 +2,14 @@
 Imports Inventor.DocumentTypeEnum
 Imports System.IO
 Imports System.Windows.Forms
+Imports System.Collections.Generic
 
 Public Class frmSpecification
     Private boolIsBasicChange As Boolean
     Private boolIsUserChange As Boolean
     Private strSpecificationIni As String
+
+    Private oPoint2d As Point2d
 
     Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
@@ -16,9 +19,16 @@ Public Class frmSpecification
     Private Sub frmSpecification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error Resume Next
 
+        Me.Icon = My.Resources.XHTool48
+
+        '加载间距
+
+        间距ToolStripTextBox.Text = ini.GetStrFromINI("技术要求", "行距", "1.5", IniFile)
+
+        字体ToolStripButton.Text = ini.GetStrFromINI("技术要求", "字体", "仿宋", IniFile)
+
         '加载配置文件
-        strSpecificationIni = My.Application.Info.DirectoryPath & Iif(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", _
-                                                                      "Specification.ini", "\Specification.ini")
+        strSpecificationIni = IO.Path.Combine(My.Application.Info.DirectoryPath, "Specification.ini")
 
         if IsFileExsts(strSpecificationIni) = False Then
             MsgBox("未找到配置文件 Specification.ini", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "技术要求")
@@ -341,10 +351,18 @@ Public Class frmSpecification
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
-        if oInventorDocument.DocumentType <> kDrawingDocumentObject Then
+        If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
             MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
             Exit Sub
-        End if
+        End If
+
+        '间距设置ini
+        ini.WriteStrINI("技术要求", "行距", 间距ToolStripTextBox.Text, IniFile)
+        ini.WriteStrINI("技术要求", "字体", 字体ToolStripButton.Text, IniFile)
+
+        '-----------------------------------------
+        'Dim oInventorDocument As Inventor.Document
+        'oInventorDocument = ThisApplication.ActiveDocument
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         Dim oActiveSheet As Sheet
@@ -389,12 +407,92 @@ Public Class frmSpecification
             strFormattedText = strFormattedText & str5 & strChildNodeValue
         Next
 
-        Dim oGeneralNote As GeneralNote
-        oGeneralNote = oGeneralNotes.AddFitted(oTG.CreatePoint2d(4, 10), strFormattedText)
+        Me.Hide()
+
+        Dim oPoint2d As Point2d
+
+        oPoint2d = GetDrawingPoint() ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
+
+        Dim oGeneralNote As GeneralNote = Nothing
 
         Dim douLineSpacing As Double
         douLineSpacing = Val(间距ToolStripTextBox.Text)
+
+        oGeneralNote = oGeneralNotes.AddFitted(oPoint2d, strFormattedText)
         oGeneralNote.LineSpacing = douLineSpacing
+
+        Me.Show()
+        Me.TopMost = True
+        Me.TopMost = False
+
+    End Sub
+
+    Private Sub oMouse_OnMouseDown(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, _
+                                   ViewPosition As Point2d, View As Inventor.View)
+
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        Dim oInventorDrawingDocument As Inventor.DrawingDocument
+        Dim oActiveSheet As Sheet
+
+        oInventorDrawingDocument = oInventorDocument
+        oActiveSheet = oInventorDrawingDocument.ActiveSheet
+
+        ' Set a reference to the GeneralNotes object
+        Dim oGeneralNotes As GeneralNotes
+        oGeneralNotes = oActiveSheet.DrawingNotes.GeneralNotes
+
+        Dim oTG As TransientGeometry
+        oTG = ThisApplication.TransientGeometry
+
+        ' Create text with simple string as input. Since this doesn't use
+        ' any text overrides, it will default to the active text style.
+
+        Dim strFormattedText As String
+
+        Dim strFontName As String
+        strFontName = 字体ToolStripButton.Text
+
+        Dim strTitle As String
+        strTitle = txt标题文本.Text
+
+        Dim str1 As String = "<StyleOverride Font='"
+        Dim str2 As String = "'>"
+        Dim str3 As String = ""
+        Dim str4 As String = "</StyleOverride>"
+        Dim str5 As String = "<Br/>"
+
+        '     <StyleOverride Font='隶书'>技术要求</StyleOverride><Br/>
+
+        strFormattedText = str1 & strFontName & str2 & strTitle & str4
+
+        Dim strChildNodeValue As String
+        For intNumber = 1 To lst技术要求文本.Items.Count
+            strChildNodeValue = lst技术要求文本.Items(intNumber - 1).ToString
+
+            strChildNodeValue = str1 & strFontName & str2 & strChildNodeValue & str4
+
+            strFormattedText = strFormattedText & str5 & strChildNodeValue
+        Next
+
+        Me.TopMost = False
+        Me.Hide()
+
+        Dim oPoint2d As Point2d
+
+        oPoint2d = ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
+
+        Dim oGeneralNote As GeneralNote = Nothing
+
+        Dim douLineSpacing As Double
+        douLineSpacing = Val(间距ToolStripTextBox.Text)
+
+        oGeneralNote = oGeneralNotes.AddFitted(oPoint2d, strFormattedText)
+        oGeneralNote.LineSpacing = douLineSpacing
+
+        Me.Show()
 
     End Sub
 
@@ -420,22 +518,18 @@ Public Class frmSpecification
     End Sub
 
     Private Sub 导入文件ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 导入文件ToolStripMenuItem.Click
-        Dim oOpenFileDialog As New OpenFileDialog
+        Dim strFilter As String = "文本文档(*.txt)|*.txt" '添加过滤文件
+        Dim strInitialDirectory = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
+
+        Dim arrayFullFileName As List(Of String)
+        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+
+        If arrayFullFileName Is Nothing Then
+            Exit Sub
+        End If
+
         Dim strTextFileFullName As String = Nothing
-        With oOpenFileDialog
-            .Title = "打开"
-            .FileName = ""
-            .InitialDirectory = My.Application.Info.DirectoryPath
-            .Filter = "文本文档(*.txt)|*.txt" '添加过滤文件
-            .Multiselect = False '多开文件打开
-            if .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                if .FileName <> "" Then '如果有选中文件
-                    strTextFileFullName = .FileName
-                End if
-            Else
-                Exit Sub
-            End if
-        End With
+        strTextFileFullName = arrayFullFileName.Item(0).ToString
 
         Dim arrstrReader() As String
         arrstrReader = System.IO.File.ReadAllLines(strTextFileFullName)
@@ -444,6 +538,7 @@ Public Class frmSpecification
         Next
 
         boolIsUserChange = True
+
     End Sub
 
     Private Sub btn确定导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定导入.Click

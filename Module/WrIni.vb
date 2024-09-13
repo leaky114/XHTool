@@ -7,8 +7,11 @@
         ini.WriteStrINI("iProperty", "MapPartName", Map_PartName, Inifile)
         ini.WriteStrINI("iProperty", "MapPartNum", Map_ERPCode, Inifile)
         ini.WriteStrINI("iProperty", "Map_Vendor", Map_Vendor, Inifile)
+
         ini.WriteStrINI("iProperty", "MapMirStochNum", Map_Mir_StochNum, Inifile)
         ini.WriteStrINI("iProperty", "MapMirPartName", Map_Mir_PartName, Inifile)
+        ini.WriteStrINI("iProperty", "MapMirERPCode", Map_Mir_ERPCode, Inifile)
+
 
         ini.WriteStrINI("比例质量", "MapDrawingScale", Map_DrawingScale, Inifile)
         ini.WriteStrINI("比例质量", "IsSetDrawingScale", IsSetDrawingScale, Inifile)
@@ -29,6 +32,7 @@
         ini.WriteStrINI("模型", "另存到子文件夹", str另存到子文件夹, Inifile)
         ini.WriteStrINI("模型", "查找文件夹层数", str查找文件夹层数, Inifile)
         ini.WriteStrINI("模型", "检查重复图号", Is检查重复图号, Inifile)
+        ini.WriteStrINI("模型", "去除后缀表", str去除后缀表, Inifile)
 
         ini.WriteStrINI("打印", "MapPrintDay", Map_PrintDay, Inifile)
         ini.WriteStrINI("打印", "IsOpenPrint", IsOpenPrint, Inifile)
@@ -54,6 +58,11 @@
         ini.WriteStrINI("展开图", "向上线宽", str向上线宽, Inifile)
         ini.WriteStrINI("展开图", "向下线宽", str向下线宽, Inifile)
         ini.WriteStrINI("展开图", "展开图标注", str展开图标注, Inifile)
+
+        ini.WriteStrINI("展开图", "展开图隐藏螺纹特征", str展开图隐藏螺纹特征, Inifile)
+        ini.WriteStrINI("展开图", "标记孔径上限", str标记孔径上限, Inifile)
+        'ini.WriteStrINI("展开图", "导出DXF", str导出DXF, Inifile)
+        ini.WriteStrINI("展开图", "图号材质", str图号材质, Inifile)
 
         ini.WriteStrINI("工程图", "工程图模板", str工程图模板, Inifile)
         ini.WriteStrINI("工程图", "自动展开图", str自动展开图, Inifile)
@@ -89,8 +98,10 @@
         Map_PartName = ini.GetStrFromINI("iProperty", "MapPartName", "零件代号", Inifile)
         Map_ERPCode = ini.GetStrFromINI("iProperty", "MapPartNum", "成本中心", Inifile)
         Map_Vendor = ini.GetStrFromINI("iProperty", "Map_Vendor", "供应商", Inifile)
+
         Map_Mir_StochNum = ini.GetStrFromINI("iProperty", "MapMirStochNum", "对称件代号", Inifile)
         Map_Mir_PartName = ini.GetStrFromINI("iProperty", "MapMirPartName", "对称件名称", Inifile)
+        Map_Mir_ERPCode = ini.GetStrFromINI("iProperty", "MapMirERPCode", "对称件编码", Inifile)
 
         Map_DrawingScale = ini.GetStrFromINI("比例质量", "MapDrawingScale", "比例", Inifile)
         IsSetDrawingScale = ini.GetStrFromINI("比例质量", "IsSetDrawingScale", "1", Inifile)
@@ -111,6 +122,7 @@
         str另存到子文件夹 = ini.GetStrFromINI("模型", "另存到子文件夹", "-1", Inifile)
         str查找文件夹层数 = ini.GetStrFromINI("模型", "查找文件夹层数", "2", Inifile)
         Is检查重复图号 = ini.GetStrFromINI("模型", "检查重复图号", "-1", Inifile)
+        str去除后缀表 = ini.GetStrFromINI("模型", "去除后缀表", "_MIR,_镜像", Inifile)
 
         Map_PrintDay = ini.GetStrFromINI("打印", "MapPrintDay", "打印日期", Inifile)
         IsOpenPrint = ini.GetStrFromINI("打印", "IsOpenPrint", "-1", Inifile)
@@ -121,7 +133,6 @@
         IsSign = ini.GetStrFromINI("打印", "IsSign", "1", Inifile)
         SaveAsDawAndPdf = ini.GetStrFromINI("打印", "SaveAsDwgPdf", "不另存", Inifile)
         PrintSetting = ini.GetStrFromINI("打印", "PrintSetting", "1101111001", Inifile)
-
 
         CheckUpdate = ini.GetStrFromINI("更新", "CheckUpdate", "1", Inifile)
         Server = ini.GetStrFromINI("更新", "Server", "\\Likai-pc\发行版\更新包\", Inifile)
@@ -141,6 +152,13 @@
         str向下线宽 = ini.GetStrFromINI("展开图", "向下线宽", "0.18", Inifile)
 
         str展开图标注 = ini.GetStrFromINI("展开图", "展开图标注", "1", Inifile)
+
+        str展开图隐藏螺纹特征 = ini.GetStrFromINI("展开图", "展开图隐藏螺纹特征", "1", Inifile)
+        str标记孔径上限 = ini.GetStrFromINI("展开图", "标记孔径上限", "5", Inifile)
+        'str导出DXF = ini.GetStrFromINI("展开图", "导出DXF", "1", Inifile)
+        str图号材质 = ini.GetStrFromINI("展开图", "图号材质", "无材质", Inifile)
+
+
 
         str工程图模板 = ini.GetStrFromINI("工程图", "工程图模板", My.Application.Info.DirectoryPath & "\模板.idw", Inifile)
         str自动展开图 = ini.GetStrFromINI("工程图", "自动展开图", "0", Inifile)
@@ -166,6 +184,12 @@
 
         str模型匹配检查 = ini.GetStrFromINI("工程图", "模型匹配检查", "1", Inifile)
         str逆时针序号 = ini.GetStrFromINI("工程图", "逆时针序号", "1", Inifile)
+
+        int每行数量 = ini.GetStrFromINI("切换文档", "每行数量", "8", Inifile)
+        int图框宽度 = ini.GetStrFromINI("切换文档", "图框宽度", "160", Inifile)
+        int图框高度 = ini.GetStrFromINI("切换文档", "图框高度", "120", Inifile)
+        int图框行间距 = ini.GetStrFromINI("切换文档", "图框行间距", "10", Inifile)
+        int图框列间距 = ini.GetStrFromINI("切换文档", "图框列间距", "10", Inifile)
 
     End Sub
 

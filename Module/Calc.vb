@@ -42,7 +42,14 @@
         Elseif intValue = 1 Then
             Return True
         Else
-            Throw New ArgumentException("intValue must be 0 or 1")
+            Throw New ArgumentException("输出参数需为 0 或 1")
         End if
     End Function
+
+    '四舍五入
+    Public Function FourFive(number As Double, decimalPlaces As Integer) As Double
+        ' 使用Round函数进行四舍五入
+        FourFive = Math.Round(number, decimalPlaces)
+    End Function
+
 End Module

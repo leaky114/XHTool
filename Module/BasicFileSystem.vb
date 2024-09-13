@@ -51,13 +51,13 @@ Module BasicFileSystem
     End Function
 
     '大写扩展名(文件名)
-    Public Function UCaseGetFileExtension(ByVal strFullFileName As String) As String
-        UCaseGetFileExtension = IO.Path.GetExtension(strFullFileName).ToUpper
+    Public Function GetFileExtensionUCase(ByVal strFullFileName As String) As String
+        GetFileExtensionUCase = IO.Path.GetExtension(strFullFileName).ToUpper
     End Function
 
     '小写扩展名(文件名)
-    Public Function LCaseGetFileExtension(ByVal strFullFileName As String) As String
-        LCaseGetFileExtension = IO.Path.GetExtension(strFullFileName).ToLower
+    Public Function GetFileExtensionLCase(ByVal strFullFileName As String) As String
+        GetFileExtensionLCase = IO.Path.GetExtension(strFullFileName).ToLower
     End Function
 
     '获取filenameinfo结构(文件名)
@@ -66,7 +66,7 @@ Module BasicFileSystem
         With FNI
             .Folder = GetDirectoryName2(strFullFileName)
             .FileName = GetFileName2(strFullFileName)
-            .ExtensionName = LCaseGetFileExtension(strFullFileName)
+            .ExtensionName = GetFileExtensionLCase(strFullFileName)
             .OnlyName = GetFileNameWithoutExtension2(strFullFileName)
         End With
 
@@ -170,10 +170,12 @@ Module BasicFileSystem
     End Function
 
     '扫描文件夹
-    Public Sub GetAllFile(ByVal strBootFolder As String, ByVal strSourceFolder As String, ByVal olistbox As Object, Optional ByVal strExtension As String = ".idw") ' ListBox)
+    Public Sub GetAllFile(ByVal strSourceFolder As String, ByVal olistbox As Object, Optional ByVal strExtension As String = "")
         ' 源文件夹父文件夹 ,源文件夹 , 目标文件夹
+        On Error Resume Next
+
         Dim strDir As String() = System.IO.Directory.GetDirectories(strSourceFolder)
-        Dim strFile As String() = System.IO.Directory.GetFiles(strSourceFolder)
+        Dim strFile As String() = System.IO.Directory.GetFiles(strSourceFolder, "*.*", IO.SearchOption.AllDirectories)
         Dim oFileInfo As FileInfo
         Dim i As Integer
         'if strDir.Length > 0 Then
@@ -193,11 +195,11 @@ Module BasicFileSystem
                 End If
             Next
         End If
-        If strDir.Length > 0 Then
-            For i = 0 To strDir.Length - 1
-                GetAllFile(strBootFolder, strDir(i), olistbox, strExtension)
-            Next
-        End If
+        'If strDir.Length > 0 Then
+        '    For i = 0 To strDir.Length - 1
+        '        GetAllFile(strBootFolder, strDir(i), olistbox, strExtension)
+        '    Next
+        'End If
     End Sub
 
     '删除旧文件
@@ -240,28 +242,25 @@ Module BasicFileSystem
         On Error Resume Next
 
         Dim strDir As String() = System.IO.Directory.GetDirectories(strBootFolder)
-        Dim i As Integer
 
-        If strDir.Length > 0 Then
-            For i = 0 To strDir.Length - 1
-                Debug.Print(strDir(i))
-                Dim oDirectoryInfo As DirectoryInfo
-                oDirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(strDir(i))
-                If oDirectoryInfo.Name = "OldVersions" Then
+        For Each folder As String In strDir
+            Debug.Print(folder)
+            Dim oDirectoryInfo As DirectoryInfo
+            oDirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(folder)
+            If oDirectoryInfo.Name = "OldVersions" Then
 
-                    '按文件夹名删除
-                    Dim strDirectoryName As String
-                    strDirectoryName = oDirectoryInfo.FullName
+                '按文件夹名删除
+                Dim strDirectoryName As String
+                strDirectoryName = oDirectoryInfo.FullName
 
-                    SetStatusBarText(strDirectoryName)
+                SetStatusBarText(strDirectoryName)
 
-                    DelFolder(strDirectoryName, DeleteRecycleOption)
+                DelFolder(strDirectoryName, DeleteRecycleOption)
 
-                End If
-                DelOldDirectory(strDir(i), DeleteRecycleOption)
-            Next
+            End If
+            DelOldDirectory(folder, DeleteRecycleOption)
+        Next
 
-        End If
     End Sub
 
     '检查 listview中是否存在重复项，再添加
@@ -272,13 +271,19 @@ Module BasicFileSystem
             Return False
         End If
 
-        For Each oListViewItem As ListViewItem In oListiView.Items
-            If oListViewItem.Text = strItem Then
-                IsItemInListView = True
-                Exit Function
-            End If
-        Next
-        IsItemInListView = False
+        If oListiView.FindItemWithText(strItem) Is Nothing Then
+            Return False
+        Else
+            Return True
+        End If
+
+        'For Each oListViewItem As ListViewItem In oListiView.Items
+        '    If oListViewItem.Text = strItem Then
+        '        IsItemInListView = True
+        '        Exit Function
+        '    End If
+        'Next
+        'IsItemInListView = False
 
     End Function
 
@@ -292,6 +297,7 @@ Module BasicFileSystem
             Next
         End If
     End Sub
+
 
     Public Function SetNewFile(ByVal strFullFileName As String, ByVal strFilter As String) As String
         If IsFileExsts(strFullFileName) = True Then
@@ -385,5 +391,250 @@ Module BasicFileSystem
         End If
 
         Return Nothing
+
+
+    End Function
+
+    '按行读取UTF8格式的txt文本 ，如果不UTF8格式，则先转换格式为UTF8
+    Public Sub ReadUTF8Txt()
+        Dim filePath As String = "example.txt"
+        Dim encoding As Encoding = GetFileEncoding(filePath)
+
+        If encoding IsNot encoding.UTF8 Then
+            ConvertToUTF8(filePath, encoding)
+            encoding = encoding.UTF8
+        End If
+
+        Using sr As StreamReader = New StreamReader(filePath, encoding)
+            Dim line As String
+            While Not sr.EndOfStream
+                line = sr.ReadLine()
+                Console.WriteLine(line)
+            End While
+        End Using
+    End Sub
+
+    Public Function GetFileEncoding(ByVal filePath As String) As Encoding
+        Using fs As FileStream = File.OpenRead(filePath)
+            Dim buffer As Byte() = New Byte(3) {}
+            fs.Read(buffer, 0, 4)
+            fs.Close()
+
+            If buffer(0) = &HEF AndAlso buffer(1) = &HBB AndAlso buffer(2) = &HBF Then
+                Return Encoding.UTF8
+            ElseIf buffer(0) = &HFF AndAlso buffer(1) = &HFE AndAlso buffer(2) = &H0 AndAlso buffer(3) = &H0 Then
+                Return Encoding.Unicode
+            ElseIf buffer(0) = &HFE AndAlso buffer(1) = &HFF AndAlso buffer(2) = &H0 AndAlso buffer(3) = &H0 Then
+                Return Encoding.BigEndianUnicode
+            Else
+                Return Encoding.Default
+            End If
+        End Using
+    End Function
+
+    Public Sub ConvertToUTF8(ByVal filePath As String, ByVal originalEncoding As Encoding)
+        Dim utf8Content As String = ""
+        Using sr As StreamReader = New StreamReader(filePath, originalEncoding)
+            utf8Content = sr.ReadToEnd()
+        End Using
+
+        Using sw As StreamWriter = New StreamWriter(filePath, False, Encoding.UTF8)
+            sw.Write(utf8Content)
+        End Using
+    End Sub
+
+    '在文件夹中按扩展名查找所有文件
+    Function GetAllFilesByExtension(ByVal strFolderPath As String, ByVal strExtension As String) As List(Of String)
+        On Error Resume Next
+        Dim arrayFullFileNames As String()
+        arrayFullFileNames = Directory.GetFiles(strFolderPath, "*" & strExtension, System.IO.SearchOption.AllDirectories)
+
+        Dim strFullFileNames As New List(Of String)()
+        For Each strFileFullFileName As String In arrayFullFileNames
+            strFullFileNames.Add(strFileFullFileName)
+        Next
+
+        Return strFullFileNames
+    End Function
+
+    '查找文件 （文件夹；文件名；扩展名,可省略）
+    Function FindFileInFolder(ByVal strFolderPath As String, Optional ByVal strSearchFileName As String = "", Optional ByVal strExtension As String = "") _
+        As List(Of String)
+        On Error Resume Next
+
+        Dim arrayFullFileNames As String()
+
+        Dim strFullFileNames As New List(Of String)()
+
+
+        If strExtension = "" Then   '无扩展名
+            arrayFullFileNames = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*.*", IO.SearchOption.AllDirectories)
+
+            For Each strFileFullFileName As String In arrayFullFileNames
+                strFullFileNames.Add(strFileFullFileName)
+            Next
+
+
+        Else    '有扩展名
+            arrayFullFileNames = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*" & strExtension, IO.SearchOption.AllDirectories)
+            Dim strFileName = strSearchFileName & strExtension
+            strFileName = Trim(strFileName)
+
+            For Each strFileFullFileName As String In arrayFullFileNames
+                If GetFileName2(strFileFullFileName) = strFileName Then
+                    strFullFileNames.Add(strFileFullFileName)
+                End If
+            Next
+
+        End If
+
+        Return strFullFileNames
+
+    End Function
+
+    '返回第n层父文件夹路径
+
+    Function GetParentFolderPath(ByVal strFolderPath As String, ByVal intParentLevel As Integer) As String
+        Dim strCurrentPath As String = strFolderPath
+        If intParentLevel > strFolderPath.Split("\").Length Then
+            strCurrentPath = Path.GetPathRoot(strFolderPath) ' 返回根目录
+            Return strCurrentPath
+        End If
+
+        For i As Integer = 1 To intParentLevel - 1
+            strCurrentPath = Path.GetDirectoryName(strCurrentPath)
+        Next
+
+        Return strCurrentPath
+    End Function
+
+    ''' <summary>
+    ''' 打开选择文件对话框
+    ''' </summary>
+    ''' <param name="strFilter">扩展名列表</param>
+    ''' <param name="strMultiSelectEnabled">是否可多选</param>
+    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function OpenFileDialog(Optional ByVal strFilter As String = "All Files (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True, _
+                                   Optional ByVal strInitialDirectory As String = "") As List(Of String)
+        Dim oOpenFileDialog As Inventor.FileDialog = Nothing
+
+        ThisApplication.CreateFileDialog(oOpenFileDialog)
+
+        oOpenFileDialog.Filter = strFilter '添加过滤文件
+        oOpenFileDialog.DialogTitle = "打开"
+        oOpenFileDialog.MultiSelectEnabled = strMultiSelectEnabled
+        oOpenFileDialog.InitialDirectory = strInitialDirectory
+        oOpenFileDialog.CancelError = False
+        oOpenFileDialog.InsertMode = False
+
+        oOpenFileDialog.ShowOpen()
+
+        If oOpenFileDialog.FileName <> "" Then  '如果有选中文件
+
+            On Error Resume Next
+            Dim arrayFullFileNames As String()
+            arrayFullFileNames = Split(oOpenFileDialog.FileName, "|")
+
+            Dim strFullFileNames As New List(Of String)()
+            For Each strFileFullFileName As String In arrayFullFileNames
+                strFullFileNames.Add(strFileFullFileName)
+            Next
+
+            Return strFullFileNames
+        Else
+
+        End If
+
+
+    End Function
+
+    ''' <summary>
+    ''' 通过打开选择文件对话框选择的文件确定文件夹
+    ''' </summary>
+    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function OpenFolderDialog(Optional ByVal strInitialDirectory As String = "") As String
+        Dim oOpenFileDialog As Inventor.FileDialog = Nothing
+
+        ThisApplication.CreateFileDialog(oOpenFileDialog)
+
+        With oOpenFileDialog
+            .Filter = "All Files (*.*)|*.*"
+            .DialogTitle = "从文件选择文件夹"
+            .MultiSelectEnabled = False
+            .InitialDirectory = strInitialDirectory
+            .CancelError = False
+            .InsertMode = False
+            .ShowOpen()
+
+            If .FileName <> "" Then  '如果有选中文件
+
+                On Error Resume Next
+                'Dim arrayFullFileNames As String()
+                'arrayFullFileNames = Split(.FileName, "|")
+
+                'Dim strFullFileNames As New List(Of String)()
+                'For Each strFileFullFileName As String In arrayFullFileNames
+                '    strFullFileNames.Add(strFileFullFileName)
+                'Next
+                Dim strFullFileName As String
+                strFullFileName = .FileName
+
+                Dim strFolderPath As String
+
+                strFolderPath = IO.Path.GetDirectoryName(strFullFileName)
+
+                Return strFolderPath
+            Else
+
+            End If
+
+        End With
+    End Function
+
+
+    ''' <summary>
+    ''' 打开选择文件对话框
+    ''' </summary>
+    ''' <param name="strFilter">扩展名列表</param>
+    ''' <param name="strMultiSelectEnabled">是否可多选</param>
+    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SaveFileDialog(Optional ByVal strFilter As String = "All Files (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True, _
+                                   Optional ByVal strInitialDirectory As String = "") As List(Of String)
+        Dim oOpenFileDialog As Inventor.FileDialog = Nothing
+
+        ThisApplication.CreateFileDialog(oOpenFileDialog)
+
+        oOpenFileDialog.Filter = strFilter '添加过滤文件
+        oOpenFileDialog.DialogTitle = "保存"
+        oOpenFileDialog.MultiSelectEnabled = strMultiSelectEnabled
+        oOpenFileDialog.InitialDirectory = strInitialDirectory
+        oOpenFileDialog.CancelError = False
+        oOpenFileDialog.InsertMode = False
+
+        oOpenFileDialog.ShowSave()
+
+        If oOpenFileDialog.FileName <> "" Then  '如果有选中文件
+
+            On Error Resume Next
+            Dim arrayFullFileNames As String()
+            arrayFullFileNames = Split(oOpenFileDialog.FileName, "|")
+
+            Dim strFullFileNames As New List(Of String)()
+            For Each strFileFullFileName As String In arrayFullFileNames
+                strFullFileNames.Add(strFileFullFileName)
+            Next
+
+            Return strFullFileNames
+        Else
+
+        End If
+
+
     End Function
 End Module

@@ -152,7 +152,7 @@ Partial Class frmSearchERPCode
         Me.Controls.Add(Me.txtERP编码)
         Me.Controls.Add(Me.txt规格图号)
         Me.Controls.Add(Me.lbl规格图号)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSearchERPCode"
@@ -160,7 +160,6 @@ Partial Class frmSearchERPCode
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "查询ERP编码"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -1,0 +1,15 @@
+<Addin Type="Standard">
+  <!--Created for Autodesk Inventor Version 19.0-->
+   <ClassId>{0a8e6d1d-68ec-48be-9e61-32779d2aae77}</ClassId>
+   <ClientId>{0a8e6d1d-68ec-48be-9e61-32779d2aae77}</ClientId>
+   <DisplayName>XHTool</DisplayName>
+   <Description>A Inventor Addin By Leaky114@Bilibili</Description>
+   <Assembly>XHTool.dll</Assembly>
+   <LoadOnStartUp>1</LoadOnStartUp>
+      <UserUnloadable>1</UserUnloadable>
+    <Hidden>0</Hidden>   
+      <SupportedSoftwareVersionGreaterThan>10..</SupportedSoftwareVersionGreaterThan>
+   <DataVersion>1</DataVersion>
+   <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>
+

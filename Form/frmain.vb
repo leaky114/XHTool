@@ -3,6 +3,7 @@ Imports Inventor.SelectionFilterEnum
 Imports Inventor.DocumentTypeEnum
 Imports Inventor.ViewOrientationTypeEnum
 Imports Inventor.DrawingViewStyleEnum
+Imports Inventor.ObjectTypeEnum
 
 Imports System.Windows.Forms
 Imports System
@@ -15,16 +16,57 @@ Imports System.Diagnostics
 Imports System.Net
 
 
+
 Public Class frmain
 
     Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
     Private HideSide As Short '隐藏边的位置，0为未隐藏，1为上边，2为左边
 
+   
 
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
 
+        'Dim oSelectSet As Object = Nothing
+
+        'If oInventorDocument.SelectSet.Count <> 0 Then
+        '    'For Each oSelect As Object In InventorDoc.SelectSet
+        '    oSelectSet = oInventorDocument.SelectSet(1)
+        'Else
+
+        '    oSelectSet = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "选择要编辑的尺寸，ESC键取消")
+
+        '    If oSelectSet Is Nothing Then       '取消选择
+        '        Me.Close()
+        '        Exit Sub
+        '    End If
+        'End If
+
+
+        'Select Case oSelectSet.type
+        '    Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+        '        kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
+
+        '        MsgBox("约束")
+        '    Case kTwoPointDistanceDimConstraintObject, kDiameterDimConstraintObject
+        '        MsgBox("2维尺寸")
+        '    Case kDimensionConstraints3DObject, kLineLengthDimConstraint3DObject
+        '        MsgBox("3维尺寸")
+        '    Case kBendConstraintObject, kTwoLineAngleDimConstraint3DObject
+        '        MsgBox("折弯尺寸")
+        '    Case kPlanarSketchObject
+        '        MsgBox("2维草图")
+
+        '    Case kSketch3DObject
+        '        MsgBox("3维草图")
+
+        '    Case Else
+
+        'End Select
+        'frmSwitchLables.Show()
 
         '' 创建进度条
         'Dim progressBar As Inventor.ProgressBar = ThisApplication.CreateProgressBar(True, 10, "Progress Bar Demo")
@@ -40,7 +82,7 @@ Public Class frmain
         'progressBar.Close()
 
         'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
-      
+
 
         'Dim oDoc As DrawingDocument
         'oDoc = ThisApplication.ActiveDocument
@@ -66,79 +108,168 @@ Public Class frmain
         'Dim oLinDim As LinearGeneralDimension
         'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oPt, oIntent1, oIntent2)
 
-        Dim oInventorDrawingDocument As Inventor.DrawingDocument
-        oInventorDrawingDocument = ThisApplication.ActiveDocument
+        'Dim oInventorDrawingDocument As Inventor.DrawingDocument
+        'oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-        'Dim oSheet As Sheet
-        'oSheet = oInventorDrawingDocument.ActiveSheet
+        ''Dim oSheet As Sheet
+        ''oSheet = oInventorDrawingDocument.ActiveSheet
 
-        Dim selectedLines1 As DrawingCurveSegment
-        Dim selectedLines2 As DrawingCurveSegment
-        Dim selectedLines3 As DrawingCurveSegment
-        Dim selectedLines4 As DrawingCurveSegment
+        'Dim selectedLines1 As DrawingCurveSegment
+        'Dim selectedLines2 As DrawingCurveSegment
+        'Dim selectedLines3 As DrawingCurveSegment
+        'Dim selectedLines4 As DrawingCurveSegment
 
-        selectedLines1 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第一条线")
-        selectedLines2 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第二条线")
-        selectedLines3 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第三条线")
-        selectedLines4 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第四条线")
+        'selectedLines1 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第一条线")
+        'selectedLines2 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第二条线")
+        'selectedLines3 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第三条线")
+        'selectedLines4 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第四条线")
 
-        Dim line1 As LineSegment = CType(selectedLines1, Inventor.LineSegment)
-        Dim line2 As LineSegment = CType(selectedLines2, Inventor.LineSegment)
-        Dim line3 As LineSegment = CType(selectedLines3, Inventor.LineSegment)
-        Dim line4 As LineSegment = CType(selectedLines4, Inventor.LineSegment)
+        'Dim line1 As LineSegment = CType(selectedLines1, Inventor.LineSegment)
+        'Dim line2 As LineSegment = CType(selectedLines2, Inventor.LineSegment)
+        'Dim line3 As LineSegment = CType(selectedLines3, Inventor.LineSegment)
+        'Dim line4 As LineSegment = CType(selectedLines4, Inventor.LineSegment)
 
-        ' 获取 l1, l2 的交点 p1
-        Dim intersectionPoint1 As Point2d = line1.IntersectWithCurve(line2)
+        '' 获取 l1, l2 的交点 p1
+        'Dim intersectionPoint1 As Point2d = line1.IntersectWithCurve(line2)
 
-        ' 获取 l3, l4 的交点 p2
-        Dim intersectionPoint2 As Point2d = line3.IntersectWithCurve(line4)
+        '' 获取 l3, l4 的交点 p2
+        'Dim intersectionPoint2 As Point2d = line3.IntersectWithCurve(line4)
 
-        ' 计算并标注 p1, p2 的距离尺寸
-        Dim distance As Double = intersectionPoint1.DistanceTo(intersectionPoint2)
-        Dim annotation As DimensionConstraint = oInventorDrawingDocument.ActiveSheet. _
-            DimensionConstraints.AddTwoPointDistance(selectedLines1.StartPoint, selectedLines3.StartPoint, _
-                                                  DimensionOrientationEnum.kAlignedDim, distance)
+        '' 计算并标注 p1, p2 的距离尺寸
+        'Dim distance As Double = intersectionPoint1.DistanceTo(intersectionPoint2)
+        'Dim annotation As DimensionConstraint = oInventorDrawingDocument.ActiveSheet. _
+        '    DimensionConstraints.AddTwoPointDistance(selectedLines1.StartPoint, selectedLines3.StartPoint, _
+        '                                          DimensionOrientationEnum.kAlignedDim, distance)
 
-        ' 刷新文档
-        oInventorDrawingDocument.Update()
+        '' 刷新文档
+        'oInventorDrawingDocument.Update()
 
-        'Dim oLinDim As LinearGeneralDimension
-        'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oSketchPoint1, oIntent1, oIntent2)
+        ''Dim oLinDim As LinearGeneralDimension
+        ''oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oSketchPoint1, oIntent1, oIntent2)
 
+        'For Each openForm As Form In System.Windows.Forms.Application.OpenForms
+        '    If openForm.Name = "切换文档" Then
+        '        ' 如果找到了，就激活这个窗口
+        '        openForm.Activate()
+        '        Exit Sub
+        '    End If
+        'Next
+
+        'frmSwitchLables.Show()
 
     End Sub
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        'AddPanelToToolsTab()
-        'if NewUpdater.GetGitVersion = "New" Then
-        '    if MsgBox("检查到InAI新版：" & NewVersion & "，是否下载？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "更新") = MsgBoxResult.Yes Then
+        On Error Resume Next
+
+        'Dim oPropertySets As PropertySets
+        'Dim oPropertySet As PropertySet
+        'Dim propitem As [Property]
+
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
+
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
+
+        'Dim oInventorDocument = ThisApplication.ActiveDocument
+        'oPropertySets = oInventorDocument.PropertySets
+
+        'For Each oPropertySet In oPropertySets
+        '    For Each propitem In oPropertySet
+        '        Debug.Print(propitem.PropId & "," & propitem.DisplayName & "," & propitem.Name)
+        '    Next
+        '    Debug.Print("--------------------")
+        'Next
+
+        'Dim drawing As DrawingDocument
+        'drawing = ThisApplication.ActiveDocument
+
+        'Dim drawingView As DrawingView
+        'drawingView = drawing.ActiveSheet.DrawingViews(1)
 
 
-        '' 查找进程 "inventor.exe"  
-        'Dim process As Process = process.GetProcessById(process.GetProcessesByName("inventor").FirstOrDefault().Id)
+        'Dim part As PartDocument
+        'part = drawingView.ReferencedDocumentDescriptor.ReferencedDocument
 
-        '' 检查进程是否存在  
-        'if process IsNot Nothing Then
-        '    ' 结束进程  
-        '    process.Kill()
-        '    '            MsgBox("进程已结束.")
-        'Else
-        '    '           MsgBox("未找到进程.")
-        'End if
+        'Dim partDef As PartComponentDefinition
+        'partDef = part.ComponentDefinition
 
-        '' 指定要下载的文件的HTTP地址和本地保存路径  
-        'Dim url As String = "https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll"
-        'Dim savePath As String = My.Application.Info.DirectoryPath & "\InventorAddIn.dll"
+        'Dim holeFeature As HoleFeature
 
-        'DownNetFile(url, savePath)
-        'MsgBox("ok")
+        'Dim holeDrawingCurves As DrawingCurvesEnumerator
 
-        'Process.Start("https://gitcode.net/leaky114/inventoraddin/-/raw/730451e80714c5fc56d4d3e972e792c0ca86e0d8/Release/InventorAddIn.dll")
+        'Dim holeDrawingCurve As DrawingCurve
+        'Dim drawingCurveSegment As DrawingCurveSegment
+
+        'For Each holeFeature In partDef.Features.HoleFeatures
+
+        '    If holeFeature.HoleType = HoleTypeEnum.kDrilledHole Then
 
 
-        '    End if
-        'End if
+        '        holeDrawingCurves = drawingView.DrawingCurves(holeFeature)
+
+        '        For Each holeDrawingCurve In holeDrawingCurves
+        '            For Each drawingCurveSegment In holeDrawingCurve.Segments
+        '                Debug.Print(drawingCurveSegment.StartPoint.X)
+
+        '            Next
+        '        Next
+        '    End If
+        'Next
+
+
+        'Dim drawing As DrawingDocument = ThisApplication.ActiveDocument
+
+        'Dim drawingView As DrawingView = drawing.ActiveSheet.DrawingViews(1)
+        'Dim part As PartDocument = drawingView.ReferencedDocumentDescriptor.ReferencedDocument
+        'Dim partDef As PartComponentDefinition = part.ComponentDefinition
+
+
+        'For Each holeFeature As HoleFeature In partDef.Features.HoleFeatures
+
+        '    If holeFeature.HoleType <> HoleTypeEnum.kDrilledHole Then
+        '        Continue For
+        '    End If
+
+        '    'Get the biggest circles of holeFeature in drawing view
+        '    Dim biggestCircles As New List(Of DrawingCurveSegment)
+        '    Dim biggestCircleRadius As Double = 0
+
+        '    Dim holeDrawingCurves = drawingView.DrawingCurves(holeFeature)
+
+        '    For Each holeDrawingCurve As DrawingCurve In holeDrawingCurves
+        '        For Each drawingCurveSegment As DrawingCurveSegment In holeDrawingCurve.Segments
+        '            Dim circle2d = TryCast(drawingCurveSegment.Geometry, Circle2d)
+        '            If circle2d Is Nothing Then Exit For
+        '            If circle2d.Radius > biggestCircleRadius Then
+        '                biggestCircles.Clear()
+        '                biggestCircleRadius = circle2d.Radius
+        '                biggestCircles.Add(drawingCurveSegment)
+        '            ElseIf circle2d.Radius = biggestCircleRadius Then
+        '                biggestCircles.Add(drawingCurveSegment)
+
+        '            End If
+        '        Next
+        '    Next
+
+        '    'Hide 
+        '    For Each biggestCircle As DrawingCurveSegment In biggestCircles
+        '        biggestCircle.Visible = False
+        '    Next
+        'Next
+
+
+
+        'NewUpdater.Shell_XHUpdater()
+
         '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         'On Error Resume Next
@@ -225,11 +356,32 @@ Public Class frmain
 
         'SuppressAllUnhealthConstraints()
 
-        DrawingDocumentSaveAs()
+        'DrawingDocumentSaveAs()
+
+        'Dim oribbon As Ribbon
+        'oribbon = ThisApplication.UserInterfaceManager.Ribbons.Item("Assembly")
+
+        ''工具选项卡
+        ''oRibbonTab = oRibbon.RibbonTabs.Item("id_TabTools")
+
+        ''装配选项卡
+        'Dim oRibbonTab As RibbonTab
+        'oRibbonTab = oRibbon.RibbonTabs.Item("id_TabAssemble")
+
+        'Dim oRibbonPanel As RibbonPanel
+        'oRibbonPanel = oRibbonTab.RibbonPanels.Item("id_PanelA_ToolsMeasure")
+
+        'Dim oCommandControl As CommandControl
+        'For Each oCommandControl In oRibbonPanel.CommandControls
+        '    Debug.Print(oCommandControl.InternalName)
+        'Next
+
+
+        'oCommandControl = oRibbonPanel.CommandControls.Item("InName驱动测量")
+
+        'oRibbonPanel.SlideoutControls.AddCopy(oCommandControl)
 
     End Sub
-
-    
 
     Private Sub frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
@@ -237,6 +389,7 @@ Public Class frmain
     End Sub
 
     Private Sub frmain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+        Me.Icon = My.Resources.XHTool48
 
         Dim m_quitInventor As Boolean = False
         'Try to get an active instance of Inventor
@@ -257,6 +410,7 @@ Public Class frmain
         End If
         ReSetLabel()
 
+
         'Me.Location.Y = 318 '初始化高度，不要落在Timer1触发事件高度内，否则启动时就触发了，窗体会上移，很不方便使用
         '初始化时钟定时器
         With Timer1
@@ -275,7 +429,8 @@ Public Class frmain
         Debug.Print(ContentCenterFiles)
 
 
-        Inifile = My.Application.Info.DirectoryPath & IIf(Strings.Right(My.Application.Info.DirectoryPath, 1) = "\", "InAISetting.ini", "\InAISetting.ini")
+        Inifile = IO.Path.Combine(My.Application.Info.DirectoryPath, "InAISetting.ini")
+
         If IsFileExsts(Inifile) = False Then
             '初始化默认值
             WrXml.InAISettingDefaultValue()
@@ -290,7 +445,7 @@ Public Class frmain
 
         '更新数据库文件
         If BasicExcelFullFileName = "" Then
-            BasicExcelFullFileName = My.Application.Info.DirectoryPath & "\最新物料编码.xlsx"
+            BasicExcelFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "最新物料编码.xlsx")
             'MsgBox(Excel_File_Name)
         End If
 
@@ -307,12 +462,18 @@ Public Class frmain
         documentURL = "\\Likai-pc\发行版\安装包\帮助.docx"
 
         Dim strHelpFullFileName As String
-        strHelpFullFileName = My.Application.Info.DirectoryPath & "\帮助.docx"
+        strHelpFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "帮助.docx")
 
         If IsFileExsts(documentURL) = True Then
             Dim wc As New System.Net.WebClient
             wc.DownloadFile(documentURL, strHelpFullFileName)
         End If
+
+        'clsRightMouse()
+        'If SharedVariable.Exists("ShowAll") Then Return
+        'SharedVariable("ShowAll") = "ShowAll"
+
+        'Dim mybutton As New clsRightMouse(ThisApplication)
 
         '生成工具栏
         'BuildToolBar()
@@ -399,10 +560,14 @@ Public Class frmain
 
     '帮助
     Private Sub 帮助ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 帮助ToolStripMenuItem.Click
-        Dim HelpMessage As String = "窗口在左和上边缘自动隐藏      当前版本：" & System.Windows.Forms.Application.ProductVersion
+        'Dim HelpMessage As String = "窗口在左和上边缘自动隐藏      当前版本：" & System.Windows.Forms.Application.ProductVersion
 
-        MsgBox(HelpMessage, MsgBoxStyle.Information)
-
+        'MsgBox(HelpMessage, MsgBoxStyle.Information)
+        Dim strHelpFullFileName As String
+        strHelpFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "帮助.pdf")
+        If IsFileExsts(strHelpFullFileName) = True Then
+            Process.Start(strHelpFullFileName)
+        End If
     End Sub
 
     '设置窗口
@@ -522,9 +687,6 @@ Public Class frmain
         SignDialog.ShowDialog()
     End Sub
 
-
-
-
     Private Sub 保存关闭ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 保存关闭ToolStripMenuItem.Click
         SaveClose()
     End Sub
@@ -597,7 +759,7 @@ Public Class frmain
     End Sub
 
     Private Sub 批量另存ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        frmSaveAs.ShowDialog()
+        frmFormatConversion.ShowDialog()
     End Sub
 
     Private Sub 设置虚拟件ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 设置虚拟件ToolStripMenuItem.Click
@@ -667,9 +829,6 @@ Public Class frmain
         FrmSaveCloseAllDocumentShow()
     End Sub
 
-    Private Sub 打开工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开工程图ToolStripMenuItem.Click
-        OpenIdwFile()
-    End Sub
 
     Private Sub 检查是否有工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 检查是否有工程图ToolStripMenuItem.Click
         CheckIsInvHaveIdw()
@@ -783,7 +942,7 @@ Public Class frmain
     End Sub
 
 
-    Private Sub 工程图批量另存为ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 工程图批量另存为ToolStripMenuItem.Click
+    Private Sub 格式转换ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 格式转换ToolStripMenuItem.Click
         FrmAllSaveAsShow()
     End Sub
 
@@ -828,8 +987,8 @@ Public Class frmain
         ReplaceNameInAsm()
     End Sub
 
-    Private Sub 刷新引用ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 刷新引用ToolStripMenuItem.Click
-        RefreshShowName()
+    Private Sub 同步目录树ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 同步目录树ToolStripMenuItem.Click
+        RefreshTreeShowName()
     End Sub
 
 
@@ -890,7 +1049,7 @@ Public Class frmain
     End Sub
 
     Private Sub 动态尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动态尺寸ToolStripMenuItem.Click
-     FrmEditDimensionShow
+        FrmEditDimensionShow()
     End Sub
 
     Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建展开图ToolStripMenuItem.Click
@@ -906,7 +1065,7 @@ Public Class frmain
     End Sub
 
     Private Sub 驱动测量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 驱动测量ToolStripMenuItem.Click
-      FrmDim2ObjectShow
+        FrmDim2ObjectShow()
 
     End Sub
 
@@ -923,7 +1082,41 @@ Public Class frmain
         CreatJpg()
     End Sub
 
-    Private Sub 按列表打开ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 按列表打开ToolStripMenuItem.Click
-        OpenFilesWithFileList()
+    Private Sub 打开列表ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开列表ToolStripMenuItem.Click
+        OpenFilesWithList()
+    End Sub
+
+    Private Sub 保存列表ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 保存列表ToolStripMenuItem.Click
+        SaveFilessList()
+
+    End Sub
+
+    Private Sub 替换基础文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 替换基础文件ToolStripMenuItem.Click
+        ReplaceDerivedPart()
+    End Sub
+
+    Private Sub 打开工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开工程图ToolStripMenuItem.Click
+        OpenIdwFile()
+    End Sub
+
+    Private Sub 关于2ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 关于2ToolStripMenuItem.Click
+        Dim frmAbout As New frmAbout
+        frmAbout.ShowDialog()
+    End Sub
+
+    Private Sub 断开链接ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 断开链接ToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub 标记孔径ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 标记孔径ToolStripMenuItem.Click
+        MarkCircleInFlatDrawing()
+    End Sub
+
+    Private Sub 另存为DXFToolStripMenuIte_Click(sender As Object, e As EventArgs) Handles 另存为DXFToolStripMenuIte.Click
+        IdwSaveAsDxf()
+    End Sub
+
+    Private Sub 另存为工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 另存为工程图ToolStripMenuItem.Click
+        DrawingDocumentSaveAs()
     End Sub
 End Class

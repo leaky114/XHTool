@@ -23,7 +23,6 @@ Partial Class frmPrint
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrint))
         Me.btn开始 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.btn添加文件 = New System.Windows.Forms.Button()
@@ -64,7 +63,7 @@ Partial Class frmPrint
         'btn开始
         '
         Me.btn开始.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn开始.Location = New System.Drawing.Point(581, 443)
+        Me.btn开始.Location = New System.Drawing.Point(578, 448)
         Me.btn开始.Name = "btn开始"
         Me.btn开始.Size = New System.Drawing.Size(81, 28)
         Me.btn开始.TabIndex = 7
@@ -74,7 +73,7 @@ Partial Class frmPrint
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(759, 443)
+        Me.btn关闭.Location = New System.Drawing.Point(756, 448)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(57, 28)
         Me.btn关闭.TabIndex = 8
@@ -83,7 +82,7 @@ Partial Class frmPrint
         'btn添加文件
         '
         Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn添加文件.Location = New System.Drawing.Point(104, 443)
+        Me.btn添加文件.Location = New System.Drawing.Point(12, 448)
         Me.btn添加文件.Name = "btn添加文件"
         Me.btn添加文件.Size = New System.Drawing.Size(81, 28)
         Me.btn添加文件.TabIndex = 2
@@ -93,7 +92,7 @@ Partial Class frmPrint
         'btn清空列表
         '
         Me.btn清空列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn清空列表.Location = New System.Drawing.Point(492, 443)
+        Me.btn清空列表.Location = New System.Drawing.Point(489, 448)
         Me.btn清空列表.Name = "btn清空列表"
         Me.btn清空列表.Size = New System.Drawing.Size(81, 28)
         Me.btn清空列表.TabIndex = 6
@@ -103,7 +102,7 @@ Partial Class frmPrint
         'btn添加文件夹
         '
         Me.btn添加文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn添加文件夹.Location = New System.Drawing.Point(193, 443)
+        Me.btn添加文件夹.Location = New System.Drawing.Point(101, 448)
         Me.btn添加文件夹.Name = "btn添加文件夹"
         Me.btn添加文件夹.Size = New System.Drawing.Size(81, 28)
         Me.btn添加文件夹.TabIndex = 3
@@ -139,7 +138,7 @@ Partial Class frmPrint
         Me.grp选项.Controls.Add(Me.chk匹配A3)
         Me.grp选项.Controls.Add(Me.chk签字)
         Me.grp选项.Controls.Add(Me.chk打印为黑色)
-        Me.grp选项.Location = New System.Drawing.Point(12, 333)
+        Me.grp选项.Location = New System.Drawing.Point(12, 352)
         Me.grp选项.Name = "grp选项"
         Me.grp选项.Size = New System.Drawing.Size(815, 82)
         Me.grp选项.TabIndex = 0
@@ -307,7 +306,7 @@ Partial Class frmPrint
         'btn从部件导入
         '
         Me.btn从部件导入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn从部件导入.Location = New System.Drawing.Point(15, 443)
+        Me.btn从部件导入.Location = New System.Drawing.Point(190, 448)
         Me.btn从部件导入.Name = "btn从部件导入"
         Me.btn从部件导入.Size = New System.Drawing.Size(81, 28)
         Me.btn从部件导入.TabIndex = 1
@@ -317,7 +316,7 @@ Partial Class frmPrint
         'btn导入已打开文件
         '
         Me.btn导入已打开文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn导入已打开文件.Location = New System.Drawing.Point(381, 443)
+        Me.btn导入已打开文件.Location = New System.Drawing.Point(378, 448)
         Me.btn导入已打开文件.Name = "btn导入已打开文件"
         Me.btn导入已打开文件.Size = New System.Drawing.Size(103, 28)
         Me.btn导入已打开文件.TabIndex = 5
@@ -335,9 +334,9 @@ Partial Class frmPrint
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw文件列表.FullRowSelect = True
-        Me.lvw文件列表.Location = New System.Drawing.Point(15, 11)
+        Me.lvw文件列表.Location = New System.Drawing.Point(15, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
-        Me.lvw文件列表.Size = New System.Drawing.Size(812, 306)
+        Me.lvw文件列表.Size = New System.Drawing.Size(812, 334)
         Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvw文件列表.TabIndex = 36
         Me.lvw文件列表.UseCompatibleStateImageBehavior = False
@@ -375,7 +374,7 @@ Partial Class frmPrint
         'btn导入当前部件
         '
         Me.btn导入当前部件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn导入当前部件.Location = New System.Drawing.Point(282, 443)
+        Me.btn导入当前部件.Location = New System.Drawing.Point(279, 448)
         Me.btn导入当前部件.Name = "btn导入当前部件"
         Me.btn导入当前部件.Size = New System.Drawing.Size(91, 28)
         Me.btn导入当前部件.TabIndex = 4
@@ -386,7 +385,7 @@ Partial Class frmPrint
         '
         Me.btn中断.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn中断.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn中断.Location = New System.Drawing.Point(670, 443)
+        Me.btn中断.Location = New System.Drawing.Point(667, 448)
         Me.btn中断.Name = "btn中断"
         Me.btn中断.Size = New System.Drawing.Size(81, 28)
         Me.btn中断.TabIndex = 37
@@ -398,7 +397,7 @@ Partial Class frmPrint
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(840, 480)
+        Me.ClientSize = New System.Drawing.Size(840, 485)
         Me.Controls.Add(Me.btn中断)
         Me.Controls.Add(Me.btn导入当前部件)
         Me.Controls.Add(Me.btn导入已打开文件)
@@ -411,13 +410,9 @@ Partial Class frmPrint
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn开始)
         Me.Controls.Add(Me.lvw文件列表)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
         Me.Name = "frmPrint"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"
-        Me.TopMost = True
         Me.grp选项.ResumeLayout(False)
         Me.grp选项.PerformLayout()
         CType(Me.nud份数, System.ComponentModel.ISupportInitialize).EndInit()

@@ -12,7 +12,7 @@ Imports System.Windows.Forms
 Public Class frmSetWriteOnly
 
     '量产开始
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub btn设置_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn设置.Click
         On Error Resume Next
         Dim strInventorDocumentFullFileName As String
         Dim strInventorDrawingFullFileName As String
@@ -61,7 +61,7 @@ Public Class frmSetWriteOnly
 
 
     '清空文件列表
-    Private Sub btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
+    Private Sub btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click
         lvw文件列表.Items.Clear()
     End Sub
 
@@ -125,30 +125,18 @@ Public Class frmSetWriteOnly
     End Sub
 
     Private Sub QueryBOMRowToLoadFile(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView)
-        Dim i As Integer
-
-        Dim iStepCount As Short
-        iStepCount = oBOMRows.Count
-
-        'Create a new ProgressBar object.
-        'Dim oProgressBar As Inventor.ProgressBar
-
-        'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
-
-        For i = 1 To oBOMRows.Count
-            ' Get the current row.
-            Dim oBOMRow As BOMRow
-            oBOMRow = oBOMRows.Item(i)
+   
+        For Each oBomRow As BOMRow In oBOMRows
 
             Dim oInventorDocumentFullFileName As String
-            oInventorDocumentFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+            oInventorDocumentFullFileName = oBomRow.ReferencedFileDescriptor.FullFileName
 
             If InStr(oInventorDocumentFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                GoTo 999
+                Continue For
             End If
 
             If IsFileExsts(oInventorDocumentFullFileName) = False Then   '跳过不存在的文件
-                GoTo 999
+                Continue For
             End If
 
             Dim strInventorDocumentFileName As String
@@ -161,18 +149,25 @@ Public Class frmSetWriteOnly
 
 
             Dim oListViewItem As ListViewItem
-            If IsItemInListView(lvw文件列表, strInventorDocumentFileName) = False Then
+            Dim oListViewSubItem As ListViewItem.ListViewSubItem
 
+
+            If IsItemInListView(lvw文件列表, strInventorDocumentFileName) = False Then
 
                 oListViewItem = lvw文件列表.Items.Add(strInventorDocumentFileName)
                 oListViewItem.Checked = True
 
+                oListViewItem.UseItemStyleForSubItems = False
+
                 With oListViewItem
 
                     If GetFileReadOnly(oInventorDocumentFullFileName) = True Then
-                        .SubItems.Add("只读")
+                        oListViewSubItem = .SubItems.Add("只读")
+                        oListViewSubItem.ForeColor = Drawing.Color.BlueViolet
+
                     Else
-                        .SubItems.Add("可写")
+                        oListViewSubItem = .SubItems.Add("可写")
+                        oListViewSubItem.ForeColor = Drawing.Color.Black
                     End If
 
                     .SubItems.Add(oInventorDocumentFullFileName)
@@ -180,9 +175,11 @@ Public Class frmSetWriteOnly
                     If IsFileExsts(strInventorDrawingFullFileName) = True Then
                         .SubItems.Add(strInventorDrawingFileName)
                         If GetFileReadOnly(strInventorDrawingFullFileName) = True Then
-                            .SubItems.Add("只读")
+                            oListViewSubItem = .SubItems.Add("只读")
+                            oListViewSubItem.ForeColor = Drawing.Color.BlueViolet
                         Else
-                            .SubItems.Add("可写")
+                            oListViewSubItem = .SubItems.Add("可写")
+                            oListViewSubItem.ForeColor = Drawing.Color.Black
                         End If
 
                         .SubItems.Add(strInventorDrawingFullFileName)
@@ -195,20 +192,18 @@ Public Class frmSetWriteOnly
             End If
 
             '遍历下一级
-            If (Not oBOMRow.ChildRows Is Nothing) Then
-                Call QueryBOMRowToLoadFile(oBOMRow.ChildRows, olistiview)
+            If (Not oBomRow.ChildRows Is Nothing) Then
+                Call QueryBOMRowToLoadFile(oBomRow.ChildRows, olistiview)
             End If
 
-999:
-            'oProgressBar.UpdateProgress()
         Next
-
-        'oProgressBar.Close()
 
     End Sub
 
     '窗口打开自动加载当前部件
     Private Sub frmSetWriteOnly_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+
         btn导入当前部件_Click(sender, e)
     End Sub
 
@@ -232,5 +227,43 @@ Public Class frmSetWriteOnly
 
         SetFileReadOnly(strInventorDocumentFullFileName, CheckBox本部件.Checked)
 
+    End Sub
+
+    Private Sub 移出tsmi_Click(sender As Object, e As EventArgs) Handles 移出tsmi.Click
+        btn移出_Click(sender, e)
+    End Sub
+
+    Private Sub 清空tsmi_Click(sender As Object, e As EventArgs) Handles 清空tsmi.Click
+        btn清空_Click(sender, e)
+    End Sub
+
+    Private Sub 读写tsmi_Click(sender As Object, e As EventArgs) Handles 读写tsmi.Click
+        Dim strInventorDrawingFullFileName As String
+        Dim oListViewSubItem As ListViewItem.ListViewSubItem
+
+        If lvw文件列表.SelectedItems.Count > 0 Then
+            ' 遍历 ListView 中的所有选择项。
+            For Each oListViewItem As ListViewItem In lvw文件列表.SelectedItems
+                oListViewItem.UseItemStyleForSubItems = False
+
+                oListViewSubItem = oListViewItem.SubItems(1)
+
+
+                If oListViewSubItem.Text = "只读" Then
+                    strInventorDrawingFullFileName = oListViewItem.SubItems(2).Text
+                    SetFileReadOnly(strInventorDrawingFullFileName, False)
+                    oListViewSubItem.ForeColor = Drawing.Color.Black
+                    oListViewSubItem.Text = "可写"
+
+
+                Else
+                    strInventorDrawingFullFileName = oListViewItem.SubItems(2).Text
+                    SetFileReadOnly(strInventorDrawingFullFileName, True)
+                    oListViewSubItem.ForeColor = Drawing.Color.BlueViolet
+                    oListViewSubItem.Text = "只读"
+                End If
+
+            Next
+        End If
     End Sub
 End Class

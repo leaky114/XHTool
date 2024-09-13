@@ -22,8 +22,10 @@ Partial Class frmStatistical
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.btn添加零部件 = New System.Windows.Forms.Button()
         Me.btn复制面积 = New System.Windows.Forms.Button()
         Me.btn复制质量 = New System.Windows.Forms.Button()
         Me.txt面积 = New System.Windows.Forms.TextBox()
@@ -53,10 +55,14 @@ Partial Class frmStatistical
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.btn清空 = New System.Windows.Forms.Button()
         Me.btn移出 = New System.Windows.Forms.Button()
+        Me.cms右键菜单 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmi移出 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi清空 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.cms右键菜单.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -74,6 +80,7 @@ Partial Class frmStatistical
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.btn添加零部件)
         Me.TabPage1.Controls.Add(Me.btn复制面积)
         Me.TabPage1.Controls.Add(Me.btn复制质量)
         Me.TabPage1.Controls.Add(Me.txt面积)
@@ -89,10 +96,21 @@ Partial Class frmStatistical
         Me.TabPage1.Text = "质量和面积"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'btn添加零部件
+        '
+        Me.btn添加零部件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn添加零部件.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.btn添加零部件.Location = New System.Drawing.Point(53, 329)
+        Me.btn添加零部件.Name = "btn添加零部件"
+        Me.btn添加零部件.Size = New System.Drawing.Size(26, 26)
+        Me.btn添加零部件.TabIndex = 53
+        Me.btn添加零部件.TabStop = False
+        Me.btn添加零部件.UseVisualStyleBackColor = True
+        '
         'btn复制面积
         '
         Me.btn复制面积.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn复制面积.Location = New System.Drawing.Point(376, 330)
+        Me.btn复制面积.Location = New System.Drawing.Point(421, 330)
         Me.btn复制面积.Name = "btn复制面积"
         Me.btn复制面积.Size = New System.Drawing.Size(25, 25)
         Me.btn复制面积.TabIndex = 52
@@ -101,7 +119,7 @@ Partial Class frmStatistical
         'btn复制质量
         '
         Me.btn复制质量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn复制质量.Location = New System.Drawing.Point(198, 330)
+        Me.btn复制质量.Location = New System.Drawing.Point(243, 330)
         Me.btn复制质量.Name = "btn复制质量"
         Me.btn复制质量.Size = New System.Drawing.Size(25, 25)
         Me.btn复制质量.TabIndex = 51
@@ -110,7 +128,7 @@ Partial Class frmStatistical
         'txt面积
         '
         Me.txt面积.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txt面积.Location = New System.Drawing.Point(293, 332)
+        Me.txt面积.Location = New System.Drawing.Point(338, 332)
         Me.txt面积.Name = "txt面积"
         Me.txt面积.ReadOnly = True
         Me.txt面积.Size = New System.Drawing.Size(77, 21)
@@ -120,7 +138,7 @@ Partial Class frmStatistical
         'txt质量
         '
         Me.txt质量.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txt质量.Location = New System.Drawing.Point(113, 332)
+        Me.txt质量.Location = New System.Drawing.Point(158, 332)
         Me.txt质量.Name = "txt质量"
         Me.txt质量.ReadOnly = True
         Me.txt质量.Size = New System.Drawing.Size(77, 21)
@@ -130,7 +148,7 @@ Partial Class frmStatistical
         'btn选择零件
         '
         Me.btn选择零件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn选择零件.Location = New System.Drawing.Point(24, 329)
+        Me.btn选择零件.Location = New System.Drawing.Point(9, 329)
         Me.btn选择零件.Name = "btn选择零件"
         Me.btn选择零件.Size = New System.Drawing.Size(26, 26)
         Me.btn选择零件.TabIndex = 44
@@ -141,7 +159,7 @@ Partial Class frmStatistical
         '
         Me.lbl描述.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbl描述.AutoSize = True
-        Me.lbl描述.Location = New System.Drawing.Point(66, 336)
+        Me.lbl描述.Location = New System.Drawing.Point(111, 336)
         Me.lbl描述.Name = "lbl描述"
         Me.lbl描述.Size = New System.Drawing.Size(221, 12)
         Me.lbl描述.TabIndex = 50
@@ -154,10 +172,11 @@ Partial Class frmStatistical
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw质量文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch文件名, Me.ch数量, Me.ch质量, Me.ch面积})
+        Me.lvw质量文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw质量文件列表.FullRowSelect = True
         Me.lvw质量文件列表.Location = New System.Drawing.Point(6, 6)
         Me.lvw质量文件列表.Name = "lvw质量文件列表"
-        Me.lvw质量文件列表.Size = New System.Drawing.Size(451, 317)
+        Me.lvw质量文件列表.Size = New System.Drawing.Size(450, 310)
         Me.lvw质量文件列表.TabIndex = 49
         Me.lvw质量文件列表.TabStop = False
         Me.lvw质量文件列表.UseCompatibleStateImageBehavior = False
@@ -304,10 +323,11 @@ Partial Class frmStatistical
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw焊缝文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch边位置, Me.ch长度, Me.ch系数, Me.ch焊缝长度})
+        Me.lvw焊缝文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw焊缝文件列表.FullRowSelect = True
-        Me.lvw焊缝文件列表.Location = New System.Drawing.Point(9, 9)
+        Me.lvw焊缝文件列表.Location = New System.Drawing.Point(6, 6)
         Me.lvw焊缝文件列表.Name = "lvw焊缝文件列表"
-        Me.lvw焊缝文件列表.Size = New System.Drawing.Size(448, 300)
+        Me.lvw焊缝文件列表.Size = New System.Drawing.Size(450, 290)
         Me.lvw焊缝文件列表.TabIndex = 51
         Me.lvw焊缝文件列表.TabStop = False
         Me.lvw焊缝文件列表.UseCompatibleStateImageBehavior = False
@@ -365,6 +385,24 @@ Partial Class frmStatistical
         Me.btn移出.Text = "移出"
         Me.btn移出.UseVisualStyleBackColor = True
         '
+        'cms右键菜单
+        '
+        Me.cms右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi移出, Me.tsmi清空})
+        Me.cms右键菜单.Name = "cmsRemove"
+        Me.cms右键菜单.Size = New System.Drawing.Size(101, 48)
+        '
+        'tsmi移出
+        '
+        Me.tsmi移出.Name = "tsmi移出"
+        Me.tsmi移出.Size = New System.Drawing.Size(100, 22)
+        Me.tsmi移出.Text = "移出"
+        '
+        'tsmi清空
+        '
+        Me.tsmi清空.Name = "tsmi清空"
+        Me.tsmi清空.Size = New System.Drawing.Size(100, 22)
+        Me.tsmi清空.Text = "清空"
+        '
         'frmStatistical
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -386,6 +424,7 @@ Partial Class frmStatistical
         Me.TabPage2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.cms右键菜单.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -421,4 +460,8 @@ Partial Class frmStatistical
     Friend WithEvents ch焊缝长度 As System.Windows.Forms.ColumnHeader
     Friend WithEvents btn清空 As System.Windows.Forms.Button
     Friend WithEvents btn移出 As System.Windows.Forms.Button
+    Friend WithEvents btn添加零部件 As System.Windows.Forms.Button
+    Friend WithEvents cms右键菜单 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents tsmi移出 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmi清空 As System.Windows.Forms.ToolStripMenuItem
 End Class

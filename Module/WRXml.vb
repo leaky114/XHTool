@@ -184,6 +184,12 @@ Module WrXml
 
         PrintSetting = "1101111001"
 
+        int每行数量 = 8
+        int图框高度 = 160
+        int图框宽度 = 120
+        int图框行间距 = 20
+        int图框列间距 = 20
+
     End Sub
 
 End Module

@@ -37,17 +37,62 @@ Module IptModule
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        if oInventorDocument.SelectSet.Count <> 0 Then
+        str模型匹配检查标记 = 1
+
+        Dim strInventorDocumenFullDocumentName As String
+        Dim strDrawingFullDocumentName As String
+
+        If oInventorDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
             For Each ComponentOccurrence As ComponentOccurrence In oInventorDocument.SelectSet()
                 oInventorDocument = ThisApplication.Documents.ItemByName(ComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName)
-                OpenDrawingDocument(oInventorDocument)
-                Exit Sub
+
+                strInventorDocumenFullDocumentName = oInventorDocument.FullDocumentName
+                strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, IDW)
+
+
+                If IsFileExsts(strDrawingFullDocumentName) = True Then
+                    ThisApplication.Documents.Open(strDrawingFullDocumentName)
+                Else
+                    If MsgBox(oInventorDocument.FullDocumentName & vbCrLf & vbCrLf & "没有对应的工程图，是否查找 AutoCad Dwg 文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
+
+                        strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, DWG)
+
+                        If IsFileExsts(strDrawingFullDocumentName) = True Then
+                            Process.Start(strDrawingFullDocumentName)
+                        Else
+                            MsgBox(oInventorDocument.FullDocumentName & vbCrLf & "没有对应的 AutoCad Dwg 文件！", MsgBoxStyle.Information)
+                        End If
+                    End If
+                End If
             Next
+
         Else
-            OpenDrawingDocument(oInventorDocument)
-            Exit Sub
-        End if
+            strInventorDocumenFullDocumentName = oInventorDocument.FullDocumentName
+            strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, IDW)
+
+            If IsFileExsts(strDrawingFullDocumentName) = True Then
+                ThisApplication.Documents.Open(strDrawingFullDocumentName)
+            Else
+                If IsFileExsts(strDrawingFullDocumentName) = True Then
+                    ThisApplication.Documents.Open(strDrawingFullDocumentName)
+                Else
+                    If MsgBox(oInventorDocument.FullDocumentName & vbCrLf & vbCrLf & "没有对应的工程图，是否查找 AutoCad Dwg 文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
+
+                        strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, DWG)
+
+                        If IsFileExsts(strDrawingFullDocumentName) = True Then
+                            Process.Start(strDrawingFullDocumentName)
+                        Else
+                            MsgBox(oInventorDocument.FullDocumentName & vbCrLf & "没有对应的 AutoCad Dwg 文件！", MsgBoxStyle.Information)
+                        End If
+                    End If
+                End If
+            End If
+
+        End If
+
+        str模型匹配检查标记 = 1
 
         'Catch ex As Exception
         '    MsgBox(ex.Message)
@@ -59,14 +104,14 @@ Module IptModule
         Try
             SetStatusBarText()
 
-            if IsInventorOpenDocument() = False Then
+            If IsInventorOpenDocument() = False Then
                 Exit Sub
-            End if
+            End If
 
-            if ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
                 MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
                 Exit Sub
-            End if
+            End If
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.ActiveEditDocument
@@ -79,26 +124,42 @@ Module IptModule
             '    Exit Sub
             'End if
 
-            Dim strStpFullFileName As String        'cad 文件全文件名
-            strStpFullFileName = GetChangeExtension(strInventorDocument, STP)
+
+            Dim strStpFullFileName As String        'ipt文件全文件名
+
+            If str另存到子文件夹 = "1" Then
+                Dim strChildDirectory As String
+
+                strChildDirectory = GetDirectoryName2(strInventorDocument)
+                strChildDirectory = IO.Path.Combine(strChildDirectory, "Stp")
+
+                If IsDirectoryExists(strChildDirectory) = False Then
+                    IO.Directory.CreateDirectory(strChildDirectory)
+                End If
+                strStpFullFileName = IO.Path.Combine(strChildDirectory, _
+                                                      GetFileNameInfo(strInventorDocument).OnlyName & STP)
+            Else
+                strStpFullFileName = GetChangeExtension(strInventorDocument, STP)
+            End If
+
             strStpFullFileName = SetNewFile(strStpFullFileName, "STEP文件(*.stp)|*.stp")
 
-            if strStpFullFileName = "取消" Then
+            If strStpFullFileName = "取消" Then
                 Exit Sub
-            End if
+            End If
 
             AsmIptSaveAsStpSub(oInventorDocument, strStpFullFileName)
 
-            if IsFileExsts(strStpFullFileName) Then
+            If IsFileExsts(strStpFullFileName) Then
                 SetStatusBarText("另存为STEP完成")
-                if MsgBox("是否打开文件： " & strStpFullFileName, MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If MsgBox("是否打开文件： " & strStpFullFileName, MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     System.Diagnostics.Process.Start(strStpFullFileName)
-                End if
+                End If
             Else
                 SetStatusBarText("错误")
                 MsgBox("错误。", MsgBoxStyle.Exclamation)
 
-            End if
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -139,7 +200,7 @@ Module IptModule
             oData = ThisApplication.TransientObjects.CreateDataMedium
             oData.FileName = strStepFullFileName
 
-            Call oSTEPTranslator.SaveCopyAs(InventorDocument, oContext, oOptions, oData)
+            oSTEPTranslator.SaveCopyAs(InventorDocument, oContext, oOptions, oData)
         End if
     End Sub
 
@@ -159,7 +220,6 @@ Module IptModule
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
-
         if (Not LevelOfDetailIsMaster(oInventorDocument)) Then Return
 
         Dim docToReplace As Document = FindDocToReplace(oInventorDocument)
@@ -173,8 +233,7 @@ Module IptModule
         Dim replacementPart As Document = ThisApplication.Documents.Open(replacementFileName, False)
         Dim doReplace As Boolean = True
         if (replacementPart.InternalName <> docToReplace.InternalName) Then
-            MessageBox.Show("更换零件 (" & replacementPart.DisplayName & ") 似乎与原始零件关系不密切，因此无法使用.", _
-            "基础零件替换器", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("更换零件 (" & replacementPart.DisplayName & ") 似乎与原始零件关系不密切，因此无法使用。")
             doReplace = False
         End if
         replacementPart.ReleaseReference()
@@ -198,7 +257,7 @@ Module IptModule
             Next
         End if
         if (basePartList.Count = 0) Then
-            MessageBox.Show("在文档中未找到基本零件: " & oInventorDocument.DisplayName, "基础零件替换器")
+            MessageBox.Show("在文档中未找到基本零件: " & oInventorDocument.DisplayName)
         Elseif (basePartList.Count = 1) Then
             Return basePartList(0)
         Else

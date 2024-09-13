@@ -1,4 +1,4 @@
-Imports System
+﻿Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("InAI")> 
-<Assembly: AssemblyDescription("A Inventor AddIn For Inventor 2016-2024")> 
+<Assembly: AssemblyTitle("XHTool")> 
+<Assembly: AssemblyDescription("A Inventor AddIn For Inventor 2016-2025")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("InAI For Inventor")> 
-<Assembly: AssemblyCopyright("leaky114@Bilibili")> 
+<Assembly: AssemblyProduct("XHTool")> 
+<Assembly: AssemblyCopyright("Copyright ©  2016-2024 leaky114")> 
 <Assembly: AssemblyTrademark("")> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
@@ -28,5 +28,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.24.5.30")> 
-<Assembly: AssemblyFileVersionAttribute("1.24.5.30")> 
+<Assembly: AssemblyVersion("1.24.9.13")> 
+<Assembly: AssemblyFileVersionAttribute("1.24.9.13")> 

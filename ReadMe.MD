@@ -2,7 +2,7 @@
 InAI是Autodesk Inventor 插件。
 
 # InAI支持哪些版本?
-Inventor 2015 以下版本，更高版本请自行编译。
+目前测试支持到Inventor2023版。 
 
 # InAI有哪些功能?
 - iProperty自动填写

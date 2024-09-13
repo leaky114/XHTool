@@ -272,6 +272,7 @@ Partial Class frmAutoPartNumber
         '
         'chk备份文件
         '
+        Me.chk备份文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chk备份文件.AutoSize = True
         Me.chk备份文件.Location = New System.Drawing.Point(566, 322)
         Me.chk备份文件.Name = "chk备份文件"
@@ -282,7 +283,6 @@ Partial Class frmAutoPartNumber
         '
         'frmAutoPartNumber
         '
-        Me.AcceptButton = Me.btn确定新文件名
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
@@ -305,11 +305,7 @@ Partial Class frmAutoPartNumber
         Me.Controls.Add(Me.btn上移)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn开始)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmAutoPartNumber"
-        Me.ShowIcon = False
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "自动命名图号"
         Me.TopMost = True

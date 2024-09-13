@@ -92,36 +92,36 @@ Partial Class frmImportCodeToIam
         '
         Me.ContextMenuStrip右键菜单.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStrip设置为标准件, Me.ToolStrip设置为看板件, Me.ToolStrip设置为外购件, Me.ToolStrip设置为外协件, Me.ToolStrip清空供应商})
         Me.ContextMenuStrip右键菜单.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip右键菜单.Size = New System.Drawing.Size(149, 114)
+        Me.ContextMenuStrip右键菜单.Size = New System.Drawing.Size(153, 136)
         '
         'ToolStrip设置为标准件
         '
         Me.ToolStrip设置为标准件.Name = "ToolStrip设置为标准件"
-        Me.ToolStrip设置为标准件.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip设置为标准件.Size = New System.Drawing.Size(152, 22)
         Me.ToolStrip设置为标准件.Text = "设置为标准件"
         '
         'ToolStrip设置为看板件
         '
         Me.ToolStrip设置为看板件.Name = "ToolStrip设置为看板件"
-        Me.ToolStrip设置为看板件.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip设置为看板件.Size = New System.Drawing.Size(152, 22)
         Me.ToolStrip设置为看板件.Text = "设置为看板件"
         '
         'ToolStrip设置为外购件
         '
         Me.ToolStrip设置为外购件.Name = "ToolStrip设置为外购件"
-        Me.ToolStrip设置为外购件.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip设置为外购件.Size = New System.Drawing.Size(152, 22)
         Me.ToolStrip设置为外购件.Text = "设置为外购件"
         '
         'ToolStrip设置为外协件
         '
         Me.ToolStrip设置为外协件.Name = "ToolStrip设置为外协件"
-        Me.ToolStrip设置为外协件.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip设置为外协件.Size = New System.Drawing.Size(152, 22)
         Me.ToolStrip设置为外协件.Text = "设置为外协件"
         '
         'ToolStrip清空供应商
         '
         Me.ToolStrip清空供应商.Name = "ToolStrip清空供应商"
-        Me.ToolStrip清空供应商.Size = New System.Drawing.Size(148, 22)
+        Me.ToolStrip清空供应商.Size = New System.Drawing.Size(152, 22)
         Me.ToolStrip清空供应商.Text = "清空供应商"
         '
         'btn关闭
@@ -223,7 +223,6 @@ Partial Class frmImportCodeToIam
         Me.Controls.Add(Me.lvw文件列表)
         Me.MaximizeBox = False
         Me.Name = "frmImportCodeToIam"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码"
         Me.TopMost = True

@@ -98,7 +98,7 @@ Partial Class frmERPCodeSearch
         Me.Controls.Add(Me.lblERP编码)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.txtERP编码)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmERPCodeSearch"

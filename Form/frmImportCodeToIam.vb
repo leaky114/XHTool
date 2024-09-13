@@ -31,6 +31,7 @@ Public Class frmImportCodeToIam
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
@@ -74,74 +75,39 @@ Public Class frmImportCodeToIam
 
         btn装载.Enabled = True
 
-
-        '==============================================================================================
-
-        '' 获取所有引用文档
-        'Dim oAllReferencedDocuments As DocumentsEnumerator
-        'oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
-
-        'With prgProcess
-        '    .Minimum = 0
-        '    .Maximum = oAllReferencedDocuments.Count
-        '    .Value = 0
-        'End With
-
-        ' 遍历这些文档
-
-        'For Each ReferencedDocument As Document In oAllReferencedDocuments
-        '    Debug.Print(ReferencedDocument.DisplayName)
-        '    Dim oStockNumPartName As StockNumPartName
-        '    oStockNumPartName = GetPropitems(ReferencedDocument)
-
-        '    Dim LVI As ListViewItem
-        '    LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
-        '    LVI.SubItems.Add(oStockNumPartName.零件名称)
-        '    LVI.SubItems.Add(oStockNumPartName.PartNum)
-        '    LVI.SubItems.Add(ReferencedDocument.FullDocumentName)
-
-        '    prgProcess.Value = prgProcess.Value + 1
-        'Next
-
     End Sub
 
-    Private Sub QueryBOMRowToLoadiPro(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView, ByVal IsExpandChild As Boolean, ByVal IsExpandOutsourcedParts As Boolean)
+    Private Sub QueryBOMRowToLoadiPro(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView, ByVal IsExpandChild As Boolean, _
+                                      ByVal IsExpandOutsourcedParts As Boolean)
         On Error Resume Next
-
-        Dim i As Integer
-
-        Dim intStepCount As Integer
-        intStepCount = oBOMRows.Count
-
-        'Create a new ProgressBar object.
-        'Dim oProgressBar As Inventor.ProgressBar
 
         'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
 
-        For i = 1 To intStepCount
-            ' Get the current row.
-            Dim oBOMRow As BOMRow
-            oBOMRow = oBOMRows.Item(i)
+        For Each oBOMRow As BOMRow In oBOMRows
+            Dim strInventorFullFileName As String
+            strInventorFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
 
-            Dim strFullFileName As String
-            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+            SetStatusBarText(strInventorFullFileName)
 
             '测试文件
-            Debug.Print(strFullFileName)
+            Debug.Print(strInventorFullFileName)
 
             ' Set the message for the progress bar
             'oProgressBar.Message = oFullFileName
 
-            If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
-                GoTo 999
+            If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
+                'GoTo 999
+                Continue For
             End If
 
-            'if InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+            'if InStr(strInventorFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
             '    GoTo 999
             'End if
 
             Dim oInventorDocument As Inventor.Document
-            oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
+            'oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
+
+            oInventorDocument = ThisApplication.Documents.ItemByName(strInventorFullFileName)
 
             Dim oStockNumPartName As StockNumPartName
             oStockNumPartName = GetPropitems(oInventorDocument)
@@ -159,7 +125,7 @@ Public Class frmImportCodeToIam
                     .SubItems.Add(oStockNumPartName.零件名称)
                     .SubItems.Add(oStockNumPartName.ERP编码)
                     .SubItems.Add(strVendor)
-                    .SubItems.Add(strFullFileName)
+                    .SubItems.Add(strInventorFullFileName)
                 End With
 
                 oInventorDocument.Close(True)
@@ -199,11 +165,13 @@ Public Class frmImportCodeToIam
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
         btn查询.Enabled = False
 
+        Me.TopMost = False
 
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-        'System.Threading.Thread.Sleep(5000)
+        ThisApplication.UserInterfaceManager.DoEvents()
+
 
         Dim oExcelApplication As Excel.Application
         oExcelApplication = New Excel.Application
@@ -233,6 +201,9 @@ Public Class frmImportCodeToIam
             End With
 
             For Each oListViewItem As ListViewItem In lvw文件列表.Items
+
+                SetStatusBarText(oListViewItem.SubItems(4).Text)
+
                 For Each strTable As String In arrTable
                     oRange = oWorksheet.Range(strTable & ":" & strTable)
                     dblMatchRow = 0
@@ -259,15 +230,15 @@ Public Class frmImportCodeToIam
                             If strNowRangeValue = strFindRangeValue Then   '查询值等于当前值
                                 Exit For
                             Else
-                                Me.TopMost = False
+                                'Me.TopMost = False
                                 If MsgBox(oListViewItem.Text & "(" & strNowRangeValue & ") 查询到新的编码：" & vbCrLf & strFindRangeValue & vbCrLf & "是否替换？", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                                     oListViewItem.SubItems(2).Text = strFindRangeValue
                                     oListViewItem.UseItemStyleForSubItems = False
                                     oListViewItem.SubItems(2).ForeColor = Drawing.Color.DarkOrange
-                                    Me.TopMost = True
+                                    'Me.TopMost = True
                                     Exit For
                                 Else
-                                    Me.TopMost = True
+                                    'Me.TopMost = True
                                     Exit For
                                 End If
 
@@ -299,6 +270,8 @@ Public Class frmImportCodeToIam
 
         btn查询.Enabled = True
 
+        Me.TopMost = True
+
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         oInteraction.Stop()
     End Sub
@@ -315,8 +288,7 @@ Public Class frmImportCodeToIam
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-        'System.Threading.Thread.Sleep(5000)
-        '
+        ThisApplication.UserInterfaceManager.DoEvents()
 
         With prg进度条
             .Minimum = 0
@@ -326,11 +298,16 @@ Public Class frmImportCodeToIam
 
         For Each oListViewItem As ListViewItem In lvw文件列表.Items
 
+            SetStatusBarText(oListViewItem.SubItems(4).Text)
+
             If oListViewItem.SubItems(2).ForeColor = Drawing.Color.Red Or oListViewItem.SubItems(2).ForeColor = Drawing.Color.DarkOrange Then
                 oListViewItem.SubItems(2).ForeColor = Drawing.Color.Black  '写入后变为黑色
                 strERPCoding = oListViewItem.SubItems(2).Text
                 strInventorFullFileName = oListViewItem.SubItems(4).Text
-                oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
+                'oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
+
+                oInventorDocument = ThisApplication.Documents.ItemByName(strInventorFullFileName)
+
                 SetPropitem(oInventorDocument, Map_ERPCode, strERPCoding)
             End If
 
@@ -405,6 +382,8 @@ Public Class frmImportCodeToIam
     End Sub
 
     Private Sub frmInventoryCoding_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+
         btn装载_Click(sender, e)
     End Sub
 
@@ -416,8 +395,8 @@ Public Class frmImportCodeToIam
                 strInventorFullFileName = lvw文件列表.SelectedItems(0).SubItems(4).Text
 
                 Dim oInventorDocument As Inventor.Document     '当前文件
-                oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
-
+                'oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
+                oInventorDocument = ThisApplication.Documents.ItemByName(strInventorFullFileName)
 
                 Dim strVendor As String
 

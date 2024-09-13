@@ -116,7 +116,7 @@ Partial Class frmAbout
         '
         'picZhiFuBao
         '
-        Me.picZhiFuBao.Image = Global.InventorAddIn.My.Resources.Resources.支付宝
+        Me.picZhiFuBao.Image = Global.XHTool.My.Resources.Resources.支付宝
         Me.picZhiFuBao.InitialImage = Nothing
         Me.picZhiFuBao.Location = New System.Drawing.Point(14, 126)
         Me.picZhiFuBao.Name = "picZhiFuBao"
@@ -127,7 +127,7 @@ Partial Class frmAbout
         '
         'picWeiXin
         '
-        Me.picWeiXin.Image = Global.InventorAddIn.My.Resources.Resources.微信
+        Me.picWeiXin.Image = Global.XHTool.My.Resources.Resources.微信
         Me.picWeiXin.InitialImage = Nothing
         Me.picWeiXin.Location = New System.Drawing.Point(14, 12)
         Me.picWeiXin.Name = "picWeiXin"
@@ -192,6 +192,7 @@ Partial Class frmAbout
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "关于"
+        Me.TopMost = True
         CType(Me.picZhiFuBao, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picWeiXin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

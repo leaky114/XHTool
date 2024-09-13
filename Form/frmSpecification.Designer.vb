@@ -61,16 +61,16 @@ Partial Class frmSpecification
         Me.lst技术要求文本 = New System.Windows.Forms.ListBox()
         Me.txt标题文本 = New System.Windows.Forms.TextBox()
         Me.btn插入 = New System.Windows.Forms.Button()
-        Me.GroupBox基础数据.SuspendLayout()
-        Me.ToolStrip基础数据.SuspendLayout()
-        Me.GroupBox技术要求.SuspendLayout()
-        Me.GroupBox导入自定义.SuspendLayout()
-        Me.ToolStrip自定义数据.SuspendLayout()
-        Me.SuspendLayout()
+        Me.GroupBox基础数据.SuspendLayout
+        Me.ToolStrip基础数据.SuspendLayout
+        Me.GroupBox技术要求.SuspendLayout
+        Me.GroupBox导入自定义.SuspendLayout
+        Me.ToolStrip自定义数据.SuspendLayout
+        Me.SuspendLayout
         '
         'btn关闭
         '
-        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btn关闭.Location = New System.Drawing.Point(533, 491)
         Me.btn关闭.Name = "btn关闭"
@@ -80,8 +80,8 @@ Partial Class frmSpecification
         '
         'GroupBox基础数据
         '
-        Me.GroupBox基础数据.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox基础数据.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
         Me.GroupBox基础数据.Controls.Add(Me.ToolStrip基础数据)
         Me.GroupBox基础数据.Controls.Add(Me.TreeView基础数据树)
         Me.GroupBox基础数据.Controls.Add(Me.lst基础数据列表)
@@ -89,12 +89,12 @@ Partial Class frmSpecification
         Me.GroupBox基础数据.Name = "GroupBox基础数据"
         Me.GroupBox基础数据.Size = New System.Drawing.Size(596, 204)
         Me.GroupBox基础数据.TabIndex = 0
-        Me.GroupBox基础数据.TabStop = False
+        Me.GroupBox基础数据.TabStop = false
         Me.GroupBox基础数据.Text = "基础数据"
         '
         'ToolStrip基础数据
         '
-        Me.ToolStrip基础数据.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ToolStrip基础数据.Font = New System.Drawing.Font("宋体", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134,Byte))
         Me.ToolStrip基础数据.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.配置文件ToolStripButton, Me.保存基础数据ToolStripButton, Me.ToolStripSeparator2, Me.添加基础数据ToolStripButton, Me.修改基础数据ToolStripButton, Me.删除基础数据ToolStripButton})
         Me.ToolStrip基础数据.Location = New System.Drawing.Point(3, 17)
         Me.ToolStrip基础数据.Name = "ToolStrip基础数据"
@@ -150,8 +150,8 @@ Partial Class frmSpecification
         '
         'TreeView基础数据树
         '
-        Me.TreeView基础数据树.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TreeView基础数据树.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+            Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
         Me.TreeView基础数据树.Location = New System.Drawing.Point(13, 44)
         Me.TreeView基础数据树.Name = "TreeView基础数据树"
         Me.TreeView基础数据树.Size = New System.Drawing.Size(141, 151)
@@ -159,11 +159,11 @@ Partial Class frmSpecification
         '
         'lst基础数据列表
         '
-        Me.lst基础数据列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lst基础数据列表.FormattingEnabled = True
-        Me.lst基础数据列表.HorizontalScrollbar = True
+        Me.lst基础数据列表.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+            Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+        Me.lst基础数据列表.FormattingEnabled = true
+        Me.lst基础数据列表.HorizontalScrollbar = true
         Me.lst基础数据列表.ItemHeight = 12
         Me.lst基础数据列表.Location = New System.Drawing.Point(174, 45)
         Me.lst基础数据列表.Name = "lst基础数据列表"
@@ -172,8 +172,8 @@ Partial Class frmSpecification
         '
         'GroupBox技术要求
         '
-        Me.GroupBox技术要求.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox技术要求.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
         Me.GroupBox技术要求.Controls.Add(Me.GroupBox导入自定义)
         Me.GroupBox技术要求.Controls.Add(Me.ToolStrip自定义数据)
         Me.GroupBox技术要求.Controls.Add(Me.TreeView自定义)
@@ -183,7 +183,7 @@ Partial Class frmSpecification
         Me.GroupBox技术要求.Name = "GroupBox技术要求"
         Me.GroupBox技术要求.Size = New System.Drawing.Size(596, 249)
         Me.GroupBox技术要求.TabIndex = 1
-        Me.GroupBox技术要求.TabStop = False
+        Me.GroupBox技术要求.TabStop = false
         Me.GroupBox技术要求.Text = "技术要求"
         '
         'GroupBox导入自定义
@@ -195,9 +195,9 @@ Partial Class frmSpecification
         Me.GroupBox导入自定义.Name = "GroupBox导入自定义"
         Me.GroupBox导入自定义.Size = New System.Drawing.Size(590, 198)
         Me.GroupBox导入自定义.TabIndex = 19
-        Me.GroupBox导入自定义.TabStop = False
+        Me.GroupBox导入自定义.TabStop = false
         Me.GroupBox导入自定义.Text = "导入"
-        Me.GroupBox导入自定义.Visible = False
+        Me.GroupBox导入自定义.Visible = false
         '
         'btn取消导入
         '
@@ -206,7 +206,7 @@ Partial Class frmSpecification
         Me.btn取消导入.Size = New System.Drawing.Size(75, 28)
         Me.btn取消导入.TabIndex = 2
         Me.btn取消导入.Text = "取消"
-        Me.btn取消导入.UseVisualStyleBackColor = True
+        Me.btn取消导入.UseVisualStyleBackColor = true
         '
         'btn确定导入
         '
@@ -215,22 +215,22 @@ Partial Class frmSpecification
         Me.btn确定导入.Size = New System.Drawing.Size(75, 28)
         Me.btn确定导入.TabIndex = 1
         Me.btn确定导入.Text = "确定"
-        Me.btn确定导入.UseVisualStyleBackColor = True
+        Me.btn确定导入.UseVisualStyleBackColor = true
         '
         'txt导入文本
         '
-        Me.txt导入文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txt导入文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+            Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
         Me.txt导入文本.Location = New System.Drawing.Point(16, 18)
-        Me.txt导入文本.Multiline = True
+        Me.txt导入文本.Multiline = true
         Me.txt导入文本.Name = "txt导入文本"
         Me.txt导入文本.Size = New System.Drawing.Size(558, 125)
         Me.txt导入文本.TabIndex = 1
         '
         'ToolStrip自定义数据
         '
-        Me.ToolStrip自定义数据.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ToolStrip自定义数据.Font = New System.Drawing.Font("宋体", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134,Byte))
         Me.ToolStrip自定义数据.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.新建自定义ToolStripButton, Me.保存自定义ToolStripButton, Me.导入ToolStripButton, Me.ToolStripSeparator1, Me.添加自定义ToolStripButton, Me.插入自定义ToolStripButton, Me.修改自定义ToolStripButton, Me.删除自定义ToolStripButton, Me.ToolStripButton6, Me.编号ToolStripButton, Me.字体ToolStripButton, Me.间距ToolStripTextBox, Me.上移ToolStripButton, Me.下移ToolStripButton})
         Me.ToolStrip自定义数据.Location = New System.Drawing.Point(3, 17)
         Me.ToolStrip自定义数据.Name = "ToolStrip自定义数据"
@@ -267,14 +267,14 @@ Partial Class frmSpecification
         '导入文件ToolStripMenuItem
         '
         Me.导入文件ToolStripMenuItem.Name = "导入文件ToolStripMenuItem"
-        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.导入文件ToolStripMenuItem.Text = "导入文件"
         Me.导入文件ToolStripMenuItem.ToolTipText = "从文本文件导入，每行对应导入"
         '
         '导输入文本ToolStripMenuItem
         '
         Me.导输入文本ToolStripMenuItem.Name = "导输入文本ToolStripMenuItem"
-        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.导输入文本ToolStripMenuItem.Text = "导入文本"
         '
         'ToolStripSeparator1
@@ -344,7 +344,7 @@ Partial Class frmSpecification
         '字体ToolStripButton
         '
         Me.字体ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.字体ToolStripButton.Font = New System.Drawing.Font("仿宋", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.字体ToolStripButton.Font = New System.Drawing.Font("仿宋", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134,Byte))
         Me.字体ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.字体ToolStripButton.Name = "字体ToolStripButton"
         Me.字体ToolStripButton.Size = New System.Drawing.Size(33, 22)
@@ -377,8 +377,8 @@ Partial Class frmSpecification
         '
         'TreeView自定义
         '
-        Me.TreeView自定义.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TreeView自定义.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+            Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
         Me.TreeView自定义.Location = New System.Drawing.Point(13, 45)
         Me.TreeView自定义.Name = "TreeView自定义"
         Me.TreeView自定义.Size = New System.Drawing.Size(141, 189)
@@ -386,11 +386,11 @@ Partial Class frmSpecification
         '
         'lst技术要求文本
         '
-        Me.lst技术要求文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lst技术要求文本.FormattingEnabled = True
-        Me.lst技术要求文本.HorizontalScrollbar = True
+        Me.lst技术要求文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+            Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+        Me.lst技术要求文本.FormattingEnabled = true
+        Me.lst技术要求文本.HorizontalScrollbar = true
         Me.lst技术要求文本.ItemHeight = 12
         Me.lst技术要求文本.Location = New System.Drawing.Point(174, 72)
         Me.lst技术要求文本.Name = "lst技术要求文本"
@@ -407,7 +407,7 @@ Partial Class frmSpecification
         '
         'btn插入
         '
-        Me.btn插入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn插入.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
         Me.btn插入.Location = New System.Drawing.Point(452, 492)
         Me.btn插入.Name = "btn插入"
         Me.btn插入.Size = New System.Drawing.Size(75, 28)
@@ -417,7 +417,7 @@ Partial Class frmSpecification
         'frmSpecification
         '
         Me.AcceptButton = Me.btn插入
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 12!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(620, 531)
@@ -425,27 +425,23 @@ Partial Class frmSpecification
         Me.Controls.Add(Me.GroupBox基础数据)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn插入)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
+        Me.MaximizeBox = false
         Me.Name = "frmSpecification"
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "技术要求"
-        Me.TopMost = True
         Me.GroupBox基础数据.ResumeLayout(False)
-        Me.GroupBox基础数据.PerformLayout()
-        Me.ToolStrip基础数据.ResumeLayout(False)
-        Me.ToolStrip基础数据.PerformLayout()
-        Me.GroupBox技术要求.ResumeLayout(False)
-        Me.GroupBox技术要求.PerformLayout()
-        Me.GroupBox导入自定义.ResumeLayout(False)
-        Me.GroupBox导入自定义.PerformLayout()
-        Me.ToolStrip自定义数据.ResumeLayout(False)
-        Me.ToolStrip自定义数据.PerformLayout()
-        Me.ResumeLayout(False)
+        Me.GroupBox基础数据.PerformLayout
+        Me.ToolStrip基础数据.ResumeLayout(false)
+        Me.ToolStrip基础数据.PerformLayout
+        Me.GroupBox技术要求.ResumeLayout(false)
+        Me.GroupBox技术要求.PerformLayout
+        Me.GroupBox导入自定义.ResumeLayout(false)
+        Me.GroupBox导入自定义.PerformLayout
+        Me.ToolStrip自定义数据.ResumeLayout(false)
+        Me.ToolStrip自定义数据.PerformLayout
+        Me.ResumeLayout(false)
 
-    End Sub
+End Sub
     Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents GroupBox基础数据 As System.Windows.Forms.GroupBox
     Friend WithEvents lst基础数据列表 As System.Windows.Forms.ListBox

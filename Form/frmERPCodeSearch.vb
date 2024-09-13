@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms
+Imports Inventor
 
 Public Class frmERPCodeSearch
 
@@ -24,40 +25,49 @@ Public Class frmERPCodeSearch
         strERPCode = Replace(txtERP编码.Text, vbCrLf, "")
         strERPCode = Trim(strERPCode)
 
-        if strERPCode = "" Then
+        If strERPCode = "" Then
             btn编码反查.Enabled = True
             Exit Sub
-        End if
+        End If
 
         Dim arraystrinfo() As String
 
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
+
         arraystrinfo = ERPCodeSearch(BasicExcelFullFileName, strERPCode, TableArrays, ColIndexNum, 0)
 
-        if arraystrinfo(0) Is Nothing Then
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        oInteraction.Stop()
+    
+
+        If arraystrinfo(0) Is Nothing Then
             txt返回值.Text = "未查询到ERP编码。"
             Me.Height = 280
             btn编码反查.Enabled = True
             Exit Sub
-        End if
+        End If
 
         For Each strinfo As String In arraystrinfo
-            if txt返回值.Text = "" Then
+            If txt返回值.Text = "" Then
                 txt返回值.Text = strinfo
             Else
-                if strinfo Is Nothing Then
+                If strinfo Is Nothing Then
                 Else
                     txt返回值.Text = txt返回值.Text & vbCrLf & strinfo
-                End if
-            End if
+                End If
+            End If
         Next
 
-        'oInteraction.Stop()
         Me.Height = 280
         btn编码反查.Enabled = True
 
     End Sub
 
     Private Sub frmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
         Me.Height = 124
     End Sub
 

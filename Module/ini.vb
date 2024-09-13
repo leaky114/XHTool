@@ -4,7 +4,7 @@ Option Explicit On
 Imports Microsoft.Win32
 Module ini
 
-    Public Inifile As String
+    Public IniFile As String
 
 
     '//声明从INI配置文件中获取类型为Int的配置项的值的系统函数

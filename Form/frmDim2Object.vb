@@ -18,7 +18,10 @@ Public Class frmDim2Object
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
-        If oHSet1.Count <> 0 Then oHSet1.Clear()
+        If oHSet1.Count <> 0 Then
+            oHSet1.Clear()
+        End If
+
 
         'oInventorAssemblyDocument.Update()
 
@@ -29,15 +32,20 @@ Public Class frmDim2Object
 
         oHSet1.AddItem(Object1)
 
-        Dim douDistance As Double
-
         If (Object1 Is Nothing) Or (Object2 Is Nothing) Then
             Exit Sub
         End If
 
-        douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-        douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-        lbl距离.Text = "距离：" & douDistance.ToString
+        If RadioButton距离.Checked = True Then
+            Dim douDistance As Double
+            douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+            douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+            lbl距离.Text = "距离：" & douDistance.ToString
+        Else
+            Dim douAngle As Double
+            douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+            lbl距离.Text = "角度：" & douAngle.ToString
+        End If
 
     End Sub
 
@@ -45,7 +53,9 @@ Public Class frmDim2Object
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
-        If oHSet2.Count <> 0 Then oHSet2.Clear()
+        If oHSet2.Count <> 0 Then
+            oHSet2.Clear()
+        End If
 
         'oInventorAssemblyDocument.Update()
 
@@ -56,15 +66,20 @@ Public Class frmDim2Object
 
         oHSet2.AddItem(Object2)
 
-        Dim douDistance As Double
-
         If (Object1 Is Nothing) Or (Object2 Is Nothing) Then
             Exit Sub
         End If
 
-        douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-        douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-        lbl距离.Text = "距离：" & douDistance.ToString
+       If RadioButton距离.Checked = True Then
+            Dim douDistance As Double
+            douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+            douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+            lbl距离.Text = "距离：" & douDistance.ToString
+        Else
+            Dim douAngle As Double
+            douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+            lbl距离.Text = "角度：" & douAngle.ToString
+        End If
 
     End Sub
 
@@ -78,6 +93,7 @@ Public Class frmDim2Object
     End Sub
 
     Private Sub frmDim2Object_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
         ' 创建ToolTip控件并设置相关属性
         Dim toolTip As New ToolTip()
         toolTip.AutoPopDelay = 0
@@ -99,7 +115,6 @@ Public Class frmDim2Object
         btn正向.Image = My.Resources.前进16.ToBitmap
         btn反向.Image = My.Resources.后退16.ToBitmap
         btn暂停.Image = My.Resources.暂停16.ToBitmap
-
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
@@ -172,6 +187,8 @@ Public Class frmDim2Object
                 Dim douStep As Double
 
                 Dim douDistance As Double
+                Dim douAngle As Double
+
 
                 Dim oListViewItem As ListViewItem
                 douStart = Val(txt开始.Text.ToString)
@@ -207,12 +224,21 @@ Public Class frmDim2Object
 
 
 
-                    douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-                    douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-                    lbl距离.Text = "距离：" & douDistance.ToString
+                    If RadioButton距离.Checked = True Then
+                        douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+                        douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+                        lbl距离.Text = "距离：" & douDistance.ToString
 
-                    oListViewItem = oListView.Items.Add(douValue)
-                    oListViewItem.SubItems.Add(douDistance)
+                        oListViewItem = oListView.Items.Add(douValue)
+                        oListViewItem.SubItems.Add(douDistance)
+                    Else
+
+                        douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+                        lbl距离.Text = "角度：" & douAngle.ToString
+
+                        oListViewItem = oListView.Items.Add(douValue)
+                        oListViewItem.SubItems.Add(douAngle)
+                    End If
 
                     ThisApplication.ActiveDocument.Update()
                 Next
@@ -231,20 +257,35 @@ Public Class frmDim2Object
                         lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & douEnd
                 End Select
 
+                If RadioButton距离.Checked = True Then
+                    douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+                    douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+                    lbl距离.Text = "距离：" & douDistance.ToString
 
-                douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-                douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-                lbl距离.Text = "距离：" & douDistance.ToString
+                    oListViewItem = oListView.Items.Add(douEnd)
+                    oListViewItem.SubItems.Add(douDistance)
+                Else
 
-                oListViewItem = oListView.Items.Add(douEnd)
-                oListViewItem.SubItems.Add(douDistance)
+                    douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+                    lbl距离.Text = "角度：" & douAngle.ToString
+
+                    oListViewItem = oListView.Items.Add(douEnd)
+                    oListViewItem.SubItems.Add(douAngle)
+                End If
 
                 ThisApplication.ActiveDocument.Update()
+
+                oHSet1.Clear()
+                oHSet2.Clear()
+                oHSet1.AddItem(Object1)
+                oHSet2.AddItem(Object2)
 
                 Exit Sub
             End If
 
         Next
+
+
     End Sub
 
     Private Sub btn反向_Click(sender As Object, e As EventArgs) Handles btn反向.Click
@@ -263,6 +304,7 @@ Public Class frmDim2Object
                 Dim douStep As Double
 
                 Dim douDistance As Double
+                Dim douAngle As Double
 
                 Dim oListViewItem As ListViewItem
 
@@ -299,13 +341,21 @@ Public Class frmDim2Object
                     End Select
 
 
-                    douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-                    douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-                    lbl距离.Text = "距离：" & douDistance.ToString
+                    If RadioButton距离.Checked = True Then
+                        douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+                        douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+                        lbl距离.Text = "距离：" & douDistance.ToString
 
+                        oListViewItem = oListView.Items.Add(douValue)
+                        oListViewItem.SubItems.Add(douDistance)
+                    Else
 
-                    oListViewItem = oListView.Items.Add(douValue)
-                    oListViewItem.SubItems.Add(douDistance)
+                        douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+                        lbl距离.Text = "角度：" & douAngle.ToString
+
+                        oListViewItem = oListView.Items.Add(douValue)
+                        oListViewItem.SubItems.Add(douAngle)
+                    End If
 
                     ThisApplication.ActiveDocument.Update()
                 Next
@@ -324,19 +374,35 @@ Public Class frmDim2Object
                         lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & douStart
                 End Select
 
-                douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
-                douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
-                lbl距离.Text = "距离：" & douDistance.ToString
 
-                oListViewItem = oListView.Items.Add(douStart)
-                oListViewItem.SubItems.Add(douDistance)
+                If RadioButton距离.Checked = True Then
+                    douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+                    douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+                    lbl距离.Text = "距离：" & douDistance.ToString
+
+                    oListViewItem = oListView.Items.Add(douStart)
+                    oListViewItem.SubItems.Add(douDistance)
+                Else
+
+                    douAngle = FourFive(ThisApplication.MeasureTools.GetAngle(Object1, Object2) * 180 / Math.PI, 3)
+                    lbl距离.Text = "角度：" & douAngle.ToString
+
+                    oListViewItem = oListView.Items.Add(douStart)
+                    oListViewItem.SubItems.Add(douAngle)
+                End If
 
                 ThisApplication.ActiveDocument.Update()
+
+                oHSet1.Clear()
+                oHSet2.Clear()
+                oHSet1.AddItem(Object1)
+                oHSet2.AddItem(Object2)
 
                 Exit Sub
             End If
 
         Next
+
 
     End Sub
 
@@ -352,10 +418,12 @@ Public Class frmDim2Object
         Dim epoch As DateTimeOffset = New DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)
         Dim timestamp As Long = Convert.ToInt64((now - epoch).TotalSeconds)
 
-        strCsvFullFileName = My.Computer.FileSystem.SpecialDirectories.Desktop & "\驱动测量" & timestamp & ".csv"
+        strCsvFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, "驱动测量" & timestamp & ".csv")
+
         DeleteFile2(strCsvFullFileName, FileIO.RecycleOption.SendToRecycleBin)
 
         strLineDate = "位置,距离" & vbCrLf
+
         My.Computer.FileSystem.WriteAllText(strCsvFullFileName, strLineDate, True)
 
         For Each oListViewitem As ListViewItem In oListView.Items
@@ -370,5 +438,92 @@ Public Class frmDim2Object
             Process.Start(strCsvFullFileName)
         End If
 
+    End Sub
+
+    Private Sub oListView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles oListView.MouseDoubleClick
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        IsStop = False
+
+        Dim douValue As Double
+
+        douValue = oListView.SelectedItems(0).Text
+
+        Dim oAssemblyConstraint As AssemblyConstraint
+        For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
+            If Strings.InStr(GroupBox设置约束.Text, oAssemblyConstraint.Name) <> 0 Then
+
+
+                Dim douDistance As Double
+
+                'With oAssemblyConstraint.DriveSettings
+                '    .StartValue = txt开始.Text.ToString
+                '    .EndValue = txt结束.Text.ToString
+                '    .GoToStart()
+                '    .PlayForward()
+                'End With
+
+                Select Case oAssemblyConstraint.Type
+
+                    Case kAngleConstraintObject
+                        oAssemblyConstraint.angle.value = douValue * Math.PI / 180
+                        lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douValue
+
+
+                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                                        kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
+
+                        oAssemblyConstraint.offset.value = douValue * 0.1
+                        lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & douValue
+                End Select
+
+                douDistance = ThisApplication.MeasureTools.GetMinimumDistance(Object1, Object2)
+                douDistance = Math.Round(ThisApplication.ActiveDocument.UnitsOfMeasure.ConvertUnits(douDistance, "cm", "mm"), 3)
+                lbl距离.Text = "距离：" & douDistance.ToString
+
+                ThisApplication.ActiveDocument.Update()
+
+                Exit Sub
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub RadioButton距离_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton距离.CheckedChanged
+        If oHSet1 Is Nothing Then
+            Exit Sub
+        End If
+
+        If oHSet2 Is Nothing Then
+            Exit Sub
+        End If
+
+        If oHSet1.Count <> 0 Then
+            oHSet1.Clear()
+        End If
+
+        If oHSet2.Count <> 0 Then
+            oHSet2.Clear()
+        End If
+    End Sub
+
+    Private Sub RadioButton角度_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton角度.CheckedChanged
+        If oHSet1 Is Nothing Then
+            Exit Sub
+        End If
+
+        If oHSet2 Is Nothing Then
+            Exit Sub
+        End If
+
+        If oHSet1.Count <> 0 Then
+            oHSet1.Clear()
+        End If
+
+        If oHSet2.Count <> 0 Then
+            oHSet2.Clear()
+        End If
     End Sub
 End Class

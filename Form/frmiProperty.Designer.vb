@@ -22,7 +22,6 @@ Partial Class frmiProperty
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmiProperty))
         Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn取消 = New System.Windows.Forms.Button()
         Me.lbl图号 = New System.Windows.Forms.Label()
@@ -44,6 +43,7 @@ Partial Class frmiProperty
         Me.lbl价格 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txt位置 = New System.Windows.Forms.TextBox()
+        Me.btn保存描述 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btn确定
@@ -95,7 +95,7 @@ Partial Class frmiProperty
         'btn向上1
         '
         Me.btn向上1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn向上1.Location = New System.Drawing.Point(275, 25)
+        Me.btn向上1.Location = New System.Drawing.Point(275, 15)
         Me.btn向上1.Name = "btn向上1"
         Me.btn向上1.Size = New System.Drawing.Size(26, 26)
         Me.btn向上1.TabIndex = 7
@@ -104,7 +104,7 @@ Partial Class frmiProperty
         'btn向上2
         '
         Me.btn向上2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn向上2.Location = New System.Drawing.Point(275, 63)
+        Me.btn向上2.Location = New System.Drawing.Point(275, 46)
         Me.btn向上2.Name = "btn向上2"
         Me.btn向上2.Size = New System.Drawing.Size(26, 26)
         Me.btn向上2.TabIndex = 8
@@ -244,7 +244,15 @@ Partial Class frmiProperty
         Me.txt位置.Size = New System.Drawing.Size(231, 21)
         Me.txt位置.TabIndex = 19
         Me.txt位置.TabStop = False
-        Me.txt位置.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'btn保存描述
+        '
+        Me.btn保存描述.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn保存描述.Location = New System.Drawing.Point(275, 75)
+        Me.btn保存描述.Name = "btn保存描述"
+        Me.btn保存描述.Size = New System.Drawing.Size(26, 26)
+        Me.btn保存描述.TabIndex = 20
+        Me.btn保存描述.UseVisualStyleBackColor = True
         '
         'frmiProperty
         '
@@ -253,6 +261,7 @@ Partial Class frmiProperty
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn取消
         Me.ClientSize = New System.Drawing.Size(321, 303)
+        Me.Controls.Add(Me.btn保存描述)
         Me.Controls.Add(Me.txt位置)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt价格)
@@ -275,7 +284,7 @@ Partial Class frmiProperty
         Me.Controls.Add(Me.txt图号)
         Me.Controls.Add(Me.lbl图号)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmiProperty"
@@ -309,5 +318,6 @@ Partial Class frmiProperty
     Friend WithEvents lbl价格 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txt位置 As System.Windows.Forms.TextBox
+    Friend WithEvents btn保存描述 As System.Windows.Forms.Button
 
 End Class

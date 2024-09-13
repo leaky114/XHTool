@@ -26,7 +26,9 @@ Partial Class frmDim2Object
         Me.btn选择一项 = New System.Windows.Forms.Button()
         Me.btn选择二项 = New System.Windows.Forms.Button()
         Me.GroupBox选择两项 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton角度 = New System.Windows.Forms.RadioButton()
         Me.lbl距离 = New System.Windows.Forms.Label()
+        Me.RadioButton距离 = New System.Windows.Forms.RadioButton()
         Me.GroupBox设置约束 = New System.Windows.Forms.GroupBox()
         Me.lbl位置 = New System.Windows.Forms.Label()
         Me.btn暂停 = New System.Windows.Forms.Button()
@@ -57,7 +59,7 @@ Partial Class frmDim2Object
         '
         'btn选择一项
         '
-        Me.btn选择一项.Location = New System.Drawing.Point(15, 25)
+        Me.btn选择一项.Location = New System.Drawing.Point(12, 25)
         Me.btn选择一项.Name = "btn选择一项"
         Me.btn选择一项.Size = New System.Drawing.Size(32, 32)
         Me.btn选择一项.TabIndex = 6
@@ -65,7 +67,7 @@ Partial Class frmDim2Object
         '
         'btn选择二项
         '
-        Me.btn选择二项.Location = New System.Drawing.Point(57, 25)
+        Me.btn选择二项.Location = New System.Drawing.Point(54, 25)
         Me.btn选择二项.Name = "btn选择二项"
         Me.btn选择二项.Size = New System.Drawing.Size(32, 32)
         Me.btn选择二项.TabIndex = 7
@@ -73,7 +75,9 @@ Partial Class frmDim2Object
         '
         'GroupBox选择两项
         '
+        Me.GroupBox选择两项.Controls.Add(Me.RadioButton角度)
         Me.GroupBox选择两项.Controls.Add(Me.lbl距离)
+        Me.GroupBox选择两项.Controls.Add(Me.RadioButton距离)
         Me.GroupBox选择两项.Controls.Add(Me.btn选择一项)
         Me.GroupBox选择两项.Controls.Add(Me.btn选择二项)
         Me.GroupBox选择两项.Location = New System.Drawing.Point(12, 12)
@@ -83,14 +87,38 @@ Partial Class frmDim2Object
         Me.GroupBox选择两项.TabStop = False
         Me.GroupBox选择两项.Text = "选择两项"
         '
+        'RadioButton角度
+        '
+        Me.RadioButton角度.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RadioButton角度.AutoSize = True
+        Me.RadioButton角度.Location = New System.Drawing.Point(220, 46)
+        Me.RadioButton角度.Name = "RadioButton角度"
+        Me.RadioButton角度.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton角度.TabIndex = 15
+        Me.RadioButton角度.Text = "角度"
+        Me.RadioButton角度.UseVisualStyleBackColor = True
+        '
         'lbl距离
         '
         Me.lbl距离.AutoSize = True
-        Me.lbl距离.Location = New System.Drawing.Point(118, 29)
+        Me.lbl距离.Location = New System.Drawing.Point(103, 35)
         Me.lbl距离.Name = "lbl距离"
         Me.lbl距离.Size = New System.Drawing.Size(41, 12)
         Me.lbl距离.TabIndex = 8
         Me.lbl距离.Text = "距离："
+        '
+        'RadioButton距离
+        '
+        Me.RadioButton距离.AutoSize = True
+        Me.RadioButton距离.Checked = True
+        Me.RadioButton距离.Location = New System.Drawing.Point(220, 20)
+        Me.RadioButton距离.Name = "RadioButton距离"
+        Me.RadioButton距离.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton距离.TabIndex = 9
+        Me.RadioButton距离.TabStop = True
+        Me.RadioButton距离.Text = "距离"
+        Me.RadioButton距离.UseVisualStyleBackColor = True
         '
         'GroupBox设置约束
         '
@@ -106,7 +134,7 @@ Partial Class frmDim2Object
         Me.GroupBox设置约束.Controls.Add(Me.btn反向)
         Me.GroupBox设置约束.Controls.Add(Me.btn正向)
         Me.GroupBox设置约束.Controls.Add(Me.btn确定约束)
-        Me.GroupBox设置约束.Location = New System.Drawing.Point(16, 98)
+        Me.GroupBox设置约束.Location = New System.Drawing.Point(16, 99)
         Me.GroupBox设置约束.Name = "GroupBox设置约束"
         Me.GroupBox设置约束.Size = New System.Drawing.Size(281, 121)
         Me.GroupBox设置约束.TabIndex = 12
@@ -202,7 +230,7 @@ Partial Class frmDim2Object
         Me.oListView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.oListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
         Me.oListView.FullRowSelect = True
-        Me.oListView.Location = New System.Drawing.Point(306, 12)
+        Me.oListView.Location = New System.Drawing.Point(331, 12)
         Me.oListView.MultiSelect = False
         Me.oListView.Name = "oListView"
         Me.oListView.Size = New System.Drawing.Size(180, 178)
@@ -217,13 +245,13 @@ Partial Class frmDim2Object
         '
         'ColumnHeader2
         '
-        Me.ColumnHeader2.Text = "距离"
+        Me.ColumnHeader2.Text = "距离/角度"
         Me.ColumnHeader2.Width = 70
         '
         'btn导出
         '
         Me.btn导出.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn导出.Location = New System.Drawing.Point(418, 196)
+        Me.btn导出.Location = New System.Drawing.Point(443, 197)
         Me.btn导出.Name = "btn导出"
         Me.btn导出.Size = New System.Drawing.Size(62, 28)
         Me.btn导出.TabIndex = 14
@@ -234,7 +262,7 @@ Partial Class frmDim2Object
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(497, 234)
+        Me.ClientSize = New System.Drawing.Size(522, 235)
         Me.Controls.Add(Me.btn导出)
         Me.Controls.Add(Me.oListView)
         Me.Controls.Add(Me.GroupBox设置约束)
@@ -244,9 +272,10 @@ Partial Class frmDim2Object
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmDim2Object"
-        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "驱动测量"
+        Me.TopMost = True
         Me.GroupBox选择两项.ResumeLayout(False)
         Me.GroupBox选择两项.PerformLayout()
         Me.GroupBox设置约束.ResumeLayout(False)
@@ -274,4 +303,6 @@ Partial Class frmDim2Object
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents btn导出 As System.Windows.Forms.Button
+    Friend WithEvents RadioButton角度 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton距离 As System.Windows.Forms.RadioButton
 End Class

@@ -14,16 +14,15 @@ Public NotInheritable Class frmAbout
             ApplicationTitle = System.IO.Path.GetFileNameWithoutExtension(My.Application.Info.AssemblyName)
         End If
         Me.Text = String.Format("关于 {0}", ApplicationTitle)
-        ' 初始化“关于”对话框显示的所有文字。
-        ' TODO: 在项目的“应用程序”窗格中自定义此应用程序的程序集信息
-        '    属性对话框(在“项目”菜单下)。
+      
+        Me.Icon = My.Resources.XHTool24
+
         Me.lblProductName.Text = String.Format("产品 {0}", My.Application.Info.ProductName)
         Me.lblVersion.Text = String.Format("版本 {0}", My.Application.Info.Version.ToString)
         Me.lblCopyright.Text = String.Format("版权 {0}", My.Application.Info.Copyright)
         Me.lblCompanyName.Text = String.Format("公司 {0}", My.Application.Info.CompanyName)
-        Me.txtDescription.Text = My.Application.Info.Description & vbCrLf & _
-                                      vbCrLf & _
-                                    My.Application.Info.DirectoryPath & "\" & My.Application.Info.AssemblyName & ".dll"
+        Me.txtDescription.Text = My.Application.Info.Description & vbCrLf & vbCrLf & _
+                                   IO.Path.Combine(My.Application.Info.DirectoryPath, My.Application.Info.AssemblyName & ".dll")
 
         '释放更新程序
         'NewUpdater.CreateUpdateExe()
@@ -49,16 +48,8 @@ Public NotInheritable Class frmAbout
 
     Private Sub btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
 
-        '启动更新程序
-        NewUpdater.UpDate3()
+        NewUpdater.Shell_XHUpdater()
 
-        'IsShowUpdateMsg = True
-        'Dim frmupdate As New frmUpdate
-        'frmupdate.ShowDialog()
-
-        'If NewUpdater.CreateUpdate() = True Then
-        'NewUpdater.Update3()
-        ''End If
         Me.Close()
 
     End Sub

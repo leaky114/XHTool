@@ -89,20 +89,23 @@ Module excelcode
         Dim oRange As Excel.Range = Nothing
         'oRange = oWorksheet.Range(strTableArrays)
 
-        Dim Table_Array(10) As String
+        Dim arrayTable(20) As String
 
-        Table_Array = Split(strTableArrays, ",")
+        arrayTable = Split(strTableArrays, ",")
 
         Dim MatchRow As Double
 
         Dim strFindRowValue As String = Nothing
+
+        strStochNum = Strings.Trim(strStochNum)
+
         For Each oWorksheet In oWorkbook.Sheets
-            For Each a In Table_Array
-                oRange = oWorksheet.Range(a & ":" & a)
+            For Each strTable As String In arrayTable
+                oRange = oWorksheet.Range(strTable & ":" & strTable)
                 MatchRow = oExcelApplication.WorksheetFunction.Match(strStochNum, oRange, 0)
-                if MatchRow <> 0 Then
+                If MatchRow <> 0 Then
                     Exit For
-                End if
+                End If
             Next
 
             Dim strFindRow As String

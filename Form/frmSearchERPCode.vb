@@ -31,11 +31,15 @@ Public NotInheritable Class frmSearchERPCode
 
         Dim arraystrERPCode() As String
 
-        'Me.UseWaitCursor = True
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
 
         arraystrERPCode = FindAllSrtingInSheet(BasicExcelFullFileName, strDrawingNo, TableArrays, ColIndexNum, 0)
 
-        'Me.UseWaitCursor = False
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        oInteraction.Stop()
 
         if arraystrERPCode(0) Is Nothing Then
             txtERP编码.Text = "未查询到ERP编码。"
@@ -52,17 +56,16 @@ Public NotInheritable Class frmSearchERPCode
         lvw编码列表.Items.Clear()
 
         Dim oListViewItem As ListViewItem
-        For Each a In arraystrERPCode
-            if a Xor Nothing Then
+        For Each strERPCode As String  In arraystrERPCode
+            If strERPCode Xor Nothing Then
 
                 oListViewItem = lvw编码列表.Items.Add(strDrawingNo)
                 With oListViewItem
-                    .SubItems.Add(a)
+                    .SubItems.Add(strERPCode)
                 End With
-            End if
+            End If
         Next
 
-        'oInteraction.Stop()
         Me.Height = 280
         btn查询编码.Enabled = True
         btn复制编码.Focus()
@@ -86,6 +89,7 @@ Public NotInheritable Class frmSearchERPCode
     End Sub
 
     Private Sub frmSearchERPCode_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
         Me.Height = 156
     End Sub
 

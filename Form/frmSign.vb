@@ -54,6 +54,8 @@ Public Class frmSign
     End Sub
 
     Private Sub frmSign_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+
         txt工程师.Text = EngineerName
         dtp日期.Value = Today.Date
         Select Case IsOpenPrint

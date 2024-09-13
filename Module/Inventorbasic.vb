@@ -16,6 +16,10 @@ Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms
+Imports System.DateTime
+Imports System.Environment
+Imports System.Collections.Generic
+
 
 Module InventorBasic
 
@@ -46,21 +50,31 @@ Module InventorBasic
             SetStatusBarText()
 
             Dim WorkSpaceFloder As String
-            WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+            WorkSpaceFloder = ThisApplication.DesignProjectManager.ActiveDesignProject.WorkspacePath
 
             Dim strFileName As String
-            strFileName = InputBox("查询文件夹：" & WorkSpaceFloder & vbCrLf & vbCrLf & "输入文件名", "快速打开")
+            strFileName = InputBox("查询文件夹：" & WorkSpaceFloder & vbCrLf & vbCrLf & "输入文件名")
 
             If strFileName = "" Then
                 Exit Sub
             End If
 
-            strFileName = "*" & strFileName & "*.*"
+            Dim strSearchFileName As String
+            Dim strExtension As String
 
-            Dim arrFullFileName As String()
-            arrFullFileName = Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
+            If Strings.InStr(strFileName, ".") = 0 Then
+                strSearchFileName = strFileName
+                strExtension = ""
+            Else
+                Dim arraystrName As String() = Strings.Split(strFileName, ".")
+                strSearchFileName = arraystrName(0)
+                strExtension = "." & arraystrName(1)
+            End If
 
-            If arrFullFileName.Length = 0 Then
+            Dim arrayFullFileName As List(Of String)
+            arrayFullFileName = FindFileInFolder(WorkSpaceFloder, strSearchFileName, strExtension)
+
+            If arrayFullFileName.Count = 0 Then
                 MsgBox("未找到文件：" & strFileName, MsgBoxStyle.Information)
                 Exit Sub
             End If
@@ -68,9 +82,11 @@ Module InventorBasic
             Dim strFullFileName As String = Nothing
 
             Dim frmQuitOpen As New frmQuitOpen
+            frmQuitOpen.lvw文件列表.CheckBoxes = True
+            frmQuitOpen.btn多选打开.Visible = True
 
-            For Each strFullFileName In arrFullFileName
-                If InStr(strFullFileName, "OldVersions") = 0 Then
+            For Each strFullFileName In arrayFullFileName
+                If Strings.InStr(strFullFileName, "OldVersions") = 0 Then
                     frmQuitOpen.lvw文件列表.Items.Add(strFullFileName)
                 End If
             Next
@@ -81,22 +97,34 @@ Module InventorBasic
                 Case 1
                     strQuitOpenSelectFileFullName = strFullFileName
 
+                    Dim strFileExtensionName As String = Nothing
+                    strFileExtensionName = LCase(GetFileNameInfo(strQuitOpenSelectFileFullName).ExtensionName)
+
+                    Select Case strFileExtensionName
+                        Case IAM, IPT, IDW
+                            str模型匹配检查标记 = 1
+                            ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
+                        Case Else
+                            Process.Start(strQuitOpenSelectFileFullName)
+                    End Select
+
+
                 Case Else
                     frmQuitOpen.ShowDialog()
 
+                    Dim strFileExtensionName As String = Nothing
+                    strFileExtensionName = LCase(GetFileNameInfo(strQuitOpenSelectFileFullName).ExtensionName)
+
+                    Select Case strFileExtensionName
+                        Case IAM, IPT, IDW
+                            str模型匹配检查标记 = 1
+                            ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
+                        Case Else
+                            Process.Start(strQuitOpenSelectFileFullName)
+                    End Select
+
+                    frmQuitOpen.Close()
             End Select
-
-
-            Dim strFileExtensionName As String = Nothing
-            strFileExtensionName = LCase(GetFileNameInfo(strQuitOpenSelectFileFullName).ExtensionName)
-
-            Select Case strFileExtensionName
-                Case IAM, IPT, IDW
-                    ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
-                Case Else
-                    Process.Start(strQuitOpenSelectFileFullName)
-            End Select
-            frmQuitOpen.Close()
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -110,10 +138,69 @@ Module InventorBasic
                 Exit Sub
             End If
 
-            With ThisApplication.ActiveDocument
-                .Save2(True)
-                .Close()
-            End With
+
+            Select Case ThisApplication.ActiveDocumentType
+                Case kDrawingDocumentObject    '工程图
+                    Dim strDocumentFullName As String
+                    strDocumentFullName = ThisApplication.ActiveDocument.FullDocumentName
+                    If IsFileExsts(strDocumentFullName) = True Then    '工程图已存在
+                        With ThisApplication.ActiveDocument
+                            .Save2(True)
+                            .Close()
+                        End With
+                    Else
+                        Dim oInventorDrawingDocument As Inventor.DrawingDocument
+                        oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+                        For Each oReferencedDocument In oInventorDrawingDocument.ReferencedDocumentDescriptors
+                            If IsFileExsts(oReferencedDocument.FullDocumentName) = True Then
+
+
+                                Dim strFilter As String = "Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
+                                Dim strInitialDirectory As String = GetDirectoryName2(oReferencedDocument.FullDocumentName)
+
+                                Dim arrayFullFileName As List(Of String)
+                                arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+
+                                If arrayFullFileName Is Nothing Then
+                                    Exit Sub
+                                End If
+
+                                Dim strNewFullFileName As String
+                                strNewFullFileName = arrayFullFileName.Item(0).ToString
+
+                                oInventorDrawingDocument.SaveAs(strNewFullFileName, False)
+                                oInventorDrawingDocument.Save2()
+
+                                'Dim oSaveFileDialog As New SaveFileDialog  '声名新open 窗口
+                                'With oSaveFileDialog
+                                '    .Title = "保存"
+                                '    .Filter = "Inventor 工程图文件(*.idw)|*.idw" '添加过滤文件
+                                '    .AddExtension = True
+                                '    .CheckPathExists = True
+                                '    .InitialDirectory = GetDirectoryName2(oReferencedDocument.FullDocumentName)
+                                '    .FileName = GetFileNameInfo(oReferencedDocument.FullDocumentName).OnlyName
+                                '    If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+                                '        Dim strNewFullFileName As String
+
+                                '        strNewFullFileName = .FileName
+                                '        oInventorDrawingDocument.SaveAs(strNewFullFileName, False)
+                                '        oInventorDrawingDocument.Save2()
+
+                                '    End If
+
+                                'End With
+                            End If
+                        Next
+                    End If
+
+                Case Else   '非工程图
+                    With ThisApplication.ActiveDocument
+                        .Save2(True)
+                        .Close()
+                    End With
+            End Select
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -131,7 +218,7 @@ Module InventorBasic
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.ActiveDocument
-            oInventorDocument.Close()
+            oInventorDocument.Close(True)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -147,10 +234,10 @@ Module InventorBasic
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = ThisApplication.ActiveDocument
 
-            Dim DocFileNameInfo As FileNameInfo
-            DocFileNameInfo = GetFileNameInfo(oInventorDocument.FullDocumentName)
+            Dim strFolderPath As String
+            strFolderPath = GetDirectoryName2(oInventorDocument.FullDocumentName)
 
-            Process.Start(DocFileNameInfo.Folder)
+            Process.Start(strFolderPath)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -158,25 +245,20 @@ Module InventorBasic
 
     '还原旧图
     Public Sub RestoreOldVersion()
+        Dim strFilter As String =  "Autodesk Inventor 旧文件(*.old)|*.old" '添加过滤文件
 
-        '打开文件
-        Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
+        Dim arrayFullFileName As List(Of String)
+        arrayFullFileName = OpenFileDialog(strFilter, True)
 
-        With oOpenFileDialog
-            .Title = "打开"
-            .Filter = "AutoDesk Inventor 旧文件(*.old)|*.old" '添加过滤文件
-            .Multiselect = True '多开文件打开
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
-                    Dim strNewFullFileName As String
-                    For Each strOldFullFileName As String In .FileNames
-                        strNewFullFileName = Left(strOldFullFileName, Strings.Len(strOldFullFileName) - 4)
-                        Rename(strOldFullFileName, strNewFullFileName)
-                    Next
-                End If
-                MsgBox("更改旧文件名完成。")
-            End If
-        End With
+        If arrayFullFileName Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim strNewFullFileName As String
+        For Each strOldFullFileName As String In arrayFullFileName
+            strNewFullFileName = Left(strOldFullFileName, Strings.Len(strOldFullFileName) - 4)
+            Rename(strOldFullFileName, strNewFullFileName)
+        Next
 
     End Sub
 
@@ -185,32 +267,16 @@ Module InventorBasic
         Try
 
             Dim strDestinationDirectory As String = Nothing
-            Dim oFileAttributes As FileAttributes
-            Dim strPresent_Folder As String = Nothing
+            'Dim oFileAttributes As FileAttributes
 
-            Dim oFolderBrowserDialog As New FolderBrowserDialog
+            Dim WorkSpaceFloder As String
+            WorkSpaceFloder = ThisApplication.FileLocations.Workspace
 
-            With oFolderBrowserDialog
-                .ShowNewFolderButton = False
-                .Description = "选择文件夹"
-                .RootFolder = System.Environment.SpecialFolder.Desktop
+            strDestinationDirectory = OpenFolderDialog(WorkSpaceFloder)
 
-                Dim WorkSpaceFloder As String
-                WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
-                If IsDirectoryExists(WorkSpaceFloder) = True Then
-                    .SelectedPath = WorkSpaceFloder
-                End If
-
-                If .ShowDialog = DialogResult.OK Then
-                    strDestinationDirectory = .SelectedPath
-                Else
-                    Exit Sub
-                End If
-            End With
-
-            'if DestinationDirectory = "" Then
-            '    Exit Sub
-            'End if
+            If strDestinationDirectory Is Nothing Then
+                Exit Sub
+            End If
 
             Dim intDeleteRecycleOption As Integer
             Select Case MsgBox("是否永久删除旧文件，而不是移动到回收站？", MsgBoxStyle.DefaultButton2 + MsgBoxStyle.Question + MsgBoxStyle.YesNo, "删除文件")
@@ -221,11 +287,11 @@ Module InventorBasic
             End Select
 
             '是否为文件夹，在其后添加 \
-            oFileAttributes = Microsoft.VisualBasic.FileSystem.GetAttr(strDestinationDirectory)
+            'oFileAttributes = Microsoft.VisualBasic.FileSystem.GetAttr(strDestinationDirectory)
 
-            If oFileAttributes = FileAttributes.Directory Then
-                strDestinationDirectory = strDestinationDirectory + "\"
-            End If
+            'If oFileAttributes = FileAttributes.Directory Then
+            '    strDestinationDirectory = strDestinationDirectory + "\"
+            'End If
 
             DelOldDirectory(strDestinationDirectory, intDeleteRecycleOption)
 
@@ -280,31 +346,10 @@ Module InventorBasic
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strFullFileName)
 
-        Dim oPropertySets As PropertySets
-        Dim oPropertySet As PropertySet
-        Dim propitem As [Property]
-        oPropertySets = oInventorDocument.PropertySets
-        oPropertySet = oPropertySets.Item(3)
+        SetPropitem(oInventorDocument, Map_DrawingNnumber, oStockNumPartName.图号)
+        SetPropitem(oInventorDocument, Map_PartName, oStockNumPartName.零件名称)
 
-        For Each propitem In oPropertySet    '设置iproperty
-            Select Case propitem.DisplayName
-                Case Map_PartName
-                    If oStockNumPartName.零件名称 <> "" Then
-                        propitem.Value = oStockNumPartName.零件名称
-                    End If
-                Case Map_DrawingNnumber
-                    If oStockNumPartName.图号 <> "" Then
-                        propitem.Value = oStockNumPartName.图号
-                    End If
-                Case Map_ERPCode
-                    If oStockNumPartName.ERP编码 <> "" Then
-                        propitem.Value = oStockNumPartName.ERP编码
-                    End If
-                Case "描述"
-                    ' propitem.Value = ""
-            End Select
-        Next
-999:
+
         '是否为打开的文件，是的话就关闭
         If IsNeedClose = True Then
             oInventorDocument.Close(True)
@@ -606,7 +651,8 @@ Module InventorBasic
             '如果旧文件目录下有一个文件名相同的已有零件号的文件，是否替换或者重新命名当前文件
             For Each FoundFile As String In My.Computer.FileSystem.GetFiles(oOldFileNameInfo.Folder, FileIO.SearchOption.SearchTopLevelOnly) ' OldFileInfo.ExtensionName)
                 If InStr(GetFileNameInfo(FoundFile).FileName, oOldFileNameInfo.FileName) > 1 Then  '存在一个已命名图号的文件
-                    Select Case MsgBox("存在一个已命名图号的文件：" & FoundFile & " ，是-直接替换  否-重新生成替换 ", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1)
+                    Select Case MsgBox("存在一个已命名图号的文件：" & FoundFile & vbCrLf & vbCrLf & _
+                                       " ，是-直接替换  否-重新生成替换 ", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1)
                         Case MsgBoxResult.Yes   '替换文件
                             oOldComponentOccurrence.Replace(FoundFile, True)
                             GoTo 999
@@ -662,7 +708,8 @@ Module InventorBasic
                     Dim strTempFullFileName As String       '暂时更改旧文件名字
                     strTempFullFileName = strOldFullFileName & OLD
                     ReFileName(strOldFullFileName, strTempFullFileName)
-                    MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & strNewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
+                    MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & _
+                           strNewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
                     System.Windows.Forms.Clipboard.SetText(strNewFullFileName)
                     ThisApplication.Documents.Open(strNewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
                     ThisApplication.Documents.ItemByName(strNewIdwFullFileName).Save2() '保存链接并关闭工程图
@@ -729,22 +776,42 @@ Module InventorBasic
         Return dblArea
     End Function
 
-    '获取单个描述
+
+    ''' <summary>
+    '''     获取单个property
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <param name="strPropitemName">显示的名称</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetPropitem(ByVal oInventorDocument As Inventor.Document, ByVal strPropitemName As String) As String
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
         Dim propitem As [Property]
 
-        oPropertySets = oInventorDocument.PropertySets
-        oPropertySet = oPropertySets.Item(3)
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
 
-        '获取iproperty
-        Dim StockNumPartName As StockNumPartName = Nothing
-        For Each propitem In oPropertySet
-            Select Case propitem.DisplayName
-                Case strPropitemName
-                    Return propitem.Value
-            End Select
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
+
+        oPropertySets = oInventorDocument.PropertySets
+
+        For Each oPropertySet In oPropertySets
+            '获取iproperty
+            Dim StockNumPartName As StockNumPartName = Nothing
+            For Each propitem In oPropertySet
+                Select Case propitem.DisplayName
+                    Case strPropitemName
+                        Return propitem.Value
+                End Select
+            Next
         Next
 
         'oInventorDocument.Update()   '刷新数据
@@ -753,81 +820,184 @@ Module InventorBasic
 
     End Function
 
-    '设置单个propitem
+    ''' <summary>
+    ''' 设置单个propitem
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <param name="strPropitemName">显示名称</param>
+    ''' <param name="strPropitemValue">值</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function SetPropitem(ByVal oInventorDocument As Inventor.Document, ByVal strPropitemName As String, ByVal strPropitemValue As String) As Boolean
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
         Dim propitem As [Property]
 
-        oPropertySets = oInventorDocument.PropertySets
-        oPropertySet = oPropertySets.Item(3)
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
 
-        '获取iproperty
-        Dim StockNumPartName As StockNumPartName = Nothing
-        For Each propitem In oPropertySet
-            Select Case propitem.DisplayName
-                Case strPropitemName
-                    propitem.Value = strPropitemValue
-            End Select
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
+        oPropertySets = oInventorDocument.PropertySets
+
+        For Each oPropertySet In oPropertySets
+            For Each propitem In oPropertySet
+                Select Case propitem.DisplayName
+                    Case strPropitemName
+                        propitem.Value = strPropitemValue
+                        oInventorDocument.Update()   '刷新数据
+                        Return True
+
+                End Select
+            Next
         Next
 
-        oInventorDocument.Update()   '刷新数据
-
-        Return True
+        'apprenticeDoc.PropertySets.FlushToFile()
+        'apprenticeDoc.Close()
 
     End Function
 
-    '获取 StockNumPartName
+    ''' <summary>
+    '''   获取 StockNumPartName
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetPropitems(ByVal oInventorDocument As Inventor.Document) As StockNumPartName
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
         Dim propitem As [Property]
 
-        oPropertySets = oInventorDocument.PropertySets
-        oPropertySet = oPropertySets.Item(3)
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
+
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
 
         Dim oStockNumPartName As StockNumPartName = Nothing
 
-        For Each propitem In oPropertySet
-            Select Case propitem.DisplayName
-                Case Map_PartName
-                    oStockNumPartName.零件名称 = propitem.Value
-                Case Map_DrawingNnumber
-                    oStockNumPartName.图号 = propitem.Value
-                Case Map_ERPCode
-                    oStockNumPartName.ERP编码 = propitem.Value
-            End Select
+        oPropertySets = oInventorDocument.PropertySets
+
+        For Each oPropertySet In oPropertySets
+            For Each propitem In oPropertySet
+                Select Case propitem.DisplayName
+                    Case Map_PartName
+                        oStockNumPartName.零件名称 = propitem.Value
+                    Case Map_DrawingNnumber
+                        oStockNumPartName.图号 = propitem.Value
+                    Case Map_ERPCode
+                        oStockNumPartName.ERP编码 = propitem.Value
+                End Select
+            Next
         Next
 
-        oInventorDocument.Update()   '刷新数据
+        'oInventorDocument.Update()   '刷新数据
 
         Return oStockNumPartName
 
     End Function
 
-    '设置 StockNumPartName
+    ''' <summary>
+    ''' 设置 StockNumPartName
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <param name="oStockNumPartName">值</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function SetPropitems(ByVal oInventorDocument As Inventor.Document, ByVal oStockNumPartName As StockNumPartName) As Boolean
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
         Dim propitem As [Property]
 
-        oPropertySets = oInventorDocument.PropertySets
-        oPropertySet = oPropertySets.Item(3)
+        ''=============================================================================
+        '' 采用学徒服务器，速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
 
-        For Each propitem In oPropertySet
-            Select Case propitem.DisplayName
-                Case Map_PartName
-                    propitem.Value = oStockNumPartName.零件名称
-                Case Map_DrawingNnumber
-                    propitem.Value = oStockNumPartName.图号
-                Case Map_ERPCode
-                    propitem.Value = oStockNumPartName.ERP编码
-            End Select
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        ''=============================================================================
+        oPropertySets = oInventorDocument.PropertySets
+
+        For Each oPropertySet In oPropertySets
+            For Each propitem In oPropertySet
+                Select Case propitem.DisplayName
+                    Case Map_PartName
+                        propitem.Value = oStockNumPartName.零件名称
+                    Case Map_DrawingNnumber
+                        propitem.Value = oStockNumPartName.图号
+                    Case Map_ERPCode
+                        propitem.Value = oStockNumPartName.ERP编码
+                End Select
+            Next
         Next
 
+        'apprenticeDoc.PropertySets.FlushToFile()
         oInventorDocument.Update()   '刷新数据
 
         Return True
+
+    End Function
+
+
+    ''' <summary>
+    ''' 设置一个自定义Propitem
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <param name="strUserPropitemName">名字</param>
+    ''' <param name="strUserPropitemValue">值</param>
+    ''' <remarks></remarks>
+    Public Sub SetUserPropitem(ByVal oInventorDocument As Inventor.Document, ByVal strUserPropitemName As String, ByVal strUserPropitemValue As String)
+        Dim pEachScale As [Property]
+
+        Try
+            '若该iProperty已经存在，则直接修改其值
+            pEachScale = oInventorDocument.PropertySets.Item("User Defined Properties").Item(strUserPropitemName)
+            pEachScale.Value = strUserPropitemValue
+        Catch
+            ' 若该iProperty不存在，则添加一个
+            oInventorDocument.PropertySets.Item("User Defined Properties").Add(strUserPropitemName, strUserPropitemValue)
+        End Try
+
+        oInventorDocument.Update()   '刷新数据
+
+    End Sub
+
+
+    ''' <summary>
+    ''' 获取一个一个自定义Propitem
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    ''' <param name="strUserPropitemName">名字</param>
+    ''' <returns>值，若无为nothing</returns>
+    ''' <remarks></remarks>
+    Public Function GetUserPropitem(ByVal oInventorDocument As Inventor.Document, ByVal strUserPropitemName As String) As String
+        Dim pEachScale As [Property]
+        Dim strUserPropitemValue As String = Nothing
+        Try
+            '若该iProperty已经存在，则直接修改其值
+            pEachScale = oInventorDocument.PropertySets.Item("User Defined Properties").Item(strUserPropitemName)
+            strUserPropitemValue = pEachScale.Value
+        Catch
+            strUserPropitemValue = Nothing
+        End Try
+
+        Return strUserPropitemValue
 
     End Function
 
@@ -843,30 +1013,15 @@ Module InventorBasic
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Dim oPropSets As PropertySets
-        Dim oPropSet As PropertySet
-        Dim propitem As [Property]
-
-        oPropSets = oInventorDocument.PropertySets
-        oPropSet = oPropSets.Item(3)
-
         '获取iproperty
-        'Dim oStockNumPartName As StockNumPartName = Nothing
         Dim strStochNum As String = Nothing
         Dim strPartNum As String = Nothing
 
-        For Each propitem In oPropSet
-            Select Case propitem.DisplayName
-                Case Map_DrawingNnumber
-                    strStochNum = propitem.Value
-                    'PartNum = VLookUpValue(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
-                    Exit For
-            End Select
-        Next
+        strStochNum = GetPropitem(oInventorDocument, Map_DrawingNnumber)
 
         strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
         If strPartNum <> 0 Then
-            MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.Information, "查询ERP编码")
+            MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.Information)
             SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
         Else
             MsgBox("未查询到ERP编码。", MsgBoxStyle.Information)
@@ -877,106 +1032,74 @@ Module InventorBasic
         'End Try
     End Sub
 
-    '打开活动文件对应的工程图
-    Public Sub OpenDrawingDocument(ByVal oInventorDocument As Inventor.Document)
-        On Error Resume Next
-        SetStatusBarText()
+    '查找变更扩展名后为文件（原文件名，变更后的扩展名）
+    Public Function GetChangeExtensionDocument(ByVal strFullDocumentName As String, ByVal strExtension As String) As String
+        'On Error Resume Next
 
-        'if IsInventorOpenDocument() = False Then
-        '    Exit Sub
-        'End if
-
-        'if ThisApplication.ActiveDocument.DocumentType = kDrawingDocumentObject Then
-        '    MsgBox("该功能仅适用于部件或零件", MsgBoxStyle.Information)
-        '    'Return False
-        '    Exit Sub
-        'End if
-
-        Dim strInventorFullFileName As String   '模型文件
-        strInventorFullFileName = oInventorDocument.FullDocumentName
-
-        Dim strDrawingFullFileName As String  '工程图全文件名
-        strDrawingFullFileName = GetChangeExtension(strInventorFullFileName, IDW)
-
+        Dim strChangeExtensionDocument As String
+        strChangeExtensionDocument = GetChangeExtension(strFullDocumentName, strExtension)
 
         '查询到工程图
         '同一文件夹找到工程图
-        If IsFileExsts(strDrawingFullFileName) Then
-            ThisApplication.Documents.Open(strDrawingFullFileName)
+        If IsFileExsts(strChangeExtensionDocument) Then
+            Return strChangeExtensionDocument
         Else
             '当前文件夹返回3层父文件夹找
-            strDrawingFullFileName = SearchDocumentInPresentDirectory(oInventorDocument.FullDocumentName, Val(str查找文件夹层数), IDW)
+            Dim strParentFolderPath As String
+            strParentFolderPath = GetFileNameInfo(strFullDocumentName).Folder
+            strParentFolderPath = GetParentFolderPath(strParentFolderPath, Val(str查找文件夹层数))
 
-            If strDrawingFullFileName = "NULL" Then
+            strFullDocumentName = GetChangeExtension(strFullDocumentName, strExtension)
+            Dim strInventorDocumentName As String = GetFileName2(strFullDocumentName)
 
-                '到项目文件夹找工程图
-                Dim WorkSpaceFloder As String
-                WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+            Dim arrayFullFileName As List(Of String)
+            arrayFullFileName = FindFileInFolder(strParentFolderPath, strInventorDocumentName)
 
-                Dim strFileName As String
-                strDrawingFullFileName = GetChangeExtension(strInventorFullFileName, IDW)
-                strFileName = GetFileNameInfo(strDrawingFullFileName).FileName
-
-                Dim arrFullFileName As String()
-                arrFullFileName = Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
-
-                If arrFullFileName.Length = 0 Then
-                    If MsgBox(strInventorFullFileName & "没有对应的工程图，是否查找AutoCad文件？", MsgBoxStyle.YesNo + MsgBoxStyle.Information) = MsgBoxResult.Yes Then
-                        strDrawingFullFileName = SearchDocumentInPresentDirectory(oInventorDocument.FullDocumentName, Val(str查找文件夹层数), DWG)
-                        If strDrawingFullFileName = "NULL" Then
-                            MsgBox(strInventorFullFileName & "没有对应的AutoCad文件！", MsgBoxStyle.Information)
-                        Else
-                            Process.Start(strDrawingFullFileName)
-                        End If
-                    End If
-                Else
-                    strDrawingFullFileName = arrFullFileName(0)
-                    ThisApplication.Documents.Open(strDrawingFullFileName)
-                End If
+            If arrayFullFileName.Count > 0 Then
+                strChangeExtensionDocument = arrayFullFileName(0)
             Else
-                ThisApplication.Documents.Open(strDrawingFullFileName)
+                strChangeExtensionDocument = ""
             End If
 
+            'strDrawingFullFileName = SearchDocumentInPresentDirectory(strInventorDocumentFullDocumentName, Val(str查找文件夹层数))
+            Return strChangeExtensionDocument
         End If
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
-
-    End Sub
-
-    '到父文件夹查询文件  ，原文档 ，向上查询的层级，对应的扩展名
-    Public Function SearchDocumentInPresentDirectory(ByVal strFullFileName As String, _
-                                                         ByVal intPresidentLevel As Integer, _
-                                                         ByVal strExtension As String) As String
-        On Error Resume Next
-
-        Dim strPrsentDirectory As String   '父文件夹
-        Dim strInventorFileName As String   '文件名
-        Dim strFileNameWithNewExtensionName As String '对应的变更扩展名后的文件名
-        Dim i As Integer
-
-        'strInventorFullFileName = oInventorDocument.FullDocumentName
-        strInventorFileName = GetFileName2(strFullFileName)
-
-        strFileNameWithNewExtensionName = GetFileNameWithoutExtension2(strFullFileName) & strExtension
-
-        i = 0
-
-        strPrsentDirectory = System.IO.Directory.GetParent(strFullFileName).FullName
-
-        'Dim startingDirectory As String = "C:\Pathto\A" ' 替换为你的起始目录路径
-        'Dim fileName As String = "B.txt" ' 替换为你要查找的文件名
-        'Dim maxLevels As Integer = 3 ' 替换为最大向上查找的层数
-        Dim strFindFile As String = FindFile(strPrsentDirectory, strFileNameWithNewExtensionName, Val(str查找文件夹层数))
-
-        If strFindFile IsNot Nothing Then
-            Return strFindFile
-        Else
-            Return "NULL"
-        End If
-
-
     End Function
+
+    ''到父文件夹查询文件  ，原文档 ，向上查询的层级，对应的扩展名
+    'Public Function SearchDocumentInPresentDirectory(ByVal strFullFileName As String, _
+    '                                                     ByVal intPresidentLevel As Integer) As String
+    '    On Error Resume Next
+
+    '    Dim strPrsentDirectory As String   '父文件夹
+    '    Dim strInventorFileName As String   '文件名
+    '    Dim strFileNameWithNewExtensionName As String '对应的变更扩展名后的文件名
+    '    Dim i As Integer
+
+    '    'strInventorFullFileName = oInventorDocument.FullDocumentName
+    '    strInventorFileName = GetFileName2(strFullFileName)
+
+    '    strFileNameWithNewExtensionName = GetFileNameWithoutExtension2(strFullFileName) & strExtension
+
+    '    i = 0
+
+    '    strPrsentDirectory = System.IO.Directory.GetParent(strFullFileName).FullName
+
+    '    'Dim startingDirectory As String = "C:\Pathto\A" ' 替换为你的起始目录路径
+    '    'Dim fileName As String = "B.txt" ' 替换为你要查找的文件名
+    '    'Dim maxLevels As Integer = 3 ' 替换为最大向上查找的层数
+    '    Dim strFindFile As String = FindFile(strPrsentDirectory, strFileNameWithNewExtensionName, Val(str查找文件夹层数))
+
+    '    If strFindFile IsNot Nothing Then
+    '        Return strFindFile
+    '    Else
+    '        Return "NULL"
+    '    End If
+
+
+    'End Function
+
+
 
     '关闭指定文件名的文档
     Public Sub CloseFile(ByVal FileFullName As String)
@@ -1028,59 +1151,111 @@ Module InventorBasic
 
     End Sub
 
-    Public Sub OpenFilesWithFileList()
+    Public Sub OpenFilesWithList()
+        'Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-        Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
-        Dim strListFile As String = Nothing
+        'With oOpenFileDialog
+        '    .Title = "打开"
+        '    .Filter = "文本文件(*.txt)|*.txt" '添加过滤文件
+        '    .Multiselect = False
+        '    If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
+        '        If .FileName <> "" Then '如果有选中文件
+        '            strListFile = .FileName
+        '        End If
+        '    End If
+        'End With
 
-        With oOpenFileDialog
-            .Title = "打开"
-            .Filter = "文本文件(*.txt)|*.txt" '添加过滤文件
-            .Multiselect = False
-            If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
-                If .FileName <> "" Then '如果有选中文件
-                    strListFile = .FileName
-                End If
-            End If
-        End With
+
+        Dim strFilter As String = Nothing
+        strFilter = "文本文件(*.txt)|*.txt" '添加过滤文件
+
+        Dim strInitialDirectory As String = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
+
+        Dim arrayFullFileName As List(Of String)
+        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+
+        If arrayFullFileName Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim strListFileName As String = Nothing
+        strListFileName = arrayFullFileName.Item(0).ToString
+
+        If strListFileName = "" Then
+            Exit Sub
+        End If
 
         Dim WorkSpaceFloder As String
-        WorkSpaceFloder = ThisApplication.FileLocations.Workspace & "\"
+        WorkSpaceFloder = ThisApplication.DesignProjectManager.ActiveDesignProject.WorkspacePath
 
-        Dim arrFullFileName As String()
-
-        Using sr As StreamReader = New StreamReader(strListFile)
+        Using sr As StreamReader = New StreamReader(strListFileName)
             Dim strFileName As String
             While Not sr.EndOfStream
                 strFileName = sr.ReadLine()
 
-                'strFileName = "*" & strFileName & "*"
-
-                arrFullFileName = IO.Directory.GetFiles(WorkSpaceFloder, strFileName, SearchOption.AllDirectories)
-
-                If arrFullFileName.Length <> 0 Then
-
-                    For Each strFullFileName As String In arrFullFileName
-
-                        '旧版文件就退出，查询下一个文件 
-                        If InStr(strFullFileName, "OldVersions") <> 0 Then
-                            Exit For
-                        End If
-
-                        'If (LCaseGetFileExtension(strFullFileName) = IPT Or LCaseGetFileExtension(strFullFileName) = IAM) Then
-                        ThisApplication.Documents.Open(strFullFileName)
-                        'End If
-                    Next
-
-
-
+                If strFileName = "" Then
+                    Continue While
                 End If
 
+                If IsFileExsts(strFileName) = True Then
+                    '完整文件名就直接打开
+                    ThisApplication.Documents.Open(strFileName)
+                Else
+                    '仅文件名就查询本项目
 
+                    Dim strSearchFileName As String
+                    Dim strExtension As String
+
+                    If Strings.InStr(strFileName, ".") = 0 Then
+                        strSearchFileName = strFileName
+                        strExtension = ""
+                    Else
+                        Dim arraystrName As String() = Strings.Split(strFileName, ".")
+                        strSearchFileName = arraystrName(0)
+                        strExtension = "." & arraystrName(1)
+                    End If
+
+                    arrayFullFileName = FindFileInFolder(WorkSpaceFloder, strSearchFileName, strExtension)
+
+                    If arrayFullFileName.Count > 0 Then
+                        For Each strFullFileName As String In arrayFullFileName
+                            '旧版文件就退出，查询下一个文件 
+                            If InStr(strFullFileName, "OldVersions") <> 0 Then
+                                Continue For
+                            End If
+
+                            If (GetFileExtensionLCase(strFullFileName) = IPT Or GetFileExtensionLCase(strFullFileName) = IAM) Then
+                                ThisApplication.Documents.Open(strFullFileName)
+                            End If
+                        Next
+                    End If
+
+                End If
             End While
         End Using
 
         MsgBox("按列表打开文件完成。", MsgBoxStyle.Information)
 
+    End Sub
+
+    Public Sub SaveFilessList()
+
+        ' 获取当前日期和时间
+        Dim currentDate As DateTime = DateTime.Now
+        ' 格式化日期和时间为字符串
+        Dim strListFileName As String = currentDate.ToString("yyyyMMdd_HHmmss") & ".txt"
+
+        Dim strFileFullName As String
+
+        ' 创建一个新的文本文件，文件名为日期+时间
+        Using writer As StreamWriter = New StreamWriter(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, strListFileName))
+            ' 使用StreamWriter将字符串写入文件
+
+            For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
+                strFileFullName = oInventorDocument.FullFileName
+                writer.WriteLine(strFileFullName)
+            Next
+        End Using
+        MsgBox("保存当前打开的文件到列表：" & strListFileName, MsgBoxStyle.Information)
     End Sub
 End Module

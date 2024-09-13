@@ -29,11 +29,13 @@ Public Class frmiProperty
             'Exit Sub
         End if
 
-        if cbo描述.Items.Contains(cbo描述.Text) = False Then
-            cbo描述.Items.Add(cbo描述.Text)
-        End if
+        'If cbo描述.Items.Contains(cbo描述.Text) = False Then
+        '    cbo描述.Items.Add(cbo描述.Text)
+        'End If
 
-        SaveCustomDescription(cbo描述)
+        If InStr(oInventorDocument.FullDocumentName, ContentCenterFiles) > 0 Then    '零件库文件自动保存
+            oInventorDocument.Save2(True)
+        End If
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -46,6 +48,8 @@ Public Class frmiProperty
 
     Private Sub frmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        Me.Icon = My.Resources.XHTool48
+
         '加载自定义描述
         LoadCustomDescription(cbo描述)
 
@@ -57,47 +61,58 @@ Public Class frmiProperty
         toolTip.SetToolTip(btn向上1, "交换 图号-文件名")
         toolTip.SetToolTip(btn向上2, "交换 文件名-描述")
         toolTip.SetToolTip(btn查询, "查询ERP编码")
-
+        toolTip.SetToolTip(btn保存描述, "保存描述到配置文件")
 
         btn向上1.Image = My.Resources.交换16.ToBitmap
         btn向上2.Image = My.Resources.交换16.ToBitmap
         btn查询.Image = My.Resources.查询16.ToBitmap
+        btn保存描述.Image = My.Resources.保存关闭16.ToBitmap
 
 
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Me.Text = "iProperty+（" & GetFileNameInfo(oInventorDocument.FullDocumentName).OnlyName & "）"
+        Me.Text = "iProperty+  " & GetFileNameInfo(oInventorDocument.FullDocumentName).OnlyName
 
         txt位置.Text = GetFileNameInfo(oInventorDocument.FullDocumentName).Folder
 
-
-
-        Dim oPropSets As PropertySets
-        Dim oPropSet As PropertySet
+        Dim oPropertySets As PropertySets
+        Dim oPropertySet As PropertySet
         Dim propitem As [Property]
 
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
 
-        oPropSets = oInventorDocument.PropertySets
-        oPropSet = oPropSets.Item(3)
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
+
+        oPropertySets = oInventorDocument.PropertySets
 
         '获取iproperty
-        ''Dim oStockNumPartName As StockNumPartName = Nothing
-        For Each propitem In oPropSet
-            Select Case propitem.DisplayName
-                Case Map_DrawingNnumber
-                    txt图号.Text = propitem.Value
-                Case Map_PartName
-                    txt文件名.Text = propitem.Value
-                Case Map_Describe
-                    cbo描述.Text = propitem.Value
-                Case Map_ERPCode
-                    txtERP编码.Text = propitem.Value
-                Case Map_Vendor
-                    cbo供应商.Text = propitem.Value
-                Case Map_Price
-                    txt价格.Text = propitem.Value
-            End Select
+
+        For Each oPropertySet In oPropertySets
+            For Each propitem In oPropertySet
+                Select Case propitem.DisplayName
+                    Case Map_DrawingNnumber
+                        txt图号.Text = propitem.Value
+                    Case Map_PartName
+                        txt文件名.Text = propitem.Value
+                    Case Map_Describe
+                        cbo描述.Text = propitem.Value
+                    Case Map_ERPCode
+                        txtERP编码.Text = propitem.Value
+                    Case Map_Vendor
+                        cbo供应商.Text = propitem.Value
+                    Case Map_Price
+                        txt价格.Text = propitem.Value
+                End Select
+            Next
         Next
 
         if oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
@@ -141,31 +156,14 @@ Public Class frmiProperty
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
 
 
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        'Dim oPropSets As PropertySets
-        'Dim oPropSet As PropertySet
-        'Dim propitem As [Property]
-
-        'oPropSets = oInventorDocument.PropertySets
-        'oPropSet = oPropSets.Item(3)
-
-        ''获取iproperty
-        'Dim oStockNumPartName As StockNumPartName = Nothing
         Dim strStochNum As String = Nothing
         Dim strPartNum As String = Nothing
-
-        'For Each propitem In oPropSet
-        '    Select Case propitem.DisplayName
-        '        Case Map_DrawingNnumber
-        '            strStochNum = propitem.Value
-        '            'PartNum = VLookUpValue(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
-        '            Exit For
-        '    End Select
-        'Next
 
         strStochNum = txt图号.Text
 
@@ -188,7 +186,6 @@ Public Class frmiProperty
             MsgBox("未查询到ERP编码。", MsgBoxStyle.OkOnly, "查询ERP编码")
         End if
 
-        'oInteraction.Stop()
         btn查询.Enabled = True
 
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
@@ -204,20 +201,19 @@ Public Class frmiProperty
         txtERP编码.SelectAll()
     End Sub
 
-
     Private Sub LoadCustomDescription(oComboBox As ComboBox)
         Dim strDescriptions As String = Nothing
         Dim arrayDescriptions() As String
         Dim strDescription As String
 
-        strDescriptions = GetStrFromINI("自定义描述", "自定义描述", "", Inifile)
+        strDescriptions = GetStrFromINI("自定义描述", "自定义描述", "", IniFile)
 
         arrayDescriptions = Strings.Split(strDescriptions, "|")
 
         For Each strDescription In arrayDescriptions
-            if oComboBox.Items.Contains(strDescription) = False Then
+            If oComboBox.Items.Contains(strDescription) = False Then
                 oComboBox.Items.Add(strDescription)
-            End if
+            End If
         Next
 
     End Sub
@@ -232,5 +228,12 @@ Public Class frmiProperty
 
         WriteStrINI("自定义描述", "自定义描述", strDescriptions, Inifile)
 
+    End Sub
+
+    Private Sub btn保存描述_Click(sender As Object, e As EventArgs) Handles btn保存描述.Click
+
+        cbo描述.Items.Add(cbo描述.Text)
+
+        SaveCustomDescription(cbo描述)
     End Sub
 End Class

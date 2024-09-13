@@ -167,10 +167,8 @@ Partial Class frmImportCodeToBomExcel
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "frmImportCodeToBomExcel"
-        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码到Bom表"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

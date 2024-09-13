@@ -270,4 +270,8 @@ Public Class frmPlayer
 
 
     End Sub
+
+    Private Sub frmPlayer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+    End Sub
 End Class

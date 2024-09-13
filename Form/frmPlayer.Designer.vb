@@ -239,10 +239,9 @@ Partial Class frmPlayer
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmPlayer"
-        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "动画"
+        Me.Text = " "
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()

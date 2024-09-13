@@ -13,37 +13,44 @@ Public Class frmAutoPartNumber
 
         Dim strOldFullFileName As String   '旧文件全名
         Dim strNewFullFileName As String   '新文件全名
-        Dim oListViewItem As ListViewItem
 
         Try
 
             btn开始.Enabled = False
             Me.TopMost = False
 
+            ThisApplication.SilentOperation = True
+
             Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
             oInteraction.Start()
             oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+            ThisApplication.UserInterfaceManager.DoEvents()
 
 
-            For i = 0 To lvw文件列表.Items.Count - 1
-                oListViewItem = lvw文件列表.Items(i)
+            str模型匹配检查标记 = 3
 
-                strOldFullFileName = oListViewItem.SubItems(3).Text & "\" & oListViewItem.Text & oListViewItem.SubItems(1).Text
+            For Each oListViewItem As ListViewItem In lvw文件列表.Items
+
+                strOldFullFileName = IO.Path.Combine(oListViewItem.SubItems(3).Text, oListViewItem.Text & oListViewItem.SubItems(1).Text)
 
                 SetStatusBarText(strOldFullFileName)
 
                 If oListViewItem.SubItems(2).Text = "" Then
-                    GoTo 999
+                    Continue For
                 End If
-                strNewFullFileName = oListViewItem.SubItems(3).Text & "\" & oListViewItem.SubItems(2).Text & oListViewItem.SubItems(1).Text
+                strNewFullFileName = IO.Path.Combine(oListViewItem.SubItems(3).Text, oListViewItem.SubItems(2).Text & oListViewItem.SubItems(1).Text)
 
                 '同名不跳过
                 If strOldFullFileName = strNewFullFileName Then
-                    GoTo 999
+                    Continue For
                 End If
 
                 '打开旧文件,不显示
                 Dim oOldInventorDocument As Inventor.Document
+
+                If IsFileExsts(strOldFullFileName) = False Then
+
+                End If
                 oOldInventorDocument = ThisApplication.Documents.Open(strOldFullFileName, False)
 
                 '另存为新文件
@@ -96,6 +103,7 @@ Public Class frmAutoPartNumber
             SetStatusBarText("自动命名图号完成！")
             MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
             btn开始.Enabled = True
+            str模型匹配检查标记 = 1
 
             oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
             oInteraction.Stop()
@@ -192,7 +200,6 @@ Public Class frmAutoPartNumber
 
     '预览
     Private Sub btn预览_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn预览.Click
-        Dim oListViewItem As ListViewItem
         Dim intAssNum As Integer
         Dim intPartNum As Integer
         Dim oStockNumPartName As StockNumPartName = Nothing
@@ -202,6 +209,11 @@ Public Class frmAutoPartNumber
         intPartNum = 1
         strBasicStockNum = txt基准图号.Text
 
+        If txt基准图号.Text = "" Then
+            MsgBox("请输入基准图号！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+            Exit Sub
+        End If
+
         If (IsNumeric(txt零件变量.Text) = False) Or (IsNumeric(cmb部件变量.Text) = False) Then
             MsgBox("变量非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
             Exit Sub
@@ -210,8 +222,7 @@ Public Class frmAutoPartNumber
         Dim intPartChange As Integer = Val(txt零件变量.Text)
         Dim intAmsChange As Integer = Val(cmb部件变量.Text)
 
-        For i = 0 To lvw文件列表.Items.Count - 1
-            oListViewItem = lvw文件列表.Items(i)
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
             If oListViewItem.SubItems(1).Text = IPT Then
                 oStockNumPartName.图号 = Strings.Left(strBasicStockNum, Strings.Len(strBasicStockNum) - Strings.Len((intPartNum * intPartChange).ToString)) & intPartNum * intPartChange
                 oStockNumPartName.零件名称 = GetStockNumPartName(oListViewItem.Text).零件名称
@@ -228,6 +239,7 @@ Public Class frmAutoPartNumber
     End Sub
 
     Private Sub frmAutoPartNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
@@ -242,11 +254,17 @@ Public Class frmAutoPartNumber
         toolTip.SetToolTip(chk备份文件, "将原文件扩展名变更为 old 文件")
 
         btn确定新文件名.Image = My.Resources.确定16.ToBitmap
+
     End Sub
 
     '载入数据函数
     Private Sub LoadAssBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal oListView As ListView)
         On Error Resume Next
+
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
 
         '基于bom结构化数据，可跳过参考的文件
         ' Set a reference to the BOM
@@ -306,15 +324,11 @@ Public Class frmAutoPartNumber
 
         oListView.EndUpdate()
 
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        oInteraction.Stop()
     End Sub
 
     '移出项
-    Private Sub ListViewDel(ByVal oListView As ListView)
-        For i As Integer = oListView.SelectedIndices.Count - 1 To 0 Step -1
-            oListView.Items.RemoveAt(oListView.SelectedIndices(i))
-        Next
-    End Sub
-
     Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
         ListViewDel(lvw文件列表)
     End Sub
@@ -434,10 +448,8 @@ Public Class frmAutoPartNumber
     Private Sub tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
         Dim strFilter As String
 
-        Me.TopMost = False
-
         Dim frmInputBox As New frmInputBox
-999:
+
         With frmInputBox
             .txt输入.Text = ""
             .Text = "筛选文件"
@@ -449,7 +461,6 @@ Public Class frmAutoPartNumber
         If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txt输入.Text <> "") Then
             strFilter = frmInputBox.txt输入.Text
         Else
-            Me.TopMost = True
             Exit Sub
         End If
 
@@ -463,17 +474,15 @@ Public Class frmAutoPartNumber
             If InStr(strInventorDrawingFileOnlyName, strFilter) <> 0 Then
                 oListViewItem.Remove()
             End If
-
         Next
-        Me.TopMost = True
+
     End Sub
 
     '筛选保留
     Private Sub tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
         Dim strFilter As String
-        Me.TopMost = False
         Dim frmInputBox As New frmInputBox
-999:
+
         With frmInputBox
             .txt输入.Text = ""
             .Text = "筛选文件"
@@ -485,7 +494,6 @@ Public Class frmAutoPartNumber
         If (frmInputBox.DialogResult = Windows.Forms.DialogResult.OK) And (frmInputBox.txt输入.Text <> "") Then
             strFilter = frmInputBox.txt输入.Text
         Else
-            Me.TopMost = True
             Exit Sub
         End If
 
@@ -502,6 +510,12 @@ Public Class frmAutoPartNumber
 
         Next
 
-        Me.TopMost = True
     End Sub
+
+    Private Sub txt新文件名_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt新文件名.KeyPress
+        If e.KeyChar = Chr(Keys.Enter) Then
+            btn确定新文件名_Click(sender, e)
+        End If
+    End Sub
+
 End Class

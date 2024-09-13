@@ -1,0 +1,84 @@
+   Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
+
+        
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        oInteraction.Stop()
+        
+        
+        
+========================================================================
+        
+ '撤销功能
+            Dim oTransaction As Transaction
+            oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")        
+        
+
+		        oTransaction.End()
+			
+    '==============================================================================================
+
+    '' 获取所有引用文档
+    'Dim oAllReferencedDocuments As DocumentsEnumerator
+    'oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
+
+    'With prgProcess
+    '    .Minimum = 0
+    '    .Maximum = oAllReferencedDocuments.Count
+    '    .Value = 0
+    'End With
+
+    ' 遍历这些文档
+
+    'For Each ReferencedDocument As Document In oAllReferencedDocuments
+    '    Debug.Print(ReferencedDocument.DisplayName)
+    '    Dim oStockNumPartName As StockNumPartName
+    '    oStockNumPartName = GetPropitems(ReferencedDocument)
+
+    '    Dim LVI As ListViewItem
+    '    LVI = lvwFileList.Items.Add(oStockNumPartName.StockNum)
+    '    LVI.SubItems.Add(oStockNumPartName.零件名称)
+    '    LVI.SubItems.Add(oStockNumPartName.PartNum)
+    '    LVI.SubItems.Add(ReferencedDocument.FullDocumentName)
+
+    '    prgProcess.Value = prgProcess.Value + 1
+    'Next
+
+   
+    '==========================
+    'If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+    'MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+    'Exit Sub
+    'End If
+
+    'Dim oInventorDrawingDocument As Inventor.DrawingDocument
+    'oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+    '=======================
+    'If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+    'MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+    'Exit Sub
+    'End If
+
+    'Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+    'oInventorAssemblyDocument = ThisApplication.ActiveDocument
+    '===========================
+    ' If IsInventorOpenDocument() = False Then
+    '            Exit Sub
+    '        End If
+
+    '        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+    '            MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
+    '            Exit Sub
+    '        End If
+
+    'Dim oInventorDocument As Inventor.Document
+    '        oInventorDocument = ThisApplication.ActiveDocument
+    '        ======================================================
+
+    'Dim oInventorDocument As Inventor.Document
+    '            oInventorDocument = ThisApplication.ActiveDocument
+
+    '            ================================

@@ -12,16 +12,16 @@ Public Class frmSaveAll
             Exit Sub
         End if
 
-        Me.TopMost = False
+        Me.Hide()
 
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-            if IsFileExsts(oInventorDocument.FullDocumentName) = False Then
+            If IsFileExsts(oInventorDocument.FullDocumentName) = False Then
                 Continue For
-            End if
+            End If
 
             Select Case oInventorDocument.DocumentType
                 Case kAssemblyDocumentObject
-                    if chk部件.Checked = True Then
+                    If chk部件.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -31,9 +31,9 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End if
+                    End If
                 Case kPartDocumentObject
-                    if chk零件图.Checked = True Then
+                    If chk零件图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -43,9 +43,9 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End if
+                    End If
                 Case kDrawingDocumentObject
-                    if chk工程图.Checked = True Then
+                    If chk工程图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
                                 oInventorDocument.Save2(True)
@@ -55,7 +55,7 @@ Public Class frmSaveAll
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
                         End Select
-                    End if
+                    End If
             End Select
         Next
 
@@ -80,4 +80,7 @@ Public Class frmSaveAll
         RadioState = 3
     End Sub
 
+    Private Sub frmSaveAll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+    End Sub
 End Class

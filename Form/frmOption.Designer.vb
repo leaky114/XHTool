@@ -26,13 +26,13 @@ Partial Class frmOption
         Me.btn取消 = New System.Windows.Forms.Button()
         Me.chk检查更新 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型 = New System.Windows.Forms.TabPage()
+        Me.txt去除后缀 = New System.Windows.Forms.TextBox()
+        Me.lbl去除后缀 = New System.Windows.Forms.Label()
         Me.chk检查重复图号 = New System.Windows.Forms.CheckBox()
         Me.lbl查找文件夹层数 = New System.Windows.Forms.Label()
         Me.NUD查找文件夹层数 = New System.Windows.Forms.NumericUpDown()
         Me.chk另存到子文件夹 = New System.Windows.Forms.CheckBox()
         Me.chk备份工程图 = New System.Windows.Forms.CheckBox()
-        Me.btn图框配置 = New System.Windows.Forms.Button()
-        Me.btn配置文件 = New System.Windows.Forms.Button()
         Me.GroupBoxERP查询 = New System.Windows.Forms.GroupBox()
         Me.btn选择erp数据库 = New System.Windows.Forms.Button()
         Me.btn更新数据库 = New System.Windows.Forms.Button()
@@ -50,6 +50,8 @@ Partial Class frmOption
         Me.cbo添加 = New System.Windows.Forms.ComboBox()
         Me.txtBOM导出项 = New System.Windows.Forms.TextBox()
         Me.lblBOM导出项目 = New System.Windows.Forms.Label()
+        Me.btn图框配置 = New System.Windows.Forms.Button()
+        Me.btn配置文件 = New System.Windows.Forms.Button()
         Me.TabPage常规 = New System.Windows.Forms.TabPage()
         Me.GroupBox快速打印 = New System.Windows.Forms.GroupBox()
         Me.cbo另存为 = New System.Windows.Forms.ComboBox()
@@ -57,10 +59,6 @@ Partial Class frmOption
         Me.chk匹配A3纸 = New System.Windows.Forms.CheckBox()
         Me.chk签字 = New System.Windows.Forms.CheckBox()
         Me.lbl打印机 = New System.Windows.Forms.Label()
-        Me.GroupBox质量映射 = New System.Windows.Forms.GroupBox()
-        Me.chk保存质量 = New System.Windows.Forms.CheckBox()
-        Me.txt图号 = New System.Windows.Forms.TextBox()
-        Me.lbl质量 = New System.Windows.Forms.Label()
         Me.GroupBox精度设置 = New System.Windows.Forms.GroupBox()
         Me.cbo面积精度 = New System.Windows.Forms.ComboBox()
         Me.lbl面积精度 = New System.Windows.Forms.Label()
@@ -74,12 +72,15 @@ Partial Class frmOption
         Me.txt打印日期 = New System.Windows.Forms.TextBox()
         Me.lbl打印日期 = New System.Windows.Forms.Label()
         Me.GroupBox比例映射 = New System.Windows.Forms.GroupBox()
-        Me.chk保存比例 = New System.Windows.Forms.CheckBox()
+        Me.txt图号 = New System.Windows.Forms.TextBox()
         Me.txt比例 = New System.Windows.Forms.TextBox()
+        Me.lbl质量 = New System.Windows.Forms.Label()
         Me.lbl比例 = New System.Windows.Forms.Label()
         Me.GroupBox对称零件iProperty映射 = New System.Windows.Forms.GroupBox()
-        Me.txt文件名映射 = New System.Windows.Forms.TextBox()
-        Me.txt图号映射 = New System.Windows.Forms.TextBox()
+        Me.txt对称件编码映射 = New System.Windows.Forms.TextBox()
+        Me.lbl对称件编码 = New System.Windows.Forms.Label()
+        Me.txt对称件文件名映射 = New System.Windows.Forms.TextBox()
+        Me.txt对称件图号映射 = New System.Windows.Forms.TextBox()
         Me.lbl对称件文件名 = New System.Windows.Forms.Label()
         Me.lbl对称件图号 = New System.Windows.Forms.Label()
         Me.GroupBoxiProperty映射 = New System.Windows.Forms.GroupBox()
@@ -105,7 +106,7 @@ Partial Class frmOption
         Me.NumericUpDown页边距左 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown页边距下 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown页边距上 = New System.Windows.Forms.NumericUpDown()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lb页边距 = New System.Windows.Forms.Label()
         Me.GroupBox视图 = New System.Windows.Forms.GroupBox()
         Me.chk标注尺寸 = New System.Windows.Forms.CheckBox()
         Me.lbl前视图 = New System.Windows.Forms.Label()
@@ -113,7 +114,7 @@ Partial Class frmOption
         Me.chk俯视图 = New System.Windows.Forms.CheckBox()
         Me.chk右视图 = New System.Windows.Forms.CheckBox()
         Me.chk仰视图 = New System.Windows.Forms.CheckBox()
-        Me.chk螺纹特征 = New System.Windows.Forms.CheckBox()
+        Me.chk工程图螺纹特征 = New System.Windows.Forms.CheckBox()
         Me.rdo显示隐藏线 = New System.Windows.Forms.RadioButton()
         Me.rdo不显示隐藏线 = New System.Windows.Forms.RadioButton()
         Me.chk相切边 = New System.Windows.Forms.CheckBox()
@@ -124,6 +125,11 @@ Partial Class frmOption
         Me.txt工程图模板 = New System.Windows.Forms.TextBox()
         Me.lbl模板工程图 = New System.Windows.Forms.Label()
         Me.TabPage展开图 = New System.Windows.Forms.TabPage()
+        Me.cbo图号材质 = New System.Windows.Forms.ComboBox()
+        Me.lbl图号材质 = New System.Windows.Forms.Label()
+        Me.txt标记孔径上限 = New System.Windows.Forms.TextBox()
+        Me.lbl标记孔径上限 = New System.Windows.Forms.Label()
+        Me.chk展开图隐藏螺纹特征 = New System.Windows.Forms.CheckBox()
         Me.GroupBox展开图模板 = New System.Windows.Forms.GroupBox()
         Me.btn展开图模板 = New System.Windows.Forms.Button()
         Me.txt展开图模板 = New System.Windows.Forms.TextBox()
@@ -152,7 +158,6 @@ Partial Class frmOption
         Me.GroupBoxBOM导出项目.SuspendLayout()
         Me.TabPage常规.SuspendLayout()
         Me.GroupBox快速打印.SuspendLayout()
-        Me.GroupBox质量映射.SuspendLayout()
         Me.GroupBox精度设置.SuspendLayout()
         Me.GroupBox签字.SuspendLayout()
         Me.GroupBox比例映射.SuspendLayout()
@@ -208,13 +213,13 @@ Partial Class frmOption
         '
         'TabPage模型
         '
+        Me.TabPage模型.Controls.Add(Me.txt去除后缀)
+        Me.TabPage模型.Controls.Add(Me.lbl去除后缀)
         Me.TabPage模型.Controls.Add(Me.chk检查重复图号)
         Me.TabPage模型.Controls.Add(Me.lbl查找文件夹层数)
         Me.TabPage模型.Controls.Add(Me.NUD查找文件夹层数)
         Me.TabPage模型.Controls.Add(Me.chk另存到子文件夹)
         Me.TabPage模型.Controls.Add(Me.chk备份工程图)
-        Me.TabPage模型.Controls.Add(Me.btn图框配置)
-        Me.TabPage模型.Controls.Add(Me.btn配置文件)
         Me.TabPage模型.Controls.Add(Me.GroupBoxERP查询)
         Me.TabPage模型.Controls.Add(Me.GroupBoxBOM导出项目)
         Me.TabPage模型.Location = New System.Drawing.Point(4, 22)
@@ -225,10 +230,27 @@ Partial Class frmOption
         Me.TabPage模型.Text = "模型"
         Me.TabPage模型.UseVisualStyleBackColor = True
         '
+        'txt去除后缀
+        '
+        Me.txt去除后缀.Location = New System.Drawing.Point(209, 228)
+        Me.txt去除后缀.Name = "txt去除后缀"
+        Me.txt去除后缀.Size = New System.Drawing.Size(114, 21)
+        Me.txt去除后缀.TabIndex = 29
+        Me.txt去除后缀.Text = "_MIR;_镜像"
+        '
+        'lbl去除后缀
+        '
+        Me.lbl去除后缀.AutoSize = True
+        Me.lbl去除后缀.Location = New System.Drawing.Point(152, 232)
+        Me.lbl去除后缀.Name = "lbl去除后缀"
+        Me.lbl去除后缀.Size = New System.Drawing.Size(53, 12)
+        Me.lbl去除后缀.TabIndex = 28
+        Me.lbl去除后缀.Text = "去除后缀"
+        '
         'chk检查重复图号
         '
         Me.chk检查重复图号.AutoSize = True
-        Me.chk检查重复图号.Location = New System.Drawing.Point(218, 204)
+        Me.chk检查重复图号.Location = New System.Drawing.Point(16, 256)
         Me.chk检查重复图号.Name = "chk检查重复图号"
         Me.chk检查重复图号.Size = New System.Drawing.Size(96, 16)
         Me.chk检查重复图号.TabIndex = 27
@@ -238,7 +260,7 @@ Partial Class frmOption
         'lbl查找文件夹层数
         '
         Me.lbl查找文件夹层数.AutoSize = True
-        Me.lbl查找文件夹层数.Location = New System.Drawing.Point(319, 206)
+        Me.lbl查找文件夹层数.Location = New System.Drawing.Point(151, 205)
         Me.lbl查找文件夹层数.Name = "lbl查找文件夹层数"
         Me.lbl查找文件夹层数.Size = New System.Drawing.Size(89, 12)
         Me.lbl查找文件夹层数.TabIndex = 26
@@ -246,7 +268,7 @@ Partial Class frmOption
         '
         'NUD查找文件夹层数
         '
-        Me.NUD查找文件夹层数.Location = New System.Drawing.Point(410, 202)
+        Me.NUD查找文件夹层数.Location = New System.Drawing.Point(242, 201)
         Me.NUD查找文件夹层数.Name = "NUD查找文件夹层数"
         Me.NUD查找文件夹层数.Size = New System.Drawing.Size(31, 21)
         Me.NUD查找文件夹层数.TabIndex = 25
@@ -256,7 +278,7 @@ Partial Class frmOption
         'chk另存到子文件夹
         '
         Me.chk另存到子文件夹.AutoSize = True
-        Me.chk另存到子文件夹.Location = New System.Drawing.Point(105, 204)
+        Me.chk另存到子文件夹.Location = New System.Drawing.Point(16, 230)
         Me.chk另存到子文件夹.Name = "chk另存到子文件夹"
         Me.chk另存到子文件夹.Size = New System.Drawing.Size(108, 16)
         Me.chk另存到子文件夹.TabIndex = 24
@@ -272,26 +294,6 @@ Partial Class frmOption
         Me.chk备份工程图.TabIndex = 23
         Me.chk备份工程图.Text = "备份工程图"
         Me.chk备份工程图.UseVisualStyleBackColor = True
-        '
-        'btn图框配置
-        '
-        Me.btn图框配置.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn图框配置.Location = New System.Drawing.Point(92, 248)
-        Me.btn图框配置.Name = "btn图框配置"
-        Me.btn图框配置.Size = New System.Drawing.Size(89, 28)
-        Me.btn图框配置.TabIndex = 1
-        Me.btn图框配置.Text = "图框配置文件"
-        Me.btn图框配置.UseVisualStyleBackColor = True
-        '
-        'btn配置文件
-        '
-        Me.btn配置文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn配置文件.Location = New System.Drawing.Point(9, 248)
-        Me.btn配置文件.Name = "btn配置文件"
-        Me.btn配置文件.Size = New System.Drawing.Size(75, 28)
-        Me.btn配置文件.TabIndex = 0
-        Me.btn配置文件.Text = "配置文件"
-        Me.btn配置文件.UseVisualStyleBackColor = True
         '
         'GroupBoxERP查询
         '
@@ -433,7 +435,7 @@ Partial Class frmOption
         '
         Me.cbo添加.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo添加.FormattingEnabled = True
-        Me.cbo添加.Items.AddRange(New Object() {"| (分隔符)", "材料", "成本", "成本中心", "供应商", "空格", "库存编号", "零件代号", "面积", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "总成本", "总数量", "总质量"})
+        Me.cbo添加.Items.AddRange(New Object() {"| (分隔符)", "Web", "材料", "成本", "成本中心", "供应商", "空格", "库存编号", "零件代号", "面积", "描述", "数量", "所属装配", "所属装配代号", "文件路径", "文件名", "质量", "总成本", "总数量", "总质量"})
         Me.cbo添加.Location = New System.Drawing.Point(335, 50)
         Me.cbo添加.Name = "cbo添加"
         Me.cbo添加.Size = New System.Drawing.Size(170, 20)
@@ -457,13 +459,34 @@ Partial Class frmOption
         Me.lblBOM导出项目.TabIndex = 4
         Me.lblBOM导出项目.Text = "BOM导出项目："
         '
+        'btn图框配置
+        '
+        Me.btn图框配置.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn图框配置.Location = New System.Drawing.Point(91, 251)
+        Me.btn图框配置.Name = "btn图框配置"
+        Me.btn图框配置.Size = New System.Drawing.Size(89, 28)
+        Me.btn图框配置.TabIndex = 1
+        Me.btn图框配置.Text = "图框配置文件"
+        Me.btn图框配置.UseVisualStyleBackColor = True
+        '
+        'btn配置文件
+        '
+        Me.btn配置文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn配置文件.Location = New System.Drawing.Point(6, 251)
+        Me.btn配置文件.Name = "btn配置文件"
+        Me.btn配置文件.Size = New System.Drawing.Size(75, 28)
+        Me.btn配置文件.TabIndex = 0
+        Me.btn配置文件.Text = "配置文件"
+        Me.btn配置文件.UseVisualStyleBackColor = True
+        '
         'TabPage常规
         '
         Me.TabPage常规.Controls.Add(Me.GroupBox快速打印)
-        Me.TabPage常规.Controls.Add(Me.GroupBox质量映射)
         Me.TabPage常规.Controls.Add(Me.GroupBox精度设置)
         Me.TabPage常规.Controls.Add(Me.GroupBox签字)
         Me.TabPage常规.Controls.Add(Me.GroupBox比例映射)
+        Me.TabPage常规.Controls.Add(Me.btn图框配置)
+        Me.TabPage常规.Controls.Add(Me.btn配置文件)
         Me.TabPage常规.Controls.Add(Me.GroupBox对称零件iProperty映射)
         Me.TabPage常规.Controls.Add(Me.GroupBoxiProperty映射)
         Me.TabPage常规.Location = New System.Drawing.Point(4, 22)
@@ -544,56 +567,15 @@ Partial Class frmOption
         Me.lbl打印机.TabIndex = 9
         Me.lbl打印机.Text = "打印机："
         '
-        'GroupBox质量映射
-        '
-        Me.GroupBox质量映射.Controls.Add(Me.chk保存质量)
-        Me.GroupBox质量映射.Controls.Add(Me.txt图号)
-        Me.GroupBox质量映射.Controls.Add(Me.lbl质量)
-        Me.GroupBox质量映射.Location = New System.Drawing.Point(218, 86)
-        Me.GroupBox质量映射.Name = "GroupBox质量映射"
-        Me.GroupBox质量映射.Size = New System.Drawing.Size(163, 68)
-        Me.GroupBox质量映射.TabIndex = 21
-        Me.GroupBox质量映射.TabStop = False
-        Me.GroupBox质量映射.Text = "质量映射"
-        '
-        'chk保存质量
-        '
-        Me.chk保存质量.AutoSize = True
-        Me.chk保存质量.Checked = True
-        Me.chk保存质量.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk保存质量.Location = New System.Drawing.Point(18, 44)
-        Me.chk保存质量.Name = "chk保存质量"
-        Me.chk保存质量.Size = New System.Drawing.Size(120, 16)
-        Me.chk保存质量.TabIndex = 1
-        Me.chk保存质量.Text = "保存工程图时写入"
-        Me.chk保存质量.UseVisualStyleBackColor = True
-        Me.chk保存质量.Visible = False
-        '
-        'txt图号
-        '
-        Me.txt图号.Location = New System.Drawing.Point(54, 18)
-        Me.txt图号.Name = "txt图号"
-        Me.txt图号.Size = New System.Drawing.Size(64, 21)
-        Me.txt图号.TabIndex = 6
-        '
-        'lbl质量
-        '
-        Me.lbl质量.AutoSize = True
-        Me.lbl质量.Location = New System.Drawing.Point(12, 22)
-        Me.lbl质量.Name = "lbl质量"
-        Me.lbl质量.Size = New System.Drawing.Size(41, 12)
-        Me.lbl质量.TabIndex = 0
-        Me.lbl质量.Text = "质量："
-        '
         'GroupBox精度设置
         '
         Me.GroupBox精度设置.Controls.Add(Me.cbo面积精度)
         Me.GroupBox精度设置.Controls.Add(Me.lbl面积精度)
         Me.GroupBox精度设置.Controls.Add(Me.cbo质量精度)
         Me.GroupBox精度设置.Controls.Add(Me.lbl质量精度)
-        Me.GroupBox精度设置.Location = New System.Drawing.Point(218, 160)
+        Me.GroupBox精度设置.Location = New System.Drawing.Point(203, 160)
         Me.GroupBox精度设置.Name = "GroupBox精度设置"
-        Me.GroupBox精度设置.Size = New System.Drawing.Size(165, 85)
+        Me.GroupBox精度设置.Size = New System.Drawing.Size(191, 78)
         Me.GroupBox精度设置.TabIndex = 0
         Me.GroupBox精度设置.TabStop = False
         Me.GroupBox精度设置.Text = "精度设置"
@@ -603,7 +585,7 @@ Partial Class frmOption
         Me.cbo面积精度.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo面积精度.FormattingEnabled = True
         Me.cbo面积精度.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001", "0.0001", "0.00001"})
-        Me.cbo面积精度.Location = New System.Drawing.Point(80, 52)
+        Me.cbo面积精度.Location = New System.Drawing.Point(80, 45)
         Me.cbo面积精度.Name = "cbo面积精度"
         Me.cbo面积精度.Size = New System.Drawing.Size(66, 20)
         Me.cbo面积精度.TabIndex = 1
@@ -611,7 +593,7 @@ Partial Class frmOption
         'lbl面积精度
         '
         Me.lbl面积精度.AutoSize = True
-        Me.lbl面积精度.Location = New System.Drawing.Point(11, 55)
+        Me.lbl面积精度.Location = New System.Drawing.Point(11, 49)
         Me.lbl面积精度.Name = "lbl面积精度"
         Me.lbl面积精度.Size = New System.Drawing.Size(65, 12)
         Me.lbl面积精度.TabIndex = 11
@@ -622,7 +604,7 @@ Partial Class frmOption
         Me.cbo质量精度.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo质量精度.FormattingEnabled = True
         Me.cbo质量精度.Items.AddRange(New Object() {"0", "0.1", "0.01", "0.001"})
-        Me.cbo质量精度.Location = New System.Drawing.Point(80, 22)
+        Me.cbo质量精度.Location = New System.Drawing.Point(80, 18)
         Me.cbo质量精度.Name = "cbo质量精度"
         Me.cbo质量精度.Size = New System.Drawing.Size(66, 20)
         Me.cbo质量精度.TabIndex = 0
@@ -630,7 +612,7 @@ Partial Class frmOption
         'lbl质量精度
         '
         Me.lbl质量精度.AutoSize = True
-        Me.lbl质量精度.Location = New System.Drawing.Point(11, 26)
+        Me.lbl质量精度.Location = New System.Drawing.Point(11, 22)
         Me.lbl质量精度.Name = "lbl质量精度"
         Me.lbl质量精度.Size = New System.Drawing.Size(65, 12)
         Me.lbl质量精度.TabIndex = 9
@@ -706,28 +688,23 @@ Partial Class frmOption
         '
         'GroupBox比例映射
         '
-        Me.GroupBox比例映射.Controls.Add(Me.chk保存比例)
+        Me.GroupBox比例映射.Controls.Add(Me.txt图号)
         Me.GroupBox比例映射.Controls.Add(Me.txt比例)
+        Me.GroupBox比例映射.Controls.Add(Me.lbl质量)
         Me.GroupBox比例映射.Controls.Add(Me.lbl比例)
-        Me.GroupBox比例映射.Location = New System.Drawing.Point(218, 10)
+        Me.GroupBox比例映射.Location = New System.Drawing.Point(6, 160)
         Me.GroupBox比例映射.Name = "GroupBox比例映射"
-        Me.GroupBox比例映射.Size = New System.Drawing.Size(163, 68)
+        Me.GroupBox比例映射.Size = New System.Drawing.Size(191, 78)
         Me.GroupBox比例映射.TabIndex = 18
         Me.GroupBox比例映射.TabStop = False
-        Me.GroupBox比例映射.Text = "比例映射"
+        Me.GroupBox比例映射.Text = "其他映射"
         '
-        'chk保存比例
+        'txt图号
         '
-        Me.chk保存比例.AutoSize = True
-        Me.chk保存比例.Checked = True
-        Me.chk保存比例.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk保存比例.Location = New System.Drawing.Point(18, 44)
-        Me.chk保存比例.Name = "chk保存比例"
-        Me.chk保存比例.Size = New System.Drawing.Size(120, 16)
-        Me.chk保存比例.TabIndex = 1
-        Me.chk保存比例.Text = "保存工程图时写入"
-        Me.chk保存比例.UseVisualStyleBackColor = True
-        Me.chk保存比例.Visible = False
+        Me.txt图号.Location = New System.Drawing.Point(54, 45)
+        Me.txt图号.Name = "txt图号"
+        Me.txt图号.Size = New System.Drawing.Size(64, 21)
+        Me.txt图号.TabIndex = 6
         '
         'txt比例
         '
@@ -735,6 +712,15 @@ Partial Class frmOption
         Me.txt比例.Name = "txt比例"
         Me.txt比例.Size = New System.Drawing.Size(64, 21)
         Me.txt比例.TabIndex = 0
+        '
+        'lbl质量
+        '
+        Me.lbl质量.AutoSize = True
+        Me.lbl质量.Location = New System.Drawing.Point(11, 49)
+        Me.lbl质量.Name = "lbl质量"
+        Me.lbl质量.Size = New System.Drawing.Size(41, 12)
+        Me.lbl质量.TabIndex = 0
+        Me.lbl质量.Text = "质量："
         '
         'lbl比例
         '
@@ -747,30 +733,48 @@ Partial Class frmOption
         '
         'GroupBox对称零件iProperty映射
         '
-        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt文件名映射)
-        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt图号映射)
+        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt对称件编码映射)
+        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.lbl对称件编码)
+        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt对称件文件名映射)
+        Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt对称件图号映射)
         Me.GroupBox对称零件iProperty映射.Controls.Add(Me.lbl对称件文件名)
         Me.GroupBox对称零件iProperty映射.Controls.Add(Me.lbl对称件图号)
-        Me.GroupBox对称零件iProperty映射.Location = New System.Drawing.Point(6, 159)
+        Me.GroupBox对称零件iProperty映射.Location = New System.Drawing.Point(203, 19)
         Me.GroupBox对称零件iProperty映射.Name = "GroupBox对称零件iProperty映射"
-        Me.GroupBox对称零件iProperty映射.Size = New System.Drawing.Size(191, 86)
+        Me.GroupBox对称零件iProperty映射.Size = New System.Drawing.Size(180, 116)
         Me.GroupBox对称零件iProperty映射.TabIndex = 17
         Me.GroupBox对称零件iProperty映射.TabStop = False
         Me.GroupBox对称零件iProperty映射.Text = "对称零件iProperty映射"
         '
-        'txt文件名映射
+        'txt对称件编码映射
         '
-        Me.txt文件名映射.Location = New System.Drawing.Point(77, 52)
-        Me.txt文件名映射.Name = "txt文件名映射"
-        Me.txt文件名映射.Size = New System.Drawing.Size(95, 21)
-        Me.txt文件名映射.TabIndex = 1
+        Me.txt对称件编码映射.Location = New System.Drawing.Point(77, 85)
+        Me.txt对称件编码映射.Name = "txt对称件编码映射"
+        Me.txt对称件编码映射.Size = New System.Drawing.Size(87, 21)
+        Me.txt对称件编码映射.TabIndex = 5
         '
-        'txt图号映射
+        'lbl对称件编码
         '
-        Me.txt图号映射.Location = New System.Drawing.Point(77, 22)
-        Me.txt图号映射.Name = "txt图号映射"
-        Me.txt图号映射.Size = New System.Drawing.Size(95, 21)
-        Me.txt图号映射.TabIndex = 0
+        Me.lbl对称件编码.AutoSize = True
+        Me.lbl对称件编码.Location = New System.Drawing.Point(21, 88)
+        Me.lbl对称件编码.Name = "lbl对称件编码"
+        Me.lbl对称件编码.Size = New System.Drawing.Size(53, 12)
+        Me.lbl对称件编码.TabIndex = 6
+        Me.lbl对称件编码.Text = "编  码："
+        '
+        'txt对称件文件名映射
+        '
+        Me.txt对称件文件名映射.Location = New System.Drawing.Point(77, 52)
+        Me.txt对称件文件名映射.Name = "txt对称件文件名映射"
+        Me.txt对称件文件名映射.Size = New System.Drawing.Size(87, 21)
+        Me.txt对称件文件名映射.TabIndex = 1
+        '
+        'txt对称件图号映射
+        '
+        Me.txt对称件图号映射.Location = New System.Drawing.Point(77, 22)
+        Me.txt对称件图号映射.Name = "txt对称件图号映射"
+        Me.txt对称件图号映射.Size = New System.Drawing.Size(87, 21)
+        Me.txt对称件图号映射.TabIndex = 0
         '
         'lbl对称件文件名
         '
@@ -811,10 +815,11 @@ Partial Class frmOption
         '
         Me.cbo供应商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo供应商.FormattingEnabled = True
-        Me.cbo供应商.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "项目", "成本中心", "预估成本", "供应商"})
+        Me.cbo供应商.Items.AddRange(New Object() {"成本中心", "供应商", "库存编号", "零件代号", "描述", "项目", "预估成本"})
         Me.cbo供应商.Location = New System.Drawing.Point(85, 105)
         Me.cbo供应商.Name = "cbo供应商"
         Me.cbo供应商.Size = New System.Drawing.Size(86, 20)
+        Me.cbo供应商.Sorted = True
         Me.cbo供应商.TabIndex = 3
         '
         'lbl采购来源
@@ -830,10 +835,11 @@ Partial Class frmOption
         '
         Me.cbo存货编码.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo存货编码.FormattingEnabled = True
-        Me.cbo存货编码.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "项目", "成本中心", "预估成本", "供应商"})
+        Me.cbo存货编码.Items.AddRange(New Object() {"成本中心", "供应商", "库存编号", "零件代号", "描述", "项目", "预估成本"})
         Me.cbo存货编码.Location = New System.Drawing.Point(85, 75)
         Me.cbo存货编码.Name = "cbo存货编码"
         Me.cbo存货编码.Size = New System.Drawing.Size(86, 20)
+        Me.cbo存货编码.Sorted = True
         Me.cbo存货编码.TabIndex = 2
         '
         'lbl存货编码
@@ -858,10 +864,11 @@ Partial Class frmOption
         '
         Me.cbo文件名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbo文件名.FormattingEnabled = True
-        Me.cbo文件名.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "项目", "成本中心", "预估成本", "供应商"})
+        Me.cbo文件名.Items.AddRange(New Object() {"库存编号", "零件代号"})
         Me.cbo文件名.Location = New System.Drawing.Point(85, 49)
         Me.cbo文件名.Name = "cbo文件名"
         Me.cbo文件名.Size = New System.Drawing.Size(87, 20)
+        Me.cbo文件名.Sorted = True
         Me.cbo文件名.TabIndex = 1
         '
         'lbl图号
@@ -876,11 +883,11 @@ Partial Class frmOption
         'cbo图号
         '
         Me.cbo图号.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo图号.FormattingEnabled = True
-        Me.cbo图号.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "项目", "成本中心", "预估成本", "供应商"})
+        Me.cbo图号.Items.AddRange(New Object() {"库存编号", "零件代号"})
         Me.cbo图号.Location = New System.Drawing.Point(85, 20)
         Me.cbo图号.Name = "cbo图号"
         Me.cbo图号.Size = New System.Drawing.Size(87, 20)
+        Me.cbo图号.Sorted = True
         Me.cbo图号.TabIndex = 0
         '
         'TabControl
@@ -889,7 +896,7 @@ Partial Class frmOption
         Me.TabControl.Controls.Add(Me.TabPage模型)
         Me.TabControl.Controls.Add(Me.TabPage工程图)
         Me.TabControl.Controls.Add(Me.TabPage展开图)
-        Me.TabControl.Location = New System.Drawing.Point(2, 11)
+        Me.TabControl.Location = New System.Drawing.Point(3, 11)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
         Me.TabControl.Size = New System.Drawing.Size(624, 316)
@@ -984,7 +991,7 @@ Partial Class frmOption
         Me.GroupBox页边距.Controls.Add(Me.NumericUpDown页边距左)
         Me.GroupBox页边距.Controls.Add(Me.NumericUpDown页边距下)
         Me.GroupBox页边距.Controls.Add(Me.NumericUpDown页边距上)
-        Me.GroupBox页边距.Controls.Add(Me.Label2)
+        Me.GroupBox页边距.Controls.Add(Me.lb页边距)
         Me.GroupBox页边距.Location = New System.Drawing.Point(13, 213)
         Me.GroupBox页边距.Name = "GroupBox页边距"
         Me.GroupBox页边距.Size = New System.Drawing.Size(391, 57)
@@ -1024,14 +1031,14 @@ Partial Class frmOption
         Me.NumericUpDown页边距上.TabIndex = 0
         Me.NumericUpDown页边距上.Value = New Decimal(New Integer() {20, 0, 0, 0})
         '
-        'Label2
+        'lb页边距
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 27)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(311, 12)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "上               下              左              右"
+        Me.lb页边距.AutoSize = True
+        Me.lb页边距.Location = New System.Drawing.Point(10, 27)
+        Me.lb页边距.Name = "lb页边距"
+        Me.lb页边距.Size = New System.Drawing.Size(311, 12)
+        Me.lb页边距.TabIndex = 4
+        Me.lb页边距.Text = "上               下              左              右"
         '
         'GroupBox视图
         '
@@ -1041,7 +1048,7 @@ Partial Class frmOption
         Me.GroupBox视图.Controls.Add(Me.chk俯视图)
         Me.GroupBox视图.Controls.Add(Me.chk右视图)
         Me.GroupBox视图.Controls.Add(Me.chk仰视图)
-        Me.GroupBox视图.Controls.Add(Me.chk螺纹特征)
+        Me.GroupBox视图.Controls.Add(Me.chk工程图螺纹特征)
         Me.GroupBox视图.Controls.Add(Me.rdo显示隐藏线)
         Me.GroupBox视图.Controls.Add(Me.rdo不显示隐藏线)
         Me.GroupBox视图.Controls.Add(Me.chk相切边)
@@ -1118,15 +1125,15 @@ Partial Class frmOption
         Me.chk仰视图.Text = "仰视图"
         Me.chk仰视图.UseVisualStyleBackColor = True
         '
-        'chk螺纹特征
+        'chk工程图螺纹特征
         '
-        Me.chk螺纹特征.AutoSize = True
-        Me.chk螺纹特征.Location = New System.Drawing.Point(111, 54)
-        Me.chk螺纹特征.Name = "chk螺纹特征"
-        Me.chk螺纹特征.Size = New System.Drawing.Size(72, 16)
-        Me.chk螺纹特征.TabIndex = 6
-        Me.chk螺纹特征.Text = "螺纹特征"
-        Me.chk螺纹特征.UseVisualStyleBackColor = True
+        Me.chk工程图螺纹特征.AutoSize = True
+        Me.chk工程图螺纹特征.Location = New System.Drawing.Point(111, 54)
+        Me.chk工程图螺纹特征.Name = "chk工程图螺纹特征"
+        Me.chk工程图螺纹特征.Size = New System.Drawing.Size(72, 16)
+        Me.chk工程图螺纹特征.TabIndex = 6
+        Me.chk工程图螺纹特征.Text = "螺纹特征"
+        Me.chk工程图螺纹特征.UseVisualStyleBackColor = True
         '
         'rdo显示隐藏线
         '
@@ -1194,7 +1201,7 @@ Partial Class frmOption
         '
         'btn选择工程图模板
         '
-        Me.btn选择工程图模板.Location = New System.Drawing.Point(518, 17)
+        Me.btn选择工程图模板.Location = New System.Drawing.Point(550, 17)
         Me.btn选择工程图模板.Name = "btn选择工程图模板"
         Me.btn选择工程图模板.Size = New System.Drawing.Size(25, 25)
         Me.btn选择工程图模板.TabIndex = 0
@@ -1205,7 +1212,7 @@ Partial Class frmOption
         Me.txt工程图模板.Location = New System.Drawing.Point(80, 19)
         Me.txt工程图模板.Name = "txt工程图模板"
         Me.txt工程图模板.ReadOnly = True
-        Me.txt工程图模板.Size = New System.Drawing.Size(420, 21)
+        Me.txt工程图模板.Size = New System.Drawing.Size(460, 21)
         Me.txt工程图模板.TabIndex = 8
         Me.txt工程图模板.TabStop = False
         '
@@ -1220,6 +1227,11 @@ Partial Class frmOption
         '
         'TabPage展开图
         '
+        Me.TabPage展开图.Controls.Add(Me.cbo图号材质)
+        Me.TabPage展开图.Controls.Add(Me.lbl图号材质)
+        Me.TabPage展开图.Controls.Add(Me.txt标记孔径上限)
+        Me.TabPage展开图.Controls.Add(Me.lbl标记孔径上限)
+        Me.TabPage展开图.Controls.Add(Me.chk展开图隐藏螺纹特征)
         Me.TabPage展开图.Controls.Add(Me.GroupBox展开图模板)
         Me.TabPage展开图.Controls.Add(Me.chk展开图标注)
         Me.TabPage展开图.Controls.Add(Me.GroupBox下)
@@ -1230,6 +1242,52 @@ Partial Class frmOption
         Me.TabPage展开图.TabIndex = 3
         Me.TabPage展开图.Text = "展开图"
         Me.TabPage展开图.UseVisualStyleBackColor = True
+        '
+        'cbo图号材质
+        '
+        Me.cbo图号材质.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbo图号材质.FormattingEnabled = True
+        Me.cbo图号材质.Items.AddRange(New Object() {"无材质", "材质前缀", "材质后缀"})
+        Me.cbo图号材质.Location = New System.Drawing.Point(196, 256)
+        Me.cbo图号材质.Name = "cbo图号材质"
+        Me.cbo图号材质.Size = New System.Drawing.Size(106, 20)
+        Me.cbo图号材质.TabIndex = 34
+        '
+        'lbl图号材质
+        '
+        Me.lbl图号材质.AutoSize = True
+        Me.lbl图号材质.Location = New System.Drawing.Point(112, 260)
+        Me.lbl图号材质.Name = "lbl图号材质"
+        Me.lbl图号材质.Size = New System.Drawing.Size(77, 12)
+        Me.lbl图号材质.TabIndex = 33
+        Me.lbl图号材质.Text = "图号添加材质"
+        '
+        'txt标记孔径上限
+        '
+        Me.txt标记孔径上限.Location = New System.Drawing.Point(196, 227)
+        Me.txt标记孔径上限.Name = "txt标记孔径上限"
+        Me.txt标记孔径上限.Size = New System.Drawing.Size(36, 21)
+        Me.txt标记孔径上限.TabIndex = 31
+        Me.txt标记孔径上限.Text = "0"
+        '
+        'lbl标记孔径上限
+        '
+        Me.lbl标记孔径上限.AutoSize = True
+        Me.lbl标记孔径上限.Location = New System.Drawing.Point(112, 231)
+        Me.lbl标记孔径上限.Name = "lbl标记孔径上限"
+        Me.lbl标记孔径上限.Size = New System.Drawing.Size(77, 12)
+        Me.lbl标记孔径上限.TabIndex = 30
+        Me.lbl标记孔径上限.Text = "标记孔径上限"
+        '
+        'chk展开图隐藏螺纹特征
+        '
+        Me.chk展开图隐藏螺纹特征.AutoSize = True
+        Me.chk展开图隐藏螺纹特征.Location = New System.Drawing.Point(12, 258)
+        Me.chk展开图隐藏螺纹特征.Name = "chk展开图隐藏螺纹特征"
+        Me.chk展开图隐藏螺纹特征.Size = New System.Drawing.Size(72, 16)
+        Me.chk展开图隐藏螺纹特征.TabIndex = 26
+        Me.chk展开图隐藏螺纹特征.Text = "隐藏螺纹"
+        Me.chk展开图隐藏螺纹特征.UseVisualStyleBackColor = True
         '
         'GroupBox展开图模板
         '
@@ -1245,7 +1303,7 @@ Partial Class frmOption
         '
         'btn展开图模板
         '
-        Me.btn展开图模板.Location = New System.Drawing.Point(518, 17)
+        Me.btn展开图模板.Location = New System.Drawing.Point(550, 17)
         Me.btn展开图模板.Name = "btn展开图模板"
         Me.btn展开图模板.Size = New System.Drawing.Size(25, 25)
         Me.btn展开图模板.TabIndex = 0
@@ -1256,7 +1314,7 @@ Partial Class frmOption
         Me.txt展开图模板.Location = New System.Drawing.Point(80, 19)
         Me.txt展开图模板.Name = "txt展开图模板"
         Me.txt展开图模板.ReadOnly = True
-        Me.txt展开图模板.Size = New System.Drawing.Size(420, 21)
+        Me.txt展开图模板.Size = New System.Drawing.Size(460, 21)
         Me.txt展开图模板.TabIndex = 8
         '
         'lbl展开图模板
@@ -1271,7 +1329,7 @@ Partial Class frmOption
         'chk展开图标注
         '
         Me.chk展开图标注.AutoSize = True
-        Me.chk展开图标注.Location = New System.Drawing.Point(26, 229)
+        Me.chk展开图标注.Location = New System.Drawing.Point(12, 229)
         Me.chk展开图标注.Name = "chk展开图标注"
         Me.chk展开图标注.Size = New System.Drawing.Size(84, 16)
         Me.chk展开图标注.TabIndex = 0
@@ -1421,10 +1479,11 @@ Partial Class frmOption
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 63)
+        Me.Label1.Location = New System.Drawing.Point(0, 63)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(77, 12)
         Me.Label1.TabIndex = 7
+        Me.Label1.Text = "22222222222222222"
         '
         'TextBox1
         '
@@ -1455,12 +1514,9 @@ Partial Class frmOption
         Me.Controls.Add(Me.chk检查更新)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmOption"
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "应用程序选项"
-        Me.TopMost = True
         Me.TabPage模型.ResumeLayout(False)
         Me.TabPage模型.PerformLayout()
         CType(Me.NUD查找文件夹层数, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1471,8 +1527,6 @@ Partial Class frmOption
         Me.TabPage常规.ResumeLayout(False)
         Me.GroupBox快速打印.ResumeLayout(False)
         Me.GroupBox快速打印.PerformLayout()
-        Me.GroupBox质量映射.ResumeLayout(False)
-        Me.GroupBox质量映射.PerformLayout()
         Me.GroupBox精度设置.ResumeLayout(False)
         Me.GroupBox精度设置.PerformLayout()
         Me.GroupBox签字.ResumeLayout(False)
@@ -1538,8 +1592,6 @@ Partial Class frmOption
     Friend WithEvents chk匹配A3纸 As System.Windows.Forms.CheckBox
     Friend WithEvents chk签字 As System.Windows.Forms.CheckBox
     Friend WithEvents lbl打印机 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox质量映射 As System.Windows.Forms.GroupBox
-    Friend WithEvents chk保存质量 As System.Windows.Forms.CheckBox
     Friend WithEvents txt图号 As System.Windows.Forms.TextBox
     Friend WithEvents lbl质量 As System.Windows.Forms.Label
     Friend WithEvents GroupBox精度设置 As System.Windows.Forms.GroupBox
@@ -1555,12 +1607,11 @@ Partial Class frmOption
     Friend WithEvents txt打印日期 As System.Windows.Forms.TextBox
     Friend WithEvents lbl打印日期 As System.Windows.Forms.Label
     Friend WithEvents GroupBox比例映射 As System.Windows.Forms.GroupBox
-    Friend WithEvents chk保存比例 As System.Windows.Forms.CheckBox
     Friend WithEvents txt比例 As System.Windows.Forms.TextBox
     Friend WithEvents lbl比例 As System.Windows.Forms.Label
     Friend WithEvents GroupBox对称零件iProperty映射 As System.Windows.Forms.GroupBox
-    Friend WithEvents txt文件名映射 As System.Windows.Forms.TextBox
-    Friend WithEvents txt图号映射 As System.Windows.Forms.TextBox
+    Friend WithEvents txt对称件文件名映射 As System.Windows.Forms.TextBox
+    Friend WithEvents txt对称件图号映射 As System.Windows.Forms.TextBox
     Friend WithEvents lbl对称件文件名 As System.Windows.Forms.Label
     Friend WithEvents lbl对称件图号 As System.Windows.Forms.Label
     Friend WithEvents GroupBoxiProperty映射 As System.Windows.Forms.GroupBox
@@ -1608,10 +1659,10 @@ Partial Class frmOption
     Friend WithEvents NumericUpDown页边距右 As System.Windows.Forms.NumericUpDown
     Friend WithEvents NumericUpDown页边距左 As System.Windows.Forms.NumericUpDown
     Friend WithEvents NumericUpDown页边距下 As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents lb页边距 As System.Windows.Forms.Label
     Friend WithEvents rdo显示隐藏线 As System.Windows.Forms.RadioButton
     Friend WithEvents rdo不显示隐藏线 As System.Windows.Forms.RadioButton
-    Friend WithEvents chk螺纹特征 As System.Windows.Forms.CheckBox
+    Friend WithEvents chk工程图螺纹特征 As System.Windows.Forms.CheckBox
     Friend WithEvents chk左视图 As System.Windows.Forms.CheckBox
     Friend WithEvents chk仰视图 As System.Windows.Forms.CheckBox
     Friend WithEvents chk俯视图 As System.Windows.Forms.CheckBox
@@ -1634,5 +1685,14 @@ Partial Class frmOption
     Friend WithEvents lbl查找文件夹层数 As System.Windows.Forms.Label
     Friend WithEvents NUD查找文件夹层数 As System.Windows.Forms.NumericUpDown
     Friend WithEvents chk检查重复图号 As System.Windows.Forms.CheckBox
+    Friend WithEvents lbl去除后缀 As System.Windows.Forms.Label
+    Friend WithEvents txt去除后缀 As System.Windows.Forms.TextBox
+    Friend WithEvents txt对称件编码映射 As System.Windows.Forms.TextBox
+    Friend WithEvents lbl对称件编码 As System.Windows.Forms.Label
+    Friend WithEvents chk展开图隐藏螺纹特征 As System.Windows.Forms.CheckBox
+    Friend WithEvents txt标记孔径上限 As System.Windows.Forms.TextBox
+    Friend WithEvents lbl标记孔径上限 As System.Windows.Forms.Label
+    Friend WithEvents lbl图号材质 As System.Windows.Forms.Label
+    Friend WithEvents cbo图号材质 As System.Windows.Forms.ComboBox
 
 End Class
