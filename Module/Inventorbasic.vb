@@ -28,7 +28,11 @@ Module InventorBasic
         ThisApplication.StatusBarText = StatusBarText
     End Sub
 
-    'inventor是否打开文件,未打开文件返回false
+    ''' <summary>
+    ''' inventor是否打开文件,未打开文件返回false
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function IsInventorOpenDocument() As Boolean
         Try
             If ThisApplication.FileManager.Files.Count = 0 Then
@@ -44,7 +48,11 @@ Module InventorBasic
 
     End Function
 
-    '快速打开
+
+    ''' <summary>
+    ''' 快速打开
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub QuitOpen()
         Try
             SetStatusBarText()
@@ -81,7 +89,7 @@ Module InventorBasic
 
             Dim strFullFileName As String = Nothing
 
-            Dim frmQuitOpen As New frmQuitOpen
+            Dim frmQuitOpen As New formQuitOpen
             frmQuitOpen.lvw文件列表.CheckBoxes = True
             frmQuitOpen.btn多选打开.Visible = True
 
@@ -131,7 +139,10 @@ Module InventorBasic
         End Try
     End Sub
 
-    '保存文件并关闭
+    ''' <summary>
+    ''' 保存文件并关闭
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub SaveClose()
         Try
             If IsInventorOpenDocument() = False Then
@@ -206,7 +217,11 @@ Module InventorBasic
         End Try
     End Sub
 
-    '关闭文档
+
+    ''' <summary>
+    ''' 关闭文档
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub CloseDocument()
 
         Try
@@ -224,7 +239,10 @@ Module InventorBasic
         End Try
     End Sub
 
-    ' 打开文件所在文件夹
+    ''' <summary>
+    ''' 打开文件所在文件夹
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub OpenFolderwithDocument()
         Try
             If IsInventorOpenDocument() = False Then
@@ -243,7 +261,10 @@ Module InventorBasic
         End Try
     End Sub
 
-    '还原旧图
+    ''' <summary>
+    ''' 还原旧图
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub RestoreOldVersion()
         Dim strFilter As String =  "Autodesk Inventor 旧文件(*.old)|*.old" '添加过滤文件
 
@@ -262,7 +283,10 @@ Module InventorBasic
 
     End Sub
 
-    '清理旧版文件
+    ''' <summary>
+    ''' 清理旧版文件
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub CleanUpLegacyFiles()
         Try
 
@@ -303,7 +327,11 @@ Module InventorBasic
 
     End Sub
 
-    '获取编辑中的文件名修改ipropty
+
+    ''' <summary>
+    ''' 获取编辑中的文件名修改ipropty
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub SetDocumentIpropertyFromFileName()
         Try
             SetStatusBarText()
@@ -329,19 +357,18 @@ Module InventorBasic
 
     End Sub
 
-    '根据文件名提取到iproperty  （  文件对象 ； 打开的文件用后要关闭）
+
+    ''' <summary>
+    ''' 根据文件名提取到iproperty
+    ''' </summary>
+    ''' <param name="oInventorDocument">文件对象</param>
+    ''' <param name="IsNeedClose">打开的文件用后是否关闭</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function SetDocumentIpropertyFromFileNameSub(ByVal oInventorDocument As Inventor.Document, ByVal IsNeedClose As Boolean) As Boolean
         Dim strFullFileName As String      '当前文件全名
-        Dim strFileName As String
 
         strFullFileName = oInventorDocument.FullFileName
-        strFileName = GetFileNameInfo(strFullFileName).OnlyName
-
-        If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-            MsgBox("无法修改资源中心文件： " & strFullFileName, MsgBoxStyle.Information)
-            Return True
-            Exit Function
-        End If
 
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strFullFileName)
@@ -357,7 +384,11 @@ Module InventorBasic
         Return True
     End Function
 
-    '获取当前部件中的文件名修改ipropty
+
+    ''' <summary>
+    ''' 获取当前部件中的文件名修改ipropty
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub SetDocumentsInAssIpropertyFromFileName()
         Try
             SetStatusBarText()
@@ -388,7 +419,13 @@ Module InventorBasic
 
     End Sub
 
-    '修改部件包含文件的iProperty   （ 部件文件对象 ； 文件是否需打开，打开的文件用后要关闭）
+    ''' <summary>
+    ''' 修改部件包含文件的iProperty 
+    ''' </summary>
+    ''' <param name="oInventorAssemblyDocument">部件文件对象</param>
+    ''' <param name="IsNeedClose">文件是否需打开，打开的文件用后要关闭</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function SetDocumentsInAssIpropertyFromFileNameSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal IsNeedClose As Boolean) As Boolean
         ' 获取所有引用文档
 
@@ -429,6 +466,8 @@ Module InventorBasic
                 '遍历这个bom页面
 
                 SetDocumentsInAssIpropertyFromFileNameChildSub(oBOMView.BOMRows, FirstLevelOnly)
+
+                Exit For
             End If
         Next
         '==============================================================================================
@@ -436,26 +475,22 @@ Module InventorBasic
         Return True
     End Function
 
-    '遍历BOM结构，查询row文件修改ipro
+
+    ''' <summary>
+    ''' 遍历BOM结构，查询row文件修改ipro
+    ''' </summary>
+    ''' <param name="oBOMRows">BOws对象</param>
+    ''' <param name="FirstLevelOnly">是否仅第一级</param>
+    ''' <remarks></remarks>
     Public Sub SetDocumentsInAssIpropertyFromFileNameChildSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal FirstLevelOnly As Boolean)
-        Dim i As Integer
-
-        Dim intStepCount As Integer
-        intStepCount = oBOMRows.Count
-
         'Create a new ProgressBar object.
         'Dim oProgressBar As Inventor.ProgressBar
 
         'oProgressBar = ThisApplication.CreateProgressBar(False, intStepCount, "当前文件： ")
-
-        For i = 1 To oBOMRows.Count
-            ' Get the current row.
-            Dim oBOMRow As BOMRow
-            oBOMRow = oBOMRows.Item(i)
-
+        For Each oBOMRow As BOMRow In oBOMRows
             Dim strFullFileName As String
 
-            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+            strFullFileName = oBOMRow.ComponentDefinitions.Item(1).Document.FullFileName
 
             '测试文件
             Debug.Print(strFullFileName)
@@ -466,16 +501,16 @@ Module InventorBasic
             SetStatusBarText(strFullFileName)
 
             If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
-                GoTo 999
+                Continue For
             End If
 
             If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                GoTo 999
+                Continue For
             End If
 
             Select Case Strings.Left(GetFileNameInfo(strFullFileName).OnlyName, 2)    '跳过标准件
                 Case "GB", "JB"
-                    GoTo 999
+                    Continue For
             End Select
 
             Dim oInventorDocument As Inventor.Document
@@ -492,11 +527,16 @@ Module InventorBasic
             'oProgressBar.UpdateProgress()
         Next
 
-        'oProgressBar.Close()
+            'oProgressBar.Close()
 
     End Sub
 
-    '自动生成零件图号（部件文件对象；进度条）
+    ''' <summary>
+    ''' 自动生成零件图号
+    ''' </summary>
+    ''' <param name="oAssemblyDocument">部件文件对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function AutoSetPartNumber(ByVal oAssemblyDocument As AssemblyDocument) As Boolean
         'With ProgressBar
         '    .Minimum = 0
@@ -683,7 +723,7 @@ Module InventorBasic
                 End Select
 
                 strNewFileName = strNewStockNum & strOldFileName     '获取全文件名
-                strNewFullFileName = GetNewFileName(strOldFullFileName, strNewFileName)  '替换旧文件全名为新文件全名
+                strNewFullFileName = GetChangeFileName(strOldFullFileName, strNewFileName)  '替换旧文件全名为新文件全名
 
                 '后台打开旧文件，另存为新文件
                 oOldInventorDocument = ThisApplication.Documents.Open(strOldFullFileName, False)
@@ -727,7 +767,13 @@ Module InventorBasic
         Return True
     End Function
 
-    '获取零部件质量
+
+    ''' <summary>
+    ''' 获取零部件质量
+    ''' </summary>
+    ''' <param name="oInventorDocument">文件对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetMass(ByVal oInventorDocument As Inventor.Document) As Double
         Dim dblvalMass As Double
         If oInventorDocument.DocumentType = kPartDocumentObject Then
@@ -752,7 +798,13 @@ Module InventorBasic
         Return dblvalMass
     End Function
 
-    '获取零部件面积
+
+    ''' <summary>
+    ''' 获取零部件面积
+    ''' </summary>
+    ''' <param name="oInventorDocument">文件对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetArea(ByVal oInventorDocument As Inventor.Document) As Double
         Dim dblArea As Double
         If oInventorDocument.DocumentType = kPartDocumentObject Then
@@ -971,7 +1023,7 @@ Module InventorBasic
             pEachScale.Value = strUserPropitemValue
         Catch
             ' 若该iProperty不存在，则添加一个
-            oInventorDocument.PropertySets.Item("User Defined Properties").Add(strUserPropitemName, strUserPropitemValue)
+            oInventorDocument.PropertySets.Item("User Defined Properties").Add(strUserPropitemValue, strUserPropitemName)
         End Try
 
         oInventorDocument.Update()   '刷新数据
@@ -1001,7 +1053,11 @@ Module InventorBasic
 
     End Function
 
-    '查询erp编码
+
+    ''' <summary>
+    '''     查询erp编码
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub QueryERPcode()
         'Try
         SetStatusBarText()
@@ -1032,7 +1088,13 @@ Module InventorBasic
         'End Try
     End Sub
 
-    '查找变更扩展名后为文件（原文件名，变更后的扩展名）
+    ''' <summary>
+    ''' 查找变更扩展名后为文件
+    ''' </summary>
+    ''' <param name="strFullDocumentName">原文件名</param>
+    ''' <param name="strExtension">变更后的扩展名</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetChangeExtensionDocument(ByVal strFullDocumentName As String, ByVal strExtension As String) As String
         'On Error Resume Next
 
@@ -1050,7 +1112,7 @@ Module InventorBasic
             strParentFolderPath = GetParentFolderPath(strParentFolderPath, Val(str查找文件夹层数))
 
             strFullDocumentName = GetChangeExtension(strFullDocumentName, strExtension)
-            Dim strInventorDocumentName As String = GetFileName2(strFullDocumentName)
+            Dim strInventorDocumentName As String = GetFileNameWithExtension(strFullDocumentName)
 
             Dim arrayFullFileName As List(Of String)
             arrayFullFileName = FindFileInFolder(strParentFolderPath, strInventorDocumentName)
@@ -1101,7 +1163,12 @@ Module InventorBasic
 
 
 
-    '关闭指定文件名的文档
+
+    ''' <summary>
+    ''' 关闭指定文件名的文档
+    ''' </summary>
+    ''' <param name="FileFullName">文件名</param>
+    ''' <remarks></remarks>
     Public Sub CloseFile(ByVal FileFullName As String)
         If IsFileExsts(FileFullName) = False Then
             Exit Sub
@@ -1121,7 +1188,10 @@ Module InventorBasic
         End If
     End Sub
 
-    '单击设置文件只读属性
+    ''' <summary>
+    ''' 单击设置文件只读属性
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub SetWriteOnly()
         SetStatusBarText()
 
@@ -1151,6 +1221,10 @@ Module InventorBasic
 
     End Sub
 
+    ''' <summary>
+    ''' 从列表文件打开文件
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub OpenFilesWithList()
         'Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
@@ -1188,10 +1262,13 @@ Module InventorBasic
         Dim WorkSpaceFloder As String
         WorkSpaceFloder = ThisApplication.DesignProjectManager.ActiveDesignProject.WorkspacePath
 
-        Using sr As StreamReader = New StreamReader(strListFileName)
-            Dim strFileName As String
+
+        Using sr As StreamReader = New StreamReader(strListFileName, Encoding.UTF8)
+
             While Not sr.EndOfStream
+                Dim strFileName As String
                 strFileName = sr.ReadLine()
+
 
                 If strFileName = "" Then
                     Continue While
@@ -1234,10 +1311,14 @@ Module InventorBasic
             End While
         End Using
 
-        MsgBox("按列表打开文件完成。", MsgBoxStyle.Information)
+        MsgBox("按列表打开文件完成，若没有打开文件，请检查列表文件编码为UTF-8。", MsgBoxStyle.Information)
 
     End Sub
 
+    ''' <summary>
+    ''' 保存打开的文件到文件列表
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub SaveFilessList()
 
         ' 获取当前日期和时间
@@ -1248,7 +1329,7 @@ Module InventorBasic
         Dim strFileFullName As String
 
         ' 创建一个新的文本文件，文件名为日期+时间
-        Using writer As StreamWriter = New StreamWriter(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, strListFileName))
+        Using writer As StreamWriter = New StreamWriter(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, strListFileName), False, System.Text.UnicodeEncoding.UTF8)
             ' 使用StreamWriter将字符串写入文件
 
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments

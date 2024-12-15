@@ -1,97 +1,108 @@
 ﻿Module WrIni
+    ''' <summary>
+    ''' 写配置文件
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub InAISettingIniWriteSetting()
         'Save Settings
         On Error Resume Next
 
-        ini.WriteStrINI("iProperty", "MapStochNum", Map_DrawingNnumber, Inifile)
-        ini.WriteStrINI("iProperty", "MapPartName", Map_PartName, Inifile)
-        ini.WriteStrINI("iProperty", "MapPartNum", Map_ERPCode, Inifile)
-        ini.WriteStrINI("iProperty", "Map_Vendor", Map_Vendor, Inifile)
+        ini.WriteStrINI("iProperty", "MapStochNum", Map_DrawingNnumber, IniFile)
+        ini.WriteStrINI("iProperty", "MapPartName", Map_PartName, IniFile)
+        ini.WriteStrINI("iProperty", "MapPartNum", Map_ERPCode, IniFile)
+        ini.WriteStrINI("iProperty", "Map_Vendor", Map_Vendor, IniFile)
 
-        ini.WriteStrINI("iProperty", "MapMirStochNum", Map_Mir_StochNum, Inifile)
-        ini.WriteStrINI("iProperty", "MapMirPartName", Map_Mir_PartName, Inifile)
-        ini.WriteStrINI("iProperty", "MapMirERPCode", Map_Mir_ERPCode, Inifile)
-
-
-        ini.WriteStrINI("比例质量", "MapDrawingScale", Map_DrawingScale, Inifile)
-        ini.WriteStrINI("比例质量", "IsSetDrawingScale", IsSetDrawingScale, Inifile)
-        ini.WriteStrINI("比例质量", "MapMass", Map_Mass, Inifile)
-        ini.WriteStrINI("比例质量", "IsSetMass", IsSetMass, Inifile)
-
-        ini.WriteStrINI("精度", "Mass_Accuracy", Mass_Accuracy, Inifile)
-        ini.WriteStrINI("精度", "Area_Accuracy", Area_Accuracy, Inifile)
+        ini.WriteStrINI("iProperty", "MapMirStochNum", Map_Mir_StochNum, IniFile)
+        ini.WriteStrINI("iProperty", "MapMirPartName", Map_Mir_PartName, IniFile)
+        ini.WriteStrINI("iProperty", "MapMirERPCode", Map_Mir_ERPCode, IniFile)
 
 
-        ini.WriteStrINI("BOM", "BOMTiTle", BOMTiTle, Inifile)
-        ini.WriteStrINI("BOM", "BasicExcelFullFileName", BasicExcelFullFileName, Inifile)
-        ini.WriteStrINI("BOM", "Sheet_Name", SheetName, Inifile)
-        ini.WriteStrINI("BOM", "Table_Array", TableArrays, Inifile)
-        ini.WriteStrINI("BOM", "Col_Index_Num", ColIndexNum, Inifile)
+        ini.WriteStrINI("比例质量", "MapDrawingScale", Map_DrawingScale, IniFile)
+        ini.WriteStrINI("比例质量", "IsSetDrawingScale", IsSetDrawingScale, IniFile)
+        ini.WriteStrINI("比例质量", "MapMass", Map_Mass, IniFile)
+        ini.WriteStrINI("比例质量", "IsSetMass", IsSetMass, IniFile)
 
-        ini.WriteStrINI("模型", "变更工程图扩展名", str变更工程图扩展名, Inifile)
-        ini.WriteStrINI("模型", "另存到子文件夹", str另存到子文件夹, Inifile)
-        ini.WriteStrINI("模型", "查找文件夹层数", str查找文件夹层数, Inifile)
-        ini.WriteStrINI("模型", "检查重复图号", Is检查重复图号, Inifile)
-        ini.WriteStrINI("模型", "去除后缀表", str去除后缀表, Inifile)
+        ini.WriteStrINI("精度", "Mass_Accuracy", Mass_Accuracy, IniFile)
+        ini.WriteStrINI("精度", "Area_Accuracy", Area_Accuracy, IniFile)
 
-        ini.WriteStrINI("打印", "MapPrintDay", Map_PrintDay, Inifile)
-        ini.WriteStrINI("打印", "IsOpenPrint", IsOpenPrint, Inifile)
-        ini.WriteStrINI("打印", "EngineerName", EngineerName, Inifile)
-        ini.WriteStrINI("打印", "IsDayAndName", IsDayAndName, Inifile)
-        ini.WriteStrINI("打印", "Printer", Printer, Inifile)
-        ini.WriteStrINI("打印", "IsPaperA3", IsPaperA3, Inifile)
-        ini.WriteStrINI("打印", "IsSign", IsSign, Inifile)
-        ini.WriteStrINI("打印", "SaveAsDwgPdf", SaveAsDawAndPdf, Inifile)
-        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, Inifile)
 
-        ini.WriteStrINI("更新", "CheckUpdate", CheckUpdate, Inifile)
-        ini.WriteStrINI("更新", "Server", Server, Inifile)
-        ini.WriteStrINI("更新", "ServerExcelFileName", ServerExcelFileName, Inifile)
-        ini.WriteStrINI("更新", "SimpleUpdater", SimpleUpdater, Inifile)
-        ini.WriteStrINI("更新", "NewVersionTxt", NewVersionTxt, Inifile)
+        ini.WriteStrINI("BOM", "BOMTiTle", BOMTiTle, IniFile)
+        ini.WriteStrINI("BOM", "BasicExcelFullFileName", BasicExcelFullFileName, IniFile)
+        ini.WriteStrINI("BOM", "Sheet_Name", SheetName, IniFile)
+        ini.WriteStrINI("BOM", "Table_Array", TableArrays, IniFile)
+        ini.WriteStrINI("BOM", "Col_Index_Num", ColIndexNum, IniFile)
 
-        ini.WriteStrINI("展开图", "展开图模板", str展开图模板, Inifile)
-        ini.WriteStrINI("展开图", "向上颜色", str向上颜色, Inifile)
-        ini.WriteStrINI("展开图", "向下颜色", str向下颜色, Inifile)
-        ini.WriteStrINI("展开图", "向上线型", str向上线型, Inifile)
-        ini.WriteStrINI("展开图", "向下线型", str向下线型, Inifile)
-        ini.WriteStrINI("展开图", "向上线宽", str向上线宽, Inifile)
-        ini.WriteStrINI("展开图", "向下线宽", str向下线宽, Inifile)
-        ini.WriteStrINI("展开图", "展开图标注", str展开图标注, Inifile)
+        ini.WriteStrINI("模型", "变更工程图扩展名", str变更工程图扩展名, IniFile)
+        ini.WriteStrINI("模型", "另存到子文件夹", str另存到子文件夹, IniFile)
+        ini.WriteStrINI("模型", "查找文件夹层数", str查找文件夹层数, IniFile)
+        ini.WriteStrINI("模型", "检查重复图号", Is检查重复图号, IniFile)
+        ini.WriteStrINI("模型", "去除后缀表", str去除后缀表, IniFile)
 
-        ini.WriteStrINI("展开图", "展开图隐藏螺纹特征", str展开图隐藏螺纹特征, Inifile)
-        ini.WriteStrINI("展开图", "标记孔径上限", str标记孔径上限, Inifile)
+        ini.WriteStrINI("打印", "MapPrintDay", Map_PrintDay, IniFile)
+        ini.WriteStrINI("打印", "IsOpenPrint", IsOpenPrint, IniFile)
+        ini.WriteStrINI("打印", "EngineerName", EngineerName, IniFile)
+        ini.WriteStrINI("打印", "IsDayAndName", IsDayAndName, IniFile)
+        ini.WriteStrINI("打印", "Printer", Printer, IniFile)
+        ini.WriteStrINI("打印", "IsPaperA3", IsPaperA3, IniFile)
+        ini.WriteStrINI("打印", "IsSign", IsSign, IniFile)
+        ini.WriteStrINI("打印", "SaveAsDwgPdf", SaveAsDawAndPdf, IniFile)
+        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, IniFile)
+
+        ini.WriteStrINI("更新", "CheckUpdate", CheckUpdate, IniFile)
+        ini.WriteStrINI("更新", "Server", Server, IniFile)
+        ini.WriteStrINI("更新", "ServerExcelFileName", ServerExcelFileName, IniFile)
+        ini.WriteStrINI("更新", "SimpleUpdater", SimpleUpdater, IniFile)
+        ini.WriteStrINI("更新", "NewVersionTxt", NewVersionTxt, IniFile)
+
+        ini.WriteStrINI("展开图", "展开图模板", str展开图模板, IniFile)
+        ini.WriteStrINI("展开图", "向上颜色", str向上颜色, IniFile)
+        ini.WriteStrINI("展开图", "向下颜色", str向下颜色, IniFile)
+        ini.WriteStrINI("展开图", "向上线型", str向上线型, IniFile)
+        ini.WriteStrINI("展开图", "向下线型", str向下线型, IniFile)
+        ini.WriteStrINI("展开图", "向上线宽", str向上线宽, IniFile)
+        ini.WriteStrINI("展开图", "向下线宽", str向下线宽, IniFile)
+        ini.WriteStrINI("展开图", "展开图标注", str展开图标注, IniFile)
+
+        ini.WriteStrINI("展开图", "展开图隐藏螺纹特征", str展开图隐藏螺纹特征, IniFile)
+        ini.WriteStrINI("展开图", "标记孔径上限", str标记孔径上限, IniFile)
         'ini.WriteStrINI("展开图", "导出DXF", str导出DXF, Inifile)
-        ini.WriteStrINI("展开图", "图号材质", str图号材质, Inifile)
+        ini.WriteStrINI("展开图", "图号材质", str图号材质, IniFile)
+        ini.WriteStrINI("展开图", "工艺文字高", str工艺文字高, IniFile)
 
-        ini.WriteStrINI("工程图", "工程图模板", str工程图模板, Inifile)
-        ini.WriteStrINI("工程图", "自动展开图", str自动展开图, Inifile)
-        ini.WriteStrINI("工程图", "第三视角", str第三视角, Inifile)
-        ini.WriteStrINI("工程图", "相切边", str相切边, Inifile)
-        ini.WriteStrINI("工程图", "螺纹特征", str螺纹特征, Inifile)
-        ini.WriteStrINI("工程图", "标注尺寸", str标注尺寸, Inifile)
-        ini.WriteStrINI("工程图", "样式", str样式, Inifile)
 
-        ini.WriteStrINI("工程图", "左视图", str选择视图.str左视图, Inifile)
-        ini.WriteStrINI("工程图", "右视图", str选择视图.str右视图, Inifile)
-        ini.WriteStrINI("工程图", "俯视图", str选择视图.str俯视图, Inifile)
-        ini.WriteStrINI("工程图", "仰视图", str选择视图.str仰视图, Inifile)
 
-        ini.WriteStrINI("工程图", "上边距", str页边距.short上边距, Inifile)
-        ini.WriteStrINI("工程图", "下边距", str页边距.short下边距, Inifile)
-        ini.WriteStrINI("工程图", "左边距", str页边距.short左边距, Inifile)
-        ini.WriteStrINI("工程图", "右边距", str页边距.short右边距, Inifile)
+        ini.WriteStrINI("工程图", "工程图模板", str工程图模板, IniFile)
+        ini.WriteStrINI("工程图", "自动展开图", str自动展开图, IniFile)
+        ini.WriteStrINI("工程图", "第三视角", str第三视角, IniFile)
+        ini.WriteStrINI("工程图", "相切边", str相切边, IniFile)
+        ini.WriteStrINI("工程图", "螺纹特征", str螺纹特征, IniFile)
+        ini.WriteStrINI("工程图", "标注尺寸", str标注尺寸, IniFile)
+        ini.WriteStrINI("工程图", "样式", str样式, IniFile)
 
-        ini.WriteStrINI("工程图", "部件图框", str部件图框, Inifile)
-        ini.WriteStrINI("工程图", "零件图框", str零件图框, Inifile)
+        ini.WriteStrINI("工程图", "左视图", str选择视图.str左视图, IniFile)
+        ini.WriteStrINI("工程图", "右视图", str选择视图.str右视图, IniFile)
+        ini.WriteStrINI("工程图", "俯视图", str选择视图.str俯视图, IniFile)
+        ini.WriteStrINI("工程图", "仰视图", str选择视图.str仰视图, IniFile)
 
-        ini.WriteStrINI("工程图", "模型匹配检查", str模型匹配检查, Inifile)
+        ini.WriteStrINI("工程图", "上边距", str页边距.short上边距, IniFile)
+        ini.WriteStrINI("工程图", "下边距", str页边距.short下边距, IniFile)
+        ini.WriteStrINI("工程图", "左边距", str页边距.short左边距, IniFile)
+        ini.WriteStrINI("工程图", "右边距", str页边距.short右边距, IniFile)
 
-        ini.WriteStrINI("工程图", "逆时针序号", str逆时针序号, Inifile)
+        ini.WriteStrINI("工程图", "部件图框", str部件图框, IniFile)
+        ini.WriteStrINI("工程图", "零件图框", str零件图框, IniFile)
+
+        ini.WriteStrINI("工程图", "模型匹配检查", str模型匹配检查, IniFile)
+
+        ini.WriteStrINI("工程图", "逆时针序号", str逆时针序号, IniFile)
 
 
     End Sub
 
+    ''' <summary>
+    ''' 读取配置文件
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub InAISettingIniReadSetting()
         'On Error Resume Next
         Map_DrawingNnumber = ini.GetStrFromINI("iProperty", "MapStochNum", "库存编号", Inifile)
@@ -156,9 +167,9 @@
         str展开图隐藏螺纹特征 = ini.GetStrFromINI("展开图", "展开图隐藏螺纹特征", "1", Inifile)
         str标记孔径上限 = ini.GetStrFromINI("展开图", "标记孔径上限", "5", Inifile)
         'str导出DXF = ini.GetStrFromINI("展开图", "导出DXF", "1", Inifile)
-        str图号材质 = ini.GetStrFromINI("展开图", "图号材质", "无材质", Inifile)
+        str图号材质 = ini.GetStrFromINI("展开图", "图号材质", "无材质", IniFile)
 
-
+        str工艺文字高 = ini.GetStrFromINI("展开图", "工艺文字高", "2.5", IniFile)
 
         str工程图模板 = ini.GetStrFromINI("工程图", "工程图模板", My.Application.Info.DirectoryPath & "\模板.idw", Inifile)
         str自动展开图 = ini.GetStrFromINI("工程图", "自动展开图", "0", Inifile)

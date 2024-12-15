@@ -6,8 +6,33 @@ Imports Inventor.DrawingViewTypeEnum
 Imports Inventor.IOMechanismEnum
 Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
+Imports System.Windows.Forms
+Imports System.Drawing
 
 Module OpenForm
+
+    ''' <summary>
+    ''' 定义一个函数来设置窗口大小并居中显示
+    ''' </summary>
+    ''' <param name="widthRatio"></param>
+    ''' <param name="heightRatio"></param>
+    ''' <remarks></remarks>
+    Public Sub SetWindowSizeAndCenter(ByVal oForm As Form, ByVal widthRatio As Double, ByVal heightRatio As Double)
+        ' 获取显示器的分辨率
+        Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
+        Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+
+        ' 根据比例计算窗口的长和高
+        Dim windowWidth As Integer = CInt(screenWidth * widthRatio)
+        Dim windowHeight As Integer = CInt(screenHeight * heightRatio)
+
+        ' 设置窗口的大小
+        oForm.Size = New Size(windowWidth, windowHeight)
+
+        ' 将窗口居中显示
+        oForm.StartPosition = FormStartPosition.CenterScreen
+    End Sub
+
 
     '打开自定义签字窗口
     Public Sub FrmCustomSignatureShow()
@@ -23,7 +48,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSign As New frmSign
+            Dim frmSign As New formSign
             frmSign.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -40,7 +65,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSaveAll As New frmSaveAll
+            Dim frmSaveAll As New formSaveAll
             frmSaveAll.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -61,7 +86,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim AutoPartNumber As New frmAutoPartNumber
+            Dim AutoPartNumber As New formAutoPartNumber
             AutoPartNumber.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -83,7 +108,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSpecification As New frmSpecification
+            Dim frmSpecification As New formSpecification
             frmSpecification.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -95,7 +120,7 @@ Module OpenForm
     Public Sub FrmBulkPrintShow()
         Try
             SetStatusBarText()
-            Dim frmPrint As New frmPrint
+            Dim frmPrint As New formPrint
             frmPrint.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -107,7 +132,7 @@ Module OpenForm
     Public Sub FrmSearchERPCodeShow()
         Try
             SetStatusBarText()
-            Dim frmSearchERPCode As New frmSearchERPCode
+            Dim frmSearchERPCode As New formSearchERPCode
             frmSearchERPCode.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -119,7 +144,7 @@ Module OpenForm
     Public Sub FrmReverseCheckERPCodesShow()
         Try
             SetStatusBarText()
-            Dim frmERPCodeSearch As New frmERPCodeSearch
+            Dim frmERPCodeSearch As New formERPCodeSearch
             frmERPCodeSearch.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -141,7 +166,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmImportCodeToIam As New frmImportCodeToIam
+            Dim frmImportCodeToIam As New formImportCodeToIam
             frmImportCodeToIam.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -158,7 +183,7 @@ Module OpenForm
             '    Exit Sub
             'End if
 
-            Dim frmImportCodeToBomExcel As New frmImportCodeToBomExcel
+            Dim frmImportCodeToBomExcel As New formImportCodeToBomExcel
             frmImportCodeToBomExcel.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -181,7 +206,7 @@ Module OpenForm
 
     '打开设置窗口
     Public Sub FrmOptionshow()
-        Dim frmOption As New frmOption
+        Dim frmOption As New formOption
         frmOption.Show()
 
     End Sub
@@ -189,7 +214,7 @@ Module OpenForm
     '打开全部另存为
     Public Sub FrmAllSaveAsShow()
 
-        Dim frmFormatConversion As New frmFormatConversion
+        Dim frmFormatConversion As New formFormatConversion
         frmFormatConversion.Show()
 
     End Sub
@@ -203,8 +228,25 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmiProperty As New frmiProperty
+            Dim frmiProperty As New formiProperty
             frmiProperty.ShowDialog()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+
+    '打开自定义iproperty窗口
+    Public Sub FormUseriPropertyShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            Dim FormUseriProperty As New FormUseriProperty
+            FormUseriProperty.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -219,7 +261,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmMassiPoperties As New frmMassiPoperties
+            Dim frmMassiPoperties As New formMassiPoperties
             frmMassiPoperties.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -241,7 +283,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmStatistical As New frmStatistical
+            Dim frmStatistical As New formStatistical
             frmStatistical.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -264,8 +306,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSetWrite As New frmSetWrite
-            frmSetWrite.Show()
+            Dim frmSetReadOnly As New formSetReadOnly
+            frmSetReadOnly.Show()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -287,7 +329,7 @@ Module OpenForm
             '    Exit Sub
             'End if
 
-            Dim frmEditDimension As New frmEditDimension
+            Dim frmEditDimension As New formEditDimension
             frmEditDimension.Show()
 
         Catch ex As Exception
@@ -310,7 +352,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim FrmDim2Object As New frmDim2Object
+            Dim FrmDim2Object As New formDim2Object
             FrmDim2Object.Show()
 
         Catch ex As Exception
@@ -333,7 +375,7 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmPlayer As New frmPlayer
+            Dim frmPlayer As New formPlayer
             frmPlayer.Show()
 
         Catch ex As Exception
@@ -362,7 +404,7 @@ Module OpenForm
                 End If
             Next
 
-            Dim frmSwitchLables As New frmSwitchLables
+            Dim frmSwitchLables As New formSwitchLables
             frmSwitchLables.Show()
 
         Catch ex As Exception
@@ -370,5 +412,48 @@ Module OpenForm
         End Try
     End Sub
 
+    '打开展开图工艺窗口
+    Public Sub FrmFlatPatternShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim frmFlatPattern As New formFlatPattern
+            frmFlatPattern.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+    '打开展开图工艺窗口
+    Public Sub FrmMovesSpecifiedFileShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim frmMovesSpecifiedFile As New formMovesSpecifiedFile
+            frmMovesSpecifiedFile.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
 
 End Module

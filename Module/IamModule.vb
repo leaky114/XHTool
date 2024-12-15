@@ -38,7 +38,7 @@ Module IamModule
 
             Dim strPartDrawingNnumber As String
 
-            Dim frmInputBox As New frmInputBox
+            Dim frmInputBox As New formInputBox
 999:
             strPartDrawingNnumber = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
             strPartDrawingNnumber = RemoveTrailingZeros(strPartDrawingNnumber)
@@ -75,7 +75,14 @@ Module IamModule
         End Try
     End Sub
 
-    '检查模型是否有对应的工程图
+
+    ''' <summary>
+    ''' '检查部件是否有对应的工程图
+    ''' </summary>
+    ''' <param name="oInventorAssemblyDocument">部件文档对象</param>
+    ''' <param name="StrInName">需要查找的字符串</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function CheckIsInvHaveIdwSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal StrInName As String) As Boolean
         ' Set a reference to the BOM
         Dim oBOM As BOM
@@ -100,19 +107,16 @@ Module IamModule
 
     End Function
 
-    '检查模型是否有对应的工程图遍历子过程
+    ''' <summary>
+    ''' 检查部件是否有对应的工程图遍历子过程
+    ''' </summary>
+    ''' <param name="oBOMRows">遍历的BOM</param>
+    ''' <param name="strInName">需要查找的字符串</param>
+    ''' <remarks></remarks>
     Public Sub CheckIsInvHaveIdwChildSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal strInName As String)
-        Dim i As Long
-
-        For i = 1 To oBOMRows.Count
-            Dim oRow As BOMRow
-            oRow = oBOMRows.Item(i)
-
+        For Each oRow As BOMRow In oBOMRows
             Dim oComponentDefinition As ComponentDefinition
             oComponentDefinition = oRow.ComponentDefinitions.Item(1)
-
-
-            Debug.Print(oComponentDefinition.Document.FullFileName)
 
             Dim oInventorDocument As Inventor.Document
             oInventorDocument = oComponentDefinition.Document
@@ -121,7 +125,7 @@ Module IamModule
             strInventorFullFileName = oInventorDocument.FullFileName
 
             Dim strInventorFileName As String   '模型文件
-            strInventorFileName = GetFileName2(strInventorFullFileName)
+            strInventorFileName = GetFileNameWithExtension(strInventorFullFileName)
 
             If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
                 Continue For
@@ -183,10 +187,14 @@ Module IamModule
         End Try
     End Sub
 
-    '获取未读取的文件所在部件并打开该部件   （ 部件文件对象 ）
+    ''' <summary>
+    ''' 获取未读取的文件所在部件并打开该部件  
+    ''' </summary>
+    ''' <param name="oInventorFile">部件文件对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetMissDocumentSub(ByVal oInventorFile As Inventor.File) As Boolean
-        Dim oFileDescriptor As FileDescriptor
-        For Each oFileDescriptor In oInventorFile.ReferencedFileDescriptors
+        For Each oFileDescriptor As FileDescriptor In oInventorFile.ReferencedFileDescriptors
 
             'Debug.Print(oFileDescriptor.FullFileName)
 
@@ -197,10 +205,10 @@ Module IamModule
                     GetMissDocumentSub(oFileDescriptor.ReferencedFile)
                 End If
             Else
-                Dim oPresentFile As String
-                oPresentFile = oFileDescriptor.Parent.FullFileName
-                If IsFileExsts(oPresentFile) Then
-                    ThisApplication.Documents.Open(oPresentFile, True)
+                Dim oPresentFullFileName As String
+                oPresentFullFileName = oFileDescriptor.Parent.FullFileName
+                If IsFileExsts(oPresentFullFileName) Then
+                    ThisApplication.Documents.Open(oPresentFullFileName, True)
                 End If
             End If
         Next
@@ -435,14 +443,14 @@ Module IamModule
             Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
             oInventorAssemblyDocument = ThisApplication.ActiveDocument
 999:
-            Dim frmInputBox As New frmInputBox
+            Dim frmInputBox As New formInputBox
 
-            Dim strPartDrawingNnumber As String
-            strPartDrawingNnumber = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
-            strPartDrawingNnumber = RemoveTrailingZeros(strPartDrawingNnumber)
+            Dim strSearchNnumber As String
+            strSearchNnumber = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
+            strSearchNnumber = RemoveTrailingZeros(strSearchNnumber)
 
             With frmInputBox
-                .txt输入.Text = strPartDrawingNnumber
+                .txt输入.Text = strSearchNnumber
                 .Text = "移动文件"
                 .lbl描述.Text = "将保存并关闭当前文档，移动包含指定的字符文件名的文件到当前部件文件夹。"
                 .StartPosition = FormStartPosition.CenterScreen
@@ -450,7 +458,7 @@ Module IamModule
             End With
 
             If frmInputBox.DialogResult = System.Windows.Forms.DialogResult.OK And frmInputBox.txt输入.Text <> "" Then
-                strPartDrawingNnumber = frmInputBox.txt输入.Text
+                strSearchNnumber = frmInputBox.txt输入.Text
             ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
@@ -466,51 +474,76 @@ Module IamModule
 
             ' 遍历这些文档
 
-            Dim arrReferencedFullFileName() As String
+            Dim strReferencedFullFileNames() As String
 
-            ReDim arrReferencedFullFileName(oInventorDocumentsEnumerator.Count - 1)
+            ReDim strReferencedFullFileNames(oInventorDocumentsEnumerator.Count - 1)
 
             Dim i As Integer = 0
 
-            For Each oInventorDocument In oInventorDocumentsEnumerator
+            For Each oInventorDocument As Inventor.Document In oInventorDocumentsEnumerator
                 Debug.Print(oInventorDocument.FullFileName)
-                arrReferencedFullFileName(i) = oInventorDocument.FullFileName
+                strReferencedFullFileNames(i) = oInventorDocument.FullFileName
                 i = i + 1
             Next
 
-            Dim strInventorAssemblyFullFileName As String
-            strInventorAssemblyFullFileName = oInventorAssemblyDocument.FullDocumentName
+            Dim strInventorAssemblyDocumentFullFileName As String
+            strInventorAssemblyDocumentFullFileName = oInventorAssemblyDocument.FullDocumentName
 
             '组件所在文件夹
-            Dim srtInventorAssemblyFileFolder As String
-            srtInventorAssemblyFileFolder = GetFileNameInfo(strInventorAssemblyFullFileName).Folder
+            Dim strInventorAssemblyFileFolder As String
+            strInventorAssemblyFileFolder = GetFileNameInfo(strInventorAssemblyDocumentFullFileName).Folder
 
             '保存关闭组件
             oInventorAssemblyDocument.Close()
 
-            Dim strInventorDocumentFileName As String
-
-            For Each strReferencedFullFileName As String In arrReferencedFullFileName
+            For Each strReferencedFullFileName As String In strReferencedFullFileNames
 
                 ThisApplication.StatusBarText = strReferencedFullFileName
 
-                strInventorDocumentFileName = GetFileName2(strReferencedFullFileName)
+                Dim strReferencedFileName As String
+                strReferencedFileName = GetFileNameWithExtension(strReferencedFullFileName)
 
-                If InStr(strInventorDocumentFileName, strPartDrawingNnumber) <> 0 Then
-                    ReMoveFileToFolder(strReferencedFullFileName, srtInventorAssemblyFileFolder)
+                '对比文件名
+                If InStr(strReferencedFileName, strSearchNnumber) <> 0 Then
+
+                    Dim strNewReferencedFullFileName As String
+                    strNewReferencedFullFileName = IO.Path.Combine(strInventorAssemblyFileFolder, strReferencedFileName)
+
+                    If IsFileExsts(strNewReferencedFullFileName) Then
+                        If MsgBox("存在文件：" & strNewReferencedFullFileName & "，是否覆盖？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                        Else
+                            Continue For
+                        End If
+                    End If
+
+                    SetStatusBarText("正在移动：" & strReferencedFullFileName & " 到 " & strInventorAssemblyFileFolder)
+                    ReMoveFileToFolder(strReferencedFullFileName, strInventorAssemblyFileFolder)
 
                     Dim strInventorDrawingFullFileName As String
                     strInventorDrawingFullFileName = GetChangeExtension(strReferencedFullFileName, IDW)
 
                     If IsFileExsts(strInventorDrawingFullFileName) = True Then
-                        ReMoveFileToFolder(strInventorDrawingFullFileName, srtInventorAssemblyFileFolder)
+                        Dim strNewReferencedDrawingFullFileName As String = Nothing
+                        strNewReferencedDrawingFullFileName = GetChangeExtension(strNewReferencedDrawingFullFileName, IDW)
+
+                        If IsFileExsts(strNewReferencedDrawingFullFileName) Then
+                            If MsgBox("存在文件：" & strNewReferencedDrawingFullFileName & "，是否覆盖？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                            Else
+                                Continue For
+                            End If
+
+                        End If
+                        SetStatusBarText("正在移动：" & strInventorDrawingFullFileName & " 到 " & strInventorAssemblyFileFolder)
+                        ReMoveFileToFolder(strInventorDrawingFullFileName, strInventorAssemblyFileFolder)
                     End If
 
                 End If
             Next
 
-            If MsgBox("移动指定文件完成，是否重新打开 " & strInventorAssemblyFullFileName, MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
-                ThisApplication.Documents.Open(strInventorAssemblyFullFileName)
+            If MsgBox("移动指定文件完成，是否重新打开 " & strInventorAssemblyDocumentFullFileName, MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
+                ThisApplication.Documents.Open(strInventorAssemblyDocumentFullFileName)
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -617,7 +650,7 @@ Module IamModule
                 strNewFileName = oStockNumPartName.图号 & oStockNumPartName.零件名称
 
                 '替换旧文件全名为新文件全名
-                strNewFullFileName = GetNewFileName(strOldFullFileName, strNewFileName)
+                strNewFullFileName = GetChangeFileName(strOldFullFileName, strNewFileName)
 
                 If strNewFullFileName = strOldFullFileName Then
                     MsgBox("iProperty与文件名匹配，无需重命名文件！", MsgBoxStyle.Information)
@@ -718,25 +751,25 @@ Module IamModule
 
         ThisApplication.ScreenUpdating = False
 
-        Dim oChildInventorDocument As Inventor.Document
+
         Dim oName = "随机色"
-        Dim oChildInventorPartDocument As Inventor.PartDocument = Nothing
+        Dim oInventorPartDocument As Inventor.PartDocument = Nothing
         Dim oAppearance As Asset = Nothing
         '每个零件添加颜色
 
         On Error Resume Next
 
-        For Each oChildInventorDocument In oInventorAssemblyDocument.AllReferencedDocuments
-            If oChildInventorDocument.DocumentType = kPartDocumentObject Then
-                oChildInventorPartDocument = ThisApplication.Documents.Open(oChildInventorDocument.FullDocumentName, False)
-                oAppearance = oChildInventorPartDocument.ActiveAppearance
+        For Each oInventorDocument As Inventor.Document In oInventorAssemblyDocument.AllReferencedDocuments
+            If oInventorDocument.DocumentType = kPartDocumentObject Then
+                oInventorPartDocument = oInventorDocument
+                oAppearance = oInventorPartDocument.ActiveAppearance
                 If Not oAppearance.DisplayName = oName Then
                     '尝试是否存在“配置色”外观
-                    oAppearance = oChildInventorPartDocument.AppearanceAssets.Item(oName)
+                    oAppearance = oInventorPartDocument.AppearanceAssets.Item(oName)
                     '如果名字不存在则，创建名为"配置色"的新外观(没有多状态的零件)
-                    oAppearance = oChildInventorPartDocument.Assets.Add(kAssetTypeAppearance, "Generic", "Appearances", oName)
+                    oAppearance = oInventorPartDocument.Assets.Add(kAssetTypeAppearance, "Generic", "Appearances", oName)
                     '将新外观设置为激活状态
-                    oChildInventorPartDocument.ActiveAppearance = oAppearance
+                    oInventorPartDocument.ActiveAppearance = oAppearance
                     Err.Clear()
                 End If
             End If
@@ -749,7 +782,7 @@ Module IamModule
             rng1 = Math.Round(Rnd() * 255)
             rng2 = Math.Round(Rnd() * 255)
             oColor.Value = ThisApplication.TransientObjects.CreateColor(rng, rng1, rng2)
-            oChildInventorPartDocument.Close(False)
+            oInventorPartDocument.Close(False)
         Next
         oInventorAssemblyDocument.Document.Rebuild()
         oTransaction.End()
@@ -788,17 +821,16 @@ Module IamModule
 
         ThisApplication.ScreenUpdating = False
 
-        Dim osubdoc As Document
         Dim oName = "随机色"
-        Dim oDoc As PartDocument = Nothing
+
         Dim oAppearance As Asset = Nothing
         '每个零件添加颜色
 
         On Error Resume Next
 
-        For Each osubdoc In oInventorAssemblyDocument.AllReferencedDocuments
-            If osubdoc.DocumentType = kPartDocumentObject Then
-                Dim oModelStates = osubdoc.ComponentDefinition.ModelStates
+        For Each oInventorDocument In oInventorAssemblyDocument.AllReferencedDocuments
+            If oInventorDocument.DocumentType = kPartDocumentObject Then
+                Dim oModelStates = oInventorDocument.ComponentDefinition.ModelStates
                 Dim icount = oModelStates.count
                 If icount > 1 Then '多零件状态判断
                     For i = 1 To icount Step 1
@@ -811,11 +843,11 @@ Module IamModule
                     Next
                 Else '如果零件没有零件状态
                     '设置外观“源材料外观
-                    osubdoc.AppearanceSourceType = AppearanceSourceTypeEnum.kMaterialAppearance
+                    oInventorDocument.AppearanceSourceType = AppearanceSourceTypeEnum.kMaterialAppearance
                 End If
 
-                If osubdoc.AppearanceAssets.Item(oName).IsUsed = False Then
-                    osubdoc.AppearanceAssets.Item(oName).Delete()
+                If oInventorDocument.AppearanceAssets.Item(oName).IsUsed = False Then
+                    oInventorDocument.AppearanceAssets.Item(oName).Delete()
                 End If
             End If
         Next
@@ -830,10 +862,6 @@ Module IamModule
         '    MsgBox(ex.Message)
         'End Try
     End Sub
-
-
-
-   
 
     '设置当前部件下级为虚拟件
     Public Sub SetBOMStructuret()
@@ -1000,7 +1028,15 @@ Module IamModule
         End Try
     End Sub
 
-    '导出 bom 平面性
+
+    ''' <summary>
+    ''' 导出 bom 平面性
+    ''' </summary>
+    ''' <param name="oInventorAssemblyDocument">部件对象</param>
+    ''' <param name="strCsvFullFileName">excel文件</param>
+    ''' <param name="IsExpandOutSourcedParts">是否展开外协外购件</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function ExportBOMAsFlatSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal strCsvFullFileName As String, _
                                     ByVal IsExpandOutSourcedParts As Boolean) As Boolean
 
@@ -1115,7 +1151,18 @@ Module IamModule
 
     End Function
 
-    '在 bom平面性导出，子程序，遍历bom 行文件ipro
+
+    ''' <summary>
+    ''' 在 bom平面性导出，子程序
+    ''' </summary>
+    ''' <param name="strCsvFullFileName">excel文件</param>
+    ''' <param name="oBOMRows">遍历bom </param>
+    ''' <param name="FirstLevelOnly"></param>
+    ''' <param name="strColumnsTitle">表头</param>
+    ''' <param name="strLevel">bom的层级</param>
+    ''' <param name="intPresentNumber">父级</param>
+    ''' <param name="IsExpandOutSourcedParts">是否展开外协外购</param>
+    ''' <remarks></remarks>
     Private Sub QueryBOMRowPropertieToExcel(ByVal strCsvFullFileName As String, ByVal oBOMRows As BOMRowsEnumerator, _
                                             ByVal FirstLevelOnly As Boolean, ByVal strColumnsTitle As String, _
                                             ByVal strLevel As String, ByVal intPresentNumber As Integer, ByVal IsExpandOutSourcedParts As Boolean)
@@ -1137,9 +1184,12 @@ Module IamModule
 
         ReDim oBOMRowData(oBOMRows.Count - 1, 1)
 
+        Dim oBOMRow As BOMRow
+
         For i = 1 To oBOMRows.Count
-            oBOMRowData(i - 1, 0) = oBOMRows.Item(i).ItemNumber
-            oBOMRowData(i - 1, 1) = oBOMRows.Item(i).ReferencedFileDescriptor.FullFileName
+            oBOMRow = oBOMRows.Item(i)
+            oBOMRowData(i - 1, 0) = oBOMRow.ItemNumber
+            oBOMRowData(i - 1, 1) = oBOMRow.ComponentDefinitions(1).Document.FullFileName
         Next
 
         '冒泡排序()
@@ -1182,15 +1232,25 @@ Module IamModule
             '寻找指针的行，开始提取数据
 
             For j = 1 To oBOMRows.Count
-                Dim oBOMRow As BOMRow
                 oBOMRow = oBOMRows.Item(j)
-                Dim strInventorFullFileName As String
-                strInventorFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
 
-                If strInventorFullFileName = strFilePointItemNumber Then
+                Dim oComponentDefinitions As Inventor.ComponentDefinitionsEnumerator
+                oComponentDefinitions = oBOMRow.ComponentDefinitions
+
+                Dim oComponentDefinition As ComponentDefinition
+                oComponentDefinition = oComponentDefinitions.Item(1)
+
+                Dim strDocumentFullFileName As String
+                strDocumentFullFileName = oComponentDefinition.Document.FullDocumentName
+
+                '测试文件
+                Debug.Print(strDocumentFullFileName)
+
+
+                If strDocumentFullFileName = strFilePointItemNumber Then
                     ' Set the message for the progress bar
                     'oProgressBar.Message = InventorDocFullFileName
-                    If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
+                    If IsFileExsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
                         GoTo 999
                     End If
 
@@ -1201,9 +1261,9 @@ Module IamModule
 
                     Dim oInventorDocument As Inventor.Document
 
-                    oInventorDocument = ThisApplication.Documents.Open(strInventorFullFileName, False)
+                    oInventorDocument = ThisApplication.Documents.ItemByName(strDocumentFullFileName)
 
-                    SetStatusBarText(strInventorFullFileName)
+                    SetStatusBarText(strDocumentFullFileName)
 
                     Dim arrColumnsTitle() As String
                     Dim arrColumnsTitleValue() As String
@@ -1222,6 +1282,8 @@ Module IamModule
                     Dim propitem As [Property]
                     For k = 0 To arrColumnsTitle.Length - 1 Step 1
                         Select Case arrColumnsTitle(k)
+                            Case "项目序号"
+                                arrColumnsTitleValue(k) = oBOMRow.ItemNumber.ToString
                             Case "空格"
                                 arrColumnsTitleValue(k) = ""
                             Case Map_PartName      '映射文件名
@@ -1261,18 +1323,18 @@ Module IamModule
 
                             Case "数量"
                                 arrColumnsTitleValue(k) = oBOMRow.ItemQuantity.ToString
+
                             Case "所属装配"
                                 Dim StockNumPartName As StockNumPartName
                                 StockNumPartName = GetStockNumPartName(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName)
                                 arrColumnsTitleValue(k) = StockNumPartName.图号 & StockNumPartName.零件名称
+
                             Case "所属装配代号"
-                                'Dim StockNumPartName As StockNumPartName
-                                'StockNumPartName = GetStockNumPartName(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName)
-                                'arrColumnsTitleValue(k) = StockNumPartName.StockNum
+                                Dim strParentInventorDocument As String
+                                strParentInventorDocument = oBOMRow.ReferencedFileDescriptor.Parent.FullFileName
 
                                 Dim oParentInventorDocument As Inventor.Document
-
-                                oParentInventorDocument = ThisApplication.Documents.Open(oBOMRow.ReferencedFileDescriptor.Parent.FullFileName, False)
+                                oParentInventorDocument = ThisApplication.Documents.ItemByName(strParentInventorDocument)
                                 arrColumnsTitleValue(k) = GetPropitem(oParentInventorDocument, Map_DrawingNnumber)
 
                             Case "总数量"
@@ -1297,7 +1359,7 @@ Module IamModule
                             Case "总成本"
                                 arrColumnsTitleValue(k) = (GetPropitem(oInventorDocument, Map_Price) * oBOMRow.ItemQuantity * intPresentNumber).ToString
                             Case "文件名"
-                                arrColumnsTitleValue(k) = GetFileName2(oInventorDocument.FullDocumentName)
+                                arrColumnsTitleValue(k) = GetFileNameWithExtension(oInventorDocument.FullDocumentName)
                             Case "文件路径"
                                 arrColumnsTitleValue(k) = oInventorDocument.FullDocumentName
                             Case "Web"
@@ -1361,14 +1423,29 @@ Module IamModule
 
         For i = 0 To oBOMRowData.Length / 2 - 1
             For j = 1 To oBOMRows.Count
-                Dim oBOMRow As BOMRow
                 oBOMRow = oBOMRows.Item(j)
+
                 Dim strItemNumber As String
                 strItemNumber = oBOMRow.ItemNumber
-                Dim strFullFileName As String
-                strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
 
-                If oBOMRowData(i, 1) = strFullFileName Then
+
+                Dim oComponentDefinitions As Inventor.ComponentDefinitionsEnumerator
+                oComponentDefinitions = oBOMRow.ComponentDefinitions
+
+                Dim oComponentDefinition As ComponentDefinition
+                oComponentDefinition = oComponentDefinitions.Item(1)
+
+                Dim strDocumentFullFileName As String
+                strDocumentFullFileName = oComponentDefinition.Document.FullDocumentName
+
+
+
+
+
+
+
+
+                If oBOMRowData(i, 1) = strDocumentFullFileName Then
                     '测试文件
                     'Debug.Print(ItemNumber & ":" & DocFullFileName)
                     ' Set the message for the progress bar
@@ -1389,7 +1466,8 @@ Module IamModule
                         Dim strVendor As String
 
                         Dim oInventorDocument As Inventor.Document
-                        oInventorDocument = ThisApplication.Documents.Open(strFullFileName, False)
+                        oInventorDocument = ThisApplication.Documents.ItemByName(strDocumentFullFileName)
+
                         strVendor = GetPropitem(oInventorDocument, Map_Vendor)
 
                         Select Case IsExpandOutSourcedParts
@@ -1442,7 +1520,7 @@ Module IamModule
         strPartDrawingNnumber = RemoveTrailingZeros(strPartDrawingNnumber)
 
 999:
-        Dim frmInputBox As New frmInputBox
+        Dim frmInputBox As New formInputBox
         With frmInputBox
             .txt输入.Text = strPartDrawingNnumber
             .Text = "打开指定工程图"
@@ -1521,7 +1599,7 @@ Module IamModule
             strInventorFullFileName = oInventorDocument.FullFileName
 
             Dim strInventorFileName As String   '模型文件
-            strInventorFileName = GetFileName2(strInventorFullFileName)
+            strInventorFileName = GetFileNameWithExtension(strInventorFullFileName)
 
             If IsFileExsts(strInventorFullFileName) = False Then   '跳过不存在的文件
                 Continue For
@@ -1601,6 +1679,7 @@ Module IamModule
             Exit Sub
         End If
 
+
         Select Case oOldComponentOccurrence.DefinitionDocumentType
             Case kAssemblyDocumentObject, kPartDocumentObject
 
@@ -1625,15 +1704,15 @@ Module IamModule
 
                     If arrFullFileName.Length = 0 Then
                         '没找到重复文件
-                        GoTo 999
+
                     Else
-                        If MsgBox("当前项目存在" & strchkNewFileName & "，是否退出？", MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
+                        If MsgBox("当前项目存在:" & vbCrLf & vbCrLf & arrFullFileName(0) & vbCrLf & vbCrLf & "是否退出？", MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
                             Exit Sub
                         End If
                     End If
                 End If
 
-999:            If RenameAssPartDocumentNameSub(oInventorAssemblyDocument, oOldComponentOccurrence, strNewFileName) Then
+                If RenameAssPartDocumentNameSub(oInventorAssemblyDocument, oOldComponentOccurrence, strNewFileName) Then
                     SetStatusBarText("更改零件/部件文件名完成")
                     'MsgBox("更改零件/部件文件名完成", MsgBoxStyle.Information)
                 Else
@@ -1644,6 +1723,7 @@ Module IamModule
             Case Else
 
         End Select
+
         'Catch ex As Exception
         '    MsgBox(ex.Message)
         'End Try
@@ -1700,18 +1780,16 @@ Module IamModule
                 '取消输入
                 If strNewFileName = "" Then
                     Return True
-                    Exit Select
                 End If
 
                 '新旧文件名一致
                 If strOldFileName = strNewFileName Then
-                    MsgBox("未重新命名 ", MsgBoxStyle.Information)
+                    MsgBox("新旧文件名一致，请重新命名。", MsgBoxStyle.Information)
                     Return True
-                    Exit Select
                 End If
 
                 '替换旧文件全名为新文件全名
-                strNewFullFileName = GetNewFileName(strOldFullFileName, strNewFileName)
+                strNewFullFileName = GetChangeFileName(strOldFullFileName, strNewFileName)
 
                 '检查新文件是否存在
                 If IsFileExsts(strNewFullFileName) = True Then
@@ -1733,20 +1811,31 @@ Module IamModule
                     End Select
                 End If
 
+                Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+                oInteraction.Start()
+                oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+                ThisApplication.UserInterfaceManager.DoEvents()
+
+
                 '打开旧文件,不显示
+                SetStatusBarText("打开" & strOldFullFileName)
                 Dim oOldInventorDocument As Inventor.Document
                 oOldInventorDocument = ThisApplication.Documents.ItemByName(strOldFullFileName)
+
+
 
                 '关闭存在的新文件
                 CloseFile(strNewFullFileName)
 
                 '另存为新文件
+                SetStatusBarText("保存" & strNewFullFileName)
                 oOldInventorDocument.SaveAs(strNewFullFileName, True)
 
                 '关闭旧图
                 oOldInventorDocument.Close()
 
                 '全部替换为新文件
+                SetStatusBarText("替换文件")
                 If MsgBox("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
                     oOldComponentOccurrence.Replace(strNewFullFileName, True)
                 Else
@@ -1755,8 +1844,12 @@ Module IamModule
 
                 ThisApplication.Documents.ItemByName(strOldFullFileName).Close()
                 '后台打开文件，修改ipro
+
                 oInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)  '打开文件，不显示
 
+                SetStatusBarText("设置新文件 IProperty。")
+
+                SetPropitem(oInventorDocument, Map_ERPCode, "")
                 SetDocumentIpropertyFromFileNameSub(oInventorDocument, True) '设置Iproperty，打开文件后需关闭
 
                 Dim IsSaveAsOld As MsgBoxResult
@@ -1774,6 +1867,8 @@ Module IamModule
                 End If
 
                 If IsFileExsts(strOldIdwFullFileName) = True Then
+
+                    SetStatusBarText("复制新工程图。")
 
                     Dim strNewIdwFullFileName As String
                     strNewIdwFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
@@ -1806,6 +1901,9 @@ Module IamModule
                 End If
 
                 RefreshShowNameSub(ThisApplication.ActiveDocument)
+
+                oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+                oInteraction.Stop()
 
                 Return True
             Case MsgBox("选择的文件不是零件或部件。", MsgBoxStyle.Information)
@@ -1925,7 +2023,7 @@ Module IamModule
         Dim strNewFullFileName As String   '新文件全名
 
         '替换旧文件全名为新文件全名
-        strNewFullFileName = GetNewFileName(strOldFullFileName, strNewFileName)
+        strNewFullFileName = GetChangeFileName(strOldFullFileName, strNewFileName)
 
         '检查新文件是否存在
         If IsFileExsts(strNewFullFileName) = True Then
@@ -2050,7 +2148,7 @@ Module IamModule
         Dim strNewFullFileName As String   '新文件全名
 
         '替换旧文件全名为新文件全名
-        strNewFullFileName = GetNewFileName(strOldFullFileName, strNewFileName)
+        strNewFullFileName = GetChangeFileName(strOldFullFileName, strNewFileName)
 
         '检查新文件是否存在
         If IsFileExsts(strNewFullFileName) = True Then
@@ -2533,26 +2631,32 @@ Module IamModule
 
                     For Each oBOMRow In oBOMView.BOMRows
 
-                        Dim strFullFileName As String
 
-                        strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
+                        Dim oComponentDefinitions As Inventor.ComponentDefinitionsEnumerator
+                        oComponentDefinitions = oBOMRow.ComponentDefinitions
+
+                        Dim oComponentDefinition As ComponentDefinition
+                        oComponentDefinition = oComponentDefinitions.Item(1)
+
+                        Dim strDocumentFullFileName As String
+                        strDocumentFullFileName = oComponentDefinition.Document.FullDocumentName
 
                         '测试文件
-                        Debug.Print(strFullFileName)
+                        Debug.Print(strDocumentFullFileName)
 
 
-                        SetStatusBarText(strFullFileName)
+                        SetStatusBarText(strDocumentFullFileName)
 
-                        If IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                        If IsFileExsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
                             Continue For
                         End If
 
-                        If InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
+                        If InStr(strDocumentFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
                             Continue For
                         End If
 
                         Dim oFileNameInfo As FileNameInfo
-                        oFileNameInfo = GetFileNameInfo(strFullFileName)
+                        oFileNameInfo = GetFileNameInfo(strDocumentFullFileName)
 
                         Dim arrFullFileName As String()
                         Dim strContentCenterFileFullFileName As String = Nothing
@@ -2563,7 +2667,7 @@ Module IamModule
 
                             Dim oCompocc As ComponentOccurrence
                             For Each oCompocc In oInventorAssemblyDocument.ComponentDefinition.Occurrences
-                                If oCompocc.ReferencedDocumentDescriptor.FullDocumentName = strFullFileName Then
+                                If oCompocc.ReferencedDocumentDescriptor.FullDocumentName = strDocumentFullFileName Then
                                     oCompocc.Replace(strContentCenterFileFullFileName, False)
                                 End If
                             Next
@@ -2631,11 +2735,21 @@ Module IamModule
                 Dim strOldFullDocumentName As String
                 strOldFullDocumentName = oOldComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
 
+                Dim strDrawingNnumber As String
+                Try
+                    strDrawingNnumber = GetPropitem(oOldComponentOccurrence.Definition.Document, Map_DrawingNnumber)
+
+                    If strDrawingNnumber = "" Then
+                        strDrawingNnumber = GetFileNameWithoutExtension2(strOldFullDocumentName)
+                    End If
+
+                Catch ex As Exception
+                    strDrawingNnumber = GetFileNameWithoutExtension2(strOldFullDocumentName)
+                End Try
 
                 Dim strOldDocumentName As String
-                strOldDocumentName = GetFileNameWithoutExtension2(strOldFullDocumentName)
 
-                strOldDocumentName = InputBox("替换的文件：" & GetFileName2(strOldFullDocumentName), "查找替换", strOldDocumentName)
+                strOldDocumentName = InputBox("替换的文件：" & GetFileNameWithExtension(strOldFullDocumentName), "XHTool  查找替换", strDrawingNnumber)
 
                 If strOldDocumentName = "" Then
                     Exit Sub
@@ -2660,7 +2774,7 @@ Module IamModule
 
                 Dim strFullFileName As String = Nothing
 
-                Dim frmQuitOpen As New frmQuitOpen
+                Dim frmQuitOpen As New formQuitOpen
 
                 For Each strFullFileName In arrFullFileName
                     If InStr(strFullFileName, "OldVersions") = 0 Then
@@ -2701,10 +2815,10 @@ Module IamModule
                         Select Case MsgBox("是否全部替换为" & strQuitOpenSelectFileFullName & "？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
                             Case MsgBoxResult.Yes
                                 oOldComponentOccurrence.Replace(strQuitOpenSelectFileFullName, True)
-                                MsgBox("替换完成！", MsgBoxStyle.Information)
+                                'MsgBox("替换完成！", MsgBoxStyle.Information)
                             Case MsgBoxResult.No
                                 oOldComponentOccurrence.Replace(strQuitOpenSelectFileFullName, False)
-                                MsgBox("替换完成！", MsgBoxStyle.Information)
+                                'MsgBox("替换完成！", MsgBoxStyle.Information)
                             Case Else
 
                         End Select
@@ -2766,7 +2880,7 @@ Module IamModule
         End If
 
         Dim strJpgFileFullName As String
-        strJpgFileFullName = IO.Path.Combine(strJpgFileDirectory, GetFileName2(oInventorDocument.FullDocumentName) & ".jpg")
+        strJpgFileFullName = IO.Path.Combine(strJpgFileDirectory, GetFileNameWithExtension(oInventorDocument.FullDocumentName) & ".jpg")
 
         CreatJpgSub(oInventorDocument, strJpgFileFullName)
 
@@ -2870,9 +2984,82 @@ Module IamModule
             End Try
         Next
 
-        MsgBox("关闭自适应完成！", MsgBoxStyle.Information)
+        'MsgBox("关闭自适应完成！", MsgBoxStyle.Information)
 
     End Sub
 
 
+    ''' <summary>
+    ''' 选择部件中的文件浏览器组件
+    ''' </summary>
+    ''' <param name="strComponentDefinition">被选择的组件全名</param>
+    ''' <remarks></remarks>
+    Public Sub SelectAssemblyComponentDefinition(ByVal strComponentDefinition As String)
+        Try
+            Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+            ' 获取装配定义
+            Dim oAssemblyComponentDefinition As AssemblyComponentDefinition
+            oAssemblyComponentDefinition = oInventorAssemblyDocument.ComponentDefinition
+
+            ' 获取装配子集
+            Dim oComponentOccurrences As ComponentOccurrences
+            oComponentOccurrences = oAssemblyComponentDefinition.Occurrences
+
+            '遍历
+            For Each oComponentOccurrence As ComponentOccurrence In oComponentOccurrences
+                If oComponentOccurrence.Definition.Document.fullDocumentName = strComponentDefinition Then
+                    ThisApplication.CommandManager.DoSelect(oComponentOccurrence)
+                Else
+                    ThisApplication.CommandManager.DoUnSelect(oComponentOccurrence)
+                End If
+            Next
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' 打开被选择零件的上级部件
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub OpenParentAssembly()
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
+
+        Dim oSelectSet As Object = Nothing
+
+        Dim oComponentOccurrence As ComponentOccurrence = Nothing
+
+        If oInventorDocument.SelectSet.Count = 0 Then
+            oComponentOccurrence = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAssemblyLeafOccurrenceFilter, "选择一个零件，ESC键取消")
+            If oComponentOccurrence Is Nothing Then
+                Exit Sub
+            End If
+        Else
+            oSelectSet = oInventorDocument.SelectSet.Item(1)
+            If TypeOf oSelectSet Is ComponentOccurrence Then
+                oComponentOccurrence = CType(oSelectSet, ComponentOccurrence)
+            Else
+                Exit Sub
+            End If
+        End If
+
+        Dim oParentInventorDocument As Inventor.Document
+
+        oParentInventorDocument = oComponentOccurrence.ReferencedDocumentDescriptor.Parent
+
+        Dim strParentAssemblyFullFileName As String
+        strParentAssemblyFullFileName = oParentInventorDocument.FullDocumentName
+
+        Debug.Print(strParentAssemblyFullFileName)
+
+        ThisApplication.Documents.Open(strParentAssemblyFullFileName, True)
+
+        SelectAssemblyComponentDefinition(oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName)
+
+    End Sub
 End Module

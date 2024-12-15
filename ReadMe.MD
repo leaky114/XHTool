@@ -1,10 +1,10 @@
-# InAI是什么?
-InAI是Autodesk Inventor 插件。
+# XHTool是什么?
+XHToolI是Autodesk Inventor 插件。
 
-# InAI支持哪些版本?
-目前测试支持到Inventor2023版。 
+# XHTool支持哪些版本?
+目前测试支持到Inventor2016-2025版。 
 
-# InAI有哪些功能?
+# XHTool有哪些功能?
 - iProperty自动填写
 - 部件内修改零部件文件名
 - 检查是否存在零件对应工程图

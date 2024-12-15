@@ -12,7 +12,12 @@ Module NewUpdater
 
     Const pmhker = "https://www.pmhker.com/article/75.html"
 
-    Public Sub Shell_XHUpdater()
+    ''' <summary>
+    ''' 运行升级程序
+    ''' </summary>
+    ''' <param name="isMsgbox">是否显示最新版本对话框</param>
+    ''' <remarks></remarks>
+    Public Sub Shell_XHUpdater(ByVal isMsgbox As Integer)
         '获取本地插件版本
         Dim strOldVersion As String
 
@@ -28,6 +33,15 @@ Module NewUpdater
         Using writer As StreamWriter = New StreamWriter(strTempFile)
             ' 将字符串写入文件
             writer.Write(strOldVersion)
+        End Using
+
+        '写本地版本文件
+        strTempFile = IO.Path.Combine(IO.Path.GetTempPath, "返回检查.txt")
+
+        ' 使用Using语句确保资源被正确释放
+        Using writer As StreamWriter = New StreamWriter(strTempFile)
+            ' 将字符串写入文件
+            writer.Write(isMsgbox)
         End Using
 
         '启动升级程序

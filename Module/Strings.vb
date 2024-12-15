@@ -6,7 +6,12 @@ Module StringsModel
 
     'Public HelpMessage As String = "窗口在左和上边缘自动隐藏      当前版本：" & Application.ProductVersion
 
-    '获取字符的类型
+    ''' <summary>
+    ''' 获取字符的类型
+    ''' </summary>
+    ''' <param name="a">被获取的字符</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function CheckCharType(ByVal a As Object) As String
         Select Case TypeName(a)
             Case "Integer", "Byte", "Long"
@@ -35,7 +40,13 @@ Module StringsModel
         End Select
     End Function
 
-    '获取文件名和图号
+
+    ''' <summary>
+    ''' 获取文件名和图号
+    ''' </summary>
+    ''' <param name="strFullFileName">文件名</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function GetStockNumPartName(ByVal strFullFileName As String) As StockNumPartName
         Dim i As Integer
         Dim strChr As String
@@ -52,18 +63,41 @@ Module StringsModel
         End If
 
 
-        '按空格分割文件名
-        Dim spaceIndex As Integer = InStr(FileName, " ")
+        ' 调用函数检测首先出现的字符类型
+        Dim firstCharType As String = FindFirstCharacterType(FileName)
 
-        If spaceIndex > 0 Then
-            GetStockNumPartName.IsGet = True
-            GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
-            GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
-            GetStockNumPartName.ERP编码 = ""
-            GetStockNumPartName.价格 = ""
+        Dim spaceIndex As Integer
+        Select Case firstCharType
+            Case "汉字"
 
-            Return GetStockNumPartName
-        End If
+
+            Case "空格"
+                '按空格分割文件名
+                spaceIndex = InStr(FileName, " ")
+
+                If spaceIndex > 0 Then
+                    GetStockNumPartName.IsGet = True
+                    GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
+                    GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
+                    GetStockNumPartName.ERP编码 = ""
+                    GetStockNumPartName.价格 = ""
+
+                    Return GetStockNumPartName
+                End If
+            Case "_"
+                '按_分割文件名
+                spaceIndex = InStr(FileName, "_")
+
+                If spaceIndex > 0 Then
+                    GetStockNumPartName.IsGet = True
+                    GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
+                    GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
+                    GetStockNumPartName.ERP编码 = ""
+                    GetStockNumPartName.价格 = ""
+
+                    Return GetStockNumPartName
+                End If
+        End Select
 
 
         '按汉字分割文件名
@@ -103,20 +137,60 @@ Module StringsModel
         Return GetStockNumPartName
     End Function
 
-    Public Function GetNumbers(ByVal strp As String) As String
-        Dim strReturn As String = String.Empty
-        If strp Is Nothing OrElse strp.Trim() = "" Then
-            strReturn = ""
-        End If
-        For Each chrTemp As Char In strp
-            If [Char].IsNumber(chrTemp) Then
-                strReturn += chrTemp.ToString()
+    ''' <summary>
+    ''' 调用函数检测首先出现的字符类型
+    ''' </summary>
+    ''' <param name="input"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Function FindFirstCharacterType(input As String) As String
+        ' 遍历字符串中的每个字符
+        For Each c As Char In input
+            ' 检测字符是否为汉字
+            If IsChineseCharacter(c) Then
+                Return "汉字"
+            End If
+
+            ' 检测字符是否为空格
+            If c = " "c Then
+                Return "空格"
+            End If
+
+            ' 检测字符是否为 '-'
+            If c = "_"c Then
+                Return "_"
             End If
         Next
-        Return strReturn
+
+        ' 如果没有找到任何符合条件的字符，返回提示信息
+        Return "NULL"
     End Function
 
-    'ListView上移
+
+    ''' <summary>
+    ''' 检测字符是否为汉字
+    ''' </summary>
+    ''' <param name="c"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Function IsChineseCharacter(c As Char) As Boolean
+        Dim codePoint As Integer = Convert.ToInt32(c)
+        Return (codePoint >= &H4E00 AndAlso codePoint <= &H9FFF) OrElse
+               (codePoint >= &H3400 AndAlso codePoint <= &H4DBF) OrElse
+               (codePoint >= &H20000 AndAlso codePoint <= &H2A6DF) OrElse
+               (codePoint >= &H2A700 AndAlso codePoint <= &H2B73F) OrElse
+               (codePoint >= &H2B740 AndAlso codePoint <= &H2B81F) OrElse
+               (codePoint >= &H2B820 AndAlso codePoint <= &H2CEAF) OrElse
+               (codePoint >= &H2CEB0 AndAlso codePoint <= &H2EBEF) OrElse
+               (codePoint >= &HF900 AndAlso codePoint <= &HFAFF) OrElse
+               (codePoint >= &H2F800 AndAlso codePoint <= &H2FA1F)
+    End Function
+
+    ''' <summary>
+    '''   ListView上移
+    ''' </summary>
+    ''' <param name="oListView">ListView对象</param>
+    ''' <remarks></remarks>
     Public Sub ListViewUp(ByVal oListView As ListView)
         If oListView.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = oListView.SelectedItems(0)
@@ -138,7 +212,11 @@ Module StringsModel
 
     End Sub
 
-    'ListView下移
+    ''' <summary>
+    ''' ListView下移
+    ''' </summary>
+    ''' <param name="oListView">ListView对象</param>
+    ''' <remarks></remarks>
     Public Sub ListViewDown(ByVal oListView As ListView)
         If oListView.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = oListView.SelectedItems(0)
@@ -160,7 +238,12 @@ Module StringsModel
 
     End Sub
 
-    'Listbox上移
+    ''' <summary>
+    ''' Listbox上移
+    ''' </summary>
+    ''' <param name="oListBox">Listbox对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function ListBoxUp(ByVal oListBox As ListBox) As Boolean
 
         If oListBox.SelectedItems.Count > 0 Then
@@ -176,7 +259,13 @@ Module StringsModel
 
     End Function
 
-    'Listbox下移
+
+    ''' <summary>
+    ''' Listbox下移
+    ''' </summary>
+    ''' <param name="oListBox">Listbox对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function ListBoxDown(ByVal oListBox As ListBox) As Boolean
 
         If oListBox.SelectedItems.Count > 0 Then
@@ -192,12 +281,24 @@ Module StringsModel
 
     End Function
 
-    ' 使用TrimEnd方法去除字符串末尾的所有0
+    ''' <summary>
+    ''' 使用TrimEnd方法去除字符串末尾的所有0
+    ''' </summary>
+    ''' <param name="str">被去0的字符串</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Function RemoveTrailingZeros(ByVal str As String) As String
         Return str.TrimEnd("0"c)
     End Function
 
-    '去除文件名中的非法字符
+
+
+    ''' <summary>
+    ''' 去除文件名中的非法字符
+    ''' </summary>
+    ''' <param name="strFullFileName">文件名</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Function RemoveInvalidFileNameChars(ByVal strFullFileName As String) As String
         ' 获取系统不支持的文件名字符
         Dim invalidChars As Char() = Path.GetInvalidFileNameChars()

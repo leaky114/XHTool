@@ -8,8 +8,18 @@ Imports Inventor.PrintOrientationEnum
 Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
 
-Module PublicParameters
+Public Module PublicParameters
     Public Const XHTool = "XHTool"
+
+    Public Structure RectangularPoint
+        Dim TopLeft As Point2d
+        Dim TopRight As Point2d
+        Dim BottomRight As Point2d
+        Dim BottomLeft As Point2d
+        Dim Center As Point2d
+        Dim Length As Double
+        Dim Width As Double
+    End Structure
 
     Public Structure StockNumPartName
         Dim IsGet As Boolean
@@ -128,6 +138,9 @@ Module PublicParameters
     'Public str导出DXF As String
     Public str图号材质 As String
 
+    'Public str工艺图范围X As String
+    'Public str工艺图范围Y As String
+    Public str工艺文字高 As String
 
     '工程图模板
     Public str工程图模板 As String
@@ -264,6 +277,6 @@ Module PublicParameters
     End Sub
 
 
-  
+
 
 End Module

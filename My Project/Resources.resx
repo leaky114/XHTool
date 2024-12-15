@@ -178,12 +178,6 @@
   <data name="修改部件iProperty32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\修改部件iproperty32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="全部另存为16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\全部另存为16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="全部另存为32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\全部另存为32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="全部尺寸居中16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\全部尺寸居中16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -220,9 +214,6 @@
   <data name="创建展开32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\创建展开32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="创建工程图16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\创建工程图16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="创建工程图32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\创建工程图32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -240,24 +231,6 @@
   </data>
   <data name="前进16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\前进16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Dwg16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\另存为dwg16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Dwg32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\另存为dwg32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Dxf16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\另存为Dxf16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Dxf32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\另存为Dxf32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Pdf16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\另存为pdf16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="另存为Pdf32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\另存为pdf32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="可写16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\可写16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -358,12 +331,6 @@
   <data name="帮助32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\帮助32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="当前部件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\当前部件16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="当前部件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\当前部件32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="微信" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\微信.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -447,9 +414,6 @@
   </data>
   <data name="更改文件名32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\更改文件名32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="更改材料16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\更改材料16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="更改镜像文件名16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\更改镜像文件名16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -649,12 +613,6 @@
   <data name="设置属性32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设置属性32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="设置描述16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\设置描述16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="设置描述32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\设置描述32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="设置日期16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设置日期16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -666,12 +624,6 @@
   </data>
   <data name="设置材料编码32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设置材料编码32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="设置比例16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\设置比例16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="设置比例32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\设置比例32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="设置签字16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设置签字16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -756,5 +708,38 @@
   </data>
   <data name="驱动测量32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\驱动测量32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="当前部件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\当前部件16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="当前部件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\当前部件32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="在浏览器中查找16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\在浏览器中查找16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件Dwg16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件dwg16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件Dwg32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件dwg32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件Dxf16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件dxf16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件dxf32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件dxf32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件Pdf16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件pdf16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件Pdf32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件pdf32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="创建工程图16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\创建工程图16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="文件txt16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\文件txt16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

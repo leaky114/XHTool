@@ -8,14 +8,14 @@ Public Class clsGetPoint
     Private m_continue As Boolean
 
 
-    Public Function GetDrawingPoint(Prompt As String, button As MouseButtonEnum) As Point2d
+    Public Function GetDrawingPoint(StrInformation As String, button As MouseButtonEnum) As Point2d
         m_position = Nothing
         m_button = button
 
         m_interaction = ThisApplication.CommandManager.CreateInteractionEvents
         m_mouse = m_interaction.MouseEvents
 
-        m_interaction.StatusBarText = Prompt
+        m_interaction.StatusBarText = StrInformation
 
         m_interaction.Start()
 
@@ -38,4 +38,5 @@ Public Class clsGetPoint
 
         m_continue = False
     End Sub
+
 End Class

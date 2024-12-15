@@ -13,6 +13,17 @@ Module excelcode
 
     'VLOOKUP (lookup_value, table_array, col_index_num, [range_lookup])
 
+    ''' <summary>
+    ''' excle文件查找值
+    ''' </summary>
+    ''' <param name="strExcelFileName">excle文件</param>
+    ''' <param name="strStochNum">被查找的值</param>
+    ''' <param name="strSheetName">表的名字</param>
+    ''' <param name="strTableArray">被查询列数组</param>
+    ''' <param name="strColIndexNum"></param>
+    ''' <param name="intRangeLookUp"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function VLookUpValue(ByVal strExcelFileName As String, ByVal strStochNum As String, ByVal strSheetName As String, _
                                  ByVal strTableArray As String, ByVal strColIndexNum As String, ByVal intRangeLookUp As Integer) As String
 
@@ -73,6 +84,7 @@ Module excelcode
 
     End Function
 
+
     Public Function FindSrtingInSheet(ByVal strExcelFileName As String, ByVal strStochNum As String, ByVal strSheetName As String, _
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String
 
@@ -131,6 +143,7 @@ Module excelcode
 
         Return strFindRowValue
     End Function
+
 
     Public Function FindAllSrtingInSheet(ByVal strExcelFileName As String, ByVal strStochNum As String, _
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String()
@@ -204,6 +217,16 @@ Module excelcode
 
     End Function
 
+    ''' <summary>
+    ''' 查找erp编码，返回搜索列的值
+    ''' </summary>
+    ''' <param name="strExcelFileName">excel数据库</param>
+    ''' <param name="strERPCode">erp编码</param>
+    ''' <param name="strTableArrays">搜索的范围</param>
+    ''' <param name="strColIndexNum">搜索列</param>
+    ''' <param name="intRangeLookup"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function ERPCodeSearch(ByVal strExcelFileName As String, ByVal strERPCode As String, _
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String()
         'On Error Resume Next

@@ -1,5 +1,11 @@
 ﻿Module Calc
-    '四则运算
+
+    ''' <summary>
+    ''' 四则运算
+    ''' </summary>
+    ''' <param name="StrNum">四则运算式子</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function CalcStr(ByVal StrNum As String) As Double
         On Error Resume Next
         Dim MSSC = CreateObject("MSScriptControl.ScriptControl")
@@ -26,7 +32,12 @@
     'End Function
 
 
-    '将布尔值转换为整数
+    ''' <summary>
+    ''' 将布尔值转换为整数，true为1，false为0
+    ''' </summary>
+    ''' <param name="boolValue">布尔值</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function BoolToInt(ByVal boolValue As Boolean) As Integer
         if boolValue Then
             Return 1
@@ -35,7 +46,12 @@
         End if
     End Function
 
-    '将整数转换为布尔值
+    ''' <summary>
+    ''' 将整数转换为布尔值,1为true，0为false
+    '''     </summary>
+    ''' <param name="intValue">整数</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function IntToBool(ByVal intValue As Integer) As Boolean
         if intValue = 0 Then
             Return False
@@ -46,7 +62,13 @@
         End if
     End Function
 
-    '四舍五入
+    ''' <summary>
+    ''' 四舍五入
+    ''' </summary>
+    ''' <param name="number">需要四舍五入的值</param>
+    ''' <param name="decimalPlaces">保留位数</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function FourFive(number As Double, decimalPlaces As Integer) As Double
         ' 使用Round函数进行四舍五入
         FourFive = Math.Round(number, decimalPlaces)

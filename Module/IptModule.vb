@@ -18,7 +18,10 @@ Imports System.Collections.Generic
 
 Module IptModule
 
-    '打开对应的工程图
+    ''' <summary>
+    ''' 打开对应的工程图
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub OpenIdwFile()
 
         On Error Resume Next
@@ -99,7 +102,10 @@ Module IptModule
         'End Try
     End Sub
 
-    '另存为stp文件
+    ''' <summary>
+    ''' 另存为stp文件
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub AsmIptSaveAsStp()
         Try
             SetStatusBarText()
@@ -166,7 +172,13 @@ Module IptModule
 
     End Sub
 
-    '另存为 stp文件子过程
+
+    ''' <summary>
+    '''   另存为 stp文件子过程
+    ''' </summary>
+    ''' <param name="InventorDocument">文件对象</param>
+    ''' <param name="strStepFullFileName">stp文件名</param>
+    ''' <remarks></remarks>
     Public Sub AsmIptSaveAsStpSub(ByVal InventorDocument As Inventor.Document, ByVal strStepFullFileName As String)
 
         ' Get the STEP translator Add-In.
@@ -204,7 +216,10 @@ Module IptModule
         End if
     End Sub
 
-    '替换衍生
+    ''' <summary>
+    ''' 替换衍生
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub ReplaceDerivedPart()
         SetStatusBarText()
 
@@ -245,6 +260,12 @@ Module IptModule
         oInventorDocument.Update()
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="oInventorDocument"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function FindDocToReplace(oInventorDocument As Inventor.Document) As Inventor.Document
         Dim basePartList As New List(Of Inventor.Document)
         if (oInventorDocument.DocumentType = DocumentTypeEnum.kPartDocumentObject) Then
@@ -272,6 +293,12 @@ Module IptModule
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="basePartList"></param>
+    ''' <param name="doc"></param>
+    ''' <remarks></remarks>
     Public Sub AddBaseParts(ByVal basePartList As List(Of Document), ByVal doc As Document)
         For Each refDoc As Document In doc.ReferencedDocuments
             if (refDoc.DocumentType = DocumentTypeEnum.kPartDocumentObject AndAlso Not IsiPartMember(refDoc)) Then
@@ -282,12 +309,24 @@ Module IptModule
         Next
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="doc"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Function IsiPartMember(ByVal doc As Document) As Boolean
         if (doc.DocumentType <> DocumentTypeEnum.kPartDocumentObject) Then Return False
         Dim partDoc As PartDocument = DirectCast(doc, PartDocument)
         Return partDoc.ComponentDefinition.IsiPartMember
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="filenameToReplace"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Function SelectReplacementFilename(ByVal filenameToReplace As String) As String
         Dim oFileDlg As Inventor.FileDialog = Nothing
         ThisApplication.CreateFileDialog(oFileDlg)
@@ -303,18 +342,32 @@ Module IptModule
         Return String.Empty
     End Function
 
-    Sub ReplaceReferences(ByVal oInventorDocument As Document, ByVal fileNameToReplace As String, ByVal replacementFileName As String)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="oInventorDocument"></param>
+    ''' <param name="fileNameToReplace"></param>
+    ''' <param name="replacementFileName"></param>
+    ''' <remarks></remarks>
+    Public Sub ReplaceReferences(ByVal oInventorDocument As Document, ByVal fileNameToReplace As String, ByVal replacementFileName As String)
         ReplaceReferencesInOneDoc(oInventorDocument, fileNameToReplace, replacementFileName)
 
         For Each subDoc As Document In oInventorDocument.AllReferencedDocuments
-            if (String.Equals(subDoc.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase) OrElse _
+            If (String.Equals(subDoc.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase) OrElse _
              String.Equals(subDoc.FullFileName, replacementFileName, StringComparison.OrdinalIgnoreCase)) Then
                 Continue For
-            End if
+            End If
             ReplaceReferencesInOneDoc(subDoc, fileNameToReplace, replacementFileName)
         Next
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="doc"></param>
+    ''' <param name="fileNameToReplace"></param>
+    ''' <param name="replacementFileName"></param>
+    ''' <remarks></remarks>
     Sub ReplaceReferencesInOneDoc(ByVal doc As Document, ByVal fileNameToReplace As String, ByVal replacementFileName As String)
         For Each docDesc As DocumentDescriptor In doc.ReferencedDocumentDescriptors
             Dim desc As FileDescriptor = docDesc.ReferencedFileDescriptor
@@ -328,6 +381,12 @@ Module IptModule
         Next
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="oInventorDocument"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Function LevelOfDetailIsMaster(oInventorDocument As Inventor.Document) As Boolean
         Dim assemDoc As AssemblyDocument = TryCast(oInventorDocument, AssemblyDocument)
         if (assemDoc Is Nothing) Then Return True
