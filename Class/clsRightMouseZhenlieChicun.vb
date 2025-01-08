@@ -5,8 +5,8 @@ Public Class clsRightMouseZhenlieChicun
 
     Public Sub New()
 
-        Dim smallPicture As stdole.IPictureDisp
-        Dim largePicture As stdole.IPictureDisp
+        Dim smallPicture As IPictureDisp
+        Dim largePicture As IPictureDisp
 
         smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.编辑尺寸16.ToBitmap)
         largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.编辑尺寸32.ToBitmap)

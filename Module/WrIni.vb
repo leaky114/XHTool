@@ -93,7 +93,8 @@
         ini.WriteStrINI("工程图", "零件图框", str零件图框, IniFile)
 
         ini.WriteStrINI("工程图", "模型匹配检查", str模型匹配检查, IniFile)
-
+        ini.WriteStrINI("工程图", "钣金厚度检查", str钣金厚度检查, IniFile)
+        ini.WriteStrINI("工程图", "钣金厚度前缀", str钣金厚度前缀, IniFile)
         ini.WriteStrINI("工程图", "逆时针序号", str逆时针序号, IniFile)
 
 
@@ -193,8 +194,10 @@
         str部件图框 = ini.GetStrFromINI("工程图", "部件图框", "", Inifile)
         str零件图框 = ini.GetStrFromINI("工程图", "零件图框", "", Inifile)
 
-        str模型匹配检查 = ini.GetStrFromINI("工程图", "模型匹配检查", "1", Inifile)
-        str逆时针序号 = ini.GetStrFromINI("工程图", "逆时针序号", "1", Inifile)
+        str模型匹配检查 = ini.GetStrFromINI("工程图", "模型匹配检查", "1", IniFile)
+        str钣金厚度检查 = ini.GetStrFromINI("工程图", "钣金厚度检查", "-1", IniFile)
+        str钣金厚度前缀 = ini.GetStrFromINI("工程图", "钣金厚度前缀", "钢板,steel", IniFile)
+        str逆时针序号 = ini.GetStrFromINI("工程图", "逆时针序号", "1", IniFile)
 
         int每行数量 = ini.GetStrFromINI("切换文档", "每行数量", "8", Inifile)
         int图框宽度 = ini.GetStrFromINI("切换文档", "图框宽度", "160", Inifile)

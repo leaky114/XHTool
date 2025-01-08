@@ -1,11 +1,13 @@
 ﻿Imports Inventor
 
+
 Public Class clsRightMouseOpenParentAssembly
     Private m_打开父部件_Buttondef As ButtonDefinition
 
     Public Sub New()
 
-        Dim smallPicture As stdole.IPictureDisp
+        Dim smallPicture As IPictureDisp
+
         'Dim largePicture As stdole.IPictureDisp
         smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.查找缺失文件的部件16.ToBitmap)
         'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见32.ToBitmap)

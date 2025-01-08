@@ -531,7 +531,7 @@ Public Class formEditDimension
         If oInventorDocument.SelectSet.Count > 0 Then
             oSelectSet = oInventorDocument.SelectSet(1)
         Else
-            oSelectSet = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "选择要编辑的 尺寸、约束或草图，ESC键取消。")
+            oSelectSet = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "选择要编辑的 尺寸、约束或草图，ESC键取消")
 
             If oSelectSet Is Nothing Then       '取消选择
                 Me.Close()

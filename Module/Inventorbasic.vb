@@ -288,42 +288,42 @@ Module InventorBasic
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub CleanUpLegacyFiles()
-        Try
+        'Try
 
-            Dim strDestinationDirectory As String = Nothing
-            'Dim oFileAttributes As FileAttributes
+        Dim strDestinationDirectory As String = Nothing
+        'Dim oFileAttributes As FileAttributes
 
-            Dim WorkSpaceFloder As String
-            WorkSpaceFloder = ThisApplication.FileLocations.Workspace
+        Dim WorkSpaceFloder As String
+        WorkSpaceFloder = ThisApplication.FileLocations.Workspace
 
-            strDestinationDirectory = OpenFolderDialog(WorkSpaceFloder)
+        strDestinationDirectory = OpenFolderDialog(WorkSpaceFloder)
 
-            If strDestinationDirectory Is Nothing Then
-                Exit Sub
-            End If
+        If strDestinationDirectory Is Nothing Then
+            Exit Sub
+        End If
 
-            Dim intDeleteRecycleOption As Integer
-            Select Case MsgBox("是否永久删除旧文件，而不是移动到回收站？", MsgBoxStyle.DefaultButton2 + MsgBoxStyle.Question + MsgBoxStyle.YesNo, "删除文件")
-                Case MsgBoxResult.Yes
-                    intDeleteRecycleOption = FileIO.RecycleOption.DeletePermanently
-                Case MsgBoxResult.No
-                    intDeleteRecycleOption = FileIO.RecycleOption.SendToRecycleBin
-            End Select
+        Dim intDeleteRecycleOption As Integer
+        Select Case MsgBox("是否永久删除旧文件，而不是移动到回收站？", MsgBoxStyle.DefaultButton2 + MsgBoxStyle.Question + MsgBoxStyle.YesNo, "删除文件")
+            Case MsgBoxResult.Yes
+                intDeleteRecycleOption = FileIO.RecycleOption.DeletePermanently
+            Case MsgBoxResult.No
+                intDeleteRecycleOption = FileIO.RecycleOption.SendToRecycleBin
+        End Select
 
-            '是否为文件夹，在其后添加 \
-            'oFileAttributes = Microsoft.VisualBasic.FileSystem.GetAttr(strDestinationDirectory)
+        '是否为文件夹，在其后添加 \
+        'oFileAttributes = Microsoft.VisualBasic.FileSystem.GetAttr(strDestinationDirectory)
 
-            'If oFileAttributes = FileAttributes.Directory Then
-            '    strDestinationDirectory = strDestinationDirectory + "\"
-            'End If
+        'If oFileAttributes = FileAttributes.Directory Then
+        '    strDestinationDirectory = strDestinationDirectory + "\"
+        'End If
 
-            DelOldDirectory(strDestinationDirectory, intDeleteRecycleOption)
+        DelOldDirectory(strDestinationDirectory, intDeleteRecycleOption)
 
-            SetStatusBarText("就绪")
-            MsgBox("清理旧版本文件完成！", MsgBoxStyle.Information)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        SetStatusBarText("就绪")
+        MsgBox("清理旧版本文件完成！", MsgBoxStyle.Information)
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
 
     End Sub
 

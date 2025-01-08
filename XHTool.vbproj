@@ -124,6 +124,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="Inventor" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -133,169 +134,176 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="Class\clsGetRectAreaInDrawing2.vb" />
+    <Compile Include="Class\clsPictureConverter.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Class\clsRightMouseSelectPartInBrowser.vb" />
     <Compile Include="Class\clsRightMouseSetDrawingSize.vb" />
-    <Compile Include="Class\Class1.vb" />
     <Compile Include="Class\clsGetPoint.vb" />
     <Compile Include="Class\clsGetRectAreaInDrawing.vb" />
     <Compile Include="Class\clsListViewSorter.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
+    <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
     <Compile Include="Class\clsRightMouseZhenlieChicun.vb" />
     <Compile Include="Class\clsRightMouseShowAll.vb" />
     <Compile Include="Class\clsRightMouseTurnOffAdaptivity.vb" />
     <Compile Include="Class\clsRightMouseSelectPartCurveInDrawing.vb" />
     <Compile Include="Class\clsXml.vb" />
-    <Compile Include="Class\clsPictureConverter.vb">
-      <SubType>Component</SubType>
+    <Compile Include="Form\formBatchChangeFileNames.Designer.vb">
+      <DependentUpon>formBatchChangeFileNames.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formBorderTitle.Designer.vb">
-      <DependentUpon>formBorderTitle.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\formBorderTitle.vb">
+    <Compile Include="Form\formBatchChangeFileNames.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formDim2Object.Designer.vb">
-      <DependentUpon>formDim2Object.vb</DependentUpon>
+    <Compile Include="Form\FormBorderTitle.Designer.vb">
+      <DependentUpon>FormBorderTitle.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formDim2Object.vb">
+    <Compile Include="Form\FormBorderTitle.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formEditDimension.Designer.vb">
-      <DependentUpon>formEditDimension.vb</DependentUpon>
+    <Compile Include="Form\FormDim2Object.Designer.vb">
+      <DependentUpon>FormDim2Object.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formEditDimension.vb">
+    <Compile Include="Form\FormDim2Object.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formFlatPattern.Designer.vb">
-      <DependentUpon>formFlatPattern.vb</DependentUpon>
+    <Compile Include="Form\FormEditDimension.Designer.vb">
+      <DependentUpon>FormEditDimension.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formFlatPattern.vb">
+    <Compile Include="Form\FormEditDimension.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formFormatConversion.Designer.vb">
-      <DependentUpon>formFormatConversion.vb</DependentUpon>
+    <Compile Include="Form\FormFlatPattern.Designer.vb">
+      <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formFormatConversion.vb">
+    <Compile Include="Form\FormFlatPattern.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formiProperty.Designer.vb">
-      <DependentUpon>formiProperty.vb</DependentUpon>
+    <Compile Include="Form\FormFormatConversion.Designer.vb">
+      <DependentUpon>FormFormatConversion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formiProperty.vb">
+    <Compile Include="Form\FormFormatConversion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formMovesSpecifiedFile.Designer.vb">
-      <DependentUpon>formMovesSpecifiedFile.vb</DependentUpon>
+    <Compile Include="Form\FormiProperty.Designer.vb">
+      <DependentUpon>FormiProperty.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formMovesSpecifiedFile.vb">
+    <Compile Include="Form\FormiProperty.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formPlayer.Designer.vb">
-      <DependentUpon>formPlayer.vb</DependentUpon>
+    <Compile Include="Form\FormMovesSpecifiedFile.Designer.vb">
+      <DependentUpon>FormMovesSpecifiedFile.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formPlayer.vb">
+    <Compile Include="Form\FormMovesSpecifiedFile.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formERPCodeSearch.Designer.vb">
-      <DependentUpon>formERPCodeSearch.vb</DependentUpon>
+    <Compile Include="Form\FormPlayer.Designer.vb">
+      <DependentUpon>FormPlayer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formERPCodeSearch.vb">
+    <Compile Include="Form\FormPlayer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formImportCodeToBomExcel.Designer.vb">
-      <DependentUpon>formImportCodeToBomExcel.vb</DependentUpon>
+    <Compile Include="Form\FormERPCodeSearch.Designer.vb">
+      <DependentUpon>FormERPCodeSearch.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formImportCodeToBomExcel.vb">
+    <Compile Include="Form\FormERPCodeSearch.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formMassiPoperties.Designer.vb">
-      <DependentUpon>formMassiPoperties.vb</DependentUpon>
+    <Compile Include="Form\FormImportCodeToBomExcel.Designer.vb">
+      <DependentUpon>FormImportCodeToBomExcel.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formMassiPoperties.vb">
+    <Compile Include="Form\FormImportCodeToBomExcel.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formQuitOpen.Designer.vb">
-      <DependentUpon>formQuitOpen.vb</DependentUpon>
+    <Compile Include="Form\FormMassiPoperties.Designer.vb">
+      <DependentUpon>FormMassiPoperties.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formQuitOpen.vb">
+    <Compile Include="Form\FormMassiPoperties.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formAbout.Designer.vb">
-      <DependentUpon>formAbout.vb</DependentUpon>
+    <Compile Include="Form\FormQuitOpen.Designer.vb">
+      <DependentUpon>FormQuitOpen.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formAbout.vb">
+    <Compile Include="Form\FormQuitOpen.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formInputBox.Designer.vb">
-      <DependentUpon>formInputBox.vb</DependentUpon>
+    <Compile Include="Form\FormAbout.Designer.vb">
+      <DependentUpon>FormAbout.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formInputBox.vb">
+    <Compile Include="Form\FormAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formImportCodeToIam.Designer.vb">
-      <DependentUpon>formImportCodeToIam.vb</DependentUpon>
+    <Compile Include="Form\FormInputBox.Designer.vb">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formImportCodeToIam.vb">
+    <Compile Include="Form\FormInputBox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSaveAll.Designer.vb">
-      <DependentUpon>formSaveAll.vb</DependentUpon>
+    <Compile Include="Form\FormImportCodeToIam.Designer.vb">
+      <DependentUpon>FormImportCodeToIam.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSaveAll.vb">
+    <Compile Include="Form\FormImportCodeToIam.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSearchERPCode.Designer.vb">
-      <DependentUpon>formSearchERPCode.vb</DependentUpon>
+    <Compile Include="Form\FormSaveAll.Designer.vb">
+      <DependentUpon>FormSaveAll.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSearchERPCode.vb">
+    <Compile Include="Form\FormSaveAll.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSetReadOnly.Designer.vb">
-      <DependentUpon>formSetReadOnly.vb</DependentUpon>
+    <Compile Include="Form\FormSearchERPCode.Designer.vb">
+      <DependentUpon>FormSearchERPCode.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSetReadOnly.vb">
+    <Compile Include="Form\FormSearchERPCode.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSign.Designer.vb">
-      <DependentUpon>formSign.vb</DependentUpon>
+    <Compile Include="Form\FormSetReadOnly.Designer.vb">
+      <DependentUpon>FormSetReadOnly.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSign.vb">
+    <Compile Include="Form\FormSetReadOnly.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formOption.Designer.vb">
-      <DependentUpon>formOption.vb</DependentUpon>
+    <Compile Include="Form\FormSign.Designer.vb">
+      <DependentUpon>FormSign.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formOption.vb">
+    <Compile Include="Form\FormSign.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formAutoPartNumber.Designer.vb">
-      <DependentUpon>formAutoPartNumber.vb</DependentUpon>
+    <Compile Include="Form\FormOption.Designer.vb">
+      <DependentUpon>FormOption.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formAutoPartNumber.vb">
+    <Compile Include="Form\FormOption.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formPrint.Designer.vb">
-      <DependentUpon>formPrint.vb</DependentUpon>
+    <Compile Include="Form\FormAutoPartNumber.Designer.vb">
+      <DependentUpon>FormAutoPartNumber.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formPrint.vb">
+    <Compile Include="Form\FormAutoPartNumber.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSpecification.Designer.vb">
-      <DependentUpon>formSpecification.vb</DependentUpon>
+    <Compile Include="Form\FormPrint.Designer.vb">
+      <DependentUpon>FormPrint.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSpecification.vb">
+    <Compile Include="Form\FormPrint.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formStatistical.Designer.vb">
-      <DependentUpon>formStatistical.vb</DependentUpon>
+    <Compile Include="Form\FormSpecification.Designer.vb">
+      <DependentUpon>FormSpecification.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formStatistical.vb">
+    <Compile Include="Form\FormSpecification.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\formSwitchLables.Designer.vb">
-      <DependentUpon>formSwitchLables.vb</DependentUpon>
+    <Compile Include="Form\FormStatistical.Designer.vb">
+      <DependentUpon>FormStatistical.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSwitchLables.vb">
+    <Compile Include="Form\FormStatistical.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormSwitchLables.Designer.vb">
+      <DependentUpon>FormSwitchLables.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormSwitchLables.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormUseriProperty.Designer.vb">
@@ -348,60 +356,63 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\formBorderTitle.resx">
-      <DependentUpon>formBorderTitle.vb</DependentUpon>
+    <EmbeddedResource Include="Form\formBatchChangeFileNames.resx">
+      <DependentUpon>formBatchChangeFileNames.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formDim2Object.resx">
-      <DependentUpon>formDim2Object.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormBorderTitle.resx">
+      <DependentUpon>FormBorderTitle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormDim2Object.resx">
+      <DependentUpon>FormDim2Object.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formEditDimension.resx">
-      <DependentUpon>formEditDimension.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormEditDimension.resx">
+      <DependentUpon>FormEditDimension.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formFlatPattern.resx">
-      <DependentUpon>formFlatPattern.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormFlatPattern.resx">
+      <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formFormatConversion.resx">
-      <DependentUpon>formFormatConversion.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormFormatConversion.resx">
+      <DependentUpon>FormFormatConversion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formiProperty.resx">
-      <DependentUpon>formiProperty.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormiProperty.resx">
+      <DependentUpon>FormiProperty.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formMovesSpecifiedFile.resx">
-      <DependentUpon>formMovesSpecifiedFile.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormMovesSpecifiedFile.resx">
+      <DependentUpon>FormMovesSpecifiedFile.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formPlayer.resx">
-      <DependentUpon>formPlayer.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormPlayer.resx">
+      <DependentUpon>FormPlayer.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formERPCodeSearch.resx">
-      <DependentUpon>formERPCodeSearch.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormERPCodeSearch.resx">
+      <DependentUpon>FormERPCodeSearch.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formImportCodeToBomExcel.resx">
-      <DependentUpon>formImportCodeToBomExcel.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormImportCodeToBomExcel.resx">
+      <DependentUpon>FormImportCodeToBomExcel.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formMassiPoperties.resx">
-      <DependentUpon>formMassiPoperties.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormMassiPoperties.resx">
+      <DependentUpon>FormMassiPoperties.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formQuitOpen.resx">
-      <DependentUpon>formQuitOpen.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormQuitOpen.resx">
+      <DependentUpon>FormQuitOpen.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formOption.resx">
-      <DependentUpon>formOption.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormOption.resx">
+      <DependentUpon>FormOption.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formSaveAll.resx">
-      <DependentUpon>formSaveAll.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormSaveAll.resx">
+      <DependentUpon>FormSaveAll.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formSetReadOnly.resx">
-      <DependentUpon>formSetReadOnly.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormSetReadOnly.resx">
+      <DependentUpon>FormSetReadOnly.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormUseriProperty.resx">
       <DependentUpon>FormUseriProperty.vb</DependentUpon>
@@ -413,46 +424,46 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\formAutoPartNumber.resx">
-      <DependentUpon>formAutoPartNumber.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormAutoPartNumber.resx">
+      <DependentUpon>FormAutoPartNumber.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\formSearchERPCode.resx">
-      <DependentUpon>formSearchERPCode.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormSearchERPCode.resx">
+      <DependentUpon>FormSearchERPCode.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formSpecification.resx">
-      <DependentUpon>formSpecification.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormSpecification.resx">
+      <DependentUpon>FormSpecification.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formStatistical.resx">
-      <DependentUpon>formStatistical.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormStatistical.resx">
+      <DependentUpon>FormStatistical.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formSwitchLables.resx">
-      <DependentUpon>formSwitchLables.vb</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Form\formSign.resx">
-      <DependentUpon>formSign.vb</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Form\FormSwitchLables.resx">
+      <DependentUpon>FormSwitchLables.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\formAbout.resx">
-      <DependentUpon>formAbout.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormSign.resx">
+      <DependentUpon>FormSign.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formInputBox.resx">
-      <DependentUpon>formInputBox.vb</DependentUpon>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form\FormAbout.resx">
+      <DependentUpon>FormAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formImportCodeToIam.resx">
-      <DependentUpon>formImportCodeToIam.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormInputBox.resx">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formPrint.resx">
-      <DependentUpon>formPrint.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FormImportCodeToIam.resx">
+      <DependentUpon>FormImportCodeToIam.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormPrint.resx">
+      <DependentUpon>FormPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -676,6 +687,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
+    <Content Include="Resources\克隆插入组件16.ICO" />
+    <None Include="Resources\克隆插入组件32.ICO" />
     <Content Include="Resources\文件txt16.ICO" />
     <None Include="Resources\在浏览器中查找16.ICO" />
   </ItemGroup>

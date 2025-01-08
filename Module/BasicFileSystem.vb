@@ -391,6 +391,11 @@ Module BasicFileSystem
 
         For Each folder As String In strDir
             Debug.Print(folder)
+
+            If strDir Is Nothing Then
+                Exit For
+            End If
+
             Dim oDirectoryInfo As DirectoryInfo
             oDirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(folder)
             If oDirectoryInfo.Name = "OldVersions" Then

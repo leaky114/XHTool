@@ -489,7 +489,7 @@ Module IdwModule
             Else
                 '循环选择设置，直到esc键取消选择
                 Do
-                    oDrawingDim = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要文字居中的尺寸，ESC键取消。")
+                    oDrawingDim = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要文字居中的尺寸，ESC键取消")
                     If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
                         oDrawingDim.CenterText()
                     End If
@@ -906,13 +906,15 @@ Module IdwModule
             oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
             oInteraction.Stop()
 
+            oTransaction.End() '事务结束，完成修改操作
+
             If Strings.Len(strList) > 1 Then
                 MsgBox("明细表：" & strList & " 无序号。", MsgBoxStyle.Information)
             Else
                 MsgBox("检查序号完成。", MsgBoxStyle.Information)
             End If
 
-            oTransaction.End() '事务结束，完成修改操作
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -954,7 +956,7 @@ Module IdwModule
 
                 For Each oComponentOccurrence As ComponentOccurrence In refAssyDef.Occurrences
                     If oComponentOccurrence.Name Like partStr & ":*" Then
-
+                        ThisApplication.ScreenUpdating = False
                         Try
                             Dim ViewCurves As DrawingCurvesEnumerator = oDrawingView.DrawingCurves(oComponentOccurrence)
 
@@ -985,6 +987,7 @@ Module IdwModule
                             End If
                         Catch ex As Exception
                         End Try
+                        ThisApplication.ScreenUpdating = True
                     End If
                 Next
             Next
@@ -1446,6 +1449,7 @@ Module IdwModule
 
     Public Sub ReplaceFileReference(ByVal strNewIdwFullFileName As String, ByVal strRefToRemove As String, ByVal strRefToInclude As String)
         'oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
+        ThisApplication.SilentOperation = True
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         oInventorDrawingDocument = ThisApplication.Documents.Open(strNewIdwFullFileName, False)  '打开文件，不显示
@@ -1455,9 +1459,17 @@ Module IdwModule
                 oDocumentDescriptor.ReferencedFileDescriptor.ReplaceReference(strRefToInclude)
             End If
         Next
-        oInventorDrawingDocument.Update()
-        oInventorDrawingDocument.Save2()
-        oInventorDrawingDocument.Close(False)
+
+        Try
+            oInventorDrawingDocument.Update()
+            oInventorDrawingDocument.Save2(True)
+            oInventorDrawingDocument.Close()
+            ThisApplication.SilentOperation = False
+        Catch ex As Exception
+            ThisApplication.SilentOperation = False
+        End Try
+
+
 
     End Sub
 
@@ -3011,7 +3023,7 @@ Module IdwModule
             'oFileNameInfo = GetFileNameInfo(strNewInventorDrawingDocumentFullName)
 
             '定义新工程图对应的零部件
-            Dim oNewInventorDocument As Inventor.Document = Nothing
+            'Dim oNewInventorDocument As Inventor.Document = Nothing
 
 
             '查找新零部件

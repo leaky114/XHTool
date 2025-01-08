@@ -98,18 +98,23 @@ Module OpenForm
     Public Sub FrmSpecificationShow()
         Try
             SetStatusBarText()
+            Dim frmSpecification As New formSpecification
 
-            If IsInventorOpenDocument() = False Then
+            If ThisApplication.FileManager.Files.Count = 0 Then
+                frmSpecification.Show()
                 Exit Sub
             End If
 
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+            If ThisApplication.ActiveDocumentType = kDrawingDocumentObject Then
+
+                frmSpecification.Show()
+            Else
                 MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
                 Exit Sub
             End If
 
-            Dim frmSpecification As New formSpecification
-            frmSpecification.Show()
+
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -456,4 +461,26 @@ Module OpenForm
 
     End Sub
 
+
+    '打开批量修改文件名窗口
+    Public Sub FrmBatchChangeFileNamesShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim formBatchChangeFileNames As New formBatchChangeFileNames
+            formBatchChangeFileNames.Show()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
 End Module

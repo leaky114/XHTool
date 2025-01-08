@@ -1,5 +1,9 @@
 ﻿Imports Inventor
 
+''' <summary>
+''' 获取鼠标点击的点坐标
+''' </summary>
+''' <remarks></remarks>
 Public Class clsGetPoint
     Private WithEvents m_interaction As InteractionEvents
     Private WithEvents m_mouse As MouseEvents

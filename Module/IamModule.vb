@@ -723,6 +723,25 @@ Module IamModule
         End Select
     End Function
 
+
+
+    ''' <summary>
+    ''' 设置随机颜色
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub SetClearRandomColor()
+
+        Select Case MsgBox("设置随机颜色。" & vbCrLf & vbCrLf & "是——设置随机颜色" & vbCrLf & vbCrLf & "否——清除随机颜色", _
+                                      MsgBoxStyle.Information + MsgBoxStyle.YesNoCancel)
+            Case MsgBoxResult.Yes
+                SetRandomColor()
+            Case MsgBoxResult.No
+                ClearRandomColor()
+        End Select
+
+    End Sub
+
+
     '设值随机颜色
     Public Sub SetRandomColor()
 
@@ -2067,7 +2086,7 @@ Module IamModule
         MsgBox("选择 " & vbCrLf & vbCrLf & strNewFullFileName & "  的基础文件！", MsgBoxStyle.Information)
         Dim ReplacementFileName As String = SelectReplacementFilename(docToReplace.DisplayName)
 
-        If (String.IsNullOrEmpty(replacementFileName)) Then Return False
+        If (String.IsNullOrEmpty(ReplacementFileName)) Then Return False
         If (String.Equals(docToReplace.FullFileName, ReplacementFileName, StringComparison.OrdinalIgnoreCase)) Then Return False
 
         Dim ReplacementPart As Inventor.Document = ThisApplication.Documents.Open(ReplacementFileName, False)
@@ -2268,8 +2287,8 @@ Module IamModule
     ''' <param name="IsSaveAsOld">旧文件是否更改为.old</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function ReplaceNameInAsmSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal strOldName As String, ByVal strNewName As String, _
-                                     ByVal IsSaveAsOld As MsgBoxResult) As Boolean
+    Public Function ReplaceNameInAsmSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal strOldName As String, _
+                                        ByVal strNewName As String, ByVal IsSaveAsOld As Boolean) As Boolean
 
         'Dim strTempFullFileName As String       '更改旧模型文件的名字存档
 
@@ -2347,12 +2366,12 @@ Module IamModule
                     oInventorDocument.Save2()
                     oInventorDocument.Close()
 
-                    If IsSaveAsOld = MsgBoxResult.Yes Then  '暂时更改旧工程图文件的名字存档
+                    If IsSaveAsOld = True Then  '暂时更改旧工程图文件的名字存档
                         AddOldExtension(oOldIdwFullFileName)
                     End If
                 End If
 
-                If IsSaveAsOld = MsgBoxResult.Yes Then
+                If IsSaveAsOld = True Then
                     AddOldExtension(strOldFullFileName)
                 End If
 
@@ -3034,19 +3053,21 @@ Module IamModule
 
         Dim oComponentOccurrence As ComponentOccurrence = Nothing
 
-        If oInventorDocument.SelectSet.Count = 0 Then
-            oComponentOccurrence = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAssemblyLeafOccurrenceFilter, "选择一个零件，ESC键取消")
-            If oComponentOccurrence Is Nothing Then
-                Exit Sub
-            End If
-        Else
-            oSelectSet = oInventorDocument.SelectSet.Item(1)
-            If TypeOf oSelectSet Is ComponentOccurrence Then
-                oComponentOccurrence = CType(oSelectSet, ComponentOccurrence)
-            Else
-                Exit Sub
-            End If
+        oInventorDocument.SelectSet.Clear()
+
+        'If oInventorDocument.SelectSet.Count = 0 Then
+        oComponentOccurrence = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAssemblyLeafOccurrenceFilter, "选择一个零件，ESC键取消")
+        If oComponentOccurrence Is Nothing Then
+            Exit Sub
         End If
+        'Else
+        '    'oSelectSet = oInventorDocument.SelectSet.Item(1)
+        '    'If TypeOf oSelectSet Is ComponentOccurrence Then
+        '    '    oComponentOccurrence = CType(oSelectSet, ComponentOccurrence)
+        '    'Else
+        '    Exit Sub
+        '    'End If
+        'End If
 
         Dim oParentInventorDocument As Inventor.Document
 
@@ -3062,4 +3083,245 @@ Module IamModule
         SelectAssemblyComponentDefinition(oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName)
 
     End Sub
+
+    ''' <summary>
+    ''' 克隆插入组件
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub CloneComponentAndInsertConstraint()
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        Dim oSelectSet As SelectSet
+        oSelectSet = oInventorAssemblyDocument.SelectSet
+
+        If oSelectSet.Count < 1 Then
+            MsgBox("请选择零部件。")
+            Exit Sub
+
+            'Dim oComponentOccurrence As ComponentOccurrence
+            'Do
+            '    oComponentOccurrence = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAssemblyOccurrenceFilter, "选择组件，ESC键取消")
+
+            '    If oComponentOccurrence Is Nothing Then
+            '        Exit Do
+            '    Else
+            '        oSelectSet.Select(oComponentOccurrence)
+            '    End If
+            'Loop While (True)
+        Else
+
+        End If
+
+        '复制选择的组件
+        ThisApplication.CommandManager.ControlDefinitions.Item("AppCopyCmd").Execute()
+
+
+        oInventorAssemblyDocument.SelectSet.Clear()
+
+        Dim oEdgeOne As Edge
+        Dim oEdgeTwo As Edge
+        Dim oEdgeThree As Edge = Nothing
+
+        Dim oHSet As HighlightSet = oInventorAssemblyDocument.CreateHighlightSet
+
+        oEdgeOne = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartEdgeCircularFilter, "请选择第一个零件的圆，ESC键取消。")
+        If oEdgeOne Is Nothing Then       '取消选择
+            Exit Sub
+        End If
+
+        Select Case oEdgeOne.GeometryType
+            Case CurveTypeEnum.kCircleCurve, CurveTypeEnum.kCircularArcCurve
+                oHSet.AddItem(oEdgeOne)
+            Case Else
+                Exit Sub
+        End Select
+
+        Dim oSourceComponent As ComponentOccurrence = oEdgeOne.ContainingOccurrence    '源组件
+
+        ' 使用 Split 方法按冒号分割字符串
+        Dim parts() As String = oSourceComponent.Name.Split(":"c)
+        Dim strSourceComponentName As String = parts(0).ToString
+        Dim intSourceComponentNum As Integer = Val(parts(1))
+
+        Dim oSourceCenter As Point = Nothing     '源圆心
+        Dim oSourceRadius As Double     '源半径
+
+        'Select Case oEdgeOne.GeometryType
+        '    Case CurveTypeEnum.kCircleCurve
+        '        oSourceCenter = oEdgeOne.Geometry.center
+        '        oSourceRadius = oEdgeOne.Geometry.radius
+        '    Case CurveTypeEnum.kCircularArcCurve
+        '        oSourceCenter = oEdgeOne.Geometry.center
+        '        oSourceRadius = oEdgeOne.Geometry.radius
+        'End Select
+
+        oSourceCenter = oEdgeOne.Geometry.center
+        oSourceRadius = oEdgeOne.Geometry.radius
+
+
+        Dim douOffset As Double = 0    '插入偏移
+
+
+        '撤销功能
+        Dim oTransaction As Transaction
+        oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
+
+        Do
+            oEdgeTwo = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartEdgeCircularFilter, "请选择插入位置的圆，ESC键取消。")
+            If oEdgeTwo Is Nothing Then       '取消选择
+
+                '刷新浏览器
+                ThisApplication.ScreenUpdating = True
+                oInventorAssemblyDocument.Update()
+                oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+                Exit Do
+            End If
+
+            ThisApplication.ScreenUpdating = False
+
+            '粘贴选择的组件
+            ThisApplication.CommandManager.ControlDefinitions.Item("AppPasteCmd").Execute()
+
+            Dim strComponentName As String = Nothing
+            Dim intComponentNum As Integer = 0
+            Dim intComponentMaxNum As Integer = intSourceComponentNum
+
+            '在组件中查找新加的与 源组件对应的最大组件
+            For Each oComponentOccurrence As ComponentOccurrence In oInventorAssemblyDocument.ComponentDefinition.Occurrences
+                ' 使用 Split 方法按冒号分割字符串
+                parts = oComponentOccurrence.Name.Split(":"c)
+                strComponentName = parts(0).ToString
+                intComponentNum = Val(parts(1))
+
+                If strSourceComponentName = strComponentName Then   '找到组件
+                    If intComponentNum > intComponentMaxNum Then
+                        intComponentMaxNum = intComponentNum
+                    End If
+                Else
+                    Continue For
+                End If
+            Next
+
+            '新组件
+            strComponentName = strSourceComponentName & ":" & intComponentMaxNum
+            Debug.Print(strComponentName)
+
+            Dim oCloneComponent As ComponentOccurrence = Nothing    '克隆组件
+            oCloneComponent = oInventorAssemblyDocument.ComponentDefinition.Occurrences.ItemByName(strComponentName)
+
+            '与源组件对齐，比较位置
+            For i = 1 To 3
+                Dim oPartPlane1 As WorkPlane
+                oPartPlane1 = oSourceComponent.Definition.WorkPlanes.Item(i)
+
+                Dim oPartPlane2 As WorkPlane
+                oPartPlane2 = oCloneComponent.Definition.WorkPlanes.Item(i)
+
+                ' Because we need the work plane in the context of the assembly
+                ' we need to create proxies for the work planes.  The proxies
+                ' represent the work planes in the context of the assembly.
+                Dim oAsmPlane1 As WorkPlaneProxy = Nothing
+                oSourceComponent.CreateGeometryProxy(oPartPlane1, oAsmPlane1)
+
+                Dim oAsmPlane2 As WorkPlaneProxy = Nothing
+                oCloneComponent.CreateGeometryProxy(oPartPlane2, oAsmPlane2)
+
+                ' Create the constraint using the work plane proxies.
+                Dim oMate As FlushConstraint
+
+                Dim oAsmCompDef As AssemblyComponentDefinition
+                oAsmCompDef = oInventorAssemblyDocument.ComponentDefinition
+                oMate = oAsmCompDef.Constraints.AddFlushConstraint(oAsmPlane1, oAsmPlane2, 0)
+                oMate.Delete()
+
+            Next
+
+            Dim oColneComponentEdges As Edges = oCloneComponent.SurfaceBodies.Item(1).Edges
+
+            Dim oComponentCenter As Point = Nothing     '组件圆心
+            Dim oComponentRadius As Double = 0  '组件半径
+            For Each oEdge As Edge In oColneComponentEdges
+                Select Case oEdge.GeometryType
+                    Case CurveTypeEnum.kCircleCurve
+                        oComponentCenter = oEdge.Geometry.center
+                        oComponentRadius = oEdge.Geometry.radius
+                    Case CurveTypeEnum.kCircularArcCurve
+                        oComponentCenter = oEdge.Geometry.center
+                        oComponentRadius = oEdge.Geometry.radius
+                    Case Else
+                        Continue For
+                End Select
+
+                If FourFive(oSourceCenter.DistanceTo(oComponentCenter), 5) = 0 And FourFive(oSourceRadius - oComponentRadius, 5) = 0 Then
+                    oEdgeThree = oEdge
+                    Exit For
+                End If
+            Next
+
+            oInventorAssemblyDocument.ComponentDefinition.Constraints.AddInsertConstraint(oEdgeTwo, oEdgeThree, True, douOffset)    'oConstraint.AxesOpposed, oConstraint.Distance.Expression)
+
+            '刷新浏览器
+
+            ThisApplication.ScreenUpdating = True
+            oInventorAssemblyDocument.Update()
+            oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+
+        Loop While (True)
+
+        oTransaction.End()
+    End Sub
+
+
+    ''' <summary>
+    ''' 在部件中打开选择的组件
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub OpenSelectComponentOccurrences()
+        On Error Resume Next
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
+
+        Dim strInventorDocumenFullDocumentName As String
+        Dim oComponentOccurrence As ComponentOccurrence
+
+        If oInventorDocument.SelectSet.Count <> 0 Then
+            For Each oSelect As Object In oInventorDocument.SelectSet
+                If TypeOf (oSelect) Is ComponentOccurrence Then
+                    oComponentOccurrence = CType(oSelect, ComponentOccurrence)
+                    'For Each ComponentOccurrence As ComponentOccurrence In oInventorDocument.SelectSet()
+                    strInventorDocumenFullDocumentName = oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
+                    If IsFileExsts(strInventorDocumenFullDocumentName) = True Then
+                        oInventorDocument = ThisApplication.Documents.Open(strInventorDocumenFullDocumentName, True)
+                    End If
+                End If
+            Next
+        End If
+
+
+    End Sub
+
 End Module

@@ -265,7 +265,7 @@ Partial Class formiProperty
         Me.btn提取文件名.TabIndex = 21
         Me.btn提取文件名.Text = "提取文件名"
         '
-        'frmiProperty
+        'formiProperty
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -298,8 +298,7 @@ Partial Class formiProperty
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmiProperty"
-        Me.ShowIcon = False
+        Me.Name = "formiProperty"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "iProperty+"

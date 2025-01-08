@@ -24,7 +24,6 @@ Public Class formPrint
         End If
 
         ThisApplication.UserInterfaceManager.DoEvents()
-
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)

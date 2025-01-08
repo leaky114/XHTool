@@ -1,5 +1,5 @@
 # XHTool是什么?
-XHToolI是Autodesk Inventor 插件。
+XHTool是Autodesk Inventor 插件。
 
 # XHTool支持哪些版本?
 目前测试支持到Inventor2016-2025版。 
@@ -36,6 +36,8 @@ XHToolI是Autodesk Inventor 插件。
 - 环形自动重建序号
 - 根据模板文件替换工程图标题栏和图框
 
+# 更多帮助
+[Bilibili](https://space.bilibili.com/482062689)
 
 # 更新日志
 [更新日志](https://gitcode.net/leaky114/inventoraddin/-/blob/master/CHANGELOG)
@@ -48,14 +50,19 @@ XHToolI是Autodesk Inventor 插件。
 一个机械工程师，一个把重复简单劳动自动化者。
 
 # 联系作者
-微信搜索(!#^-4767-0633)
+微信搜索(36-4767-0633)
 
 # 截图
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/1.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/7.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/8.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/13.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/14.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/15.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/16.png)
-- ![](https://gitcode.net/leaky114/inventoraddin/-/raw/master/help/17.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/1.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/2.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/3.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/4.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/5.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/8.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/12.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/14.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/15.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/16.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/17.png)
+- ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/18.png)
+

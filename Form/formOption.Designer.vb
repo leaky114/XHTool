@@ -158,6 +158,8 @@ Partial Class formOption
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.txt钣金厚度前缀 = New System.Windows.Forms.TextBox()
+        Me.chk钣金厚度检查 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型.SuspendLayout()
         CType(Me.NUD查找文件夹层数, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxERP查询.SuspendLayout()
@@ -220,6 +222,8 @@ Partial Class formOption
         '
         'TabPage模型
         '
+        Me.TabPage模型.Controls.Add(Me.txt钣金厚度前缀)
+        Me.TabPage模型.Controls.Add(Me.chk钣金厚度检查)
         Me.TabPage模型.Controls.Add(Me.txt去除后缀)
         Me.TabPage模型.Controls.Add(Me.lbl去除后缀)
         Me.TabPage模型.Controls.Add(Me.chk检查重复图号)
@@ -481,24 +485,24 @@ Partial Class formOption
         '
         Me.ContextMenuStrip配置文件.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem全局, Me.ToolStripMenuItem图框替换, Me.ToolStripMenuItem安装目录})
         Me.ContextMenuStrip配置文件.Name = "ContextMenuStrip配置文件"
-        Me.ContextMenuStrip配置文件.Size = New System.Drawing.Size(153, 92)
+        Me.ContextMenuStrip配置文件.Size = New System.Drawing.Size(149, 70)
         '
         'ToolStripMenuItem全局
         '
         Me.ToolStripMenuItem全局.Name = "ToolStripMenuItem全局"
-        Me.ToolStripMenuItem全局.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem全局.Size = New System.Drawing.Size(148, 22)
         Me.ToolStripMenuItem全局.Text = "全局配置文件"
         '
         'ToolStripMenuItem图框替换
         '
         Me.ToolStripMenuItem图框替换.Name = "ToolStripMenuItem图框替换"
-        Me.ToolStripMenuItem图框替换.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem图框替换.Size = New System.Drawing.Size(148, 22)
         Me.ToolStripMenuItem图框替换.Text = "图框替换..."
         '
         'ToolStripMenuItem安装目录
         '
         Me.ToolStripMenuItem安装目录.Name = "ToolStripMenuItem安装目录"
-        Me.ToolStripMenuItem安装目录.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem安装目录.Size = New System.Drawing.Size(148, 22)
         Me.ToolStripMenuItem安装目录.Text = "安装目录"
         '
         'TabPage常规
@@ -941,7 +945,7 @@ Partial Class formOption
         'chk逆时针序号
         '
         Me.chk逆时针序号.AutoSize = True
-        Me.chk逆时针序号.Location = New System.Drawing.Point(430, 249)
+        Me.chk逆时针序号.Location = New System.Drawing.Point(518, 222)
         Me.chk逆时针序号.Name = "chk逆时针序号"
         Me.chk逆时针序号.Size = New System.Drawing.Size(84, 16)
         Me.chk逆时针序号.TabIndex = 34
@@ -954,7 +958,7 @@ Partial Class formOption
         Me.chk模型匹配检查.AutoSize = True
         Me.chk模型匹配检查.Checked = True
         Me.chk模型匹配检查.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk模型匹配检查.Location = New System.Drawing.Point(430, 222)
+        Me.chk模型匹配检查.Location = New System.Drawing.Point(412, 222)
         Me.chk模型匹配检查.Name = "chk模型匹配检查"
         Me.chk模型匹配检查.Size = New System.Drawing.Size(96, 16)
         Me.chk模型匹配检查.TabIndex = 33
@@ -1541,6 +1545,26 @@ Partial Class formOption
         Me.Button1.Text = "选择"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'txt钣金厚度前缀
+        '
+        Me.txt钣金厚度前缀.Location = New System.Drawing.Point(248, 256)
+        Me.txt钣金厚度前缀.Name = "txt钣金厚度前缀"
+        Me.txt钣金厚度前缀.Size = New System.Drawing.Size(98, 21)
+        Me.txt钣金厚度前缀.TabIndex = 38
+        '
+        'chk钣金厚度检查
+        '
+        Me.chk钣金厚度检查.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.chk钣金厚度检查.AutoSize = True
+        Me.chk钣金厚度检查.Checked = True
+        Me.chk钣金厚度检查.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk钣金厚度检查.Location = New System.Drawing.Point(153, 258)
+        Me.chk钣金厚度检查.Name = "chk钣金厚度检查"
+        Me.chk钣金厚度检查.Size = New System.Drawing.Size(96, 16)
+        Me.chk钣金厚度检查.TabIndex = 37
+        Me.chk钣金厚度检查.Text = "钣金厚度检查"
+        Me.chk钣金厚度检查.UseVisualStyleBackColor = True
+        '
         'formOption
         '
         Me.AcceptButton = Me.btn确定
@@ -1740,5 +1764,7 @@ Partial Class formOption
     Friend WithEvents ToolStripMenuItem全局 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem图框替换 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem安装目录 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents txt钣金厚度前缀 As System.Windows.Forms.TextBox
+    Friend WithEvents chk钣金厚度检查 As System.Windows.Forms.CheckBox
 
 End Class

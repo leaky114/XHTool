@@ -68,7 +68,9 @@ Public Class formOption
 
         str去除后缀表 = txt去除后缀.Text
 
-        str模型匹配检查 = Iif(chk模型匹配检查.Checked, "1", "-1")
+        str模型匹配检查 = IIf(chk模型匹配检查.Checked, "1", "-1")
+        str钣金厚度检查 = IIf(chk钣金厚度检查.Checked, "1", "-1")
+        Str钣金厚度前缀 = txt钣金厚度前缀.Text
         str逆时针序号 = Iif(chk逆时针序号.Checked, "1", "-1")
 
 
@@ -180,10 +182,6 @@ Public Class formOption
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
-    End Sub
-    Private Sub btn图框配置_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-
     End Sub
 
     Private Sub btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
@@ -320,6 +318,8 @@ Public Class formOption
         txt去除后缀.Text = str去除后缀表
 
         chk模型匹配检查.Checked = IIf(str模型匹配检查 = "1", True, False)
+        chk钣金厚度检查.Checked = IIf(str钣金厚度检查 = "1", True, False)
+        txt钣金厚度前缀.Text = str钣金厚度前缀
         chk逆时针序号.Checked = IIf(str逆时针序号 = "1", True, False)
 
 

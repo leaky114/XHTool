@@ -12,11 +12,11 @@ Public Module PublicParameters
     Public Const XHTool = "XHTool"
 
     Public Structure RectangularPoint
-        Dim TopLeft As Point2d
-        Dim TopRight As Point2d
-        Dim BottomRight As Point2d
-        Dim BottomLeft As Point2d
-        Dim Center As Point2d
+        Dim TopLeft As Point
+        Dim TopRight As Point
+        Dim BottomRight As Point
+        Dim BottomLeft As Point
+        Dim Center As Point
         Dim Length As Double
         Dim Width As Double
     End Structure
@@ -107,6 +107,10 @@ Public Module PublicParameters
 
     Public str模型匹配检查 As String   '工程图是否检查模型名
     Public str模型匹配检查标记 As String    '标记打开工程图时，是否检查模型匹配：1为第一次检查，2为跳过检查,3为不检查
+
+    Public str钣金厚度检查 As String      '钣金件工程图是否检查材料板厚是否匹配
+    Public str钣金厚度前缀 As String   '钣金厚度前缀，是一个用，分割的数组
+
 
     '默认打印设值
     Public Printer As String   '默认打印机
@@ -220,6 +224,24 @@ Public Module PublicParameters
 
         Else
 
+            If oInventorDocument.DocumentType = kPartDocumentObject Then
+                If str钣金厚度检查 = 1 Then
+
+                    Select Case str模型匹配检查标记
+                        Case 1
+                            If BeforeOrAfter = EventTimingEnum.kAfter Then
+                                CheckSteelThickness()
+                            End If
+                            str模型匹配检查标记 = 2
+                        Case 2
+                            str模型匹配检查标记 = 3
+                        Case 3
+                            str模型匹配检查标记 = 1
+                    End Select
+
+                End If
+            End If
+
             '当打开文件为工程图()
             If oInventorDocument.DocumentType = kDrawingDocumentObject Then
                 '写入主视图比例
@@ -250,7 +272,7 @@ Public Module PublicParameters
 
             End If
 
-        End If
+            End If
 
     End Sub
 
@@ -276,7 +298,49 @@ Public Module PublicParameters
 
     End Sub
 
+    ''' <summary>
+    ''' 保存文件时
+    ''' </summary>
+    ''' <param name="oInventorDocument"></param>
+    ''' <param name="BeforeOrAfter"></param>
+    ''' <param name="Context"></param>
+    ''' <param name="HandlingCode"></param>
+    ''' <remarks></remarks>
+    Public Sub ThisApplicationEvents_OnSaveDocument(ByVal oInventorDocument As Inventor.Document, _
+                                                           ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
+                                                           ByVal Context As Inventor.NameValueMap, _
+                                                           ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnSaveDocument
+        If BeforeOrAfter = EventTimingEnum.kBefore Then
+
+        Else
+            'If str钣金厚度检查 = 1 Then
+            '    CheckSteelThickness()
+            'End If
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' 保存为副本
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub SaveAsCopy()
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        Select Case oInventorDocument.DocumentType
+            Case kAssemblyDocumentObject, kPartDocumentObject
+                AsmIptDocumentSaveAs()
+            Case kDrawingDocumentObject
+                DrawingDocumentSaveAs()
+        End Select
 
 
+
+    End Sub
 
 End Module

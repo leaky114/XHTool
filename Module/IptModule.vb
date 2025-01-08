@@ -103,6 +103,94 @@ Module IptModule
     End Sub
 
     ''' <summary>
+    ''' 零部件另存为新的文件，并链接工程图
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub AsmIptDocumentSaveAs()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+                MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim oInventorDocument As Inventor.Document
+            oInventorDocument = ThisApplication.ActiveEditDocument
+
+            Dim strOldInventorDocumentFullName As String
+            strOldInventorDocumentFullName = oInventorDocument.FullFileName
+
+
+            Dim strOldInventorDocumentExtensionName As String
+            strOldInventorDocumentExtensionName = GetFileExtensionLCase(strOldInventorDocumentFullName)
+
+            Dim strFilter As String = Nothing
+            Select Case strOldInventorDocumentExtensionName
+                Case IAM
+                    strFilter = "Autodesk Inventor 部件(*.iam)|*.iam"
+                Case IPT
+                    strFilter = "Autodesk Inventor 零件(*.ipt)|*.ipt"
+
+            End Select
+
+            Dim arrayFullFileName As List(Of String)
+            arrayFullFileName = SaveFileDialog(strFilter, False, GetDirectoryName2(strOldInventorDocumentFullName))
+
+            If arrayFullFileName Is Nothing Then
+                Exit Sub
+            End If
+
+            '新零部件文件名
+            Dim strNewInventorDocumentFullName As String = arrayFullFileName.Item(0).ToString
+
+            'If strNewInventorDocumentFullName = strOldInventorDocumentFullName Then
+            '    MsgBox("请选择不同的零部件文件。", MsgBoxStyle.Information)
+            '    Exit Sub
+            'End If
+
+            ''判断新文件是否存在，是否需要覆盖
+            'If IsFileExsts(strNewInventorDocumentFullName) = True Then
+            '    If MsgBox("存在零部件：" & vbCrLf & vbCrLf & strNewInventorDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？", _
+            '              MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            '    Else
+            '        Exit Sub
+            '    End If
+            'End If
+
+            IO.File.Copy(strOldInventorDocumentFullName, strNewInventorDocumentFullName, True)
+            SetFileReadOnly(strNewInventorDocumentFullName, False)
+
+
+            Dim strOldInventorDrawingDocumentFullName As String
+            strOldInventorDrawingDocumentFullName = GetChangeExtension(strOldInventorDocumentFullName, IDW)
+
+            If IsFileExsts(strOldInventorDrawingDocumentFullName) = True Then
+                Dim strNewInventorDrawingDocumentFullName As String
+                strNewInventorDrawingDocumentFullName = GetChangeExtension(strNewInventorDocumentFullName, IDW)
+
+                IO.File.Copy(strOldInventorDrawingDocumentFullName, strNewInventorDrawingDocumentFullName, True)
+                SetFileReadOnly(strNewInventorDrawingDocumentFullName, False)
+
+                '替换工程图模型参考
+                ReplaceFileReference(strNewInventorDrawingDocumentFullName, strOldInventorDocumentFullName, strNewInventorDocumentFullName)
+
+            End If
+
+            Dim oNewInventorDocument As Inventor.Document = ThisApplication.Documents.Open(strNewInventorDocumentFullName)
+            SetDocumentIpropertyFromFileNameSub(oNewInventorDocument, False)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+    ''' <summary>
     ''' 另存为stp文件
     ''' </summary>
     ''' <remarks></remarks>
@@ -401,5 +489,52 @@ Module IptModule
         Return True
     End Function
 
+    Public Function CheckSteelThickness() As Boolean
+        If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            'MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+            Exit Function
+        End If
+
+        Dim oInventorPartDocument As Inventor.PartDocument
+        oInventorPartDocument = ThisApplication.ActiveDocument
+
+        'Check to see if part is a sheetmetal part
+        If (oInventorPartDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
+            'MsgBox("本零件非钣金件，退出检查。")
+            Exit Function
+        End If
+
+        Dim oSheetMetalComponentDefinition As Inventor.SheetMetalComponentDefinition
+        oSheetMetalComponentDefinition = oInventorPartDocument.ComponentDefinition
+
+        Dim strThickness As String
+        strThickness = (oSheetMetalComponentDefinition.Thickness.Value * 10).ToString
+
+        Dim strMaterialName As String
+        strMaterialName = oInventorPartDocument.ComponentDefinition.Material.Name.ToString()
+
+        Dim strMaterials() As String = Split(str钣金厚度前缀, ",")
+
+        Dim strTemp As String
+        Dim IsRight As Boolean = False
+
+        For Each strMaterial As String In strMaterials
+            strTemp = strMaterial & strThickness
+
+            If Strings.InStr(strMaterialName.ToLower, strTemp.ToLower) <> 0 Then
+                IsRight = True
+                Exit For
+            Else
+                IsRight = False
+            End If
+        Next
+
+        If IsRight = True Then
+            'MsgBox("厚度匹配")
+        Else
+            MsgBox("材料：" & strMaterialName & " 与厚度：" & strThickness & " 不匹配。", MsgBoxStyle.Information)
+        End If
+
+    End Function
 
 End Module

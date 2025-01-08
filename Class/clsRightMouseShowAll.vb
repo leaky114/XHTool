@@ -6,7 +6,8 @@ Public Class clsRightMouseShowAll
 
     Public Sub New()
 
-        Dim smallPicture As stdole.IPictureDisp
+        Dim smallPicture As IPictureDisp
+
         'Dim largePicture As stdole.IPictureDisp
         smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见16.ToBitmap)
         'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见32.ToBitmap)

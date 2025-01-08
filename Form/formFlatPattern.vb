@@ -64,7 +64,7 @@ Public Class formFlatPattern
 
         '添加零件的文件名
         Dim oPoint2d As Point2d = Nothing
-        oPoint2d = GetDrawingPoint("单击确定插入文件名的位置。")
+        oPoint2d = GetDrawingPoint("单击插入文件名的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -74,7 +74,7 @@ Public Class formFlatPattern
 
 
         '添加零件的材质
-        oPoint2d = GetDrawingPoint("单击确定插入材质的位置。")
+        oPoint2d = GetDrawingPoint("单击插入材质的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -83,7 +83,7 @@ Public Class formFlatPattern
         End If
 
         '添加数量
-        oPoint2d = GetDrawingPoint("单击确定插入数量的位置。")
+        oPoint2d = GetDrawingPoint("单击插入数量的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -153,16 +153,19 @@ Public Class formFlatPattern
 
         Dim oRectangularPoint As RectangularPoint
 
-        Dim oclsGetRectAreaInDrawing As clsGetRectAreaInDrawing
-        oclsGetRectAreaInDrawing = New clsGetRectAreaInDrawing
+        Dim oclsGetRectAreaInDrawing2 As clsGetRectAreaInDrawing2
+        oclsGetRectAreaInDrawing2 = New clsGetRectAreaInDrawing2
 
-        oRectangularPoint = oclsGetRectAreaInDrawing.GetRectAreaInDrawing("选择展开图绘制范围。", MouseButtonEnum.kLeftMouseButton)
+        oRectangularPoint = oclsGetRectAreaInDrawing2.GetRectAreaInDrawing("两脚处单击插入展开图", MouseButtonEnum.kLeftMouseButton)
+
+        Dim oPositonPoint2d As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oRectangularPoint.Center.X, oRectangularPoint.Center.Y)
 
         Dim dou工艺图范围X As Double = oRectangularPoint.Length * 10
         Dim dou工艺图范围Y As Double = oRectangularPoint.Width * 10
 
+
         Dim oSheet As Sheet = oInventorDrawingDocument.ActiveSheet
-        Dim oView展开视图 As DrawingView = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oRectangularPoint.Center, douScale,
+        Dim oView展开视图 As DrawingView = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oPositonPoint2d, douScale,
                 ViewOrientationTypeEnum.kDefaultViewOrientation,
                 DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle,
                 , , oBaseViewOptions)
@@ -313,15 +316,18 @@ Public Class formFlatPattern
         'Dim oPoint2d As Point2d = Nothing
         'oPoint2d = GetDrawingPoint("单击确定插入折弯图的位置。")
 
-        Dim ooRectangularPoint As RectangularPoint
+        Dim oRectangularPoint As RectangularPoint
 
-        Dim oclsGetRectAreaInDrawing As clsGetRectAreaInDrawing
-        oclsGetRectAreaInDrawing = New clsGetRectAreaInDrawing
+        Dim oclsGetRectAreaInDrawing2 As clsGetRectAreaInDrawing2
+        oclsGetRectAreaInDrawing2 = New clsGetRectAreaInDrawing2
 
-        ooRectangularPoint = oclsGetRectAreaInDrawing.GetRectAreaInDrawing("选择折弯图绘制范围。", MouseButtonEnum.kLeftMouseButton)
+        oRectangularPoint = oclsGetRectAreaInDrawing2.GetRectAreaInDrawing("两脚处单击插入折弯图", MouseButtonEnum.kLeftMouseButton)
 
-        Dim dou工艺图范围X As Double = ooRectangularPoint.Length * 10
-        Dim dou工艺图范围Y As Double = ooRectangularPoint.Width * 10
+        Dim oPositonPoint2d As Point2d = ThisApplication.TransientGeometry.CreatePoint2d(oRectangularPoint.Center.X, oRectangularPoint.Center.Y)
+
+
+        Dim dou工艺图范围X As Double = oRectangularPoint.Length * 10
+        Dim dou工艺图范围Y As Double = oRectangularPoint.Width * 10
 
 
         Dim oBaseViewOptions As NameValueMap = ThisApplication.TransientObjects.CreateNameValueMap
@@ -334,7 +340,7 @@ Public Class formFlatPattern
         Dim oSheet As Sheet = oInventorDrawingDocument.Sheets.Item(1)
 
         Dim oView折弯视图 As DrawingView
-        oView折弯视图 = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, ooRectangularPoint.Center, douScale, ViewOrientationType, _
+        oView折弯视图 = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oPositonPoint2d, douScale, ViewOrientationType, _
                                                    IIf(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle, _
                                                        DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle))
 
@@ -456,7 +462,7 @@ Public Class formFlatPattern
 
     Private Sub btn从部件选择_Click(sender As Object, e As EventArgs) Handles btn从部件选择.Click
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MsgBox("请切换到部件。", MsgBoxStyle.Information)
+            MsgBox("请切换到部件", MsgBoxStyle.Information)
             Exit Sub
         End If
 
@@ -464,14 +470,14 @@ Public Class formFlatPattern
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         If oInventorAssemblyDocument.SelectSet.Count = 0 Then
-            MsgBox("在部件中选择一个零件。", MsgBoxStyle.Information)
+            MsgBox("在部件中选择一个零件", MsgBoxStyle.Information)
             Exit Sub
         End If
 
         Dim oComponentOccurrence As ComponentOccurrence = oInventorAssemblyDocument.SelectSet(1)
 
         If oComponentOccurrence Is Nothing Then
-            MsgBox("请选择一个零件。", MsgBoxStyle.Information)
+            MsgBox("请选择一个零件", MsgBoxStyle.Information)
             Exit Sub
         End If
 

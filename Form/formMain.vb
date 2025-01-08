@@ -24,26 +24,19 @@ Public Class formMain
     Private HideSide As Short '隐藏边的位置，0为未隐藏，1为上边，2为左边
 
 
-    Public Sub DrawSketchLine()
-
-        ' Check to make sure a sketch is active.
-        If Not TypeOf ThisApplication.ActiveEditObject Is Sketch Then
-
-            Exit Sub
-        End If
-        Dim getPoint As New Class1
-        Dim pnt As Integer
-        pnt = 0
-        Do
-            Call getPoint.Initialize("Click the desired location", MouseButtonEnum.kLeftMouseButton)
-            pnt = pnt + 1
-        Loop While pnt > 2
-    End Sub
-
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
+        CheckSteelThickness()
 
+
+        'Dim oInventorDrawingDocument As Inventor.DrawingDocument
+        'oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+        'Dim strParentAssemblyFullFileName As String
+        'strParentAssemblyFullFileName = oInventorDrawingDocument.FullDocumentName
+
+        'Debug.Print(strParentAssemblyFullFileName)
 
         'Dim oSelectSet1 As Object = Nothing
 
@@ -138,8 +131,7 @@ Public Class formMain
         'Dim oLinDim As LinearGeneralDimension
         'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oPt, oIntent1, oIntent2)
 
-        'Dim oInventorDrawingDocument As Inventor.DrawingDocument
-        'oInventorDrawingDocument = ThisApplication.ActiveDocument
+
 
         ''Dim oSheet As Sheet
         ''oSheet = oInventorDrawingDocument.ActiveSheet
@@ -191,78 +183,13 @@ Public Class formMain
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        'CloneComponentAndInsertConstraint()
+        'SelectPartNodeInBrowserNode()
+        'OpenSelectComponentOccurrences()
 
 
     End Sub
 
-
-    'Dim oSelectBrowserNode As BrowserNode = Nothing
-
-    '    For Each oChildBrowserNode In oParentBrowserNode.BrowserNodes
-    '        Debug.Print(oChildBrowserNode.FullPath)
-    '        Debug.Print(TypeName(oChildBrowserNode.NativeObject))
-
-    '        Dim strTypeName As String = TypeName(oChildBrowserNode.NativeObject)
-
-    '        Select Case strTypeName
-    '            Case "DrawingView"
-
-    '                Dim strInventorAssemblyDocumentDisplayName As String = oDrawingView.ReferencedDocumentDescriptor.DisplayName
-    '                Dim strSelectBrowserNodeLabel As String = oDrawingView.Name & ":" & strInventorAssemblyDocumentDisplayName
-
-    '                If strSelectBrowserNodeLabel <> oChildBrowserNode.BrowserNodeDefinition.Label Then   '不是选中的视图
-
-    '                    'oSelectBrowserNode = GetBrowserNode(oChildBrowserNode, oDrawingView, strPartName)
-
-    '                    'If Not oSelectBrowserNode Is Nothing Then
-    '                    '    Return oSelectBrowserNode
-    '                    'End If
-
-    '                Else       '是选中的视图
-
-    '                    For Each oSelectBrowserNode In oChildBrowserNode.BrowserNodes
-    '                        oSelectBrowserNode = GetBrowserNode(oChildBrowserNode, oDrawingView, strPartName)
-
-    '                        If Not oSelectBrowserNode Is Nothing Then
-    '                            Return oSelectBrowserNode
-    '                        End If
-
-    '                    Next
-
-    '                End If
-
-    '            Case "SectionDrawingView"
-
-    '            Case "WeldmentComponentDefinition", "AssemblyComponentDefinition"
-    '                For Each oSelectBrowserNode In oChildBrowserNode.BrowserNodes
-
-    '                    strTypeName = TypeName(oSelectBrowserNode)
-
-    '                    Select Case strTypeName
-    '                        Case "CircularOccurrencePatternObject"
-
-
-    '                        Case "RectangularOccurrencePatternObject"
-
-    '                    End Select
-
-
-    '                    Dim strSelectBrowserNodeLabel As String
-    '                    strSelectBrowserNodeLabel = oSelectBrowserNode.BrowserNodeDefinition.Label
-
-    '                    If strSelectBrowserNodeLabel = strPartName Then
-    '                        Return oSelectBrowserNode
-    '                        Exit For
-    '                    End If
-
-
-    '                Next
-
-    '        End Select
-
-    '    Next
-
-    'End Function
 
     'On Error Resume Next
 
@@ -393,122 +320,6 @@ Public Class formMain
     '        biggestCircle.Visible = False
     '    Next
     'Next
-
-
-
-    'NewUpdater.Shell_XHUpdater()
-
-    '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    'On Error Resume Next
-    'Dim oCommandManager As CommandManager
-    'Dim oUserInterfaceManager As UserInterfaceManager
-    ''Dim oIPictureDisp32 As Object  '大图标
-    ''Dim oIPictureDisp8 As Object   '小图标
-
-    'Dim smallPicture As stdole.IPictureDisp
-    'Dim largePicture As stdole.IPictureDisp
-
-    ''Try
-    'oCommandManager = ThisApplication.CommandManager
-    'oUserInterfaceManager = ThisApplication.UserInterfaceManager
-
-    'if oUserInterfaceManager.InterfaceStyle = InterfaceStyleEnum.kRibbonInterface Then
-    '    Dim oRibbon As Inventor.Ribbon
-    '    Dim oRibbonTab As Inventor.RibbonTab
-    '    Dim oRibbonPanel As Inventor.RibbonPanel
-
-    '    Dim oButtonDefinitions As Inventor.ObjectCollection
-    '    oButtonDefinitions = ThisApplication.TransientObjects.CreateObjectCollection
-
-
-
-    '    '部件环境
-    '    oRibbon = oUserInterfaceManager.Ribbons.Item("Assembly")
-
-    '    oRibbonTab = oRibbon.RibbonTabs.Item("id_TabAssemble")
-
-    'End if
-
-    '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    'Dim oInventorDocument As Inventor.Document
-    'oInventorDocument = ThisApplication.ActiveEditDocument
-
-    'For Each o As Inventor.Document In oInventorDocument.ReferencingDocuments
-    '    Debug.Print(o.FullDocumentName)
-    'Next
-
-    'On Error Resume Next
-
-    'Dim t As System.IO.StreamWriter = New System.IO.StreamWriter("d:\inventor.txt")
-
-    'For i = 1 To ThisApplication.UserInterfaceManager.Ribbons.Count
-    '    Dim partRibbon As Ribbon = ThisApplication.UserInterfaceManager.Ribbons.Item(i)
-    '    t.Write(i & Space(4) & partRibbon.InternalName & vbCrLf)
-
-    '    For j = 1 To partRibbon.RibbonTabs.Count
-    '        Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item(j)
-    '        t.Write(Space(4) & j & Space(4) & toolsTab.InternalName & Space(4) & toolsTab.DisplayName & vbCrLf)
-
-    '        For k = 1 To toolsTab.RibbonPanels.Count
-    '            Dim Ribbon_Panel As RibbonPanel = toolsTab.RibbonPanels.Item(k)
-    '            t.Write(Space(8) & k & Space(4) & Ribbon_Panel.InternalName & Space(4) & Ribbon_Panel.DisplayName & vbCrLf)
-
-    '            For ii = 1 To Ribbon_Panel.CommandControls.Count
-    '                Dim commandcontrol As CommandControl = Ribbon_Panel.CommandControls.Item(ii)
-    '                t.Write(Space(16) & ii & Space(4) & commandcontrol.InternalName & Space(4) & commandcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
-
-    '                For jj = 1 To commandcontrol.ChildControls.Count
-    '                    Dim commandchildcontrol As CommandControl = commandcontrol.ChildControls.Item(jj)
-    '                    t.Write(Space(24) & jj & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.InternalName & Space(4) & commandchildcontrol.DisplayName.Replace(Chr(13), "").Replace(Chr(10), "") & vbCrLf)
-    '                    commandchildcontrol = Nothing
-    '                Next
-    '                commandcontrol = Nothing
-    '            Next
-    '            Ribbon_Panel = Nothing
-    '        Next
-    '        toolsTab = Nothing
-    '    Next
-    '    partRibbon = Nothing
-    'Next
-    't.Close()
-
-    'SetBendEdgeType()
-
-    'ReplaceDerivedPart()
-
-    '=====================
-    'AddAssemblyBrowserFolder()
-
-
-    'SuppressAllUnhealthConstraints()
-
-    'DrawingDocumentSaveAs()
-
-    'Dim oribbon As Ribbon
-    'oribbon = ThisApplication.UserInterfaceManager.Ribbons.Item("Assembly")
-
-    ''工具选项卡
-    ''oRibbonTab = oRibbon.RibbonTabs.Item("id_TabTools")
-
-    ''装配选项卡
-    'Dim oRibbonTab As RibbonTab
-    'oRibbonTab = oRibbon.RibbonTabs.Item("id_TabAssemble")
-
-    'Dim oRibbonPanel As RibbonPanel
-    'oRibbonPanel = oRibbonTab.RibbonPanels.Item("id_PanelA_ToolsMeasure")
-
-    'Dim oCommandControl As CommandControl
-    'For Each oCommandControl In oRibbonPanel.CommandControls
-    '    Debug.Print(oCommandControl.InternalName)
-    'Next
-
-
-    'oCommandControl = oRibbonPanel.CommandControls.Item("InName驱动测量")
-
-    'oRibbonPanel.SlideoutControls.AddCopy(oCommandControl)
-
 
 
     Private Sub frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -1043,9 +854,6 @@ Public Class formMain
         CleanUpLegacyFiles()
     End Sub
 
-    Private Sub 尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 尺寸ToolStripMenuItem.Click
-
-    End Sub
 
     Private Sub 另存为PDFToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 另存为PDFToolStripMenuItem.Click
         IdwSaveAsPdf()
@@ -1073,7 +881,10 @@ Public Class formMain
 
 
     Private Sub 批量替换文件名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 批量替换文件名ToolStripMenuItem.Click
-        ReplaceNameInAsm()
+        'ReplaceNameInAsm()
+
+        formBatchChangeFileNames.Show()
+
     End Sub
 
     Private Sub 同步目录树ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 同步目录树ToolStripMenuItem.Click
@@ -1205,7 +1016,7 @@ Public Class formMain
         IdwSaveAsDxf()
     End Sub
 
-    Private Sub 另存为工程图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 另存为工程图ToolStripMenuItem.Click
+    Private Sub 工程图另存为副本ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 工程图另存为副本ToolStripMenuItem.Click
         DrawingDocumentSaveAs()
     End Sub
 
@@ -1234,4 +1045,81 @@ Public Class formMain
     Private Sub 自定义iPropertyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 自定义iPropertyToolStripMenuItem.Click
         FormUseriProperty.Show()
     End Sub
+
+    Private Sub 另存为副本ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 另存为副本ToolStripMenuItem.Click
+        AsmIptDocumentSaveAs()
+    End Sub
+
+    Private Sub 克隆组件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 克隆组件ToolStripMenuItem.Click
+        CloneComponentAndInsertConstraint()
+    End Sub
+
+    Private Sub 在浏览器中查找ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 在浏览器中查找ToolStripMenuItem.Click
+        SelectPartNodeInBrowserNode()
+    End Sub
+
+    Private Sub 打开父部件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开父部件ToolStripMenuItem.Click
+        OpenParentAssembly()
+    End Sub
+
+    Private Sub 打开选择的组件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开选择的组件ToolStripMenuItem.Click
+        OpenSelectComponentOccurrences()
+    End Sub
+
+    Public Sub TestGetDrawingPoint()
+        Dim getPoint As New clsGetPoint
+        Dim pnt1 As Point2d
+        Dim pnt2 As Point2d
+        Do
+            pnt1 = getPoint.GetDrawingPoint("Click the desired location", MouseButtonEnum.kLeftMouseButton)
+            If Not pnt1 Is Nothing Then
+
+                Dim lineLen As Double
+                lineLen = InputBox("Enter the length of line")
+
+                Dim line_orientation As String
+                line_orientation = InputBox("Type H(Horizontal) or V(Vertical)")
+
+                line_orientation = UCase(line_orientation)
+
+                Dim hor_Alignment As String
+                Dim ver_Alignment As String
+
+                If line_orientation = "H" Then
+                    hor_Alignment = InputBox("Type L(Left) or R(Right)")
+                    hor_Alignment = UCase(hor_Alignment)
+
+                    If hor_Alignment = "L" Then
+                        pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X - lineLen, pnt1.Y)
+                    ElseIf hor_Alignment = "R" Then
+                        pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X + lineLen, pnt1.Y)
+                    Else
+                        MsgBox("Invalid entry for horizantal alignment")
+                    End If
+                ElseIf line_orientation = "V" Then
+                    ver_Alignment = InputBox("Type U(Upward) or D(Downward)")
+                    ver_Alignment = UCase(ver_Alignment)
+
+                    If ver_Alignment = "U" Then
+                        pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X, pnt1.Y + lineLen)
+                    ElseIf ver_Alignment = "D" Then
+                        pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X, pnt1.Y - lineLen)
+                    Else
+                        MsgBox("Invalid entry for vertical alignment")
+                    End If
+                Else
+                    MsgBox("Invalid Entry for line orientation")
+                End If
+
+
+            End If
+        Loop While Not pnt1 Is Nothing
+    End Sub
+
+    Private Sub 钣金厚度检查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 钣金厚度检查ToolStripMenuItem.Click
+
+        CheckSteelThickness()
+
+    End Sub
+
 End Class

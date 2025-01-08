@@ -263,6 +263,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 克隆插入组件16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("克隆插入组件16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 克隆插入组件32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("克隆插入组件32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 全部尺寸居中16() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("全部尺寸居中16", resourceCulture)

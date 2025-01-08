@@ -5,7 +5,8 @@ Public Class clsRightMouseSelectPartInBrowser
 
     Public Sub New()
 
-        Dim smallPicture As stdole.IPictureDisp
+        Dim smallPicture As IPictureDisp
+
         'Dim largePicture As stdole.IPictureDisp
 
         smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.在浏览器中查找16.ToBitmap)
