@@ -24,13 +24,11 @@ Public Class FormUseriProperty
             End If
         Next
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+        FormManager.CloseAndDisposeForm(Of FormUseriProperty)()
     End Sub
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormUseriProperty)()
     End Sub
 
     Private Sub 重新读取_Click(sender As Object, e As EventArgs) Handles 重新读取.Click
@@ -45,6 +43,7 @@ Public Class FormUseriProperty
 
     Private Sub FormUseriProperty_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
 
         Dim toolTip As New ToolTip()
         toolTip.AutoPopDelay = 0

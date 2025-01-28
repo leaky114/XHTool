@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="Class\clsFormManager.vb" />
     <Compile Include="Class\clsGetRectAreaInDrawing2.vb" />
     <Compile Include="Class\clsPictureConverter.vb">
       <SubType>Component</SubType>
@@ -160,6 +161,18 @@
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormBorderTitle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormBulkPrint.Designer.vb">
+      <DependentUpon>FormBulkPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormBulkPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormCustomSignature.Designer.vb">
+      <DependentUpon>FormCustomSignature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormCustomSignature.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormDim2Object.Designer.vb">
@@ -198,16 +211,40 @@
     <Compile Include="Form\FormMovesSpecifiedFile.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\FormNetTool.Designer.vb">
+      <DependentUpon>formNetTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\formNetTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormPaint.Designer.vb">
+      <DependentUpon>FormPaint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormPaint.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormPantone.Designer.vb">
+      <DependentUpon>FormPantone.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormPantone.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormPartColor.Designer.vb">
+      <DependentUpon>FormPartColor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormPartColor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormPlaceOpenComponent.Designer.vb">
+      <DependentUpon>FormPlaceOpenComponent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormPlaceOpenComponent.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\FormPlayer.Designer.vb">
       <DependentUpon>FormPlayer.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormPlayer.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FormERPCodeSearch.Designer.vb">
-      <DependentUpon>FormERPCodeSearch.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormERPCodeSearch.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormImportCodeToBomExcel.Designer.vb">
@@ -246,10 +283,16 @@
     <Compile Include="Form\FormImportCodeToIam.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FormSaveAll.Designer.vb">
-      <DependentUpon>FormSaveAll.vb</DependentUpon>
+    <Compile Include="Form\FormReverseCheckERPCodes.Designer.vb">
+      <DependentUpon>FormReverseCheckERPCodes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\FormSaveAll.vb">
+    <Compile Include="Form\FormReverseCheckERPCodes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormSaveCloseAllDocument.Designer.vb">
+      <DependentUpon>FormSaveCloseAllDocument.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormSaveCloseAllDocument.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormSearchERPCode.Designer.vb">
@@ -264,12 +307,6 @@
     <Compile Include="Form\FormSetReadOnly.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FormSign.Designer.vb">
-      <DependentUpon>FormSign.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormSign.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FormOption.Designer.vb">
       <DependentUpon>FormOption.vb</DependentUpon>
     </Compile>
@@ -280,12 +317,6 @@
       <DependentUpon>FormAutoPartNumber.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormAutoPartNumber.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FormPrint.Designer.vb">
-      <DependentUpon>FormPrint.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormPrint.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormSpecification.Designer.vb">
@@ -362,6 +393,12 @@
     <EmbeddedResource Include="Form\FormBorderTitle.resx">
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormBulkPrint.resx">
+      <DependentUpon>FormBulkPrint.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormCustomSignature.resx">
+      <DependentUpon>FormCustomSignature.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FormDim2Object.resx">
       <DependentUpon>FormDim2Object.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -383,12 +420,23 @@
     <EmbeddedResource Include="Form\FormMovesSpecifiedFile.resx">
       <DependentUpon>FormMovesSpecifiedFile.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormNetTool.resx">
+      <DependentUpon>formNetTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormPaint.resx">
+      <DependentUpon>FormPaint.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormPantone.resx">
+      <DependentUpon>FormPantone.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormPartColor.resx">
+      <DependentUpon>FormPartColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormPlaceOpenComponent.resx">
+      <DependentUpon>FormPlaceOpenComponent.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FormPlayer.resx">
       <DependentUpon>FormPlayer.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormERPCodeSearch.resx">
-      <DependentUpon>FormERPCodeSearch.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormImportCodeToBomExcel.resx">
@@ -407,9 +455,11 @@
       <DependentUpon>FormOption.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormSaveAll.resx">
-      <DependentUpon>FormSaveAll.vb</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Form\FormReverseCheckERPCodes.resx">
+      <DependentUpon>FormReverseCheckERPCodes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormSaveCloseAllDocument.resx">
+      <DependentUpon>FormSaveCloseAllDocument.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormSetReadOnly.resx">
       <DependentUpon>FormSetReadOnly.vb</DependentUpon>
@@ -444,12 +494,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form\FormSign.resx">
-      <DependentUpon>FormSign.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Form\FormAbout.resx">
       <DependentUpon>FormAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -460,10 +504,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormImportCodeToIam.resx">
       <DependentUpon>FormImportCodeToIam.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormPrint.resx">
-      <DependentUpon>FormPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -500,8 +540,6 @@
     <None Include="Resources\全部尺寸居中32.ICO" />
     <None Include="Resources\关于16.ico" />
     <None Include="Resources\关于32.ico" />
-    <None Include="Resources\关闭文档16.ico" />
-    <None Include="Resources\关闭文档32.ico" />
     <None Include="Resources\内存文件32.ICO" />
     <None Include="Resources\内存文件16.ICO" />
     <None Include="Resources\其他格式16.ICO" />
@@ -514,7 +552,6 @@
     <None Include="Resources\创建截图32.ICO" />
     <None Include="Resources\刷新引用16.ico" />
     <None Include="Resources\刷新引用32.ico" />
-    <None Include="Resources\前进16.ICO" />
     <None Include="Resources\文件Dwg16.ico" />
     <None Include="Resources\文件Dwg32.ico" />
     <None Include="Resources\文件Dxf16.ICO" />
@@ -527,7 +564,6 @@
     <None Include="Resources\可写32.ICO" />
     <None Include="Resources\同名替换16.ICO" />
     <None Include="Resources\同名替换32.ICO" />
-    <None Include="Resources\后退16.ICO" />
     <None Include="Resources\图片16.ICO" />
     <None Include="Resources\复制16.ICO" />
     <None Include="Resources\复制32.ICO" />
@@ -551,12 +587,10 @@
     <None Include="Resources\居中对齐16.ICO" />
     <None Include="Resources\居中对齐32.ICO" />
     <None Include="Resources\工程图16.ico" />
-    <None Include="Resources\工程图32.ico" />
     <None Include="Resources\帮助16.ico" />
     <None Include="Resources\帮助32.ico" />
     <None Include="Resources\当前部件32.ICO" />
     <None Include="Resources\当前部件16.ICO" />
-    <None Include="Resources\微信.JPG" />
     <None Include="Resources\快速打印16.ico" />
     <None Include="Resources\快速打印32.ico" />
     <None Include="Resources\打印16.ico" />
@@ -578,10 +612,8 @@
     <None Include="Resources\提取iPro修改文件名32.ico" />
     <None Include="Resources\插入序号16.ico" />
     <None Include="Resources\插入序号32.ico" />
-    <None Include="Resources\支付宝.JPG" />
     <None Include="Resources\新建序号16.ico" />
     <None Include="Resources\新建序号32.ico" />
-    <None Include="Resources\暂停16.ICO" />
     <None Include="Resources\更改文件名16.ico" />
     <None Include="Resources\更改文件名32.ico" />
     <None Include="Resources\更改材料16.ICO" />
@@ -688,7 +720,30 @@
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
     <Content Include="Resources\克隆插入组件16.ICO" />
+    <None Include="Resources\板厚32.ico" />
+    <None Include="Resources\板厚16.ico" />
+    <None Include="Resources\最小值24.ico" />
+    <None Include="Resources\最大值24.ico" />
+    <None Include="Resources\暂停24.ico" />
+    <None Include="Resources\清净世界32.ICO" />
+    <None Include="Resources\清净世界16.ICO" />
     <None Include="Resources\克隆插入组件32.ICO" />
+    <None Include="Resources\后退24.ico" />
+    <None Include="Resources\开始24.ico" />
+    <None Include="Resources\前进24.ico" />
+    <None Include="Resources\反向选择16.ICO" />
+    <None Include="Resources\反向选择32.ICO" />
+    <None Include="Resources\全部取消16.ICO" />
+    <None Include="Resources\全部取消32.ICO" />
+    <None Include="Resources\全部选择16.ICO" />
+    <None Include="Resources\全部选择32.ICO" />
+    <None Include="Resources\关闭文件32.ico" />
+    <None Include="Resources\关闭16.ico" />
+    <None Include="Resources\关闭32.ico" />
+    <None Include="Resources\关闭文件16.ico" />
+    <Content Include="Resources\微信打赏.png" />
+    <Content Include="Resources\文件16.ICO" />
+    <Content Include="Resources\文件32.ICO" />
     <Content Include="Resources\文件txt16.ICO" />
     <None Include="Resources\在浏览器中查找16.ICO" />
   </ItemGroup>

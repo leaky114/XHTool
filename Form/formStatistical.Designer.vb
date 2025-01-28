@@ -403,7 +403,7 @@ Partial Class formStatistical
         Me.btn移出.Text = "移出"
         Me.btn移出.UseVisualStyleBackColor = True
         '
-        'frmStatistical
+        'formStatistical
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -413,7 +413,8 @@ Partial Class formStatistical
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Name = "frmStatistical"
+        Me.MaximizeBox = False
+        Me.Name = "formStatistical"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "统计"
         Me.TopMost = True

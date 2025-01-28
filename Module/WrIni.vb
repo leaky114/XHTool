@@ -97,6 +97,7 @@
         ini.WriteStrINI("工程图", "钣金厚度前缀", str钣金厚度前缀, IniFile)
         ini.WriteStrINI("工程图", "逆时针序号", str逆时针序号, IniFile)
 
+        ini.WriteStrINI("主题", "大图标", strLargeSmallIconSets, IniFile)
 
     End Sub
 
@@ -204,6 +205,9 @@
         int图框高度 = ini.GetStrFromINI("切换文档", "图框高度", "120", Inifile)
         int图框行间距 = ini.GetStrFromINI("切换文档", "图框行间距", "10", Inifile)
         int图框列间距 = ini.GetStrFromINI("切换文档", "图框列间距", "10", Inifile)
+
+        strLargeSmallIconSets = ini.GetStrFromINI("主题", "大图标", "大,大,大,大,大,大,大", IniFile)
+
 
     End Sub
 

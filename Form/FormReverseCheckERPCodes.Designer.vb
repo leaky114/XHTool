@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formERPCodeSearch
+Partial Class FormReverseCheckERPCodes
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -85,7 +85,7 @@ Partial Class formERPCodeSearch
         Me.txt返回值.Size = New System.Drawing.Size(320, 131)
         Me.txt返回值.TabIndex = 15
         '
-        'frmERPCodeSearch
+        'formERPCodeSearch
         '
         Me.AcceptButton = Me.btn粘贴
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -100,9 +100,7 @@ Partial Class formERPCodeSearch
         Me.Controls.Add(Me.txtERP编码)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmERPCodeSearch"
-        Me.ShowInTaskbar = False
+        Me.Name = "formERPCodeSearch"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ERP编码反查"
         Me.ResumeLayout(False)

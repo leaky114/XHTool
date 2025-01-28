@@ -1,4 +1,6 @@
-﻿Imports Inventor
+﻿Imports System.Drawing
+Imports System.Linq
+Imports Inventor
 Imports Inventor.AssetTypeEnum
 Imports Inventor.BOMStructureEnum
 Imports Inventor.DocumentTypeEnum
@@ -11,12 +13,15 @@ Imports Inventor.SelectionFilterEnum
 Public Module PublicParameters
     Public Const XHTool = "XHTool"
 
+    Public strLargeSmallIconNames As String = "快速打开,按列表打开文件,保存关闭,关闭,打开工程图,提取iProperty,打开文件夹"
+    Public strLargeSmallIconSets As String   '大小图标
+
     Public Structure RectangularPoint
-        Dim TopLeft As Point
-        Dim TopRight As Point
-        Dim BottomRight As Point
-        Dim BottomLeft As Point
-        Dim Center As Point
+        Dim TopLeft As Inventor.Point
+        Dim TopRight As Inventor.Point
+        Dim BottomRight As Inventor.Point
+        Dim BottomLeft As Inventor.Point
+        Dim Center As Inventor.Point
         Dim Length As Double
         Dim Width As Double
     End Structure
@@ -100,7 +105,7 @@ Public Module PublicParameters
 
     Public TotalItem As Integer 'BOM序号
 
-    Public OPosition(9) As Point   '点
+    Public OPosition(9) As Inventor.Point   '点
     Public TempPoint(9) As SketchPoint   '临时绘制的点
 
     Public IsShowUpdateMsg As Boolean    '检查更新时是否显示是最新版本的msgbox
@@ -209,10 +214,10 @@ Public Module PublicParameters
     'End Sub
 
     '打开文件时的事件
-    Public Sub ThisApplicationEvents_OnOpenDocument(ByVal oInventorDocument As Inventor.Document, _
-                                    ByVal FullDocumentName As String, _
-                                   ByVal BeforeOrAfter As Inventor.EventTimingEnum, _
-                                  ByVal Context As Inventor.NameValueMap, _
+    Public Sub ThisApplicationEvents_OnOpenDocument(ByVal oInventorDocument As Inventor.Document,
+                                    ByVal FullDocumentName As String,
+                                   ByVal BeforeOrAfter As Inventor.EventTimingEnum,
+                                  ByVal Context As Inventor.NameValueMap,
                                   ByRef HandlingCode As Inventor.HandlingCodeEnum) Handles ThisApplicationEvents.OnOpenDocument
 
 
@@ -221,7 +226,7 @@ Public Module PublicParameters
 
         If BeforeOrAfter = EventTimingEnum.kBefore Then
             'MsgBox("before")
-
+            str模型匹配检查标记 = 1
         Else
 
             If oInventorDocument.DocumentType = kPartDocumentObject Then
@@ -230,7 +235,20 @@ Public Module PublicParameters
                     Select Case str模型匹配检查标记
                         Case 1
                             If BeforeOrAfter = EventTimingEnum.kAfter Then
-                                CheckSteelThickness()
+                                Dim IsMatching As Boolean
+
+                                'MsgBox(oInventorDocument.FullDocumentName)
+
+                                IsMatching = CheckSteelThicknessSub(oInventorDocument)
+
+                                Select Case IsMatching
+                                    Case True
+
+                                    Case False
+                                        MsgBox(FullDocumentName & "  材料与厚度不匹配。", MsgBoxStyle.Information)
+                                        ThisApplication.Documents.Open(FullDocumentName, True)
+                                End Select
+
                             End If
                             str模型匹配检查标记 = 2
                         Case 2
@@ -272,7 +290,7 @@ Public Module PublicParameters
 
             End If
 
-            End If
+        End If
 
     End Sub
 
@@ -289,7 +307,7 @@ Public Module PublicParameters
 
             '获取文件只读属性
             Dim oDef1 As ButtonDefinition
-            oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("InName文件只读")
+            oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName文件只读")
 
             oDef1.Pressed = GetFileReadOnly(oInventorDocument.FullDocumentName)
         Else
@@ -339,8 +357,85 @@ Public Module PublicParameters
                 DrawingDocumentSaveAs()
         End Select
 
-
-
     End Sub
 
+    ''' <summary>
+    ''' 获取图片
+    ''' </summary>
+    ''' <param name="ColorRGB"></param>
+    ''' <returns></returns>
+    Public Function GetBitmap(ColorRGB() As Integer) As Bitmap
+        Dim bmp As New Bitmap(32, 32)
+        For x As Integer = 0 To bmp.Width - 1
+            For y As Integer = 0 To bmp.Height - 1
+                bmp.SetPixel(x, y, Drawing.Color.FromArgb(ColorRGB(0), ColorRGB(1), ColorRGB(2)))
+            Next
+        Next
+        Return bmp
+    End Function
+
+    ''' <summary>
+    ''' 将十六进制字符串转换为image
+    ''' </summary>
+    ''' <param name="str">十六进制字符串</param>
+    ''' <returns>image</returns>
+    Public Function GetImageFromString(Str As String) As Image
+        Dim newImageBytes As Byte() = Enumerable.Range(0, Str.Length \ 2).[Select](Function(x) Convert.ToByte(Str.Substring(x * 2, 2), 16)).ToArray()
+        Using stream As New IO.MemoryStream(newImageBytes)
+            Return Image.FromStream(stream)
+        End Using
+    End Function
+
+
+    ''' <summary>
+    ''' 对比返回 图标 大小
+    ''' </summary>
+    ''' <param name="strButtonName">按钮的 名称</param>
+    ''' <returns></returns>
+    Public Function GetIconSetByButtonName(ByVal strButtonName As String) As Boolean
+        '' 定义图标名称字符串
+        'Dim strLargeSmallIconNames As String = "快速打开,按列表打开文件,保存关闭,关闭,打开工程图,提取iProperty,打开文件夹"
+        '' 定义图标集合字符串
+        'Dim strLargeSmallIconSets As String = "大大大大大大大"
+
+        ' 将图标名称字符串按逗号分割成数组
+        Dim iconNames() As String = Split(strLargeSmallIconNames, ",")
+
+        ' 找到输入参数在数组中的索引
+        Dim index As Integer = Array.IndexOf(iconNames, strButtonName)
+
+        ' 如果找到索引，则返回对应的图标集合字符，否则返回空字符串或其他错误信息
+        If index <> -1 Then
+            Dim nthChar As String
+            nthChar = Mid(strLargeSmallIconSets, 2 * index + 1, 1)
+
+            Debug.Print(nthChar)
+
+            Return IIf(nthChar = "大", True, False)
+        Else
+            Return True ' 或者你可以返回一个错误信息，比如 "参数未找到"
+        End If
+    End Function
+
+    ''' <summary>
+    ''' 保存缩略图为jpg文件
+    ''' </summary>
+    ''' <param name="oInventorDocument">文件对象</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetImageFromView(ByVal oInventorDocument As Inventor.Document) As Drawing.Image
+        Dim tempFile As String = IO.Path.GetTempFileName()
+        tempFile = IO.Path.ChangeExtension(tempFile, ".jpg")
+
+        Dim oActiveView As Inventor.View
+        oActiveView = oInventorDocument.Views.Item(1)
+
+        Dim oCamera As Camera
+        oCamera = oActiveView.Camera
+
+        oCamera.SaveAsBitmap(tempFile, 400, 300)
+
+        GetImageFromView = Image.FromFile(tempFile)
+
+    End Function
 End Module

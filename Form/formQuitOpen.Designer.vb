@@ -71,7 +71,7 @@ Partial Class formQuitOpen
         Me.btn多选打开.Text = "多选打开"
         Me.btn多选打开.Visible = False
         '
-        'frmQuitOpen
+        'formQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -82,7 +82,7 @@ Partial Class formQuitOpen
         Me.Controls.Add(Me.btn关闭)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmQuitOpen"
+        Me.Name = "formQuitOpen"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "快速打开"

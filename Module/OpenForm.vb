@@ -14,17 +14,17 @@ Module OpenForm
     ''' <summary>
     ''' 定义一个函数来设置窗口大小并居中显示
     ''' </summary>
-    ''' <param name="widthRatio"></param>
-    ''' <param name="heightRatio"></param>
+    ''' <param name="douWidthRatio"></param>
+    ''' <param name="douHeightRatio"></param>
     ''' <remarks></remarks>
-    Public Sub SetWindowSizeAndCenter(ByVal oForm As Form, ByVal widthRatio As Double, ByVal heightRatio As Double)
+    Public Sub SetWindowSizeAndCenter(ByVal oForm As Form, Optional ByVal douWidthRatio As Double = 0.5, Optional ByVal douHeightRatio As Double = 0.5)
         ' 获取显示器的分辨率
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
 
         ' 根据比例计算窗口的长和高
-        Dim windowWidth As Integer = CInt(screenWidth * widthRatio)
-        Dim windowHeight As Integer = CInt(screenHeight * heightRatio)
+        Dim windowWidth As Integer = CInt(screenWidth * douWidthRatio)
+        Dim windowHeight As Integer = CInt(screenHeight * douHeightRatio)
 
         ' 设置窗口的大小
         oForm.Size = New Size(windowWidth, windowHeight)
@@ -34,8 +34,21 @@ Module OpenForm
     End Sub
 
 
+    '打开关于窗口
+    Public Sub FormAboutShow()
+        Try
+            SetStatusBarText()
+
+            Dim FormAbout As New formAbout
+            FormManager.ShowForm(Of formAbout)(True)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
     '打开自定义签字窗口
-    Public Sub FrmCustomSignatureShow()
+    Public Sub FormCustomSignatureShow()
         Try
             SetStatusBarText()
 
@@ -48,8 +61,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSign As New formSign
-            frmSign.ShowDialog()
+            Dim formSign As New FormCustomSignature
+            FormManager.ShowForm(Of FormCustomSignature)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -57,7 +70,7 @@ Module OpenForm
     End Sub
 
     '保存关闭所有部件
-    Public Sub FrmSaveCloseAllDocumentShow()
+    Public Sub FormSaveCloseAllDocumentShow()
         Try
             SetStatusBarText()
 
@@ -65,15 +78,15 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSaveAll As New formSaveAll
-            frmSaveAll.Show()
+            Dim FormSaveCloseAllDocument As New FormSaveCloseAllDocument
+            FormManager.ShowForm(Of FormSaveCloseAllDocument)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
     '打开生成图号窗口
-    Public Sub FrmAutoPartNumberShow()
+    Public Sub FormAutoPartNumberShow()
         Try
             SetStatusBarText()
 
@@ -86,8 +99,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim AutoPartNumber As New formAutoPartNumber
-            AutoPartNumber.ShowDialog()
+            Dim formAutoPartNumber As New formAutoPartNumber
+            FormManager.ShowForm(Of formAutoPartNumber)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -95,25 +108,23 @@ Module OpenForm
     End Sub
 
     '打开技术要求窗口
-    Public Sub FrmSpecificationShow()
+    Public Sub FormSpecificationShow()
         Try
             SetStatusBarText()
-            Dim frmSpecification As New formSpecification
+
+            Dim formSpecification As New formSpecification
 
             If ThisApplication.FileManager.Files.Count = 0 Then
-                frmSpecification.Show()
+                FormManager.ShowForm(Of formSpecification)()
                 Exit Sub
             End If
 
             If ThisApplication.ActiveDocumentType = kDrawingDocumentObject Then
-
-                frmSpecification.Show()
+                FormManager.ShowForm(Of formSpecification)()
             Else
                 MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
                 Exit Sub
             End If
-
-
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -121,12 +132,27 @@ Module OpenForm
 
     End Sub
 
-    '打开批量打印窗口
-    Public Sub FrmBulkPrintShow()
+    '打开文件替换配置窗口
+    Public Sub FormBorderTitleShow()
         Try
             SetStatusBarText()
-            Dim frmPrint As New formPrint
-            frmPrint.Show()
+
+            Dim formBorderTitle As New formBorderTitle
+            FormManager.ShowForm(Of formBorderTitle)(True)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+
+    '打开批量打印窗口
+    Public Sub FormBulkPrintShow()
+        Try
+            SetStatusBarText()
+
+            Dim formPrint As New FormBulkPrint
+            FormManager.ShowForm(Of FormBulkPrint)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -134,11 +160,12 @@ Module OpenForm
     End Sub
 
     '打开查询erp编码窗口
-    Public Sub FrmSearchERPCodeShow()
+    Public Sub FormSearchERPCodeShow()
         Try
             SetStatusBarText()
-            Dim frmSearchERPCode As New formSearchERPCode
-            frmSearchERPCode.ShowDialog()
+
+            Dim formSearchERPCode As New formSearchERPCode
+            FormManager.ShowForm(Of formSearchERPCode)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -146,19 +173,20 @@ Module OpenForm
     End Sub
 
     '打开反查erp编码
-    Public Sub FrmReverseCheckERPCodesShow()
+    Public Sub FormReverseCheckERPCodesShow()
         Try
             SetStatusBarText()
-            Dim frmERPCodeSearch As New formERPCodeSearch
-            frmERPCodeSearch.ShowDialog()
+
+            Dim FormReverseCheckERPCodes As New FormReverseCheckERPCodes
+            FormManager.ShowForm(Of FormReverseCheckERPCodes)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
 
-    '导入ERP编码到excel文件
-    Public Sub FrmImportERPCodeToIamShow()
+    '导入ERP编码到 部件
+    Public Sub FormImportERPCodeToIamShow()
         Try
             SetStatusBarText()
 
@@ -171,8 +199,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmImportCodeToIam As New formImportCodeToIam
-            frmImportCodeToIam.Show()
+            Dim formImportCodeToIam As New formImportCodeToIam
+            FormManager.ShowForm(Of formImportCodeToIam)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -180,25 +208,23 @@ Module OpenForm
     End Sub
 
     '导入ERP编码到excel文件
-    Public Sub FrmImportERPCodeToExcelshow()
+    Public Sub FormImportERPCodeToExcelshow()
         Try
             SetStatusBarText()
 
-            'if IsInventorOpenDocument() = False Then
-            '    Exit Sub
-            'End if
-
-            Dim frmImportCodeToBomExcel As New formImportCodeToBomExcel
-            frmImportCodeToBomExcel.Show()
+            Dim formImportCodeToBomExcel As New formImportCodeToBomExcel
+            FormManager.ShowForm(Of formImportCodeToBomExcel)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
 
-    'm_打开ERP数据文件_Buttondef_OnExecute
+    'm_打开ERP数据文件 
     Public Sub OpenBasicExcel()
         Try
+            SetStatusBarText()
+
             If IsFileExsts(BasicExcelFullFileName) Then
                 Process.Start(BasicExcelFullFileName)
             Else
@@ -210,22 +236,38 @@ Module OpenForm
     End Sub
 
     '打开设置窗口
-    Public Sub FrmOptionshow()
-        Dim frmOption As New formOption
-        frmOption.Show()
+    Public Sub FormOptionshow()
+        Try
+            SetStatusBarText()
+
+            Dim formOption As New formOption
+
+            If ThisApplication.FileManager.Files.Count = 0 Then
+                FormManager.ShowForm(Of formOption)(True) '  formOption.ShowDialog()
+            Else
+                FormManager.ShowForm(Of formOption)()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
     End Sub
 
-    '打开全部另存为
-    Public Sub FrmAllSaveAsShow()
+    '格式转化
+    Public Sub formFormatConversionShow()
+        Try
+            SetStatusBarText()
 
-        Dim frmFormatConversion As New formFormatConversion
-        frmFormatConversion.Show()
-
+            Dim formFormatConversion As New formFormatConversion
+            FormManager.ShowForm(Of formFormatConversion)()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     '打开iproperty窗口
-    Public Sub FrmChangeIproShow()
+    Public Sub FormiPropertyShow()
         Try
             SetStatusBarText()
 
@@ -233,8 +275,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmiProperty As New formiProperty
-            frmiProperty.ShowDialog()
+            Dim formiProperty As New FormiProperty
+            FormManager.ShowForm(Of FormiProperty)(True)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -250,15 +292,15 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim FormUseriProperty As New FormUseriProperty
-            FormUseriProperty.ShowDialog()
+            Dim formUseriProperty As New FormUseriProperty
+            FormManager.ShowForm(Of FormUseriProperty)(True)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
     '打开iproperty量产窗口
-    Public Sub frmMassiPopertiesshow()
+    Public Sub formMassiPopertiesshow()
         Try
             SetStatusBarText()
 
@@ -266,8 +308,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmMassiPoperties As New formMassiPoperties
-            frmMassiPoperties.Show()
+            Dim formMassiPoperties As New formMassiPoperties
+            FormManager.ShowForm(Of formMassiPoperties)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -275,7 +317,7 @@ Module OpenForm
     End Sub
 
     '打开统计窗口
-    Public Sub FrmStatisticalShow()
+    Public Sub formStatisticalShow()
         Try
             SetStatusBarText()
 
@@ -288,8 +330,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmStatistical As New formStatistical
-            frmStatistical.Show()
+            Dim formStatistical As New formStatistical
+            FormManager.ShowForm(Of formStatistical)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -298,7 +340,7 @@ Module OpenForm
 
 
     '打开设置文件属性窗口
-    Public Sub FrmSetWriteOnlyShow()
+    Public Sub formSetReadOnlyShow()
         Try
             SetStatusBarText()
 
@@ -311,8 +353,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmSetReadOnly As New formSetReadOnly
-            frmSetReadOnly.Show()
+            Dim formSetReadOnly As New formSetReadOnly
+            FormManager.ShowForm(Of formSetReadOnly)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -321,7 +363,7 @@ Module OpenForm
 
 
     '打开编辑尺寸窗口
-    Public Sub FrmEditDimensionShow()
+    Public Sub formEditDimensionShow()
         Try
             SetStatusBarText()
 
@@ -334,8 +376,8 @@ Module OpenForm
             '    Exit Sub
             'End if
 
-            Dim frmEditDimension As New formEditDimension
-            frmEditDimension.Show()
+            Dim formEditDimension As New formEditDimension
+            FormManager.ShowForm(Of formEditDimension)()
 
         Catch ex As Exception
             'MsgBox(ex.Message)
@@ -344,7 +386,7 @@ Module OpenForm
     End Sub
 
     '打开驱动测量窗口
-    Public Sub FrmDim2ObjectShow()
+    Public Sub formDim2ObjectShow()
         Try
             SetStatusBarText()
 
@@ -357,8 +399,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim FrmDim2Object As New formDim2Object
-            FrmDim2Object.Show()
+            Dim formDim2Object As New formDim2Object
+            FormManager.ShowForm(Of formDim2Object)()
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -367,7 +409,7 @@ Module OpenForm
     End Sub
 
     '打开动画窗口
-    Public Sub FrmPlayerShow()
+    Public Sub formPlayerShow()
         Try
             SetStatusBarText()
 
@@ -380,8 +422,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmPlayer As New formPlayer
-            frmPlayer.Show()
+            Dim formPlayer As New formPlayer
+            FormManager.ShowForm(Of formPlayer)()
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -389,7 +431,7 @@ Module OpenForm
     End Sub
 
     '打开切换文档窗口
-    Public Sub FrmSwitchLablesShow()
+    Public Sub formSwitchLablesShow()
         Try
             SetStatusBarText()
 
@@ -401,16 +443,9 @@ Module OpenForm
                 Exit Sub
             End If
 
-            For Each openForm As System.Windows.Forms.Form In System.Windows.Forms.Application.OpenForms
-                If openForm.Name = "切换文档" Then
-                    ' 如果找到了，就激活这个窗口
-                    openForm.Activate()
-                    Exit Sub
-                End If
-            Next
 
-            Dim frmSwitchLables As New formSwitchLables
-            frmSwitchLables.Show()
+            Dim formSwitchLables As New formSwitchLables
+            FormManager.ShowForm(Of formSwitchLables)()
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -418,7 +453,7 @@ Module OpenForm
     End Sub
 
     '打开展开图工艺窗口
-    Public Sub FrmFlatPatternShow()
+    Public Sub formFlatPatternShow()
         Try
             SetStatusBarText()
 
@@ -431,16 +466,16 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmFlatPattern As New formFlatPattern
-            frmFlatPattern.Show()
+            Dim formFlatPattern As New formFlatPattern
+            FormManager.ShowForm(Of formFlatPattern)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
 
-    '打开展开图工艺窗口
-    Public Sub FrmMovesSpecifiedFileShow()
+    '打开移动文件窗口
+    Public Sub formMovesSpecifiedFileShow()
         Try
             SetStatusBarText()
 
@@ -453,8 +488,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim frmMovesSpecifiedFile As New formMovesSpecifiedFile
-            frmMovesSpecifiedFile.Show()
+            Dim formMovesSpecifiedFile As New formMovesSpecifiedFile
+            FormManager.ShowForm(Of formMovesSpecifiedFile)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -463,7 +498,7 @@ Module OpenForm
 
 
     '打开批量修改文件名窗口
-    Public Sub FrmBatchChangeFileNamesShow()
+    Public Sub formBatchChangeFileNamesShow()
         Try
             SetStatusBarText()
 
@@ -477,10 +512,39 @@ Module OpenForm
             End If
 
             Dim formBatchChangeFileNames As New formBatchChangeFileNames
-            formBatchChangeFileNames.Show()
+            FormManager.ShowForm(Of formBatchChangeFileNames)(True)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
     End Sub
+
+    '打插入打开的零部件
+    Public Sub FormPlaceOpenComponentShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            If ThisApplication.Documents.VisibleDocuments.Count = 1 Then
+                MsgBox("无已打开的其他零部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim FormPlaceOpenComponent As New FormPlaceOpenComponent
+            FormManager.ShowForm(Of FormPlaceOpenComponent)(True)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+
 End Module

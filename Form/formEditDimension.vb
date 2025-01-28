@@ -13,6 +13,7 @@ Public Class formEditDimension
     Private strCurrentBendValue As String   '折弯还原值
     Private strCurrentConstraintValue As String '约束还原值
 
+    Private oFeatureDimension As FeatureDimension    '特征尺寸
     Private oDimensionConstraint As DimensionConstraint      '二维尺寸
     Private oDimensionConstraint3D As DimensionConstraint3D    '三维尺寸
     Private oBendConstraint As BendConstraint     '折弯尺寸
@@ -42,6 +43,7 @@ Public Class formEditDimension
         角度约束 = 7
         插入约束 = 8
         相切约束 = 9
+        特征尺寸 = 10
     End Enum
 
     Private Sub btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一.Click
@@ -54,6 +56,18 @@ Public Class formEditDimension
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         Select Case oSelectType
+            Case SelectType.特征尺寸
+                Select Case oFeatureDimension.Parameter.Units
+                    Case "mm"
+                        oFeatureDimension.Parameter.Value = TrackBar参数一.Value * 0.1
+                    Case "cm"
+                        oFeatureDimension.Parameter.Value = TrackBar参数一.Value
+                    Case "deg"
+                        oFeatureDimension.Parameter.Value = TrackBar参数一.Value * Math.PI / 180
+                End Select
+
+                oFeatureDimension.Parent.FeatureDimensions.Show()
+
             Case SelectType.二维草图尺寸
                 '二维草图
                 Select Case oDimensionConstraint.Parameter.Units
@@ -132,6 +146,10 @@ Public Class formEditDimension
         oInventorDocument.Update()
         ThisApplication.ActiveView.Update()
 
+        If oSelectType = SelectType.特征尺寸 Then
+            oFeatureDimension.Parent.FeatureDimensions.Show()
+        End If
+
     End Sub
 
     Private Sub btn还原_Click(sender As Object, e As EventArgs) Handles btn还原.Click
@@ -139,6 +157,25 @@ Public Class formEditDimension
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         Select Case oSelectType
+            Case SelectType.特征尺寸
+                oFeatureDimension.Parameter.Expression = strCurrentDimensionValue
+                txt参数.Text = strCurrentDimensionValue
+
+                Select Case oFeatureDimension.Parameter.Units
+                    Case "mm"
+                        TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value * 10 - intStep * 10
+                        TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value * 10 + intStep * 10
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 10
+                    Case "cm"
+                        TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value - intStep
+                        TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value + intStep
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value
+                    Case "deg"
+                        TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value * 180 / Math.PI - 45
+                        TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value * 180 / Math.PI + 45
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 180 / Math.PI
+                End Select
+
             Case SelectType.二维草图尺寸
                 '二维草图
                 oDimensionConstraint.Parameter.Expression = strCurrentDimensionValue
@@ -265,9 +302,14 @@ Public Class formEditDimension
         oInventorDocument.Update()
         ThisApplication.ActiveView.Update()
 
+        If oSelectType = SelectType.特征尺寸 Then
+            oFeatureDimension.Parent.FeatureDimensions.Show()
+        End If
+
     End Sub
 
-    Private Sub frmChangeValue_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub formEditDimension_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+
         Try
 
             'If (oDimensionConstraint Is Nothing) And (oDimensionConstraint3D Is Nothing) Then
@@ -315,6 +357,8 @@ Public Class formEditDimension
 
         End Try
 
+        FormManager.CloseAndDisposeForm(Of formEditDimension)()
+
     End Sub
 
     Private Sub btn应用_Click(sender As Object, e As EventArgs) Handles btn应用.Click
@@ -323,6 +367,29 @@ Public Class formEditDimension
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         Select Case oSelectType
+            Case SelectType.特征尺寸
+                strCurrentDimensionValue = txt参数.Text
+                oFeatureDimension.Parameter.Expression = txt参数.Text
+
+                Select Case oFeatureDimension.Parameter.Units
+                    Case "mm"
+                        TrackBar参数一.Minimum = TrackBar参数一.Value - intStep * 10
+                        TrackBar参数一.Maximum = TrackBar参数一.Value + intStep * 10
+
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 10
+
+                    Case "cm"
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value
+                        TrackBar参数一.Minimum = TrackBar参数一.Value - intStep
+                        TrackBar参数一.Maximum = TrackBar参数一.Value + intStep
+
+                    Case "deg"
+                        TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 180 / Math.PI
+                        TrackBar参数一.Minimum = TrackBar参数一.Value - 90
+                        TrackBar参数一.Maximum = TrackBar参数一.Value + 90
+                End Select
+
+
             Case SelectType.二维草图尺寸
                 '二维草图
                 strCurrentDimensionValue = txt参数.Text
@@ -464,6 +531,10 @@ Public Class formEditDimension
         oInventorDocument.Update()
         ThisApplication.ActiveView.Update()
 
+        If oSelectType = SelectType.特征尺寸 Then
+            oFeatureDimension.Parent.FeatureDimensions.Show()
+        End If
+
     End Sub
 
     Private Sub frmChangeValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -490,7 +561,7 @@ Public Class formEditDimension
         If SelectDiameter() = True Then
 
         Else
-            Me.Close()
+            FormManager.CloseAndDisposeForm(Of formEditDimension)()
             Exit Sub
         End If
         Me.Show()
@@ -539,7 +610,36 @@ Public Class formEditDimension
             End If
         End If
 
-        If TypeOf oSelectSet Is DimensionConstraint Then
+        If TypeOf oSelectSet Is FeatureDimension Then       '特征尺寸
+            oSelectType = SelectType.特征尺寸
+
+            oFeatureDimension = CType(oSelectSet, FeatureDimension)
+
+            strCurrentName = oFeatureDimension.Parameter.Name
+            strCurrentDimensionValue = oFeatureDimension.Parameter.Expression
+
+            Me.Text = "编辑尺寸：" & strCurrentName
+            txt参数.Text = strCurrentDimensionValue
+
+            Select Case oFeatureDimension.Parameter.Units
+                Case "mm"
+                    TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value * 10 - intStep * 10
+                    TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value * 10 + intStep * 10
+                    TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 10
+
+                Case "cm"
+                    TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value - intStep
+                    TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value + intStep
+                    TrackBar参数一.Value = oFeatureDimension.Parameter.Value
+
+                Case "deg"
+                    TrackBar参数一.Minimum = oFeatureDimension.Parameter.Value * 180 / Math.PI - 90
+                    TrackBar参数一.Maximum = oFeatureDimension.Parameter.Value * 180 / Math.PI + 90
+                    TrackBar参数一.Value = oFeatureDimension.Parameter.Value * 180 / Math.PI
+
+            End Select
+
+        ElseIf TypeOf oSelectSet Is DimensionConstraint Then
             'MsgBox("2维草图")
 
             btn显示隐藏草图.Enabled = True
@@ -548,7 +648,7 @@ Public Class formEditDimension
 
             oSelectType = SelectType.二维草图尺寸
 
-            oDimensionConstraint = oSelectSet
+            oDimensionConstraint = CType(oSelectSet, DimensionConstraint)
 
             oPlanarSketch = oDimensionConstraint.Parent
 
@@ -785,6 +885,77 @@ Public Class formEditDimension
                     TrackBar参数一.Value = oTangentConstraint.Offset.Value
             End Select
 
+        ElseIf TypeOf oSelectSet Is FaceFeature        '平板特征
+            Dim oFaceFeature As FaceFeature
+            oFaceFeature = CType(oSelectSet, FaceFeature)
+            oFaceFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is FlangeFeature       '凸缘特征
+            Dim oFlangeFeature As FlangeFeature
+            oFlangeFeature = CType(oSelectSet, FlangeFeature)
+            oFlangeFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is CutFeature          '剪切特征
+            Dim oCutFeature As CutFeature
+            oCutFeature = CType(oSelectSet, CutFeature)
+            oCutFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is CornerChamferFeature  '倒角
+            Dim oCornerChamferFeature As CornerChamferFeature
+            oCornerChamferFeature = CType(oSelectSet, CornerChamferFeature)
+            oCornerChamferFeature.FeatureDimensions.Show()
+
+
+        ElseIf TypeOf oSelectSet Is ChamferFeature  '倒角
+            Dim oChamferFeature As ChamferFeature
+            oChamferFeature = CType(oSelectSet, ChamferFeature)
+            oChamferFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is CornerRoundFeature                '圆角
+            Dim oCornerRoundFeature As CornerRoundFeature
+            oCornerRoundFeature = CType(oSelectSet, CornerRoundFeature)
+            oCornerRoundFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is FilletFeature '三维圆角
+            Dim oFilletFeature As FilletFeature
+            oFilletFeature = CType(oSelectSet, FilletFeature)
+            oFilletFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is ContourFlangeFeature '异形板
+            Dim oContourFlangeFeature As ContourFlangeFeature
+            oContourFlangeFeature = CType(oSelectSet, ContourFlangeFeature)
+            oContourFlangeFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is SweepFeature  '扫掠
+            Dim oSweepFeature As SweepFeature
+            oSweepFeature = CType(oSelectSet, SweepFeature)
+            oSweepFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is ExtrudeFeature '拉伸
+            Dim oExtrudeFeature As ExtrudeFeature
+            oExtrudeFeature = CType(oSelectSet, ExtrudeFeature)
+            oExtrudeFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is HoleFeature '孔
+            Dim oHoleFeature As HoleFeature
+            oHoleFeature = CType(oSelectSet, HoleFeature)
+            oHoleFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is RevolveFeature '旋转
+            Dim oRevolveFeature As RevolveFeature
+            oRevolveFeature = CType(oSelectSet, RevolveFeature)
+            oRevolveFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is LoftFeature '放样
+            Dim oLoftFeature As LoftFeature
+            oLoftFeature = CType(oSelectSet, LoftFeature)
+            oLoftFeature.FeatureDimensions.Show()
+
+        ElseIf TypeOf oSelectSet Is ShellFeature  '抽壳
+            Dim oShellFeature As ShellFeature
+            oShellFeature = CType(oSelectSet, ShellFeature)
+            oShellFeature.FeatureDimensions.Show()
+
         Else
             Return False
         End If
@@ -794,5 +965,7 @@ Public Class formEditDimension
 
         Return True
     End Function
+
+
 
 End Class

@@ -1,8 +1,13 @@
 Imports System.Drawing
 Imports System.Windows.Forms
 Imports System.Collections.Generic
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports Inventor
+Imports System.ComponentModel
 
 Public Class formOption
+
+    Inherits Form
 
     Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
         'if txtBOM导出项.Text = "" Then
@@ -26,11 +31,7 @@ Public Class formOption
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
 
-    End Sub
 
     Private Sub btn清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清除.Click
         txtBOM导出项.Clear()
@@ -61,7 +62,7 @@ Public Class formOption
         TableArrays = txt查找范围.Text
         ColIndexNum = txt查询列.Text
 
-        str变更工程图扩展名 = Iif(chk备份工程图.Checked, "1", "-1")
+        str变更工程图扩展名 = IIf(chk备份工程图.Checked, "1", "-1")
         str另存到子文件夹 = IIf(chk另存到子文件夹.Checked, "1", "-1")
         str查找文件夹层数 = NUD查找文件夹层数.Value
         Is检查重复图号 = IIf(chk检查重复图号.Checked, "1", "-1")
@@ -70,16 +71,16 @@ Public Class formOption
 
         str模型匹配检查 = IIf(chk模型匹配检查.Checked, "1", "-1")
         str钣金厚度检查 = IIf(chk钣金厚度检查.Checked, "1", "-1")
-        Str钣金厚度前缀 = txt钣金厚度前缀.Text
-        str逆时针序号 = Iif(chk逆时针序号.Checked, "1", "-1")
+        str钣金厚度前缀 = txt钣金厚度前缀.Text
+        str逆时针序号 = IIf(chk逆时针序号.Checked, "1", "-1")
 
 
         '打印签字
-        IsOpenPrint = Iif(chk签字后打印.Checked, "1", "-1")
+        IsOpenPrint = IIf(chk签字后打印.Checked, "1", "-1")
 
 
         '同时签字
-        IsDayAndName = Iif(chk同时签字.Checked, "1", "-1")
+        IsDayAndName = IIf(chk同时签字.Checked, "1", "-1")
 
 
         '打开工程图时写入
@@ -93,7 +94,7 @@ Public Class formOption
 
 
         '启动检查更新
-        CheckUpdate = Iif(chk检查更新.Checked, "1", "-1")
+        CheckUpdate = IIf(chk检查更新.Checked, "1", "-1")
 
 
         '质量精度：
@@ -129,10 +130,10 @@ Public Class formOption
         Printer = cbo打印机.Text
 
         '匹配A3
-        IsPaperA3 = Iif(chk匹配A3纸.Checked, "1", "-1")
+        IsPaperA3 = IIf(chk匹配A3纸.Checked, "1", "-1")
 
         '签字
-        IsSign = Iif(chk签字.Checked, "1", "-1")
+        IsSign = IIf(chk签字.Checked, "1", "-1")
 
 
         '另存为
@@ -146,7 +147,7 @@ Public Class formOption
         str向上线型 = cbo向上线型.Text
         str向下线型 = cbo向下线型.Text
 
-        str展开图标注 = Iif(chk展开图标注.Checked, "1", "-1")
+        str展开图标注 = IIf(chk展开图标注.Checked, "1", "-1")
 
         str展开图隐藏螺纹特征 = IIf(chk展开图隐藏螺纹特征.Checked, "1", "-1")
         str标记孔径上限 = txt标记孔径上限.Text
@@ -156,19 +157,18 @@ Public Class formOption
         str工艺文字高 = txt工艺文字高.Text
 
         str工程图模板 = txt工程图模板.Text
-        str自动展开图 = Iif(chk钣金自动展开.Checked, "1", "-1")
-        str第三视角 = Iif(chk第三视角.Checked, "1", "-1")
-        str相切边 = Iif(chk相切边.Checked, "1", "-1")
-        str螺纹特征 = Iif(chk工程图螺纹特征.Checked, "1", "-1")
-        str标注尺寸 = Iif(chk标注尺寸.Checked, "1", "-1")
-        str样式 = Iif(rdo不显示隐藏线.Checked, "不显示隐藏线", "显示隐藏线")
+        str自动展开图 = IIf(chk钣金自动展开.Checked, "1", "-1")
+        str第三视角 = IIf(chk第三视角.Checked, "1", "-1")
+        str相切边 = IIf(chk相切边.Checked, "1", "-1")
+        str螺纹特征 = IIf(chk工程图螺纹特征.Checked, "1", "-1")
+        str标注尺寸 = IIf(chk标注尺寸.Checked, "1", "-1")
+        str样式 = IIf(rdo不显示隐藏线.Checked, "不显示隐藏线", "显示隐藏线")
 
 
-        str选择视图.str左视图 = Iif(chk左视图.Checked, "1", "-1")
-        str选择视图.str右视图 = Iif(chk右视图.Checked, "1", "-1")
-        str选择视图.str俯视图 = Iif(chk俯视图.Checked, "1", "-1")
-        str选择视图.str仰视图 = Iif(chk仰视图.Checked, "1", "-1")
-
+        str选择视图.str左视图 = IIf(chk左视图.Checked, "1", "-1")
+        str选择视图.str右视图 = IIf(chk右视图.Checked, "1", "-1")
+        str选择视图.str俯视图 = IIf(chk俯视图.Checked, "1", "-1")
+        str选择视图.str仰视图 = IIf(chk仰视图.Checked, "1", "-1")
         str页边距.short上边距 = NumericUpDown页边距上.Value
         str页边距.short下边距 = NumericUpDown页边距下.Value
         str页边距.short左边距 = NumericUpDown页边距左.Value
@@ -177,11 +177,17 @@ Public Class formOption
         str部件图框 = txt部件图框.Text
         str零件图框 = txt零件图框.Text
 
+
+        strLargeSmallIconSets = “”
+        For Each item As ListViewItem In lvw设置图标大小.Items
+            strLargeSmallIconSets = strLargeSmallIconSets & item.SubItems(1).Text.ToString & ","
+        Next
+
         WrIni.InAISettingIniWriteSetting()
         'WrXml.InAISettingXmlWriteSetting()
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of formOption)()
+
     End Sub
 
     Private Sub btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
@@ -227,6 +233,22 @@ Public Class formOption
 
     Private Sub frmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+
+
+        '
+        Dim strArryLargeSmallIconNames As String() = strLargeSmallIconNames.Split(","c)
+
+
+        Dim strArryLargeSmallIconSets As String() = strLargeSmallIconSets.Split(","c)
+        Dim i As Integer = 0
+
+        For Each strLargeSmallIconName As String In strArryLargeSmallIconNames
+            Dim oListViewItem As ListViewItem
+            oListViewItem = lvw设置图标大小.Items.Add(strLargeSmallIconName)
+            oListViewItem.SubItems.Add(strArryLargeSmallIconSets(i)）
+            i = i + 1
+        Next
+
 
 
         '加载配置文件
@@ -392,7 +414,7 @@ Public Class formOption
         txt零件图框.Text = str零件图框
 
         '==================================================================
-        Dim toolTip As New ToolTip()
+        Dim toolTip As New Windows.Forms.ToolTip()
         toolTip.AutoPopDelay = 0
         toolTip.InitialDelay = 0
         toolTip.ReshowDelay = 500
@@ -401,13 +423,14 @@ Public Class formOption
         toolTip.SetToolTip(btn选择erp数据库, "选择ERP数据库文件")
         toolTip.SetToolTip(btn选择工程图模板, "选择工程图模板文件")
         toolTip.SetToolTip(btn展开图模板, "选择展开图模板文件")
-        toolTip.SetToolTip(chk另存到子文件夹, "另存dwg，pdf文件到子文件夹 \CAD\ 或 \PDF\下")
+        toolTip.SetToolTip(chk另存到子文件夹, "另存dwg，pdf文件到子文件夹 \Dwg\ 或 \Pdf\")
         toolTip.SetToolTip(chk逆时针序号, "按逆时针自动重建序号")
         toolTip.SetToolTip(NUD查找文件夹层数, "设置查找文件时，向上父文件夹的层数")
         toolTip.SetToolTip(chk检查重复图号, "更改文件名时，在当前项目文件夹下，检查图号是否重复")
         toolTip.SetToolTip(lbl去除后缀, "提取文件名时，去除后缀，用‘,’分割")
         toolTip.SetToolTip(lbl标记孔径上限, "标记螺纹的最大值，保留2位小数")
-
+        toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致")
+        toolTip.SetToolTip(lvw设置图标大小, "双击列表行切换图标大小")
 
         btn选择erp数据库.Image = My.Resources.打开文件16.ToBitmap
         btn选择工程图模板.Image = My.Resources.打开文件16.ToBitmap
@@ -486,7 +509,7 @@ Public Class formOption
     Private Sub btn颜色上_Click(sender As Object, e As EventArgs) Handles btn向上颜色.Click
         Dim colorDialog As New ColorDialog()
         If colorDialog.ShowDialog() = DialogResult.OK Then
-            Dim selectedColor As Color = colorDialog.Color
+            Dim selectedColor As Drawing.Color = colorDialog.Color
             btn向上颜色.BackColor = selectedColor
             str向上颜色 = String.Format("#{0:X2}{1:X2}{2:X2}", selectedColor.R, selectedColor.G, selectedColor.B)
         End If
@@ -495,7 +518,7 @@ Public Class formOption
     Private Sub btn颜色下_Click(sender As Object, e As EventArgs) Handles btn向下颜色.Click
         Dim colorDialog As New ColorDialog()
         If colorDialog.ShowDialog() = DialogResult.OK Then
-            Dim selectedColor As Color = colorDialog.Color
+            Dim selectedColor As Drawing.Color = colorDialog.Color
             btn向下颜色.BackColor = selectedColor
             str向下颜色 = String.Format("#{0:X2}{1:X2}{2:X2}", selectedColor.R, selectedColor.G, selectedColor.B)
         End If
@@ -529,11 +552,12 @@ Public Class formOption
     End Sub
 
     Private Sub ToolStripMenuItem图框替换_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem图框替换.Click
-        Dim formBorderTitle As New formBorderTitle
-        formBorderTitle.Show()
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+        FormBorderTitleShow()
+
+        FormManager.CloseAndDisposeForm(Of formOption)()
+
+
     End Sub
 
     Private Sub ToolStripMenuItem安装目录_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem安装目录.Click
@@ -545,10 +569,27 @@ Public Class formOption
     Private Sub btn配置文件_MouseClick(sender As Object, e As MouseEventArgs) Handles btn配置文件.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             ' 计算按钮的左下角位置
-            Dim buttonLocation As Point = btn配置文件.PointToScreen(New Point(0, btn配置文件.Height))
+            Dim buttonLocation As Drawing.Point = btn配置文件.PointToScreen(New Drawing.Point(0, btn配置文件.Height))
             ' 显示 ContextMenuStrip
             ContextMenuStrip配置文件.Show(buttonLocation)
         End If
     End Sub
 
+    Private Sub lvw设置图标大小_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvw设置图标大小.MouseDoubleClick
+        Dim oListViewItem As ListViewItem
+        If lvw设置图标大小.SelectedItems.Count > 0 Then
+            oListViewItem = lvw设置图标大小.SelectedItems(0)
+            If oListViewItem.SubItems(1).Text = "大" Then
+                oListViewItem.SubItems(1).Text = "小"
+            Else
+                oListViewItem.SubItems(1).Text = "大"
+            End If
+
+        End If
+    End Sub
+
+
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formOption)()
+    End Sub
 End Class

@@ -73,10 +73,8 @@ Public Class formPlayer
     End Sub
 
     '退出
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        lvw文件列表.Items.Clear()
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formPlayer)()
     End Sub
 
     '清空

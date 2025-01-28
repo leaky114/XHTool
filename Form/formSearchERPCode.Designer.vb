@@ -118,6 +118,7 @@ Partial Class formSearchERPCode
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw编码列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader规格, Me.ColumnHeader编码})
         Me.lvw编码列表.FullRowSelect = True
+        Me.lvw编码列表.HideSelection = False
         Me.lvw编码列表.Location = New System.Drawing.Point(21, 124)
         Me.lvw编码列表.Name = "lvw编码列表"
         Me.lvw编码列表.Size = New System.Drawing.Size(332, 116)
@@ -136,7 +137,7 @@ Partial Class formSearchERPCode
         Me.ColumnHeader编码.Text = "ERP编码"
         Me.ColumnHeader编码.Width = 100
         '
-        'frmSearchERPCode
+        'formSearchERPCode
         '
         Me.AcceptButton = Me.btn粘贴到规格
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -154,10 +155,8 @@ Partial Class formSearchERPCode
         Me.Controls.Add(Me.lbl规格图号)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmSearchERPCode"
+        Me.Name = "formSearchERPCode"
         Me.Padding = New System.Windows.Forms.Padding(9, 8, 9, 8)
-        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "查询ERP编码"
         Me.ResumeLayout(False)

@@ -35,8 +35,7 @@ Public Class formSwitchLables
 
     Private Sub frmSwitchLables_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
-            Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-            Me.Dispose()
+            FormManager.CloseAndDisposeForm(Of formSwitchLables)()
         End If
     End Sub
 
@@ -138,27 +137,7 @@ Public Class formSwitchLables
 
     End Sub
 
-    ''' <summary>
-    ''' 保存缩略图为jpg文件
-    ''' </summary>
-    ''' <param name="oInventorDocument">文件对象</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function GetImageFromView(ByVal oInventorDocument As Inventor.Document) As Drawing.Image
-        Dim tempFile As String = IO.Path.GetTempFileName()
-        tempFile = IO.Path.ChangeExtension(tempFile, ".jpg")
 
-        Dim oActiveView As Inventor.View
-        oActiveView = oInventorDocument.Views.Item(1)
-
-        Dim oCamera As Camera
-        oCamera = oActiveView.Camera
-
-        oCamera.SaveAsBitmap(tempFile, 400, 300)
-
-        GetImageFromView = Image.FromFile(tempFile)
-
-    End Function
 
     ''' <summary>
     '''  布置图框位置
@@ -225,7 +204,7 @@ Public Class formSwitchLables
 
         ThisApplication.Documents.ItemByName(strSelectFileFullName).Activate()
 
-        Me.Dispose()
+        FormManager.CloseAndDisposeForm(Of formSwitchLables)()
 
     End Sub
 
@@ -241,7 +220,6 @@ Public Class formSwitchLables
 
         oSelectedPictureBox.Size = New Size(oSelectedPictureBox.Width + int图框列间距 \ 2, oSelectedPictureBox.Height + int图框行间距 \ 2)
         oSelectdLabel.Size = New Size(oSelectedPictureBox.Width - 4, oSelectdLabel.Height)
-
 
         Me.Text = "切换文档" & oSelectedPictureBox.Name
     End Sub
@@ -357,9 +335,8 @@ Public Class formSwitchLables
         Panel设置.Hide()
     End Sub
 
-    Private Sub ToolStripMenuItem退出_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem关闭窗口.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub ToolStripMenuItem退出_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem关闭窗口.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formSwitchLables)()
     End Sub
 
     Private Sub txt快捷键_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt快捷键.KeyPress
@@ -376,5 +353,21 @@ Public Class formSwitchLables
 
     End Sub
 
+    Private Sub ToolStripMenuItem插入到本部件_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem插入到本部件.Click
+        Me.TopMost = False
 
+        If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocument.FullDocumentName = strSelectFileFullName Then
+            Exit Sub
+        End If
+
+        ThisApplication.CommandManager.PostPrivateEvent(PrivateEventTypeEnum.kFileNameEvent, strSelectFileFullName)
+        ThisApplication.CommandManager.ControlDefinitions.Item("AssemblyPlaceComponentCmd").Execute()
+
+        FormManager.CloseAndDisposeForm(Of formSwitchLables)()
+
+    End Sub
 End Class

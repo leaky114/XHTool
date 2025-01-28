@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports System.Windows.Forms
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formAbout
     Inherits System.Windows.Forms.Form
 
@@ -29,12 +31,11 @@ Partial Class formAbout
         Me.lblCompanyName = New System.Windows.Forms.Label()
         Me.lblProductName = New System.Windows.Forms.Label()
         Me.txtDescription = New System.Windows.Forms.TextBox()
-        Me.picZhiFuBao = New System.Windows.Forms.PictureBox()
-        Me.picWeiXin = New System.Windows.Forms.PictureBox()
         Me.btn检查更新 = New System.Windows.Forms.Button()
         Me.lblGitCode = New System.Windows.Forms.LinkLabel()
         Me.lblBilibili = New System.Windows.Forms.LinkLabel()
-        CType(Me.picZhiFuBao, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.picWeiXin = New System.Windows.Forms.PictureBox()
         CType(Me.picWeiXin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -114,28 +115,6 @@ Partial Class formAbout
         Me.txtDescription.TabStop = False
         Me.txtDescription.Text = "说明 :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(在运行时，将用应用程序的程序集信息替换这些标签的文本。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "在"
         '
-        'picZhiFuBao
-        '
-        Me.picZhiFuBao.Image = Global.XHTool.My.Resources.Resources.支付宝
-        Me.picZhiFuBao.InitialImage = Nothing
-        Me.picZhiFuBao.Location = New System.Drawing.Point(14, 126)
-        Me.picZhiFuBao.Name = "picZhiFuBao"
-        Me.picZhiFuBao.Size = New System.Drawing.Size(100, 100)
-        Me.picZhiFuBao.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picZhiFuBao.TabIndex = 43
-        Me.picZhiFuBao.TabStop = False
-        '
-        'picWeiXin
-        '
-        Me.picWeiXin.Image = Global.XHTool.My.Resources.Resources.微信
-        Me.picWeiXin.InitialImage = Nothing
-        Me.picWeiXin.Location = New System.Drawing.Point(14, 12)
-        Me.picWeiXin.Name = "picWeiXin"
-        Me.picWeiXin.Size = New System.Drawing.Size(100, 100)
-        Me.picWeiXin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.picWeiXin.TabIndex = 42
-        Me.picWeiXin.TabStop = False
-        '
         'btn检查更新
         '
         Me.btn检查更新.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -166,18 +145,40 @@ Partial Class formAbout
         Me.lblBilibili.TabStop = True
         Me.lblBilibili.Text = "Bilibili"
         '
-        'frmAbout
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(9, 122)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
+        Me.Label1.MaximumSize = New System.Drawing.Size(0, 16)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(113, 12)
+        Me.Label1.TabIndex = 48
+        Me.Label1.Text = "微信扫一扫打赏作者"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'picWeiXin
+        '
+        Me.picWeiXin.Image = Global.XHTool.My.Resources.Resources.微信打赏
+        Me.picWeiXin.Location = New System.Drawing.Point(12, 15)
+        Me.picWeiXin.Name = "picWeiXin"
+        Me.picWeiXin.Size = New System.Drawing.Size(100, 100)
+        Me.picWeiXin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.picWeiXin.TabIndex = 49
+        Me.picWeiXin.TabStop = False
+        '
+        'formAbout
         '
         Me.AcceptButton = Me.btn检查更新
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(358, 275)
+        Me.Controls.Add(Me.picWeiXin)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblBilibili)
         Me.Controls.Add(Me.lblGitCode)
         Me.Controls.Add(Me.btn检查更新)
-        Me.Controls.Add(Me.picZhiFuBao)
-        Me.Controls.Add(Me.picWeiXin)
         Me.Controls.Add(Me.txtDescription)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.lblVersion)
@@ -187,13 +188,12 @@ Partial Class formAbout
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmAbout"
+        Me.Name = "formAbout"
         Me.Padding = New System.Windows.Forms.Padding(9, 8, 9, 8)
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "关于"
         Me.TopMost = True
-        CType(Me.picZhiFuBao, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picWeiXin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -205,10 +205,9 @@ Partial Class formAbout
     Friend WithEvents lblCompanyName As System.Windows.Forms.Label
     Friend WithEvents lblProductName As System.Windows.Forms.Label
     Friend WithEvents txtDescription As System.Windows.Forms.TextBox
-    Friend WithEvents picWeiXin As System.Windows.Forms.PictureBox
-    Friend WithEvents picZhiFuBao As System.Windows.Forms.PictureBox
     Friend WithEvents btn检查更新 As System.Windows.Forms.Button
     Friend WithEvents lblGitCode As System.Windows.Forms.LinkLabel
     Friend WithEvents lblBilibili As System.Windows.Forms.LinkLabel
-
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents picWeiXin As PictureBox
 End Class

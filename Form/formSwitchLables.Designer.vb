@@ -43,6 +43,7 @@ Partial Class formSwitchLables
         Me.lbl每行数量 = New System.Windows.Forms.Label()
         Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
+        Me.ToolStripMenuItem插入到本部件 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip右键.SuspendLayout()
         Me.Panel设置.SuspendLayout()
         Me.GroupBox设置.SuspendLayout()
@@ -50,26 +51,26 @@ Partial Class formSwitchLables
         '
         'ContextMenuStrip右键
         '
-        Me.ContextMenuStrip右键.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem关闭文档, Me.ToolStripMenuItem关闭窗口, Me.ToolStripMenuItem设置})
+        Me.ContextMenuStrip右键.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem关闭文档, Me.ToolStripMenuItem关闭窗口, Me.ToolStripMenuItem插入到本部件, Me.ToolStripMenuItem设置})
         Me.ContextMenuStrip右键.Name = "ContextMenuStrip右键"
-        Me.ContextMenuStrip右键.Size = New System.Drawing.Size(125, 70)
+        Me.ContextMenuStrip右键.Size = New System.Drawing.Size(181, 114)
         '
         'ToolStripMenuItem关闭文档
         '
         Me.ToolStripMenuItem关闭文档.Name = "ToolStripMenuItem关闭文档"
-        Me.ToolStripMenuItem关闭文档.Size = New System.Drawing.Size(124, 22)
+        Me.ToolStripMenuItem关闭文档.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem关闭文档.Text = "关闭文档"
         '
         'ToolStripMenuItem关闭窗口
         '
         Me.ToolStripMenuItem关闭窗口.Name = "ToolStripMenuItem关闭窗口"
-        Me.ToolStripMenuItem关闭窗口.Size = New System.Drawing.Size(124, 22)
+        Me.ToolStripMenuItem关闭窗口.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem关闭窗口.Text = "关闭窗口"
         '
         'ToolStripMenuItem设置
         '
         Me.ToolStripMenuItem设置.Name = "ToolStripMenuItem设置"
-        Me.ToolStripMenuItem设置.Size = New System.Drawing.Size(124, 22)
+        Me.ToolStripMenuItem设置.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem设置.Text = "设置"
         '
         'Panel设置
@@ -223,7 +224,13 @@ Partial Class formSwitchLables
         Me.btn关闭.TabIndex = 19
         Me.btn关闭.Text = "取消"
         '
-        'frmSwitchLables
+        'ToolStripMenuItem插入到本部件
+        '
+        Me.ToolStripMenuItem插入到本部件.Name = "ToolStripMenuItem插入到本部件"
+        Me.ToolStripMenuItem插入到本部件.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem插入到本部件.Text = "插入到本部件"
+        '
+        'formSwitchLables
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -234,7 +241,7 @@ Partial Class formSwitchLables
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmSwitchLables"
+        Me.Name = "formSwitchLables"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " "
         Me.TopMost = True
@@ -265,4 +272,5 @@ Partial Class formSwitchLables
     Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents txt快捷键 As System.Windows.Forms.TextBox
     Friend WithEvents lbl快捷键 As System.Windows.Forms.Label
+    Friend WithEvents ToolStripMenuItem插入到本部件 As System.Windows.Forms.ToolStripMenuItem
 End Class

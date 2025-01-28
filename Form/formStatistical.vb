@@ -104,9 +104,8 @@ Public Class formStatistical
     End Sub
 
     '退出
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formStatistical)()
     End Sub
 
     '复制总质量到剪贴板

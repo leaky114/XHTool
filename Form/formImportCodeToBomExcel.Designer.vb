@@ -146,8 +146,9 @@ Partial Class formImportCodeToBomExcel
         Me.lbl进度文件.TabIndex = 23
         Me.lbl进度文件.Text = "当前零件："
         '
-        'frmImportCodeToBomExcel
+        'formImportCodeToBomExcel
         '
+        Me.AcceptButton = Me.btn导入
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
@@ -166,7 +167,7 @@ Partial Class formImportCodeToBomExcel
         Me.Controls.Add(Me.btn关闭)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "frmImportCodeToBomExcel"
+        Me.Name = "formImportCodeToBomExcel"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码到Bom表"
         Me.ResumeLayout(False)

@@ -11,9 +11,8 @@ Public Class formSpecification
 
     Private oPoint2d As Point2d
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formSpecification)()
     End Sub
 
     Private Sub frmSpecification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -421,7 +420,7 @@ Public Class formSpecification
         oGeneralNote = oGeneralNotes.AddFitted(oPoint2d, strFormattedText)
         oGeneralNote.LineSpacing = douLineSpacing
 
-        Me.Dispose()
+        FormManager.CloseAndDisposeForm(Of formSpecification)()
 
 
     End Sub

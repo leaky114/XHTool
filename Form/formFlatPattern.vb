@@ -6,6 +6,7 @@ Imports stdole
 Imports Inventor.ViewOrientationTypeEnum
 Imports Inventor.DrawingViewStyleEnum
 Imports System.Windows.Forms
+Imports System.ComponentModel
 
 Public Class formFlatPattern
     Private intViewOrientation As ViewOrientationTypeEnum
@@ -168,7 +169,7 @@ Public Class formFlatPattern
         Dim oView展开视图 As DrawingView = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oPositonPoint2d, douScale,
                 ViewOrientationTypeEnum.kDefaultViewOrientation,
                 DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle,
-                , , oBaseViewOptions)
+, , oBaseViewOptions)
 
         douFlatExtent_X = oFlatPattern.Length * 10
         douFlatExtent_Y = oFlatPattern.Width * 10
@@ -309,8 +310,8 @@ Public Class formFlatPattern
     ''' <param name="oInventorPartDocument">被添加的零件</param>
     ''' <param name="ViewOrientationType">视图的方向</param>
     ''' <remarks></remarks>
-    Private Sub AddPartZheWanViewToIdw(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, _
-                                   ByVal oInventorPartDocument As Inventor.PartDocument, _
+    Private Sub AddPartZheWanViewToIdw(ByVal oInventorDrawingDocument As Inventor.DrawingDocument,
+                                   ByVal oInventorPartDocument As Inventor.PartDocument,
                                    ByVal ViewOrientationType As Inventor.ViewOrientationTypeEnum)
 
         'Dim oPoint2d As Point2d = Nothing
@@ -340,8 +341,8 @@ Public Class formFlatPattern
         Dim oSheet As Sheet = oInventorDrawingDocument.Sheets.Item(1)
 
         Dim oView折弯视图 As DrawingView
-        oView折弯视图 = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oPositonPoint2d, douScale, ViewOrientationType, _
-                                                   IIf(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle, _
+        oView折弯视图 = oSheet.DrawingViews.AddBaseView(oInventorPartDocument, oPositonPoint2d, douScale, ViewOrientationType,
+                                                   IIf(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle,
                                                        DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle))
 
         Dim douView_X As Double    '宽度  转换单位为mm
@@ -550,6 +551,8 @@ Public Class formFlatPattern
 
 
     Private Sub frmFlatPattern_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
         btn向上1.Image = My.Resources.交换16.ToBitmap
 
     End Sub
@@ -573,7 +576,7 @@ Public Class formFlatPattern
     ''' <param name="ViewOrientationType">视图枚举值</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function GetImageFormOneView(ByVal oInventorDocument As Inventor.Document, _
+    Private Function GetImageFormOneView(ByVal oInventorDocument As Inventor.Document,
                                         ByVal ViewOrientationType As Inventor.ViewOrientationTypeEnum) As Drawing.Image
 
         Dim tempFile As String = IO.Path.GetTempFileName()
@@ -594,7 +597,7 @@ Public Class formFlatPattern
 
     End Function
 
-    Private Sub rdo前视图_CheckedChanged(sender As Object, e As EventArgs) Handles rdo前视图.CheckedChanged, rdo后视图.CheckedChanged, _
+    Private Sub rdo前视图_CheckedChanged(sender As Object, e As EventArgs) Handles rdo前视图.CheckedChanged, rdo后视图.CheckedChanged,
         rdo左视图.CheckedChanged, rdo右视图.CheckedChanged, rdo上视图.CheckedChanged, rdo下视图.CheckedChanged
 
         Dim oradio As RadioButton
@@ -629,5 +632,7 @@ Public Class formFlatPattern
 
     End Sub
 
-
+    Private Sub formFlatPattern_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of formFlatPattern)()
+    End Sub
 End Class

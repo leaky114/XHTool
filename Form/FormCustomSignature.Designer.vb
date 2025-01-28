@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formSign
+Partial Class FormCustomSignature
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -48,7 +48,7 @@ Partial Class formSign
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(65, 25)
         Me.btn关闭.TabIndex = 4
-        Me.btn关闭.Text = "取消"
+        Me.btn关闭.Text = "关闭"
         '
         'lbl工程师
         '
@@ -92,7 +92,7 @@ Partial Class formSign
         Me.chk签字后打印.Text = "签字后打印"
         Me.chk签字后打印.UseVisualStyleBackColor = True
         '
-        'frmSign
+        'formSign
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -109,7 +109,7 @@ Partial Class formSign
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmSign"
+        Me.Name = "formSign"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " 签字"

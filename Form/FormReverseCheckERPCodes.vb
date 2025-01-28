@@ -1,16 +1,15 @@
 ﻿Imports System.Windows.Forms
 Imports Inventor
 
-Public Class formERPCodeSearch
+Public Class FormReverseCheckERPCodes
 
     Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
         txtERP编码.Text = My.Computer.Clipboard.GetText
         btn编码反查.Focus()
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormReverseCheckERPCodes)()
     End Sub
 
     Private Sub btn编码反查_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn编码反查.Click
@@ -66,6 +65,7 @@ Public Class formERPCodeSearch
 
     Private Sub frmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
         Me.Height = 124
     End Sub
 

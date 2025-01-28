@@ -1,9 +1,11 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports System.Windows.Forms
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formOption
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,13 +22,15 @@ Partial Class formOption
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.chk检查更新 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型 = New System.Windows.Forms.TabPage()
+        Me.txt钣金厚度前缀 = New System.Windows.Forms.TextBox()
+        Me.chk钣金厚度检查 = New System.Windows.Forms.CheckBox()
         Me.txt去除后缀 = New System.Windows.Forms.TextBox()
         Me.lbl去除后缀 = New System.Windows.Forms.Label()
         Me.chk检查重复图号 = New System.Windows.Forms.CheckBox()
@@ -155,11 +159,13 @@ Partial Class formOption
         Me.btn向上颜色 = New System.Windows.Forms.Button()
         Me.lbl线宽上 = New System.Windows.Forms.Label()
         Me.lbl线型上 = New System.Windows.Forms.Label()
+        Me.TabPage主题 = New System.Windows.Forms.TabPage()
+        Me.lvw设置图标大小 = New System.Windows.Forms.ListView()
+        Me.ch按钮 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ch图标大小 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.txt钣金厚度前缀 = New System.Windows.Forms.TextBox()
-        Me.chk钣金厚度检查 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型.SuspendLayout()
         CType(Me.NUD查找文件夹层数, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxERP查询.SuspendLayout()
@@ -186,6 +192,7 @@ Partial Class formOption
         Me.GroupBox展开图模板.SuspendLayout()
         Me.GroupBox下.SuspendLayout()
         Me.GroupBox上.SuspendLayout()
+        Me.TabPage主题.SuspendLayout()
         Me.SuspendLayout()
         '
         'btn确定
@@ -240,6 +247,26 @@ Partial Class formOption
         Me.TabPage模型.TabIndex = 1
         Me.TabPage模型.Text = "模型"
         Me.TabPage模型.UseVisualStyleBackColor = True
+        '
+        'txt钣金厚度前缀
+        '
+        Me.txt钣金厚度前缀.Location = New System.Drawing.Point(251, 256)
+        Me.txt钣金厚度前缀.Name = "txt钣金厚度前缀"
+        Me.txt钣金厚度前缀.Size = New System.Drawing.Size(98, 21)
+        Me.txt钣金厚度前缀.TabIndex = 38
+        '
+        'chk钣金厚度检查
+        '
+        Me.chk钣金厚度检查.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.chk钣金厚度检查.AutoSize = True
+        Me.chk钣金厚度检查.Checked = True
+        Me.chk钣金厚度检查.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chk钣金厚度检查.Location = New System.Drawing.Point(153, 258)
+        Me.chk钣金厚度检查.Name = "chk钣金厚度检查"
+        Me.chk钣金厚度检查.Size = New System.Drawing.Size(96, 16)
+        Me.chk钣金厚度检查.TabIndex = 37
+        Me.chk钣金厚度检查.Text = "钣金厚度检查"
+        Me.chk钣金厚度检查.UseVisualStyleBackColor = True
         '
         'txt去除后缀
         '
@@ -921,7 +948,8 @@ Partial Class formOption
         Me.TabControl.Controls.Add(Me.TabPage模型)
         Me.TabControl.Controls.Add(Me.TabPage工程图)
         Me.TabControl.Controls.Add(Me.TabPage展开图)
-        Me.TabControl.Location = New System.Drawing.Point(3, 11)
+        Me.TabControl.Controls.Add(Me.TabPage主题)
+        Me.TabControl.Location = New System.Drawing.Point(2, 11)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
         Me.TabControl.Size = New System.Drawing.Size(624, 316)
@@ -1520,6 +1548,43 @@ Partial Class formOption
         Me.lbl线型上.TabIndex = 0
         Me.lbl线型上.Text = "线型"
         '
+        'TabPage主题
+        '
+        Me.TabPage主题.Controls.Add(Me.lvw设置图标大小)
+        Me.TabPage主题.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage主题.Name = "TabPage主题"
+        Me.TabPage主题.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage主题.TabIndex = 4
+        Me.TabPage主题.Text = "主题"
+        Me.TabPage主题.UseVisualStyleBackColor = True
+        '
+        'lvw设置图标大小
+        '
+        Me.lvw设置图标大小.AllowDrop = True
+        Me.lvw设置图标大小.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvw设置图标大小.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch按钮, Me.ch图标大小})
+        Me.lvw设置图标大小.FullRowSelect = True
+        Me.lvw设置图标大小.HideSelection = False
+        Me.lvw设置图标大小.Location = New System.Drawing.Point(9, 9)
+        Me.lvw设置图标大小.Name = "lvw设置图标大小"
+        Me.lvw设置图标大小.Size = New System.Drawing.Size(229, 274)
+        Me.lvw设置图标大小.TabIndex = 1
+        Me.lvw设置图标大小.TabStop = False
+        Me.lvw设置图标大小.UseCompatibleStateImageBehavior = False
+        Me.lvw设置图标大小.View = System.Windows.Forms.View.Details
+        '
+        'ch按钮
+        '
+        Me.ch按钮.Text = "按钮"
+        Me.ch按钮.Width = 127
+        '
+        'ch图标大小
+        '
+        Me.ch图标大小.Text = "图标大小"
+        Me.ch图标大小.Width = 80
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -1545,26 +1610,6 @@ Partial Class formOption
         Me.Button1.Text = "选择"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'txt钣金厚度前缀
-        '
-        Me.txt钣金厚度前缀.Location = New System.Drawing.Point(248, 256)
-        Me.txt钣金厚度前缀.Name = "txt钣金厚度前缀"
-        Me.txt钣金厚度前缀.Size = New System.Drawing.Size(98, 21)
-        Me.txt钣金厚度前缀.TabIndex = 38
-        '
-        'chk钣金厚度检查
-        '
-        Me.chk钣金厚度检查.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.chk钣金厚度检查.AutoSize = True
-        Me.chk钣金厚度检查.Checked = True
-        Me.chk钣金厚度检查.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk钣金厚度检查.Location = New System.Drawing.Point(153, 258)
-        Me.chk钣金厚度检查.Name = "chk钣金厚度检查"
-        Me.chk钣金厚度检查.Size = New System.Drawing.Size(96, 16)
-        Me.chk钣金厚度检查.TabIndex = 37
-        Me.chk钣金厚度检查.Text = "钣金厚度检查"
-        Me.chk钣金厚度检查.UseVisualStyleBackColor = True
-        '
         'formOption
         '
         Me.AcceptButton = Me.btn确定
@@ -1576,7 +1621,8 @@ Partial Class formOption
         Me.Controls.Add(Me.btn确定)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.chk检查更新)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Cursor = System.Windows.Forms.Cursors.Default
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "formOption"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -1625,6 +1671,7 @@ Partial Class formOption
         Me.GroupBox下.PerformLayout()
         Me.GroupBox上.ResumeLayout(False)
         Me.GroupBox上.PerformLayout()
+        Me.TabPage主题.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1766,5 +1813,8 @@ Partial Class formOption
     Friend WithEvents ToolStripMenuItem安装目录 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txt钣金厚度前缀 As System.Windows.Forms.TextBox
     Friend WithEvents chk钣金厚度检查 As System.Windows.Forms.CheckBox
-
+    Friend WithEvents TabPage主题 As TabPage
+    Friend WithEvents lvw设置图标大小 As ListView
+    Friend WithEvents ch按钮 As ColumnHeader
+    Friend WithEvents ch图标大小 As ColumnHeader
 End Class

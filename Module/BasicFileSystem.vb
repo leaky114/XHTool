@@ -218,7 +218,7 @@ Module BasicFileSystem
     ''' 删除一个文件
     ''' </summary>
     ''' <param name="strFullFileName">文件名</param>
-    ''' <param name="oRecycleOption">是否删除到回收站选项</param>
+    ''' <param name="oRecycleOption">是否删除到回收站选项 ,FileIO.RecycleOption</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function DeleteFile2(ByVal strFullFileName As String, ByVal oRecycleOption As FileIO.RecycleOption) As Boolean
@@ -272,7 +272,13 @@ Module BasicFileSystem
         If Not IO.Directory.Exists(strDestinationFolder) Then
             IO.Directory.CreateDirectory(strDestinationFolder)
         End If
+
+        If strSourceFileName = strDestinationFileName Then
+            Return False
+        End If
+
         IO.File.Move(strSourceFileName, strDestinationFileName)
+
         Return IsFileExsts(strDestinationFileName)
     End Function
 

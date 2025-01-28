@@ -1,7 +1,7 @@
 ﻿Imports Inventor.DocumentTypeEnum
 Imports System.Windows.Forms
 
-Public Class formSaveAll
+Public Class FormSaveCloseAllDocument
     Dim RadioState As Short
 
     Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
@@ -14,8 +14,11 @@ Public Class formSaveAll
 
         Me.Hide()
 
+        Dim strInventorDocumentFullFileName As String
+
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-            If IsFileExsts(oInventorDocument.FullDocumentName) = False Then
+            strInventorDocumentFullFileName = oInventorDocument.FullDocumentName
+            If IsFileExsts(strInventorDocumentFullFileName) = False Then
                 Continue For
             End If
 
@@ -24,9 +27,13 @@ Public Class formSaveAll
                     If chk部件.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                             Case 2    '全部保存关闭
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                                 oInventorDocument.Close()
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
@@ -36,9 +43,13 @@ Public Class formSaveAll
                     If chk零件图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                             Case 2    '全部保存关闭
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                                 oInventorDocument.Close()
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
@@ -48,9 +59,13 @@ Public Class formSaveAll
                     If chk工程图.Checked = True Then
                         Select Case RadioState
                             Case 1    '全部保存
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                             Case 2    '全部保存关闭
-                                oInventorDocument.Save2(True)
+                                If GetFileReadOnly(strInventorDocumentFullFileName) = False Then
+                                    oInventorDocument.Save2(True)
+                                End If
                                 oInventorDocument.Close()
                             Case 3   '全部关闭
                                 oInventorDocument.Close(True)
@@ -59,13 +74,11 @@ Public Class formSaveAll
             End Select
         Next
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of FormSaveCloseAllDocument)()
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormSaveCloseAllDocument)()
     End Sub
 
     Private Sub rdo全部保存_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存.CheckedChanged

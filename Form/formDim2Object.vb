@@ -6,6 +6,7 @@ Imports Inventor.SelectTypeEnum
 Imports Inventor.ObjectTypeEnum
 
 Imports System.Drawing
+Imports System.ComponentModel
 
 Public Class formDim2Object
     Private oSelect1 As Object
@@ -101,15 +102,18 @@ Public Class formDim2Object
         toolTip.SetToolTip(btn反向, "反向")
         toolTip.SetToolTip(btn暂停, "暂停")
         toolTip.SetToolTip(btn导出, "导出数据到Excel文件")
-
+        toolTip.SetToolTip(btn最大值, "最大值")
+        toolTip.SetToolTip(btn最小值, "最小值")
 
         ' 从资源文件中加载图标并设置到Button控件的Image属性中
         btn选择一项.Image = My.Resources.选择一32.ToBitmap
         btn选择二项.Image = My.Resources.选择二32.ToBitmap
         btn确定约束.Image = My.Resources.配合16.ToBitmap
-        btn正向.Image = My.Resources.前进16.ToBitmap
-        btn反向.Image = My.Resources.后退16.ToBitmap
-        btn暂停.Image = My.Resources.暂停16.ToBitmap
+        btn正向.Image = My.Resources.前进24.ToBitmap
+        btn反向.Image = My.Resources.后退24.ToBitmap
+        btn暂停.Image = My.Resources.暂停24.ToBitmap
+        btn最大值.Image = My.Resources.最大值24.ToBitmap
+        btn最小值.Image = My.Resources.最小值24.ToBitmap
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
@@ -136,7 +140,7 @@ Public Class formDim2Object
             'For Each oSelect As Object In InventorDoc.SelectSet
             oselect = oInventorAssemblyDocument.SelectSet(1)
             Select Case oselect.type
-                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
@@ -162,7 +166,7 @@ Public Class formDim2Object
         Select Case oselect.type
             Case kAngleConstraintObject
                 lbl位置.Text = "参数：" & oAssemblyConstraint.Angle.name & "，位置=" & oAssemblyConstraint.Angle.value * 180 / Math.PI
-            Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+            Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                                 kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                 lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & oAssemblyConstraint.offset.value * 10
         End Select
@@ -205,7 +209,7 @@ Public Class formDim2Object
                             lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douValue
 
 
-                        Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                        Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                                             kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                             oAssemblyConstraint.offset.value = douValue * 0.1
                             lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & douValue
@@ -235,7 +239,7 @@ Public Class formDim2Object
                         oAssemblyConstraint.angle.value = douEnd * Math.PI / 180
                         lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douEnd
 
-                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                                         kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
 
                         oAssemblyConstraint.offset.value = douEnd * 0.1
@@ -313,7 +317,7 @@ Public Class formDim2Object
                             lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douValue
 
 
-                        Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                        Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                                             kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                             oAssemblyConstraint.offset.value = douValue * 0.1
                             lbl位置.Text = "参数：" & oAssemblyConstraint.offset.name & "，位置=" & douValue
@@ -343,7 +347,7 @@ Public Class formDim2Object
                         oAssemblyConstraint.angle.value = douStart * Math.PI / 180
                         lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douStart
 
-                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                                         kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
 
                         oAssemblyConstraint.offset.value = douStart * 0.1
@@ -420,11 +424,16 @@ Public Class formDim2Object
 
         douValue = lvw列表.SelectedItems(0).Text
 
+
+    End Sub
+
+    Private Sub SetValueToAssemblyConstraint(ByVal oInventorAssemblyDocument As AssemblyDocument, ByVal douValue As Double)
+
+        Dim douDistance As Double
+
         Dim oAssemblyConstraint As AssemblyConstraint
         For Each oAssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
             If Strings.InStr(GroupBox设置约束.Text, oAssemblyConstraint.Name) <> 0 Then
-
-                Dim douDistance As Double
 
                 'With oAssemblyConstraint.DriveSettings
                 '    .StartValue = txt开始.Text.ToString
@@ -438,7 +447,7 @@ Public Class formDim2Object
                         oAssemblyConstraint.angle.value = douValue * Math.PI / 180
                         lbl位置.Text = "参数：" & oAssemblyConstraint.angle.name & "，位置=" & douValue
 
-                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                    Case kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                 kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
 
                         oAssemblyConstraint.offset.value = douValue * 0.1
@@ -494,4 +503,65 @@ Public Class formDim2Object
         End If
     End Sub
 
+    Private Sub btn最大值_Click(sender As Object, e As EventArgs) Handles btn最大值.Click
+        Dim maxValue As Decimal = Decimal.MinValue
+        Dim maxItem As ListViewItem = Nothing
+
+        If lvw列表.Items.Count = 0 Then
+            Exit Sub
+        End If
+
+        For Each item As ListViewItem In lvw列表.Items
+            Dim value As Decimal
+            If Decimal.TryParse(item.SubItems(1).Text, value) Then
+                If value > maxValue Then
+                    maxValue = value
+                    maxItem = item
+                End If
+            End If
+        Next
+
+        SetValueToAssemblyConstraint(ThisApplication.ActiveDocument, maxItem.Text)
+
+        If maxItem IsNot Nothing Then
+            maxItem.ForeColor = Drawing.Color.BlueViolet
+            lvw列表.SelectedItems.Clear() ' 清除当前选择
+            maxItem.Selected = True ' 选择最大值行
+            lvw列表.EnsureVisible(maxItem.Index) ' 确保该行可见
+        End If
+
+    End Sub
+
+    Private Sub btn最小值_Click(sender As Object, e As EventArgs) Handles btn最小值.Click
+        Dim minValue As Decimal = Decimal.MaxValue
+        Dim minItem As ListViewItem = Nothing
+
+        If lvw列表.Items.Count = 0 Then
+            Exit Sub
+        End If
+
+        For Each item As ListViewItem In lvw列表.Items
+            Dim value As Decimal
+            If Decimal.TryParse(item.SubItems(1).Text, value) Then
+                If value < minValue Then
+                    minValue = value
+                    minItem = item
+                End If
+            End If
+        Next
+
+        SetValueToAssemblyConstraint(ThisApplication.ActiveDocument, minItem.Text)
+
+        If minItem IsNot Nothing Then
+            minItem.ForeColor = Drawing.Color.Red
+            lvw列表.SelectedItems.Clear() ' 清除当前选择
+            minItem.Selected = True ' 选择最大值行
+            lvw列表.EnsureVisible(minItem.Index) ' 确保该行可见
+        End If
+
+    End Sub
+
+    Private Sub formDim2Object_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of formDim2Object)()
+    End Sub
 End Class

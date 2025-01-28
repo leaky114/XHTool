@@ -27,159 +27,198 @@ Public Class formMain
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
-        CheckSteelThickness()
 
-
-        'Dim oInventorDrawingDocument As Inventor.DrawingDocument
-        'oInventorDrawingDocument = ThisApplication.ActiveDocument
-
-        'Dim strParentAssemblyFullFileName As String
-        'strParentAssemblyFullFileName = oInventorDrawingDocument.FullDocumentName
-
-        'Debug.Print(strParentAssemblyFullFileName)
-
-        'Dim oSelectSet1 As Object = Nothing
-
-        'oSelectSet1 = oInventorDocument.SelectSet.Item(1)
-
-        'If Not TypeOf oSelectSet1 Is ComponentOccurrence Then
-        '    Exit Sub
-        'End If
-
-        'If oSelectSet1 Is Nothing Then       '取消选择
-        '    Exit Sub
-        'End If
-
-        'Dim oComponentOccurrence As ComponentOccurrence
-        'oComponentOccurrence = CType(oSelectSet1, ComponentOccurrence)
-
-        'Dim oParentInventorDocument As Inventor.Document
-
-        'oParentInventorDocument = oComponentOccurrence.ReferencedDocumentDescriptor.Parent
-
-        'Dim strParentAssemblyFullFileName As String
-        'strParentAssemblyFullFileName = oParentInventorDocument.FullDocumentName
-
-        'Debug.Print(strParentAssemblyFullFileName)
-
-        'ThisApplication.Documents.Open(strParentAssemblyFullFileName, True)
-
-
-
-
-        'oDrawingDimensions.Text.FormattedText = strFormattedText1
-
-        'Select Case oSelectSet.type
-        '    Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
-        '        kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
-
-        '        MsgBox("约束")
-        '    Case kTwoPointDistanceDimConstraintObject, kDiameterDimConstraintObject
-        '        MsgBox("2维尺寸")
-        '    Case kDimensionConstraints3DObject, kLineLengthDimConstraint3DObject
-        '        MsgBox("3维尺寸")
-        '    Case kBendConstraintObject, kTwoLineAngleDimConstraint3DObject
-        '        MsgBox("折弯尺寸")
-        '    Case kPlanarSketchObject
-        '        MsgBox("2维草图")
-
-        '    Case kSketch3DObject
-        '        MsgBox("3维草图")
-
-        '    Case Else
-
-        'End Select
-        'frmSwitchLables.Show()
-
-        '' 创建进度条
-        'Dim progressBar As Inventor.ProgressBar = ThisApplication.CreateProgressBar(True, 10, "Progress Bar Demo")
-        'progressBar.Message = "Processing..."
-
-        '' 更新进度条
-        'For i = 1 To 10
-        '    progressBar.UpdateProgress()
-        '    System.Threading.Thread.Sleep(1000)
-        'Next
-
-        '' 隐藏并销毁进度条
-        'progressBar.Close()
-
-        'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
-
-
-        'Dim oDoc As DrawingDocument
-        'oDoc = ThisApplication.ActiveDocument
-
-        'Dim oSheet As Sheet
-        'oSheet = oDoc.ActiveSheet
-
-        'Dim oCurve1 As DrawingCurve
-        'oCurve1 = oDoc.SelectSet(1).Parent
-
-        'Dim oCurve2 As DrawingCurve
-        'oCurve2 = oDoc.SelectSet(2).Parent
-
-        'Dim oIntent1 As GeometryIntent
-        'oIntent1 = oSheet.CreateGeometryIntent(oCurve1)
-
-        'Dim oIntent2 As GeometryIntent
-        'oIntent2 = oSheet.CreateGeometryIntent(oCurve2)
-
-        'Dim oPt As Point2d
-        'oPt = ThisApplication.TransientGeometry.CreatePoint2d(15, 15)
-
-        'Dim oLinDim As LinearGeneralDimension
-        'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oPt, oIntent1, oIntent2)
-
-
-
-        ''Dim oSheet As Sheet
-        ''oSheet = oInventorDrawingDocument.ActiveSheet
-
-        'Dim selectedLines1 As DrawingCurveSegment
-        'Dim selectedLines2 As DrawingCurveSegment
-        'Dim selectedLines3 As DrawingCurveSegment
-        'Dim selectedLines4 As DrawingCurveSegment
-
-        'selectedLines1 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第一条线")
-        'selectedLines2 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第二条线")
-        'selectedLines3 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第三条线")
-        'selectedLines4 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第四条线")
-
-        'Dim line1 As LineSegment = CType(selectedLines1, Inventor.LineSegment)
-        'Dim line2 As LineSegment = CType(selectedLines2, Inventor.LineSegment)
-        'Dim line3 As LineSegment = CType(selectedLines3, Inventor.LineSegment)
-        'Dim line4 As LineSegment = CType(selectedLines4, Inventor.LineSegment)
-
-        '' 获取 l1, l2 的交点 p1
-        'Dim intersectionPoint1 As Point2d = line1.IntersectWithCurve(line2)
-
-        '' 获取 l3, l4 的交点 p2
-        'Dim intersectionPoint2 As Point2d = line3.IntersectWithCurve(line4)
-
-        '' 计算并标注 p1, p2 的距离尺寸
-        'Dim distance As Double = intersectionPoint1.DistanceTo(intersectionPoint2)
-        'Dim annotation As DimensionConstraint = oInventorDrawingDocument.ActiveSheet. _
-        '    DimensionConstraints.AddTwoPointDistance(selectedLines1.StartPoint, selectedLines3.StartPoint, _
-        '                                          DimensionOrientationEnum.kAlignedDim, distance)
-
-        '' 刷新文档
-        'oInventorDrawingDocument.Update()
-
-        ''Dim oLinDim As LinearGeneralDimension
-        ''oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oSketchPoint1, oIntent1, oIntent2)
-
-        'For Each openForm As Form In System.Windows.Forms.Application.OpenForms
-        '    If openForm.Name = "切换文档" Then
-        '        ' 如果找到了，就激活这个窗口
-        '        openForm.Activate()
-        '        Exit Sub
-        '    End If
-        'Next
-
-        'frmSwitchLables.Show()
 
     End Sub
+
+
+
+    'CheckSteelThicknessInAssembly()
+
+    'If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+    '    MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+    '    Exit Sub
+    'End If
+
+    'Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+    'oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+
+    '' 获取装配定义
+    'Dim oAssemblyComponentDefinition As AssemblyComponentDefinition
+    'oAssemblyComponentDefinition = oInventorAssemblyDocument.ComponentDefinition
+
+    '' 获取装配子集
+    'Dim oComponentOccurrences As ComponentOccurrences
+    'oComponentOccurrences = oAssemblyComponentDefinition.Occurrences
+
+    ''遍历
+
+    'Dim oInventorPartDocument As Inventor.PartDocument
+    'Dim strInventorPartDocumentFullFileName As String
+
+    'For Each oComponentOccurrence As ComponentOccurrence In oComponentOccurrences.AllLeafOccurrences
+    '    strInventorPartDocumentFullFileName = oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
+
+    '    'Debug.Print(strInventorPartDocumentFullFileName)
+
+    '    oInventorPartDocument = ThisApplication.Documents.Open(strInventorPartDocumentFullFileName, False)
+
+
+    'Next
+
+    'MsgBox("检查钣金厚度匹配完成，已打开不匹配的零件。", MsgBoxStyle.Information)
+
+    'Dim oInventorDrawingDocument As Inventor.DrawingDocument
+    'oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+    'Dim strParentAssemblyFullFileName As String
+    'strParentAssemblyFullFileName = oInventorDrawingDocument.FullDocumentName
+
+    'Debug.Print(strParentAssemblyFullFileName)
+
+    'Dim oSelectSet1 As Object = Nothing
+
+    'oSelectSet1 = oInventorDocument.SelectSet.Item(1)
+
+    'If Not TypeOf oSelectSet1 Is ComponentOccurrence Then
+    '    Exit Sub
+    'End If
+
+    'If oSelectSet1 Is Nothing Then       '取消选择
+    '    Exit Sub
+    'End If
+
+    'Dim oComponentOccurrence As ComponentOccurrence
+    'oComponentOccurrence = CType(oSelectSet1, ComponentOccurrence)
+
+    'Dim oParentInventorDocument As Inventor.Document
+
+    'oParentInventorDocument = oComponentOccurrence.ReferencedDocumentDescriptor.Parent
+
+    'Dim strParentAssemblyFullFileName As String
+    'strParentAssemblyFullFileName = oParentInventorDocument.FullDocumentName
+
+    'Debug.Print(strParentAssemblyFullFileName)
+
+    'ThisApplication.Documents.Open(strParentAssemblyFullFileName, True)
+
+
+
+
+    'oDrawingDimensions.Text.FormattedText = strFormattedText1
+
+    'Select Case oSelectSet.type
+    '    Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+    '        kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
+
+    '        MsgBox("约束")
+    '    Case kTwoPointDistanceDimConstraintObject, kDiameterDimConstraintObject
+    '        MsgBox("2维尺寸")
+    '    Case kDimensionConstraints3DObject, kLineLengthDimConstraint3DObject
+    '        MsgBox("3维尺寸")
+    '    Case kBendConstraintObject, kTwoLineAngleDimConstraint3DObject
+    '        MsgBox("折弯尺寸")
+    '    Case kPlanarSketchObject
+    '        MsgBox("2维草图")
+
+    '    Case kSketch3DObject
+    '        MsgBox("3维草图")
+
+    '    Case Else
+
+    'End Select
+    'frmSwitchLables.Show()
+
+    '' 创建进度条
+    'Dim progressBar As Inventor.ProgressBar = ThisApplication.CreateProgressBar(True, 10, "Progress Bar Demo")
+    'progressBar.Message = "Processing..."
+
+    '' 更新进度条
+    'For i = 1 To 10
+    '    progressBar.UpdateProgress()
+    '    System.Threading.Thread.Sleep(1000)
+    'Next
+
+    '' 隐藏并销毁进度条
+    'progressBar.Close()
+
+    'Dim oMiniToolbar As clsMiniToolbar = New clsMiniToolbar
+
+
+    'Dim oDoc As DrawingDocument
+    'oDoc = ThisApplication.ActiveDocument
+
+    'Dim oSheet As Sheet
+    'oSheet = oDoc.ActiveSheet
+
+    'Dim oCurve1 As DrawingCurve
+    'oCurve1 = oDoc.SelectSet(1).Parent
+
+    'Dim oCurve2 As DrawingCurve
+    'oCurve2 = oDoc.SelectSet(2).Parent
+
+    'Dim oIntent1 As GeometryIntent
+    'oIntent1 = oSheet.CreateGeometryIntent(oCurve1)
+
+    'Dim oIntent2 As GeometryIntent
+    'oIntent2 = oSheet.CreateGeometryIntent(oCurve2)
+
+    'Dim oPt As Point2d
+    'oPt = ThisApplication.TransientGeometry.CreatePoint2d(15, 15)
+
+    'Dim oLinDim As LinearGeneralDimension
+    'oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oPt, oIntent1, oIntent2)
+
+
+
+    ''Dim oSheet As Sheet
+    ''oSheet = oInventorDrawingDocument.ActiveSheet
+
+    'Dim selectedLines1 As DrawingCurveSegment
+    'Dim selectedLines2 As DrawingCurveSegment
+    'Dim selectedLines3 As DrawingCurveSegment
+    'Dim selectedLines4 As DrawingCurveSegment
+
+    'selectedLines1 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第一条线")
+    'selectedLines2 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第二条线")
+    'selectedLines3 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第三条线")
+    'selectedLines4 = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingCurveSegmentFilter, "选择第四条线")
+
+    'Dim line1 As LineSegment = CType(selectedLines1, Inventor.LineSegment)
+    'Dim line2 As LineSegment = CType(selectedLines2, Inventor.LineSegment)
+    'Dim line3 As LineSegment = CType(selectedLines3, Inventor.LineSegment)
+    'Dim line4 As LineSegment = CType(selectedLines4, Inventor.LineSegment)
+
+    '' 获取 l1, l2 的交点 p1
+    'Dim intersectionPoint1 As Point2d = line1.IntersectWithCurve(line2)
+
+    '' 获取 l3, l4 的交点 p2
+    'Dim intersectionPoint2 As Point2d = line3.IntersectWithCurve(line4)
+
+    '' 计算并标注 p1, p2 的距离尺寸
+    'Dim distance As Double = intersectionPoint1.DistanceTo(intersectionPoint2)
+    'Dim annotation As DimensionConstraint = oInventorDrawingDocument.ActiveSheet. _
+    '    DimensionConstraints.AddTwoPointDistance(selectedLines1.StartPoint, selectedLines3.StartPoint, _
+    '                                          DimensionOrientationEnum.kAlignedDim, distance)
+
+    '' 刷新文档
+    'oInventorDrawingDocument.Update()
+
+    ''Dim oLinDim As LinearGeneralDimension
+    ''oLinDim = oSheet.DrawingDimensions.GeneralDimensions.AddLinear(oSketchPoint1, oIntent1, oIntent2)
+
+    'For Each openForm As Form In System.Windows.Forms.Application.OpenForms
+    '    If openForm.Name = "切换文档" Then
+    '        ' 如果找到了，就激活这个窗口
+    '        openForm.Activate()
+    '        Exit Sub
+    '    End If
+    'Next
+
+    'frmSwitchLables.Show()
+
+
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
@@ -188,139 +227,65 @@ Public Class formMain
         'OpenSelectComponentOccurrences()
 
 
+
+
+
+
+
+        'On Error Resume Next
+
+        'Dim obutton As clsRightMouseTurnOffAdaptivity
+        'obutton = New clsRightMouseTurnOffAdaptivity()
+
+        'SetDrawingSize(DrawingSheetSizeEnum.kA4DrawingSheetSize)
+
+
+        ' 获取所有引用文档
+        'Dim oAssemblyDocument As Inventor.AssemblyDocument
+        'oAssemblyDocument = ThisApplication.ActiveDocument
+
+        'Dim oAllReferencedDocuments As DocumentsEnumerator
+        'oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
+
+        'Dim oProgressBar As Inventor.ProgressBar
+        'oProgressBar = ThisApplication.CreateProgressBar(False, oAllReferencedDocuments.Count, "Test Progress")
+
+        ''遍历这些文档()
+
+        'For Each ReferencedDocument As Document In oAllReferencedDocuments
+        '    Debug.Print(ReferencedDocument.DisplayName)
+        '    oProgressBar.Message = ReferencedDocument.FullDocumentName
+        '    oProgressBar.UpdateProgress()
+        'Next
+
+        'oProgressBar.Close()
+        'Dim oPropertySets As PropertySets
+        'Dim oPropertySet As PropertySet
+        'Dim propitem As [Property]
+
+        '=============================================================================
+        '采用学徒服务器, 速度更快
+        'Dim apprentice As Inventor.ApprenticeServerComponent
+        'apprentice = New Inventor.ApprenticeServerComponent
+
+        'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
+        'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
+
+        'oPropertySets = apprenticeDoc.PropertySets
+
+        '=============================================================================
+
+        'Dim oInventorDocument = ThisApplication.ActiveDocument
+        'oPropertySets = oInventorDocument.PropertySets
+
+        'For Each oPropertySet In oPropertySets
+        '    For Each propitem In oPropertySet
+        '        Debug.Print(propitem.PropId & "," & propitem.DisplayName & "," & propitem.Name)
+        '    Next
+        '    Debug.Print("--------------------")
+        'Next
+
     End Sub
-
-
-    'On Error Resume Next
-
-    'Dim obutton As clsRightMouseTurnOffAdaptivity
-    'obutton = New clsRightMouseTurnOffAdaptivity()
-
-    'SetDrawingSize(DrawingSheetSizeEnum.kA4DrawingSheetSize)
-
-
-    ' 获取所有引用文档
-    'Dim oAssemblyDocument As Inventor.AssemblyDocument
-    'oAssemblyDocument = ThisApplication.ActiveDocument
-
-    'Dim oAllReferencedDocuments As DocumentsEnumerator
-    'oAllReferencedDocuments = oAssemblyDocument.AllReferencedDocuments
-
-    'Dim oProgressBar As Inventor.ProgressBar
-    'oProgressBar = ThisApplication.CreateProgressBar(False, oAllReferencedDocuments.Count, "Test Progress")
-
-    ''遍历这些文档()
-
-    'For Each ReferencedDocument As Document In oAllReferencedDocuments
-    '    Debug.Print(ReferencedDocument.DisplayName)
-    '    oProgressBar.Message = ReferencedDocument.FullDocumentName
-    '    oProgressBar.UpdateProgress()
-    'Next
-
-    'oProgressBar.Close()
-    'Dim oPropertySets As PropertySets
-    'Dim oPropertySet As PropertySet
-    'Dim propitem As [Property]
-
-    '=============================================================================
-    '采用学徒服务器, 速度更快
-    'Dim apprentice As Inventor.ApprenticeServerComponent
-    'apprentice = New Inventor.ApprenticeServerComponent
-
-    'Dim apprenticeDoc As Inventor.ApprenticeServerDocument
-    'apprenticeDoc = apprentice.Open(oInventorDocument.FullDocumentName)
-
-    'oPropertySets = apprenticeDoc.PropertySets
-
-    '=============================================================================
-
-    'Dim oInventorDocument = ThisApplication.ActiveDocument
-    'oPropertySets = oInventorDocument.PropertySets
-
-    'For Each oPropertySet In oPropertySets
-    '    For Each propitem In oPropertySet
-    '        Debug.Print(propitem.PropId & "," & propitem.DisplayName & "," & propitem.Name)
-    '    Next
-    '    Debug.Print("--------------------")
-    'Next
-
-    'Dim drawing As DrawingDocument
-    'drawing = ThisApplication.ActiveDocument
-
-    'Dim drawingView As DrawingView
-    'drawingView = drawing.ActiveSheet.DrawingViews(1)
-
-
-    'Dim part As PartDocument
-    'part = drawingView.ReferencedDocumentDescriptor.ReferencedDocument
-
-    'Dim partDef As PartComponentDefinition
-    'partDef = part.ComponentDefinition
-
-    'Dim holeFeature As HoleFeature
-
-    'Dim holeDrawingCurves As DrawingCurvesEnumerator
-
-    'Dim holeDrawingCurve As DrawingCurve
-    'Dim drawingCurveSegment As DrawingCurveSegment
-
-    'For Each holeFeature In partDef.Features.HoleFeatures
-
-    '    If holeFeature.HoleType = HoleTypeEnum.kDrilledHole Then
-
-
-    '        holeDrawingCurves = drawingView.DrawingCurves(holeFeature)
-
-    '        For Each holeDrawingCurve In holeDrawingCurves
-    '            For Each drawingCurveSegment In holeDrawingCurve.Segments
-    '                Debug.Print(drawingCurveSegment.StartPoint.X)
-
-    '            Next
-    '        Next
-    '    End If
-    'Next
-
-
-    'Dim drawing As DrawingDocument = ThisApplication.ActiveDocument
-
-    'Dim drawingView As DrawingView = drawing.ActiveSheet.DrawingViews(1)
-    'Dim part As PartDocument = drawingView.ReferencedDocumentDescriptor.ReferencedDocument
-    'Dim partDef As PartComponentDefinition = part.ComponentDefinition
-
-
-    'For Each holeFeature As HoleFeature In partDef.Features.HoleFeatures
-
-    '    If holeFeature.HoleType <> HoleTypeEnum.kDrilledHole Then
-    '        Continue For
-    '    End If
-
-    '    'Get the biggest circles of holeFeature in drawing view
-    '    Dim biggestCircles As New List(Of DrawingCurveSegment)
-    '    Dim biggestCircleRadius As Double = 0
-
-    '    Dim holeDrawingCurves = drawingView.DrawingCurves(holeFeature)
-
-    '    For Each holeDrawingCurve As DrawingCurve In holeDrawingCurves
-    '        For Each drawingCurveSegment As DrawingCurveSegment In holeDrawingCurve.Segments
-    '            Dim circle2d = TryCast(drawingCurveSegment.Geometry, Circle2d)
-    '            If circle2d Is Nothing Then Exit For
-    '            If circle2d.Radius > biggestCircleRadius Then
-    '                biggestCircles.Clear()
-    '                biggestCircleRadius = circle2d.Radius
-    '                biggestCircles.Add(drawingCurveSegment)
-    '            ElseIf circle2d.Radius = biggestCircleRadius Then
-    '                biggestCircles.Add(drawingCurveSegment)
-
-    '            End If
-    '        Next
-    '    Next
-
-    '    'Hide 
-    '    For Each biggestCircle As DrawingCurveSegment In biggestCircles
-    '        biggestCircle.Visible = False
-    '    Next
-    'Next
-
 
     Private Sub frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
@@ -510,10 +475,9 @@ Public Class formMain
     End Sub
 
     '设置窗口
-    Private Sub 设置ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 设置ToolStripMenuItem.Click
-        FrmOptionshow()
+    Private Sub 选项ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 选项ToolStripMenuItem.Click
+        FormOptionshow()
     End Sub
-
 
     '另存为cad dwg
 
@@ -621,8 +585,8 @@ Public Class formMain
 
     '自定义签字
     Private Sub 自定义签字ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim SignDialog As formSign
-        SignDialog = New formSign
+        Dim SignDialog As FormCustomSignature
+        SignDialog = New FormCustomSignature
         SignDialog.ShowDialog()
     End Sub
 
@@ -684,7 +648,7 @@ Public Class formMain
     'End Sub
 
     Private Sub 打印ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formPrint.Show()
+        FormBulkPrintShow()
     End Sub
 
     Private Sub 导入ERPToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -724,7 +688,7 @@ Public Class formMain
     End Sub
 
     Private Sub 保存关闭所有文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 保存关闭所有文件ToolStripMenuItem.Click
-        FrmSaveCloseAllDocumentShow()
+        FormSaveCloseAllDocumentShow()
     End Sub
 
 
@@ -737,9 +701,9 @@ Public Class formMain
     End Sub
 
     Private Sub 移动指定文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移动指定文件ToolStripMenuItem.Click
-        MovesSpecifiedFile()
+        'MovesSpecifiedFile()
 
-        'FrmMovesSpecifiedFileShow()
+        formMovesSpecifiedFileShow()
     End Sub
 
     Private Sub 提取iproperty更改文件名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 提取iproperty更改文件名ToolStripMenuItem.Click
@@ -758,11 +722,12 @@ Public Class formMain
         OneKeyShowAll()
     End Sub
     Private Sub 生成图号ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 生成图号ToolStripMenuItem.Click
-        FrmAutoPartNumberShow()
+        FormAutoPartNumberShow()
     End Sub
 
+
     Private Sub 技术要求ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 技术要求ToolStripMenuItem.Click
-        FrmSpecificationShow()
+        FormSpecificationShow()
     End Sub
 
     Private Sub 添加直径ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 添加直径ToolStripMenuItem.Click
@@ -798,11 +763,11 @@ Public Class formMain
     End Sub
 
     Private Sub 查询ERP编码ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 查询ERP编码ToolStripMenuItem.Click
-        FrmSearchERPCodeShow()
+        FormSearchERPCodeShow()
     End Sub
 
     Private Sub ERP反查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ERP反查ToolStripMenuItem.Click
-        FrmReverseCheckERPCodesShow()
+        FormReverseCheckERPCodesShow()
     End Sub
 
     Private Sub 导出BOM平面性ToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导出BOM平面性ToolStripMenuItem.Click
@@ -810,11 +775,11 @@ Public Class formMain
     End Sub
 
     Private Sub 导入ERPToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导入ERPToolStripMenuItem.Click
-        FrmImportERPCodeToIamShow()
+        FormImportERPCodeToIamShow()
     End Sub
 
     Private Sub 导入ERP到BOMToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 导入ERP到BOMToolStripMenuItem.Click
-        FrmImportERPCodeToExcelshow()
+        FormImportERPCodeToExcelshow()
     End Sub
 
     Private Sub 打开数据文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开数据文件ToolStripMenuItem.Click
@@ -830,7 +795,7 @@ Public Class formMain
     End Sub
 
     Private Sub 自定义签字ToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles 自定义签字ToolStripMenuItem.Click
-        FrmCustomSignatureShow()
+        FormCustomSignatureShow()
     End Sub
 
     Private Sub 快速打印ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 快速打印ToolStripMenuItem.Click
@@ -838,12 +803,12 @@ Public Class formMain
     End Sub
 
     Private Sub 批量打印ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 批量打印ToolStripMenuItem.Click
-        FrmBulkPrintShow()
+        FormBulkPrintShow()
     End Sub
 
 
     Private Sub 格式转换ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 格式转换ToolStripMenuItem.Click
-        FrmAllSaveAsShow()
+        formFormatConversionShow()
     End Sub
 
     Private Sub 还原旧图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 还原旧图ToolStripMenuItem.Click
@@ -872,11 +837,11 @@ Public Class formMain
     End Sub
 
     Private Sub ButtoniProperty_Click(sender As Object, e As EventArgs) Handles ButtoniProperty.Click
-        FrmChangeIproShow()
+        FormiPropertyShow()
     End Sub
 
     Private Sub 量产iPropertyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 量产iPropertyToolStripMenuItem.Click
-        frmMassiPopertiesshow()
+        formMassiPopertiesshow()
     End Sub
 
 
@@ -893,7 +858,7 @@ Public Class formMain
 
 
     Private Sub 设置只读ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置只读ToolStripMenuItem.Click
-        FrmSetWriteOnlyShow()
+        formSetReadOnlyShow()
     End Sub
 
     Private WithEvents m_快速打开_Buttondef As ButtonDefinition
@@ -937,7 +902,7 @@ Public Class formMain
     End Sub
 
     Private Sub 动画设计ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动画设计ToolStripMenuItem.Click
-        FrmPlayerShow()
+        formPlayerShow()
     End Sub
 
     Private Sub 标准件可见性ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 标准件可见性ToolStripMenuItem.Click
@@ -949,7 +914,7 @@ Public Class formMain
     End Sub
 
     Private Sub 动态尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动态尺寸ToolStripMenuItem.Click
-        FrmEditDimensionShow()
+        formEditDimensionShow()
     End Sub
 
     Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建展开图ToolStripMenuItem.Click
@@ -965,7 +930,7 @@ Public Class formMain
     End Sub
 
     Private Sub 驱动测量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 驱动测量ToolStripMenuItem.Click
-        FrmDim2ObjectShow()
+        formDim2ObjectShow()
 
     End Sub
 
@@ -974,7 +939,7 @@ Public Class formMain
     End Sub
 
     Private Sub 统计焊缝ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 统计焊缝ToolStripMenuItem.Click
-        FrmStatisticalShow()
+        formStatisticalShow()
 
     End Sub
 
@@ -1000,8 +965,7 @@ Public Class formMain
     End Sub
 
     Private Sub 关于2ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 关于2ToolStripMenuItem.Click
-        Dim frmAbout As New formAbout
-        frmAbout.ShowDialog()
+        FormAboutShow()
     End Sub
 
     Private Sub 断开链接ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 断开链接ToolStripMenuItem.Click
@@ -1012,7 +976,7 @@ Public Class formMain
         MarkCircleInFlatDrawing()
     End Sub
 
-    Private Sub 另存为DXFToolStripMenuIte_Click(sender As Object, e As EventArgs) Handles 另存为DXFToolStripMenuIte.Click
+    Private Sub 另存为DXFToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 另存为DXFToolStripMenuItem.Click
         IdwSaveAsDxf()
     End Sub
 
@@ -1021,11 +985,11 @@ Public Class formMain
     End Sub
 
     Private Sub 创建工艺图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建工艺图ToolStripMenuItem.Click
-        FrmFlatPatternShow()
+        formFlatPatternShow()
     End Sub
 
     Private Sub 切换文档ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 切换文档ToolStripMenuItem.Click
-        FrmSwitchLablesShow()
+        formSwitchLablesShow()
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -1036,14 +1000,16 @@ Public Class formMain
         Debug.Print(strTypeName)
         MsgBox(strTypeName)
 
+
+
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles 菜单工具ToolStripMenuItem.Click
         formNetTool.Show()
     End Sub
 
     Private Sub 自定义iPropertyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 自定义iPropertyToolStripMenuItem.Click
-        FormUseriProperty.Show()
+        FormUseriPropertyShow()
     End Sub
 
     Private Sub 另存为副本ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 另存为副本ToolStripMenuItem.Click
@@ -1118,8 +1084,25 @@ Public Class formMain
 
     Private Sub 钣金厚度检查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 钣金厚度检查ToolStripMenuItem.Click
 
-        CheckSteelThickness()
+        CheckSteelThicknessInPart()
 
     End Sub
+
+    Private Sub 清净世界ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 清净世界ToolStripMenuItem.Click
+        ClearErrorTagging()
+    End Sub
+
+    Private Sub 插入打开的文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 插入打开的文件ToolStripMenuItem.Click
+        FormPlaceOpenComponentShow()
+    End Sub
+
+    Private Sub 检查钣金厚度ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 检查钣金厚度ToolStripMenuItem.Click
+
+        CheckSteelThicknessInAssembly()
+
+    End Sub
+
+
+
 
 End Class

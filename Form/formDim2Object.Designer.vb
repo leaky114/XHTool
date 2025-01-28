@@ -44,6 +44,8 @@ Partial Class formDim2Object
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.btn导出 = New System.Windows.Forms.Button()
+        Me.btn最小值 = New System.Windows.Forms.Button()
+        Me.btn最大值 = New System.Windows.Forms.Button()
         Me.GroupBox选择两项.SuspendLayout()
         Me.GroupBox设置约束.SuspendLayout()
         Me.SuspendLayout()
@@ -258,11 +260,31 @@ Partial Class formDim2Object
         Me.btn导出.Text = "导出"
         Me.btn导出.UseVisualStyleBackColor = True
         '
-        'frmDim2Object
+        'btn最小值
+        '
+        Me.btn最小值.Font = New System.Drawing.Font("宋体", 5.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.btn最小值.Location = New System.Drawing.Point(334, 195)
+        Me.btn最小值.Name = "btn最小值"
+        Me.btn最小值.Size = New System.Drawing.Size(32, 32)
+        Me.btn最小值.TabIndex = 22
+        Me.btn最小值.UseVisualStyleBackColor = True
+        '
+        'btn最大值
+        '
+        Me.btn最大值.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.btn最大值.Location = New System.Drawing.Point(373, 195)
+        Me.btn最大值.Name = "btn最大值"
+        Me.btn最大值.Size = New System.Drawing.Size(32, 32)
+        Me.btn最大值.TabIndex = 21
+        Me.btn最大值.UseVisualStyleBackColor = True
+        '
+        'formDim2Object
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(522, 235)
+        Me.Controls.Add(Me.btn最小值)
+        Me.Controls.Add(Me.btn最大值)
         Me.Controls.Add(Me.btn导出)
         Me.Controls.Add(Me.lvw列表)
         Me.Controls.Add(Me.GroupBox设置约束)
@@ -271,7 +293,7 @@ Partial Class formDim2Object
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmDim2Object"
+        Me.Name = "formDim2Object"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "驱动测量"
@@ -305,4 +327,6 @@ Partial Class formDim2Object
     Friend WithEvents btn导出 As System.Windows.Forms.Button
     Friend WithEvents RadioButton角度 As System.Windows.Forms.RadioButton
     Friend WithEvents RadioButton距离 As System.Windows.Forms.RadioButton
+    Friend WithEvents btn最小值 As Windows.Forms.Button
+    Friend WithEvents btn最大值 As Windows.Forms.Button
 End Class

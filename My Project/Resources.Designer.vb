@@ -283,6 +283,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 全部取消16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("全部取消16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 全部取消32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("全部取消32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 全部尺寸居中16() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("全部尺寸居中16", resourceCulture)
@@ -296,6 +316,26 @@ Namespace My.Resources
         Friend ReadOnly Property 全部尺寸居中32() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("全部尺寸居中32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 全部选择16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("全部选择16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 全部选择32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("全部选择32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -323,9 +363,9 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 关闭文档16() As System.Drawing.Icon
+        Friend ReadOnly Property 关闭16() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("关闭文档16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("关闭16", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -333,9 +373,29 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 关闭文档32() As System.Drawing.Icon
+        Friend ReadOnly Property 关闭32() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("关闭文档32", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("关闭32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 关闭文件16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("关闭文件16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 关闭文件32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("关闭文件32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -463,9 +523,29 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 前进16() As System.Drawing.Icon
+        Friend ReadOnly Property 前进24() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("前进16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("前进24", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 反向选择16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("反向选择16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 反向选择32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("反向选择32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -533,9 +613,9 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 后退16() As System.Drawing.Icon
+        Friend ReadOnly Property 后退24() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("后退16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("后退24", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -813,6 +893,16 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 开始24() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("开始24", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 当前部件16() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("当前部件16", resourceCulture)
@@ -833,9 +923,9 @@ Namespace My.Resources
         '''<summary>
         '''  查找 System.Drawing.Bitmap 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 微信() As System.Drawing.Bitmap
+        Friend ReadOnly Property 微信打赏() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("微信", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("微信打赏", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -1051,16 +1141,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找 System.Drawing.Bitmap 类型的本地化资源。
-        '''</summary>
-        Friend ReadOnly Property 支付宝() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("支付宝", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
         Friend ReadOnly Property 文件Dwg16() As System.Drawing.Icon
@@ -1153,9 +1233,9 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
-        Friend ReadOnly Property 暂停16() As System.Drawing.Icon
+        Friend ReadOnly Property 暂停24() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("暂停16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("暂停24", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -1236,6 +1316,46 @@ Namespace My.Resources
         Friend ReadOnly Property 替换衍生32() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("替换衍生32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 最大值24() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("最大值24", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 最小值24() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("最小值24", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 板厚16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("板厚16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 板厚32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("板厚32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -1456,6 +1576,26 @@ Namespace My.Resources
         Friend ReadOnly Property 添加直径32() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("添加直径32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 清净世界16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("清净世界16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 清净世界32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("清净世界32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property

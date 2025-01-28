@@ -23,7 +23,7 @@ Partial Class formBatchChangeFileNames
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.btn确定 = New System.Windows.Forms.Button()
-        Me.btn取消 = New System.Windows.Forms.Button()
+        Me.btn关闭 = New System.Windows.Forms.Button()
         Me.lbl图号 = New System.Windows.Forms.Label()
         Me.txt搜索字符串 = New System.Windows.Forms.TextBox()
         Me.txt替换为 = New System.Windows.Forms.TextBox()
@@ -38,21 +38,21 @@ Partial Class formBatchChangeFileNames
         'btn确定
         '
         Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn确定.Location = New System.Drawing.Point(116, 150)
+        Me.btn确定.Location = New System.Drawing.Point(128, 150)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(65, 28)
         Me.btn确定.TabIndex = 5
         Me.btn确定.Text = "确定"
         '
-        'btn取消
+        'btn关闭
         '
-        Me.btn取消.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn取消.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn取消.Location = New System.Drawing.Point(189, 150)
-        Me.btn取消.Name = "btn取消"
-        Me.btn取消.Size = New System.Drawing.Size(65, 28)
-        Me.btn取消.TabIndex = 6
-        Me.btn取消.Text = "取消"
+        Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn关闭.Location = New System.Drawing.Point(201, 150)
+        Me.btn关闭.Name = "btn关闭"
+        Me.btn关闭.Size = New System.Drawing.Size(65, 28)
+        Me.btn关闭.TabIndex = 6
+        Me.btn关闭.Text = "关闭"
         '
         'lbl图号
         '
@@ -67,18 +67,18 @@ Partial Class formBatchChangeFileNames
         '
         Me.txt搜索字符串.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt搜索字符串.Location = New System.Drawing.Point(95, 18)
+        Me.txt搜索字符串.Location = New System.Drawing.Point(101, 18)
         Me.txt搜索字符串.Name = "txt搜索字符串"
-        Me.txt搜索字符串.Size = New System.Drawing.Size(159, 21)
+        Me.txt搜索字符串.Size = New System.Drawing.Size(168, 21)
         Me.txt搜索字符串.TabIndex = 0
         '
         'txt替换为
         '
         Me.txt替换为.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt替换为.Location = New System.Drawing.Point(95, 49)
+        Me.txt替换为.Location = New System.Drawing.Point(101, 49)
         Me.txt替换为.Name = "txt替换为"
-        Me.txt替换为.Size = New System.Drawing.Size(159, 21)
+        Me.txt替换为.Size = New System.Drawing.Size(168, 21)
         Me.txt替换为.TabIndex = 1
         '
         'lbl文件名
@@ -112,18 +112,18 @@ Partial Class formBatchChangeFileNames
         '
         Me.txt添加前缀.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt添加前缀.Location = New System.Drawing.Point(95, 82)
+        Me.txt添加前缀.Location = New System.Drawing.Point(101, 82)
         Me.txt添加前缀.Name = "txt添加前缀"
-        Me.txt添加前缀.Size = New System.Drawing.Size(159, 21)
+        Me.txt添加前缀.Size = New System.Drawing.Size(168, 21)
         Me.txt添加前缀.TabIndex = 2
         '
         'txt添加后缀
         '
         Me.txt添加后缀.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt添加后缀.Location = New System.Drawing.Point(95, 110)
+        Me.txt添加后缀.Location = New System.Drawing.Point(101, 110)
         Me.txt添加后缀.Name = "txt添加后缀"
-        Me.txt添加后缀.Size = New System.Drawing.Size(159, 21)
+        Me.txt添加后缀.Size = New System.Drawing.Size(168, 21)
         Me.txt添加后缀.TabIndex = 3
         '
         'chk备份文件
@@ -142,15 +142,15 @@ Partial Class formBatchChangeFileNames
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.btn取消
-        Me.ClientSize = New System.Drawing.Size(268, 186)
+        Me.CancelButton = Me.btn关闭
+        Me.ClientSize = New System.Drawing.Size(280, 186)
         Me.Controls.Add(Me.chk备份文件)
         Me.Controls.Add(Me.txt添加前缀)
         Me.Controls.Add(Me.lbl材料)
         Me.Controls.Add(Me.lbl描述)
         Me.Controls.Add(Me.lbl文件名)
         Me.Controls.Add(Me.btn确定)
-        Me.Controls.Add(Me.btn取消)
+        Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.txt添加后缀)
         Me.Controls.Add(Me.txt替换为)
         Me.Controls.Add(Me.txt搜索字符串)
@@ -165,7 +165,7 @@ Partial Class formBatchChangeFileNames
 
     End Sub
     Friend WithEvents btn确定 As System.Windows.Forms.Button
-    Friend WithEvents btn取消 As System.Windows.Forms.Button
+    Friend WithEvents btn关闭 As System.Windows.Forms.Button
     Friend WithEvents lbl图号 As System.Windows.Forms.Label
     Friend WithEvents txt搜索字符串 As System.Windows.Forms.TextBox
     Friend WithEvents txt替换为 As System.Windows.Forms.TextBox

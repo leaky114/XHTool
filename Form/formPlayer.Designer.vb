@@ -197,7 +197,7 @@ Partial Class formPlayer
         '
         'btn预览
         '
-        Me.btn预览.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn预览.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn预览.AutoSize = True
         Me.btn预览.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btn预览.Location = New System.Drawing.Point(245, 336)
@@ -215,7 +215,7 @@ Partial Class formPlayer
         Me.btn选择约束.Text = "选择约束"
         Me.btn选择约束.UseVisualStyleBackColor = True
         '
-        'frmPlayer
+        'formPlayer
         '
         Me.AcceptButton = Me.btn添加
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -235,13 +235,10 @@ Partial Class formPlayer
         Me.Controls.Add(Me.btn移出)
         Me.Controls.Add(Me.lvw文件列表)
         Me.Controls.Add(Me.btn关闭)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmPlayer"
-        Me.ShowInTaskbar = False
+        Me.Name = "formPlayer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = " "
+        Me.Text = "运动播放器"
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()

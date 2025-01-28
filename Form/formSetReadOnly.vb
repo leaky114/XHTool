@@ -13,11 +13,12 @@ Public Class formSetReadOnly
     Private imageList As New ImageList()
     Private strCurrentAssemblyDocumentFulFileName As String
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click
+    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
         Lvw文件列表.Items.Clear()
         TreeV文件树.Nodes.Clear()
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+
+        FormManager.CloseAndDisposeForm(Of formSetReadOnly)()
+
     End Sub
 
     Private Sub btn载入当前部件_Click(sender As Object, e As EventArgs) Handles btn载入当前部件.Click
@@ -37,7 +38,7 @@ Public Class formSetReadOnly
         LoadIAM(Lvw文件列表, TreeV文件树)
 
         cbo筛选文件.SelectedIndex = cbo筛选文件.Items.IndexOf("全部文件")
-
+        SetWindowSizeAndCenter(Me, 0.6, 0.5)
     End Sub
 
     ''' <summary>

@@ -291,7 +291,7 @@ Partial Class formFlatPattern
         Me.rdo前视图.Text = "前视图"
         Me.rdo前视图.UseVisualStyleBackColor = True
         '
-        'frmFlatPattern
+        'formFlatPattern
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -303,10 +303,9 @@ Partial Class formFlatPattern
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.Name = "frmFlatPattern"
+        Me.Name = "formFlatPattern"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "工艺图"
-        Me.TopMost = True
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)

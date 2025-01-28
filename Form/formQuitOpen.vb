@@ -10,14 +10,12 @@ Public Class formQuitOpen
             Me.Hide()
         End If
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        'Me.Dispose()
+        FormManager.CloseAndDisposeForm(Of formQuitOpen)()
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formQuitOpen)()
     End Sub
 
     Private Sub btn多选打开_Click(sender As Object, e As EventArgs) Handles btn多选打开.Click
@@ -39,11 +37,13 @@ Public Class formQuitOpen
 
         Next
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
+        FormManager.CloseAndDisposeForm(Of formQuitOpen)()
     End Sub
 
     Private Sub frmQuitOpen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        SetWindowSizeAndCenter(Me, 0.5, 0.32)
     End Sub
+
 
 End Class

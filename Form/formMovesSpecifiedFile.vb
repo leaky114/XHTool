@@ -9,19 +9,26 @@ Imports System.IO
 Imports System.Windows.Forms
 Imports Inventor.DocumentTypeEnum
 Imports System.Collections.Generic
+Imports System.ComponentModel
 
 Public Class formMovesSpecifiedFile
+    Private Sub formMovesSpecifiedFile_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of formMovesSpecifiedFile)()
+    End Sub
 
     Private Sub frmMovesSpecifiedFile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        'Dim toolTip As New ToolTip()
+        'toolTip.AutoPopDelay = 0
+        'toolTip.InitialDelay = 0
+        'toolTip.ReshowDelay = 500
 
         应用ToolStripButton.Image = My.Resources.确定16.ToBitmap
         重载ToolStripButton.Image = My.Resources.部件16.ToBitmap
+        全部选择ToolStripButton.Image = My.Resources.全部选择16.ToBitmap
+        全部取消ToolStripButton.Image = My.Resources.全部取消16.ToBitmap
+        反向选择ToolStripButton.Image = My.Resources.反向选择16.ToBitmap
 
         SetStatusBarText()
 
@@ -44,7 +51,8 @@ Public Class formMovesSpecifiedFile
 
         Dim strSearch As String
         strSearch = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
-        strSearch = RemoveTrailingZeros(strSearch)
+        strSearch = RemoveTrailingZeros(strSearch)    '去除末尾的0
+        strSearch = Strings.LCase(strSearch)          '转换为小写
 
         'With frmInputBox
         '    .txt输入.Text = strSearchNnumber
@@ -67,10 +75,17 @@ Public Class formMovesSpecifiedFile
 
         LoadReferenced(oInventorAssemblyDocument, Lvw文件列表, strSearch)
 
-        SetWindowSizeAndCenter(Me, 0.6, 0.6)
+        SetWindowSizeAndCenter(Me)
 
     End Sub
 
+
+    ''' <summary>
+    ''' 加载文件
+    ''' </summary>
+    ''' <param name="oInventorAssemblyDocument">部件文件对象</param>
+    ''' <param name="oListView">listview 对象</param>
+    ''' <param name="strSearch">筛选器字符</param>
     Private Sub LoadReferenced(ByVal oInventorAssemblyDocument As AssemblyDocument, ByVal oListView As ListView, ByVal strSearch As String)
         ' 获取所有引用文档
         Dim oInventorDocumentsEnumerator As Inventor.DocumentsEnumerator
@@ -112,12 +127,18 @@ Public Class formMovesSpecifiedFile
             Dim strOldFileName As String
 
             strOldFileName = GetFileNameWithoutExtension2(strOldFullFileName)
+            strOldFileName = Strings.LCase(strOldFileName)
+
             If InStr(strOldFileName, strSearch) = 0 Then
                 Continue For
             End If
 
             Dim strNewFullFileName As String
             strNewFullFileName = GetChangeDirectoryFileName(strOldFullFileName, strInventorAssemblyFileFolder)
+
+            If strNewFullFileName = strOldFullFileName Then    '新旧文件一样跳过
+                Continue For
+            End If
 
             Dim oListViewItem As ListViewItem = Nothing
 
@@ -128,25 +149,26 @@ Public Class formMovesSpecifiedFile
                     oListViewItem = oListView.Items.Add(strOldFullFileName, 1)
             End Select
 
+
             oListViewItem.SubItems.Add(strNewFullFileName)
+
+            If IsFileExsts(strNewFullFileName) = True Then
+                oListViewItem.UseItemStyleForSubItems = False
+                oListViewItem.SubItems(1).ForeColor = Drawing.Color.Red
+                oListViewItem.SubItems.Add(“跳过”)
+            End If
 
 
             Dim strOldDrawingFullFileName As String
             strOldDrawingFullFileName = GetChangeExtension(strOldFullFileName, IDW)
 
-
             If IsFileExsts(strOldDrawingFullFileName) = True Then
-
                 Dim strNewDrawingFullFileName As String
                 strNewDrawingFullFileName = GetChangeExtension(strNewFullFileName, IDW)
-
                 oListViewItem = oListView.Items.Add(strOldDrawingFullFileName, 2)
-
                 oListViewItem.SubItems.Add(strNewDrawingFullFileName)
 
             End If
-
-
         Next
 
         oListView.EndUpdate()
@@ -157,6 +179,11 @@ Public Class formMovesSpecifiedFile
     End Sub
 
     Private Sub 应用ToolStripButton_Click(sender As Object, e As EventArgs) Handles 应用ToolStripButton.Click
+        If MsgBox("确定移动文件？", MsgBoxStyle.Question + MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+            Exit Sub
+        End If
+
+
         Dim strOldFullFileName As String
         Dim strNewFullFileName As String
 
@@ -170,16 +197,29 @@ Public Class formMovesSpecifiedFile
         oInventorDocument.Close()
 
         For Each oListViewItem As ListViewItem In Lvw文件列表.Items
-            strOldFullFileName = oListViewItem.Text.ToString
-            strNewFullFileName = oListViewItem.SubItems(1).Text.ToString
+            If oListViewItem.Checked = True Then
+                strOldFullFileName = oListViewItem.Text.ToString
+                strNewFullFileName = oListViewItem.SubItems(1).Text.ToString
 
-            ReMoveFile(strOldFullFileName, strNewFullFileName)
+                If IsFileExsts(strNewFullFileName) = False Then   '目标文件不存在，直接移动
+                    ReMoveFile(strOldFullFileName, strNewFullFileName)
+                Else   '目标文件存在，判读方法
+                    If oListViewItem.SubItems(2).Text.ToString = "覆盖" Then
+                        BasicFileSystem.DeleteFile2(strNewFullFileName, FileIO.RecycleOption.SendToRecycleBin)
+                        ReMoveFile(strOldFullFileName, strNewFullFileName）
+                    Else
 
+                    End If
+                End If
+
+            End If
         Next
 
-        If MsgBox("移动指定文件完成，是否重新打开 " & strInventorAssemblyDocumentFullFileName, MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
+        If MsgBox("移动文件完成，是否重新打开 " & strInventorAssemblyDocumentFullFileName, MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
             ThisApplication.Documents.Open(strInventorAssemblyDocumentFullFileName)
         End If
+
+        FormManager.CloseAndDisposeForm(Of formMovesSpecifiedFile)()
 
     End Sub
 
@@ -200,5 +240,55 @@ Public Class formMovesSpecifiedFile
         LoadReferenced(oInventorAssemblyDocument, Lvw文件列表, strSearch)
 
     End Sub
+
+    Private Sub 全部选择ToolStripButton_Click(sender As Object, e As EventArgs) Handles 全部选择ToolStripButton.Click
+        For Each oListViewItem As ListViewItem In Lvw文件列表.Items
+            oListViewItem.Checked = True
+        Next
+    End Sub
+
+    Private Sub 全部取消ToolStripButton_Click(sender As Object, e As EventArgs) Handles 全部取消ToolStripButton.Click
+        For Each oListViewItem As ListViewItem In Lvw文件列表.Items
+            oListViewItem.Checked = False
+        Next
+    End Sub
+
+    Private Sub 反向选择ToolStripButton_Click(sender As Object, e As EventArgs) Handles 反向选择ToolStripButton.Click
+        For Each oListViewItem As ListViewItem In Lvw文件列表.Items
+            oListViewItem.Checked = True Xor oListViewItem.Checked
+        Next
+    End Sub
+
+    Private Sub Lvw文件列表_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Lvw文件列表.MouseDoubleClick
+        If Lvw文件列表.SelectedItems.Count = 0 Then
+            Exit Sub
+        End If
+
+
+        Dim oListViewItem As ListViewItem = Lvw文件列表.SelectedItems(0)
+
+
+        If e.Button = Windows.Forms.MouseButtons.Left Then
+            Try
+                Dim strMethod As String = oListViewItem.SubItems(2).Text
+
+                Select Case strMethod
+                    Case ”跳过“
+                        strMethod = "覆盖"
+                    Case "覆盖"
+                        strMethod = "跳过"
+                End Select
+
+                oListViewItem.SubItems(2).Text = strMethod
+
+
+            Catch ex As Exception
+
+            End Try
+            oListViewItem.Checked = oListViewItem.Checked Xor True
+
+        End If
+    End Sub
+
 
 End Class

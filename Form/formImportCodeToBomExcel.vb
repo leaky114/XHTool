@@ -5,9 +5,8 @@ Imports System.Collections.Generic
 
 Public NotInheritable Class formImportCodeToBomExcel
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formImportCodeToBomExcel)()
     End Sub
 
     Private Sub btn导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入.Click
@@ -151,6 +150,7 @@ Public NotInheritable Class formImportCodeToBomExcel
 
     Private Sub frmImportCodeToBomExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
         Dim toolTip As New ToolTip()
         toolTip.AutoPopDelay = 0
         toolTip.InitialDelay = 0

@@ -83,13 +83,13 @@ Public NotInheritable Class formSearchERPCode
         End If
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formSearchERPCode)()
     End Sub
 
     Private Sub frmSearchERPCode_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
         Me.Height = 156
     End Sub
 

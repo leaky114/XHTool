@@ -489,19 +489,53 @@ Module IptModule
         Return True
     End Function
 
-    Public Function CheckSteelThickness() As Boolean
-        If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-            'MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
-            Exit Function
-        End If
 
-        Dim oInventorPartDocument As Inventor.PartDocument
-        oInventorPartDocument = ThisApplication.ActiveDocument
+    ''' <summary>
+    '''  检查钣金件厚度匹配
+    ''' </summary>
+    Public Sub CheckSteelThicknessInPart()
 
-        'Check to see if part is a sheetmetal part
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+                MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim oInventorPartDocument As Inventor.PartDocument
+            oInventorPartDocument = ThisApplication.ActiveDocument
+
+            Dim IsMatching As Boolean
+            IsMatching = CheckSteelThicknessSub(oInventorPartDocument)
+
+            Select Case IsMatching
+                Case True
+
+                Case False
+                    MsgBox("材料设置与厚度不匹配。", MsgBoxStyle.Information)
+            End Select
+
+        Catch
+
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' 检查钣金件厚度匹配子过程
+    ''' </summary>
+    ''' <param name="oInventorPartDocument">检查的零件</param>
+    ''' <returns></returns>
+    Public Function CheckSteelThicknessSub(ByVal oInventorPartDocument As Inventor.PartDocument) As Boolean
+        On Error Resume Next
+
         If (oInventorPartDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
             'MsgBox("本零件非钣金件，退出检查。")
-            Exit Function
+            Return True
         End If
 
         Dim oSheetMetalComponentDefinition As Inventor.SheetMetalComponentDefinition
@@ -516,24 +550,20 @@ Module IptModule
         Dim strMaterials() As String = Split(str钣金厚度前缀, ",")
 
         Dim strTemp As String
-        Dim IsRight As Boolean = False
+        Dim IsMatching As Boolean = False
 
         For Each strMaterial As String In strMaterials
             strTemp = strMaterial & strThickness
 
             If Strings.InStr(strMaterialName.ToLower, strTemp.ToLower) <> 0 Then
-                IsRight = True
+                IsMatching = True
                 Exit For
             Else
-                IsRight = False
+                IsMatching = False
             End If
         Next
 
-        If IsRight = True Then
-            'MsgBox("厚度匹配")
-        Else
-            MsgBox("材料：" & strMaterialName & " 与厚度：" & strThickness & " 不匹配。", MsgBoxStyle.Information)
-        End If
+        Return IsMatching
 
     End Function
 

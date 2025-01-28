@@ -1206,18 +1206,10 @@ Module InventorBasic
         strInventorDocumentFullDocumentName = oInventorDocument.FullDocumentName
 
         Dim oDef1 As ButtonDefinition
-        oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("InName文件只读")
+        oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName文件只读")
 
         oDef1.Pressed = oDef1.Pressed Xor True
         SetFileReadOnly(strInventorDocumentFullDocumentName, oDef1.Pressed)
-
-        'if oDef1.Pressed = True Then
-        '    SetFileReadOnly(strInventorDocumentFullDocumentName, False)
-        '    oDef1.Pressed = False
-        'Else
-        '    SetFileReadOnly(strInventorDocumentFullDocumentName, True)
-        '    oDef1.Pressed = True
-        'End if
 
     End Sub
 

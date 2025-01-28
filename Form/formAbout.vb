@@ -7,6 +7,7 @@ Public NotInheritable Class formAbout
     Const Github As String = "https://github.com/leaky114/XHTool"
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         ' 设置此窗体的标题。
         Dim ApplicationTitle As String
         If My.Application.Info.Title <> "" Then
@@ -42,16 +43,15 @@ Public NotInheritable Class formAbout
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formAbout)()
     End Sub
 
     Private Sub btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
 
         NewUpdater.Shell_XHUpdater("1")
 
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of formAbout)()
 
     End Sub
 

@@ -100,8 +100,7 @@ Public Class formImportCodeToIam
     ''' <param name="IsExpandChild">是否加载子集</param>
     ''' <param name="IsExpandOutsourcedParts">是否展开外协件</param>
     ''' <remarks></remarks>
-    Private Sub LoadBOMSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView, ByVal IsExpandChild As Boolean, _
-                                      ByVal IsExpandOutsourcedParts As Boolean)
+    Private Sub LoadBOMSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView, ByVal IsExpandChild As Boolean, ByVal IsExpandOutsourcedParts As Boolean)
         On Error Resume Next
 
         'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
@@ -172,9 +171,8 @@ Public Class formImportCodeToIam
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formImportCodeToIam)()
     End Sub
 
     Private Sub btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
@@ -401,6 +399,8 @@ Public Class formImportCodeToIam
         LoadBOM(oInventorAssemblyDocument, lvw文件列表, chk展开子级.Checked, chk展开外协.Checked)
 
         Me.Text = "导入ERP编码 ( 共" & lvw文件列表.Items.Count & "个文件)"
+
+        SetWindowSizeAndCenter(Me)
 
     End Sub
 

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formiProperty
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class FormiProperty
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class formiProperty
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btn确定 = New System.Windows.Forms.Button()
         Me.btn取消 = New System.Windows.Forms.Button()
@@ -64,7 +64,7 @@ Partial Class formiProperty
         Me.btn取消.Name = "btn取消"
         Me.btn取消.Size = New System.Drawing.Size(65, 28)
         Me.btn取消.TabIndex = 11
-        Me.btn取消.Text = "取消"
+        Me.btn取消.Text = "关闭"
         '
         'lbl图号
         '
@@ -265,7 +265,7 @@ Partial Class formiProperty
         Me.btn提取文件名.TabIndex = 21
         Me.btn提取文件名.Text = "提取文件名"
         '
-        'formiProperty
+        'FormiProperty
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -297,12 +297,9 @@ Partial Class formiProperty
         Me.Controls.Add(Me.lbl图号)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "formiProperty"
-        Me.ShowInTaskbar = False
+        Me.Name = "FormiProperty"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "iProperty+"
-        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

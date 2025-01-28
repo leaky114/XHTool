@@ -132,10 +132,8 @@ Public Class formAutoPartNumber
     End Sub
 
     '关闭
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        lvw文件列表.Items.Clear()
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Close()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formAutoPartNumber)()
     End Sub
 
     Private Sub btn上移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn上移.Click
@@ -270,6 +268,7 @@ Public Class formAutoPartNumber
 
         LoadBOM(oInventorAssemblyDocument, lvw文件列表)
 
+        SetWindowSizeAndCenter(Me)
 
     End Sub
 

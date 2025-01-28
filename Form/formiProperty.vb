@@ -1,7 +1,7 @@
 ﻿Imports Inventor
 Imports System.Windows.Forms
 
-Public Class formiProperty
+Public Class FormiProperty
 
     Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Dim oInventorDocument As Inventor.Document
@@ -12,7 +12,7 @@ Public Class formiProperty
         SetPropitem(oInventorDocument, Map_Describe, cbo描述.Text)
         SetPropitem(oInventorDocument, Map_ERPCode, txtERP编码.Text)
         SetPropitem(oInventorDocument, Map_Vendor, cbo供应商.Text)
-        SetPropitem(oInventorDocument, Map_Price, Iif(txt价格.Text = "", "0", txt价格.Text))
+        SetPropitem(oInventorDocument, Map_Price, IIf(txt价格.Text = "", "0", txt价格.Text))
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
             Dim oPartDocument As Inventor.PartDocument = oInventorDocument
@@ -33,18 +33,16 @@ Public Class formiProperty
             oInventorDocument.Save2(True)
         End If
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of FormiProperty)()
     End Sub
 
-    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormiProperty)()
     End Sub
 
     Private Sub frmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
 
         '加载自定义描述
         LoadCustomDescription(cbo描述)
@@ -230,7 +228,7 @@ Public Class formiProperty
             strDescriptions = strDescriptions & "|" & oComboBox.Items(i)
         Next
 
-        WriteStrINI("自定义描述", "自定义描述", strDescriptions, Inifile)
+        WriteStrINI("自定义描述", "自定义描述", strDescriptions, IniFile)
 
     End Sub
 

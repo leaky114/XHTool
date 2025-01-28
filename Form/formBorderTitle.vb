@@ -2,6 +2,7 @@
 Imports Inventor
 Imports System.Collections.Generic
 Imports System.Windows.Forms
+Imports System.ComponentModel
 
 Public Class formBorderTitle
 
@@ -225,4 +226,9 @@ Public Class formBorderTitle
         strTitleBlock = IO.Path.Combine(My.Application.Info.DirectoryPath, "TitleBlock.ini")
         Process.Start("NOTEPAD.EXE", strTitleBlock)
     End Sub
+
+    Private Sub formBorderTitle_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of formBorderTitle)()
+    End Sub
+
 End Class

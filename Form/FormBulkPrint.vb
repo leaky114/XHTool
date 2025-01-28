@@ -11,7 +11,7 @@ Imports System.Windows.Forms
 Imports System.Xml
 Imports System.Collections.Generic
 
-Public Class formPrint
+Public Class FormBulkPrint
     Private IsStopPrint As Double '中断打印标记
 
     '批量打印开始
@@ -165,21 +165,16 @@ Public Class formPrint
         oInteraction.Stop()
 
         SetStatusBarText("批量打印工程图完成")
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
 
         If chk关闭窗口.Checked = True Then
-            lvw文件列表.Items.Clear()
-            Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-            Me.Dispose()
+            FormManager.CloseAndDisposeForm(Of FormBulkPrint)()
         End If
 
     End Sub
 
     '关闭
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        lvw文件列表.Items.Clear()
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormBulkPrint)()
     End Sub
 
     '添加文件
@@ -226,7 +221,6 @@ Public Class formPrint
 
         GetAllFile(strDestinationFolder, lvw文件列表, IDW)
 
-
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
     End Sub
 
@@ -265,6 +259,8 @@ Public Class formPrint
         chk保存签字.Checked = IntToBool(binaryArray(7))
         chk保存工程图.Checked = IntToBool(binaryArray(8))
         chk存为dwg.Checked = IntToBool(binaryArray(9))
+
+        SetWindowSizeAndCenter(Me)
 
     End Sub
 

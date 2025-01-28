@@ -2,7 +2,7 @@
 Imports Inventor.DocumentTypeEnum
 Imports System.Windows.Forms
 
-Public Class formSign
+Public Class FormCustomSignature
 
     Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Try
@@ -44,13 +44,11 @@ Public Class formSign
             MsgBox(ex.Message)
         End Try
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of FormCustomSignature)()
     End Sub
 
-    Private Sub btn关闭_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub btn关闭_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormCustomSignature)()
     End Sub
 
     Private Sub frmSign_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

@@ -1,4 +1,7 @@
-﻿Imports Inventor
+﻿Imports System.ComponentModel
+Imports System.Drawing
+Imports System.Windows.Forms
+Imports Inventor
 Public Class formNetTool
 
     ' 此函数用于从IPictureDisp获取Image
@@ -144,5 +147,7 @@ Public Class formNetTool
         ThisApplication.UserInterfaceManager.Ribbons(ComboBox1.Text).RibbonTabs.Item(ComboBox2.Text).RibbonPanels.Item(ComboBox3.Text).CommandControls.Item(ComboBox4.Text).ChildControls.Item(ComboBox5.Text).ControlDefinition.Execute2(True)
     End Sub
 
-
+    Private Sub formNetTool_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of formNetTool)()
+    End Sub
 End Class

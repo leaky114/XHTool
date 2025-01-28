@@ -489,7 +489,7 @@ Partial Class formFormatConversion
         Me.关闭ToolStripButton.Text = "关闭"
         Me.关闭ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'frmFormatConversion
+        'formFormatConversion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -500,7 +500,7 @@ Partial Class formFormatConversion
         Me.Controls.Add(Me.加载方式ToolStrip)
         Me.Controls.Add(Me.ToolStrip文档格式)
         Me.Controls.Add(Me.Lvw文件列表)
-        Me.Name = "frmFormatConversion"
+        Me.Name = "formFormatConversion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "格式转换"
         Me.cms右键菜单.ResumeLayout(False)

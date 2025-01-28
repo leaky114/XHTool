@@ -145,7 +145,7 @@ Public Class formFormatConversion
         移出文件ToolStripButton.Image = My.Resources.移出文件16.ToBitmap
         清空列表ToolStripButton.Image = My.Resources.清空列表16.ToBitmap
         静默转换ToolStripButton.Image = My.Resources.静默16.ToBitmap
-        转换后关闭ToolStripButton.Image = My.Resources.关闭文档16.ToBitmap
+        转换后关闭ToolStripButton.Image = My.Resources.关闭文件16.ToBitmap
 
         添加文件ToolStripButton.Image = My.Resources.打开文件16.ToBitmap
         添加文件夹ToolStripButton.Image = My.Resources.打开文件夹16.ToBitmap
@@ -166,9 +166,11 @@ Public Class formFormatConversion
         浏览ToolStripButton.Image = My.Resources.查询16.ToBitmap
 
         开始转换ToolStripButton2.Image = My.Resources.格式转换16.ToBitmap
-        关闭ToolStripButton.Image = My.Resources.关闭文档16.ToBitmap
+        关闭ToolStripButton.Image = My.Resources.关闭16.ToBitmap
 
-        lvw文件列表.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        Lvw文件列表.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+        SetWindowSizeAndCenter(Me)
 
     End Sub
 
@@ -753,10 +755,8 @@ Public Class formFormatConversion
 
     End Sub
 
-    Private Sub 关闭ToolStripButton_Click(sender As Object, e As EventArgs) Handles 关闭ToolStripButton.Click
-        Lvw文件列表.Items.Clear()
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Dispose()
+    Private Sub 关闭ToolStripButton_Click(sender As Object, e As EventArgs) Handles 关闭ToolStripButton.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of formFormatConversion)()
     End Sub
 
 End Class

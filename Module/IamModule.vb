@@ -45,7 +45,7 @@ Module IamModule
 
             With frmInputBox
                 .txt输入.Text = strPartDrawingNnumber
-                .Text = "检查包号指定字符的工程图"
+                .Text = "检查包含指定字符的工程图"
                 .lbl描述.Text = "输入要检查的部分图号的。"     '  & vbCrLf & "如要检查全部AAA-BBB000下的零件是否有工程图，输入AAA-BBB即可。"
                 .StartPosition = FormStartPosition.CenterScreen
                 strPartDrawingNnumber = .txt输入.Text
@@ -1708,7 +1708,7 @@ Module IamModule
                 strOldDocumentName = GetFileNameInfo(strOldFullFileNameName).OnlyName
 
                 Dim strNewFileName As String   '新文件仅文件名
-                strNewFileName = InputBox("重命名" & vbCrLf & vbCrLf & strOldFullFileNameName, , strOldDocumentName)  '输入新文件名
+                strNewFileName = InputBox("重命名" & vbCrLf & vbCrLf & strOldFullFileNameName,   , strOldDocumentName)  '输入新文件名
 
                 If Is检查重复图号 = "1" Then
                     Dim WorkSpaceFloder As String
@@ -3297,25 +3297,25 @@ Module IamModule
             Exit Sub
         End If
 
-        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-            MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
             Exit Sub
         End If
 
-        Dim oInventorDocument As Inventor.Document
-        oInventorDocument = ThisApplication.ActiveEditDocument
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         Dim strInventorDocumenFullDocumentName As String
         Dim oComponentOccurrence As ComponentOccurrence
 
-        If oInventorDocument.SelectSet.Count <> 0 Then
-            For Each oSelect As Object In oInventorDocument.SelectSet
+        If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
+            For Each oSelect As Object In oInventorAssemblyDocument.SelectSet
                 If TypeOf (oSelect) Is ComponentOccurrence Then
                     oComponentOccurrence = CType(oSelect, ComponentOccurrence)
-                    'For Each ComponentOccurrence As ComponentOccurrence In oInventorDocument.SelectSet()
+
                     strInventorDocumenFullDocumentName = oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
                     If IsFileExsts(strInventorDocumenFullDocumentName) = True Then
-                        oInventorDocument = ThisApplication.Documents.Open(strInventorDocumenFullDocumentName, True)
+                        oInventorAssemblyDocument = ThisApplication.Documents.Open(strInventorDocumenFullDocumentName, True)
                     End If
                 End If
             Next
@@ -3324,4 +3324,64 @@ Module IamModule
 
     End Sub
 
+    ''' <summary>
+    ''' 在部件中检查钣金厚度匹配
+    ''' </summary>
+    Public Sub CheckSteelThicknessInAssembly()
+        On Error Resume Next
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+
+        ' 获取装配定义
+        Dim oAssemblyComponentDefinition As AssemblyComponentDefinition
+        oAssemblyComponentDefinition = oInventorAssemblyDocument.ComponentDefinition
+
+        ' 获取装配子集
+        Dim oComponentOccurrences As ComponentOccurrences
+        oComponentOccurrences = oAssemblyComponentDefinition.Occurrences
+
+        '遍历
+
+        Dim oInventorPartDocument As Inventor.PartDocument
+        Dim strInventorPartDocumentFullFileName As String
+
+        For Each oComponentOccurrence As ComponentOccurrence In oComponentOccurrences.AllLeafOccurrences
+            strInventorPartDocumentFullFileName = oComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName
+
+            'Debug.Print(strInventorPartDocumentFullFileName)
+
+            If IsFileExsts(strInventorPartDocumentFullFileName) = True Then
+                oInventorPartDocument = ThisApplication.Documents.Open(strInventorPartDocumentFullFileName, False)
+
+                Dim IsMatching As Boolean
+                IsMatching = CheckSteelThicknessSub(oInventorPartDocument)
+
+                'oInventorPartDocument.Close()
+
+                Select Case IsMatching
+                    Case True
+
+                    Case False
+                        ThisApplication.Documents.Open(oInventorPartDocument.FullDocumentName)
+                End Select
+
+
+            End If
+        Next
+
+        MsgBox("检查钣金厚度匹配完成，已打开不匹配的零件。", MsgBoxStyle.Information)
+    End Sub
 End Module

@@ -17,6 +17,8 @@ Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms
 Imports System.Collections.Generic
+Imports Microsoft.Office.Interop.Excel
+Imports Sheets = Inventor.Sheets
 
 Module IdwModule
 
@@ -47,7 +49,7 @@ Module IdwModule
                 'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
                 'Exit Sub
 
-                strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, _
+                strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop,
                                                                          oInventorDrawingDocument.DisplayName & IDW)
                 oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
 
@@ -64,7 +66,7 @@ Module IdwModule
                 If IsDirectoryExists(strChildDirectory) = False Then
                     IO.Directory.CreateDirectory(strChildDirectory)
                 End If
-                strDwgFullFileName = IO.Path.Combine(strChildDirectory, _
+                strDwgFullFileName = IO.Path.Combine(strChildDirectory,
                                                       GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & DWG)
             Else
                 strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
@@ -191,7 +193,7 @@ Module IdwModule
                 'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
                 'Exit Sub
 
-                strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Temp, _
+                strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Temp,
                                                                            oInventorDrawingDocument.DisplayName & IDW)
                 oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
             End If
@@ -205,7 +207,7 @@ Module IdwModule
                 If IsDirectoryExists(strChildDirectory) = False Then
                     IO.Directory.CreateDirectory(strChildDirectory)
                 End If
-                strPdfFullFileName = IO.Path.Combine(strChildDirectory, _
+                strPdfFullFileName = IO.Path.Combine(strChildDirectory,
                                                         GetFileNameInfo(strInventorDrawingDocumentFullFileName).OnlyName & PDF)
             Else
                 strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
@@ -617,9 +619,9 @@ Module IdwModule
 
             Dim strTitle As String
 
-            strTitle = "对称件:<Property Document='drawing' PropertySet='User Defined Properties' Property='" & _
-                Map_Mir_StochNum & "' FormatID='{D5CDD505-2E9C-101B-9397-08002B2CF9AE}'>" & Map_Mir_StochNum & _
-                "</Property><Property Document='drawing' PropertySet='User Defined Properties' Property='" & Map_Mir_PartName & _
+            strTitle = "对称件:<Property Document='drawing' PropertySet='User Defined Properties' Property='" &
+                Map_Mir_StochNum & "' FormatID='{D5CDD505-2E9C-101B-9397-08002B2CF9AE}'>" & Map_Mir_StochNum &
+                "</Property><Property Document='drawing' PropertySet='User Defined Properties' Property='" & Map_Mir_PartName &
                 "' FormatID='{D5CDD505-2E9C-101B-9397-08002B2CF9AE}'>" & Map_Mir_PartName & "</Property>,此图为左件"
 
             'strTitle = "对称件：" & oStockNumPartName.StockNum & oStockNumPartName.零件名称
@@ -931,7 +933,7 @@ Module IdwModule
     ''' <param name="oPartsListRowBallooned">是否有序号</param>
     ''' <remarks></remarks>
 
-    Public Sub SetPartCorlor(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal partStr As String, _
+    Public Sub SetPartCorlor(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal partStr As String,
                              ByVal oColor As Color, ByVal oPartsListRowBallooned As Boolean)
 
         Dim oTransaction As Transaction
@@ -1150,7 +1152,7 @@ Module IdwModule
                         Case "-1"
                             For i = 0 To intArrayBalloonDateLength - 1
                                 For j = 0 To intArrayBalloonDateLength - 2
-                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) < _
+                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) <
                                         Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
                                         tempBalloondate = arrayTempBalloonDate(j)
                                         arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
@@ -1161,7 +1163,7 @@ Module IdwModule
                         Case "1"     '顺时针序号
                             For i = 0 To intArrayBalloonDateLength - 1
                                 For j = 0 To intArrayBalloonDateLength - 2
-                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) > _
+                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) >
                                         Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
                                         tempBalloondate = arrayTempBalloonDate(j)
                                         arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
@@ -1807,7 +1809,7 @@ Module IdwModule
     ''' <param name="intCopies">打印份数</param>
     ''' <param name="IsA3">适配A3</param>
     ''' <remarks></remarks>
-    Public Sub PrintDrawing(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal sPrinterName As String, ByVal IsBlack As Boolean, _
+    Public Sub PrintDrawing(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal sPrinterName As String, ByVal IsBlack As Boolean,
                              ByVal intCopies As Integer, ByVal IsA3 As Boolean)
 
         ' Set a reference to the print manager object of the active document.
@@ -2009,7 +2011,7 @@ Module IdwModule
                 If .ShowDialog = System.Windows.Forms.DialogResult.OK Then '如果打开窗口OK
                     If .FileName <> "" Then '如果有选中文件
                         str展开图模板 = .FileName
-                        ini.WriteStrINI("展开图", "展开图模板", str展开图模板, Inifile)
+                        ini.WriteStrINI("展开图", "展开图模板", str展开图模板, IniFile)
                     Else
                         Exit Sub
                     End If
@@ -2168,7 +2170,7 @@ Module IdwModule
     ''' <param name="strInventorDrawingFolder">保存的文件夹</param>
     ''' <param name="IsClose">是否关闭</param>
     ''' <remarks></remarks>
-    Public Sub CreateFlatDrawingDocumentSub(ByVal oInventorDocument As Inventor.PartDocument, ByVal strBasicIdwFileFullName As String, _
+    Public Sub CreateFlatDrawingDocumentSub(ByVal oInventorDocument As Inventor.PartDocument, ByVal strBasicIdwFileFullName As String,
                              ByVal strInventorDrawingFolder As String, ByVal IsClose As Boolean)
         On Error Resume Next
 
@@ -2537,7 +2539,7 @@ Module IdwModule
     ''' <param name="strInventorDrawingFolder"></param>
     ''' <param name="IsClose"></param>
     ''' <remarks></remarks>
-    Public Sub CreatNewDrawingDocumentSub(ByVal oInventorDocument As Inventor.Document, ByVal strBasicIdwFileFullName As String, _
+    Public Sub CreatNewDrawingDocumentSub(ByVal oInventorDocument As Inventor.Document, ByVal strBasicIdwFileFullName As String,
                              ByVal strInventorDrawingFolder As String, ByVal IsClose As Boolean)
         On Error Resume Next
 
@@ -2593,12 +2595,12 @@ Module IdwModule
 
         'Now place the base view at the center point of the sheet
         Dim oView前视图 As DrawingView
-        oView前视图 = oSheet.DrawingViews.AddBaseView(oInventorDocument, oCentralPoint, douScale, ViewOrientationTypeEnum.kFrontViewOrientation, _
-                                                   Iif(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle, _
+        oView前视图 = oSheet.DrawingViews.AddBaseView(oInventorDocument, oCentralPoint, douScale, ViewOrientationTypeEnum.kFrontViewOrientation,
+                                                   IIf(str样式 = "显示隐藏线", DrawingViewStyleEnum.kHiddenLineDrawingViewStyle,
                                                        DrawingViewStyleEnum.kHiddenLineRemovedDrawingViewStyle))
         oView前视图.Name = "前视图"
-        oView前视图.DisplayThreadFeatures = Iif(str螺纹特征 = "1", True, False)
-        oView前视图.DisplayTangentEdges = Iif(str相切边 = "1", True, False)
+        oView前视图.DisplayThreadFeatures = IIf(str螺纹特征 = "1", True, False)
+        oView前视图.DisplayTangentEdges = IIf(str相切边 = "1", True, False)
 
         'Create projected views in arbitrary locations
 
@@ -2793,8 +2795,8 @@ Module IdwModule
         douDrawingViewHeight = douDrawingViewTopEdge - douDrawingViewBottonEdge
 
 
-        oCentralPoint = ThisApplication.TransientGeometry.CreatePoint2d( _
-            (oView前视图.Position.X - (douDrawingViewLeftEdge + douDrawingViewWidth * 0.5 - (oSheet.Width + str页边距.short左边距 * 0.1 - str页边距.short右边距 * 0.1) * 0.5)), _
+        oCentralPoint = ThisApplication.TransientGeometry.CreatePoint2d(
+            (oView前视图.Position.X - (douDrawingViewLeftEdge + douDrawingViewWidth * 0.5 - (oSheet.Width + str页边距.short左边距 * 0.1 - str页边距.short右边距 * 0.1) * 0.5)),
                            (oView前视图.Position.Y - (douDrawingViewBottonEdge + douDrawingViewHeight * 0.5 - (oSheet.Height + str页边距.short下边距 * 0.1 - str页边距.short上边距 * 0.1) * 0.5)))
 
         oView前视图.Position = oCentralPoint
@@ -2932,7 +2934,6 @@ Module IdwModule
     ''' <param name="oInventorDrawingDocument"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-
     Public Function CheckDrawingDocumentNameToReferencedDocument(ByVal oInventorDrawingDocument As Inventor.DrawingDocument) As Boolean
 
         For Each oReferencedDocument In oInventorDrawingDocument.ReferencedDocumentDescriptors
@@ -3006,7 +3007,7 @@ Module IdwModule
 
             '判断新工程图是否存在，是否需要覆盖
             If IsFileExsts(strNewInventorDrawingDocumentFullName) = True Then
-                If MsgBox("存在工程图：" & vbCrLf & vbCrLf & strNewInventorDrawingDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？", _
+                If MsgBox("存在工程图：" & vbCrLf & vbCrLf & strNewInventorDrawingDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？",
                           MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
                 Else
@@ -3380,10 +3381,10 @@ Module IdwModule
             Case "无材质"
                 strDxfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DXF)
             Case "材质前缀"
-                strDxfFullFileName = IO.Path.Combine(GetDirectoryName2(strInventorDrawingDocumentFullFileName), _
+                strDxfFullFileName = IO.Path.Combine(GetDirectoryName2(strInventorDrawingDocumentFullFileName),
                                                      strMaterial & "-" & GetFileNameWithoutExtension2(strInventorDrawingDocumentFullFileName) & DXF)
             Case "材质后缀"
-                strDxfFullFileName = IO.Path.Combine(GetDirectoryName2(strInventorDrawingDocumentFullFileName), _
+                strDxfFullFileName = IO.Path.Combine(GetDirectoryName2(strInventorDrawingDocumentFullFileName),
                                                       GetFileNameWithoutExtension2(strInventorDrawingDocumentFullFileName) & "-" & strMaterial & DXF)
         End Select
 
@@ -3656,7 +3657,7 @@ Module IdwModule
 
         ' Get a drawing curve segment selection from the user
         Dim oCS As DrawingCurveSegment
-        oCS = ThisApplication.CommandManager.Pick( _
+        oCS = ThisApplication.CommandManager.Pick(
               SelectionFilterEnum.kDrawingCurveSegmentFilter, "选装工程图线段。")
 
         If oCS Is Nothing Then
@@ -3792,4 +3793,122 @@ Module IdwModule
         oSheet.Update()
 
     End Sub 'AutoColor_VA2
+
+
+    ''' <summary>
+    ''' 删除工程图错误的标注
+    ''' </summary>
+    Public Sub ClearErrorTagging()
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+
+        '撤销功能
+        Dim oTransaction As Transaction
+        oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
+
+
+        Select Case ThisApplication.ActiveDocumentType
+            Case DocumentTypeEnum.kAssemblyDocumentObject     '部件 禁止错误的约束
+                Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+                oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+                For Each oAssemblyConstraint As AssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
+                    If oAssemblyConstraint.HealthStatus = HealthStatusEnum.kInconsistentHealth Then
+                        oAssemblyConstraint.Suppressed = True
+                    End If
+                Next
+
+            Case DocumentTypeEnum.kDrawingDocumentObject     '工程图删除错误的尺寸，序号，焊接
+                Dim oInventorDrawingDocument As Inventor.DrawingDocument
+                oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+                Dim oSheet As Sheet
+                oSheet = oInventorDrawingDocument.ActiveSheet
+
+                '遍历图纸中的所有 尺寸
+                For Each oDrawingDim As DrawingDimension In oSheet.DrawingDimensions
+                    If oDrawingDim.Attached = False Then
+                        oDrawingDim.Delete()
+                    End If
+                Next
+
+                '遍历图纸中的所有  序号
+                For Each oBalloon As Balloon In oSheet.Balloons
+                    If oBalloon.Attached = False Then
+                        oBalloon.Delete()
+                    End If
+                Next
+
+                ' 遍历图纸中的所有  十字中心线
+                For Each oCentermark As Centermark In oSheet.Centermarks
+                    If oCentermark.Attached = False Then
+                        oCentermark.Delete()
+                    End If
+                Next
+
+                ' 遍历图纸中的所有  中心线
+                For Each oCenterLine As Centerline In oSheet.Centerlines
+                    If oCenterLine.Attached = False Then
+                        oCenterLine.Delete()
+                    End If
+                Next
+
+
+                ' 遍历图纸中的所有 特征注释
+                For Each note As LeaderNote In oSheet.DrawingNotes.LeaderNotes
+                    ' Dim t = note.Leader.AllNodes.Count
+                    If (note.Leader.HasRootNode = False) Then
+                        ' This happens if the leader has been deleted.
+                    Else
+                        Dim attachedNodeList = note.Leader.AllNodes.Cast(Of LeaderNode).Where(Function(n) n.AttachedEntity IsNot Nothing).ToList()
+                        If (attachedNodeList.Count = 0) Then
+                            note.Delete()
+                        End If
+                    End If
+                Next
+
+                ' 遍历图纸中的所有 特征注释
+                For Each oDrawingNote As DrawingNote In oSheet.DrawingNotes
+                    Debug.Print(TypeName(oDrawingNote))
+
+                    Select Case TypeName(oDrawingNote)
+                        Case "BendNote"            '折弯
+                            Dim oBendNote As BendNote
+                            oBendNote = CType(oDrawingNote, BendNote)
+
+                        'oBendNote.Delete()
+
+                        Case "ChamferNote"              '倒角
+                            Dim oChamferNote As ChamferNote
+                            oChamferNote = CType(oDrawingNote, ChamferNote)
+
+                        'oChamferNote.Delete()
+
+                        Case "GeneralNote"                  '文本
+                            Dim oGeneralNote As GeneralNote
+                            oGeneralNote = CType(oDrawingNote, GeneralNote)
+
+                        Case ""
+
+                        Case ""
+
+                    End Select
+                Next
+
+                '遍历图纸中的符号
+                For Each oSurfaceTextureSymbol As SurfaceTextureSymbol In oSheet.SurfaceTextureSymbols
+                    'oSurfaceTextureSymbol.Delete()
+                Next
+
+
+        End Select
+
+        oTransaction.End()
+
+    End Sub
 End Module

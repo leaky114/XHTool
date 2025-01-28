@@ -245,7 +245,7 @@ Partial Class formNetTool
         Me.ComboBox8.Size = New System.Drawing.Size(357, 20)
         Me.ComboBox8.TabIndex = 16
         '
-        'frmNetTool
+        'formNetTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -253,7 +253,7 @@ Partial Class formNetTool
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Name = "frmNetTool"
+        Me.Name = "formNetTool"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "编程工具"
         Me.TopMost = True

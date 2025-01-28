@@ -53,6 +53,7 @@ Partial Class formImportCodeToIam
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch图号, Me.ch名称, Me.ch编码, Me.ch供应商, Me.ch文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.ContextMenuStrip右键菜单
         Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.lvw文件列表.MultiSelect = False
         Me.lvw文件列表.Name = "lvw文件列表"
@@ -193,7 +194,7 @@ Partial Class formImportCodeToIam
         Me.chk展开外协.Text = "展开外协"
         Me.chk展开外协.UseVisualStyleBackColor = True
         '
-        'frmImportCodeToIam
+        'formImportCodeToIam
         '
         Me.AcceptButton = Me.btn装载
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -209,7 +210,7 @@ Partial Class formImportCodeToIam
         Me.Controls.Add(Me.btn查询)
         Me.Controls.Add(Me.lvw文件列表)
         Me.MaximizeBox = False
-        Me.Name = "frmImportCodeToIam"
+        Me.Name = "formImportCodeToIam"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码"
         Me.TopMost = True
