@@ -1,6 +1,6 @@
 ﻿Imports Inventor
 
-Public Class clsRightMouseSetDrawingSize
+Public Class ClsRightMouseSetDrawingSize
     Private SizeA0, SizeA1, SizeA2, SizeA3, SizeA4 As ButtonDefinition
     Private CommandBarSheetSize As CommandBar
 
@@ -38,7 +38,7 @@ Public Class clsRightMouseSetDrawingSize
 
     Private Sub OnContextMenu(SelectionDevice As SelectionDeviceEnum, AdditionalInfo As NameValueMap, CommandBar As CommandBar)
         Dim oInventorDocument As Inventor.Document = ThisApplication.ActiveDocument
-        If Not TypeOf oInventorDocument Is DrawingDocument Then Return
+        If TypeOf oInventorDocument IsNot DrawingDocument Then Return
         If oInventorDocument.SelectSet.Count <> 1 Then Return
         If oInventorDocument.SelectSet(1) IsNot oInventorDocument.ActiveSheet Then Return
         CommandBar.Controls.AddPopup(CommandBarSheetSize, 3)

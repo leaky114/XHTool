@@ -3,9 +3,9 @@ Imports Inventor.DocumentTypeEnum
 Imports Inventor.SelectionFilterEnum
 Imports System.Windows.Forms
 
-Public NotInheritable Class formSearchERPCode
+Public NotInheritable Class FormSearchERPCode
 
-    Private Sub btn查询编码_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询编码.Click
+    Private Sub Btn查询编码_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询编码.Click
         Dim strDrawingNo As String
         'Dim strERPCode As String
 
@@ -72,34 +72,34 @@ Public NotInheritable Class formSearchERPCode
 
     End Sub
 
-    Private Sub btn粘贴到规格_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴到规格.Click
+    Private Sub Btn粘贴到规格_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴到规格.Click
         txt规格图号.Text = My.Computer.Clipboard.GetText
         btn查询编码.Focus()
     End Sub
 
-    Private Sub btn复制编码_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制编码.Click
+    Private Sub Btn复制编码_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制编码.Click
         If txtERP编码.Text <> Nothing Then
             My.Computer.Clipboard.SetText(txtERP编码.Text)
         End If
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formSearchERPCode)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormSearchERPCode)()
     End Sub
 
-    Private Sub frmSearchERPCode_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmSearchERPCode_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
         Me.Height = 156
     End Sub
 
-    'Private Sub txt规格图号_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt规格图号.KeyPress
+    'Private Sub Txt规格图号_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt规格图号.KeyPress
     '    if Asc(e.KeyChar) = Keys.Enter Then
     '        btn查询编码.PerformClick()
     '    End if
     'End Sub
 
-    Private Sub lvw编码列表_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvw编码列表.SelectedIndexChanged
+    Private Sub Lvw编码列表_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvw编码列表.SelectedIndexChanged
         If lvw编码列表.SelectedIndices.Count > 0 Then
             Dim index As Integer = lvw编码列表.SelectedIndices(0)  '选中行的下一行索引
             txtERP编码.Text = lvw编码列表.Items(index).SubItems(1).Text

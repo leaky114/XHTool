@@ -1,6 +1,6 @@
 ﻿Imports stdole
 
-Friend Class clsPictureConverter
+Friend Class ClsPictureConverter
     Inherits System.Windows.Forms.AxHost
 
     Private Sub New()

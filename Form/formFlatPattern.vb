@@ -8,7 +8,7 @@ Imports Inventor.DrawingViewStyleEnum
 Imports System.Windows.Forms
 Imports System.ComponentModel
 
-Public Class formFlatPattern
+Public Class FormFlatPattern
     Private intViewOrientation As ViewOrientationTypeEnum
 
     ''' <summary>
@@ -61,10 +61,10 @@ Public Class formFlatPattern
 
         Dim strFormattedText As String
 
-        Dim oGeneralNote As GeneralNote = Nothing
+        Dim oGeneralNote As GeneralNote
 
         '添加零件的文件名
-        Dim oPoint2d As Point2d = Nothing
+        Dim oPoint2d As Point2d
         oPoint2d = GetDrawingPoint("单击插入文件名的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
@@ -154,8 +154,8 @@ Public Class formFlatPattern
 
         Dim oRectangularPoint As RectangularPoint
 
-        Dim oclsGetRectAreaInDrawing2 As clsGetRectAreaInDrawing2
-        oclsGetRectAreaInDrawing2 = New clsGetRectAreaInDrawing2
+        Dim oclsGetRectAreaInDrawing2 As ClsGetRectAreaInDrawing2
+        oclsGetRectAreaInDrawing2 = New ClsGetRectAreaInDrawing2
 
         oRectangularPoint = oclsGetRectAreaInDrawing2.GetRectAreaInDrawing("两脚处单击插入展开图", MouseButtonEnum.kLeftMouseButton)
 
@@ -319,8 +319,8 @@ Public Class formFlatPattern
 
         Dim oRectangularPoint As RectangularPoint
 
-        Dim oclsGetRectAreaInDrawing2 As clsGetRectAreaInDrawing2
-        oclsGetRectAreaInDrawing2 = New clsGetRectAreaInDrawing2
+        Dim oclsGetRectAreaInDrawing2 As ClsGetRectAreaInDrawing2
+        oclsGetRectAreaInDrawing2 = New ClsGetRectAreaInDrawing2
 
         oRectangularPoint = oclsGetRectAreaInDrawing2.GetRectAreaInDrawing("两脚处单击插入折弯图", MouseButtonEnum.kLeftMouseButton)
 
@@ -392,7 +392,7 @@ Public Class formFlatPattern
         oInventorDrawingDocument.Update()
     End Sub
 
-    Private Sub btn添加展开图_Click(sender As Object, e As EventArgs) Handles btn添加展开图.Click
+    Private Sub Btn添加展开图_Click(sender As Object, e As EventArgs) Handles btn添加展开图.Click
 
         SetStatusBarText()
 
@@ -461,7 +461,7 @@ Public Class formFlatPattern
 
 
 
-    Private Sub btn从部件选择_Click(sender As Object, e As EventArgs) Handles btn从部件选择.Click
+    Private Sub Btn从部件选择_Click(sender As Object, e As EventArgs) Handles btn从部件选择.Click
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
             MsgBox("请切换到部件", MsgBoxStyle.Information)
             Exit Sub
@@ -510,8 +510,8 @@ Public Class formFlatPattern
 
     End Sub
 
-    Private Sub btn打开零件_Click(sender As Object, e As EventArgs) Handles btn打开零件.Click
-        Dim strFilter As String = Nothing
+    Private Sub Btn打开零件_Click(sender As Object, e As EventArgs) Handles btn打开零件.Click
+        Dim strFilter As String
 
         strFilter = "Autodesk Inventor 零件(*.ipt)|*.ipt" '添加过滤文件    
 
@@ -541,7 +541,7 @@ Public Class formFlatPattern
         'SetViewToPictureBox(oInventorPartDocument, PictureBox1)
     End Sub
 
-    Private Sub btn向上1_Click(sender As Object, e As EventArgs) Handles btn向上1.Click
+    Private Sub Btn向上1_Click(sender As Object, e As EventArgs) Handles btn向上1.Click
         Dim strTemp As String
         strTemp = txt图号.Text
         txt图号.Text = txt文件名.Text
@@ -550,7 +550,7 @@ Public Class formFlatPattern
 
 
 
-    Private Sub frmFlatPattern_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmFlatPattern_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
         btn向上1.Image = My.Resources.交换16.ToBitmap
@@ -597,7 +597,7 @@ Public Class formFlatPattern
 
     End Function
 
-    Private Sub rdo前视图_CheckedChanged(sender As Object, e As EventArgs) Handles rdo前视图.CheckedChanged, rdo后视图.CheckedChanged,
+    Private Sub Rdo前视图_CheckedChanged(sender As Object, e As EventArgs) Handles rdo前视图.CheckedChanged, rdo后视图.CheckedChanged,
         rdo左视图.CheckedChanged, rdo右视图.CheckedChanged, rdo上视图.CheckedChanged, rdo下视图.CheckedChanged
 
         Dim oradio As RadioButton
@@ -632,7 +632,7 @@ Public Class formFlatPattern
 
     End Sub
 
-    Private Sub formFlatPattern_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        FormManager.CloseAndDisposeForm(Of formFlatPattern)()
+    Private Sub FormFlatPattern_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormFlatPattern)()
     End Sub
 End Class

@@ -17,17 +17,85 @@ Imports System.Net
 
 
 
-Public Class formMain
+Public Class FormMain
 
     Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
     Private HideSide As Short '隐藏边的位置，0为未隐藏，1为上边，2为左边
 
 
+    Public Sub CreateLineWithMidpoint()
+        Dim invApp As Inventor.Application = ThisApplication
+        Try
+            ' 验证当前文档为零件文档
+            Dim oDoc As PartDocument = TryCast(invApp.ActiveDocument, PartDocument)
+            If oDoc Is Nothing Then
+                MessageBox.Show("请打开零件文档！")
+                Return
+            End If
+
+            ' 获取当前激活草图
+            Dim oSketch As Sketch = ThisApplication.ActiveEditObject
+            If oSketch Is Nothing Then
+                MessageBox.Show("请先激活草图！")
+                Return
+            End If
+
+            ' 选择中点A
+            'Dim pointA As Point2d = GetDrawingPoint(“选择中点”)
+            Dim pointA As Point2d = GetPointByMouseClick(oSketch)
+            If pointA Is Nothing Then Return
+
+            ' 选择端点B
+            Dim pointB As Point2d = GetDrawingPoint(“选择端点”)
+            If pointB Is Nothing Then Return
+
+            ' 计算另一端点C
+            Dim oTG As TransientGeometry = invApp.TransientGeometry
+            Dim pointC As Point2d = oTG.CreatePoint2d(2 * pointA.X - pointB.X, 2 * pointA.Y - pointB.Y)
+
+            ' 创建线段BC
+            Dim line As SketchLine = oSketch.SketchLines.AddByTwoPoints(pointB, pointC)
+
+            ' 添加中点约束（可选）
+            'oSketch.GeometricConstraints.AddMidpointConstraint(line, pointA)
+
+            'MessageBox.Show("线段创建成功！")
+        Catch ex As Exception
+            MessageBox.Show("错误: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Function GetPointByMouseClick(sketch As Sketch) As Point2d
+        Dim invApp As Inventor.Application = ThisApplication
+        Try
+            ' 使用CommandManager.Pick捕获鼠标点击
+            Dim pickResult As Object = Nothing
+            pickResult = invApp.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "请用鼠标左键点击选择一个点")
+
+            ' 如果用户取消选择，返回Nothing
+            If pickResult Is Nothing Then
+                Return Nothing
+            End If
+
+            ' 将点击的模型坐标转换为草图坐标
+            If TypeOf pickResult Is Point Then
+                Dim modelPoint As Point = CType(pickResult, Point)
+                Dim sketchPoint As Point2d = sketch.ModelToSketchSpace(modelPoint)
+                Return sketchPoint
+            End If
+
+            Return Nothing
+        Catch ex As Exception
+            MessageBox.Show("选择点时出错: " & ex.Message)
+            Return Nothing
+        End Try
+    End Function
+
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
-
+        CreateLineWithMidpoint()
 
     End Sub
 
@@ -227,9 +295,7 @@ Public Class formMain
         'OpenSelectComponentOccurrences()
 
 
-
-
-
+        FormExplorerShow()
 
 
         'On Error Resume Next
@@ -287,12 +353,12 @@ Public Class formMain
 
     End Sub
 
-    Private Sub frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Me.Dispose()
         End
     End Sub
 
-    Private Sub frmain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub Frmain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.Icon = My.Resources.XHTool48
 
         Dim m_quitInventor As Boolean = False
@@ -430,7 +496,7 @@ Public Class formMain
     'End Sub
 
     '窗口大小发生变化
-    Private Sub frmain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+    Private Sub Frmain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         If Me.WindowState = FormWindowState.Minimized Then
             Timer1.Enabled = False
             Timer2.Enabled = False
@@ -452,13 +518,13 @@ Public Class formMain
 
     '更改零件/部件文件名
     Private Sub Button更改零件部件文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button更改零件部件文件名.Click
-        RenameAssPartDocumentName()
+        RenamePartFileNameInAssembly()
 
     End Sub
 
     '更改镜像零件/部件文件名
     Private Sub Button更改镜像零件文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button更改镜像零件文件名.Click
-        RenameMirrorAssPartDocumentName()
+        RenameMirrorPartFileNameInAssembly()
 
     End Sub
 
@@ -703,7 +769,7 @@ Public Class formMain
     Private Sub 移动指定文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移动指定文件ToolStripMenuItem.Click
         'MovesSpecifiedFile()
 
-        formMovesSpecifiedFileShow()
+        FormMovesSpecifiedFileShow()
     End Sub
 
     Private Sub 提取iproperty更改文件名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 提取iproperty更改文件名ToolStripMenuItem.Click
@@ -808,7 +874,7 @@ Public Class formMain
 
 
     Private Sub 格式转换ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 格式转换ToolStripMenuItem.Click
-        formFormatConversionShow()
+        FormFormatConversionShow()
     End Sub
 
     Private Sub 还原旧图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 还原旧图ToolStripMenuItem.Click
@@ -841,7 +907,7 @@ Public Class formMain
     End Sub
 
     Private Sub 量产iPropertyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 量产iPropertyToolStripMenuItem.Click
-        formMassiPopertiesshow()
+        FormMassiPopertiesshow()
     End Sub
 
 
@@ -853,15 +919,15 @@ Public Class formMain
     End Sub
 
     Private Sub 同步目录树ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 同步目录树ToolStripMenuItem.Click
-        RefreshTreeShowName()
+        RefreshTreeNodeName()
     End Sub
 
 
     Private Sub 设置只读ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置只读ToolStripMenuItem.Click
-        formSetReadOnlyShow()
+        FormSetReadOnlyShow()
     End Sub
 
-    Private WithEvents m_快速打开_Buttondef As ButtonDefinition
+
 
     Private Sub AddPanelToToolsTab()
         ' Get the ribbon associated with the part document
@@ -902,7 +968,7 @@ Public Class formMain
     End Sub
 
     Private Sub 动画设计ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动画设计ToolStripMenuItem.Click
-        formPlayerShow()
+        FormPlayerShow()
     End Sub
 
     Private Sub 标准件可见性ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 标准件可见性ToolStripMenuItem.Click
@@ -914,7 +980,7 @@ Public Class formMain
     End Sub
 
     Private Sub 动态尺寸ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动态尺寸ToolStripMenuItem.Click
-        formEditDimensionShow()
+        FormEditDimensionShow()
     End Sub
 
     Private Sub 生成展开图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建展开图ToolStripMenuItem.Click
@@ -930,7 +996,7 @@ Public Class formMain
     End Sub
 
     Private Sub 驱动测量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 驱动测量ToolStripMenuItem.Click
-        formDim2ObjectShow()
+        FormDim2ObjectShow()
 
     End Sub
 
@@ -939,7 +1005,7 @@ Public Class formMain
     End Sub
 
     Private Sub 统计焊缝ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 统计焊缝ToolStripMenuItem.Click
-        formStatisticalShow()
+        FormStatisticalShow()
 
     End Sub
 
@@ -985,11 +1051,11 @@ Public Class formMain
     End Sub
 
     Private Sub 创建工艺图ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 创建工艺图ToolStripMenuItem.Click
-        formFlatPatternShow()
+        FormFlatPatternShow()
     End Sub
 
     Private Sub 切换文档ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 切换文档ToolStripMenuItem.Click
-        formSwitchLablesShow()
+        FormSwitchLablesShow()
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -1038,7 +1104,7 @@ Public Class formMain
         Dim pnt2 As Point2d
         Do
             pnt1 = getPoint.GetDrawingPoint("Click the desired location", MouseButtonEnum.kLeftMouseButton)
-            If Not pnt1 Is Nothing Then
+            If pnt1 IsNot Nothing Then
 
                 Dim lineLen As Double
                 lineLen = InputBox("Enter the length of line")
@@ -1079,7 +1145,7 @@ Public Class formMain
 
 
             End If
-        Loop While Not pnt1 Is Nothing
+        Loop While pnt1 IsNot Nothing
     End Sub
 
     Private Sub 钣金厚度检查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 钣金厚度检查ToolStripMenuItem.Click
@@ -1092,9 +1158,6 @@ Public Class formMain
         ClearErrorTagging()
     End Sub
 
-    Private Sub 插入打开的文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 插入打开的文件ToolStripMenuItem.Click
-        FormPlaceOpenComponentShow()
-    End Sub
 
     Private Sub 检查钣金厚度ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 检查钣金厚度ToolStripMenuItem.Click
 
@@ -1102,7 +1165,7 @@ Public Class formMain
 
     End Sub
 
-
-
-
+    Private Sub 资源管理器ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 资源管理器ToolStripMenuItem.Click
+        FormExplorerShow()
+    End Sub
 End Class

@@ -4,7 +4,7 @@ Imports Inventor.SelectionFilterEnum
 Imports Inventor.SelectTypeEnum
 Imports System.Windows.Forms
 
-Public Class formStatistical
+Public Class FormStatistical
 
     Private dblSumMass As Double = 0
     Private dblSumArea As Double = 0
@@ -12,13 +12,14 @@ Public Class formStatistical
 
     Private oHSet As HighlightSet
 
-    Private Sub frmStatisticalWeight_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmStatisticalWeight_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn复制焊缝长度, "复制焊缝长度")
         toolTip.SetToolTip(btn选择面和边, "选择面和边")
         toolTip.SetToolTip(btn添加零部件, "添加已选择的零部件")
@@ -42,7 +43,7 @@ Public Class formStatistical
         btn选择零件.Image = My.Resources.选择面和边32.ToBitmap
         btn复制面积.Image = My.Resources.复制16.ToBitmap
         btn复制质量.Image = My.Resources.复制16.ToBitmap
-        btn添加零部件.Image = My.Resources.添加16.tobitmap
+        btn添加零部件.Image = My.Resources.添加16.ToBitmap
 
         txt质量.Text = "0"
         txt面积.Text = "0"
@@ -53,7 +54,7 @@ Public Class formStatistical
     End Sub
 
     '移出
-    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click, tsmi移出.Click
+    Private Sub Btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click, tsmi移出.Click
         Select Case TabControl1.SelectedTab.Text
             Case "质量和面积"
                 ListViewDel(lvw质量文件列表)
@@ -85,7 +86,7 @@ Public Class formStatistical
     End Sub
 
     '清空
-    Private Sub btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click, tsmi清空.Click
+    Private Sub Btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click, tsmi清空.Click
         Select Case TabControl1.SelectedTab.Text
             Case "质量和面积"
                 lvw质量文件列表.Items.Clear()
@@ -104,27 +105,27 @@ Public Class formStatistical
     End Sub
 
     '退出
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of formStatistical)()
     End Sub
 
     '复制总质量到剪贴板
-    Private Sub btn复制质量_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制质量.Click
+    Private Sub Btn复制质量_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制质量.Click
         My.Computer.Clipboard.SetText(txt质量.Text)
     End Sub
 
     '复制总面积到剪贴板
-    Private Sub btn复制面积_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制面积.Click
+    Private Sub Btn复制面积_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制面积.Click
         My.Computer.Clipboard.SetText(txt面积.Text)
     End Sub
 
     '复制焊缝长度到剪贴板
-    Private Sub btn复制焊缝长度_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制焊缝长度.Click
+    Private Sub Btn复制焊缝长度_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制焊缝长度.Click
         My.Computer.Clipboard.SetText(txt焊缝长度.Text)
     End Sub
 
     '质量面积选择零件
-    Private Sub btn选择零件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择零件.Click
+    Private Sub Btn选择零件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择零件.Click
 
         Try
             Dim oComponentOccurrence As ComponentOccurrence
@@ -190,7 +191,7 @@ Public Class formStatistical
         End Try
     End Sub
 
-    Private Sub btn选择面和边_Click(sender As Object, e As EventArgs) Handles btn选择面和边.Click
+    Private Sub Btn选择面和边_Click(sender As Object, e As EventArgs) Handles btn选择面和边.Click
 
         Dim dbl焊缝总长度 As Double
 
@@ -257,7 +258,7 @@ Public Class formStatistical
         dou长度系数 = 1
     End Sub
 
-    Private Sub btn添加零部件_Click(sender As Object, e As EventArgs) Handles btn添加零部件.Click
+    Private Sub Btn添加零部件_Click(sender As Object, e As EventArgs) Handles btn添加零部件.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
@@ -361,11 +362,11 @@ Public Class formStatistical
         Dim oListViewItem As ListViewItem
         'LVI = ListView1.Items.Add(FNI.ONlyName)
 
-        If IsItemInListView(lvw质量文件列表, strFileName) = True Then
+        If IsItemInListView(oListView, strFileName) = True Then
             Exit Sub
         End If
 
-        oListViewItem = lvw质量文件列表.Items.Add(strFileName)
+        oListViewItem = oListView.Items.Add(strFileName)
 
         oListViewItem.SubItems.Add(intQuantity)
 
@@ -391,7 +392,7 @@ Public Class formStatistical
         oListViewItem.SubItems.Add(douArea * intQuantity)
     End Sub
 
-    Private Sub lvw质量文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles lvw质量文件列表.KeyDown
+    Private Sub Lvw质量文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles lvw质量文件列表.KeyDown
         Select Case e.KeyCode
             'Case Keys.Up
             '    If e.Control Then
@@ -408,7 +409,7 @@ Public Class formStatistical
         End Select
     End Sub
 
-    Private Sub lvw焊缝文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles lvw焊缝文件列表.KeyDown
+    Private Sub Lvw焊缝文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles lvw焊缝文件列表.KeyDown
         Select Case e.KeyCode
             'Case Keys.Up
             '    If e.Control Then
@@ -426,7 +427,7 @@ Public Class formStatistical
     End Sub
 
 
-    Private Sub lvw质量文件列表_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvw质量文件列表.SelectedIndexChanged
+    Private Sub Lvw质量文件列表_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvw质量文件列表.SelectedIndexChanged
         Try
             If lvw质量文件列表.SelectedIndices.Count > 0 Then
                 Dim index As Integer = lvw质量文件列表.SelectedIndices(0)  '选中行的下一行索引
@@ -440,8 +441,8 @@ Public Class formStatistical
                     Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
                     oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
-                    Dim strInventorAssemblyFullFileName As String
-                    strInventorAssemblyFullFileName = oInventorAssemblyDocument.FullFileName
+                    'Dim strInventorAssemblyFullFileName As String
+                    'strInventorAssemblyFullFileName = oInventorAssemblyDocument.FullFileName
 
                     ' 获取装配定义
                     Dim oAssemblyComponentDefinition As AssemblyComponentDefinition

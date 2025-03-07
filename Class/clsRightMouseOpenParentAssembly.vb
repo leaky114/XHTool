@@ -1,7 +1,7 @@
 ﻿Imports Inventor
 
 
-Public Class clsRightMouseOpenParentAssembly
+Public Class ClsRightMouseOpenParentAssembly
     Private m_打开父部件_Buttondef As ButtonDefinition
 
     Public Sub New()
@@ -9,11 +9,11 @@ Public Class clsRightMouseOpenParentAssembly
         Dim smallPicture As IPictureDisp
 
         'Dim largePicture As stdole.IPictureDisp
-        smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.查找缺失文件的部件16.ToBitmap)
+        smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.部件16.ToBitmap)
         'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见32.ToBitmap)
 
         Me.m_打开父部件_Buttondef = ThisApplication.CommandManager.ControlDefinitions.AddButtonDefinition(
-            "打开父部件", "InName打开父部件", CommandTypesEnum.kShapeEditCmdType, _
+            "打开父部件", "InName打开父部件", CommandTypesEnum.kShapeEditCmdType,
             ClientID, "", , smallPicture, , ButtonDisplayEnum.kDisplayTextInLearningMode)
 
         AddHandler m_打开父部件_Buttondef.OnExecute, AddressOf OnCLick
@@ -22,7 +22,7 @@ Public Class clsRightMouseOpenParentAssembly
 
     Private Sub OnContextMenu(SelectionDevice As SelectionDeviceEnum, AdditionalInfo As NameValueMap, CommandBar As CommandBar)
         If (ThisApplication.ActiveDocument.DocumentType <> DocumentTypeEnum.kAssemblyDocumentObject) Then Return
-        'If ThisApplication.ActiveDocument.SelectSet.Count = 0 Then Return
+        If ThisApplication.ActiveDocument.SelectSet.Count <> 0 Then Return
 
         CommandBar.Controls.AddButton(m_打开父部件_Buttondef, 15)
 

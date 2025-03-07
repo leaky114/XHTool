@@ -4,7 +4,7 @@ Imports System.Windows.Forms
 
 Public Class FormCustomSignature
 
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Try
             SetStatusBarText()
 
@@ -47,11 +47,11 @@ Public Class FormCustomSignature
         FormManager.CloseAndDisposeForm(Of FormCustomSignature)()
     End Sub
 
-    Private Sub btn关闭_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormCustomSignature)()
     End Sub
 
-    Private Sub frmSign_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmSign_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         txt工程师.Text = EngineerName

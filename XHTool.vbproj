@@ -187,6 +187,12 @@
     <Compile Include="Form\FormEditDimension.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\FormExplorer.Designer.vb">
+      <DependentUpon>FormExplorer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormExplorer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\FormFlatPattern.Designer.vb">
       <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </Compile>
@@ -203,6 +209,12 @@
       <DependentUpon>FormiProperty.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormiProperty.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormiPropertyToFileName.Designer.vb">
+      <DependentUpon>FormiPropertyToFileName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormiPropertyToFileName.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormMovesSpecifiedFile.Designer.vb">
@@ -233,12 +245,6 @@
       <DependentUpon>FormPartColor.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormPartColor.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FormPlaceOpenComponent.Designer.vb">
-      <DependentUpon>FormPlaceOpenComponent.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormPlaceOpenComponent.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormPlayer.Designer.vb">
@@ -407,6 +413,9 @@
       <DependentUpon>FormEditDimension.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormExplorer.resx">
+      <DependentUpon>FormExplorer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FormFlatPattern.resx">
       <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </EmbeddedResource>
@@ -416,6 +425,9 @@
     <EmbeddedResource Include="Form\FormiProperty.resx">
       <DependentUpon>FormiProperty.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormiPropertyToFileName.resx">
+      <DependentUpon>FormiPropertyToFileName.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormMovesSpecifiedFile.resx">
       <DependentUpon>FormMovesSpecifiedFile.vb</DependentUpon>
@@ -431,9 +443,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormPartColor.resx">
       <DependentUpon>FormPartColor.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormPlaceOpenComponent.resx">
-      <DependentUpon>FormPlaceOpenComponent.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormPlayer.resx">
       <DependentUpon>FormPlayer.vb</DependentUpon>
@@ -470,6 +479,7 @@
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -511,6 +521,7 @@
     <Folder Include="bin\InventorAddIn\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -526,8 +537,8 @@
     <None Include="Resources\XHTool32.ico" />
     <None Include="Resources\XHTool48.ico" />
     <None Include="Resources\不可见16.ICO" />
-    <None Include="Resources\保存全部16.ico" />
-    <None Include="Resources\保存全部32.ico" />
+    <None Include="Resources\全部保存16.ico" />
+    <None Include="Resources\全部保存32.ico" />
     <None Include="Resources\保存关闭16.ico" />
     <None Include="Resources\保存关闭32.ico" />
     <None Include="Resources\修改文件iProperty16.ico" />
@@ -550,8 +561,6 @@
     <None Include="Resources\创建工程图32.ICO" />
     <None Include="Resources\创建截图16.ICO" />
     <None Include="Resources\创建截图32.ICO" />
-    <None Include="Resources\刷新引用16.ico" />
-    <None Include="Resources\刷新引用32.ico" />
     <None Include="Resources\文件Dwg16.ico" />
     <None Include="Resources\文件Dwg32.ico" />
     <None Include="Resources\文件Dxf16.ICO" />
@@ -693,8 +702,8 @@
     <None Include="Resources\距离对齐16.ICO" />
     <None Include="Resources\距离对齐32.ICO" />
     <None Include="Resources\还原16.ICO" />
-    <None Include="Resources\还原旧图16.ico" />
-    <None Include="Resources\还原旧图32.ico" />
+    <None Include="Resources\还原旧版文件16.ico" />
+    <None Include="Resources\还原旧版文件32.ico" />
     <None Include="Resources\选择16.ICO" />
     <None Include="Resources\选择一32.ICO" />
     <None Include="Resources\选择二32.ICO" />
@@ -708,8 +717,8 @@
     <None Include="Resources\采购来源32.ICO" />
     <None Include="Resources\重写BOM16.ico" />
     <None Include="Resources\重写BOM32.ico" />
-    <None Include="Resources\量产iPropertys16.ico" />
-    <None Include="Resources\量产iPropertys32.ico" />
+    <None Include="Resources\量产iProperty16.ico" />
+    <None Include="Resources\量产iProperty32.ico" />
     <None Include="Resources\零件16.ico" />
     <None Include="Resources\零件32.ico" />
     <None Include="Resources\静默16.ICO" />
@@ -719,6 +728,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
+    <Content Include="Resources\过滤16.ico" />
+    <Content Include="Resources\过滤32.ico" />
+    <None Include="Resources\新建文件夹16.ICO" />
+    <None Include="Resources\新建文件夹32.ICO" />
+    <None Include="Resources\资源管理器16.ICO" />
+    <None Include="Resources\资源管理器32.ICO" />
+    <None Include="Resources\保存副本16.ico" />
+    <None Include="Resources\保存副本32.ico" />
+    <None Include="Resources\主页32.ico" />
+    <None Include="Resources\主页16.ico" />
     <Content Include="Resources\克隆插入组件16.ICO" />
     <None Include="Resources\板厚32.ico" />
     <None Include="Resources\板厚16.ico" />
@@ -741,7 +760,21 @@
     <None Include="Resources\关闭16.ico" />
     <None Include="Resources\关闭32.ico" />
     <None Include="Resources\关闭文件16.ico" />
+    <None Include="Resources\工程图32.ico" />
+    <None Include="Resources\刷新浏览器32.ico" />
+    <None Include="Resources\刷新浏览器16.ico" />
+    <None Include="Resources\左右交换16.ICO" />
+    <None Include="Resources\向上32.ICO" />
+    <None Include="Resources\向上16.ICO" />
+    <None Include="Resources\删除16.ico" />
+    <None Include="Resources\删除32.ico" />
+    <None Include="Resources\回收16.ICO" />
+    <None Include="Resources\回收32.ICO" />
     <Content Include="Resources\微信打赏.png" />
+    <None Include="Resources\打开16.ICO" />
+    <None Include="Resources\打开32.ICO" />
+    <None Include="Resources\插入32.ICO" />
+    <None Include="Resources\插入16.ICO" />
     <Content Include="Resources\文件16.ICO" />
     <Content Include="Resources\文件32.ICO" />
     <Content Include="Resources\文件txt16.ICO" />

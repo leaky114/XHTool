@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 
 
-Public Class formSwitchLables
+Public Class FormSwitchLables
 
     Private PictureBoxes() As PictureBox
     Private Labels() As Label
@@ -33,13 +33,13 @@ Public Class formSwitchLables
         Me.Location = New Drawing.Point(startX, startY)
     End Sub
 
-    Private Sub frmSwitchLables_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub FrmSwitchLables_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
             FormManager.CloseAndDisposeForm(Of formSwitchLables)()
         End If
     End Sub
 
-    Private Sub frmTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         'Dim stopwatch As New Stopwatch()
@@ -283,8 +283,8 @@ Public Class formSwitchLables
         txt列间距.Text = int图框列间距.ToString
 
         Dim obutton As ButtonDefinition
-        obutton = ThisApplication.CommandManager.ControlDefinitions.Item("InName切换文档")
-        txt快捷键.Text = obutton.OverrideShortcut
+        obutton = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName切换文档")
+        Txt快捷键.Text = obutton.OverrideShortcut
 
         Dim windowWidth As Integer = Me.ClientSize.Width
         Dim windowHeight As Integer = Me.ClientSize.Height
@@ -304,7 +304,7 @@ Public Class formSwitchLables
 
     End Sub
 
-    Private Sub btn确定_Click(sender As Object, e As EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(sender As Object, e As EventArgs) Handles Btn确定.Click
         int每行数量 = txt每行数量.Text
         int图框宽度 = txt图框宽度.Text
         int图框高度 = txt图框高度.Text
@@ -312,14 +312,14 @@ Public Class formSwitchLables
         int图框列间距 = txt列间距.Text
 
         Dim obutton As ButtonDefinition
-        obutton = ThisApplication.CommandManager.ControlDefinitions.Item("InName切换文档")
-        obutton.OverrideShortcut = txt快捷键.Text
+        obutton = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName切换文档")
+        obutton.OverrideShortcut = Txt快捷键.Text
 
-        ini.WriteStrINI("切换文档", "每行数量", int每行数量.ToString, Inifile)
-        ini.WriteStrINI("切换文档", "图框宽度", int图框宽度.ToString, Inifile)
-        ini.WriteStrINI("切换文档", "图框高度", int图框高度.ToString, Inifile)
-        ini.WriteStrINI("切换文档", "图框行间距", int图框行间距.ToString, Inifile)
-        ini.WriteStrINI("切换文档", "图框列间距", int图框列间距.ToString, Inifile)
+        ini.WriteStrINI("切换文档", "每行数量", int每行数量.ToString, IniFile)
+        ini.WriteStrINI("切换文档", "图框宽度", int图框宽度.ToString, IniFile)
+        ini.WriteStrINI("切换文档", "图框高度", int图框高度.ToString, IniFile)
+        ini.WriteStrINI("切换文档", "图框行间距", int图框行间距.ToString, IniFile)
+        ini.WriteStrINI("切换文档", "图框列间距", int图框列间距.ToString, IniFile)
 
         Panel设置.Hide()
 
@@ -331,15 +331,15 @@ Public Class formSwitchLables
 
     End Sub
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click
+    Private Sub Btn关闭_Click(sender As Object, e As EventArgs) Handles Btn关闭.Click
         Panel设置.Hide()
     End Sub
 
     Private Sub ToolStripMenuItem退出_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem关闭窗口.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formSwitchLables)()
+        FormManager.CloseAndDisposeForm(Of FormSwitchLables)()
     End Sub
 
-    Private Sub txt快捷键_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt快捷键.KeyPress
+    Private Sub Txt快捷键_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Txt快捷键.KeyPress
         ' 检查输入的字符是否是字母
         If Char.IsLetter(e.KeyChar) Then
             ' 如果是小写字母，将其转换为大写字母
@@ -353,7 +353,7 @@ Public Class formSwitchLables
 
     End Sub
 
-    Private Sub ToolStripMenuItem插入到本部件_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem插入到本部件.Click
+    Private Sub ToolStripMenuItem插入到部件_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem插入到部件.Click
         Me.TopMost = False
 
         If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
@@ -370,4 +370,5 @@ Public Class formSwitchLables
         FormManager.CloseAndDisposeForm(Of formSwitchLables)()
 
     End Sub
+
 End Class

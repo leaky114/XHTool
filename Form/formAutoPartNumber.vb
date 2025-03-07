@@ -6,10 +6,10 @@ Imports System
 Imports System.Collections.ObjectModel
 Imports System.IO
 
-Public Class formAutoPartNumber
+Public Class FormAutoPartNumber
 
     '开始编号
-    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
+    Private Sub Btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
         Try
 
             btn开始.Enabled = False
@@ -35,7 +35,7 @@ Public Class formAutoPartNumber
                 OldFileNameInfo.Folder = oListViewItem.SubItems(3).Text
                 OldFileNameInfo.FileName = oListViewItem.Text & oListViewItem.SubItems(1).Text
 
-                strOldFullFileName = IO.Path.Combine(oldFileNameInfo.Folder, oldFileNameInfo.FileName)
+                strOldFullFileName = IO.Path.Combine(OldFileNameInfo.Folder, OldFileNameInfo.FileName)
 
                 SetStatusBarText(strOldFullFileName)
 
@@ -43,10 +43,10 @@ Public Class formAutoPartNumber
                     Continue For
                 End If
 
-                newFileNameInfo.Folder = oListViewItem.SubItems(3).Text
-                newFileNameInfo.FileName = oListViewItem.SubItems(2).Text & oListViewItem.SubItems(1).Text
+                NewFileNameInfo.Folder = oListViewItem.SubItems(3).Text
+                NewFileNameInfo.FileName = oListViewItem.SubItems(2).Text & oListViewItem.SubItems(1).Text
 
-                strNewFullFileName = IO.Path.Combine(newFileNameInfo.Folder, newFileNameInfo.FileName)
+                strNewFullFileName = IO.Path.Combine(NewFileNameInfo.Folder, NewFileNameInfo.FileName)
 
                 '同名不跳过
                 If strOldFullFileName = strNewFullFileName Then
@@ -132,20 +132,20 @@ Public Class formAutoPartNumber
     End Sub
 
     '关闭
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formAutoPartNumber)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormAutoPartNumber)()
     End Sub
 
-    Private Sub btn上移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn上移.Click
+    Private Sub Btn上移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn上移.Click
         ListViewUp(lvw文件列表)
     End Sub
 
-    Private Sub btn下移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn下移.Click
+    Private Sub Btn下移_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn下移.Click
         ListViewDown(lvw文件列表)
     End Sub
 
     ''排序
-    'Private Sub lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
+    'Private Sub Lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
     '    '    if _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
     '    '        Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
     '    '        lvw文件列表.ListViewItemSorter = Sorter
@@ -160,7 +160,7 @@ Public Class formAutoPartNumber
     'End Sub
 
     '列头点击事件处理程序
-    Private Sub listView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
+    Private Sub ListView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
         ' 获取当前排序的列索引
         Dim columnIndex As Integer = e.Column
 
@@ -194,7 +194,7 @@ Public Class formAutoPartNumber
     End Sub
 
     '键盘上下键移动
-    Private Sub lvw文件列表_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvw文件列表.KeyDown
+    Private Sub Lvw文件列表_KeyDown1(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles lvw文件列表.KeyDown
         Select Case e.KeyCode
             Case Keys.Up
                 If e.Control Then
@@ -212,7 +212,7 @@ Public Class formAutoPartNumber
     End Sub
 
     '预览
-    Private Sub btn预览_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn预览.Click
+    Private Sub Btn预览_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn预览.Click
         Dim intAssNum As Integer
         Dim intPartNum As Integer
         Dim oStockNumPartName As StockNumPartName = Nothing
@@ -251,13 +251,14 @@ Public Class formAutoPartNumber
 
     End Sub
 
-    Private Sub frmAutoPartNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmAutoPartNumber_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn确定新文件名, "确定新文件名")
         toolTip.SetToolTip(chk备份文件, "将原文件扩展名变更为 old 文件")
 
@@ -339,12 +340,12 @@ Public Class formAutoPartNumber
     End Sub
 
     '移出项
-    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click, tsmi移出.Click
+    Private Sub Btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click, tsmi移出.Click
         ListViewDel(lvw文件列表)
     End Sub
 
     '重载数据
-    Private Sub btn重载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn重载.Click
+    Private Sub Btn重载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn重载.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -352,7 +353,7 @@ Public Class formAutoPartNumber
 
     End Sub
 
-    Private Sub btn确定新文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定新文件名.Click
+    Private Sub Btn确定新文件名_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定新文件名.Click
         If lvw文件列表.SelectedIndices.Count > 0 Then
             Dim index As Integer = lvw文件列表.SelectedIndices(0)
             lvw文件列表.Items(index).SubItems(2).Text = txt新文件名.Text
@@ -360,7 +361,7 @@ Public Class formAutoPartNumber
 
     End Sub
 
-    Private Sub lvw文件列表_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.SelectedIndexChanged
+    Private Sub Lvw文件列表_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.SelectedIndexChanged
         Try
             If lvw文件列表.SelectedIndices.Count > 0 Then
                 Dim index As Integer = lvw文件列表.SelectedIndices(0)  '选中行的下一行索引
@@ -381,11 +382,11 @@ Public Class formAutoPartNumber
 
     End Sub
 
-    Private Sub lvw文件列表_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragDrop
+    Private Sub Lvw文件列表_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragDrop
         Dim oDraggedItem As ListViewItem
         oDraggedItem = e.Data.GetData(System.Windows.Forms.DataFormats.Serializable)
 
-        Dim ptScreen As Drawing.Point = New Drawing.Point(e.X, e.Y)
+        Dim ptScreen As New Drawing.Point(e.X, e.Y)
         Dim pt As Drawing.Point = lvw文件列表.PointToClient(ptScreen)
         Dim TargetItem As ListViewItem
         TargetItem = lvw文件列表.GetItemAt(pt.X, pt.Y) '拖动的项将放置于该项之前
@@ -396,39 +397,39 @@ Public Class formAutoPartNumber
         lvw文件列表.Items.Remove(oDraggedItem)
     End Sub
 
-    Private Sub lvwFileList_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragEnter
+    Private Sub LvwFileList_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragEnter
         e.Effect = DragDropEffects.Move
     End Sub
 
-    Private Sub lvw文件列表_DragLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.DragLeave
+    Private Sub Lvw文件列表_DragLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.DragLeave
         lvw文件列表.InsertionMark.Index = -1
     End Sub
 
-    Private Sub lvw文件列表_DragOver(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragOver
-        Dim ptScreen As Drawing.Point = New Drawing.Point(e.X, e.Y)
+    Private Sub Lvw文件列表_DragOver(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragOver
+        Dim ptScreen As New Drawing.Point(e.X, e.Y)
         Dim pt As Drawing.Point = lvw文件列表.PointToClient(ptScreen)
 
         Dim index As Integer = lvw文件列表.InsertionMark.NearestIndex(pt)
         lvw文件列表.InsertionMark.Index = index
     End Sub
 
-    Private Sub lvw文件列表_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles lvw文件列表.ItemDrag
+    Private Sub Lvw文件列表_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles lvw文件列表.ItemDrag
         lvw文件列表.InsertionMark.Color = System.Drawing.Color.ForestGreen
         lvw文件列表.DoDragDrop(e.Item, DragDropEffects.Move)
 
     End Sub
 
-    Private Sub txt零件变量_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt零件变量.TextChanged
+    Private Sub Txt零件变量_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt零件变量.TextChanged
         If IsNumeric(txt零件变量.Text) = False Then
             MsgBox("非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
         End If
     End Sub
 
     '筛选移除
-    Private Sub tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
+    Private Sub Tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
         Dim strFilter As String
 
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 
         With frmInputBox
             .txt输入.Text = ""
@@ -459,9 +460,9 @@ Public Class formAutoPartNumber
     End Sub
 
     '筛选保留
-    Private Sub tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
+    Private Sub Tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
         Dim strFilter As String
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 
         With frmInputBox
             .txt输入.Text = ""
@@ -492,9 +493,9 @@ Public Class formAutoPartNumber
 
     End Sub
 
-    Private Sub txt新文件名_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt新文件名.KeyPress
+    Private Sub Txt新文件名_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt新文件名.KeyPress
         If e.KeyChar = Chr(Keys.Enter) Then
-            btn确定新文件名_Click(sender, e)
+            Btn确定新文件名_Click(sender, e)
         End If
     End Sub
 

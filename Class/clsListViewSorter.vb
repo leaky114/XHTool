@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Forms
 
-Public Class clsListViewSorter
+Public Class ClsListViewSorter
     Implements System.Collections.IComparer
 
     Public col As Integer
@@ -35,7 +35,7 @@ Public Class clsListViewSorter
 
         ' Get the appropriate text values depending on whether we are being asked
         ' to sort on the first column (0) or subitem columns (>0)
-        if SortColumn = 0 Then
+        If SortColumn = 0 Then
             ' SortColumn is 0, we need to compare the
             ' Text property of the Item itself
             xString = l1.Text
@@ -45,27 +45,27 @@ Public Class clsListViewSorter
             ' property of the SubItem
             xString = l1.SubItems(SortColumn).ToString
             YString = l2.SubItems(SortColumn).ToString
-        End if
+        End If
 
         ' Do the comparison
-        if xString = YString Then
+        If xString = YString Then
             ' Values are equal
             Return 0
-        Elseif xString > YString Then
+        ElseIf xString > YString Then
             ' X is greater than Y
-            if SortOrder = EnumSortOrder.Ascending Then
+            If SortOrder = EnumSortOrder.Ascending Then
                 Return 1
             Else
                 Return -1
-            End if
-        Elseif xString < YString Then
+            End If
+        ElseIf xString < YString Then
             ' Y is greater than X
-            if SortOrder = EnumSortOrder.Ascending Then
+            If SortOrder = EnumSortOrder.Ascending Then
                 Return -1
             Else
                 Return 1
-            End if
-        End if
+            End If
+        End If
     End Function
 
 

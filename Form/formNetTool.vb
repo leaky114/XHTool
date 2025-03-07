@@ -2,7 +2,7 @@
 Imports System.Drawing
 Imports System.Windows.Forms
 Imports Inventor
-Public Class formNetTool
+Public Class FormNetTool
 
     ' 此函数用于从IPictureDisp获取Image
     Private Function PictureDispToImage(ByVal pictureDisp As IPictureDisp) As Image
@@ -95,7 +95,7 @@ Public Class formNetTool
 
     End Sub
 
-    Private Sub frmNetTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmNetTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error Resume Next
 
         For Each partRibbon As Inventor.Ribbon In ThisApplication.UserInterfaceManager.Ribbons
@@ -147,7 +147,7 @@ Public Class formNetTool
         ThisApplication.UserInterfaceManager.Ribbons(ComboBox1.Text).RibbonTabs.Item(ComboBox2.Text).RibbonPanels.Item(ComboBox3.Text).CommandControls.Item(ComboBox4.Text).ChildControls.Item(ComboBox5.Text).ControlDefinition.Execute2(True)
     End Sub
 
-    Private Sub formNetTool_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        FormManager.CloseAndDisposeForm(Of formNetTool)()
+    Private Sub FormNetTool_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormNetTool)()
     End Sub
 End Class

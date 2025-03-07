@@ -29,9 +29,9 @@ Module excelcode
 
         VLookUpValue = Nothing
 
-        Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        Dim oExcelApplication As New Excel.Application With {
+            .Visible = False
+        }
 
         Dim oWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(strExcelFileName)
         Dim oWorksheet As Excel.Worksheet
@@ -89,9 +89,9 @@ Module excelcode
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String
 
         On Error Resume Next
-        Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        Dim oExcelApplication As New Excel.Application With {
+            .Visible = False
+        }
 
         Dim oWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(strExcelFileName)
 
@@ -148,9 +148,9 @@ Module excelcode
     Public Function FindAllSrtingInSheet(ByVal strExcelFileName As String, ByVal strStochNum As String, _
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String()
         'On Error Resume Next
-        Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        Dim oExcelApplication As New Excel.Application With {
+            .Visible = False
+        }
 
         Dim oWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(strExcelFileName)
         Dim oWorksheet As Excel.Worksheet = Nothing
@@ -181,7 +181,7 @@ Module excelcode
 
                 With oRange
                     c = .Find(strStochNum, LookIn:=xlValues, LookAt:=True, SearchOrder:=xlByColumns)
-                    if Not c Is Nothing Then
+                    If c IsNot Nothing Then
                         strFirstAddress = c.Address
                         Do
                             MatchRow = c.Row
@@ -191,8 +191,8 @@ Module excelcode
                             tempFindAllSrtingInSheet(i) = strFindRowValue
                             i = i + 1
                             c = .FindNext(c)
-                        Loop While Not c Is Nothing And c.Address <> strFirstAddress
-                    End if
+                        Loop While c IsNot Nothing And c.Address <> strFirstAddress
+                    End If
                 End With
             Next
         Next
@@ -230,9 +230,9 @@ Module excelcode
     Public Function ERPCodeSearch(ByVal strExcelFileName As String, ByVal strERPCode As String, _
                                 ByVal strTableArrays As String, ByVal strColIndexNum As String, ByVal intRangeLookup As Integer) As String()
         'On Error Resume Next
-        Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        Dim oExcelApplication As New Excel.Application With {
+            .Visible = False
+        }
 
         Dim oWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(strExcelFileName)
         Dim oWorksheet As Excel.Worksheet = Nothing
@@ -262,7 +262,7 @@ Module excelcode
 
             With oRange
                 c = .Find(strERPCode, LookIn:=xlValues, LookAt:=True, SearchOrder:=xlByColumns)
-                if Not c Is Nothing Then
+                If c IsNot Nothing Then
                     strFirstAddress = c.Address
                     Do
                         MatchRow = c.Row
@@ -272,8 +272,8 @@ Module excelcode
                         'tempFindAllSrtingInSheet(i) = strFindRowValue
                         i = i + 1
                         c = .FindNext(c)
-                    Loop While Not c Is Nothing And c.Address <> strFirstAddress
-                End if
+                    Loop While c IsNot Nothing And c.Address <> strFirstAddress
+                End If
             End With
 
             if MatchRow = 0 Then
@@ -314,10 +314,11 @@ Module excelcode
         Dim container As AssemblyDocument = doc
 
         '创建一个新的 Excel 应用程序对象
-        Dim app As New Excel.Application()
-        app.Visible = True
+        Dim app As New Excel.Application With {
+            .Visible = True
+        }
 
-        '创建一个新的工作簿
+            '创建一个新的工作簿
         Dim workbook As Excel.Workbook = app.Workbooks.Add()
 
         '获取工作表对象
@@ -352,4 +353,14 @@ Module excelcode
         app.Quit()
     End Sub
 
+
+    ' 处理 CSV 值中的特殊字符（如逗号、换行符等）
+    Public Function EscapeCsvValue(value As String) As String
+        If value.Contains(",") Or value.Contains(vbCr) Or value.Contains(vbLf) Or value.Contains("""") Then
+            ' 如果值包含特殊字符，用双引号包裹，并转义双引号
+            Return """" & value.Replace("""", """""") & """"
+        Else
+            Return value
+        End If
+    End Function
 End Module

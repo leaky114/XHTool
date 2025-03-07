@@ -30,7 +30,7 @@ Module NewUpdater
         Dim strTempFile As String = IO.Path.Combine(IO.Path.GetTempPath, "OldVison.txt")
 
         ' 使用Using语句确保资源被正确释放
-        Using writer As StreamWriter = New StreamWriter(strTempFile)
+        Using writer As New StreamWriter(strTempFile)
             ' 将字符串写入文件
             writer.Write(strOldVersion)
         End Using
@@ -39,7 +39,7 @@ Module NewUpdater
         strTempFile = IO.Path.Combine(IO.Path.GetTempPath, "返回检查.txt")
 
         ' 使用Using语句确保资源被正确释放
-        Using writer As StreamWriter = New StreamWriter(strTempFile)
+        Using writer As New StreamWriter(strTempFile)
             ' 将字符串写入文件
             writer.Write(isMsgbox)
         End Using

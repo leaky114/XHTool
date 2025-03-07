@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class formOption
+Partial Class FormOption
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。

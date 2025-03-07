@@ -300,6 +300,7 @@ Partial Class FormiProperty
         Me.Name = "FormiProperty"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "iProperty+"
+        Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

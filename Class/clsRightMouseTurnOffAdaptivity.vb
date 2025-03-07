@@ -1,6 +1,6 @@
 ﻿Imports Inventor
 
-Public Class clsRightMouseTurnOffAdaptivity
+Public Class ClsRightMouseTurnOffAdaptivity
     Private m_关闭自适应_Buttondef As ButtonDefinition
 
     Public Sub New()
@@ -12,7 +12,7 @@ Public Class clsRightMouseTurnOffAdaptivity
         largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.自适应32.ToBitmap)
 
         m_关闭自适应_Buttondef = ThisApplication.CommandManager.ControlDefinitions.AddButtonDefinition(
-           "关闭自适应", "InName关闭自适应", CommandTypesEnum.kFileOperationsCmdType, _
+           "关闭自适应", "InName关闭自适应", CommandTypesEnum.kFileOperationsCmdType,
             ClientID, "", , smallPicture, , ButtonDisplayEnum.kDisplayTextInLearningMode)
 
         AddHandler m_关闭自适应_Buttondef.OnExecute, AddressOf OnCLick
@@ -22,7 +22,7 @@ Public Class clsRightMouseTurnOffAdaptivity
     Private Sub OnContextMenu(SelectionDevice As SelectionDeviceEnum, AdditionalInfo As NameValueMap, CommandBar As CommandBar)
         Dim oInventorDocument As Inventor.Document = ThisApplication.ActiveDocument
 
-        If Not TypeOf oInventorDocument Is AssemblyDocument Then Return '不是组件退出
+        If TypeOf oInventorDocument IsNot AssemblyDocument Then Return '不是组件退出
         If oInventorDocument.SelectSet.Count = 0 Then Return '未选择零部件退出
 
         CommandBar.Controls.AddButton(m_关闭自适应_Buttondef, 22)

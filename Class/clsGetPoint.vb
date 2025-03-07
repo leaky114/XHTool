@@ -4,38 +4,43 @@
 ''' 获取鼠标点击的点坐标
 ''' </summary>
 ''' <remarks></remarks>
-Public Class clsGetPoint
-    Private WithEvents m_interaction As InteractionEvents
-    Private WithEvents m_mouse As MouseEvents
+Public Class ClsGetPoint
+    Private WithEvents Interaction As InteractionEvents
+    Private WithEvents Mouse As MouseEvents
     Private m_position As Point2d
     Private m_button As MouseButtonEnum
     Private m_continue As Boolean
 
-
+    ''' <summary>
+    ''' 获取鼠标点击坐标
+    ''' </summary>
+    ''' <param name="StrInformation">提示信息</param>
+    ''' <param name="button">鼠标点击的哪个键</param>
+    ''' <returns></returns>
     Public Function GetDrawingPoint(StrInformation As String, button As MouseButtonEnum) As Point2d
         m_position = Nothing
         m_button = button
 
-        m_interaction = ThisApplication.CommandManager.CreateInteractionEvents
-        m_mouse = m_interaction.MouseEvents
+        Interaction = ThisApplication.CommandManager.CreateInteractionEvents
+        Mouse = Interaction.MouseEvents
 
-        m_interaction.StatusBarText = StrInformation
+        Interaction.StatusBarText = StrInformation
 
-        m_interaction.Start()
+        Interaction.Start()
 
         m_continue = True
         Do
             ThisApplication.UserInterfaceManager.DoEvents()
         Loop While m_continue
 
-        m_interaction.Stop()
+        Interaction.Stop()
 
         GetDrawingPoint = m_position
     End Function
 
 
-    Private Sub m_mouse_OnMouseClick(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, _
-                                     ViewPosition As Point2d, View As View) Handles m_mouse.OnMouseClick
+    Private Sub Mouse_OnMouseClick(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point,
+                                     ViewPosition As Point2d, View As View) Handles Mouse.OnMouseClick
         If Button = m_button Then
             m_position = ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
         End If

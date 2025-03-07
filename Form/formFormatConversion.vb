@@ -10,7 +10,7 @@ Imports System.Windows.Forms
 Imports Inventor.DocumentTypeEnum
 Imports System.Collections.Generic
 
-Public Class formFormatConversion
+Public Class FormFormatConversion
 
     ''' <summary>
     ''' 加载文件列表到Listview
@@ -20,7 +20,7 @@ Public Class formFormatConversion
     ''' <param name="IsContainIdw">是否添加工程图</param>
     ''' <param name="IsContainIpt">是否添加零部件</param>
     ''' <remarks></remarks>
-    Private Sub AddFilesInListView(ByVal oListView As ListView, ByVal oFileList As List(Of String), _
+    Private Sub AddFilesInListView(ByVal oListView As ListView, ByVal oFileList As List(Of String),
                                       ByVal IsContainIdw As Boolean, ByVal IsContainIpt As Boolean)
         Dim strExtension As String
 
@@ -84,7 +84,7 @@ Public Class formFormatConversion
 
     '添加文件夹
     Private Sub 添加文件夹ToolStripButton_Click(sender As Object, e As EventArgs) Handles 添加文件夹ToolStripButton.Click
-        Dim strDestinationFolder As String = Nothing
+        Dim strDestinationFolder As String
         strDestinationFolder = OpenFolderDialog()
 
         If strDestinationFolder Is Nothing Then
@@ -92,18 +92,18 @@ Public Class formFormatConversion
         End If
 
         Dim strExtension As String
-        Dim oFileList As List(Of String) = Nothing
+        Dim oFileList As List(Of String)
 
         If 零部件ToolStripButton.Checked = True Then
             strExtension = IPT
             oFileList = GetAllFilesByExtension(strDestinationFolder, strExtension)
 
-            AddFilesInListView(lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
+            AddFilesInListView(Lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
 
             strExtension = IAM
             oFileList = GetAllFilesByExtension(strDestinationFolder, strExtension)
 
-            AddFilesInListView(lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
+            AddFilesInListView(Lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
 
         End If
 
@@ -111,7 +111,7 @@ Public Class formFormatConversion
             strExtension = IDW
             oFileList = GetAllFilesByExtension(strDestinationFolder, strExtension)
 
-            AddFilesInListView(lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
+            AddFilesInListView(Lvw文件列表, oFileList, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
 
         End If
 
@@ -121,7 +121,7 @@ Public Class formFormatConversion
     Private Sub 浏览ToolStripButton_Click(sender As Object, e As EventArgs) Handles 浏览ToolStripButton.Click
         Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
 
-        Dim strDestinationFolder As String = Nothing
+        Dim strDestinationFolder As String
         strDestinationFolder = OpenFolderDialog(strInitialDirectory)
 
         If strDestinationFolder Is Nothing Then
@@ -131,14 +131,15 @@ Public Class formFormatConversion
         指定文件夹ToolStripTextBox.Text = strDestinationFolder
     End Sub
 
-    Private Sub frmSaveAs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSaveAs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.Icon = My.Resources.XHTool48
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
 
         工程图ToolStripButton.Image = My.Resources.工程图16.ToBitmap
         零部件ToolStripButton.Image = My.Resources.部件16.ToBitmap
@@ -180,7 +181,7 @@ Public Class formFormatConversion
     End Sub
 
 
-    Private Sub lvw文件列表_DragDrop(sender As Object, e As DragEventArgs) Handles Lvw文件列表.DragDrop
+    Private Sub Lvw文件列表_DragDrop(sender As Object, e As DragEventArgs) Handles Lvw文件列表.DragDrop
 
         Dim filePaths As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
 
@@ -190,7 +191,7 @@ Public Class formFormatConversion
 
             If IO.Directory.Exists(strDestinationFileFolder) Then
 
-                Dim oFileList As List(Of String) = Nothing
+                Dim oFileList As List(Of String)
 
                 If 零部件ToolStripButton.Checked = True Then
                     strExtension = IPT
@@ -266,13 +267,13 @@ Public Class formFormatConversion
 
     End Sub
 
-    Private Sub lvw文件列表_DragEnter(sender As Object, e As DragEventArgs) Handles Lvw文件列表.DragEnter
+    Private Sub Lvw文件列表_DragEnter(sender As Object, e As DragEventArgs) Handles Lvw文件列表.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
     End Sub
 
-    Private Sub lvw文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles Lvw文件列表.KeyDown
+    Private Sub Lvw文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles Lvw文件列表.KeyDown
         Select Case e.KeyCode
             Case Keys.Delete
                 ListViewDel(Lvw文件列表)
@@ -403,6 +404,8 @@ Public Class formFormatConversion
 
         LoadBOM(oInventorAssemblyDocument, Lvw文件列表, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
 
+        Me.TopMost = True
+        Me.TopMost = False
     End Sub
 
     ''' <summary>
@@ -413,7 +416,7 @@ Public Class formFormatConversion
     ''' <param name="IsContainIdw">是否加载工程图</param>
     ''' <param name="IsContainIpt">是否加载零部件</param>
     ''' <remarks></remarks>
-    Private Sub LoadBOM(ByVal oInventorAssemblyDocument As AssemblyDocument, ByVal olistiview As ListView, _
+    Private Sub LoadBOM(ByVal oInventorAssemblyDocument As AssemblyDocument, ByVal olistiview As ListView,
                                      ByVal IsContainIdw As Boolean, ByVal IsContainIpt As Boolean)
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         oInteraction.Start()
@@ -452,7 +455,7 @@ Public Class formFormatConversion
     ''' <param name="IsContainIdw">是否加载工程图</param>
     ''' <param name="IsContainIpt">是否加载零部件</param>
     ''' <remarks></remarks>
-    Private Sub LoadBOMSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView, _
+    Private Sub LoadBOMSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView,
                                       ByVal IsContainIdw As Boolean, ByVal IsContainIpt As Boolean)
         'Create a new ProgressBar object.
         'Dim oProgressBar As Inventor.ProgressBar
@@ -484,8 +487,8 @@ Public Class formFormatConversion
 
         For Each oBomrow As BOMRow In oBOMRows
             '遍历下一级
-            If (Not oBomrow.ChildRows Is Nothing) Then
-                Call LoadBOMSub(oBomrow.ChildRows, olistiview, IsContainIdw, IsContainIpt)
+            If (oBomrow.ChildRows IsNot Nothing) Then
+                LoadBOMSub(oBomrow.ChildRows, olistiview, IsContainIdw, IsContainIpt)
             End If
 
 999:
@@ -497,7 +500,7 @@ Public Class formFormatConversion
     Private Sub 从部件导入ToolStripButton_Click(sender As Object, e As EventArgs) Handles 从部件导入ToolStripButton.Click
         SetStatusBarText()
 
-        Dim strFilter As String = Nothing
+        Dim strFilter As String
         strFilter = "Autodesk Inventor 部件(*.iam)|*.iam" '添加过滤文件
 
         Dim arrayFullFileName As List(Of String)
@@ -514,6 +517,8 @@ Public Class formFormatConversion
             LoadBOM(oInventorAssemblyDocument, Lvw文件列表, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
         Next
 
+        Me.TopMost = True
+        Me.TopMost = False
     End Sub
 
     Private Sub 开始转换ToolStripButton2_Click(sender As Object, e As EventArgs) Handles 开始转换ToolStripButton2.Click
@@ -742,7 +747,7 @@ Public Class formFormatConversion
 
             'lvwFileListView.Items(i).Text = strInventorDrawingFullFileName & "        完成"
 999:
-            intCount = intCount + 1
+            intCount += 1
             进度ToolStripProgressBar.Value = intCount
         Next
 

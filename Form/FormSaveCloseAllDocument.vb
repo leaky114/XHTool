@@ -4,7 +4,7 @@ Imports System.Windows.Forms
 Public Class FormSaveCloseAllDocument
     Dim RadioState As Short
 
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
 
         SetStatusBarText()
 
@@ -77,23 +77,23 @@ Public Class FormSaveCloseAllDocument
         FormManager.CloseAndDisposeForm(Of FormSaveCloseAllDocument)()
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormSaveCloseAllDocument)()
     End Sub
 
-    Private Sub rdo全部保存_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存.CheckedChanged
+    Private Sub Rdo全部保存_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存.CheckedChanged
         RadioState = 1
     End Sub
 
-    Private Sub rdo全部保存并关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存并关闭.CheckedChanged
+    Private Sub Rdo全部保存并关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部保存并关闭.CheckedChanged
         RadioState = 2
     End Sub
 
-    Private Sub rdo全部关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部关闭.CheckedChanged
+    Private Sub Rdo全部关闭_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo全部关闭.CheckedChanged
         RadioState = 3
     End Sub
 
-    Private Sub frmSaveAll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSaveAll_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
     End Sub
 End Class

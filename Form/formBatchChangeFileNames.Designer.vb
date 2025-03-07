@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formBatchChangeFileNames
+Partial Class FormBatchChangeFileNames
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -159,7 +159,7 @@ Partial Class formBatchChangeFileNames
         Me.MaximizeBox = False
         Me.Name = "formBatchChangeFileNames"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "批量修改文件名"
+        Me.Text = "批量重命名"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -255,7 +255,7 @@ Module OpenForm
     End Sub
 
     '格式转化
-    Public Sub formFormatConversionShow()
+    Public Sub FormFormatConversionShow()
         Try
             SetStatusBarText()
 
@@ -276,7 +276,7 @@ Module OpenForm
             End If
 
             Dim formiProperty As New FormiProperty
-            FormManager.ShowForm(Of FormiProperty)(True)
+            FormManager.ShowForm(Of FormiProperty)()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -300,7 +300,7 @@ Module OpenForm
     End Sub
 
     '打开iproperty量产窗口
-    Public Sub formMassiPopertiesshow()
+    Public Sub FormMassiPopertiesshow()
         Try
             SetStatusBarText()
 
@@ -317,7 +317,7 @@ Module OpenForm
     End Sub
 
     '打开统计窗口
-    Public Sub formStatisticalShow()
+    Public Sub FormStatisticalShow()
         Try
             SetStatusBarText()
 
@@ -340,7 +340,7 @@ Module OpenForm
 
 
     '打开设置文件属性窗口
-    Public Sub formSetReadOnlyShow()
+    Public Sub FormSetReadOnlyShow()
         Try
             SetStatusBarText()
 
@@ -363,7 +363,7 @@ Module OpenForm
 
 
     '打开编辑尺寸窗口
-    Public Sub formEditDimensionShow()
+    Public Sub FormEditDimensionShow()
         Try
             SetStatusBarText()
 
@@ -386,7 +386,7 @@ Module OpenForm
     End Sub
 
     '打开驱动测量窗口
-    Public Sub formDim2ObjectShow()
+    Public Sub FormDim2ObjectShow()
         Try
             SetStatusBarText()
 
@@ -409,7 +409,7 @@ Module OpenForm
     End Sub
 
     '打开动画窗口
-    Public Sub formPlayerShow()
+    Public Sub FormPlayerShow()
         Try
             SetStatusBarText()
 
@@ -431,7 +431,7 @@ Module OpenForm
     End Sub
 
     '打开切换文档窗口
-    Public Sub formSwitchLablesShow()
+    Public Sub FormSwitchLablesShow()
         Try
             SetStatusBarText()
 
@@ -452,8 +452,26 @@ Module OpenForm
         End Try
     End Sub
 
+    Public Sub FormExplorerShow()
+        Try
+            SetStatusBarText()
+
+            Dim FormExplorer As New FormExplorer
+
+            If ThisApplication.Documents.Count = 0 Then
+                FormManager.ShowForm(Of FormExplorer)(True)
+            Else
+                FormManager.ShowForm(Of FormExplorer)()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
     '打开展开图工艺窗口
-    Public Sub formFlatPatternShow()
+    Public Sub FormFlatPatternShow()
         Try
             SetStatusBarText()
 
@@ -475,7 +493,7 @@ Module OpenForm
     End Sub
 
     '打开移动文件窗口
-    Public Sub formMovesSpecifiedFileShow()
+    Public Sub FormMovesSpecifiedFileShow()
         Try
             SetStatusBarText()
 
@@ -497,8 +515,30 @@ Module OpenForm
     End Sub
 
 
+    '打开iProperty重命名窗口
+    Public Sub FormiPropertyToFileNameShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim FormiPropertyToFileName As New FormiPropertyToFileName
+            FormManager.ShowForm(Of FormiPropertyToFileName)()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
     '打开批量修改文件名窗口
-    Public Sub formBatchChangeFileNamesShow()
+    Public Sub FormBatchChangeFileNamesShow()
         Try
             SetStatusBarText()
 
@@ -519,32 +559,6 @@ Module OpenForm
 
     End Sub
 
-    '打插入打开的零部件
-    Public Sub FormPlaceOpenComponentShow()
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            If ThisApplication.Documents.VisibleDocuments.Count = 1 Then
-                MsgBox("无已打开的其他零部件。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim FormPlaceOpenComponent As New FormPlaceOpenComponent
-            FormManager.ShowForm(Of FormPlaceOpenComponent)(True)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-    End Sub
 
 
 End Module

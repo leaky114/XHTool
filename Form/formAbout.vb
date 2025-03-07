@@ -1,12 +1,12 @@
 ﻿'Imports FSLib.App.SimpleUpdater
 
-Public NotInheritable Class formAbout
+Public NotInheritable Class FormAbout
 
     Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
     Const Bilibili As String = "https://space.bilibili.com/482062689"
     Const Github As String = "https://github.com/leaky114/XHTool"
 
-    Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         ' 设置此窗体的标题。
         Dim ApplicationTitle As String
@@ -18,6 +18,7 @@ Public NotInheritable Class formAbout
         Me.Text = String.Format("关于 {0}", ApplicationTitle)
 
         Me.Icon = My.Resources.XHTool24
+        Me.picWeiXin.Image = My.Resources.微信打赏
 
         Me.lblProductName.Text = String.Format("产品 {0}", My.Application.Info.ProductName)
         Me.lblVersion.Text = String.Format("版本 {0}", My.Application.Info.Version.ToString)
@@ -43,23 +44,23 @@ Public NotInheritable Class formAbout
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of formAbout)()
     End Sub
 
-    Private Sub btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
+    Private Sub Btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
 
         NewUpdater.Shell_XHUpdater("1")
 
-        FormManager.CloseAndDisposeForm(Of formAbout)()
+        Me.Close()
 
     End Sub
 
-    Private Sub lblGitCode_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblGitCode.LinkClicked
+    Private Sub LblGitCode_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblGitCode.LinkClicked
         Process.Start(Github)
     End Sub
 
-    Private Sub lblBilibili_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblBilibili.LinkClicked
+    Private Sub LblBilibili_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblBilibili.LinkClicked
         Process.Start(Bilibili)
     End Sub
 End Class

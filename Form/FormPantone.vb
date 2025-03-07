@@ -276,7 +276,7 @@ Public Class FormPantone
         Dim oSurfaceBody As SurfaceBody
         Dim oFace As Face
         'Dim Node As TreeNode
-        Dim oSelectset As SelectSet = Nothing
+        Dim oSelectset As SelectSet
         Dim oObjectCollection As ObjectCollection = ThisApplication.TransientObjects.CreateObjectCollection
 
         Dim oInventorPartDocument As Inventor.PartDocument
@@ -579,8 +579,9 @@ Public Class FormPantone
     ''' <param name="sender"></param>
     ''' <param name="E"></param>
     Private Sub Btn_Custom_Click(sender As Object, E As EventArgs) Handles Btn_Custom.Click
-        Dim ColorDialog As New ColorDialog
-        ColorDialog.Color = Tol_ColorBar.BackColor
+        Dim ColorDialog As New ColorDialog With {
+            .Color = Tol_ColorBar.BackColor
+        }
         If ColorDialog.ShowDialog = DialogResult.OK Then
             Txt_R.Text = ColorDialog.Color.R
             Txt_G.Text = ColorDialog.Color.G

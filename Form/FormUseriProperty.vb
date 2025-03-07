@@ -12,7 +12,7 @@ Public Class FormUseriProperty
     ' 创建ComboBox数组
     Private comboBoxes() As ComboBox
 
-    Private Sub btn确定_Click(sender As Object, e As EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(sender As Object, e As EventArgs) Handles btn确定.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
@@ -27,7 +27,7 @@ Public Class FormUseriProperty
         FormManager.CloseAndDisposeForm(Of FormUseriProperty)()
     End Sub
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormUseriProperty)()
     End Sub
 
@@ -45,10 +45,11 @@ Public Class FormUseriProperty
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn配置文件, "打开配置文件 UseriProperty.ini 。")
 
         btn配置文件.Image = My.Resources.文件txt16.ToBitmap
@@ -241,7 +242,7 @@ Public Class FormUseriProperty
         Me.Show()
     End Sub
 
-    Private Sub btn配置文件_Click(sender As Object, e As EventArgs) Handles btn配置文件.Click
+    Private Sub Btn配置文件_Click(sender As Object, e As EventArgs) Handles btn配置文件.Click
         Dim strUseriPropertyIniFile As String
         strUseriPropertyIniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "UseriProperty.ini")
 

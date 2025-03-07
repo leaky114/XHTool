@@ -1,6 +1,6 @@
 ﻿Imports Inventor
 
-Public Class clsRightMouseOpenSelectComponentOccurrences
+Public Class ClsRightMouseOpenSelectComponentOccurrences
     Private m_打开选择的组件_Buttondef As ButtonDefinition
 
     Public Sub New()
@@ -22,7 +22,7 @@ Public Class clsRightMouseOpenSelectComponentOccurrences
     Private Sub OnContextMenu(SelectionDevice As SelectionDeviceEnum, AdditionalInfo As NameValueMap, CommandBar As CommandBar)
         Dim oInventorDocument As Inventor.Document = ThisApplication.ActiveDocument
 
-        If Not TypeOf oInventorDocument Is AssemblyDocument Then Return '不是组件退出
+        If TypeOf oInventorDocument IsNot AssemblyDocument Then Return '不是组件退出
         If oInventorDocument.SelectSet.Count = 0 Then Return '未选择零部件退出
 
         CommandBar.Controls.AddButton(m_打开选择的组件_Buttondef, 2)

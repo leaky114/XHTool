@@ -6,12 +6,12 @@ Imports Inventor.ObjectTypeEnum
 
 Imports System.Windows.Forms
 
-Public Class formPlayer
+Public Class FormPlayer
 
     Private IsAddNew As Boolean
 
     '添加
-    Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
+    Private Sub Btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
         'Try
         SetStatusBarText()
 
@@ -33,13 +33,13 @@ Public Class formPlayer
 
 
         Dim oselect As Object
-        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+        Dim oAssemblyConstraint As AssemblyConstraint
 
         If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
             oselect = oInventorAssemblyDocument.SelectSet(1)
             Select Case oselect.type
-                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
@@ -67,24 +67,24 @@ Public Class formPlayer
     End Sub
 
     '移出
-    Private Sub btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
+    Private Sub Btn移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn移出.Click
         ListViewDel(lvw文件列表)
 
     End Sub
 
     '退出
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formPlayer)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormPlayer)()
     End Sub
 
     '清空
-    Private Sub btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click
+    Private Sub Btn清空_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空.Click
         lvw文件列表.Items.Clear()
 
     End Sub
 
 
-    Private Sub btn预览_Click(sender As Object, e As EventArgs) Handles btn预览.Click
+    Private Sub Btn预览_Click(sender As Object, e As EventArgs) Handles btn预览.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -115,7 +115,7 @@ Public Class formPlayer
 
     End Sub
 
-    Private Sub btn应用_Click(sender As Object, e As EventArgs) Handles btn应用.Click
+    Private Sub Btn应用_Click(sender As Object, e As EventArgs) Handles btn应用.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -146,7 +146,7 @@ Public Class formPlayer
         Next
     End Sub
 
-    Private Sub btn确定编辑_Click(sender As Object, e As EventArgs) Handles btn确定编辑.Click
+    Private Sub Btn确定编辑_Click(sender As Object, e As EventArgs) Handles btn确定编辑.Click
         Dim oListViewItem As ListViewItem
 
         If IsAddNew = True Then
@@ -174,18 +174,18 @@ Public Class formPlayer
         End If
     End Sub
 
-    Private Sub btn选择约束_Click(sender As Object, e As EventArgs) Handles btn选择约束.Click
+    Private Sub Btn选择约束_Click(sender As Object, e As EventArgs) Handles btn选择约束.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         Dim oselect As Object
-        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+        Dim oAssemblyConstraint As AssemblyConstraint
 
         If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
             oselect = oInventorAssemblyDocument.SelectSet(1)
             Select Case oselect.type
-                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
+                Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject,
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
@@ -246,7 +246,7 @@ Public Class formPlayer
 
     End Sub
 
-    Private Sub lvw文件列表_Click(sender As Object, e As EventArgs) Handles lvw文件列表.Click
+    Private Sub Lvw文件列表_Click(sender As Object, e As EventArgs) Handles lvw文件列表.Click
         Dim oListViewItem As ListViewItem
 
         oListViewItem = lvw文件列表.SelectedItems(0)
@@ -269,7 +269,7 @@ Public Class formPlayer
 
     End Sub
 
-    Private Sub frmPlayer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPlayer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
     End Sub
 End Class

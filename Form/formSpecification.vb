@@ -4,18 +4,18 @@ Imports System.IO
 Imports System.Windows.Forms
 Imports System.Collections.Generic
 
-Public Class formSpecification
+Public Class FormSpecification
     Private boolIsBasicChange As Boolean
     Private boolIsUserChange As Boolean
     Private strSpecificationIni As String
 
     Private oPoint2d As Point2d
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formSpecification)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormSpecification)()
     End Sub
 
-    Private Sub frmSpecification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmSpecification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error Resume Next
 
         Me.Icon = My.Resources.XHTool48
@@ -279,7 +279,6 @@ Public Class formSpecification
 
             Dim strChildNodeValue As String
             Dim intNumber As Integer
-            intNumber = 1
 
             strChildNodeName = "技术要求"
             EraseSection(strChildNodeName, strSpecificationIni)
@@ -340,7 +339,7 @@ Public Class formSpecification
         End With
     End Sub
 
-    Private Sub btn插入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn插入.Click
+    Private Sub Btn插入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn插入.Click
         SetStatusBarText()
 
         If IsInventorOpenDocument() = False Then
@@ -389,7 +388,7 @@ Public Class formSpecification
 
         Dim str1 As String = "<StyleOverride Font='"
         Dim str2 As String = "'>"
-        Dim str3 As String = ""
+        'Dim str3 As String
         Dim str4 As String = "</StyleOverride>"
         Dim str5 As String = "<Br/>"
 
@@ -412,7 +411,7 @@ Public Class formSpecification
 
         oPoint2d = GetDrawingPoint("单击确定插入位置。") ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
 
-        Dim oGeneralNote As GeneralNote = Nothing
+        Dim oGeneralNote As GeneralNote
 
         Dim douLineSpacing As Double
         douLineSpacing = Val(间距ToolStripTextBox.Text)
@@ -420,7 +419,7 @@ Public Class formSpecification
         oGeneralNote = oGeneralNotes.AddFitted(oPoint2d, strFormattedText)
         oGeneralNote.LineSpacing = douLineSpacing
 
-        FormManager.CloseAndDisposeForm(Of formSpecification)()
+        FormManager.CloseAndDisposeForm(Of FormSpecification)()
 
 
     End Sub
@@ -457,7 +456,7 @@ Public Class formSpecification
             Exit Sub
         End If
 
-        Dim strTextFileFullName As String = Nothing
+        Dim strTextFileFullName As String
         strTextFileFullName = arrayFullFileName.Item(0).ToString
 
         Dim arrstrReader() As String
@@ -470,7 +469,7 @@ Public Class formSpecification
 
     End Sub
 
-    Private Sub btn确定导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定导入.Click
+    Private Sub Btn确定导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定导入.Click
         Dim strTempFileName As String
         strTempFileName = My.Computer.FileSystem.GetTempFileName()
 
@@ -488,7 +487,7 @@ Public Class formSpecification
         GroupBox导入自定义.Visible = False
     End Sub
 
-    Private Sub btn取消导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消导入.Click
+    Private Sub Btn取消导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消导入.Click
         txt导入文本.Clear()
         GroupBox导入自定义.Visible = False
     End Sub

@@ -2,9 +2,9 @@
 Imports Inventor.DocumentTypeEnum
 Imports System.Windows.Forms
 
-Public Class formBatchChangeFileNames
+Public Class FormBatchChangeFileNames
 
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
 
         Try
             SetStatusBarText()
@@ -36,7 +36,7 @@ Public Class formBatchChangeFileNames
 
             ReplaceNameInAsmSub(oInventorAssemblyDocument, strSearch, strReplace, strPrefix, strSuffix, IsSaveAsOld)
 
-            RefreshShowNameSub(oInventorAssemblyDocument)
+            RefreshTreeNodeNameSub(oInventorAssemblyDocument)
 
             MsgBox("部件替换文件名完成。", MsgBoxStyle.Information)
         Catch ex As Exception
@@ -48,11 +48,11 @@ Public Class formBatchChangeFileNames
         'Me.Close()
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of formBatchChangeFileNames)()
     End Sub
 
-    Private Sub frmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
     End Sub

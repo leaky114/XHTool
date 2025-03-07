@@ -8,14 +8,14 @@ Imports Inventor.ObjectTypeEnum
 Imports System.Drawing
 Imports System.ComponentModel
 
-Public Class formDim2Object
+Public Class FormDim2Object
     Private oSelect1 As Object
     Private oSelect2 As Object
     Private oHSet1 As HighlightSet
     Private oHSet2 As HighlightSet
     Private IsStop As Boolean
 
-    Private Sub btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一项.Click
+    Private Sub Btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一项.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
@@ -47,7 +47,7 @@ Public Class formDim2Object
 
     End Sub
 
-    Private Sub btn选择二_Click(sender As Object, e As EventArgs) Handles btn选择二项.Click
+    Private Sub Btn选择二_Click(sender As Object, e As EventArgs) Handles btn选择二项.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
@@ -81,20 +81,21 @@ Public Class formDim2Object
 
     End Sub
 
-    Private Sub frmDim2Object_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FrmDim2Object_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         On Error Resume Next
         If oHSet1.Count <> 0 Then oHSet1.Clear()
         If oHSet2.Count <> 0 Then oHSet2.Clear()
 
     End Sub
 
-    Private Sub frmDim2Object_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDim2Object_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         ' 创建ToolTip控件并设置相关属性
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn选择一项, "选择第一个项")
         toolTip.SetToolTip(btn选择二项, "选择第二个项")
         toolTip.SetToolTip(btn确定约束, "选择驱动约束")
@@ -129,12 +130,12 @@ Public Class formDim2Object
         Me.TopMost = True
     End Sub
 
-    Private Sub btn确定约束_Click(sender As Object, e As EventArgs) Handles btn确定约束.Click
+    Private Sub Btn确定约束_Click(sender As Object, e As EventArgs) Handles btn确定约束.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         Dim oselect As Object
-        Dim oAssemblyConstraint As AssemblyConstraint = Nothing
+        Dim oAssemblyConstraint As AssemblyConstraint
 
         If oInventorAssemblyDocument.SelectSet.Count <> 0 Then
             'For Each oSelect As Object In InventorDoc.SelectSet
@@ -172,7 +173,7 @@ Public Class formDim2Object
         End Select
     End Sub
 
-    Private Sub btn正向_Click(sender As Object, e As EventArgs) Handles btn正向.Click
+    Private Sub Btn正向_Click(sender As Object, e As EventArgs) Handles btn正向.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -273,7 +274,7 @@ Public Class formDim2Object
         Next
     End Sub
 
-    Private Sub btn反向_Click(sender As Object, e As EventArgs) Handles btn反向.Click
+    Private Sub Btn反向_Click(sender As Object, e As EventArgs) Handles btn反向.Click
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -381,16 +382,16 @@ Public Class formDim2Object
         Next
     End Sub
 
-    Private Sub btn暂停_Click(sender As Object, e As EventArgs) Handles btn暂停.Click
+    Private Sub Btn暂停_Click(sender As Object, e As EventArgs) Handles btn暂停.Click
         IsStop = True
     End Sub
 
-    Private Sub btn导出_Click(sender As Object, e As EventArgs) Handles btn导出.Click
+    Private Sub Btn导出_Click(sender As Object, e As EventArgs) Handles btn导出.Click
         Dim strLineDate As String
         Dim strCsvFullFileName As String
 
         Dim now As DateTimeOffset = DateTimeOffset.Now
-        Dim epoch As DateTimeOffset = New DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)
+        Dim epoch As New DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)
         Dim timestamp As Long = Convert.ToInt64((now - epoch).TotalSeconds)
 
         strCsvFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, "驱动测量" & timestamp & ".csv")
@@ -414,7 +415,7 @@ Public Class formDim2Object
 
     End Sub
 
-    Private Sub oListView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvw列表.MouseDoubleClick
+    Private Sub OListView_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvw列表.MouseDoubleClick
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
@@ -503,7 +504,7 @@ Public Class formDim2Object
         End If
     End Sub
 
-    Private Sub btn最大值_Click(sender As Object, e As EventArgs) Handles btn最大值.Click
+    Private Sub Btn最大值_Click(sender As Object, e As EventArgs) Handles btn最大值.Click
         Dim maxValue As Decimal = Decimal.MinValue
         Dim maxItem As ListViewItem = Nothing
 
@@ -532,7 +533,7 @@ Public Class formDim2Object
 
     End Sub
 
-    Private Sub btn最小值_Click(sender As Object, e As EventArgs) Handles btn最小值.Click
+    Private Sub Btn最小值_Click(sender As Object, e As EventArgs) Handles btn最小值.Click
         Dim minValue As Decimal = Decimal.MaxValue
         Dim minItem As ListViewItem = Nothing
 
@@ -561,7 +562,7 @@ Public Class formDim2Object
 
     End Sub
 
-    Private Sub formDim2Object_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+    Private Sub FormDim2Object_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         FormManager.CloseAndDisposeForm(Of formDim2Object)()
     End Sub
 End Class

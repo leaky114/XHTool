@@ -1,6 +1,6 @@
 ﻿Imports Inventor
 
-Public Class clsRightMouseShowAll
+Public Class ClsRightMouseShowAll
 
     Private m_全部显示_Buttondef As ButtonDefinition
 
@@ -13,7 +13,7 @@ Public Class clsRightMouseShowAll
         'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见32.ToBitmap)
 
         Me.m_全部显示_Buttondef = ThisApplication.CommandManager.ControlDefinitions.AddButtonDefinition(
-            "全部显示", "InName全部显示", CommandTypesEnum.kShapeEditCmdType, _
+            "全部显示", "InName全部显示", CommandTypesEnum.kShapeEditCmdType,
             ClientID, "", , smallPicture, , ButtonDisplayEnum.kDisplayTextInLearningMode)
 
         AddHandler m_全部显示_Buttondef.OnExecute, AddressOf OnCLick
@@ -23,7 +23,7 @@ Public Class clsRightMouseShowAll
     Private Sub OnContextMenu(SelectionDevice As SelectionDeviceEnum, AdditionalInfo As NameValueMap, CommandBar As CommandBar)
         Dim oInventorDocument As Inventor.Document = ThisApplication.ActiveDocument
 
-        If Not TypeOf oInventorDocument Is AssemblyDocument Then Return '不是组件退出
+        If TypeOf oInventorDocument IsNot AssemblyDocument Then Return '不是组件退出
         If oInventorDocument.SelectSet.Count <> 0 Then Return '未选择零部件退出
 
 

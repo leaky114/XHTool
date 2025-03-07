@@ -5,11 +5,11 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Inventor
 Imports System.ComponentModel
 
-Public Class formOption
+Public Class FormOption
 
     Inherits Form
 
-    Private Sub btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
+    Private Sub Btn添加_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加.Click
         'if txtBOM导出项.Text = "" Then
         '    txtBOM导出项.Text = cbo添加.Text
         'Else
@@ -33,11 +33,11 @@ Public Class formOption
 
 
 
-    Private Sub btn清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清除.Click
+    Private Sub Btn清除_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清除.Click
         txtBOM导出项.Clear()
     End Sub
 
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         If cbo图号.Text = cbo文件名.Text Then
             MsgBox("映射设置相同！", MsgBoxStyle.Exclamation, "设置")
             Exit Sub
@@ -190,7 +190,7 @@ Public Class formOption
 
     End Sub
 
-    Private Sub btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
+    Private Sub Btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
 
         'if IsFileExsts(txt自定义数据文件.Text) = True Then
         '    Process.Start(txt自定义数据文件.Text)
@@ -212,11 +212,11 @@ Public Class formOption
         End If
     End Sub
 
-    Private Sub btn还原_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn还原.Click
+    Private Sub Btn还原_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn还原.Click
         txtBOM导出项.Text = BOMTiTle
     End Sub
 
-    Private Sub btn更新数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn更新数据库.Click
+    Private Sub Btn更新数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn更新数据库.Click
         '更新数据库文件
         'excel文件不存在，到服务器下载
         Dim documentURL As String
@@ -231,11 +231,9 @@ Public Class formOption
         MsgBox("更新数据库文件完成！", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "更新数据库")
     End Sub
 
-    Private Sub frmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
-
-        '
         Dim strArryLargeSmallIconNames As String() = strLargeSmallIconNames.Split(","c)
 
 
@@ -248,8 +246,6 @@ Public Class formOption
             oListViewItem.SubItems.Add(strArryLargeSmallIconSets(i)）
             i = i + 1
         Next
-
-
 
         '加载配置文件
         Dim strComboBoxs As String
@@ -414,11 +410,12 @@ Public Class formOption
         txt零件图框.Text = str零件图框
 
         '==================================================================
-        Dim toolTip As New Windows.Forms.ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
-        toolTip.SetToolTip(chk备份工程图, "更改零部件文件名时，工程图扩展名添加  .old")
+        Dim toolTip As New Windows.Forms.ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
+        toolTip.SetToolTip(chk备份工程图, "重命名文件时，工程图扩展名添加  .old")
         toolTip.SetToolTip(chk模型匹配检查, "打开工程图时检查文件名是否与引用的模型文件一致")
         toolTip.SetToolTip(btn选择erp数据库, "选择ERP数据库文件")
         toolTip.SetToolTip(btn选择工程图模板, "选择工程图模板文件")
@@ -426,7 +423,7 @@ Public Class formOption
         toolTip.SetToolTip(chk另存到子文件夹, "另存dwg，pdf文件到子文件夹 \Dwg\ 或 \Pdf\")
         toolTip.SetToolTip(chk逆时针序号, "按逆时针自动重建序号")
         toolTip.SetToolTip(NUD查找文件夹层数, "设置查找文件时，向上父文件夹的层数")
-        toolTip.SetToolTip(chk检查重复图号, "更改文件名时，在当前项目文件夹下，检查图号是否重复")
+        toolTip.SetToolTip(chk检查重复图号, "重命名文件时，在当前项目文件夹下，检查图号是否重复")
         toolTip.SetToolTip(lbl去除后缀, "提取文件名时，去除后缀，用‘,’分割")
         toolTip.SetToolTip(lbl标记孔径上限, "标记螺纹的最大值，保留2位小数")
         toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致")
@@ -437,7 +434,7 @@ Public Class formOption
         btn展开图模板.Image = My.Resources.打开文件16.ToBitmap
 
     End Sub
-    Private Sub txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.DoubleClick
+    Private Sub Txt基础数据文件_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txt基础数据文件.DoubleClick
         'if e.Button = System.Windows.Forms.MouseButtons.Left Then
 
         '    Dim oOpenFileDialog As New OpenFileDialog
@@ -459,7 +456,7 @@ Public Class formOption
         'End if
     End Sub
 
-    'Private Sub txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
+    'Private Sub Txt基础数据文件_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt基础数据文件.MouseHover
     '    Dim k As ToolTip
 
     '    k = New ToolTip()
@@ -469,7 +466,7 @@ Public Class formOption
     '    k.SetToolTip(txt基础数据文件, "双击更改文件") '提示信息内容
     'End Sub
 
-    Private Sub btn选择工程图模板_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择工程图模板.Click
+    Private Sub Btn选择工程图模板_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择工程图模板.Click
         Dim strFileName As String
         Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
         Dim strInitialDirectory = ThisApplication.FileLocations.TemplatesPath
@@ -489,7 +486,7 @@ Public Class formOption
 
     End Sub
 
-    Private Sub btn选择erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择erp数据库.Click
+    Private Sub Btn选择erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择erp数据库.Click
         Dim strFilter As String = Nothing
         strFilter = "Excel 工作薄(*.xlsx;*.xls;*.xlsb)|*.xlsx;*.xls;*.xlsb" '添加过滤文件
 
@@ -506,7 +503,7 @@ Public Class formOption
 
     End Sub
 
-    Private Sub btn颜色上_Click(sender As Object, e As EventArgs) Handles btn向上颜色.Click
+    Private Sub Btn颜色上_Click(sender As Object, e As EventArgs) Handles btn向上颜色.Click
         Dim colorDialog As New ColorDialog()
         If colorDialog.ShowDialog() = DialogResult.OK Then
             Dim selectedColor As Drawing.Color = colorDialog.Color
@@ -515,7 +512,7 @@ Public Class formOption
         End If
     End Sub
 
-    Private Sub btn颜色下_Click(sender As Object, e As EventArgs) Handles btn向下颜色.Click
+    Private Sub Btn颜色下_Click(sender As Object, e As EventArgs) Handles btn向下颜色.Click
         Dim colorDialog As New ColorDialog()
         If colorDialog.ShowDialog() = DialogResult.OK Then
             Dim selectedColor As Drawing.Color = colorDialog.Color
@@ -524,7 +521,7 @@ Public Class formOption
         End If
     End Sub
 
-    Private Sub btn展开图模板_Click(sender As Object, e As EventArgs) Handles btn展开图模板.Click
+    Private Sub Btn展开图模板_Click(sender As Object, e As EventArgs) Handles btn展开图模板.Click
 
         Dim strFileName As String
         Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
@@ -566,7 +563,7 @@ Public Class formOption
         Process.Start(strAppPath)
     End Sub
 
-    Private Sub btn配置文件_MouseClick(sender As Object, e As MouseEventArgs) Handles btn配置文件.MouseClick
+    Private Sub Btn配置文件_MouseClick(sender As Object, e As MouseEventArgs) Handles btn配置文件.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             ' 计算按钮的左下角位置
             Dim buttonLocation As Drawing.Point = btn配置文件.PointToScreen(New Drawing.Point(0, btn配置文件.Height))
@@ -575,7 +572,7 @@ Public Class formOption
         End If
     End Sub
 
-    Private Sub lvw设置图标大小_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvw设置图标大小.MouseDoubleClick
+    Private Sub Lvw设置图标大小_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lvw设置图标大小.MouseDoubleClick
         Dim oListViewItem As ListViewItem
         If lvw设置图标大小.SelectedItems.Count > 0 Then
             oListViewItem = lvw设置图标大小.SelectedItems(0)
@@ -589,7 +586,7 @@ Public Class formOption
     End Sub
 
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of formOption)()
     End Sub
 End Class

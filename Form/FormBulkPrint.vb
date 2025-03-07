@@ -15,7 +15,7 @@ Public Class FormBulkPrint
     Private IsStopPrint As Double '中断打印标记
 
     '批量打印开始
-    Private Sub btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
+    Private Sub Btn开始_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn开始.Click
         On Error Resume Next
 
         If lvw文件列表.Items.Count = 0 Then
@@ -173,12 +173,12 @@ Public Class FormBulkPrint
     End Sub
 
     '关闭
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormBulkPrint)()
     End Sub
 
     '添加文件
-    Private Sub btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
+    Private Sub Btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
         Dim strFilter As String = "Autodesk Inventor 工程图(*.idw)|*.idw" '添加过滤文件
 
         Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
@@ -203,13 +203,13 @@ Public Class FormBulkPrint
     End Sub
 
     '清空文件列表
-    Private Sub btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
+    Private Sub Btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
         lvw文件列表.Items.Clear()
         Me.Text = "批量打印"
     End Sub
 
     '添加文件夹
-    Private Sub btn添加文件夹_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件夹.Click
+    Private Sub Btn添加文件夹_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件夹.Click
         Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
         Dim strDestinationFolder As String = OpenFolderDialog(strInitialDirectory)
 
@@ -219,12 +219,20 @@ Public Class FormBulkPrint
 
         lbl建议.Visible = False
 
+        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        oInteraction.Start()
+        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        ThisApplication.UserInterfaceManager.DoEvents()
+
         GetAllFile(strDestinationFolder, lvw文件列表, IDW)
+
+        oInteraction.Stop()
+
 
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
     End Sub
 
-    Private Sub frmPrint_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmPrint_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         Dim oPrintDocument As New Printing.PrintDocument
@@ -264,7 +272,7 @@ Public Class FormBulkPrint
 
     End Sub
 
-    Private Sub btn从部件导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn从部件导入.Click
+    Private Sub Btn从部件导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn从部件导入.Click
         Dim strFilter As String = "Autodesk Inventor 部件(*.iam)|*.iam" '添加过滤文件
         Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
 
@@ -277,12 +285,15 @@ Public Class FormBulkPrint
 
         lbl建议.Visible = False
 
-        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument = Nothing
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.Documents.Open(arrayFullFileName.Item(0).ToString)
 
         LoadBOM(oInventorAssemblyDocument, lvw文件列表)
 
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
+        Me.TopMost = True
+        Me.TopMost = False
+
     End Sub
     ''' <summary>
     ''' 载入数据函数
@@ -352,7 +363,7 @@ Public Class FormBulkPrint
             End If
 
             '遍历下一级
-            If (Not oBOMRow.ChildRows Is Nothing) Then
+            If (oBOMRow.ChildRows IsNot Nothing) Then
                 Call LoadBOMSub(oBOMRow.ChildRows, olistiview)
             End If
 
@@ -364,7 +375,7 @@ Public Class FormBulkPrint
 
     End Sub
 
-    Private Sub btn导入已打开文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入已打开文件.Click
+    Private Sub Btn导入已打开文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入已打开文件.Click
         Try
             lbl建议.Visible = False
 
@@ -397,16 +408,16 @@ Public Class FormBulkPrint
     End Sub
 
     '移除
-    Private Sub tsmi移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi移出.Click
+    Private Sub Tsmi移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi移出.Click
         ListViewDel(lvw文件列表)
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
     End Sub
 
     '筛选移除
-    Private Sub tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
+    Private Sub Tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
         Me.TopMost = False
         Dim strFilter As String
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 999:
         With frmInputBox
             .txt输入.Text = ""
@@ -440,10 +451,10 @@ Public Class FormBulkPrint
     End Sub
 
     '筛选保留
-    Private Sub tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
+    Private Sub Tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
         Me.TopMost = False
         Dim strFilter As String
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 999:
         With frmInputBox
             .txt输入.Text = ""
@@ -477,7 +488,7 @@ Public Class FormBulkPrint
         Me.TopMost = True
     End Sub
 
-    Private Sub btn导入当前部件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入当前部件.Click
+    Private Sub Btn导入当前部件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入当前部件.Click
 
         lbl建议.Visible = False
 
@@ -503,16 +514,19 @@ Public Class FormBulkPrint
         LoadBOM(oInventorAssemblyDocument, lvw文件列表)
 
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
+
+        Me.TopMost = True
+        Me.TopMost = False
     End Sub
 
 
 
-    Private Sub lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
+    Private Sub Lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
         ThisApplication.Documents.Open(lvw文件列表.SelectedItems(0).Text)
     End Sub
 
     '拖入文件夹 和 文件
-    Private Sub lvw文件列表_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragDrop
+    Private Sub Lvw文件列表_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragDrop
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
 
             Dim File_lists() As String
@@ -559,22 +573,22 @@ Public Class FormBulkPrint
     End Sub
 
     '拖拽文件夹和文件
-    Private Sub lvw文件列表_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragEnter
+    Private Sub Lvw文件列表_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lvw文件列表.DragEnter
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.All
         End If
     End Sub
 
-    Private Sub btn保存配置_Click(sender As Object, e As EventArgs) Handles btn保存配置.Click
-        PrintSetting = BoolToInt(chk匹配A3.Checked) & BoolToInt(chk签字.Checked) & BoolToInt(chk刷新工程图.Checked) & _
-             BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) & _
+    Private Sub Btn保存配置_Click(sender As Object, e As EventArgs) Handles btn保存配置.Click
+        PrintSetting = BoolToInt(chk匹配A3.Checked) & BoolToInt(chk签字.Checked) & BoolToInt(chk刷新工程图.Checked) &
+             BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) &
             BoolToInt(chk打印后关闭.Checked) & BoolToInt(chk保存签字.Checked) & BoolToInt(chk保存工程图.Checked) & BoolToInt(chk存为dwg.Checked)
 
-        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, Inifile)
+        ini.WriteStrINI("打印", "PrintSetting", PrintSetting, IniFile)
 
     End Sub
 
-    Private Sub btn中断_Click(sender As Object, e As EventArgs) Handles btn中断.Click
+    Private Sub Btn中断_Click(sender As Object, e As EventArgs) Handles btn中断.Click
         IsStopPrint = True
     End Sub
 

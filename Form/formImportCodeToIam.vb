@@ -7,10 +7,10 @@ Imports stdole
 Imports System
 Imports System.Windows.Forms
 
-Public Class formImportCodeToIam
+Public Class FormImportCodeToIam
 
 
-    Private Sub btn装载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn装载.Click
+    Private Sub Btn装载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn装载.Click
         lvw文件列表.Items.Clear()
 
         SetStatusBarText()
@@ -43,8 +43,8 @@ Public Class formImportCodeToIam
     ''' <param name="IsExpandChild">是否展开子集</param>
     ''' <param name="IsExpandOutsourcedParts">是否展开外协</param>
     ''' <remarks></remarks>
-    Private Sub LoadBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, _
-                        ByVal oListView As ListView, ByVal IsExpandChild As Boolean, _
+    Private Sub LoadBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument,
+                        ByVal oListView As ListView, ByVal IsExpandChild As Boolean,
                         ByVal IsExpandOutsourcedParts As Boolean)
 
         Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
@@ -148,7 +148,7 @@ Public Class formImportCodeToIam
             End If
 
             '是否选择了展开子集
-            If (Not oBOMRow.ChildRows Is Nothing) And IsExpandChild = True Then
+            If (oBOMRow.ChildRows IsNot Nothing) And IsExpandChild = True Then
                 Select Case strVendor
                     Case "外协件"
                         If IsExpandOutsourcedParts = True Then
@@ -171,11 +171,11 @@ Public Class formImportCodeToIam
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formImportCodeToIam)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormImportCodeToIam)()
     End Sub
 
-    Private Sub btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
+    Private Sub Btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
         On Error Resume Next
         'PartNum = FindSrtingInSheet(Excel_File_Name, StochNum, Sheet_Name, Table_Array, Col_Index_Num, 0)
         btn查询.Enabled = False
@@ -189,8 +189,9 @@ Public Class formImportCodeToIam
 
 
         Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        oExcelApplication = New Excel.Application With {
+            .Visible = False
+        }
 
         'Excel_File_Name = "E:\软件\Invenotr\Inventor编程\InventorAddIn\code\bin\最新物料编码.xls"
 
@@ -291,7 +292,7 @@ Public Class formImportCodeToIam
         oInteraction.Stop()
     End Sub
 
-    Private Sub btn写入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn写入.Click
+    Private Sub Btn写入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn写入.Click
         On Error Resume Next
 
         Dim oInventorDocument As Inventor.Document
@@ -335,20 +336,20 @@ Public Class formImportCodeToIam
         oInteraction.Stop()
     End Sub
 
-    Private Sub lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
-        If _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending Then
-            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Descending)
+    Private Sub Lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
+        If _ListViewSorter = ClsListViewSorter.EnumSortOrder.Ascending Then
+            Dim Sorter As New ClsListViewSorter(e.Column, ClsListViewSorter.EnumSortOrder.Descending)
             lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = clsListViewSorter.EnumSortOrder.Descending
+            _ListViewSorter = ClsListViewSorter.EnumSortOrder.Descending
         Else
-            Dim Sorter As New clsListViewSorter(e.Column, clsListViewSorter.EnumSortOrder.Ascending)
+            Dim Sorter As New ClsListViewSorter(e.Column, ClsListViewSorter.EnumSortOrder.Ascending)
             lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = clsListViewSorter.EnumSortOrder.Ascending
+            _ListViewSorter = ClsListViewSorter.EnumSortOrder.Ascending
         End If
 
     End Sub
 
-    Private Sub lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
+    Private Sub Lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             Dim strInventorFullFileName As String
             strInventorFullFileName = lvw文件列表.SelectedItems(0).SubItems(4).Text
@@ -356,7 +357,7 @@ Public Class formImportCodeToIam
         End If
     End Sub
 
-    Private Sub lvw文件列表_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.SelectedIndexChanged
+    Private Sub Lvw文件列表_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvw文件列表.SelectedIndexChanged
         Try
             If lvw文件列表.SelectedIndices.Count > 0 Then
                 Dim index As Integer = lvw文件列表.SelectedIndices(0)  '选中行的下一行索引
@@ -375,7 +376,7 @@ Public Class formImportCodeToIam
         End Try
     End Sub
 
-    Private Sub frmInventoryCoding_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmInventoryCoding_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         lvw文件列表.Items.Clear()

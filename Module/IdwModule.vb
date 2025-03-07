@@ -19,6 +19,7 @@ Imports System.Windows.Forms
 Imports System.Collections.Generic
 Imports Microsoft.Office.Interop.Excel
 Imports Sheets = Inventor.Sheets
+Imports System.Linq
 
 Module IdwModule
 
@@ -1527,7 +1528,7 @@ Module IdwModule
         Dim oInventorDocument As Inventor.Document
 
         Dim dblMass As Double = 0
-        Dim TempdoubleMass As Double = 0
+        Dim TempdoubleMass As Double
         For Each oInventorDocument In oDrawingDocument.ReferencedDocuments
             TempdoubleMass = GetMass(oInventorDocument)
             If TempdoubleMass > dblMass Then
@@ -1955,18 +1956,34 @@ Module IdwModule
             Select Case SaveAsDawAndPdf
                 Case "另存为dwg和pdf"
                     strDwgFullFileName = SetNewFile(strDwgFullFileName, "AutoCAD文件(*.dwg)|*.dwg")
-                    IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+
+                    If strDwgFullFileName = "" Then
+                    Else
+                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                    End If
 
                     strPdfFullFileName = SetNewFile(strPdfFullFileName, "Adobe PDF文件(*.pdf)|*.pdf")
-                    IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+
+                    If strPdfFullFileName = "" Then
+
+                    Else
+                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                    End If
 
                 Case "另存为dwg"
                     strDwgFullFileName = SetNewFile(strDwgFullFileName, "AutoCAD文件(*.dwg)|*.dwg")
-                    IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                    If strDwgFullFileName = "" Then
+                    Else
+                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                    End If
 
                 Case "另存为pdf"
                     strPdfFullFileName = SetNewFile(strPdfFullFileName, "Adobe PDF文件(*.pdf)|*.pdf")
-                    IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                    If strPdfFullFileName = "" Then
+
+                    Else
+                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                    End If
 
             End Select
 
@@ -3410,16 +3427,16 @@ Module IdwModule
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function GetDrawingPoint(ByVal StrInformation As String) As Point2d
-        Dim oGetPoint As New clsGetPoint
+        Dim oGetPoint As New ClsGetPoint
         Dim oPoint2d As Point2d
 
         Do
             oPoint2d = oGetPoint.GetDrawingPoint(StrInformation, MouseButtonEnum.kLeftMouseButton)
-            If Not oPoint2d Is Nothing Then
+            If oPoint2d IsNot Nothing Then
                 'MsgBox("Click is at " & Strings.Format(pnt.X, "0.0000") & ", " & Strings.Format(pnt.Y, "0.0000"))
                 Return oPoint2d
             End If
-        Loop While Not oPoint2d Is Nothing
+        Loop While oPoint2d IsNot Nothing
 
         Return Nothing
     End Function
@@ -3440,7 +3457,7 @@ Module IdwModule
         o_tmpsheetColor.Blue = 255 : o_tmpsheetColor.Green = 255 : o_tmpsheetColor.Red = 255
         oInventorDrawingDocument.SheetSettings.SheetColor = o_tmpsheetColor
 
-        Dim oSheet As Sheet = Nothing
+        Dim oSheet As Sheet
         Dim k As Integer = 1
         For Each oSheet In oInventorDrawingDocument.Sheets
             oSheet.Activate()
@@ -3517,12 +3534,12 @@ Module IdwModule
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Dim oSelectSet1 As Object = Nothing
-        Dim oSelectSet2 As Object = Nothing
+        Dim oSelectSet1 As Object
+        Dim oSelectSet2 As Object
 
         oSelectSet1 = oInventorDocument.SelectSet.Item(1)  '  ThisApplication.CommandManager.Pick(SelectionFilterEnum.kDrawingDimensionFilter, "选择阵列尺寸，ESC键取消")
 
-        If Not TypeOf oSelectSet1 Is DrawingDimension Then
+        If TypeOf oSelectSet1 IsNot DrawingDimension Then
             Exit Sub
         End If
 
@@ -3579,10 +3596,10 @@ Module IdwModule
             Exit Sub
         End If
 
-        Dim oSelectSet1 As Object = Nothing
+        Dim oSelectSet1 As Object
         oSelectSet1 = oInventorDocument.SelectSet.Item(1)
 
-        If Not TypeOf oSelectSet1 Is DrawingCurveSegment Then
+        If TypeOf oSelectSet1 IsNot DrawingCurveSegment Then
             Exit Sub
         End If
 
@@ -3818,9 +3835,11 @@ Module IdwModule
                 oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
                 For Each oAssemblyConstraint As AssemblyConstraint In oInventorAssemblyDocument.ComponentDefinition.Constraints
-                    If oAssemblyConstraint.HealthStatus = HealthStatusEnum.kInconsistentHealth Then
-                        oAssemblyConstraint.Suppressed = True
-                    End If
+                    Select Case oAssemblyConstraint.HealthStatus.ToString
+                        Case HealthStatusEnum.kDriverLostHealth.ToString, HealthStatusEnum.kInconsistentHealth.ToString
+                            oAssemblyConstraint.Suppressed = True
+
+                    End Select
                 Next
 
             Case DocumentTypeEnum.kDrawingDocumentObject     '工程图删除错误的尺寸，序号，焊接
@@ -3865,7 +3884,21 @@ Module IdwModule
                     If (note.Leader.HasRootNode = False) Then
                         ' This happens if the leader has been deleted.
                     Else
-                        Dim attachedNodeList = note.Leader.AllNodes.Cast(Of LeaderNode).Where(Function(n) n.AttachedEntity IsNot Nothing).ToList()
+                        'Dim attachedNodeList = note.Leader.AllNodes.Cast(Of LeaderNode).Where(Function(n) n.AttachedEntity IsNot Nothing).ToList()
+
+                        ' 第一步：获取原始节点集合
+                        Dim allNodes As IEnumerable = note.Leader.AllNodes
+
+                        ' 第二步：将节点转换为 LeaderNode 类型
+                        Dim castedNodes As IEnumerable(Of LeaderNode) = allNodes.Cast(Of LeaderNode)()
+
+                        ' 第三步：过滤具有附加实体的节点
+                        Dim filteredNodes As IEnumerable(Of LeaderNode) = castedNodes.Where(Function(n) n.AttachedEntity IsNot Nothing)
+
+                        ' 第四步：转换为列表
+                        Dim attachedNodeList As List(Of LeaderNode) = filteredNodes.ToList()
+
+
                         If (attachedNodeList.Count = 0) Then
                             note.Delete()
                         End If

@@ -3,28 +3,28 @@ Imports Inventor.DocumentTypeEnum
 Imports Inventor.SelectionFilterEnum
 Imports System.Windows.Forms
 
-Public Class formInputBox
+Public Class FormInputBox
 
-    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click, Me.Closing, btn确定.Click
-        FormManager.CloseAndDisposeForm(Of formInputBox)()
+    Private Sub Btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click, Me.Closing, btn确定.Click
+        FormManager.CloseAndDisposeForm(Of FormInputBox)()
     End Sub
 
-    Private Sub frmInputBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmInputBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         txt输入.SelectAll()
     End Sub
 
-    Private Sub btn复制_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制.Click
+    Private Sub Btn复制_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn复制.Click
         If txt输入.Text <> Nothing Then
             My.Computer.Clipboard.SetText(txt输入.Text)
         End If
     End Sub
 
-    Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
+    Private Sub Btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
         txt输入.Text = My.Computer.Clipboard.GetText
     End Sub
 
-    Private Sub btn其他_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn其他.Click
+    Private Sub Btn其他_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn其他.Click
         btn其他.Enabled = False
 
         Select Case btn其他.Text
@@ -41,8 +41,8 @@ Public Class formInputBox
 
                 '获取iproperty
 
-                Dim strStochNum As String = Nothing
-                Dim strPartNum As String = Nothing
+                Dim strStochNum As String
+                Dim strPartNum As String
 
                 strStochNum = GetPropitem(oInventorDocument, Map_DrawingNnumber)
 
@@ -69,7 +69,7 @@ Public Class formInputBox
         btn其他.Enabled = True
     End Sub
 
-    Private Sub txt输入_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt输入.KeyPress
+    Private Sub Txt输入_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt输入.KeyPress
         If Asc(e.KeyChar) = Keys.Enter Then
             btn确定.PerformClick()
         End If

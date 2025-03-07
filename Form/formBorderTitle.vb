@@ -4,9 +4,9 @@ Imports System.Collections.Generic
 Imports System.Windows.Forms
 Imports System.ComponentModel
 
-Public Class formBorderTitle
+Public Class FormBorderTitle
 
-    Private Sub formBorderTitle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FormBorderTitle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         Dim strTitleBlock As String
@@ -227,7 +227,7 @@ Public Class formBorderTitle
         Process.Start("NOTEPAD.EXE", strTitleBlock)
     End Sub
 
-    Private Sub formBorderTitle_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+    Private Sub FormBorderTitle_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         FormManager.CloseAndDisposeForm(Of formBorderTitle)()
     End Sub
 

@@ -474,7 +474,7 @@ Module BasicFileSystem
     ''' <remarks></remarks>
     Public Function SetNewFile(ByVal strFullFileName As String, ByVal strFilter As String) As String
         If IsFileExsts(strFullFileName) = True Then
-            Dim msg As MsgBoxResult = MsgBox("已存在文件： " & strFullFileName & "  覆盖（是），另存为（否），打开(取消)？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
+            Dim msg As MsgBoxResult = MsgBox("已存在文件： " & strFullFileName & "  覆盖（是），另存为（否），取消？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
             Select Case msg
                 Case MsgBoxResult.Yes
                     Return strFullFileName
@@ -492,7 +492,7 @@ Module BasicFileSystem
                         End If
                     End With
                 Case MsgBoxResult.Cancel
-                    strFullFileName = "取消" & strFullFileName
+                    strFullFileName = ""
                     Return strFullFileName
             End Select
         Else

@@ -120,6 +120,11 @@ Module InventorBasic
                 Case Else
                     frmQuitOpen.ShowDialog()
 
+                    If strQuitOpenSelectFileFullName = "" Then
+                        Exit Sub
+                    End If
+
+
                     Dim strFileExtensionName As String = Nothing
                     strFileExtensionName = LCase(GetFileNameInfo(strQuitOpenSelectFileFullName).ExtensionName)
 
@@ -266,7 +271,7 @@ Module InventorBasic
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub RestoreOldVersion()
-        Dim strFilter As String =  "Autodesk Inventor 旧文件(*.old)|*.old" '添加过滤文件
+        Dim strFilter As String = "Autodesk Inventor 旧文件(*.old)|*.old" '添加过滤文件
 
         Dim arrayFullFileName As List(Of String)
         arrayFullFileName = OpenFileDialog(strFilter, True)
@@ -290,7 +295,7 @@ Module InventorBasic
     Public Sub CleanUpLegacyFiles()
         'Try
 
-        Dim strDestinationDirectory As String = Nothing
+        Dim strDestinationDirectory As String
         'Dim oFileAttributes As FileAttributes
 
         Dim WorkSpaceFloder As String
@@ -405,7 +410,7 @@ Module InventorBasic
             Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
             oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
-            If SetDocumentsInAssIpropertyFromFileNameSub(oInventorAssemblyDocument, False) = True Then
+            If SetDocumentsInAssIpropertyFromFileNameSub(oInventorAssemblyDocument) = True Then
                 SetStatusBarText("获取当前部件中的子集文件名修改iProperty完成")
                 MsgBox("获取当前部件中的文件名修改iProperty完成。", MsgBoxStyle.Information)
             Else
@@ -423,10 +428,9 @@ Module InventorBasic
     ''' 修改部件包含文件的iProperty 
     ''' </summary>
     ''' <param name="oInventorAssemblyDocument">部件文件对象</param>
-    ''' <param name="IsNeedClose">文件是否需打开，打开的文件用后要关闭</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function SetDocumentsInAssIpropertyFromFileNameSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal IsNeedClose As Boolean) As Boolean
+    Public Function SetDocumentsInAssIpropertyFromFileNameSub(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument) As Boolean
         ' 获取所有引用文档
 
         Dim FirstLevelOnly As Boolean
@@ -519,7 +523,7 @@ Module InventorBasic
             SetDocumentIpropertyFromFileNameSub(oInventorDocument, True) '设置Iproperty,打开文件后需关闭
 
             '遍历下一级
-            If (Not oBOMRow.ChildRows Is Nothing) And FirstLevelOnly = False Then
+            If (oBOMRow.ChildRows IsNot Nothing) And FirstLevelOnly = False Then
                 Call SetDocumentsInAssIpropertyFromFileNameChildSub(oBOMRow.ChildRows, FirstLevelOnly)
             End If
 
@@ -527,7 +531,7 @@ Module InventorBasic
             'oProgressBar.UpdateProgress()
         Next
 
-            'oProgressBar.Close()
+        'oProgressBar.Close()
 
     End Sub
 
@@ -691,7 +695,7 @@ Module InventorBasic
             '如果旧文件目录下有一个文件名相同的已有零件号的文件，是否替换或者重新命名当前文件
             For Each FoundFile As String In My.Computer.FileSystem.GetFiles(oOldFileNameInfo.Folder, FileIO.SearchOption.SearchTopLevelOnly) ' OldFileInfo.ExtensionName)
                 If InStr(GetFileNameInfo(FoundFile).FileName, oOldFileNameInfo.FileName) > 1 Then  '存在一个已命名图号的文件
-                    Select Case MsgBox("存在一个已命名图号的文件：" & FoundFile & vbCrLf & vbCrLf & _
+                    Select Case MsgBox("存在一个已命名图号的文件：" & FoundFile & vbCrLf & vbCrLf &
                                        " ，是-直接替换  否-重新生成替换 ", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton1)
                         Case MsgBoxResult.Yes   '替换文件
                             oOldComponentOccurrence.Replace(FoundFile, True)
@@ -748,7 +752,7 @@ Module InventorBasic
                     Dim strTempFullFileName As String       '暂时更改旧文件名字
                     strTempFullFileName = strOldFullFileName & OLD
                     ReFileName(strOldFullFileName, strTempFullFileName)
-                    MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & _
+                    MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf &
                            strNewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
                     System.Windows.Forms.Clipboard.SetText(strNewFullFileName)
                     ThisApplication.Documents.Open(strNewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
@@ -1040,7 +1044,7 @@ Module InventorBasic
     ''' <remarks></remarks>
     Public Function GetUserPropitem(ByVal oInventorDocument As Inventor.Document, ByVal strUserPropitemName As String) As String
         Dim pEachScale As [Property]
-        Dim strUserPropitemValue As String = Nothing
+        Dim strUserPropitemValue As String
         Try
             '若该iProperty已经存在，则直接修改其值
             pEachScale = oInventorDocument.PropertySets.Item("User Defined Properties").Item(strUserPropitemName)
@@ -1070,8 +1074,8 @@ Module InventorBasic
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         '获取iproperty
-        Dim strStochNum As String = Nothing
-        Dim strPartNum As String = Nothing
+        Dim strStochNum As String
+        Dim strPartNum As String
 
         strStochNum = GetPropitem(oInventorDocument, Map_DrawingNnumber)
 
@@ -1232,7 +1236,7 @@ Module InventorBasic
         'End With
 
 
-        Dim strFilter As String = Nothing
+        Dim strFilter As String
         strFilter = "文本文件(*.txt)|*.txt" '添加过滤文件
 
         Dim strInitialDirectory As String = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
@@ -1244,7 +1248,7 @@ Module InventorBasic
             Exit Sub
         End If
 
-        Dim strListFileName As String = Nothing
+        Dim strListFileName As String
         strListFileName = arrayFullFileName.Item(0).ToString
 
         If strListFileName = "" Then
@@ -1255,7 +1259,7 @@ Module InventorBasic
         WorkSpaceFloder = ThisApplication.DesignProjectManager.ActiveDesignProject.WorkspacePath
 
 
-        Using sr As StreamReader = New StreamReader(strListFileName, Encoding.UTF8)
+        Using sr As New StreamReader(strListFileName, Encoding.UTF8)
 
             While Not sr.EndOfStream
                 Dim strFileName As String
@@ -1321,7 +1325,7 @@ Module InventorBasic
         Dim strFileFullName As String
 
         ' 创建一个新的文本文件，文件名为日期+时间
-        Using writer As StreamWriter = New StreamWriter(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, strListFileName), False, System.Text.UnicodeEncoding.UTF8)
+        Using writer As New StreamWriter(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop, strListFileName), False, System.Text.UnicodeEncoding.UTF8)
             ' 使用StreamWriter将字符串写入文件
 
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments

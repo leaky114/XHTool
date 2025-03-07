@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class formSearchERPCode
+Partial Class FormSearchERPCode
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。

@@ -11,9 +11,8 @@ Imports System.IO
 Imports System.Xml
 Imports System.Collections.Generic
 
-Public Class formMassiPoperties
-
-    Enum enumPType
+Public Class FormMassiPoperties
+    Public Enum EnumPType
         eString = 0
         eBool = 1
         eDouble = 2
@@ -25,7 +24,7 @@ Public Class formMassiPoperties
     Private oUserPropertySet As Inventor.PropertySet
     Private PropID As Long = 0
 
-    Public Sub getUserPropertySet(ByVal oUSet As Inventor.PropertySet)
+    Public Sub GetUserPropertySet(ByVal oUSet As Inventor.PropertySet)
 
         '获得缺省的自定义特性集
         oUserPropertySet = oUSet
@@ -44,7 +43,7 @@ Public Class formMassiPoperties
     End Sub
 
     '量产开始
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
 
         Dim oInventorDocDocument As Inventor.Document
 
@@ -129,26 +128,26 @@ Public Class formMassiPoperties
 
                         oProperty = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txt特性名.Text)
                         Select Case oOption
-                            Case enumPType.eString
+                            Case EnumPType.eString
                                 oProperty.Value = txt字符串.Text
-                            Case enumPType.eBool
+                            Case EnumPType.eBool
                                 oProperty.Value = Bool布尔值.Checked
-                            Case enumPType.eDouble
+                            Case EnumPType.eDouble
                                 oProperty.Value = Convert.ToDouble(txt实数.Text)
-                            Case enumPType.eDate
+                            Case EnumPType.eDate
                                 oProperty.Value = dtp日期.Value
                         End Select
 
                     Catch
                         ' 若该iProperty不存在，则添加一个
                         Select Case oOption
-                            Case enumPType.eString
+                            Case EnumPType.eString
                                 oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(txt字符串.Text, txt特性名.Text, PropID)
-                            Case enumPType.eBool
+                            Case EnumPType.eBool
                                 oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Bool布尔值.Checked, txt特性名.Text, PropID)
-                            Case enumPType.eDouble
+                            Case EnumPType.eDouble
                                 oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Convert.ToDouble(txt实数.Text), txt特性名.Text, PropID)
-                            Case enumPType.eDate
+                            Case EnumPType.eDate
                                 oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(dtp日期.Value, txt特性名.Text, PropID)
                         End Select
                     End Try
@@ -170,35 +169,35 @@ Public Class formMassiPoperties
 
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formMassiPoperties)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormMassiPoperties)()
     End Sub
 
-    Private Sub frmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         cbo项目名.Text = EngineerName
         rdo字符串.Checked = True
     End Sub
 
-    Private Sub rdo字符串_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo字符串.Click
-        oOption = enumPType.eString
+    Private Sub Rdo字符串_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo字符串.Click
+        oOption = EnumPType.eString
     End Sub
 
-    Private Sub rdo布尔值_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo布尔值.Click
-        oOption = enumPType.eBool
+    Private Sub Rdo布尔值_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo布尔值.Click
+        oOption = EnumPType.eBool
     End Sub
 
-    Private Sub rdo实数_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo实数.Click
-        oOption = enumPType.eDouble
+    Private Sub Rdo实数_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo实数.Click
+        oOption = EnumPType.eDouble
     End Sub
 
-    Private Sub rdo日期_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo日期.Click
-        oOption = enumPType.eDate
+    Private Sub Rdo日期_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdo日期.Click
+        oOption = EnumPType.eDate
     End Sub
 
     '添加文件
-    Private Sub btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
+    Private Sub Btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
         Dim strFilter As String = "Autodesk Inventor 文件(*.idw;*.iam;*.ipt;*.ipn)|*.idw;*.iam;*.ipt;*.ipn"
 
         Dim arrayFullFileName As List(Of String)
@@ -218,13 +217,13 @@ Public Class formMassiPoperties
     End Sub
 
     '清空文件列表
-    Private Sub btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
+    Private Sub Btn清空列表_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn清空列表.Click
         lvw文件列表.Items.Clear()
     End Sub
 
     '添加文件夹
-    Private Sub btn添加文件夹_Click(sender As Object, e As EventArgs) Handles btn添加文件夹.Click
-        Dim strDestinationFolder As String = Nothing
+    Private Sub Btn添加文件夹_Click(sender As Object, e As EventArgs) Handles btn添加文件夹.Click
+        Dim strDestinationFolder As String
         strDestinationFolder = OpenFolderDialog()
 
         If strDestinationFolder Is Nothing Then
@@ -241,7 +240,7 @@ Public Class formMassiPoperties
 
     End Sub
 
-    Private Sub btn导入已打开文件_Click(sender As Object, e As EventArgs) Handles btn导入已打开文件.Click
+    Private Sub Btn导入已打开文件_Click(sender As Object, e As EventArgs) Handles btn导入已打开文件.Click
         Dim strInventorDocumentFullFileName As String
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
             strInventorDocumentFullFileName = oInventorDocument.FullFileName
@@ -250,15 +249,15 @@ Public Class formMassiPoperties
     End Sub
 
     '移除
-    Private Sub tsmi移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi移出.Click
+    Private Sub Tsmi移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi移出.Click
         ListViewDel(lvw文件列表)
     End Sub
 
     '筛选移除
-    Private Sub tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
+    Private Sub Tsmi筛选移出_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选移出.Click
         Me.TopMost = False
         Dim strFilter As String
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 999:
         With frmInputBox
             .txt输入.Text = ""
@@ -290,10 +289,10 @@ Public Class formMassiPoperties
     End Sub
 
     '筛选保留
-    Private Sub tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
+    Private Sub Tsmi筛选保留_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmi筛选保留.Click
         Me.TopMost = False
         Dim strFilter As String
-        Dim frmInputBox As New formInputBox
+        Dim frmInputBox As New FormInputBox
 999:
         With frmInputBox
             .txt输入.Text = ""

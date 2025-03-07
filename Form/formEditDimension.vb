@@ -4,7 +4,7 @@ Imports System.Drawing
 Imports Inventor.SelectionFilterEnum
 Imports Inventor.ObjectTypeEnum
 
-Public Class formEditDimension
+Public Class FormEditDimension
 
     Private strCurrentName As String   '当前值的名称
 
@@ -46,7 +46,7 @@ Public Class formEditDimension
         特征尺寸 = 10
     End Enum
 
-    Private Sub btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一.Click
+    Private Sub Btn选择一_Click(sender As Object, e As EventArgs) Handles btn选择一.Click
         SelectDiameter()
     End Sub
 
@@ -152,7 +152,7 @@ Public Class formEditDimension
 
     End Sub
 
-    Private Sub btn还原_Click(sender As Object, e As EventArgs) Handles btn还原.Click
+    Private Sub Btn还原_Click(sender As Object, e As EventArgs) Handles btn还原.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
@@ -308,7 +308,7 @@ Public Class formEditDimension
 
     End Sub
 
-    Private Sub formEditDimension_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FormEditDimension_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
         Try
 
@@ -357,11 +357,11 @@ Public Class formEditDimension
 
         End Try
 
-        FormManager.CloseAndDisposeForm(Of formEditDimension)()
+        FormManager.CloseAndDisposeForm(Of FormEditDimension)()
 
     End Sub
 
-    Private Sub btn应用_Click(sender As Object, e As EventArgs) Handles btn应用.Click
+    Private Sub Btn应用_Click(sender As Object, e As EventArgs) Handles btn应用.Click
         On Error Resume Next
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
@@ -537,16 +537,17 @@ Public Class formEditDimension
 
     End Sub
 
-    Private Sub frmChangeValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmChangeValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         On Error Resume Next
 
         Me.Icon = My.Resources.XHTool48
 
         ' 创建ToolTip控件并设置相关属性
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn选择一, "选择一个尺寸")
         toolTip.SetToolTip(btn还原, "还原")
         toolTip.SetToolTip(btn应用, "应用")
@@ -561,20 +562,20 @@ Public Class formEditDimension
         If SelectDiameter() = True Then
 
         Else
-            FormManager.CloseAndDisposeForm(Of formEditDimension)()
+            FormManager.CloseAndDisposeForm(Of FormEditDimension)()
             Exit Sub
         End If
         Me.Show()
 
     End Sub
 
-    Private Sub txt参数_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt参数.KeyPress
+    Private Sub Txt参数_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt参数.KeyPress
         If e.KeyChar = Chr(Keys.Enter) Then
-            btn应用_Click(sender, e)
+            Btn应用_Click(sender, e)
         End If
     End Sub
 
-    Private Sub btn显示隐藏草图_Click(sender As Object, e As EventArgs) Handles btn显示隐藏草图.Click
+    Private Sub Btn显示隐藏草图_Click(sender As Object, e As EventArgs) Handles btn显示隐藏草图.Click
         If IsSketchShow = True Then
             oPlanarSketch.Visible = False
             IsSketchShow = False
@@ -595,14 +596,14 @@ Public Class formEditDimension
         On Error Resume Next
 
         Dim oInventorDocument As Inventor.Document
-        oInventorDocument = ThisApplication.ActiveEditDocument
+        oInventorDocument = ThisApplication.ActiveDocument
 
         Dim oSelectSet As Object = Nothing
 
         If oInventorDocument.SelectSet.Count > 0 Then
             oSelectSet = oInventorDocument.SelectSet(1)
         Else
-            oSelectSet = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "选择要编辑的 尺寸、约束或草图，ESC键取消")
+            oSelectSet = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "选择要编辑的 草图、尺寸、约束，ESC键取消")
 
             If oSelectSet Is Nothing Then       '取消选择
                 Me.Close()
@@ -885,73 +886,73 @@ Public Class formEditDimension
                     TrackBar参数一.Value = oTangentConstraint.Offset.Value
             End Select
 
-        ElseIf TypeOf oSelectSet Is FaceFeature        '平板特征
+        ElseIf TypeOf oSelectSet Is FaceFeature Then        '平板特征
             Dim oFaceFeature As FaceFeature
             oFaceFeature = CType(oSelectSet, FaceFeature)
             oFaceFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is FlangeFeature       '凸缘特征
+        ElseIf TypeOf oSelectSet Is FlangeFeature Then       '凸缘特征
             Dim oFlangeFeature As FlangeFeature
             oFlangeFeature = CType(oSelectSet, FlangeFeature)
             oFlangeFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is CutFeature          '剪切特征
+        ElseIf TypeOf oSelectSet Is CutFeature Then          '剪切特征
             Dim oCutFeature As CutFeature
             oCutFeature = CType(oSelectSet, CutFeature)
             oCutFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is CornerChamferFeature  '倒角
+        ElseIf TypeOf oSelectSet Is CornerChamferFeature Then  '倒角
             Dim oCornerChamferFeature As CornerChamferFeature
             oCornerChamferFeature = CType(oSelectSet, CornerChamferFeature)
             oCornerChamferFeature.FeatureDimensions.Show()
 
 
-        ElseIf TypeOf oSelectSet Is ChamferFeature  '倒角
+        ElseIf TypeOf oSelectSet Is ChamferFeature Then  '倒角
             Dim oChamferFeature As ChamferFeature
             oChamferFeature = CType(oSelectSet, ChamferFeature)
             oChamferFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is CornerRoundFeature                '圆角
+        ElseIf TypeOf oSelectSet Is CornerRoundFeature Then                '圆角
             Dim oCornerRoundFeature As CornerRoundFeature
             oCornerRoundFeature = CType(oSelectSet, CornerRoundFeature)
             oCornerRoundFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is FilletFeature '三维圆角
+        ElseIf TypeOf oSelectSet Is FilletFeature Then '三维圆角
             Dim oFilletFeature As FilletFeature
             oFilletFeature = CType(oSelectSet, FilletFeature)
             oFilletFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is ContourFlangeFeature '异形板
+        ElseIf TypeOf oSelectSet Is ContourFlangeFeature Then '异形板
             Dim oContourFlangeFeature As ContourFlangeFeature
             oContourFlangeFeature = CType(oSelectSet, ContourFlangeFeature)
             oContourFlangeFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is SweepFeature  '扫掠
+        ElseIf TypeOf oSelectSet Is SweepFeature Then  '扫掠
             Dim oSweepFeature As SweepFeature
             oSweepFeature = CType(oSelectSet, SweepFeature)
             oSweepFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is ExtrudeFeature '拉伸
+        ElseIf TypeOf oSelectSet Is ExtrudeFeature Then '拉伸
             Dim oExtrudeFeature As ExtrudeFeature
             oExtrudeFeature = CType(oSelectSet, ExtrudeFeature)
             oExtrudeFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is HoleFeature '孔
+        ElseIf TypeOf oSelectSet Is HoleFeature Then '孔
             Dim oHoleFeature As HoleFeature
             oHoleFeature = CType(oSelectSet, HoleFeature)
             oHoleFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is RevolveFeature '旋转
+        ElseIf TypeOf oSelectSet Is RevolveFeature Then '旋转
             Dim oRevolveFeature As RevolveFeature
             oRevolveFeature = CType(oSelectSet, RevolveFeature)
             oRevolveFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is LoftFeature '放样
+        ElseIf TypeOf oSelectSet Is LoftFeature Then '放样
             Dim oLoftFeature As LoftFeature
             oLoftFeature = CType(oSelectSet, LoftFeature)
             oLoftFeature.FeatureDimensions.Show()
 
-        ElseIf TypeOf oSelectSet Is ShellFeature  '抽壳
+        ElseIf TypeOf oSelectSet Is ShellFeature Then  '抽壳
             Dim oShellFeature As ShellFeature
             oShellFeature = CType(oSelectSet, ShellFeature)
             oShellFeature.FeatureDimensions.Show()

@@ -3,16 +3,16 @@ Imports Inventor
 
 Public Class FormReverseCheckERPCodes
 
-    Private Sub btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
+    Private Sub Btn粘贴_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn粘贴.Click
         txtERP编码.Text = My.Computer.Clipboard.GetText
         btn编码反查.Focus()
     End Sub
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormReverseCheckERPCodes)()
     End Sub
 
-    Private Sub btn编码反查_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn编码反查.Click
+    Private Sub Btn编码反查_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn编码反查.Click
         Dim strERPCode As String
 
         btn编码反查.Enabled = False
@@ -63,7 +63,7 @@ Public Class FormReverseCheckERPCodes
 
     End Sub
 
-    Private Sub frmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmERPCodeSearch_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
         Me.Height = 124

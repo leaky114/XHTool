@@ -9,23 +9,23 @@ Imports System.Drawing
 Imports System.IO
 Imports System.Windows.Forms
 
-Public Class formSetReadOnly
+Public Class FormSetReadOnly
     Private imageList As New ImageList()
     Private strCurrentAssemblyDocumentFulFileName As String
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
+    Private Sub Btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
         Lvw文件列表.Items.Clear()
         TreeV文件树.Nodes.Clear()
 
-        FormManager.CloseAndDisposeForm(Of formSetReadOnly)()
+        FormManager.CloseAndDisposeForm(Of FormSetReadOnly)()
 
     End Sub
 
-    Private Sub btn载入当前部件_Click(sender As Object, e As EventArgs) Handles btn载入当前部件.Click
+    Private Sub Btn载入当前部件_Click(sender As Object, e As EventArgs) Handles btn载入当前部件.Click
         LoadIAM(Lvw文件列表, TreeV文件树)
     End Sub
 
-    Private Sub frmSetWrite_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSetWrite_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         Dim imageList As New ImageList()
@@ -157,7 +157,7 @@ Public Class formSetReadOnly
             Dim strInventorDocumentFileName As String
             strInventorDocumentFileName = GetFileNameInfo(strDocumentFullFileName).FileName
 
-            Dim oChildTreeNode As TreeNode = Nothing
+            Dim oChildTreeNode As TreeNode
             If GetFileExtensionLCase(strInventorDocumentFileName) = IAM Then
 
                 Select Case oBomRow.BOMStructure
@@ -176,7 +176,7 @@ Public Class formSetReadOnly
                 End If
 
                 ''遍历下一级
-                If (Not oBomRow.ChildRows Is Nothing) Then
+                If (oBomRow.ChildRows IsNot Nothing) Then
                     Call QueryBOMRowToLoadFileToTreeView(oBomRow.ChildRows, oChildTreeNode)
                 End If
 
@@ -334,7 +334,7 @@ Public Class formSetReadOnly
 
     End Sub
 
-    Private Sub chk隐藏工程图_CheckedChanged(sender As Object, e As EventArgs) Handles chk隐藏工程图.CheckedChanged
+    Private Sub Chk隐藏工程图_CheckedChanged(sender As Object, e As EventArgs) Handles chk隐藏工程图.CheckedChanged
         For Each oListViewItem As ListViewItem In Lvw文件列表.Items
             Dim oInventorDocumentFullFileName As String
             oInventorDocumentFullFileName = oListViewItem.SubItems(1).Text
@@ -374,7 +374,7 @@ Public Class formSetReadOnly
         Next
     End Sub
 
-    Private Sub cbo筛选文件_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbo筛选文件.SelectedIndexChanged
+    Private Sub Cbo筛选文件_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbo筛选文件.SelectedIndexChanged
 
         Select Case cbo筛选文件.Text
             Case "全部文件"

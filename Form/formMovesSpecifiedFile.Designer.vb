@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class formMovesSpecifiedFile
+Partial Class FormMovesSpecifiedFile
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -26,7 +26,7 @@ Partial Class formMovesSpecifiedFile
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formMovesSpecifiedFile))
         Me.ToolStrip文档格式 = New System.Windows.Forms.ToolStrip()
         Me.筛选ToolStripTextBox = New System.Windows.Forms.ToolStripTextBox()
-        Me.重载ToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.筛选ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.全部选择ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.全部取消ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.反向选择ToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -44,10 +44,10 @@ Partial Class formMovesSpecifiedFile
         Me.ToolStrip文档格式.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ToolStrip文档格式.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip文档格式.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.筛选ToolStripTextBox, Me.重载ToolStripButton, Me.全部选择ToolStripButton, Me.全部取消ToolStripButton, Me.反向选择ToolStripButton, Me.应用ToolStripButton})
+        Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.筛选ToolStripTextBox, Me.筛选ToolStripButton, Me.全部选择ToolStripButton, Me.全部取消ToolStripButton, Me.反向选择ToolStripButton, Me.应用ToolStripButton})
         Me.ToolStrip文档格式.Location = New System.Drawing.Point(12, 395)
         Me.ToolStrip文档格式.Name = "ToolStrip文档格式"
-        Me.ToolStrip文档格式.Size = New System.Drawing.Size(457, 40)
+        Me.ToolStrip文档格式.Size = New System.Drawing.Size(488, 40)
         Me.ToolStrip文档格式.TabIndex = 39
         Me.ToolStrip文档格式.Text = "ToolStrip1"
         '
@@ -58,16 +58,16 @@ Partial Class formMovesSpecifiedFile
         Me.筛选ToolStripTextBox.Size = New System.Drawing.Size(200, 23)
         Me.筛选ToolStripTextBox.ToolTipText = "筛选项"
         '
-        '重载ToolStripButton
+        '筛选ToolStripButton
         '
-        Me.重载ToolStripButton.CheckOnClick = True
-        Me.重载ToolStripButton.Image = CType(resources.GetObject("重载ToolStripButton.Image"), System.Drawing.Image)
-        Me.重载ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.重载ToolStripButton.Name = "重载ToolStripButton"
-        Me.重载ToolStripButton.Size = New System.Drawing.Size(36, 37)
-        Me.重载ToolStripButton.Text = "重载"
-        Me.重载ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.重载ToolStripButton.ToolTipText = "重载并筛选文件"
+        Me.筛选ToolStripButton.CheckOnClick = True
+        Me.筛选ToolStripButton.Image = CType(resources.GetObject("筛选ToolStripButton.Image"), System.Drawing.Image)
+        Me.筛选ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.筛选ToolStripButton.Name = "筛选ToolStripButton"
+        Me.筛选ToolStripButton.Size = New System.Drawing.Size(36, 37)
+        Me.筛选ToolStripButton.Text = "筛选"
+        Me.筛选ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.筛选ToolStripButton.ToolTipText = "重载并筛选文件"
         '
         '全部选择ToolStripButton
         '
@@ -172,7 +172,7 @@ Partial Class formMovesSpecifiedFile
     Friend WithEvents ToolStrip文档格式 As System.Windows.Forms.ToolStrip
     Friend WithEvents 筛选ToolStripTextBox As System.Windows.Forms.ToolStripTextBox
     Friend WithEvents 应用ToolStripButton As System.Windows.Forms.ToolStripButton
-    Friend WithEvents 重载ToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents 筛选ToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents Lvw文件列表 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader当前文件 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader目标文件 As System.Windows.Forms.ColumnHeader

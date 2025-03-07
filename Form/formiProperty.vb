@@ -3,7 +3,7 @@ Imports System.Windows.Forms
 
 Public Class FormiProperty
 
-    Private Sub btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
+    Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
@@ -36,21 +36,22 @@ Public Class FormiProperty
         FormManager.CloseAndDisposeForm(Of FormiProperty)()
     End Sub
 
-    Private Sub btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click, Me.Closing
+    Private Sub Btn取消_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn取消.Click, Me.Closing
         FormManager.CloseAndDisposeForm(Of FormiProperty)()
     End Sub
 
-    Private Sub frmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
 
         '加载自定义描述
         LoadCustomDescription(cbo描述)
 
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn向上1, "交换 图号-文件名")
         toolTip.SetToolTip(btn向上2, "交换 文件名-描述")
         toolTip.SetToolTip(btn查询, "查询ERP编码")
@@ -122,21 +123,21 @@ Public Class FormiProperty
 
     End Sub
 
-    Private Sub btn向上1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上1.Click
+    Private Sub Btn向上1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上1.Click
         Dim strTemp As String
         strTemp = txt图号.Text
         txt图号.Text = txt文件名.Text
         txt文件名.Text = strTemp
     End Sub
 
-    Private Sub btn向上2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上2.Click
+    Private Sub Btn向上2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上2.Click
         Dim strTemp As String
         strTemp = txt文件名.Text
         txt文件名.Text = cbo描述.Text
         cbo描述.Text = strTemp
     End Sub
 
-    Private Sub btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
+    Private Sub Btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click
         SetStatusBarText()
 
         If IsInventorOpenDocument() = False Then
@@ -154,8 +155,8 @@ Public Class FormiProperty
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Dim strStochNum As String = Nothing
-        Dim strPartNum As String = Nothing
+        Dim strStochNum As String
+        Dim strPartNum As String
 
         strStochNum = txt图号.Text
 
@@ -185,11 +186,11 @@ Public Class FormiProperty
 
     End Sub
 
-    Private Sub txt价格_MouseClick(sender As Object, e As MouseEventArgs) Handles txt价格.MouseClick
+    Private Sub Txt价格_MouseClick(sender As Object, e As MouseEventArgs) Handles txt价格.MouseClick
         txt价格.SelectAll()
     End Sub
 
-    Private Sub txtERP编码_MouseClick(sender As Object, e As MouseEventArgs) Handles txtERP编码.MouseClick
+    Private Sub TxtERP编码_MouseClick(sender As Object, e As MouseEventArgs) Handles txtERP编码.MouseClick
         txtERP编码.SelectAll()
     End Sub
 
@@ -199,7 +200,7 @@ Public Class FormiProperty
     ''' <param name="oComboBox">ComboBox对象</param>
     ''' <remarks></remarks>
     Private Sub LoadCustomDescription(oComboBox As ComboBox)
-        Dim strDescriptions As String = Nothing
+        Dim strDescriptions As String
         Dim arrayDescriptions() As String
         Dim strDescription As String
 
@@ -232,7 +233,7 @@ Public Class FormiProperty
 
     End Sub
 
-    Private Sub btn提取文件名_Click(sender As Object, e As EventArgs) Handles btn提取文件名.Click
+    Private Sub Btn提取文件名_Click(sender As Object, e As EventArgs) Handles btn提取文件名.Click
 
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument

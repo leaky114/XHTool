@@ -12,11 +12,11 @@ Module BrowserNodes
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Dim oSelectSet1 As Object = Nothing
+        Dim oSelectSet1 As Object
 
         oSelectSet1 = oInventorDocument.SelectSet.Item(1)
 
-        If Not TypeOf oSelectSet1 Is DrawingCurveSegment Then
+        If TypeOf oSelectSet1 IsNot DrawingCurveSegment Then
             Exit Sub
         End If
 
@@ -43,14 +43,11 @@ Module BrowserNodes
         Dim oTopBrowserNode As Inventor.BrowserNode
         oTopBrowserNode = oInventorDocument.BrowserPanes.ActivePane.TopNode      '顶级node
 
-
         'MsgBox(oTopBrowserNode.FullPath)
         'oTopBrowserNode.DoSelect()
 
-        Dim oChildBrowserNode As BrowserNode = Nothing
-
+        Dim oChildBrowserNode As BrowserNode
         Dim oViewBrowserNode As BrowserNode = Nothing
-
 
         For Each oChildBrowserNode In oTopBrowserNode.BrowserNodes
             Debug.Print(oChildBrowserNode.FullPath)
@@ -62,7 +59,7 @@ Module BrowserNodes
             If TypeName(oChildBrowserNode.NativeObject) = "Sheet" Then        '获取图纸 node
                 oViewBrowserNode = GetViewInBrowserNode(oChildBrowserNode, oSelectDrawingView)     '获取被选中的视图 node
 
-                If Not oViewBrowserNode Is Nothing Then
+                If oViewBrowserNode IsNot Nothing Then
                     'oViewBrowserNode.DoSelect()
 
                     ''MsgBox(" 获取到被选中的视图     " & oViewBrowserNode.FullPath)
@@ -74,7 +71,7 @@ Module BrowserNodes
 
         Dim oAssemblyBrowserNode As BrowserNode = Nothing
 
-        If Not oViewBrowserNode Is Nothing Then
+        If oViewBrowserNode IsNot Nothing Then
             oAssemblyBrowserNode = GetAssemblyInBrowserNode(oViewBrowserNode)         '获取视图链接的部件 node
             'oAssemblyBrowserNode.DoSelect()
 
@@ -84,14 +81,14 @@ Module BrowserNodes
 
         Dim oPartBrowserNode As BrowserNode = Nothing
 
-        If Not oAssemblyBrowserNode Is Nothing Then
+        If oAssemblyBrowserNode IsNot Nothing Then
             oPartBrowserNode = GetPartInBrowserNode(oAssemblyBrowserNode, strPartName)     '获取选择的零件 node
 
             'MsgBox(oPartBrowserNode.FullPath)
 
         End If
 
-        If Not oPartBrowserNode Is Nothing Then
+        If oPartBrowserNode IsNot Nothing Then
             oPartBrowserNode.Parent.Expanded = True
             oPartBrowserNode.DoSelect()
         End If
@@ -110,7 +107,7 @@ Module BrowserNodes
 
         'MsgBox("要获取  " & oParentBrowserNode.FullPath & "  下的   " & oDrawingView.Name)
 
-        Dim oChildBrowserNode As BrowserNode = Nothing
+        Dim oChildBrowserNode As BrowserNode
         Dim oSelectViewBrowserNode As BrowserNode = Nothing
 
         Dim strInventorAssemblyDocumentDisplayName As String = oDrawingView.ReferencedDocumentDescriptor.DisplayName
@@ -159,7 +156,7 @@ Module BrowserNodes
                         Return oSelectViewBrowserNode
                     Else                            '不是选中的视图
                         oSelectViewBrowserNode = GetViewInBrowserNode(oChildBrowserNode, oDrawingView)
-                        If Not oSelectViewBrowserNode Is Nothing Then
+                        If oSelectViewBrowserNode IsNot Nothing Then
                             Return oSelectViewBrowserNode
                         End If
                     End If
@@ -180,7 +177,7 @@ Module BrowserNodes
 
         'MsgBox("要获取  " & oParentBrowserNode.FullPath)
 
-        Dim oChildBrowserNode As BrowserNode = Nothing
+        Dim oChildBrowserNode As BrowserNode
         Dim oSelectBrowserNode As BrowserNode = Nothing
 
         For Each oChildBrowserNode In oParentBrowserNode.BrowserNodes
@@ -268,7 +265,7 @@ Module BrowserNodes
             Select Case strTypeName
                 Case "BrowserFolder"       '文件夹
                     oSelectBrowserNode = GetPartInBrowserNode(oChildBrowserNode, strPartName)
-                    If Not oSelectBrowserNode Is Nothing Then
+                    If oSelectBrowserNode IsNot Nothing Then
                         Return oSelectBrowserNode
                         Exit For
                     End If
@@ -283,7 +280,7 @@ Module BrowserNodes
 
                         Case DocumentTypeEnum.kAssemblyDocumentObject   '是部件
                             oSelectBrowserNode = GetPartInBrowserNode(oChildBrowserNode, strPartName)
-                            If Not oSelectBrowserNode Is Nothing Then
+                            If oSelectBrowserNode IsNot Nothing Then
                                 Return oSelectBrowserNode
                                 Exit For
                             End If

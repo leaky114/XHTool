@@ -175,9 +175,6 @@
   <data name="自动重建序号16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\自动重建序号16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="刷新引用16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\刷新引用16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="图片16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\图片16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -349,9 +346,6 @@
   <data name="设值随机颜色16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设值随机颜色16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="保存全部32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\保存全部32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="编辑尺寸32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\编辑尺寸32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -402,9 +396,6 @@
   </data>
   <data name="添加直径16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\添加直径16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="还原旧图32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\还原旧图32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="检查序号完整性16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\检查序号完整性16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -493,9 +484,6 @@
   <data name="提取iPro修改文件名16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\提取ipro修改文件名16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="还原旧图16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\还原旧图16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="设置32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\设置32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -504,9 +492,6 @@
   </data>
   <data name="选择16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\选择16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="量产iPropertys32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\量产ipropertys32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="查找替换32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\查找替换32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -616,9 +601,6 @@
   <data name="打印16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\打印16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="量产iPropertys16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\量产ipropertys16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="检查是否有工程图32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\检查是否有工程图32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -648,9 +630,6 @@
   </data>
   <data name="XHTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\xhtool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="保存全部16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\保存全部16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="对齐原始坐标面32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\对齐原始坐标面32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -766,9 +745,6 @@
   <data name="修改文件iProperty32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\修改文件iproperty32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="刷新引用32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\刷新引用32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="导出平面BOM32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\导出平面bom32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -789,5 +765,92 @@
   </data>
   <data name="微信打赏" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\微信打赏.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存副本16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\保存副本16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存副本32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\保存副本32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="全部保存16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\全部保存16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="全部保存32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\全部保存32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="刷新浏览器16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\刷新浏览器16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="刷新浏览器32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\刷新浏览器32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="左右交换16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\左右交换16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="还原旧版文件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\还原旧版文件16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="还原旧版文件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\还原旧版文件32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="量产iProperty16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\量产iproperty16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="量产iProperty32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\量产iproperty32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="主页16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\主页16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="主页32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\主页32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="删除16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\删除16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="删除32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\删除32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="向上16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\向上16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="向上32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\向上32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="回收16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\回收16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="回收32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\回收32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\打开16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\打开32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="插入16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\插入16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="插入32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\插入32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="新建文件夹16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\新建文件夹16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="新建文件夹32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\新建文件夹32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="资源管理器16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\资源管理器16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="资源管理器32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\资源管理器32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="过滤16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\过滤16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="过滤32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\过滤32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

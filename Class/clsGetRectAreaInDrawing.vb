@@ -1,17 +1,15 @@
 ﻿Imports Inventor
 
-Public Class clsGetRectAreaInDrawing
-    Private WithEvents oInteractEvents As InteractionEvents
-    Private WithEvents oMouseEvents As MouseEvents
-    Private WithEvents oSelectEvents As SelectEvents
+Public Class ClsGetRectAreaInDrawing
+    Private WithEvents OInteractEvents As InteractionEvents
+    Private WithEvents OMouseEvents As MouseEvents
+    Private WithEvents OSelectEvents As SelectEvents
 
     Private m_button As MouseButtonEnum
     Private m_continue As Boolean
 
     Private oStartPoint As Inventor.Point2d
     Private oEndPoint As Inventor.Point2d
-
-    Private oClientGraphics As ClientGraphics
 
     Private oRectangularPoint As RectangularPoint
 
@@ -27,30 +25,30 @@ Public Class clsGetRectAreaInDrawing
         oEndPoint = Nothing
         m_button = button
 
-        oInteractEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractEvents = ThisApplication.CommandManager.CreateInteractionEvents
 
-        oInteractEvents.SetCursor(CursorTypeEnum.kCursorBuiltInCrosshair)
+        OInteractEvents.SetCursor(CursorTypeEnum.kCursorBuiltInCrosshair)
 
 
-        oMouseEvents = oInteractEvents.MouseEvents
-        oMouseEvents.MouseMoveEnabled = False
+        OMouseEvents = OInteractEvents.MouseEvents
+        OMouseEvents.MouseMoveEnabled = False
 
-        oSelectEvents = oInteractEvents.SelectEvents
-        oSelectEvents.WindowSelectEnabled = True
+        OSelectEvents = OInteractEvents.SelectEvents
+        OSelectEvents.WindowSelectEnabled = True
 
-        oInteractEvents.StatusBarText = Prompt
+        OInteractEvents.StatusBarText = Prompt
 
-        oInteractEvents.Start()
+        OInteractEvents.Start()
 
         m_continue = True
         Do
             ThisApplication.UserInterfaceManager.DoEvents()
         Loop While m_continue
 
-        oSelectEvents = Nothing
-        oMouseEvents = Nothing
+        OSelectEvents = Nothing
+        OMouseEvents = Nothing
 
-        oInteractEvents.Stop()
+        OInteractEvents.Stop()
 
 
         oRectangularPoint.TopLeft = oStartPoint
@@ -65,15 +63,15 @@ Public Class clsGetRectAreaInDrawing
 
         oRectangularPoint.Width = Math.Abs(oRectangularPoint.TopLeft.Y - oRectangularPoint.BottomLeft.Y)
 
-        oRectangularPoint.Center = ThisApplication.TransientGeometry.CreatePoint2d((oRectangularPoint.TopLeft.X + oRectangularPoint.TopRight.X) / 2, _
+        oRectangularPoint.Center = ThisApplication.TransientGeometry.CreatePoint2d((oRectangularPoint.TopLeft.X + oRectangularPoint.TopRight.X) / 2,
                                                                                    (oRectangularPoint.TopLeft.Y + oRectangularPoint.BottomLeft.Y) / 2)
 
         Return oRectangularPoint
 
     End Function
 
-    Private Sub m_mouse_OnMouseDown(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, _
-                                     ViewPosition As Point2d, View As View) Handles oMouseEvents.OnMouseDown
+    Private Sub Mouse_OnMouseDown(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point,
+                                     ViewPosition As Point2d, View As View) Handles OMouseEvents.OnMouseDown
         If Button = m_button Then
             oStartPoint = ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
 
@@ -84,8 +82,8 @@ Public Class clsGetRectAreaInDrawing
 
     End Sub
 
-    Private Sub m_mouse_OnMouseUp(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, _
-                                    ViewPosition As Point2d, View As View) Handles oMouseEvents.OnMouseUp
+    Private Sub Mouse_OnMouseUp(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point,
+                                    ViewPosition As Point2d, View As View) Handles OMouseEvents.OnMouseUp
         If Button = m_button Then
             oEndPoint = ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
 

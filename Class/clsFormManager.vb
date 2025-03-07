@@ -2,7 +2,7 @@
 
 Public Class FormManager
     ' 字典用于存储窗口类型及其对应的实例
-    Private Shared _formInstances As New Generic.Dictionary(Of Type, Form)
+    Private Shared ReadOnly _formInstances As New Generic.Dictionary(Of Type, Form)
 
     ' 私有构造函数防止实例化
     Private Sub New()
@@ -31,6 +31,8 @@ Public Class FormManager
 
 
             newForm.WindowState = FormWindowState.Normal
+            'newForm.KeyPreview = True
+
         Else
             ' 如果实例存在，检查它是否可见
             Dim existingForm As Form = _formInstances(formType)

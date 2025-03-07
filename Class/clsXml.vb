@@ -1,6 +1,6 @@
 ﻿Imports System.Xml
 
-Public Class clsXml
+Public Class ClsXml
     Private XmlDoc As XmlDocument
     Private XmlFile As String
 
@@ -25,17 +25,17 @@ Public Class clsXml
             reader = New System.Xml.XmlTextReader(FileName)
             reader.Read()
         Catch ex As Exception
-            if Not (reader Is Nothing) Then
+            If Not (reader Is Nothing) Then
                 reader.Close()
-            End if
+            End If
             Debug.Print("New - " & ex.Message)
-            if Not Create(FileName, Root) Then
+            If Not Create(FileName, Root) Then
                 Return
-            End if
+            End If
         Finally
-            if Not (reader Is Nothing) Then
+            If Not (reader Is Nothing) Then
                 reader.Close()
-            End if
+            End If
         End Try
         IsOK = True
         XmlFile = FileName
@@ -66,10 +66,10 @@ Public Class clsXml
             Debug.Print("Create - " & ex.Message)
             Return False
         Finally
-            if NewXML IsNot Nothing Then
+            If NewXML IsNot Nothing Then
                 NewXML.Close()
                 NewXML = Nothing
-            End if
+            End If
 
         End Try
 
@@ -88,7 +88,7 @@ Public Class clsXml
         End While
 
         '段名是否为空
-        if aSection = "" Then
+        If aSection = "" Then
             XmlDoc.DocumentElement.RemoveAll()
         Else
 
@@ -96,43 +96,43 @@ Public Class clsXml
             Try
                 Node = XmlDoc.DocumentElement.SelectSingleNode(Paths(n))
 
-                if Node Is Nothing Then
+                If Node Is Nothing Then
                     Ele = XmlDoc.CreateElement(Paths(n))
                     Node = XmlDoc.DocumentElement.AppendChild(Ele)
-                End if
+                End If
 
                 For n = 1 To Paths.Length - 1
-                    if Paths(n) = "" Then Continue For
+                    If Paths(n) = "" Then Continue For
 
                     Node2 = Node.SelectSingleNode(Paths(n))
-                    if Node2 Is Nothing Then
+                    If Node2 Is Nothing Then
                         Ele = XmlDoc.CreateElement(Paths(n))
                         Node2 = Node.AppendChild(Ele)
-                    End if
+                    End If
                     Node = Node2
                 Next
                 '键名是否为空
-                if aKey = "" Then
+                If aKey = "" Then
                     Node.RemoveAll()
                 Else
                     Ele = Node.Item(aKey)
 
-                    if Ele Is Nothing Then
+                    If Ele Is Nothing Then
                         Ele = XmlDoc.CreateElement(aKey)
                         Node.AppendChild(Ele)
-                    End if
+                    End If
                     '值是否为空
-                    if aValue = "" Then
+                    If aValue = "" Then
                         Node.RemoveChild(Ele)
                     Else
                         Ele.InnerText = aValue
-                    End if
-                End if
+                    End If
+                End If
             Catch ex As Exception
                 Debug.Print(ex.Message)
                 Return False
             End Try
-        End if
+        End If
 
         XmlDoc.Save(XmlFile)
         Return True
@@ -141,7 +141,7 @@ Public Class clsXml
     Public Function Read(ByVal aSection As String, ByVal aKey As String, Optional ByVal aDefaultValue As String = "") As String
         Dim Node As XmlNode
         Node = (XmlDoc.DocumentElement).SelectSingleNode(aSection & "/" & aKey)
-        if Node Is Nothing Then Return aDefaultValue
+        If Node Is Nothing Then Return aDefaultValue
         Return Node.InnerText
     End Function
 End Class

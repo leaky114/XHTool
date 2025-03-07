@@ -3,13 +3,13 @@ Imports System.Windows.Forms
 Imports Inventor
 Imports System.Collections.Generic
 
-Public NotInheritable Class formImportCodeToBomExcel
+Public NotInheritable Class FormImportCodeToBomExcel
 
-    Private Sub btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formImportCodeToBomExcel)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
+        FormManager.CloseAndDisposeForm(Of FormImportCodeToBomExcel)()
     End Sub
 
-    Private Sub btn导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入.Click
+    Private Sub Btn导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn导入.Click
         On Error Resume Next
 
         Dim strBomExcelFile As String
@@ -34,8 +34,9 @@ Public NotInheritable Class formImportCodeToBomExcel
         strReturnColumn = cmb写入列.Text
 
         Dim oExcelApplication As Excel.Application
-        oExcelApplication = New Excel.Application
-        oExcelApplication.Visible = False
+        oExcelApplication = New Excel.Application With {
+            .Visible = False
+        }
 
         'bom表文件
         Dim oBOMWorkbook As Excel.Workbook = oExcelApplication.Workbooks.Open(strBomExcelFile)
@@ -131,8 +132,8 @@ Public NotInheritable Class formImportCodeToBomExcel
         Process.Start(strBomExcelFile)
     End Sub
 
-    Private Sub btn打开excel文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开excel文件.Click
-        Dim strFilter As String = Nothing
+    Private Sub Btn打开excel文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开excel文件.Click
+        Dim strFilter As String
         strFilter = "Excel 工作薄(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
 
         Dim strInitialDirectory As String = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
@@ -148,13 +149,14 @@ Public NotInheritable Class formImportCodeToBomExcel
 
     End Sub
 
-    Private Sub frmImportCodeToBomExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmImportCodeToBomExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         Me.TopMost = True
-        Dim toolTip As New ToolTip()
-        toolTip.AutoPopDelay = 0
-        toolTip.InitialDelay = 0
-        toolTip.ReshowDelay = 500
+        Dim toolTip As New ToolTip With {
+            .AutoPopDelay = 0,
+            .InitialDelay = 0,
+            .ReshowDelay = 500
+        }
         toolTip.SetToolTip(btn打开excel文件, "打开Excel文件")
         btn打开excel文件.Image = My.Resources.打开文件16.ToBitmap
     End Sub

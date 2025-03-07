@@ -11,12 +11,12 @@ Imports Inventor.DocumentTypeEnum
 Imports System.Collections.Generic
 Imports System.ComponentModel
 
-Public Class formMovesSpecifiedFile
-    Private Sub formMovesSpecifiedFile_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+Public Class FormMovesSpecifiedFile
+    Private Sub FormMovesSpecifiedFile_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         FormManager.CloseAndDisposeForm(Of formMovesSpecifiedFile)()
     End Sub
 
-    Private Sub frmMovesSpecifiedFile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmMovesSpecifiedFile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
         'Dim toolTip As New ToolTip()
@@ -25,7 +25,7 @@ Public Class formMovesSpecifiedFile
         'toolTip.ReshowDelay = 500
 
         应用ToolStripButton.Image = My.Resources.确定16.ToBitmap
-        重载ToolStripButton.Image = My.Resources.部件16.ToBitmap
+        筛选ToolStripButton.Image = My.Resources.部件16.ToBitmap
         全部选择ToolStripButton.Image = My.Resources.全部选择16.ToBitmap
         全部取消ToolStripButton.Image = My.Resources.全部取消16.ToBitmap
         反向选择ToolStripButton.Image = My.Resources.反向选择16.ToBitmap
@@ -223,7 +223,7 @@ Public Class formMovesSpecifiedFile
 
     End Sub
 
-    Private Sub 重载ToolStripButton_Click(sender As Object, e As EventArgs) Handles 重载ToolStripButton.Click
+    Private Sub 筛选ToolStripButton_Click(sender As Object, e As EventArgs) Handles 筛选ToolStripButton.Click
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
@@ -238,6 +238,9 @@ Public Class formMovesSpecifiedFile
         Dim strSearch As String = 筛选ToolStripTextBox.Text.ToString
 
         LoadReferenced(oInventorAssemblyDocument, Lvw文件列表, strSearch)
+
+        Me.TopMost = True
+        Me.TopMost = False
 
     End Sub
 
