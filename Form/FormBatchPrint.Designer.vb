@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormBulkPrint
+Partial Class FormBatchPrint
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -334,6 +334,7 @@ Partial Class FormBulkPrint
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(15, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
         Me.lvw文件列表.Size = New System.Drawing.Size(812, 334)
@@ -391,7 +392,7 @@ Partial Class FormBulkPrint
         Me.btn中断.TabIndex = 37
         Me.btn中断.Text = "中断打印"
         '
-        'frmPrint
+        'FormBatchPrint
         '
         Me.AcceptButton = Me.btn导入已打开文件
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -410,7 +411,7 @@ Partial Class FormBulkPrint
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn开始)
         Me.Controls.Add(Me.lvw文件列表)
-        Me.Name = "frmPrint"
+        Me.Name = "FormBatchPrint"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量打印"
         Me.grp选项.ResumeLayout(False)

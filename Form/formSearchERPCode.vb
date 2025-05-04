@@ -31,15 +31,23 @@ Public NotInheritable Class FormSearchERPCode
 
         Dim arraystrERPCode() As String
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-        ThisApplication.UserInterfaceManager.DoEvents()
+        Dim OInteractionEvents As InteractionEvents
 
-        arraystrERPCode = FindAllSrtingInSheet(BasicExcelFullFileName, strDrawingNo, TableArrays, ColIndexNum, 0)
+        Try
+            OInteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+            OInteractionEvents.Start()
+            OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+            ThisApplication.UserInterfaceManager.DoEvents()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+            arraystrERPCode = FindAllSrtingInSheet(BasicExcelFullFileName, strDrawingNo, TableArrays, ColIndexNum, 0)
+
+            OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+            OInteractionEvents.Stop()
+        Catch
+            arraystrERPCode = FindAllSrtingInSheet(BasicExcelFullFileName, strDrawingNo, TableArrays, ColIndexNum, 0)
+        End Try
+
+
 
         If arraystrERPCode(0) Is Nothing Then
             txtERP编码.Text = "未查询到ERP编码。"

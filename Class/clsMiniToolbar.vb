@@ -1,10 +1,8 @@
 ﻿Imports Inventor
 Imports System.Runtime.InteropServices
 
-Public Class clsMiniToolbar
+Public Class ClsMiniToolbar
     Dim invApp As Inventor.Application
-
-    Dim started As Boolean
 
     Private WithEvents m_miniToolbar As MiniToolbar
     Private WithEvents m_button1 As MiniToolbarButton
@@ -17,19 +15,19 @@ Public Class clsMiniToolbar
         Try
             invApp = Marshal.GetActiveObject("Inventor.Application")
         Catch ex As Exception
-            MsgBox("Need to have a session of Inventor running")
+             MessageBox.Show("Need to have a session of Inventor running")
             Return
         End Try
 
-        if invApp.Documents.Count > 0 Then
+        If invApp.Documents.Count > 0 Then
             createMiniToolbar()
         Else
-            MsgBox("Need to have a document open")
-        End if
+             MessageBox.Show("Need to have a document open")
+        End If
 
     End Sub
 
-    Public Sub createMiniToolbar()
+    Public Sub CreateMiniToolbar()
         m_miniToolbar = invApp.CommandManager.CreateMiniToolbar()
         Dim controls As MiniToolbarControls
 
@@ -77,7 +75,7 @@ Public Class clsMiniToolbar
 
     Private Sub m_button1_OnClick1() Handles m_button1.OnClick
 
-        MsgBox("Clicked ""Button 1""")
+         MessageBox.Show("Clicked ""Button 1""")
 
     End Sub
 
@@ -85,20 +83,20 @@ Public Class clsMiniToolbar
 
     Private Sub m_button2_OnClick1() Handles m_button2.OnClick
 
-        MsgBox("Clicked ""Button 2""")
+         MessageBox.Show("Clicked ""Button 2""")
 
     End Sub
 
 
     Private Sub m_miniToolbar_OnApply() Handles m_miniToolbar.OnApply
-        MsgBox("Clicked ""Apply""")
+         MessageBox.Show("Clicked ""Apply""")
     End Sub
 
 
 
     Private Sub m_miniToolbar_OnCancel() Handles m_miniToolbar.OnCancel
 
-        MsgBox("Clicked ""Cancel""")
+         MessageBox.Show("Clicked ""Cancel""")
 
         m_miniToolbar = Nothing
 
@@ -116,7 +114,7 @@ Public Class clsMiniToolbar
 
     Private Sub m_miniToolbar_OnOK() Handles m_miniToolbar.OnOK
 
-        MsgBox("Clicked ""Ok""")
+         MessageBox.Show("Clicked ""Ok""")
 
         m_miniToolbar = Nothing
 

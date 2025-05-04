@@ -7,6 +7,8 @@ Imports Microsoft.VisualBasic.FileIO
 Imports System.Linq
 Imports System.Drawing
 Imports System.Collections.Generic
+Imports System.ComponentModel
+Imports System.Collections.Specialized
 
 Public Class FormExplorer
 
@@ -55,6 +57,7 @@ Public Class FormExplorer
                                         lParam As Integer
                                         ) As Integer
     End Function
+
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Auto)>
     Public Structure SHELLEXECUTEINFO
@@ -480,49 +483,54 @@ Public Class FormExplorer
 
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
-        Dim selectedItem = oListView.SelectedItems(0)
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+        For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
 
-        Try
-            If Directory.Exists(strSelectPath) Then
-                ' 删除文件夹
-                If IsMoveToRecycleBin Then
-                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
-                Else
-                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+
+            'Dim selectedItem = oListView.SelectedItems(0)
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, oListViewItem.Text)
+
+            Try
+                If Directory.Exists(strSelectPath) Then
+                    ' 删除文件夹
+                    If IsMoveToRecycleBin Then
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
+                    Else
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+                    End If
+                ElseIf File.Exists(strSelectPath) Then
+                    ' 删除文件
+                    If IsMoveToRecycleBin Then
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
+                    Else
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+                    End If
                 End If
-            ElseIf File.Exists(strSelectPath) Then
-                ' 删除文件
-                If IsMoveToRecycleBin Then
-                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
-                Else
-                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+            Catch ex As Exception
+
+            End Try
+
+            Try
+                If Directory.Exists(strSelectPath) Then
+                    Exit Sub
+                ElseIf File.Exists(strSelectPath) Then
+                    Exit Sub
                 End If
-            End If
-        Catch ex As Exception
 
-        End Try
+            Catch ex As Exception
 
-        Try
-            If Directory.Exists(strSelectPath) Then
-                Exit Sub
-            ElseIf File.Exists(strSelectPath) Then
-                Exit Sub
-            End If
-
-        Catch ex As Exception
-
-        End Try
+            End Try
 
 
-        For Each item In AllItems
-            If item.Text = oListView.SelectedItems(0).Text Then
-                AllItems.Remove(item)
-                Exit For
-            End If
+            For Each item In AllItems
+                If item.Text = oListViewItem.Text Then
+                    AllItems.Remove(item)
+                    Exit For
+                End If
+            Next
+
+            oListViewItem.Remove()
+
         Next
-
-        oListView.SelectedItems(0).Remove()
 
     End Sub
 
@@ -530,7 +538,7 @@ Public Class FormExplorer
 
     Private Sub FormExplorer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.Icon = My.Resources.XHTool48
-        Me.TopMost = True
+        'Me.TopMost = True
 
         Dim toolTip As New ToolTip With {
             .AutoPopDelay = 0,
@@ -539,20 +547,20 @@ Public Class FormExplorer
         }
         toolTip.SetToolTip(Btn向上, "上级目录。")
         toolTip.SetToolTip(Cmb当前文件夹, "当前文件夹。")
-        toolTip.SetToolTip(Txt过滤栏, "过滤栏，仅显示包含字符的文件。")
-        toolTip.SetToolTip(Txt搜索栏, "搜索栏，显示全部子文件中包含字符的文件。")
+        toolTip.SetToolTip（Btn搜索， “搜索，显示全部子文件中包含字符的文件。”）
+        toolTip.SetToolTip(Btn过滤, "过滤，仅显示包含字符的文件。")
 
 
-        项目文件夹ToolStripButton.Image = My.Resources.主页32.ToBitmap
-        当前文件夹ToolStripButton.Image = My.Resources.资源管理器32.ToBitmap
-        定位ToolStripButton.Image = My.Resources.打开文件夹32.ToBitmap
-        新建文件夹ToolStripButton.Image = My.Resources.新建文件夹32.ToBitmap
-        打开ToolStripButton.Image = My.Resources.打开32.ToBitmap
-        删除ToolStripDropDownButton.Image = My.Resources.删除32.ToBitmap
-        回收ToolStripMenuItem.Image = My.Resources.回收32.ToBitmap
-        永久删除ToolStripMenuItem.Image = My.Resources.删除32.ToBitmap
-        插入ToolStripButton.Image = My.Resources.插入32.ToBitmap
-        旧版ToolStripDropDownButton.Image = My.Resources.还原旧版文件32.ToBitmap
+        项目文件夹ToolStripButton.Image = My.Resources.主页16.ToBitmap
+        当前文件夹ToolStripButton.Image = My.Resources.资源管理器16.ToBitmap
+        浏览文件ToolStripButton.Image = My.Resources.打开文件夹16.ToBitmap
+        新建文件夹ToolStripButton.Image = My.Resources.新建文件夹16.ToBitmap
+        打开ToolStripButton.Image = My.Resources.打开16.ToBitmap
+        删除ToolStripDropDownButton.Image = My.Resources.删除16.ToBitmap
+        回收ToolStripMenuItem.Image = My.Resources.回收16.ToBitmap
+        永久删除ToolStripMenuItem.Image = My.Resources.删除16.ToBitmap
+        插入ToolStripButton.Image = My.Resources.插入16.ToBitmap
+        旧版ToolStripDropDownButton.Image = My.Resources.还原旧版文件16.ToBitmap
         Btn向上.Image = My.Resources.向上16.ToBitmap
         Btn搜索.Image = My.Resources.查询16.ToBitmap
         Btn过滤.Image = My.Resources.过滤16.ToBitmap
@@ -572,6 +580,7 @@ Public Class FormExplorer
             .FullRowSelect = True
             .ContextMenuStrip = CMS文件列表
             .OwnerDraw = True
+            .MultiSelect = True
         End With
 
         EnableDoubleBuffering(Lvw文件列表)
@@ -602,8 +611,10 @@ Public Class FormExplorer
 
             Cmb当前文件夹.SelectedIndex = 0
 
+            状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
+
         Else
-            MessageBox.Show("文件夹路径不存在！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("文件夹路径不存在！", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
         SetWindowSizeAndCenter(Me, 0.4, 0.5)
@@ -640,12 +651,28 @@ Public Class FormExplorer
         AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
 
         Cmb当前文件夹.SelectedIndex = 0
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
     Private Sub 新建文件夹ToolStripButton_Click(sender As Object, e As EventArgs) Handles 新建文件夹ToolStripButton.Click
         Me.TopMost = False
 
-        Dim folderName = InputBox("请输入文件夹名称：", "新建文件夹", "新建文件夹")
+        Dim folderName = "新建文件夹"
+
+        If Lvw文件列表.SelectedItems.Count <> 0 Then
+            Dim selectedItem = Lvw文件列表.SelectedItems(0)
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+
+            If Directory.Exists(strSelectPath) Then
+
+
+            ElseIf File.Exists(strSelectPath) Then
+                folderName = GetFileNameWithoutExtension2(strSelectPath)
+            End If
+
+        End If
+
+        folderName = InputBox("请输入文件夹名称：", "新建文件夹", folderName)
 
         Me.TopMost = True
 
@@ -658,7 +685,7 @@ Public Class FormExplorer
             Dim strFilter As String = Cmb过滤.Text
             LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
         Catch ex As Exception
-            MessageBox.Show("创建文件夹失败：" & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -666,29 +693,44 @@ Public Class FormExplorer
         ' 双击打开文件或文件夹
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
-        Dim selectedItem = Lvw文件列表.SelectedItems(0)
 
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+        For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
 
-        If Directory.Exists(strSelectPath) Then
-            ' 双击文件夹：进入文件夹
-            strCurrentDirectory = strSelectPath
+            'Dim selectedItem = oListView.SelectedItems(0)
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, oListViewItem.Text)
 
-            Dim strFilter As String = Cmb过滤.Text
-            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
-            Cmb当前文件夹.Text = strCurrentDirectory
 
-            '加载父文件夹到 Cmb当前文件夹 
-            AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
+            If Directory.Exists(strSelectPath) Then
+                ' 双击文件夹：进入文件夹
+                strCurrentDirectory = strSelectPath
 
-        ElseIf File.Exists(strSelectPath) Then
-            ' 双击文件：打开文件
-            Try
-                Process.Start(strSelectPath)
-            Catch ex As Exception
-                MessageBox.Show("无法打开文件：" & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
+                Dim strFilter As String = Cmb过滤.Text
+                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+                Cmb当前文件夹.Text = strCurrentDirectory
+
+                '加载父文件夹到 Cmb当前文件夹 
+                AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
+
+                Exit For
+
+            ElseIf File.Exists(strSelectPath) Then
+                ' 双击文件：打开文件
+                Try
+
+                    Select Case GetFileExtensionLCase(strSelectPath)
+                        Case IAM, IPT, IDW, ".ipn"
+                            ThisApplication.Documents.Open(strSelectPath)
+                        Case Else
+                            Process.Start(strSelectPath)
+                    End Select
+
+
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+
+        Next
     End Sub
 
     Private Sub 回收ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 回收ToolStripMenuItem.Click, 删除ToolStripMenuItem.Click
@@ -726,6 +768,7 @@ Public Class FormExplorer
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
             FilterListView(Txt过滤栏.Text, Cmb过滤.Text)
+            状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
         End If
     End Sub
 
@@ -736,11 +779,14 @@ Public Class FormExplorer
             LoadFolderAllContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
 
             FilterListView(Txt搜索栏.Text, Cmb过滤.Text)
+
+            状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
         End If
     End Sub
 
     Private Sub Cmb过滤_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmb过滤.SelectedIndexChanged
         FilterListView(Txt过滤栏.Text, Cmb过滤.Text)
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
     Private Sub Cmb当前文件夹_KeyDown(sender As Object, e As KeyEventArgs) Handles Cmb当前文件夹.KeyDown
@@ -987,83 +1033,72 @@ Public Class FormExplorer
         AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
 
         Cmb当前文件夹.SelectedIndex = 0
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
 
     End Sub
 
     Private Sub 设置旧版ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置旧版ToolStripMenuItem.Click
-
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
-        Dim selectedItem = Lvw文件列表.SelectedItems(0)
+        For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
 
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+            'Dim selectedItem = oListView.SelectedItems(0)
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, oListViewItem.Text)
 
-        If Directory.Exists(strSelectPath) Then
+            If Directory.Exists(strSelectPath) Then
 
+            ElseIf File.Exists(strSelectPath) Then
+                Try
+                    If MessageBox.Show("确定将文件：" & strSelectPath & " 设置为旧版？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) _
+                        = DialogResult.No Then
+                        Exit Sub
+                    End If
 
-        ElseIf File.Exists(strSelectPath) Then
+                    Dim stroldFileName As String = Path.Combine(strCurrentDirectory, oListViewItem.Text & ".old")
+                    Rename(strSelectPath, stroldFileName)
+                    LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
 
-            Try
-                If MsgBox("确定将文件：" & strSelectPath & " 设置为旧版？", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.No Then
-                    Exit Sub
-                End If
-
-                Dim stroldFileName As String = Path.Combine(strCurrentDirectory, selectedItem.Text & ".old")
-                Rename(strSelectPath, stroldFileName)
-                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
-
-            Catch ex As Exception
-                MessageBox.Show("设置旧版：" & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
+        Next
     End Sub
 
     Private Sub 还原旧版ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 还原旧版ToolStripMenuItem.Click
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
-        Dim selectedItem = Lvw文件列表.SelectedItems(0)
+        For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
 
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+            'Dim selectedItem = oListView.SelectedItems(0)
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, oListViewItem.Text)
 
-        If Directory.Exists(strSelectPath) Then
+            If Directory.Exists(strSelectPath) Then
 
-        ElseIf File.Exists(strSelectPath) Then
+            ElseIf File.Exists(strSelectPath) Then
 
-            Try
+                Try
 
-                If Strings.Right（strSelectPath, 4).ToLower <> ".old" Then
-                    MsgBox("仅支持 .old 文件。", MsgBoxStyle.OkOnly + MsgBoxStyle.Information)
-                    Exit Sub
-                End If
+                    If Strings.Right（strSelectPath, 4).ToLower <> ".old" Then
+                        MessageBox.Show(”仅支持 .old 文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Exit Sub
+                    End If
 
-                Dim stroldFileName As String = Strings.Left(strSelectPath, Strings.Len(strSelectPath) - 4)
-                Rename(strSelectPath, stroldFileName)
-                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+                    Dim stroldFileName As String = Strings.Left(strSelectPath, Strings.Len(strSelectPath) - 4)
+                    Rename(strSelectPath, stroldFileName)
+                    LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
 
-            Catch ex As Exception
-                MessageBox.Show("设置旧版：" & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+        Next
     End Sub
 
-    Private Sub 定位ToolStripButton_Click(sender As Object, e As EventArgs) Handles 定位ToolStripButton.Click， 定位文件位置ToolStripMenuItem.Click
-        If Lvw文件列表.SelectedItems.Count = 0 Then Return
+    Private Sub 浏览文件ToolStripButton_Click(sender As Object, e As EventArgs) Handles 浏览文件ToolStripButton.Click， 浏览文件ToolStripMenuItem.Click
 
-        Dim selectedItem = Lvw文件列表.SelectedItems(0)
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+        Process.Start(strCurrentDirectory)
 
-        Dim strFileDirectory As String = GetDirectoryName2(strSelectPath)
-
-        If Directory.Exists(strFileDirectory) Then
-            Try
-                Process.Start(strFileDirectory)
-            Catch ex As Exception
-                MessageBox.Show("无法打开文件：" & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-
-        ElseIf File.Exists(strFileDirectory) Then
-
-        End If
 
     End Sub
 
@@ -1084,58 +1119,72 @@ Public Class FormExplorer
             sei.hwnd = Me.Handle
 
             If Not ShellExecuteEx(sei) Then
-                MessageBox.Show("无法打开属性窗口！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("无法打开属性窗口！", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
-            MessageBox.Show($"错误：{ex.Message}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
     Private Sub 复制ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 复制ToolStripMenuItem.Click
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
-        Dim selectedItem = Lvw文件列表.SelectedItems(0)
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
+        Try
+            ' 创建一个StringCollection存储文件路径
+            Dim filePaths As New StringCollection()
 
-        Dim fileCollection As New System.Collections.Specialized.StringCollection From {
-            strSelectPath
-        }
+            ' 遍历所有选中的ListView项
+            For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
+                Dim filePath As String = Path.Combine(strCurrentDirectory, oListViewItem.Text) ' 假设文件名直接存储在Text属性中
+                filePaths.Add(filePath)
+            Next
 
-        Clipboard.SetFileDropList(fileCollection) ' 文件路径存入剪贴板
+            ' 将文件路径集合复制到剪贴板（支持粘贴到资源管理器）
+            Clipboard.SetFileDropList(filePaths)
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
     End Sub
 
     Private Sub Btn搜索_Click(sender As Object, e As EventArgs) Handles Btn搜索.Click
+        LoadFolderAllContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+
         FilterListView(Txt搜索栏.Text, Cmb过滤.Text)
+
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
     Private Sub Btn过滤_Click(sender As Object, e As EventArgs) Handles Btn过滤.Click
         FilterListView(Txt过滤栏.Text, Cmb过滤.Text)
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
     Private Sub 重命名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 重命名ToolStripMenuItem.Click
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
         Dim selectedItem = Lvw文件列表.SelectedItems(0)
-        Dim strSelectPath = Path.Combine(strCurrentDirectory, selectedItem.Text)
 
-        Dim strNewName As String = InputBox("输入新的名字："， “重命名”, "")
+        Dim strOldName As String = selectedItem.Text
 
-        If strNewName = "" Then
+        '当前选择项的路径
+        Dim strSelectPath As String = IO.Path.Combine(strCurrentDirectory, strOldName)
+
+        Dim strNewName As String = InputBox("输入新的名字："， “重命名”, strOldName)
+
+        If strNewName = "" Or strNewName = strOldName Then
             Exit Sub
         End If
 
-        Dim strNewPath As String = ""
+        Dim strNewPath As String = IO.Path.Combine(strCurrentDirectory, strNewName)
 
         Try
             If Directory.Exists(strSelectPath) Then
-                strNewPath = IO.Path.Combine(GetParentFolderPath(strSelectPath), strNewName)
-
                 IO.Directory.Move(strSelectPath, strNewPath)
-
             ElseIf File.Exists(strSelectPath) Then
-                strNewPath = BasicFileSystem.GetChangeFileName(strSelectPath, strNewName)
                 BasicFileSystem.ReFileName(strSelectPath, strNewPath)
-
             End If
         Catch ex As Exception
 
@@ -1170,4 +1219,67 @@ Public Class FormExplorer
 
 
     End Sub
+
+    Private Sub 复制文件名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 复制文件名ToolStripMenuItem.Click
+        If Lvw文件列表.SelectedItems.Count = 0 Then Return
+
+        Dim selectedItem = Lvw文件列表.SelectedItems(0)
+        Dim strSelectPath = selectedItem.Text
+
+        Clipboard.SetData(DataFormats.Text, CType(strSelectPath, Object))
+
+    End Sub
+
+    Private Sub 刷新ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 刷新ToolStripMenuItem.Click
+        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+        AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
+
+        Cmb当前文件夹.SelectedIndex = 0
+        状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
+    End Sub
+
+
+    Private Sub CMS文件列表_Opening(sender As Object, e As CancelEventArgs) Handles CMS文件列表.Opening
+        ' 获取当前选中的项数量
+        Dim selectedCount As Integer = Lvw文件列表.SelectedItems.Count
+        If selectedCount = 1 Then
+            插入到部件ToolStripMenuItem.Enabled = True
+            复制文件名ToolStripMenuItem.Enabled = True
+            重命名ToolStripMenuItem.Enabled = True
+            属性ToolStripMenuItem.Enabled = True
+        Else
+            插入到部件ToolStripMenuItem.Enabled = False
+            复制文件名ToolStripMenuItem.Enabled = False
+            重命名ToolStripMenuItem.Enabled = False
+            属性ToolStripMenuItem.Enabled = False
+
+        End If
+
+    End Sub
+
+    Private Sub Lvw文件列表_ItemDrag(sender As Object, e As ItemDragEventArgs) Handles Lvw文件列表.ItemDrag
+        Dim selectedFiles As New List(Of String)
+
+        If Lvw文件列表.SelectedItems.Count = 0 Then Return
+
+        For Each oListViewItem As ListViewItem In Lvw文件列表.SelectedItems
+            Dim strSelectPath = Path.Combine(strCurrentDirectory, oListViewItem.Text)
+            If IsFileExists(strSelectPath) = True Then
+
+                Select Case GetFileExtensionLCase(strSelectPath)
+                    Case IAM, IPT, IDW, IPN
+                        selectedFiles.Add(strSelectPath)
+                    Case Else
+
+                End Select
+
+            End If
+        Next
+
+        If selectedFiles.Count > 0 Then
+            Dim data As New DataObject(DataFormats.FileDrop, selectedFiles.ToArray())
+            Lvw文件列表.DoDragDrop(data, DragDropEffects.Copy)
+        End If
+    End Sub
+
 End Class

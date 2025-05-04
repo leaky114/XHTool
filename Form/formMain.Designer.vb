@@ -34,6 +34,7 @@ Partial Class FormMain
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.资源管理器ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.快速打开ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.打开列表ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.保存列表ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,7 +47,6 @@ Partial Class FormMain
         Me.退出ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.部件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.标准件可见性ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.插入打开的文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.查找替换ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.查找缺失部件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.打开父部件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -67,7 +67,6 @@ Partial Class FormMain
         Me.清除颜色ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.替换为库文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.提取iproperty更改文件名ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.抑制错误约束ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.移动指定文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.零件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.保存为图片ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -102,6 +101,7 @@ Partial Class FormMain
         Me.新建序号ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.自动重建序号ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.重写BOM序号ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.修改序号ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.签字ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.签字ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.清除签字ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -116,6 +116,7 @@ Partial Class FormMain
         Me.导出BOM平面性ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.导入ERPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.导入ERP到BOMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.批量BOM命名ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.打开数据文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.工具ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.选项ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -137,7 +138,6 @@ Partial Class FormMain
         Me.Button2 = New System.Windows.Forms.Button()
         Me.ButtoniProperty = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.资源管理器ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -222,6 +222,12 @@ Partial Class FormMain
         Me.文件ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.文件ToolStripMenuItem.Text = "文件"
         '
+        '资源管理器ToolStripMenuItem
+        '
+        Me.资源管理器ToolStripMenuItem.Name = "资源管理器ToolStripMenuItem"
+        Me.资源管理器ToolStripMenuItem.Size = New System.Drawing.Size(184, 22)
+        Me.资源管理器ToolStripMenuItem.Text = "资源管理器..."
+        '
         '快速打开ToolStripMenuItem
         '
         Me.快速打开ToolStripMenuItem.Name = "快速打开ToolStripMenuItem"
@@ -282,7 +288,7 @@ Partial Class FormMain
         '
         '部件ToolStripMenuItem
         '
-        Me.部件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.标准件可见性ToolStripMenuItem, Me.插入打开的文件ToolStripMenuItem, Me.查找替换ToolStripMenuItem, Me.查找缺失部件ToolStripMenuItem, Me.打开父部件ToolStripMenuItem, Me.打开选择的组件ToolStripMenuItem, Me.打开指定工程图ToolStripMenuItem, Me.对齐原始坐标面ToolStripMenuItem, Me.检查钣金厚度ToolStripMenuItem, Me.检查是否有工程图ToolStripMenuItem, Me.距离对齐ToolStripMenuItem, Me.克隆组件ToolStripMenuItem, Me.另存为副本ToolStripMenuItem, Me.批量替换文件名ToolStripMenuItem, Me.全部可见ToolStripMenuItem, Me.生成图号ToolStripMenuItem, Me.设置虚拟件ToolStripMenuItem, Me.随机颜色ToolStripMenuItem, Me.替换为库文件ToolStripMenuItem, Me.提取iproperty更改文件名ToolStripMenuItem, Me.抑制错误约束ToolStripMenuItem, Me.移动指定文件ToolStripMenuItem})
+        Me.部件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.标准件可见性ToolStripMenuItem, Me.查找替换ToolStripMenuItem, Me.查找缺失部件ToolStripMenuItem, Me.打开父部件ToolStripMenuItem, Me.打开选择的组件ToolStripMenuItem, Me.打开指定工程图ToolStripMenuItem, Me.对齐原始坐标面ToolStripMenuItem, Me.检查钣金厚度ToolStripMenuItem, Me.检查是否有工程图ToolStripMenuItem, Me.距离对齐ToolStripMenuItem, Me.克隆组件ToolStripMenuItem, Me.另存为副本ToolStripMenuItem, Me.批量替换文件名ToolStripMenuItem, Me.全部可见ToolStripMenuItem, Me.生成图号ToolStripMenuItem, Me.设置虚拟件ToolStripMenuItem, Me.随机颜色ToolStripMenuItem, Me.替换为库文件ToolStripMenuItem, Me.提取iproperty更改文件名ToolStripMenuItem, Me.移动指定文件ToolStripMenuItem})
         Me.部件ToolStripMenuItem.Name = "部件ToolStripMenuItem"
         Me.部件ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.部件ToolStripMenuItem.Text = "部件"
@@ -292,12 +298,6 @@ Partial Class FormMain
         Me.标准件可见性ToolStripMenuItem.Name = "标准件可见性ToolStripMenuItem"
         Me.标准件可见性ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
         Me.标准件可见性ToolStripMenuItem.Text = "标准件可见"
-        '
-        '插入打开的文件ToolStripMenuItem
-        '
-        Me.插入打开的文件ToolStripMenuItem.Name = "插入打开的文件ToolStripMenuItem"
-        Me.插入打开的文件ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
-        Me.插入打开的文件ToolStripMenuItem.Text = "插入打开的文件"
         '
         '查找替换ToolStripMenuItem
         '
@@ -419,12 +419,6 @@ Partial Class FormMain
         Me.提取iproperty更改文件名ToolStripMenuItem.Name = "提取iproperty更改文件名ToolStripMenuItem"
         Me.提取iproperty更改文件名ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
         Me.提取iproperty更改文件名ToolStripMenuItem.Text = "提取iproperty更改文件名"
-        '
-        '抑制错误约束ToolStripMenuItem
-        '
-        Me.抑制错误约束ToolStripMenuItem.Name = "抑制错误约束ToolStripMenuItem"
-        Me.抑制错误约束ToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
-        Me.抑制错误约束ToolStripMenuItem.Text = "抑制错误约束"
         '
         '移动指定文件ToolStripMenuItem
         '
@@ -605,7 +599,7 @@ Partial Class FormMain
         '
         '序号ToolStripMenuItem
         '
-        Me.序号ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.检查序号完整性ToolStripMenuItem, Me.新建序号ToolStripMenuItem, Me.自动重建序号ToolStripMenuItem, Me.重写BOM序号ToolStripMenuItem})
+        Me.序号ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.检查序号完整性ToolStripMenuItem, Me.新建序号ToolStripMenuItem, Me.自动重建序号ToolStripMenuItem, Me.重写BOM序号ToolStripMenuItem, Me.修改序号ToolStripMenuItem})
         Me.序号ToolStripMenuItem.Name = "序号ToolStripMenuItem"
         Me.序号ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.序号ToolStripMenuItem.Text = "序号"
@@ -633,6 +627,12 @@ Partial Class FormMain
         Me.重写BOM序号ToolStripMenuItem.Name = "重写BOM序号ToolStripMenuItem"
         Me.重写BOM序号ToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.重写BOM序号ToolStripMenuItem.Text = "重写BOM序号"
+        '
+        '修改序号ToolStripMenuItem
+        '
+        Me.修改序号ToolStripMenuItem.Name = "修改序号ToolStripMenuItem"
+        Me.修改序号ToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
+        Me.修改序号ToolStripMenuItem.Text = "修改序号"
         '
         '签字ToolStripMenuItem
         '
@@ -680,7 +680,7 @@ Partial Class FormMain
         '
         'ERPToolStripMenuItem
         '
-        Me.ERPToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.查询ERP编码ToolStripMenuItem, Me.ERP反查ToolStripMenuItem, Me.ToolStripSeparator2, Me.导出BOM平面性ToolStripMenuItem, Me.导入ERPToolStripMenuItem, Me.导入ERP到BOMToolStripMenuItem, Me.打开数据文件ToolStripMenuItem})
+        Me.ERPToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.查询ERP编码ToolStripMenuItem, Me.ERP反查ToolStripMenuItem, Me.ToolStripSeparator2, Me.导出BOM平面性ToolStripMenuItem, Me.导入ERPToolStripMenuItem, Me.导入ERP到BOMToolStripMenuItem, Me.批量BOM命名ToolStripMenuItem, Me.打开数据文件ToolStripMenuItem})
         Me.ERPToolStripMenuItem.Name = "ERPToolStripMenuItem"
         Me.ERPToolStripMenuItem.Size = New System.Drawing.Size(42, 21)
         Me.ERPToolStripMenuItem.Text = "ERP"
@@ -719,6 +719,12 @@ Partial Class FormMain
         Me.导入ERP到BOMToolStripMenuItem.Name = "导入ERP到BOMToolStripMenuItem"
         Me.导入ERP到BOMToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
         Me.导入ERP到BOMToolStripMenuItem.Text = "导入ERP到Excel"
+        '
+        '批量BOM命名ToolStripMenuItem
+        '
+        Me.批量BOM命名ToolStripMenuItem.Name = "批量BOM命名ToolStripMenuItem"
+        Me.批量BOM命名ToolStripMenuItem.Size = New System.Drawing.Size(163, 22)
+        Me.批量BOM命名ToolStripMenuItem.Text = "批量BOM命名"
         '
         '打开数据文件ToolStripMenuItem
         '
@@ -862,12 +868,6 @@ Partial Class FormMain
         Me.Button3.Text = "获取对象"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        '资源管理器ToolStripMenuItem
-        '
-        Me.资源管理器ToolStripMenuItem.Name = "资源管理器ToolStripMenuItem"
-        Me.资源管理器ToolStripMenuItem.Size = New System.Drawing.Size(184, 22)
-        Me.资源管理器ToolStripMenuItem.Text = "资源管理器..."
-        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -984,7 +984,6 @@ Partial Class FormMain
     Friend WithEvents 查找替换ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 创建工程图ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 驱动测量ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 抑制错误约束ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 统计焊缝ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 保存为图片ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 打开列表ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1010,7 +1009,8 @@ Partial Class FormMain
     Friend WithEvents 打开选择的组件ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 钣金厚度检查ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 清净世界ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 插入打开的文件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 检查钣金厚度ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 资源管理器ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 修改序号ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 批量BOM命名ToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -14,7 +14,7 @@ Public Class FormBatchChangeFileNames
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -30,7 +30,7 @@ Public Class FormBatchChangeFileNames
             oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
             Dim IsSaveAsOld As Boolean
-            'IsSaveAsOld = MsgBox("是否更改原文件为备份文件，扩展名增加 .old ？", MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2)
+            'IsSaveAsOld =  MessageBox.Show("是否更改原文件为备份文件，扩展名增加 .old ？", MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2)
 
             IsSaveAsOld = chk备份文件.Checked
 
@@ -38,18 +38,15 @@ Public Class FormBatchChangeFileNames
 
             RefreshTreeNodeNameSub(oInventorAssemblyDocument)
 
-            MsgBox("部件替换文件名完成。", MsgBoxStyle.Information)
+            MessageBox.Show(“部件替换文件名完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-
-        'Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        'Me.Close()
     End Sub
 
-    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formBatchChangeFileNames)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
+        Me.Close()
     End Sub
 
     Private Sub FrmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -86,7 +83,7 @@ Public Class FormBatchChangeFileNames
 
             strOldFullFileName = oInventorDocument.FullDocumentName
 
-            If IsFileExsts(strOldFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExists(strOldFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -105,60 +102,60 @@ Public Class FormBatchChangeFileNames
                 Continue For
             End If
 
-                '打开旧文件,不显示
-                Dim OldInventorDocument As Inventor.Document
-                OldInventorDocument = ThisApplication.Documents.Open(strOldFullFileName, False)
+            '打开旧文件,不显示
+            Dim OldInventorDocument As Inventor.Document
+            OldInventorDocument = ThisApplication.Documents.Open(strOldFullFileName, False)
 
-                '另存为新文件
-                OldInventorDocument.SaveAs(strNewFullFileName, False)
+            '另存为新文件
+            OldInventorDocument.SaveAs(strNewFullFileName, False)
 
-                '关闭旧图
-                OldInventorDocument.Close()
+            '关闭旧图
+            OldInventorDocument.Close()
 
-                '后台打开文件，修改ipro
-                Dim oNewInventorDocument As Inventor.Document
-                oNewInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)  '打开文件，不显示
-                SetDocumentIpropertyFromFileNameSub(oNewInventorDocument, True) '设置Iproperty，打开文件后需关闭
+            '后台打开文件，修改ipro
+            Dim oNewInventorDocument As Inventor.Document
+            oNewInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)  '打开文件，不显示
+            SetDocumentIpropertyFromFileNameSub(oNewInventorDocument, True) '设置Iproperty，打开文件后需关闭
 
-                Dim oCO As Inventor.ComponentOccurrences
-                oCO = oInventorAssemblyDocument.ComponentDefinition.Occurrences
+            Dim oCO As Inventor.ComponentOccurrences
+            oCO = oInventorAssemblyDocument.ComponentDefinition.Occurrences
 
-                '全部替换为新文件
-                For Each ooCO As ComponentOccurrence In oCO
-                    If ooCO.ReferencedDocumentDescriptor.FullDocumentName = strOldFullFileName Then
-                        ooCO.Replace(strNewFullFileName, True)
-                        Exit For
-                    End If
-                Next
-
-                '是否有对应的工程图文件，同时复制后修改文件名和模型链接
-                Dim oOldIdwFullFileName As String
-                oOldIdwFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
-
-                'Dim TempFullFileName As String       '更改旧模型文件的名字存档
-
-                If IsFileExsts(oOldIdwFullFileName) = True Then
-                    Dim oNewIdwFullFileName As String
-                    oNewIdwFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
-                    FileSystem.FileCopy(oOldIdwFullFileName, oNewIdwFullFileName)             '复制为新工程图
-
-                    'MsgBox("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & NewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
-                    'Windows.Forms.Clipboard.SetText(NewFullFileName)
-                    'ThisApplication.Documents.Open(NewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
-                    'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Save2() '保存链接并关闭工程图
-                    'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Close()
-
-                    oInventorDocument = ThisApplication.Documents.Open(oNewIdwFullFileName, False)  '打开文件，不显示
-                    oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
-                    oInventorDocument.Save2()
-                    oInventorDocument.Close()
-
-                    If IsSaveAsOld = True Then  '暂时更改旧工程图文件的名字存档
-                        AddOldExtension(oOldIdwFullFileName)
-                    End If
+            '全部替换为新文件
+            For Each ooCO As ComponentOccurrence In oCO
+                If ooCO.ReferencedDocumentDescriptor.FullDocumentName = strOldFullFileName Then
+                    ooCO.Replace(strNewFullFileName, True)
+                    Exit For
                 End If
+            Next
 
-                If IsSaveAsOld = True Then
+            '是否有对应的工程图文件，同时复制后修改文件名和模型链接
+            Dim oOldIdwFullFileName As String
+            oOldIdwFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
+
+            'Dim TempFullFileName As String       '更改旧模型文件的名字存档
+
+            If IsFileExists(oOldIdwFullFileName) = True Then
+                Dim oNewIdwFullFileName As String
+                oNewIdwFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
+                FileSystem.FileCopy(oOldIdwFullFileName, oNewIdwFullFileName)             '复制为新工程图
+
+                ' MessageBox.Show("找到有对应的旧工程图，生成新的工程图，将打开，请链接到文件：" & vbCrLf & NewFullFileName & vbCrLf & "该文件名已复制，粘贴到对话框即可。", MsgBoxStyle.Information)
+                'Windows.Forms.Clipboard.SetText(NewFullFileName)
+                'ThisApplication.Documents.Open(NewIdwFullFileName, False)      '打开新的工程图，使其手动链接零件或部件
+                'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Save2() '保存链接并关闭工程图
+                'ThisApplication.Documents.ItemByName(NewIdwFullFileName).Close()
+
+                oInventorDocument = ThisApplication.Documents.Open(oNewIdwFullFileName, False)  '打开文件，不显示
+                oInventorDocument.ReferencedDocumentDescriptors(1).ReferencedFileDescriptor.ReplaceReference(strNewFullFileName)
+                oInventorDocument.Save2()
+                oInventorDocument.Close()
+
+                If IsSaveAsOld = True Then  '暂时更改旧工程图文件的名字存档
+                    AddOldExtension(oOldIdwFullFileName)
+                End If
+            End If
+
+            If IsSaveAsOld = True Then
                     AddOldExtension(strOldFullFileName)
                 End If
 

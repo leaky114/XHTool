@@ -174,6 +174,7 @@ Partial Class FormStatistical
         Me.lvw质量文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch文件名, Me.ch数量, Me.ch质量, Me.ch面积})
         Me.lvw质量文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw质量文件列表.FullRowSelect = True
+        Me.lvw质量文件列表.HideSelection = False
         Me.lvw质量文件列表.Location = New System.Drawing.Point(6, 6)
         Me.lvw质量文件列表.Name = "lvw质量文件列表"
         Me.lvw质量文件列表.Size = New System.Drawing.Size(450, 310)
@@ -343,6 +344,7 @@ Partial Class FormStatistical
         Me.lvw焊缝文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch边位置, Me.ch长度, Me.ch系数, Me.ch焊缝长度})
         Me.lvw焊缝文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw焊缝文件列表.FullRowSelect = True
+        Me.lvw焊缝文件列表.HideSelection = False
         Me.lvw焊缝文件列表.Location = New System.Drawing.Point(6, 6)
         Me.lvw焊缝文件列表.Name = "lvw焊缝文件列表"
         Me.lvw焊缝文件列表.Size = New System.Drawing.Size(450, 290)
@@ -403,7 +405,7 @@ Partial Class FormStatistical
         Me.btn移出.Text = "移出"
         Me.btn移出.UseVisualStyleBackColor = True
         '
-        'formStatistical
+        'FormStatistical
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -414,10 +416,9 @@ Partial Class FormStatistical
         Me.Controls.Add(Me.TabControl1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.Name = "formStatistical"
+        Me.Name = "FormStatistical"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "统计"
-        Me.TopMost = True
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()

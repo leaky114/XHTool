@@ -25,7 +25,7 @@ Public Class FormiProperty
 
             oPartDocument.ComponentDefinition.Material = oMaterial
             'Else
-            ''MsgBox("该功能仅适用于零件！", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "更改材料")
+            '' MessageBox.Show("该功能仅适用于零件！", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "更改材料")
             'Exit Sub
         End If
 
@@ -146,9 +146,9 @@ Public Class FormiProperty
 
         btn查询.Enabled = False
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
 
@@ -162,27 +162,29 @@ Public Class FormiProperty
 
         strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
         If strPartNum <> 0 Then
-            'MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
+            ' MessageBox.Show("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
             'SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
             Select Case txtERP编码.Text
                 Case ""
                     txtERP编码.Text = strPartNum
                 Case Else
                     If txtERP编码.Text <> strPartNum Then
-                        If MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
+                        If MessageBox.Show("查询到不同的ERP编码：" & strPartNum & "，是否更新？", XHTool， MessageBoxButtons.YesNo，
+                                           MessageBoxIcon.Question） = DialogResult.Yes Then
                             txtERP编码.Text = strPartNum
                         End If
                     End If
             End Select
         Else
-
-            MsgBox("未查询到ERP编码。", MsgBoxStyle.OkOnly, "查询ERP编码")
+            Me.TopMost = False
+            MessageBox.Show(”未查询到ERP编码。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.TopMost = True
         End If
 
         btn查询.Enabled = True
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
     End Sub
 

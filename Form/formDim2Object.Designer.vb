@@ -232,6 +232,7 @@ Partial Class FormDim2Object
         Me.lvw列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvw列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
         Me.lvw列表.FullRowSelect = True
+        Me.lvw列表.HideSelection = False
         Me.lvw列表.Location = New System.Drawing.Point(331, 12)
         Me.lvw列表.MultiSelect = False
         Me.lvw列表.Name = "lvw列表"
@@ -278,7 +279,7 @@ Partial Class FormDim2Object
         Me.btn最大值.TabIndex = 21
         Me.btn最大值.UseVisualStyleBackColor = True
         '
-        'formDim2Object
+        'FormDim2Object
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -293,7 +294,7 @@ Partial Class FormDim2Object
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "formDim2Object"
+        Me.Name = "FormDim2Object"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "驱动测量"

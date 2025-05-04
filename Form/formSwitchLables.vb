@@ -45,9 +45,9 @@ Public Class FormSwitchLables
         'Dim stopwatch As New Stopwatch()
         'stopwatch.Start()  ' 开始计时
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         '加载图片
@@ -56,8 +56,8 @@ Public Class FormSwitchLables
         '布置图框位置
         SetLocation()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
         '窗口居中
         CenterForm()
@@ -131,7 +131,7 @@ Public Class FormSwitchLables
                 AddHandler PictureBoxes(i).MouseLeave, AddressOf PictureBox_MouseLeave
 
             Catch ex As Exception
-                MsgBox(ex.Message)
+                   MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         Next
 

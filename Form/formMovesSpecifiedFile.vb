@@ -40,7 +40,7 @@ Public Class FormMovesSpecifiedFile
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -67,8 +67,8 @@ Public Class FormMovesSpecifiedFile
         'ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
         '    Exit Sub
         'Else
-        '    MsgBox("请输入部分图号！", MsgBoxStyle.Information)
-        '    SetStatusBarText("错误")
+        '     MessageBox.Show("请输入部分图号！", MsgBoxStyle.Information)
+        '    SetStatusBarText(XHTool)
         'End If
 
         筛选ToolStripTextBox.Text = strSearch
@@ -99,9 +99,9 @@ Public Class FormMovesSpecifiedFile
         strInventorAssemblyFileFolder = GetFileNameInfo(strInventorAssemblyDocumentFullFileName).Folder ' 遍历这些文档
 
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         oListView.Items.Clear()
@@ -115,7 +115,7 @@ Public Class FormMovesSpecifiedFile
             Dim strOldFullFileName As String
             strOldFullFileName = oInventorDocument.FullFileName
 
-            If IsFileExsts(strOldFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExists(strOldFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -152,7 +152,7 @@ Public Class FormMovesSpecifiedFile
 
             oListViewItem.SubItems.Add(strNewFullFileName)
 
-            If IsFileExsts(strNewFullFileName) = True Then
+            If IsFileExists(strNewFullFileName) = True Then
                 oListViewItem.UseItemStyleForSubItems = False
                 oListViewItem.SubItems(1).ForeColor = Drawing.Color.Red
                 oListViewItem.SubItems.Add(“跳过”)
@@ -162,7 +162,7 @@ Public Class FormMovesSpecifiedFile
             Dim strOldDrawingFullFileName As String
             strOldDrawingFullFileName = GetChangeExtension(strOldFullFileName, IDW)
 
-            If IsFileExsts(strOldDrawingFullFileName) = True Then
+            If IsFileExists(strOldDrawingFullFileName) = True Then
                 Dim strNewDrawingFullFileName As String
                 strNewDrawingFullFileName = GetChangeExtension(strNewFullFileName, IDW)
                 oListViewItem = oListView.Items.Add(strOldDrawingFullFileName, 2)
@@ -173,13 +173,13 @@ Public Class FormMovesSpecifiedFile
 
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
     End Sub
 
     Private Sub 应用ToolStripButton_Click(sender As Object, e As EventArgs) Handles 应用ToolStripButton.Click
-        If MsgBox("确定移动文件？", MsgBoxStyle.Question + MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+        If MessageBox.Show("确定移动文件？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Exit Sub
         End If
 
@@ -192,7 +192,7 @@ Public Class FormMovesSpecifiedFile
 
         Dim strInventorAssemblyDocumentFullFileName As String = oInventorDocument.FullFileName
 
-        MsgBox("将关闭部件" & strInventorAssemblyDocumentFullFileName, MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+        MessageBox.Show("将关闭部件：" & strInventorAssemblyDocumentFullFileName, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         oInventorDocument.Close()
 
@@ -201,7 +201,7 @@ Public Class FormMovesSpecifiedFile
                 strOldFullFileName = oListViewItem.Text.ToString
                 strNewFullFileName = oListViewItem.SubItems(1).Text.ToString
 
-                If IsFileExsts(strNewFullFileName) = False Then   '目标文件不存在，直接移动
+                If IsFileExists(strNewFullFileName) = False Then   '目标文件不存在，直接移动
                     ReMoveFile(strOldFullFileName, strNewFullFileName)
                 Else   '目标文件存在，判读方法
                     If oListViewItem.SubItems(2).Text.ToString = "覆盖" Then
@@ -215,11 +215,12 @@ Public Class FormMovesSpecifiedFile
             End If
         Next
 
-        If MsgBox("移动文件完成，是否重新打开 " & strInventorAssemblyDocumentFullFileName, MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
+        If MessageBox.Show("移动文件完成，是否重新打开？" & strInventorAssemblyDocumentFullFileName, XHTool, MessageBoxButtons.YesNo，
+                           MessageBoxIcon.Question） = DialogResult.Yes Then
             ThisApplication.Documents.Open(strInventorAssemblyDocumentFullFileName)
         End If
 
-        FormManager.CloseAndDisposeForm(Of formMovesSpecifiedFile)()
+        FormManager.CloseAndDisposeForm(Of FormMovesSpecifiedFile)()
 
     End Sub
 
@@ -228,7 +229,7 @@ Public Class FormMovesSpecifiedFile
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 

@@ -150,4 +150,8 @@ Public Class FormNetTool
     Private Sub FormNetTool_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         FormManager.CloseAndDisposeForm(Of FormNetTool)()
     End Sub
+
+    Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
+
+    End Sub
 End Class

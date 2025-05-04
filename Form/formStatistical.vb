@@ -14,6 +14,7 @@ Public Class FormStatistical
 
     Private Sub FrmStatisticalWeight_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
 
         Dim toolTip As New ToolTip With {
             .AutoPopDelay = 0,
@@ -106,7 +107,8 @@ Public Class FormStatistical
 
     '退出
     Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formStatistical)()
+        Btn清空_Click（sender, e)
+        FormManager.CloseAndDisposeForm(Of FormStatistical)()
     End Sub
 
     '复制总质量到剪贴板
@@ -210,7 +212,7 @@ Public Class FormStatistical
                 oEval.GetLengthAtParam(oMin, oMax, oLength)
 
                 Dim UoM As UnitsOfMeasure = ThisApplication.ActiveDocument.UnitsOfMeasure
-                'MsgBox(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
+                ' MessageBox.Show(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
 
                 Dim dou边长度 = UoM.GetStringFromValue(oLength, UoM.LengthUnits)
                 Dim dou焊缝长度 = Val(dou边长度) * dou长度系数
@@ -287,7 +289,7 @@ Public Class FormStatistical
                 Select Case oSelectObject.Type
 
                     Case ObjectTypeEnum.kComponentOccurrenceObject          '组件
-                        'MsgBox(ObjectTypeEnum.kComponentOccurrenceObject)
+                        ' MessageBox.Show(ObjectTypeEnum.kComponentOccurrenceObject)
                         oComponentOccurrence = CType(oSelectObject, ComponentOccurrence)
                         strName = oComponentOccurrence.Name
                         douMass = oComponentOccurrence.MassProperties.Mass
@@ -297,7 +299,7 @@ Public Class FormStatistical
                         AddOccurrenceToListView(lvw质量文件列表, strName, intQuantity, douMass, douArea)
 
                     Case ObjectTypeEnum.kRectangularOccurrencePatternObject       '矩形阵列
-                        'MsgBox(ObjectTypeEnum.kRectangularOccurrencePatternObject)
+                        ' MessageBox.Show(ObjectTypeEnum.kRectangularOccurrencePatternObject)
 
 
                         oRectangularOccurrencePattern = CType(oSelectObject, RectangularOccurrencePattern)
@@ -312,7 +314,7 @@ Public Class FormStatistical
                         Next
 
                     Case ObjectTypeEnum.kCircularOccurrencePatternObject     '环形阵列
-                        'MsgBox(ObjectTypeEnum.kRectangularOccurrencePatternObject)
+                        ' MessageBox.Show(ObjectTypeEnum.kRectangularOccurrencePatternObject)
 
 
                         oCircularOccurrencePattern = CType(oSelectObject, CircularOccurrencePattern)
@@ -470,7 +472,7 @@ Public Class FormStatistical
                 End If
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Class

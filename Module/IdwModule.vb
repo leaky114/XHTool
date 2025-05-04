@@ -36,7 +36,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -46,8 +46,8 @@ Module IdwModule
             Dim strInventorDrawingDocumentFullFileName As String
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
-            If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
-                'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
+            If IsFileExists(strInventorDrawingDocumentFullFileName) = False Then
+                ' MessageBox.Show("请先保存本工程图。", MsgBoxStyle.Information)
                 'Exit Sub
 
                 strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Desktop,
@@ -76,26 +76,30 @@ Module IdwModule
             strDwgFullFileName = SetNewFile(strDwgFullFileName, "AutoCAD文件(*.dwg)|*.dwg")
 
 
-            If Strings.InStr(strDwgFullFileName, "取消") = 1 Then
-                strDwgFullFileName = Strings.Replace(strDwgFullFileName, "取消", "")
-                Process.Start(strDwgFullFileName)
+            'If Strings.InStr(strDwgFullFileName, "取消") = 1 Then
+            '    strDwgFullFileName = Strings.Replace(strDwgFullFileName, "取消", "")
+            '    Process.Start(strDwgFullFileName)
+            '    Exit Sub
+            'End If
+
+            If strDwgFullFileName = “” Then
                 Exit Sub
             End If
 
             IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
 
-            If IsFileExsts(strDwgFullFileName) Then
+            If IsFileExists(strDwgFullFileName) Then
                 SetStatusBarText("另存为DWG完成")
-                If MsgBox("是否打开文件： " & strDwgFullFileName, MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If MessageBox.Show("是否打开文件： " & strDwgFullFileName, XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                     System.Diagnostics.Process.Start(strDwgFullFileName)
                 End If
             Else
-                SetStatusBarText("错误")
-                MsgBox("错误。", MsgBoxStyle.Exclamation)
+                SetStatusBarText(XHTool)
+                MessageBox.Show("另存为DWG错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -111,7 +115,7 @@ Module IdwModule
 
         'IdwDoc.SaveAs(DwgFullFileName, True)
 
-        'if IsFileExsts(DwgFullFileName) = False Then
+        'if IsFileExists(DwgFullFileName) = False Then
         '    DwgFullFileName = Strings.Replace(DwgFullFileName, ".dwg", ".zip")
         'End if
 
@@ -179,7 +183,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -190,8 +194,8 @@ Module IdwModule
             Dim strInventorDrawingDocumentFullFileName As String
             strInventorDrawingDocumentFullFileName = oInventorDrawingDocument.FullFileName
 
-            If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then
-                'MsgBox("请先保存本工程图。", MsgBoxStyle.Information)
+            If IsFileExists(strInventorDrawingDocumentFullFileName) = False Then
+                ' MessageBox.Show("请先保存本工程图。", MsgBoxStyle.Information)
                 'Exit Sub
 
                 strInventorDrawingDocumentFullFileName = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.Temp,
@@ -216,26 +220,31 @@ Module IdwModule
 
             strPdfFullFileName = SetNewFile(strPdfFullFileName, "Adobe PDF文件(*.pdf)|*.pdf")
 
-            If Strings.InStr(strPdfFullFileName, "取消") = 1 Then
-                strPdfFullFileName = Strings.Replace(strPdfFullFileName, "取消", "")
-                Process.Start(strPdfFullFileName)
+            'If Strings.InStr(strPdfFullFileName, "取消") = 1 Then
+            '    strPdfFullFileName = Strings.Replace(strPdfFullFileName, "取消", "")
+            '    Process.Start(strPdfFullFileName)
+            '    Exit Sub
+            'End If
+
+            If strPdfFullFileName = “” Then
                 Exit Sub
             End If
 
             IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
 
-            If IsFileExsts(strPdfFullFileName) Then
+            If IsFileExists(strPdfFullFileName) Then
                 SetStatusBarText("另存为Pdf文件完成")
-                If MsgBox("是否打开文件： " & strPdfFullFileName, MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                If MessageBox.Show("是否打开文件： " & strPdfFullFileName, XHTool，
+                                   MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                     System.Diagnostics.Process.Start(strPdfFullFileName)
                 End If
             Else
-                SetStatusBarText("错误")
-                MsgBox("错误。", MsgBoxStyle.Exclamation)
+                SetStatusBarText(XHTool)
+                MessageBox.Show("另存为pdf错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -319,7 +328,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -355,7 +364,7 @@ Module IdwModule
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -374,7 +383,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Function
             End If
 
@@ -400,7 +409,7 @@ Module IdwModule
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
 
@@ -419,7 +428,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -453,7 +462,7 @@ Module IdwModule
 
             oTransaction.End()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -473,7 +482,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -501,7 +510,7 @@ Module IdwModule
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -518,7 +527,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -527,14 +536,14 @@ Module IdwModule
 
             If SetDrawingMirPartIProSub(oInventorDrawingDocument) Then
                 SetStatusBarText("设置工程图自定义属性：对称件IPro")
-                'MsgBox("设置工程图自定义属性：对称件IPro", MsgBoxStyle.Information)
+                ' MessageBox.Show("设置工程图自定义属性：对称件IPro", MsgBoxStyle.Information)
             Else
-                SetStatusBarText("错误")
-                MsgBox("错误。", MsgBoxStyle.Exclamation)
+                SetStatusBarText(XHTool)
+                MessageBox.Show("设置对称件iProperty错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -549,7 +558,7 @@ Module IdwModule
         oSheet = oInventorDrawingDocument.ActiveSheet
 
         If oSheet.DrawingViews.Count = 0 Then
-            MsgBox("先添加一个视图。", MsgBoxStyle.Information)
+            MessageBox.Show("先添加一个视图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Return False
         End If
 
@@ -563,15 +572,16 @@ Module IdwModule
         Dim strMirFileFullFileName As String
 
         Dim strFilter As String = "Autodesk Inventor 文件(*.ipt;*.iam)|*.ipt;*.iam|Autodesk Inventor 零件(*.ipt)|*.ipt|Autodesk Inventor 部件(*.iam)|*.iam"
-        Dim strInitialDirectory As String = GetDirectoryName2(oRef.FullDocumentName)
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim strFile = IO.Path.Combine(GetDirectoryName2(oRef.FullDocumentName), "选择文件")
 
-        If arrayFullFileName Is Nothing Then
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
+
+        If oFileList Is Nothing Then
             Return True
         Else
-            strMirFileFullFileName = arrayFullFileName.Item(0).ToString
+            strMirFileFullFileName = oFileList.Item(0).ToString
         End If
 
         '获取镜像零件ipro
@@ -608,7 +618,7 @@ Module IdwModule
         oInventorDrawingDocument.PropertySets.Item("User Defined Properties").Add(oStockNumPartName.ERP编码, Map_Mir_ERPCode)
         'End Try
 
-        If MsgBox("是否添加对称件说明标签？", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If MessageBox.Show("是否添加对称件说明标签？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
             ' Set a reference to the GeneralNotes object
             Dim oGeneralNotes As GeneralNotes
             oGeneralNotes = oSheet.DrawingNotes.GeneralNotes
@@ -642,7 +652,7 @@ Module IdwModule
 
             Dim oPoint2d As Point2d
 
-            oPoint2d = GetDrawingPoint("单击确定插入标签位置。") ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
+            oPoint2d = GetPointInDrawing("单击确定插入标签位置。") ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
 
 
             Dim oGeneralNote As GeneralNote
@@ -673,27 +683,37 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-        If IsFileExsts(str工程图模板) = False Then
-            MsgBox("找不到模板文件：" & str工程图模板, MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
-            'TitleBlockIdwDoc = My.Application.Info.DirectoryPath
-            'Process.Start(TitleBlockIdwDoc)
-            'TitleBlockIdwDoc = ThisApplication.FileOptions.TemplatesPath
-            'Process.Start(TitleBlockIdwDoc)
-            Exit Sub
+        If IsFileExists(str工程图模板) = False Then
+            MessageBox.Show("找不到模板文件：" & str工程图模板 & "，重新设置。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+
+            Dim strFileName As String
+            Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
+            Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.TemplatesPath, "选择模板文件")
+
+            Dim oFileList As List(Of String)
+            oFileList = OpenFileDialog(strFilter, False, strFile)
+
+            If oFileList Is Nothing Then
+                Exit Sub
+            Else
+                strFileName = oFileList(0).ToString
+                str工程图模板 = strFileName
+            End If
+
         End If
 
         Dim strTitleBlock As String
         strTitleBlock = IO.Path.Combine(My.Application.Info.DirectoryPath, "TitleBlock.ini")
 
-        If IsFileExsts(strTitleBlock) = False Then
-            MsgBox("无配置文件,请手动配置！", MsgBoxStyle.Information)
+        If IsFileExists(strTitleBlock) = False Then
+            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
 
             Dim file As New StreamWriter(strTitleBlock)
             file.WriteLine("#号行勿修改,文件编码 ANSI")
@@ -707,6 +727,8 @@ Module IdwModule
 
             Exit Sub
         End If
+
+        str模型匹配检查 = 0
 
         '撤销功能
         Dim oTransaction As Transaction
@@ -739,22 +761,20 @@ Module IdwModule
             If oTitleBlockDefinition.IsReferenced = False Then
                 oTitleBlockDefinition.Delete()
             ElseIf oTitleBlockDefinition.IsReferenced = True Then
-                '         s = MsgBox("Title Block Def Named '" & oTBDef.Name & "' is referenced, and will not be deleted.", vbOKOnly + vbInformation, "CAN'T BE DELETED")
+                '         s =  MessageBox.Show("Title Block Def Named '" & oTBDef.Name & "' is referenced, and will not be deleted.", vbOKOnly + vbInformation, "CAN'T BE DELETED")
             End If
         Next
 
         Dim oTitleBlockInventorDrawingDocument As Inventor.DrawingDocument
 
-        str模型匹配检查标记 = 3
-        'MsgBox(int模型匹配检查标记)
-
         oTitleBlockInventorDrawingDocument = ThisApplication.Documents.Open(str工程图模板, False)
-
 
         Dim oTemplateTitleBlockDefinitions As TitleBlockDefinitions
         oTemplateTitleBlockDefinitions = oTitleBlockInventorDrawingDocument.TitleBlockDefinitions
 
         Dim oTemplateTitleBlockDefinition As TitleBlockDefinition
+
+        'str模型匹配检查标记 = 3
 
         Dim oNewTitleBlockDefinition As TitleBlockDefinition = Nothing
         For Each oTemplateTitleBlockDefinition In oTemplateTitleBlockDefinitions
@@ -825,622 +845,16 @@ Module IdwModule
 
         oTransaction.End()
 
-        'MsgBox(int模型匹配检查标记)
-        str模型匹配检查标记 = 1
+        str模型匹配检查 = 1
 
-        MsgBox("替换图框标题栏完成。", MsgBoxStyle.Information)
+        MessageBox.Show("替换图框标题栏完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
 
         'Catch ex As Exception
-        '    MsgBox(ex.Message)
+        '       MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         'End Try
     End Sub
 
 
-    ''' <summary>
-    ''' 检查序号完整性
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-
-    Public Function CheckSerialNumber() As Boolean
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Function
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Function
-            End If
-
-            Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = ThisApplication.ActiveDocument
-
-            Dim oActiveSheet As Sheet
-            oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-            If oActiveSheet.Balloons.Count = 0 Then
-                MsgBox("该工程图无序号，请添加【序号】。", MsgBoxStyle.Critical)
-                Exit Function
-            End If
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表，请插入一个【明细表】。", MsgBoxStyle.Critical)
-                Exit Function
-            End If
-
-            Dim oPartsListRows As PartsListRows = oActiveSheet.PartsLists.Item(1).PartsListRows
-
-            Dim strList As String = ""
-
-            '撤销功能
-            Dim oTransaction As Transaction
-            oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
-
-            Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-            oInteraction.Start()
-            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-
-            '新建颜色
-            Dim oColor As Color
-            oColor = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
-
-            'ThisApplication.ScreenUpdating = False
-
-            Dim strPartName As String
-            For Each oPartsListRow As Inventor.PartsListRow In oPartsListRows
-                If oPartsListRow.Ballooned = False Then
-                    strList = strList & oPartsListRow.Item(1).Value & " , "
-                End If
-
-                If oPartsListRow.ReferencedFiles.Count <> 0 Then
-                    strPartName = GetFileNameInfo(oPartsListRow.ReferencedFiles(1).FullFileName).OnlyName
-                    SetStatusBarText("正在描绘：" & oPartsListRow.ReferencedFiles(1).FullFileName)
-                    '设置颜色
-                    SetPartCorlor(oInventorDrawingDocument, strPartName, oColor, oPartsListRow.Ballooned)
-                End If
-            Next
-
-
-            'ThisApplication.ScreenUpdating = True
-
-            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-            oInteraction.Stop()
-
-            oTransaction.End() '事务结束，完成修改操作
-
-            If Strings.Len(strList) > 1 Then
-                MsgBox("明细表：" & strList & " 无序号。", MsgBoxStyle.Information)
-            Else
-                MsgBox("检查序号完成。", MsgBoxStyle.Information)
-            End If
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        'Return True
-    End Function
-
-    ''' <summary>
-    ''' 设置工程图零件颜色
-    ''' </summary>
-    ''' <param name="oInventorDrawingDocument">工程图</param>
-    ''' <param name="partStr">零件</param>
-    ''' <param name="oColor">颜色</param>
-    ''' <param name="oPartsListRowBallooned">是否有序号</param>
-    ''' <remarks></remarks>
-
-    Public Sub SetPartCorlor(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal partStr As String,
-                             ByVal oColor As Color, ByVal oPartsListRowBallooned As Boolean)
-
-        Dim oTransaction As Transaction
-        Dim refAssyDef As ComponentDefinition = Nothing
-
-        oTransaction = ThisApplication.TransactionManager.StartTransaction(oInventorDrawingDocument, "Colorize [PART]")
-
-        '遍历图纸
-        For Each oSheet As Sheet In oInventorDrawingDocument.Sheets
-            '遍历视图
-            For Each oDrawingView As DrawingView In oSheet.DrawingViews
-
-                If oDrawingView.ReferencedDocumentDescriptor.ReferencedDocumentType = DocumentTypeEnum.kPresentationDocumentObject Then
-                    refAssyDef = oDrawingView.ReferencedDocumentDescriptor.ReferencedDocument.ReferencedDocuments(1).ComponentDefinition
-                ElseIf oDrawingView.ReferencedFile.DocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then
-                    refAssyDef = oDrawingView.ReferencedFile.DocumentDescriptor.ReferencedDocument.ComponentDefinition
-                End If
-
-                If (refAssyDef Is Nothing) Then
-                    Continue For
-                End If
-
-                For Each oComponentOccurrence As ComponentOccurrence In refAssyDef.Occurrences
-                    If oComponentOccurrence.Name Like partStr & ":*" Then
-                        ThisApplication.ScreenUpdating = False
-                        Try
-                            Dim ViewCurves As DrawingCurvesEnumerator = oDrawingView.DrawingCurves(oComponentOccurrence)
-
-                            Dim oDrawingCurve As DrawingCurve
-
-                            If oPartsListRowBallooned = True Then
-                                '已有序号，判断颜色属性
-                                '设置颜色
-                                Dim oBlackColor As Color = ThisApplication.TransientObjects.CreateColor(0, 0, 0)
-
-                                For Each oDrawingCurve In ViewCurves
-                                    Select Case oDrawingCurve.Color.ColorSourceType
-                                        Case ColorSourceTypeEnum.kAutomaticColorSource, ColorSourceTypeEnum.kLayerColorSource
-                                            Exit For
-                                        Case ColorSourceTypeEnum.kOverrideColorSource
-                                            oDrawingCurve.Color = Nothing
-                                            oDrawingCurve.Color.ColorSourceType = ColorSourceTypeEnum.kLayerColorSource
-                                            oDrawingCurve.LineWeight = oDrawingCurve.Segments(1).Layer.LineWeight
-                                            'c.Color = oBlackColor
-                                    End Select
-                                Next
-                            Else
-                                '没有序号，设置彩色
-                                For Each oDrawingCurve In ViewCurves
-                                    oDrawingCurve.Color = oColor
-                                    oDrawingCurve.LineWeight = oDrawingCurve.Segments(1).Layer.LineWeight
-                                Next
-                            End If
-                        Catch ex As Exception
-                        End Try
-                        ThisApplication.ScreenUpdating = True
-                    End If
-                Next
-            Next
-        Next
-        oTransaction.End()
-    End Sub
-
-
-    ''' <summary>
-    ''' 自动重建序号
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function RebuildRingSerialNumber() As Boolean
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Function
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Function
-            End If
-
-            Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = ThisApplication.ActiveDocument
-
-            '设置为一个动作，可一次撤销
-            Dim transientGeometry As TransientGeometry
-            transientGeometry = ThisApplication.TransientGeometry
-            'start a transaction so the slot will be within a single undo step
-
-            '撤销功能
-            Dim oTransaction As Transaction
-            oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
-
-            Dim oActiveSheet As Sheet
-            oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表。", MsgBoxStyle.Critical)
-                Return False
-                Exit Function
-            End If
-
-            Dim userInput As String = InputBox("输入第一个序号", "自动新建序号", 1)
-
-            Dim intFirstBalloonNumber As Integer
-            If String.IsNullOrEmpty(userInput) Then
-                Return False
-                Exit Function
-            Else
-                Integer.TryParse(userInput, intFirstBalloonNumber)
-            End If
-
-            '开始设置序号
-
-            Dim intBalloonNumber As Integer
-            intBalloonNumber = intFirstBalloonNumber
-
-            '获取当前balloon的textstyle
-            Dim OldBalloonTextStyl As String = oInventorDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle.TextStyle.Name
-
-            '获取当前balloonstyle
-            Dim oActiveBalloonStyle As BalloonStyle = oInventorDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle
-
-            '新建 ZeroBalloonText
-            Try
-                If oInventorDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText") Is Nothing Then
-
-                End If
-            Catch ex As Exception
-                Dim oZeroBalloonText As TextStyle
-                oZeroBalloonText = oInventorDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl).Copy("ZeroBalloonText")
-
-                Dim oZeroBalloonTextColor As Color = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
-                oZeroBalloonText.Color = oZeroBalloonTextColor
-            End Try
-
-            '设置当前balloon style 为新的 zeroballoonstyle
-            oActiveBalloonStyle.TextStyle = oInventorDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText")
-
-            Try
-                Dim oDrawingView As DrawingView
-                Do
-
-                    oDrawingView = ThisApplication.CommandManager.Pick(kDrawingViewFilter, "选择一个视图，ESC键取消")
-
-                    '100个临时balloon
-                    Dim arrayTempBalloonDate(99) As BalloonDate
-                    'MsgBox(oDrawingView.Name)
-
-                    '视图中心点
-                    Dim oCenterPoint2d As Point2d
-                    oCenterPoint2d = oDrawingView.Position
-
-                    Dim i As Integer = 0
-
-                    '获取当前视图中的balloon
-                    Dim oBalloon As Balloon
-                    For Each oBalloon In oActiveSheet.Balloons
-
-                        ThisApplication.ScreenUpdating = False
-
-                        For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                            If oBalloonValueSet.Value >= intBalloonNumber Then
-                                oBalloonValueSet.Value = 0
-                            End If
-                        Next
-
-                        ThisApplication.ScreenUpdating = True
-
-                        If oBalloon.ParentView.Name = oDrawingView.Name Then
-
-                            arrayTempBalloonDate(i).Balloon = oBalloon
-                            arrayTempBalloonDate(i).Position = oBalloon.Position
-                            arrayTempBalloonDate(i).Position.X = oBalloon.Position.X - oCenterPoint2d.X
-                            arrayTempBalloonDate(i).Position.Y = oBalloon.Position.Y - oCenterPoint2d.Y
-                            i = i + 1
-                        End If
-
-                    Next
-
-                    '获取视图包含的balloon个数
-                    Dim intArrayBalloonDateLength As Integer
-                    intArrayBalloonDateLength = Array.IndexOf(arrayTempBalloonDate, Nothing)
-
-                    '重新定义balloon数组
-                    Array.Resize(arrayTempBalloonDate, intArrayBalloonDateLength)
-
-                    'MsgBox(“”)
-
-                    For i = 0 To intArrayBalloonDateLength - 1
-                        Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
-                    Next
-
-                    Debug.Print("")
-
-                    Dim j As Integer
-                    Dim tempBalloondate As BalloonDate
-
-                    '=============================================
-                    '按X值开始排序
-
-                    'For i = 0 To intArrayBalloonDateLength - 1
-                    '    For j = 0 To intArrayBalloonDateLength - 2
-                    '        if arrayTempBalloonDate(j).Position.X > arrayTempBalloonDate(j + 1).Position.X Then
-                    '            tempBalloondate = arrayTempBalloonDate(j)
-                    '            arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
-                    '            arrayTempBalloonDate(j + 1) = tempBalloondate
-                    '        End if
-                    '    Next
-                    'Next
-                    '=============================================
-                    '按极角排序
-
-                    Select Case str逆时针序号
-                        Case "-1"
-                            For i = 0 To intArrayBalloonDateLength - 1
-                                For j = 0 To intArrayBalloonDateLength - 2
-                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) <
-                                        Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
-                                        tempBalloondate = arrayTempBalloonDate(j)
-                                        arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
-                                        arrayTempBalloonDate(j + 1) = tempBalloondate
-                                    End If
-                                Next
-                            Next
-                        Case "1"     '顺时针序号
-                            For i = 0 To intArrayBalloonDateLength - 1
-                                For j = 0 To intArrayBalloonDateLength - 2
-                                    If Math.Atan2(arrayTempBalloonDate(j).Position.Y, arrayTempBalloonDate(j).Position.X) >
-                                        Math.Atan2(arrayTempBalloonDate(j + 1).Position.Y, arrayTempBalloonDate(j + 1).Position.X) Then
-                                        tempBalloondate = arrayTempBalloonDate(j)
-                                        arrayTempBalloonDate(j) = arrayTempBalloonDate(j + 1)
-                                        arrayTempBalloonDate(j + 1) = tempBalloondate
-                                    End If
-                                Next
-                            Next
-
-
-                    End Select
-                    '=============================================
-                    For i = 0 To intArrayBalloonDateLength - 1
-                        Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
-                    Next
-
-                    '重新写序号
-                    Dim ofirstballoon As Balloon
-                    ofirstballoon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择第一个序号，ESC键取消")
-
-                    '选择的balloon在数组中的位置
-                    Dim intfirstballoon As Integer
-
-                    For j = 0 To intArrayBalloonDateLength - 1
-                        If arrayTempBalloonDate(j).Balloon Is ofirstballoon Then
-                            intfirstballoon = j
-                        End If
-                    Next
-
-                    For j = intfirstballoon To intArrayBalloonDateLength - 1
-                        oBalloon = arrayTempBalloonDate(j).Balloon
-                        For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                            If oBalloonValueSet.Value = 0 Then
-                                oBalloonValueSet.Value = intBalloonNumber
-                                intBalloonNumber = intBalloonNumber + 1
-                            End If
-                        Next
-                    Next j
-
-                    For j = 0 To intfirstballoon
-                        oBalloon = arrayTempBalloonDate(j).Balloon
-                        For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                            If oBalloonValueSet.Value = 0 Then
-                                oBalloonValueSet.Value = intBalloonNumber
-                                intBalloonNumber = intBalloonNumber + 1
-                            End If
-                        Next
-                    Next j
-
-                    'end the transactio
-
-                Loop While True
-            Catch ex As Exception
-
-                'esc 退出后，还原balloon style
-                oActiveBalloonStyle.TextStyle = oInventorDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl)
-
-            End Try
-
-            SetStatusBarText("重建序号完成")
-            'MsgBox("设置工程图自定义属性：比例完成", MsgBoxStyle.Information)
-
-            If MsgBox("明细栏是否排序？", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.Yes Then
-
-                oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-                If oActiveSheet.PartsLists.Count = 0 Then
-                    MsgBox("该工程图无明细表。", MsgBoxStyle.Critical)
-                    Exit Function
-                End If
-
-                For Each oInventorPartsListRow As Inventor.PartsListRow In oActiveSheet.PartsLists.Item(1).PartsListRows
-                    oInventorPartsListRow.SaveItemOverridesToBOM()
-                Next
-
-                oActiveSheet.PartsLists(1).Sort("序号", True)
-            End If
-
-            '事务结束，完成修改操作
-            oTransaction.End()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-    End Function
-
-
-    ''' <summary>
-    ''' 新建序号
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub CreateNewSequenceNumber()
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = ThisApplication.ActiveDocument
-
-            '撤销功能
-            Dim oTransaction As Transaction
-            oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
-
-            'start a transaction so the slot will be within a single undo step
-            Dim createSlotTransaction As Transaction
-            createSlotTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "重新设置序号")
-
-            Dim oActiveSheet As Sheet
-            oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表", MsgBoxStyle.Critical)
-                Exit Sub
-            End If
-
-            Dim strFirstBalloonNumber As String = InputBox("输入第一个序号", "重建序号", 1)
-            Dim intFirstBalloonNumber As Integer
-
-            If String.IsNullOrEmpty(strFirstBalloonNumber) Then
-                Exit Sub
-            Else
-                Integer.TryParse(strFirstBalloonNumber, intFirstBalloonNumber)
-            End If
-
-            Dim intBalloonNumber As Integer
-            intBalloonNumber = intFirstBalloonNumber
-
-            '        '设置序号为0
-            'Dim partslistrow As Inventor.PartsListRow
-
-            ThisApplication.ScreenUpdating = False
-
-            For Each oPartsList As Inventor.PartsListRow In oActiveSheet.PartsLists.Item(1).PartsListRows
-                If oPartsList.Item(1).Value >= intFirstBalloonNumber Then
-                    oPartsList.Item(1).Value = 0
-                End If
-            Next
-
-            ThisApplication.ScreenUpdating = True
-
-            '获取当前balloon的textstyle
-            Dim OldBalloonTextStyl As String = oInventorDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle.TextStyle.Name
-
-            '获取当前balloonstyle
-            Dim oActiveBalloonStyle As BalloonStyle = oInventorDrawingDocument.StylesManager.ActiveStandardStyle.ActiveObjectDefaults.BalloonStyle
-
-            '新建 ZeroBalloonText
-            Try
-                If oInventorDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText") Is Nothing Then
-
-                End If
-            Catch ex As Exception
-                Dim oZeroBalloonText As TextStyle
-                oZeroBalloonText = oInventorDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl).Copy("ZeroBalloonText")
-
-                Dim oZeroBalloonTextColor As Color = ThisApplication.TransientObjects.CreateColor(255, 0, 128)
-                oZeroBalloonText.Color = oZeroBalloonTextColor
-            End Try
-
-            '设置当前balloon style 为新的 zeroballoonstyle
-            oActiveBalloonStyle.TextStyle = oInventorDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText")
-
-            ' '' ''
-            ' '' ''        '点击每个序号组
-            ' '' ''        Dim oBalloon As Balloon
-            ' '' ''        For i = 1 To oActiveSheet.PartsLists.Item(1).PartsListRows.Count
-            ' '' ''            oBalloon =   ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号")
-            ' '' ''            '遍历序号组中的序号，不为0就设置序号，并加1，设置下一个，有序号则跳过
-            ' '' ''            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-            ' '' ''                if oBalloonValueSet.Value = 0 Then
-            ' '' ''                    oBalloonValueSet.Value = i
-            ' '' ''                    i = i + 1
-            ' '' ''                End if
-            ' '' ''            Next
-            ' '' ''            '多加的1要减去
-            ' '' ''            i = i - 1
-            ' '' ''        Next
-
-            '点击每个序号组
-            Try
-                Dim oBalloon As Balloon
-                Do
-                    oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号，ESC键取消")
-
-                    For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                        'if (oBalloonValueSet.Value >= FirstBalloonNumber) Then
-                        If oBalloonValueSet.Value = 0 Then
-                            oBalloonValueSet.Value = intBalloonNumber
-                            intBalloonNumber = intBalloonNumber + 1
-                        End If
-                    Next
-                Loop While True
-            Catch ex As Exception
-
-                'esc 退出后，还原balloon style
-                oActiveBalloonStyle.TextStyle = oInventorDrawingDocument.StylesManager.TextStyles.Item(OldBalloonTextStyl)
-
-            End Try
-
-            If MsgBox("是否重写BOM序号？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "重新序号") = vbYes Then
-
-                oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-                If oActiveSheet.PartsLists.Count = 0 Then
-                    MsgBox("该工程图无明细表。", MsgBoxStyle.Critical)
-                    Exit Sub
-                End If
-
-                For Each oInventorPartsListRow As Inventor.PartsListRow In oActiveSheet.PartsLists.Item(1).PartsListRows
-                    oInventorPartsListRow.SaveItemOverridesToBOM()
-                Next
-
-                oActiveSheet.PartsLists(1).Sort("序号", True)
-            End If
-
-            oTransaction.End() '事务结束，完成修改操作
-        Catch ex As Exception
-            'MsgBox(ex.Message)
-        End Try
-
-    End Sub
-
-    ''' <summary>
-    ''' 重写BOM序号
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub ReWriteBOM()
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = ThisApplication.ActiveDocument
-
-            Dim oActiveSheet As Sheet
-            oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表。", MsgBoxStyle.Critical)
-                Exit Sub
-            End If
-
-            Dim oPartsList As PartsList
-            Dim oInventorPartsListRow As Inventor.PartsListRow
-
-            'For Each oPartsList In oActiveSheet.PartsLists
-            oPartsList = oActiveSheet.PartsLists.Item(1)
-
-            For Each oInventorPartsListRow In oPartsList.PartsListRows
-                oInventorPartsListRow.SaveItemOverridesToBOM()
-            Next
-
-            oPartsList.Sort("序号", True)
-            'Next
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-    End Sub
 
     ''' <summary>
     ''' 替换模型参考
@@ -1637,7 +1051,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
@@ -1651,10 +1065,10 @@ Module IdwModule
             If SetSign(oInventorDrawingDocument, EngineerName, strPrint_Day, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
-                SetStatusBarText("错误")
+                SetStatusBarText(XHTool)
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -1675,7 +1089,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
@@ -1685,10 +1099,10 @@ Module IdwModule
             If SetSign(oInventorDrawingDocument, "", "", False) Then
                 SetStatusBarText("清除工程图属性，签字完成")
             Else
-                SetStatusBarText("错误")
+                SetStatusBarText(XHTool)
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -1722,83 +1136,7 @@ Module IdwModule
     End Function
 
 
-    ''' <summary>
-    ''' 插入序号
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub InsertSerialNumber()
 
-        Try
-            SetStatusBarText()
-
-            If IsInventorOpenDocument() = False Then
-                Exit Sub
-            End If
-
-            Dim oInventorDocument As Inventor.Document
-            oInventorDocument = ThisApplication.ActiveDocument
-
-            If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
-                Exit Sub
-            End If
-
-            Dim oInventorDrawingDocument As Inventor.DrawingDocument
-            oInventorDrawingDocument = oInventorDocument
-
-            '设置为一个动作，可一次撤销
-            Dim oTransientGeometry As TransientGeometry
-            oTransientGeometry = ThisApplication.TransientGeometry
-            'start a transaction so the slot will be within a single undo step
-
-            Dim createSlotTransaction As Transaction
-            createSlotTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "插入序号")
-
-            Dim oActiveSheet As Sheet
-            oActiveSheet = oInventorDrawingDocument.ActiveSheet
-
-            If oActiveSheet.PartsLists.Count = 0 Then
-                MsgBox("该工程图无明细表。", MsgBoxStyle.Critical)
-                Exit Sub
-            End If
-
-            Dim strFirstBalloonNumber As String
-            Dim intFirstBalloonNumber As Integer
-
-            strFirstBalloonNumber = InputBox("输入要插入的序号，并点击该序号的标注标识", "插入序号")
-
-            If String.IsNullOrEmpty(strFirstBalloonNumber) Then
-            Else
-                Integer.TryParse(strFirstBalloonNumber, intFirstBalloonNumber)
-            End If
-
-            '点击被插入的序号标识
-            Dim oBalloon As Balloon
-            oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择被插入的引出序号标识，ESC取消")
-
-            '  设置序号+1
-
-            For Each oPartsListRow As Inventor.PartsListRow In oActiveSheet.PartsLists.Item(1).PartsListRows
-                If oPartsListRow.Item(1).Value >= intFirstBalloonNumber Then
-                    oPartsListRow.Item(1).Value = oPartsListRow.Item(1).Value + 1
-                End If
-            Next
-
-            '设置插入序号对应的标识
-            For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
-                If oBalloonValueSet.Value = 0 Then
-                    oBalloonValueSet.Value = intFirstBalloonNumber
-                Else
-                    MsgBox("该标识数值不为0，请重新选择。", MsgBoxStyle.Information)
-                End If
-            Next
-
-            'end the transactio
-            createSlotTransaction.End()
-        Catch ex As Exception
-            'MsgBox(ex.Message)
-        End Try
-    End Sub
 
 
     ''' <summary>
@@ -1907,7 +1245,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
@@ -1991,7 +1329,7 @@ Module IdwModule
             SetSign(oInventorDrawingDocument, "", "", False)
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -2016,10 +1354,11 @@ Module IdwModule
 
         oInventorDocument = ThisApplication.ActiveDocument
 
-        If IsFileExsts(str展开图模板) = False Then
+        If IsFileExists(str展开图模板) = False Then
             Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-            MsgBox("未找到展开图模板：" & vbCrLf & str展开图模板 & vbCrLf & "请选择展开图模板文件。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+            MessageBox.Show("未找到展开图模板：" & vbCrLf & str展开图模板 & vbCrLf & "请选择展开图模板文件。", XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
 
             With oOpenFileDialog
                 .Title = "打开展开图模板文件"
@@ -2040,8 +1379,9 @@ Module IdwModule
         End If
 
         Dim strInventorDrawingFolder As String = Nothing
-        Select Case MsgBox("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
-            Case MsgBoxResult.Yes
+        Select Case MessageBox.Show("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", XHTool，
+                                    MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question, MessageBoxDefaultButton.Button1）
+            Case DialogResult.Yes
                 Dim oFolderBrowserDialog As New FolderBrowserDialog
 
                 With oFolderBrowserDialog
@@ -2055,16 +1395,16 @@ Module IdwModule
                     End If
                 End With
 
-            Case MsgBoxResult.No
+            Case DialogResult.No
                 strInventorDrawingFolder = "当前文件夹"
-            Case MsgBoxResult.Cancel
+            Case DialogResult.Cancel
                 Exit Sub
         End Select
 
 
         Dim IsClose As Boolean = False
 
-        'Select Case MsgBox("创建展开图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        'Select Case  MessageBox.Show("创建展开图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
         '    Case MsgBoxResult.Yes
         '        IsClose = True
         '    Case MsgBoxResult.No
@@ -2076,7 +1416,7 @@ Module IdwModule
         Select Case oInventorDocument.DocumentType
             Case kAssemblyDocumentObject
 
-                If MsgBox("将为部件中的钣金件创建展开图？", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = MsgBoxResult.No Then
+                If MessageBox.Show("将为部件中的钣金件创建展开图？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.No Then
                     Exit Sub
                 End If
 
@@ -2114,7 +1454,7 @@ Module IdwModule
                             Debug.Print(strDocumentFullFileName)
 
 
-                            If IsFileExsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
+                            If IsFileExists(strDocumentFullFileName) = False Then   '跳过不存在的文件
                                 GoTo 999
                             End If
 
@@ -2134,7 +1474,7 @@ Module IdwModule
                         Next
                     End If
                 Next
-                MsgBox("钣金件批量生成展开图完成。", MsgBoxStyle.Information)
+                MessageBox.Show("钣金件批量生成展开图完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
 
             Case kPartDocumentObject
                 oInventorPartDocument = oInventorDocument
@@ -2142,7 +1482,7 @@ Module IdwModule
         End Select
 
         'Catch ex As Exception
-        '    MsgBox(ex.Message)
+        '       MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         'End Try
 
     End Sub
@@ -2155,13 +1495,13 @@ Module IdwModule
     Public Sub CreateFlat(ByVal oInventorDocument As Inventor.PartDocument)
         ' Check for a non-part document 
         If oInventorDocument.DocumentType <> kPartDocumentObject Then
-            MessageBox.Show("该文档不是零件。")
+            MessageBox.Show(”该文档不是零件“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         ' The Active document must be a Sheet metal Part
         If oInventorDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}" Then
-            MessageBox.Show("该文档不是钣金件。")
+            MessageBox.Show(”该文档不是钣金件“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -2425,21 +1765,24 @@ Module IdwModule
         oInventorDocument = ThisApplication.ActiveDocument
 
 
-        If IsFileExsts(str工程图模板) = False Then
+        If IsFileExists(str工程图模板) = False Then
             Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-            MsgBox("未找到工程图模板：" & vbCrLf & str工程图模板 & vbCrLf & "请选择工程图模板文件。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+            MessageBox.Show("未找到工程图模板：" & vbCrLf & str工程图模板 & vbCrLf & "请选择工程图模板文件。", XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
 
             Dim strFilter As String = "Autodesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
 
-            Dim arrayFullFileName As List(Of String)
-            arrayFullFileName = OpenFileDialog(strFilter, False)
+            Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.TemplatesPath, "选择模板文件")
 
-            If arrayFullFileName Is Nothing Then
+            Dim oFileList As List(Of String)
+            oFileList = OpenFileDialog(strFilter, False, strFile)
+
+            If oFileList Is Nothing Then
                 Exit Sub
             End If
 
-            str工程图模板 = arrayFullFileName.Item(0).ToString
+            str工程图模板 = oFileList.Item(0).ToString
             ini.WriteStrINI("工程图", "工程图模板", str工程图模板, IniFile)
 
 
@@ -2447,7 +1790,7 @@ Module IdwModule
 
         Dim strInventorDrawingFolder As String = "当前文件夹"
 
-        'Select Case MsgBox("是否指定保存工程图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        'Select Case  MessageBox.Show("是否指定保存工程图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
         '    Case MsgBoxResult.Yes
         '        Dim oFolderBrowserDialog As New FolderBrowserDialog
 
@@ -2471,7 +1814,7 @@ Module IdwModule
 
         Dim IsClose As Boolean = False
 
-        'Select Case MsgBox("创建工程图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
+        'Select Case  MessageBox.Show("创建工程图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
         '    Case MsgBoxResult.Yes
         '        IsClose = True
         '    Case MsgBoxResult.No
@@ -2520,7 +1863,7 @@ Module IdwModule
                 '                            ' Set the message for the progress bar
                 '                            'oProgressBar.Message = oFullFileName
 
-                '                            if IsFileExsts(strFullFileName) = False Then   '跳过不存在的文件
+                '                            if IsFileExists(strFullFileName) = False Then   '跳过不存在的文件
                 '                                GoTo 999
                 '                            End if
 
@@ -2539,7 +1882,7 @@ Module IdwModule
                 '                        Next
                 '                    End if
                 '                Next
-                '                MsgBox("批量生成工程图完成。", MsgBoxStyle.Information)
+                '                 MessageBox.Show("批量生成工程图完成。", MsgBoxStyle.Information)
 
             Case kPartDocumentObject
                 oInventorPartDocument = oInventorDocument
@@ -2587,8 +1930,9 @@ Module IdwModule
         strInventorDrawingDocumentFullFileName = GetChangeExtension(strInventorDocumentFullFileName, IDW)
 
         '如果工程图存在就打开工程图，不创建新的工程图
-        If IsFileExsts(strInventorDrawingDocumentFullFileName) = True Then
-            If MsgBox("确定打开已存在工程图：" & strInventorDrawingDocumentFullFileName, MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+        If IsFileExists(strInventorDrawingDocumentFullFileName) = True Then
+            If MessageBox.Show("确定打开已存在工程图：" & strInventorDrawingDocumentFullFileName, XHTool，
+                               MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                 ThisApplication.Documents.Open(strInventorDrawingDocumentFullFileName)
                 Exit Sub
             End If
@@ -2713,7 +2057,8 @@ Module IdwModule
 
         Select Case douDrawingViewWidthDividedHeight
             Case Is > 2         '设置为a3，横向
-                If MsgBox("是否将图框设置为 A3-横向？", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then   '询问是否将图框改为横向
+                If MessageBox.Show("是否将图框设置为 A3-横向？", XHTool，
+                                   MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then   '询问是否将图框改为横向
                     oSheet.Size = DrawingSheetSizeEnum.kA3DrawingSheetSize
                     oSheet.Orientation = PageOrientationTypeEnum.kLandscapePageOrientation
                 Else
@@ -2851,26 +2196,29 @@ Module IdwModule
         oInventorDrawingDocument.Update()
 
         '保存工程图
-        If IsFileExsts(strInventorDrawingDocumentFullFileName) = True Then
-            Select Case MsgBox("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", MsgBoxStyle.Information + MsgBoxStyle.YesNoCancel)
-                Case MsgBoxResult.Yes
+        If IsFileExists(strInventorDrawingDocumentFullFileName) = True Then
+            Select Case MessageBox.Show("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", XHTool，
+                                         MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+                Case DialogResult.Yes
                     'DelFile(strInventorDrawingDocumentFullFileName, FileIO.RecycleOption.SendToRecycleBin)
                     oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)
                     oInventorDrawingDocument.Save2()
-                Case MsgBoxResult.No
+                Case DialogResult.No
                     Dim oSaveFileDialog As New SaveFileDialog
 
 
                     Dim strFilter As String = "Autodesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
 
-                    Dim arrayFullFileName As List(Of String)
-                    arrayFullFileName = OpenFileDialog(strFilter, False)
+                    Dim strFile = GetFileNameWithoutExtension2(strInventorDrawingDocumentFullFileName)
 
-                    If arrayFullFileName Is Nothing Then
+                    Dim oFileList As List(Of String)
+                    oFileList = SaveFileDialog(strFilter, False, strFile)
+
+                    If oFileList Is Nothing Then
                         Exit Sub
                     End If
 
-                    strInventorDrawingDocumentFullFileName = arrayFullFileName.Item(0).ToString
+                    strInventorDrawingDocumentFullFileName = oFileList.Item(0).ToString
 
                     'With oSaveFileDialog
                     '    .Title = "保存工程图文件"
@@ -2954,7 +2302,8 @@ Module IdwModule
     Public Function CheckDrawingDocumentNameToReferencedDocument(ByVal oInventorDrawingDocument As Inventor.DrawingDocument) As Boolean
 
         For Each oReferencedDocument In oInventorDrawingDocument.ReferencedDocumentDescriptors
-            If GetFileNameInfo(oReferencedDocument.FullDocumentName).OnlyName = GetFileNameInfo(oInventorDrawingDocument.FullDocumentName).OnlyName Then
+            If GetFileNameInfo(oReferencedDocument.FullDocumentName).OnlyName.ToLower =
+                GetFileNameInfo(oInventorDrawingDocument.FullDocumentName).OnlyName.ToLower Then
                 Return True
             End If
         Next
@@ -2977,7 +2326,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
@@ -2993,27 +2342,32 @@ Module IdwModule
 
             '新工程图文件名
 
+
             Dim strFilter As String = Nothing
+
             Select Case strOldInventorDocumentExtensionName
                 Case IAM
                     strFilter = "Autodesk Inventor 部件(*.iam)|*.iam"
                 Case IPT
                     strFilter = "Autodesk Inventor 零件(*.ipt)|*.ipt"
-
+                Case Else
+                    Exit Sub
             End Select
 
-            Dim arrayFullFileName As List(Of String)
-            arrayFullFileName = OpenFileDialog(strFilter, False, GetDirectoryName2(strOldInventorDocumentFullName))
+            Dim strFile As String = IO.Path.Combine(GetDirectoryName2(strOldInventorDocumentFullName), "选择工程图链接的零部件")
 
-            If arrayFullFileName Is Nothing Then
+            Dim oFileList As List(Of String)
+            oFileList = OpenFileDialog(strFilter, False, strFile)
+
+            If oFileList Is Nothing Then
                 Exit Sub
             End If
 
             '新零部件文件名
-            Dim strNewInventorDocumentFullName As String = arrayFullFileName.Item(0).ToString
+            Dim strNewInventorDocumentFullName As String = oFileList.Item(0).ToString
 
             If strNewInventorDocumentFullName = strOldInventorDocumentFullName Then
-                MsgBox("请选择不同的零部件文件。", MsgBoxStyle.Information)
+                MessageBox.Show("请选择不同的零部件文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
@@ -3023,10 +2377,9 @@ Module IdwModule
             strNewInventorDrawingDocumentFullName = GetChangeExtension(strNewInventorDocumentFullName, IDW)
 
             '判断新工程图是否存在，是否需要覆盖
-            If IsFileExsts(strNewInventorDrawingDocumentFullName) = True Then
-                If MsgBox("存在工程图：" & vbCrLf & vbCrLf & strNewInventorDrawingDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？",
-                          MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-
+            If IsFileExists(strNewInventorDrawingDocumentFullName) = True Then
+                If MessageBox.Show("存在工程图：" & vbCrLf & vbCrLf & strNewInventorDrawingDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？",
+                         XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                 Else
                     Exit Sub
                 End If
@@ -3053,7 +2406,7 @@ Module IdwModule
 
             'If strNewInventorDocumentFullName = "" Then
             '    'ThisApplication.Documents.Open(strNewInventorDrawingDocumentFullName, True)
-            '    MsgBox("未找到" & oFileNameInfo.FileName & "对应的零部件文件。")
+            '     MessageBox.Show("未找到" & oFileNameInfo.FileName & "对应的零部件文件。")
             '    Exit Sub
             'End If
 
@@ -3063,7 +2416,7 @@ Module IdwModule
 
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
 
@@ -3084,7 +2437,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
@@ -3114,7 +2467,7 @@ Module IdwModule
 
             End If
         Next
-        MsgBox("断开链接完成！", MsgBoxStyle.Information, "断开链接")
+        MessageBox.Show("断开链接完成！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
     End Sub
 
     ''' <summary>
@@ -3131,7 +2484,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
@@ -3375,12 +2728,22 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = oInventorDrawingDocument.ReferencedDocumentDescriptors.Item(1).ReferencedDocument
+
+        If TypeOf oInventorDocument IsNot PartDocument Then
+            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
 
         Dim oInventorPartDocument As Inventor.PartDocument
         oInventorPartDocument = oInventorDrawingDocument.ReferencedDocumentDescriptors.Item(1).ReferencedDocument
@@ -3426,14 +2789,14 @@ Module IdwModule
     ''' <param name="StrInformation">鼠标提示文字</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetDrawingPoint(ByVal StrInformation As String) As Point2d
-        Dim oGetPoint As New ClsGetPoint
+    Public Function GetPointInDrawing(ByVal StrInformation As String) As Point2d
+        Dim oGetDrawingPoint As New clsGetPoint
         Dim oPoint2d As Point2d
 
         Do
-            oPoint2d = oGetPoint.GetDrawingPoint(StrInformation, MouseButtonEnum.kLeftMouseButton)
+            oPoint2d = oGetDrawingPoint.GetDrawingPoint(StrInformation, MouseButtonEnum.kLeftMouseButton, CursorTypeEnum.kCursorBuiltInCrosshair)
             If oPoint2d IsNot Nothing Then
-                'MsgBox("Click is at " & Strings.Format(pnt.X, "0.0000") & ", " & Strings.Format(pnt.Y, "0.0000"))
+                ' MessageBox.Show("当前坐标： " & Strings.Format(oPoint2d.X, "0.0000") & ", " & Strings.Format(oPoint2d.Y, "0.0000"))
                 Return oPoint2d
             End If
         Loop While oPoint2d IsNot Nothing
@@ -3487,7 +2850,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
@@ -3518,7 +2881,7 @@ Module IdwModule
     '    Do
     '        strPoints = oGetRectAreaInDrawing.GetRectAreaInDrawing(StrInformation, MouseButtonEnum.kLeftMouseButton)
     '        If Not strPoints Is Nothing Then
-    '            'MsgBox("Click is at " & Strings.Format(pnt.X, "0.0000") & ", " & Strings.Format(pnt.Y, "0.0000"))
+    '            ' MessageBox.Show("Click is at " & Strings.Format(pnt.X, "0.0000") & ", " & Strings.Format(pnt.Y, "0.0000"))
     '            Return strPoints
     '        End If
     '    Loop While Not strPoints Is Nothing
@@ -3571,7 +2934,7 @@ Module IdwModule
         intNunber = Int(Val(strText1) / Val(strText2))
 
         If douNumber <> intNunber Then
-            MsgBox("基准尺寸非整数个。")
+            MessageBox.Show("基准尺寸非整数个。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
@@ -3726,7 +3089,7 @@ Module IdwModule
         oDocDesc = oDrawView.ReferencedDocumentDescriptor
         ' Verify that the selected drawing view is of an assembly.
         If oDocDesc.ReferencedDocumentType <> kAssemblyDocumentObject Then
-            MsgBox("请选装一个部件模型。")
+            MessageBox.Show("请选装一个部件模型。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
         Dim oAssyDoc As AssemblyDocument

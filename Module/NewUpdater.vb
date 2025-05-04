@@ -2,7 +2,7 @@
 Imports Microsoft.VisualBasic
 Imports System.Windows.Forms
 Imports System.IO
-
+Imports System.Text
 
 Module NewUpdater
     Public Server As String  '服务器，包含/
@@ -21,36 +21,37 @@ Module NewUpdater
         '获取本地插件版本
         Dim strOldVersion As String
 
-        strOldVersion = My.Application.Info.Version.Major & "." & _
-            My.Application.Info.Version.Minor & "." & _
-            Format(My.Application.Info.Version.Build, "00") & "." & _
+        strOldVersion = My.Application.Info.Version.Major & "." &
+            My.Application.Info.Version.Minor & "." &
+            Format(My.Application.Info.Version.Build, "00") & "." &
            Format(My.Application.Info.Version.Revision, "00")
 
         '写本地版本文件
         Dim strTempFile As String = IO.Path.Combine(IO.Path.GetTempPath, "OldVison.txt")
 
         ' 使用Using语句确保资源被正确释放
-        Using writer As New StreamWriter(strTempFile)
+        Using oStreamWriter As New StreamWriter(strTempFile, False, Encoding.Default)
             ' 将字符串写入文件
-            writer.Write(strOldVersion)
+            oStreamWriter.Write(strOldVersion)
         End Using
+
+
 
         '写本地版本文件
         strTempFile = IO.Path.Combine(IO.Path.GetTempPath, "返回检查.txt")
 
-        ' 使用Using语句确保资源被正确释放
-        Using writer As New StreamWriter(strTempFile)
-            ' 将字符串写入文件
-            writer.Write(isMsgbox)
+        Using oStreamWriter As New StreamWriter(strTempFile, False, Encoding.Default)
+            oStreamWriter.Write(isMsgbox)
         End Using
+
 
         '启动升级程序
         strTempFile = Path.Combine(My.Application.Info.DirectoryPath, "XHUpdater.exe")
 
-        If IsFileExsts(strTempFile) = True Then
+        If IsFileExists(strTempFile) = True Then
             Process.Start(strTempFile)
         Else
-            MsgBox("未找到升级程序  XHUpdater.exe，请到 www.pmhker.com 重新下载安装文件！", MsgBoxStyle.OkOnly + MsgBoxStyle.Information)
+            MessageBox.Show("未找到升级程序XHUpdater.exe，请到 www.pmhker.com 重新下载安装文件！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
 
             'Process.Start(pmhker)
         End If
@@ -124,7 +125,7 @@ Module NewUpdater
 
     '        strSimpleUpdater = Path.Combine(My.Application.Info.DirectoryPath, SimpleUpdater)
 
-    '        If IsFileExsts(strSimpleUpdater) = False Then
+    '        If IsFileExists(strSimpleUpdater) = False Then
     '            Dim strNewSimpleUpdater As String = Server & SimpleUpdater
     '            My.Computer.Network.DownloadFile(strNewSimpleUpdater, strSimpleUpdater)
     '        End If
@@ -183,7 +184,7 @@ Module NewUpdater
 
     '    '比较版本
     '    If intNewVersion > intOldVersion Then
-    '        If MsgBox("发现新版 XHTool，版本号" & strNewVersion & "，是否更新？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+    '        If  MessageBox.Show("发现新版 XHTool，版本号" & strNewVersion & "，是否更新？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
     '            strTempFile = Path.Combine(My.Application.Info.DirectoryPath, "Updata.zip")
 
@@ -207,7 +208,7 @@ Module NewUpdater
 
     '    DownNetFile(strUrlNewVison, strTempFile)
 
-    '    If IsFileExsts(strTempFile) = False Then
+    '    If IsFileExists(strTempFile) = False Then
     '        Return "0"
     '    End If
 
@@ -303,7 +304,7 @@ Module NewUpdater
     ''    strNewVison = GetNewVison2(strUrl(0))
 
     ''    If strNewVison <> "Null" Then
-    ''        If MsgBox("发现新版 XiHanTool，版本号" & strNewVison & "，是否更新？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+    ''        If  MessageBox.Show("发现新版 XiHanTool，版本号" & strNewVison & "，是否更新？", MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
     ''            strTempFile = System.IO.Path.Combine(IO.Path.GetTempPath, "UpdateZip.txt")
 
     ''            If Not System.IO.File.Exists(strTempFile) Then
@@ -371,7 +372,7 @@ End Module
 '    '        UpdaterInstance.Dispose()
 
 '    '    Catch ex As Exception
-'    '        'MsgBox(ex.Message)
+'    '        ' MessageBox.Show(ex.Message)
 '    '    End Try
 '    'End Sub
 
@@ -392,14 +393,14 @@ End Module
 '            'fileReader.Dispose()
 
 '            NewVersion = System.IO.File.ReadAllText(NewVersionInfo)
-'            'MsgBox(NewVersion)
+'            ' MessageBox.Show(NewVersion)
 
 '            MyVersion = My.Application.Info.Version.Major &
 '        Format(My.Application.Info.Version.Minor, "00") &
 '    Format(My.Application.Info.Version.Build, "00") &
 '    Format(My.Application.Info.Version.Revision, "00")
 
-'            'MsgBox(MyVersion)
+'            ' MessageBox.Show(MyVersion)
 
 '            If NewVersion <> "" Then
 '                'Dim shortMyversion As Long
@@ -417,7 +418,7 @@ End Module
 '                Return "Null"
 '            End If
 '        Catch ex As Exception
-'            'MsgBox(ex.Message)
+'            ' MessageBox.Show(ex.Message)
 '            Return "Null"
 '        End Try
 
@@ -442,7 +443,7 @@ End Module
 '                strSimpleUpdater = strSimpleUpdater & "\" & SimpleUpdater
 '            End If
 
-'            If IsFileExsts(strSimpleUpdater) = False Then
+'            If IsFileExists(strSimpleUpdater) = False Then
 '                Dim strNewSimpleUpdater As String = Server & SimpleUpdater
 '                My.Computer.Network.DownloadFile(strNewSimpleUpdater, strSimpleUpdater)
 '            End If
@@ -469,12 +470,12 @@ End Module
 
 '            strArguments = "/startupdate /cv """ & MyVersion & """  /url """ & Server & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
 
-'            If IsFileExsts(strSimpleUpdater) = True Then
+'            If IsFileExists(strSimpleUpdater) = True Then
 '                Process.Start(strSimpleUpdater, strArguments)
 '            End If
 
 '        Catch ex As Exception
-'            MsgBox(ex.Message)
+'               MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
 '        End Try
 '    End Sub
 
@@ -503,14 +504,14 @@ End Module
 
 '        NewVersion = fileReader.ReadLine()
 
-'        'MsgBox(NewVersion)
+'        ' MessageBox.Show(NewVersion)
 
 '        MyVersion = My.Application.Info.Version.Major &
 '          Format(My.Application.Info.Version.Minor, "00") &
 '      Format(My.Application.Info.Version.Build, "00") &
 '      Format(My.Application.Info.Version.Revision, "00")
 
-'        'MsgBox(MyVersion)
+'        ' MessageBox.Show(MyVersion)
 
 '        If NewVersion <> "" Then
 '            'Dim shortMyversion As Long
@@ -536,7 +537,7 @@ End Module
 
 '        Dim path As String = ThisApplication.InstallPath & "Bin\SimpleUpdater.exe" '文件释放路径
 
-'        if IsFileExsts(path) = False Then
+'        if IsFileExists(path) = False Then
 
 '            Dim resources As System.Resources.ResourceManager = My.Resources.ResourceManager
 '            Dim b() As Byte = resources.GetObject("SimpleUpdaterexe")

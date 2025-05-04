@@ -267,14 +267,14 @@ Partial Class FormSpecification
         '导入文件ToolStripMenuItem
         '
         Me.导入文件ToolStripMenuItem.Name = "导入文件ToolStripMenuItem"
-        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.导入文件ToolStripMenuItem.Text = "导入文件"
         Me.导入文件ToolStripMenuItem.ToolTipText = "从文本文件导入，每行对应导入"
         '
         '导输入文本ToolStripMenuItem
         '
         Me.导输入文本ToolStripMenuItem.Name = "导输入文本ToolStripMenuItem"
-        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.导输入文本ToolStripMenuItem.Text = "导入文本"
         '
         'ToolStripSeparator1
@@ -352,6 +352,7 @@ Partial Class FormSpecification
         '
         '间距ToolStripTextBox
         '
+        Me.间距ToolStripTextBox.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.间距ToolStripTextBox.Name = "间距ToolStripTextBox"
         Me.间距ToolStripTextBox.Size = New System.Drawing.Size(30, 25)
         Me.间距ToolStripTextBox.Text = "1.5"
@@ -414,7 +415,7 @@ Partial Class FormSpecification
         Me.btn插入.TabIndex = 2
         Me.btn插入.Text = "插入"
         '
-        'frmSpecification
+        'FormSpecification
         '
         Me.AcceptButton = Me.btn插入
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -426,7 +427,7 @@ Partial Class FormSpecification
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn插入)
         Me.MaximizeBox = False
-        Me.Name = "frmSpecification"
+        Me.Name = "FormSpecification"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "技术要求"
         Me.GroupBox基础数据.ResumeLayout(False)

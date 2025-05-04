@@ -4,6 +4,7 @@ Imports System.Collections.Generic
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Inventor
 Imports System.ComponentModel
+Imports System.Text
 
 Public Class FormOption
 
@@ -39,7 +40,7 @@ Public Class FormOption
 
     Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         If cbo图号.Text = cbo文件名.Text Then
-            MsgBox("映射设置相同！", MsgBoxStyle.Exclamation, "设置")
+            MessageBox.Show("映射设置相同.", XHTool, MessageBoxButtons.OK， MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -57,6 +58,11 @@ Public Class FormOption
         EngineerName = txt工程师.Text
         BOMTiTle = txtBOM导出项.Text
         Map_Mass = txt图号.Text
+
+
+        oEncoding = IIf(chk使用UTF8编码.Checked, Encoding.UTF8, Encoding.Default)
+        strEncoding = IIf(chk使用UTF8编码.Checked, "UTF8", "Default")
+
 
         BasicExcelFullFileName = txt基础数据文件.Text
         TableArrays = txt查找范围.Text
@@ -183,27 +189,30 @@ Public Class FormOption
             strLargeSmallIconSets = strLargeSmallIconSets & item.SubItems(1).Text.ToString & ","
         Next
 
+
         WrIni.InAISettingIniWriteSetting()
+
+
         'WrXml.InAISettingXmlWriteSetting()
 
-        FormManager.CloseAndDisposeForm(Of formOption)()
+        FormManager.CloseAndDisposeForm(Of FormOption)()
 
     End Sub
 
     Private Sub Btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
 
-        'if IsFileExsts(txt自定义数据文件.Text) = True Then
+        'if IsFileExists(txt自定义数据文件.Text) = True Then
         '    Process.Start(txt自定义数据文件.Text)
         'End if
 
-        If IsFileExsts(BasicExcelFullFileName) = True Then
+        If IsFileExists(BasicExcelFullFileName) = True Then
             Process.Start(BasicExcelFullFileName)
         Else
             'excel文件不存在，到服务器下载
             Dim documentURL As String
             documentURL = Server & ServerExcelFileName
 
-            If IsFileExsts(documentURL) = True Then
+            If IsFileExists(documentURL) = True Then
                 Dim wc As New System.Net.WebClient
                 wc.DownloadFile(documentURL, BasicExcelFullFileName)
                 Process.Start(BasicExcelFullFileName)
@@ -222,13 +231,13 @@ Public Class FormOption
         Dim documentURL As String
         documentURL = Server & ServerExcelFileName
 
-        If IsFileExsts(documentURL) = True Then
+        If IsFileExists(documentURL) = True Then
             Dim wc As New System.Net.WebClient
             wc.DownloadFile(documentURL, BasicExcelFullFileName)
             'Process.Start(BasicExcelFullFileName)
 
         End If
-        MsgBox("更新数据库文件完成！", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "更新数据库")
+        MessageBox.Show("更新数据库文件完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
     End Sub
 
     Private Sub FrmOption_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -313,6 +322,7 @@ Public Class FormOption
         txt工程师.Text = EngineerName
         txtBOM导出项.Text = BOMTiTle
         txt图号.Text = Map_Mass
+        chk使用UTF8编码.Checked = IIf(strEncoding = “UTF8”, True, False)
 
 
         chk签字后打印.Checked = IIf(IsOpenPrint = "1", True, False)
@@ -409,6 +419,9 @@ Public Class FormOption
         txt部件图框.Text = str部件图框
         txt零件图框.Text = str零件图框
 
+
+
+
         '==================================================================
         Dim toolTip As New Windows.Forms.ToolTip With {
             .AutoPopDelay = 0,
@@ -426,7 +439,7 @@ Public Class FormOption
         toolTip.SetToolTip(chk检查重复图号, "重命名文件时，在当前项目文件夹下，检查图号是否重复")
         toolTip.SetToolTip(lbl去除后缀, "提取文件名时，去除后缀，用‘,’分割")
         toolTip.SetToolTip(lbl标记孔径上限, "标记螺纹的最大值，保留2位小数")
-        toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致")
+        toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致，在列表中添加材质")
         toolTip.SetToolTip(lvw设置图标大小, "双击列表行切换图标大小")
 
         btn选择erp数据库.Image = My.Resources.打开文件16.ToBitmap
@@ -469,15 +482,15 @@ Public Class FormOption
     Private Sub Btn选择工程图模板_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择工程图模板.Click
         Dim strFileName As String
         Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
-        Dim strInitialDirectory = ThisApplication.FileLocations.TemplatesPath
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.TemplatesPath, "选择模板文件")
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
 
-        If arrayFullFileName Is Nothing Then
+        If oFileList Is Nothing Then
             Exit Sub
         Else
-            strFileName = arrayFullFileName(0).ToString
+            strFileName = oFileList(0).ToString
 
             txt工程图模板.Text = strFileName
             str工程图模板 = strFileName
@@ -490,15 +503,15 @@ Public Class FormOption
         Dim strFilter As String = Nothing
         strFilter = "Excel 工作薄(*.xlsx;*.xls;*.xlsb)|*.xlsx;*.xls;*.xlsb" '添加过滤文件
 
-        Dim strInitialDirectory As String = GetDirectoryName2(My.Application.Info.DirectoryPath)
+        Dim strFile As String = IO.Path.Combine(My.Application.Info.DirectoryPath, "选择Excel文件")
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
 
-        If arrayFullFileName Is Nothing Then
+        If oFileList Is Nothing Then
             Exit Sub
         Else
-            txt基础数据文件.Text = arrayFullFileName.Item(0).ToString
+            txt基础数据文件.Text = oFileList.Item(0).ToString
         End If
 
     End Sub
@@ -525,15 +538,15 @@ Public Class FormOption
 
         Dim strFileName As String
         Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
-        Dim strInitialDirectory = ThisApplication.FileLocations.TemplatesPath
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.TemplatesPath, "选择模板文件")
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
 
-        If arrayFullFileName Is Nothing Then
+        If oFileList Is Nothing Then
             Exit Sub
         Else
-            strFileName = arrayFullFileName(0).ToString
+            strFileName = oFileList(0).ToString
 
             txt展开图模板.Text = strFileName
             str展开图模板 = strFileName
@@ -551,16 +564,14 @@ Public Class FormOption
     Private Sub ToolStripMenuItem图框替换_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem图框替换.Click
 
         FormBorderTitleShow()
-
-        FormManager.CloseAndDisposeForm(Of formOption)()
-
+        Me.Close()
 
     End Sub
 
     Private Sub ToolStripMenuItem安装目录_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem安装目录.Click
         Dim strAppPath As String
         strAppPath = My.Application.Info.DirectoryPath
-        Process.Start(strAppPath)
+        Process.Start("explorer.exe", strAppPath)
     End Sub
 
     Private Sub Btn配置文件_MouseClick(sender As Object, e As MouseEventArgs) Handles btn配置文件.MouseClick
@@ -585,8 +596,7 @@ Public Class FormOption
         End If
     End Sub
 
-
-    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of formOption)()
+    Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
+        Me.Close()
     End Sub
 End Class

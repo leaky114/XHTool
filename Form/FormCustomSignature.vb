@@ -16,7 +16,7 @@ Public Class FormCustomSignature
             oInventorDocument = ThisApplication.ActiveDocument
 
             If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -37,11 +37,11 @@ Public Class FormCustomSignature
             If SetSign(oInventorDrawingDocument, txt工程师.Text, strPrintDate, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
-                SetStatusBarText("错误")
+                SetStatusBarText(XHTool)
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         FormManager.CloseAndDisposeForm(Of FormCustomSignature)()

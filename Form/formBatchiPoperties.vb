@@ -11,7 +11,7 @@ Imports System.IO
 Imports System.Xml
 Imports System.Collections.Generic
 
-Public Class FormMassiPoperties
+Public Class formBatchiPoperties
     Public Enum EnumPType
         eString = 0
         eBool = 1
@@ -55,15 +55,15 @@ Public Class FormMassiPoperties
         'Next
 
         If lvw文件列表.Items.Count = 0 Then
-            MsgBox("未添加文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         btn确定.Enabled = False
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
 
@@ -72,6 +72,14 @@ Public Class FormMassiPoperties
         Select Case tab1.SelectedIndex
 
             Case 0
+                If cbo项目名.Text = "" Then
+                    MessageBox.Show(”请选择项目。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    OInteractionEvents.Stop()
+                    btn确定.Enabled = True
+                    Exit Sub
+                End If
+
+
                 For Each oListViewItem As ListViewItem In lvw文件列表.Items
                     oListViewItem.Selected = True
 
@@ -108,7 +116,9 @@ Public Class FormMassiPoperties
             Case 1
 
                 If txt特性名.Text = "" Then
-                    MsgBox("请输入新特性的名字！")
+                    MessageBox.Show(”请输入新特性的名字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    OInteractionEvents.Stop()
+                    btn确定.Enabled = True
                     Exit Sub
                 End If
 
@@ -123,35 +133,51 @@ Public Class FormMassiPoperties
 
                     Dim oProperty As Inventor.Property
 
-                    Try
-                        '若该iProperty已经存在，则直接修改其值
+                    If chk删除自定义.Checked = True Then
+                        Try
+                            oProperty = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txt特性名.Text)
+                            oProperty.Delete()
+                        Catch ex As Exception
 
-                        oProperty = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txt特性名.Text)
-                        Select Case oOption
-                            Case EnumPType.eString
-                                oProperty.Value = txt字符串.Text
-                            Case EnumPType.eBool
-                                oProperty.Value = Bool布尔值.Checked
-                            Case EnumPType.eDouble
-                                oProperty.Value = Convert.ToDouble(txt实数.Text)
-                            Case EnumPType.eDate
-                                oProperty.Value = dtp日期.Value
-                        End Select
+                        End Try
+                    Else
+                        Try
+                            '若该iProperty已经存在，则直接修改其值
 
-                    Catch
-                        ' 若该iProperty不存在，则添加一个
-                        Select Case oOption
-                            Case EnumPType.eString
-                                oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(txt字符串.Text, txt特性名.Text, PropID)
-                            Case EnumPType.eBool
-                                oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Bool布尔值.Checked, txt特性名.Text, PropID)
-                            Case EnumPType.eDouble
-                                oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Convert.ToDouble(txt实数.Text), txt特性名.Text, PropID)
-                            Case EnumPType.eDate
-                                oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(dtp日期.Value, txt特性名.Text, PropID)
-                        End Select
-                    End Try
+                            oProperty = oInventorDocDocument.PropertySets.Item("User Defined Properties").Item(txt特性名.Text)
+                            Select Case oOption
+                                Case EnumPType.eString
+                                    oProperty.Value = txt字符串.Text
+                                Case EnumPType.eBool
+                                    oProperty.Value = Bool布尔值.Checked
+                                Case EnumPType.eDouble
+                                    If txt实数.Text = "" Then
+                                        Exit Sub
+                                    End If
+                                    oProperty.Value = Convert.ToDouble(txt实数.Text)
 
+                                Case EnumPType.eDate
+                                    oProperty.Value = dtp日期.Value
+                            End Select
+
+                        Catch
+                            ' 若该iProperty不存在，则添加一个
+                            Select Case oOption
+                                Case EnumPType.eString
+                                    oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(txt字符串.Text, txt特性名.Text, PropID)
+                                Case EnumPType.eBool
+                                    oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Bool布尔值.Checked, txt特性名.Text, PropID)
+                                Case EnumPType.eDouble
+                                    If txt实数.Text = "" Then
+                                        Exit Sub
+                                    End If
+                                    oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(Convert.ToDouble(txt实数.Text), txt特性名.Text, PropID)
+                                Case EnumPType.eDate
+                                    oInventorDocDocument.PropertySets.Item("User Defined Properties").Add(dtp日期.Value, txt特性名.Text, PropID)
+                            End Select
+                        End Try
+
+                    End If
                     '保存到文件
                     'oInventorDocDocument.PropertySets.FlushToFile()
                     '关闭文件
@@ -162,15 +188,15 @@ Public Class FormMassiPoperties
 
         btn确定.Enabled = True
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
-        MsgBox("量产iProperty完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+        MessageBox.Show(”量产iProperty完成。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 
     Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of FormMassiPoperties)()
+        FormManager.CloseAndDisposeForm(Of formBatchiPoperties)()
     End Sub
 
     Private Sub FrmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -198,17 +224,19 @@ Public Class FormMassiPoperties
 
     '添加文件
     Private Sub Btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
-        Dim strFilter As String = "Autodesk Inventor 文件(*.idw;*.iam;*.ipt;*.ipn)|*.idw;*.iam;*.ipt;*.ipn"
+        Dim strFilter As String = BasicFilter
 
-        Dim arrayFullFileName As List(Of String)
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择文件")
 
-        arrayFullFileName = OpenFileDialog(strFilter, True)
+        Dim oFileList As List(Of String)
 
-        If arrayFullFileName Is Nothing Then
+        oFileList = OpenFileDialog(strFilter, True, strFile)
+
+        If oFileList Is Nothing Then
             Exit Sub
         End If
 
-        For Each strInventorDocumentFullFileName As String In arrayFullFileName
+        For Each strInventorDocumentFullFileName As String In oFileList
             If IsItemInListView(lvw文件列表, strInventorDocumentFullFileName) = False Then
                 lvw文件列表.Items.Add(strInventorDocumentFullFileName)
             End If
@@ -223,8 +251,9 @@ Public Class FormMassiPoperties
 
     '添加文件夹
     Private Sub Btn添加文件夹_Click(sender As Object, e As EventArgs) Handles btn添加文件夹.Click
-        Dim strDestinationFolder As String
-        strDestinationFolder = OpenFolderDialog()
+
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择一个文件确定文件夹")
+        Dim strDestinationFolder As String = OpenFolderDialog(strFile)
 
         If strDestinationFolder Is Nothing Then
             Exit Sub

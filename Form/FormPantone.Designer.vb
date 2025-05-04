@@ -38,6 +38,7 @@ Partial Class FormPantone
         Me.Btn_Close = New System.Windows.Forms.ToolStripButton()
         Me.Btn_Color = New System.Windows.Forms.ToolStripButton()
         Me.Btn_Random = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripLabel8 = New System.Windows.Forms.ToolStripLabel()
         Me.Tol_ColorBar = New System.Windows.Forms.ToolStrip()
         Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
         Me.Txt_R = New System.Windows.Forms.ToolStripTextBox()
@@ -68,7 +69,7 @@ Partial Class FormPantone
         '
         'Img_Color
         '
-        Me.Img_Color.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit
+        Me.Img_Color.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit
         Me.Img_Color.ImageSize = New System.Drawing.Size(16, 16)
         Me.Img_Color.TransparentColor = System.Drawing.Color.Transparent
         '
@@ -127,6 +128,7 @@ Partial Class FormPantone
         'Txt_Filter
         '
         Me.Txt_Filter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Txt_Filter.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.Txt_Filter.Name = "Txt_Filter"
         Me.Txt_Filter.Size = New System.Drawing.Size(300, 25)
         '
@@ -134,7 +136,7 @@ Partial Class FormPantone
         '
         Me.Tol_ColorSet.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Tol_ColorSet.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.Tol_ColorSet.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Close, Me.Btn_Color, Me.Btn_Random})
+        Me.Tol_ColorSet.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Close, Me.Btn_Color, Me.Btn_Random, Me.ToolStripLabel8})
         Me.Tol_ColorSet.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
         Me.Tol_ColorSet.Location = New System.Drawing.Point(0, 537)
         Me.Tol_ColorSet.Name = "Tol_ColorSet"
@@ -168,6 +170,18 @@ Partial Class FormPantone
         Me.Btn_Random.Text = "随机"
         Me.Btn_Random.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
+        'ToolStripLabel8
+        '
+        Me.ToolStripLabel8.AutoSize = False
+        Me.ToolStripLabel8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripLabel8.IsLink = True
+        Me.ToolStripLabel8.LinkVisited = True
+        Me.ToolStripLabel8.Name = "ToolStripLabel8"
+        Me.ToolStripLabel8.Size = New System.Drawing.Size(352, 17)
+        Me.ToolStripLabel8.Text = "由 https://www.pmhker.com/article/71.html 移植，感谢Lucas"
+        Me.ToolStripLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ToolStripLabel8.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
+        '
         'Tol_ColorBar
         '
         Me.Tol_ColorBar.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -188,6 +202,7 @@ Partial Class FormPantone
         '
         'Txt_R
         '
+        Me.Txt_R.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.Txt_R.Name = "Txt_R"
         Me.Txt_R.Size = New System.Drawing.Size(50, 23)
         Me.Txt_R.Text = "0"
@@ -200,6 +215,7 @@ Partial Class FormPantone
         '
         'Txt_G
         '
+        Me.Txt_G.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.Txt_G.Name = "Txt_G"
         Me.Txt_G.Size = New System.Drawing.Size(50, 23)
         Me.Txt_G.Text = "0"
@@ -212,6 +228,7 @@ Partial Class FormPantone
         '
         'Txt_B
         '
+        Me.Txt_B.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.Txt_B.Name = "Txt_B"
         Me.Txt_B.Size = New System.Drawing.Size(50, 23)
         Me.Txt_B.Text = "0"
@@ -290,7 +307,7 @@ Partial Class FormPantone
         '
         'img_Tree
         '
-        Me.img_Tree.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit
+        Me.img_Tree.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit
         Me.img_Tree.ImageSize = New System.Drawing.Size(16, 16)
         Me.img_Tree.TransparentColor = System.Drawing.Color.Transparent
         '
@@ -378,4 +395,5 @@ Partial Class FormPantone
     Friend WithEvents ToolStripLabel7 As ToolStripLabel
     Friend WithEvents img_Tree As ImageList
     Friend WithEvents Btn_Print As ToolStripButton
+    Friend WithEvents ToolStripLabel8 As ToolStripLabel
 End Class

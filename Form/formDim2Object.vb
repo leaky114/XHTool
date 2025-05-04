@@ -7,6 +7,7 @@ Imports Inventor.ObjectTypeEnum
 
 Imports System.Drawing
 Imports System.ComponentModel
+Imports System.IO
 
 Public Class FormDim2Object
     Private oSelect1 As Object
@@ -145,11 +146,11 @@ Public Class FormDim2Object
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MsgBox("选择一个约束。")
+                    MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Exit Sub
             End Select
         Else
-            MsgBox("选择一个约束。")
+            MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -398,18 +399,18 @@ Public Class FormDim2Object
 
         DeleteFile2(strCsvFullFileName, FileIO.RecycleOption.SendToRecycleBin)
 
-        strLineDate = "位置,距离" & vbCrLf
+        Using oStreamWriter As New StreamWriter(strCsvFullFileName, False, oEncoding)   ' Encoding.Default)
+            strLineDate = "位置,距离"
+            oStreamWriter.WriteLine(strLineDate)
 
-        My.Computer.FileSystem.WriteAllText(strCsvFullFileName, strLineDate, True)
+            For Each oListViewitem As ListViewItem In lvw列表.Items
+                strLineDate = oListViewitem.Text & "," & oListViewitem.SubItems(1).Text
+                oStreamWriter.WriteLine(strLineDate)
+            Next
 
-        For Each oListViewitem As ListViewItem In lvw列表.Items
-            strLineDate = oListViewitem.Text & "," & oListViewitem.SubItems(1).Text
-            strLineDate = strLineDate & vbCrLf
+        End Using
 
-            My.Computer.FileSystem.WriteAllText(strCsvFullFileName, strLineDate, True)
-        Next
-
-        If MsgBox("数据文件导出完成，是否打开？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "导出") = MsgBoxResult.Yes Then
+        If MessageBox.Show("数据文件导出完成，是否打开？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
             Process.Start(strCsvFullFileName)
         End If
 
@@ -425,6 +426,7 @@ Public Class FormDim2Object
 
         douValue = lvw列表.SelectedItems(0).Text
 
+        SetValueToAssemblyConstraint(ThisApplication.ActiveDocument, douValue)
 
     End Sub
 
@@ -525,7 +527,7 @@ Public Class FormDim2Object
         SetValueToAssemblyConstraint(ThisApplication.ActiveDocument, maxItem.Text)
 
         If maxItem IsNot Nothing Then
-            maxItem.ForeColor = Drawing.Color.BlueViolet
+            maxItem.ForeColor = Drawing.Color.Red
             lvw列表.SelectedItems.Clear() ' 清除当前选择
             maxItem.Selected = True ' 选择最大值行
             lvw列表.EnsureVisible(maxItem.Index) ' 确保该行可见
@@ -563,6 +565,8 @@ Public Class FormDim2Object
     End Sub
 
     Private Sub FormDim2Object_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        FormManager.CloseAndDisposeForm(Of formDim2Object)()
+        FormManager.CloseAndDisposeForm(Of FormDim2Object)()
     End Sub
+
+
 End Class

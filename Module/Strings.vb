@@ -71,22 +71,9 @@ Module StringsModel
             Case "汉字"
 
 
-            Case "空格"
+            Case " ", "-", "_"
                 '按空格分割文件名
-                spaceIndex = InStr(FileName, " ")
-
-                If spaceIndex > 0 Then
-                    GetStockNumPartName.IsGet = True
-                    GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
-                    GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
-                    GetStockNumPartName.ERP编码 = ""
-                    GetStockNumPartName.价格 = ""
-
-                    Return GetStockNumPartName
-                End If
-            Case "_"
-                '按_分割文件名
-                spaceIndex = InStr(FileName, "_")
+                spaceIndex = InStr(FileName, firstCharType)
 
                 If spaceIndex > 0 Then
                     GetStockNumPartName.IsGet = True
@@ -118,14 +105,14 @@ Module StringsModel
                 GetStockNumPartName.零件名称 = Strings.Trim(FileName)
                 GetStockNumPartName.ERP编码 = ""
                 GetStockNumPartName.价格 = ""
-                'MsgBox(FullFileName & "  无图号！", MsgBoxStyle.Information)
+                ' MessageBox.Show(FullFileName & "  无图号！", MsgBoxStyle.Information)
             Case strChr = ""  '无汉字
                 GetStockNumPartName.IsGet = False
                 GetStockNumPartName.图号 = Strings.Trim(FileName)
                 GetStockNumPartName.零件名称 = ""
                 GetStockNumPartName.ERP编码 = ""
                 GetStockNumPartName.价格 = ""
-                'MsgBox(FullFileName & "  无零件名！", MsgBoxStyle.Information)
+                ' MessageBox.Show(FullFileName & "  无零件名！", MsgBoxStyle.Information)
             Case Else       '正常情况
                 GetStockNumPartName.IsGet = True
                 GetStockNumPartName.图号 = Strings.Trim(Left(FileName, i - 2))
@@ -153,12 +140,20 @@ Module StringsModel
 
             ' 检测字符是否为空格
             If c = " "c Then
-                Return "空格"
+                Return " "
             End If
 
             ' 检测字符是否为 '-'
             If c = "_"c Then
                 Return "_"
+            End If
+        Next
+
+        '若找不到   汉字 空格  _  就找是否有  -
+        For Each c As Char In input
+            ' 检测字符是否为 '-'
+            If c = "-"c Then
+                Return "-"
             End If
         Next
 

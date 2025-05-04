@@ -19,14 +19,14 @@ Public NotInheritable Class FormImportCodeToBomExcel
 
         strBomExcelFile = txtExcel文件.Text
 
-        If IsFileExsts(strBomExcelFile) = False Then
-            MsgBox("BOM文件错误！", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "导入ERP编码")
+        If IsFileExists(strBomExcelFile) = False Then
+            MessageBox.Show(”BOM文件不存在。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         intLastLine = txt最后行.Text
@@ -124,10 +124,10 @@ Public NotInheritable Class FormImportCodeToBomExcel
         GC.Collect()
         GC.WaitForPendingFinalizers()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
-        MsgBox("写入ERP编码完成！", MsgBoxStyle.OkOnly, "导入ERP编码")
+        ' MessageBox.Show("写入ERP编码完成！", MsgBoxStyle.OkOnly, "导入ERP编码")
 
         Process.Start(strBomExcelFile)
     End Sub
@@ -136,15 +136,15 @@ Public NotInheritable Class FormImportCodeToBomExcel
         Dim strFilter As String
         strFilter = "Excel 工作薄(*.xlsx;*.xls)|*.xlsx;*.xls" '添加过滤文件
 
-        Dim strInitialDirectory As String = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
+        Dim strFile As String = IO.Path.Combine(Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop, "选择Excel文件")
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
 
-        If arrayFullFileName Is Nothing Then
+        If oFileList Is Nothing Then
             Exit Sub
         Else
-            txtExcel文件.Text = arrayFullFileName.Item(0).ToString
+            txtExcel文件.Text = oFileList.Item(0).ToString
         End If
 
     End Sub

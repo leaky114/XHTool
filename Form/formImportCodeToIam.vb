@@ -21,8 +21,7 @@ Public Class FormImportCodeToIam
         End If
 
         If ThisApplication.ActiveEditDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
-            'Me.Dispose()
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -47,9 +46,9 @@ Public Class FormImportCodeToIam
                         ByVal oListView As ListView, ByVal IsExpandChild As Boolean,
                         ByVal IsExpandOutsourcedParts As Boolean)
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         '==============================================================================================
@@ -87,8 +86,8 @@ Public Class FormImportCodeToIam
 
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
     End Sub
 
@@ -113,7 +112,7 @@ Public Class FormImportCodeToIam
 
             SetStatusBarText(strInventorDocumentFullFileName)
 
-            If IsFileExsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExIsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
                 'GoTo 999
                 Continue For
             End If
@@ -182,9 +181,9 @@ Public Class FormImportCodeToIam
 
         Me.TopMost = False
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
 
@@ -247,7 +246,9 @@ Public Class FormImportCodeToIam
                                 Exit For
                             Else
                                 'Me.TopMost = False
-                                If MsgBox(oListViewItem.Text & "(" & strNowRangeValue & ") 查询到新的编码：" & vbCrLf & strFindRangeValue & vbCrLf & "是否替换？", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                                If MessageBox.Show(oListViewItem.Text & "(" & strNowRangeValue & ") 查询到新的编码：" & vbCrLf &
+                                                   strFindRangeValue & vbCrLf & "是否替换？", XHTool,
+                                                  MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                                     oListViewItem.SubItems(2).Text = strFindRangeValue
                                     oListViewItem.UseItemStyleForSubItems = False
                                     oListViewItem.SubItems(2).ForeColor = Drawing.Color.DarkOrange
@@ -288,8 +289,9 @@ Public Class FormImportCodeToIam
 
         Me.TopMost = True
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
+
     End Sub
 
     Private Sub Btn写入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn写入.Click
@@ -301,9 +303,9 @@ Public Class FormImportCodeToIam
 
         btn写入.Enabled = False
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         With prg进度条
@@ -332,8 +334,9 @@ Public Class FormImportCodeToIam
 
         btn写入.Enabled = True
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
+
     End Sub
 
     Private Sub Lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
@@ -372,7 +375,7 @@ Public Class FormImportCodeToIam
                 End If
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -389,7 +392,7 @@ Public Class FormImportCodeToIam
         End If
 
         If ThisApplication.ActiveEditDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             'Me.Dispose()
             Exit Sub
         End If
@@ -431,7 +434,7 @@ Public Class FormImportCodeToIam
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 

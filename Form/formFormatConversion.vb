@@ -33,7 +33,7 @@ Public Class FormFormatConversion
                 Continue For
             End If
 
-            If IsFileExsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExIsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -61,18 +61,20 @@ Public Class FormFormatConversion
     '添加文件
     Private Sub 添加文件ToolStripButton_Click(sender As Object, e As EventArgs) Handles 添加文件ToolStripButton.Click
 
-        Dim strFilter As String = Nothing
+        Dim strFilter As String = "Autodesk Inventor文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt"
+
 
         If 零部件ToolStripButton.Checked = True And 工程图ToolStripButton.Checked = True Then
             strFilter = "Autodesk Inventor文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt" '添加过滤文件
         ElseIf 零部件ToolStripButton.Checked = True Then
-            strFilter = "Autodesk Inventor 零部件(*.iam;*.ipt)|*.iam;*.ipt|Autodesk Inventor 零(*.ipt)|*.ipt|Autodesk Inventor 部件(*.iam)|*.iam" '添加过滤文件    "AutoCAD Inventor 文件(*.idw;*.iam;*.ipt)|*.idw;*.iam;*.ipt" 
+            strFilter = "Autodesk Inventor 零部件(*.iam;*.ipt)|*.iam;*.ipt|Autodesk Inventor 零件(*.ipt)|*.ipt|Autodesk Inventor 部件(*.iam)|*.iam"
         ElseIf 工程图ToolStripButton.Checked = True Then
             strFilter = "Autodesk Inventor 工程图(*.idw)|*.idw" '添加过滤文件
         End If
 
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择文件")
         Dim oFileList As List(Of String)
-        oFileList = OpenFileDialog(strFilter, True)
+        oFileList = OpenFileDialog(strFilter, True, strFile）
 
         If oFileList Is Nothing Then
             Exit Sub
@@ -84,8 +86,8 @@ Public Class FormFormatConversion
 
     '添加文件夹
     Private Sub 添加文件夹ToolStripButton_Click(sender As Object, e As EventArgs) Handles 添加文件夹ToolStripButton.Click
-        Dim strDestinationFolder As String
-        strDestinationFolder = OpenFolderDialog()
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择一个文件确定文件夹")
+        Dim strDestinationFolder As String = OpenFolderDialog(strFile)
 
         If strDestinationFolder Is Nothing Then
             Exit Sub
@@ -119,10 +121,8 @@ Public Class FormFormatConversion
 
     '选择文件夹
     Private Sub 浏览ToolStripButton_Click(sender As Object, e As EventArgs) Handles 浏览ToolStripButton.Click
-        Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
-
-        Dim strDestinationFolder As String
-        strDestinationFolder = OpenFolderDialog(strInitialDirectory)
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择一个文件确定文件夹")
+        Dim strDestinationFolder As String = OpenFolderDialog(strFile)
 
         If strDestinationFolder Is Nothing Then
             Exit Sub
@@ -395,7 +395,7 @@ Public Class FormFormatConversion
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -418,9 +418,9 @@ Public Class FormFormatConversion
     ''' <remarks></remarks>
     Private Sub LoadBOM(ByVal oInventorAssemblyDocument As AssemblyDocument, ByVal olistiview As ListView,
                                      ByVal IsContainIdw As Boolean, ByVal IsContainIpt As Boolean)
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
 
         ThisApplication.UserInterfaceManager.DoEvents()
         '===================================
@@ -442,8 +442,8 @@ Public Class FormFormatConversion
 
         Lvw文件列表.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
     End Sub
 
@@ -503,16 +503,18 @@ Public Class FormFormatConversion
         Dim strFilter As String
         strFilter = "Autodesk Inventor 部件(*.iam)|*.iam" '添加过滤文件
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, True)
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择部件文件")
 
-        If arrayFullFileName Is Nothing Then
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, True, strFile)
+
+        If oFileList Is Nothing Then
             Exit Sub
         End If
 
         Dim oInventorAssemblyDocument As AssemblyDocument
 
-        For Each strFullFileName As String In arrayFullFileName
+        For Each strFullFileName As String In oFileList
             oInventorAssemblyDocument = ThisApplication.Documents.Open(strFullFileName.ToString, True)
             LoadBOM(oInventorAssemblyDocument, Lvw文件列表, 工程图ToolStripButton.Checked, 零部件ToolStripButton.Checked)
         Next
@@ -527,20 +529,19 @@ Public Class FormFormatConversion
         Dim strInventorDocumentFullFileName As String = Nothing   '文档文件名
 
         If Lvw文件列表.Items.Count = 0 Then
-            MsgBox("未添加文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly)
+            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        ThisApplication.SilentOperation = True
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
+        ThisApplication.SilentOperation = True
 
         str模型匹配检查标记 = 3
-
-        ThisApplication.SilentOperation = True
 
         Dim intCount As Integer = 0
 
@@ -565,7 +566,7 @@ Public Class FormFormatConversion
 
             strInventorDocumentFullFileName = oListViewItem.Text
 
-            If IsFileExsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExIsts(strInventorDocumentFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -751,12 +752,13 @@ Public Class FormFormatConversion
             进度ToolStripProgressBar.Value = intCount
         Next
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
+        ThisApplication.SilentOperation = False
 
         str模型匹配检查标记 = 1
 
-        MsgBox("格式转换完成。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly)
+        MessageBox.Show(”格式转换完成。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 

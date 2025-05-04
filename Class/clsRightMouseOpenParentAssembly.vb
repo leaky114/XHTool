@@ -28,12 +28,12 @@ Public Class ClsRightMouseOpenParentAssembly
 
         'Dim intCount As Integer
         'intCount = CommandBar.Controls.Item("AssemblyHideAllRelationshipsCmd ").Index + 1
-        'MsgBox(intCount)
+        ' MessageBox.Show(intCount)
 
-        'MsgBox(CommandBar.Controls.Count)
+        ' MessageBox.Show(CommandBar.Controls.Count)
 
         'For Each obutton As ButtonDefinition In CommandBar.Controls
-        '    MsgBox(obutton.InternalName.ToString)
+        '     MessageBox.Show(obutton.InternalName.ToString)
         'Next
 
     End Sub

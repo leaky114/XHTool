@@ -1,5 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Linq
+Imports System.Text
+Imports System.Windows.Forms
 Imports Inventor
 Imports Inventor.AssetTypeEnum
 Imports Inventor.BOMStructureEnum
@@ -15,6 +17,8 @@ Public Module PublicParameters
 
     Public strLargeSmallIconNames As String = "快速打开,按列表打开文件,保存关闭,关闭,打开工程图,提取iProperty,打开文件夹"
     Public strLargeSmallIconSets As String   '大小图标
+
+
 
     Public Structure RectangularPoint
         Dim TopLeft As Inventor.Point
@@ -55,6 +59,13 @@ Public Module PublicParameters
     Public PDF As String = ".pdf"
     Public STP As String = ".stp"
     Public DXF As String = ".dxf"
+    Public IPN As String = ".ipn"
+
+    Public BasicFilter As String = "Autodesk Inventor 文件(*.idw;*.iam;*.ipt;*.ipn)|*.idw;*.iam;*.ipt;*.ipn|
+Autodesk Inventor 部件(*.iam)|*.iam|
+Autodesk Inventor 零件(*.ipt)|*.ipt|
+Autodesk Inventor 工程图(*.idw)|*.idw|
+Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
     Public ContentCenterFiles As String  '零件库文件夹
 
@@ -95,6 +106,10 @@ Public Module PublicParameters
 
     Public BOMTiTle As String       '导出BOM用的项目
 
+
+    Public oEncoding As Encoding   'bom导出编码
+    Public strEncoding As String
+
     Public Mass_Accuracy As String '质量精度
     Public Area_Accuracy As String  '面积精度
 
@@ -110,7 +125,7 @@ Public Module PublicParameters
 
     Public IsShowUpdateMsg As Boolean    '检查更新时是否显示是最新版本的msgbox
 
-    Public str模型匹配检查 As String   '工程图是否检查模型名
+    Public str模型匹配检查 As String   '工程图是否检查模型名  ：1 为检查   0 为不检查
     Public str模型匹配检查标记 As String    '标记打开工程图时，是否检查模型匹配：1为第一次检查，2为跳过检查,3为不检查
 
     Public str钣金厚度检查 As String      '钣金件工程图是否检查材料板厚是否匹配
@@ -201,7 +216,7 @@ Public Module PublicParameters
 
 
     '声明并初始化变量
-    Public _ListViewSorter As clsListViewSorter.EnumSortOrder = clsListViewSorter.EnumSortOrder.Ascending
+    Public _ListViewSorter As ClsListViewSorter.EnumSortOrder = ClsListViewSorter.EnumSortOrder.Ascending
 
     '-------------------------------------------------------------------------------------------------------
 
@@ -225,37 +240,26 @@ Public Module PublicParameters
         'ThisApplication.CommandManager.ControlDefinitions.Item("AppZoomAllCmd").Execute()
 
         If BeforeOrAfter = EventTimingEnum.kBefore Then
-            'MsgBox("before")
-            str模型匹配检查标记 = 1
+            ' MessageBox.Show("before")
+            'str模型匹配检查标记 = 1
         Else
 
             If oInventorDocument.DocumentType = kPartDocumentObject Then
                 If str钣金厚度检查 = 1 Then
 
-                    Select Case str模型匹配检查标记
-                        Case 1
-                            If BeforeOrAfter = EventTimingEnum.kAfter Then
-                                Dim IsMatching As Boolean
+                    Dim IsMatching As Boolean
+                    ' MessageBox.Show(oInventorDocument.FullDocumentName)
 
-                                'MsgBox(oInventorDocument.FullDocumentName)
+                    IsMatching = CheckSteelThicknessSub(oInventorDocument)
 
-                                IsMatching = CheckSteelThicknessSub(oInventorDocument)
+                    Select Case IsMatching
+                        Case True
 
-                                Select Case IsMatching
-                                    Case True
-
-                                    Case False
-                                        MsgBox(FullDocumentName & "  材料与厚度不匹配。", MsgBoxStyle.Information)
-                                        ThisApplication.Documents.Open(FullDocumentName, True)
-                                End Select
-
-                            End If
-                            str模型匹配检查标记 = 2
-                        Case 2
-                            str模型匹配检查标记 = 3
-                        Case 3
-                            str模型匹配检查标记 = 1
+                        Case False
+                            ' MessageBox.Show(FullDocumentName & "  材料与厚度不匹配。", MsgBoxStyle.Information)
+                            ThisApplication.Documents.Open(FullDocumentName, True)
                     End Select
+
 
                 End If
             End If
@@ -277,12 +281,12 @@ Public Module PublicParameters
                         Case 1
                             If BeforeOrAfter = EventTimingEnum.kAfter Then
                                 If CheckDrawingDocumentNameToReferencedDocument(oInventorDocument) = False Then
-                                    MsgBox("本文件名与模型参考不匹配！", MsgBoxStyle.Information)
+                                    MessageBox.Show("本文件名与模型参考不匹配。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                                 End If
                             End If
                             str模型匹配检查标记 = 2
                         Case 2
-                            'str模型匹配检查标记 = 1
+                            str模型匹配检查标记 = 1
                         Case 3
 
                     End Select

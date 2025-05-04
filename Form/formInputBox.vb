@@ -48,20 +48,21 @@ Public Class FormInputBox
 
                 strPartNum = FindSrtingInSheet(BasicExcelFullFileName, strStochNum, SheetName, TableArrays, ColIndexNum, 0)
                 If strPartNum <> 0 Then
-                    'MsgBox("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
+                    ' MessageBox.Show("查询到ERP编码：" & strPartNum, MsgBoxStyle.OkOnly, "查询ERP编码")
                     'SetPropitem(oInventorDocument, Map_ERPCode, strPartNum)
                     Select Case txt输入.Text
                         Case ""
                             txt输入.Text = strPartNum
                         Case Else
                             If txt输入.Text <> strPartNum Then
-                                If MsgBox("查询到不同的ERP编码：" & strPartNum & "，是否更新？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "") = MsgBoxResult.Yes Then
+                                If MessageBox.Show("查询到不同的ERP编码：" & strPartNum & "，是否更新？", XHTool， MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Question) = DialogResult.Yes Then
                                     txt输入.Text = strPartNum
                                 End If
                             End If
                     End Select
                 Else
-                    MsgBox("未查询到ERP编码。", MsgBoxStyle.OkOnly, "查询ERP编码")
+                    MessageBox.Show(”未查询到ERP编码。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
         End Select

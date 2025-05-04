@@ -35,15 +35,27 @@ XHTool是Autodesk Inventor 插件。
 - 新建工程图零件序号
 - 环形自动重建序号
 - 根据模板文件替换工程图标题栏和图框
+- 钣金厚度检查
+- 零件克隆装配
+- 自动创建工程图
+- 自动创建钣金展开图
+- 多文档切换
+- 驱动测量
+- 动态尺寸
+- 展开图隐藏螺纹、导出dxf文件添加材质、标记孔径上限
+- 资源管理器
+- 移动文件
+- 清净世界
+- 部件选择多文件打开
 
 # 更多帮助
 [Bilibili](https://space.bilibili.com/482062689)
 
 # 更新日志
-[更新日志](https://gitcode.net/leaky114/inventoraddin/-/blob/master/CHANGELOG)
+[更新日志](https://www.pmhker.com/article/75.html)
 
 # 支持库文件
-[相关库文件](https://gitcode.net/leaky114/inventoraddin/-/tree/master/library)
+[相关库文件](https://github.com/leaky114/XHTool/tree/master/library)
 
 
 # 关于作者

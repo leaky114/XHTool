@@ -23,7 +23,7 @@ Public Class FormPlayer
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -43,11 +43,11 @@ Public Class FormPlayer
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MsgBox("选择一个约束。")
+                    MessageBox.Show("选择一个约束。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
                     Exit Sub
             End Select
         Else
-            MsgBox("选择一个约束。")
+            MessageBox.Show("选择一个约束。"， XHTool, MessageBoxButtons.OK， MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -189,11 +189,11 @@ Public Class FormPlayer
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MsgBox("选择一个约束。")
+                    MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                     Exit Sub
             End Select
         Else
-            MsgBox("选择一个约束。")
+            MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Exit Sub
         End If
 
@@ -240,7 +240,7 @@ Public Class FormPlayer
         '            'txt结束.Text = oAssemblyConstraint.DriveSettings.EndValue
         '            'txt步长.Text = oAssemblyConstraint.DriveSettings.FrameRate
         '        Case Else
-        '            MsgBox("请选择一个约束。")
+        '             MessageBox.Show("请选择一个约束。")
         '    End Select
         'Next
 

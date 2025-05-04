@@ -641,7 +641,7 @@ Public Class FormEditDimension
             End Select
 
         ElseIf TypeOf oSelectSet Is DimensionConstraint Then
-            'MsgBox("2维草图")
+            ' MessageBox.Show("2维草图")
 
             btn显示隐藏草图.Enabled = True
             btn显示隐藏草图.Image = My.Resources.不可见16.ToBitmap
@@ -678,7 +678,7 @@ Public Class FormEditDimension
             End Select
 
         ElseIf TypeOf oSelectSet Is DimensionConstraint3D Then
-            'MsgBox("3维草图")
+            ' MessageBox.Show("3维草图")
             btn显示隐藏草图.Enabled = True
             btn显示隐藏草图.Image = My.Resources.不可见16.ToBitmap
             IsSketchShow = True
@@ -738,7 +738,7 @@ Public Class FormEditDimension
             btn显示隐藏草图.Image = My.Resources.不可见16.ToBitmap
 
         ElseIf TypeOf oSelectSet Is BendConstraint Then
-            'MsgBox("折弯尺寸")
+            ' MessageBox.Show("折弯尺寸")
             btn显示隐藏草图.Enabled = False
 
             oSelectType = SelectType.折弯尺寸
@@ -766,7 +766,7 @@ Public Class FormEditDimension
 
             End Select
         ElseIf TypeOf oSelectSet Is FlushConstraint Then
-            'MsgBox("平面对齐约束")
+            ' MessageBox.Show("平面对齐约束")
             btn显示隐藏草图.Enabled = False
 
             oSelectType = SelectType.平面对齐约束
@@ -791,7 +791,7 @@ Public Class FormEditDimension
             End Select
 
         ElseIf TypeOf oSelectSet Is MateConstraint Then
-            'MsgBox("配合约束")
+            ' MessageBox.Show("配合约束")
             btn显示隐藏草图.Enabled = False
 
             oSelectType = SelectType.配合约束
@@ -817,7 +817,7 @@ Public Class FormEditDimension
             End Select
 
         ElseIf TypeOf oSelectSet Is AngleConstraint Then
-            'MsgBox("角度约束")
+            ' MessageBox.Show("角度约束")
             btn显示隐藏草图.Enabled = False
 
             oSelectType = SelectType.角度约束
@@ -835,7 +835,7 @@ Public Class FormEditDimension
             TrackBar参数一.Value = oAngleConstraint.Angle.Value * 180 / Math.PI
 
         ElseIf TypeOf oSelectSet Is Inventor.InsertConstraint Then
-            'MsgBox("插入约束")
+            ' MessageBox.Show("插入约束")
             btn显示隐藏草图.Enabled = False
 
             oSelectType = SelectType.插入约束

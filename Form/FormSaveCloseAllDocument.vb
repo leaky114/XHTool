@@ -18,7 +18,7 @@ Public Class FormSaveCloseAllDocument
 
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
             strInventorDocumentFullFileName = oInventorDocument.FullDocumentName
-            If IsFileExsts(strInventorDocumentFullFileName) = False Then
+            If IsFileExists(strInventorDocumentFullFileName) = False Then
                 Continue For
             End If
 

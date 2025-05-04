@@ -43,12 +43,13 @@ Partial Class FormOption
         Me.btn更新数据库 = New System.Windows.Forms.Button()
         Me.btn打开erp数据库 = New System.Windows.Forms.Button()
         Me.txt查询列 = New System.Windows.Forms.TextBox()
-        Me.lblERP列 = New System.Windows.Forms.Label()
+        Me.lbl编码列 = New System.Windows.Forms.Label()
         Me.txt查找范围 = New System.Windows.Forms.TextBox()
         Me.lbl查询列 = New System.Windows.Forms.Label()
         Me.txt基础数据文件 = New System.Windows.Forms.TextBox()
         Me.lbl基础数据文件 = New System.Windows.Forms.Label()
         Me.GroupBoxBOM导出项目 = New System.Windows.Forms.GroupBox()
+        Me.chk使用UTF8编码 = New System.Windows.Forms.CheckBox()
         Me.btn清除 = New System.Windows.Forms.Button()
         Me.btn还原 = New System.Windows.Forms.Button()
         Me.btn添加 = New System.Windows.Forms.Button()
@@ -339,7 +340,7 @@ Partial Class FormOption
         Me.GroupBoxERP查询.Controls.Add(Me.btn更新数据库)
         Me.GroupBoxERP查询.Controls.Add(Me.btn打开erp数据库)
         Me.GroupBoxERP查询.Controls.Add(Me.txt查询列)
-        Me.GroupBoxERP查询.Controls.Add(Me.lblERP列)
+        Me.GroupBoxERP查询.Controls.Add(Me.lbl编码列)
         Me.GroupBoxERP查询.Controls.Add(Me.txt查找范围)
         Me.GroupBoxERP查询.Controls.Add(Me.lbl查询列)
         Me.GroupBoxERP查询.Controls.Add(Me.txt基础数据文件)
@@ -384,14 +385,14 @@ Partial Class FormOption
         Me.txt查询列.Size = New System.Drawing.Size(89, 21)
         Me.txt查询列.TabIndex = 4
         '
-        'lblERP列
+        'lbl编码列
         '
-        Me.lblERP列.AutoSize = True
-        Me.lblERP列.Location = New System.Drawing.Point(187, 57)
-        Me.lblERP列.Name = "lblERP列"
-        Me.lblERP列.Size = New System.Drawing.Size(47, 12)
-        Me.lblERP列.TabIndex = 3
-        Me.lblERP列.Text = "ERP列："
+        Me.lbl编码列.AutoSize = True
+        Me.lbl编码列.Location = New System.Drawing.Point(187, 57)
+        Me.lbl编码列.Name = "lbl编码列"
+        Me.lbl编码列.Size = New System.Drawing.Size(53, 12)
+        Me.lbl编码列.TabIndex = 3
+        Me.lbl编码列.Text = "编码列："
         '
         'txt查找范围
         '
@@ -429,6 +430,7 @@ Partial Class FormOption
         '
         'GroupBoxBOM导出项目
         '
+        Me.GroupBoxBOM导出项目.Controls.Add(Me.chk使用UTF8编码)
         Me.GroupBoxBOM导出项目.Controls.Add(Me.btn清除)
         Me.GroupBoxBOM导出项目.Controls.Add(Me.btn还原)
         Me.GroupBoxBOM导出项目.Controls.Add(Me.btn添加)
@@ -441,6 +443,16 @@ Partial Class FormOption
         Me.GroupBoxBOM导出项目.TabIndex = 21
         Me.GroupBoxBOM导出项目.TabStop = False
         Me.GroupBoxBOM导出项目.Text = "BOM导出"
+        '
+        'chk使用UTF8编码
+        '
+        Me.chk使用UTF8编码.AutoSize = True
+        Me.chk使用UTF8编码.Location = New System.Drawing.Point(148, 52)
+        Me.chk使用UTF8编码.Name = "chk使用UTF8编码"
+        Me.chk使用UTF8编码.Size = New System.Drawing.Size(96, 16)
+        Me.chk使用UTF8编码.TabIndex = 5
+        Me.chk使用UTF8编码.Text = "使用UTF8编码"
+        Me.chk使用UTF8编码.UseVisualStyleBackColor = True
         '
         'btn清除
         '
@@ -1610,7 +1622,7 @@ Partial Class FormOption
         Me.Button1.Text = "选择"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'formOption
+        'FormOption
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1624,7 +1636,7 @@ Partial Class FormOption
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "formOption"
+        Me.Name = "FormOption"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "应用程序选项"
         Me.TabPage模型.ResumeLayout(False)
@@ -1685,7 +1697,7 @@ Partial Class FormOption
     Friend WithEvents btn更新数据库 As System.Windows.Forms.Button
     Friend WithEvents btn打开erp数据库 As System.Windows.Forms.Button
     Friend WithEvents txt查询列 As System.Windows.Forms.TextBox
-    Friend WithEvents lblERP列 As System.Windows.Forms.Label
+    Friend WithEvents lbl编码列 As System.Windows.Forms.Label
     Friend WithEvents txt查找范围 As System.Windows.Forms.TextBox
     Friend WithEvents lbl查询列 As System.Windows.Forms.Label
     Friend WithEvents txt基础数据文件 As System.Windows.Forms.TextBox
@@ -1817,4 +1829,5 @@ Partial Class FormOption
     Friend WithEvents lvw设置图标大小 As ListView
     Friend WithEvents ch按钮 As ColumnHeader
     Friend WithEvents ch图标大小 As ColumnHeader
+    Friend WithEvents chk使用UTF8编码 As CheckBox
 End Class

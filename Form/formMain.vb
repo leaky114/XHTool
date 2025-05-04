@@ -19,78 +19,121 @@ Imports System.Net
 
 Public Class FormMain
 
+
+    ' Windows API 声明
+    Private Declare Function FindWindowEx Lib "user32" Alias "FindWindowExA" (
+    ByVal hWndParent As Long,
+    ByVal hWndChildAfter As Long,
+    ByVal lpszClass As String,
+    ByVal lpszWindow As String
+) As Long
+
+    Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (
+    ByVal hWnd As Long,
+    ByVal nIndex As Long
+) As Long
+
+    Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (
+    ByVal hWnd As Long,
+    ByVal nIndex As Long,
+    ByVal dwNewLong As Long
+) As Long
+
+    Private Const GWL_STYLE As Long = (-16)
+    Private Const TVS_HASBUTTONS As Long = &H1
+    Private Const TVS_HASLINES As Long = &H2
+    Private Const TVS_LINESATROOT As Long = &H4
+
+
     Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
     Private HideSide As Short '隐藏边的位置，0为未隐藏，1为上边，2为左边
 
 
+
     Public Sub CreateLineWithMidpoint()
-        Dim invApp As Inventor.Application = ThisApplication
+
         Try
             ' 验证当前文档为零件文档
-            Dim oDoc As PartDocument = TryCast(invApp.ActiveDocument, PartDocument)
-            If oDoc Is Nothing Then
-                MessageBox.Show("请打开零件文档！")
+            Dim oInventorDocument As Inventor.Document = TryCast(ThisApplication.ActiveDocument, PartDocument)
+            If oInventorDocument Is Nothing Then
+                MessageBox.Show(”请打开零件文档。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
             ' 获取当前激活草图
             Dim oSketch As Sketch = ThisApplication.ActiveEditObject
             If oSketch Is Nothing Then
-                MessageBox.Show("请先激活草图！")
+                MessageBox.Show(”请先激活草图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
 
-            ' 选择中点A
-            'Dim pointA As Point2d = GetDrawingPoint(“选择中点”)
-            Dim pointA As Point2d = GetPointByMouseClick(oSketch)
-            If pointA Is Nothing Then Return
 
-            ' 选择端点B
-            Dim pointB As Point2d = GetDrawingPoint(“选择端点”)
-            If pointB Is Nothing Then Return
+            ' 创建二维点对象（基于草图局部坐标系）
+            Dim tg As TransientGeometry = ThisApplication.TransientGeometry
 
-            ' 计算另一端点C
-            Dim oTG As TransientGeometry = invApp.TransientGeometry
-            Dim pointC As Point2d = oTG.CreatePoint2d(2 * pointA.X - pointB.X, 2 * pointA.Y - pointB.Y)
+            Dim oPoint2d As Point2d
+            oPoint2d = GetPointInDrawing("选择中心点。")
+            If oPoint2d Is Nothing Then
+                Exit Sub
+            End If
 
-            ' 创建线段BC
-            Dim line As SketchLine = oSketch.SketchLines.AddByTwoPoints(pointB, pointC)
+            Dim oCenterPoint2d As Point2d = oPoint2d
 
-            ' 添加中点约束（可选）
-            'oSketch.GeometricConstraints.AddMidpointConstraint(line, pointA)
+            oPoint2d = GetLineInSketch("选择一个端点。", oCenterPoint2d)
+            If oPoint2d Is Nothing Then
+                Exit Sub
+            End If
 
-            'MessageBox.Show("线段创建成功！")
+            Dim oStartPoint2d As Point2d = oPoint2d
+
+
+            Dim oEndPoint2d As Point2d = tg.CreatePoint2d(
+        2 * oCenterPoint2d.X - oStartPoint2d.X,
+        2 * oCenterPoint2d.Y - oStartPoint2d.Y
+    )
+
+            ' 创建连接两点的直线
+            Dim oSketchLine As SketchLine = oSketch.SketchLines.AddByTwoPoints(oStartPoint2d, oEndPoint2d)
+
+
+            Dim deltaX As Double = oEndPoint2d.X - oStartPoint2d.X
+            Dim deltaY As Double = oEndPoint2d.Y - oStartPoint2d.Y
+
+            ' 计算原始角度（-180°到180°）
+            Dim angle_rad As Double = Math.Atan2(deltaY, deltaX)
+            Dim angle_deg As Double = angle_rad * 180 / Math.PI
+
+            ' 标准化到0-180°
+            If angle_deg < 0 Then
+                angle_deg += 360
+            End If
+            angle_deg = angle_deg Mod 180
+
+
+            ' 添加约束
+            Const HORIZONTAL_TOLERANCE As Double = 5
+            Const VERTICAL_TOLERANCE As Double = 5
+
+            If (angle_deg >= 0 AndAlso angle_deg <= HORIZONTAL_TOLERANCE) OrElse
+       (angle_deg >= 180 - HORIZONTAL_TOLERANCE AndAlso angle_deg <= 180) Then
+                ' 水平约束
+                oSketch.GeometricConstraints.AddHorizontal(oSketchLine)
+
+            ElseIf angle_deg >= 90 - VERTICAL_TOLERANCE AndAlso angle_deg <= 90 + VERTICAL_TOLERANCE Then
+                ' 垂直约束
+                oSketch.GeometricConstraints.AddVertical(oSketchLine)
+            Else
+
+            End If
+
+            ThisApplication.ActiveView.Update()
+
         Catch ex As Exception
-            MessageBox.Show("错误: " & ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    Private Function GetPointByMouseClick(sketch As Sketch) As Point2d
-        Dim invApp As Inventor.Application = ThisApplication
-        Try
-            ' 使用CommandManager.Pick捕获鼠标点击
-            Dim pickResult As Object = Nothing
-            pickResult = invApp.CommandManager.Pick(SelectionFilterEnum.kAllEntitiesFilter, "请用鼠标左键点击选择一个点")
-
-            ' 如果用户取消选择，返回Nothing
-            If pickResult Is Nothing Then
-                Return Nothing
-            End If
-
-            ' 将点击的模型坐标转换为草图坐标
-            If TypeOf pickResult Is Point Then
-                Dim modelPoint As Point = CType(pickResult, Point)
-                Dim sketchPoint As Point2d = sketch.ModelToSketchSpace(modelPoint)
-                Return sketchPoint
-            End If
-
-            Return Nothing
-        Catch ex As Exception
-            MessageBox.Show("选择点时出错: " & ex.Message)
-            Return Nothing
-        End Try
-    End Function
 
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
@@ -104,7 +147,7 @@ Public Class FormMain
     'CheckSteelThicknessInAssembly()
 
     'If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-    '    MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+    '     MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     '    Exit Sub
     'End If
 
@@ -135,7 +178,7 @@ Public Class FormMain
 
     'Next
 
-    'MsgBox("检查钣金厚度匹配完成，已打开不匹配的零件。", MsgBoxStyle.Information)
+    ' MessageBox.Show("检查钣金厚度匹配完成，已打开不匹配的零件。", MsgBoxStyle.Information)
 
     'Dim oInventorDrawingDocument As Inventor.DrawingDocument
     'oInventorDrawingDocument = ThisApplication.ActiveDocument
@@ -180,18 +223,18 @@ Public Class FormMain
     '    Case kAngleConstraintObject, kAssemblySymmetryConstraintObject, kCompositeConstraintObject, kCustomConstraintObject, _
     '        kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
 
-    '        MsgBox("约束")
+    '         MessageBox.Show("约束")
     '    Case kTwoPointDistanceDimConstraintObject, kDiameterDimConstraintObject
-    '        MsgBox("2维尺寸")
+    '         MessageBox.Show("2维尺寸")
     '    Case kDimensionConstraints3DObject, kLineLengthDimConstraint3DObject
-    '        MsgBox("3维尺寸")
+    '         MessageBox.Show("3维尺寸")
     '    Case kBendConstraintObject, kTwoLineAngleDimConstraint3DObject
-    '        MsgBox("折弯尺寸")
+    '         MessageBox.Show("折弯尺寸")
     '    Case kPlanarSketchObject
-    '        MsgBox("2维草图")
+    '         MessageBox.Show("2维草图")
 
     '    Case kSketch3DObject
-    '        MsgBox("3维草图")
+    '         MessageBox.Show("3维草图")
 
     '    Case Else
 
@@ -287,15 +330,55 @@ Public Class FormMain
     'frmSwitchLables.Show()
 
 
-
-
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+
+
+
+
+
+
+        'CheckDrawingDocumentNameToReferencedDocument(ThisApplication.ActiveDocument)
+
+        'Dim oUserInterfaceMgr As UserInterfaceManager
+        'oUserInterfaceMgr = ThisApplication.UserInterfaceManager
+
+        'Try
+        '    oUserInterfaceMgr.DockableWindows.Item("TestWindowInternalName").Delete()
+        'Catch ex As Exception
+
+        'End Try
+
+        '' Create a new dockable window
+        'Dim oWindow As DockableWindow
+        'oWindow = oUserInterfaceMgr.DockableWindows.Add("SampleClientId", "TestWindowInternalName", "文件浏览器")
+
+        '' Get the hwnd of the dialog to be added as a child
+        '' CHANGE THIS VALUE!
+        'Dim hwnd As Long
+        'hwnd = 4851096
+
+        '' Add the dialog as a child to the dockable window
+        'oWindow.AddChild(hwnd)
+
+        '' Don't allow docking to top and bottom
+        'oWindow.DisabledDockingStates = DockingStateEnum.kDockTop + DockingStateEnum.kDockBottom
+
+        '' Make the window visible
+        'oWindow.ShowTitleBar = True
+        'oWindow.Visible = True
+
+        'Dim oCheatSheet As New FormAbout
+        'oWindow.AddChild(oCheatSheet.Handle.ToInt64)
+
+
         'CloneComponentAndInsertConstraint()
         'SelectPartNodeInBrowserNode()
         'OpenSelectComponentOccurrences()
+        'FormExplorerShow()
+        '        FormPantoneShow()
 
-
-        FormExplorerShow()
+        'FormBatchCommandShow()
 
 
         'On Error Resume Next
@@ -401,9 +484,9 @@ Public Class FormMain
 
         IniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "InAISetting.ini")
 
-        If IsFileExsts(IniFile) = False Then
+        If IsFileExists(IniFile) = False Then
             '初始化默认值
-            WrXml.InAISettingDefaultValue()
+            'WrXml.InAISettingDefaultValue()
 
             '获取自定义值
             'WrXml.InAISettingXmlReadSetting()
@@ -416,13 +499,13 @@ Public Class FormMain
         '更新数据库文件
         If BasicExcelFullFileName = "" Then
             BasicExcelFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "最新物料编码.xlsx")
-            'MsgBox(Excel_File_Name)
+            ' MessageBox.Show(Excel_File_Name)
         End If
 
         Dim documentURL As String
         documentURL = "\\Likai-pc\发行版\更新包\最新物料编码.xlsx"
 
-        If IsFileExsts(documentURL) = True Then
+        If IsFileExists(documentURL) = True Then
             Dim wc As New System.Net.WebClient
             'wc.DownloadFile(documentURL, BasicExcelFullFileName)
         End If
@@ -434,7 +517,7 @@ Public Class FormMain
         Dim strHelpFullFileName As String
         strHelpFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "帮助.docx")
 
-        If IsFileExsts(documentURL) = True Then
+        If IsFileExists(documentURL) = True Then
             Dim wc As New System.Net.WebClient
             wc.DownloadFile(documentURL, strHelpFullFileName)
         End If
@@ -532,10 +615,10 @@ Public Class FormMain
     Private Sub 帮助ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 帮助ToolStripMenuItem.Click
         'Dim HelpMessage As String = "窗口在左和上边缘自动隐藏      当前版本：" & System.Windows.Forms.Application.ProductVersion
 
-        'MsgBox(HelpMessage, MsgBoxStyle.Information)
+        ' MessageBox.Show(HelpMessage, MsgBoxStyle.Information)
         Dim strHelpFullFileName As String
         strHelpFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "帮助.pdf")
-        If IsFileExsts(strHelpFullFileName) = True Then
+        If IsFileExists(strHelpFullFileName) = True Then
             Process.Start(strHelpFullFileName)
         End If
     End Sub
@@ -565,7 +648,7 @@ Public Class FormMain
             SetStatusBarText()
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -574,14 +657,14 @@ Public Class FormMain
 
             If SetDrawingScale(IdwDoc) Then
                 ToolStripStatusLabel1.Text = "设置工程图自定义属性：比例完成"
-                'MsgBox("设置工程图自定义属性：比例完成", MsgBoxStyle.Information)
+                ' MessageBox.Show("设置工程图自定义属性：比例完成", MsgBoxStyle.Information)
             Else
-                ToolStripStatusLabel1.Text = "错误"
-                MsgBox("错误", MsgBoxStyle.Exclamation)
+                ToolStripStatusLabel1.Text = XHTool
+                MessageBox.Show(”设置工程图比例错误。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -600,7 +683,7 @@ Public Class FormMain
             End If
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -614,11 +697,11 @@ Public Class FormMain
             If SetSign(IdwDoc, EngineerName, Print_Day, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
-                SetStatusBarText("错误")
+                SetStatusBarText(XHTool)
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -632,7 +715,7 @@ Public Class FormMain
             End If
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
@@ -642,10 +725,10 @@ Public Class FormMain
             If SetSign(IdwDoc, "", "", False) Then
                 SetStatusBarText("清除工程图属性，签字完成")
             Else
-                SetStatusBarText("错误")
+                SetStatusBarText(XHTool)
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -662,7 +745,7 @@ Public Class FormMain
 
     '打开自定义属性窗口
     Private Sub 自定义属性ToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formMassiPoperties.ShowDialog()
+        formBatchiPoperties.ShowDialog()
     End Sub
 
     '退出程序
@@ -687,7 +770,7 @@ Public Class FormMain
     End Sub
 
     Private Sub 批量另存ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formFormatConversion.ShowDialog()
+        FormFormatConversion.ShowDialog()
     End Sub
 
     Private Sub 设置虚拟件ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 设置虚拟件ToolStripMenuItem.Click
@@ -718,15 +801,15 @@ Public Class FormMain
     End Sub
 
     Private Sub 导入ERPToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formImportCodeToIam.ShowDialog()
+        FormImportCodeToIam.ShowDialog()
     End Sub
 
     Private Sub 查询ERPToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formSearchERPCode.ShowDialog()
+        FormSearchERPCode.ShowDialog()
     End Sub
 
     Private Sub 导入ERP到BOMToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        formImportCodeToBomExcel.Show()
+        FormImportCodeToBomExcel.Show()
     End Sub
 
     Private Sub 替换图框ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 替换图框ToolStripMenuItem.Click
@@ -914,7 +997,7 @@ Public Class FormMain
     Private Sub 批量替换文件名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 批量替换文件名ToolStripMenuItem.Click
         'ReplaceNameInAsm()
 
-        formBatchChangeFileNames.Show()
+        FormBatchChangeFileNamesShow()
 
     End Sub
 
@@ -929,43 +1012,6 @@ Public Class FormMain
 
 
 
-    Private Sub AddPanelToToolsTab()
-        ' Get the ribbon associated with the part document
-        Dim oPartRibbon As Ribbon
-        oPartRibbon = ThisApplication.UserInterfaceManager.Ribbons.Item("Part")
-
-        ' Get the "Tools" tab
-        Dim oTab As RibbonTab
-        oTab = oPartRibbon.RibbonTabs.Item("id_TabTools")
-
-        ' Create a panel named "Update", positioned after the "Measure" panel in the Tools tab.
-        Dim oPanel As RibbonPanel
-        oPanel = oTab.RibbonPanels.Item("id_PanelP_ToolsOptions")
-
-        ' Get the update commands
-        Dim oDef1 As ButtonDefinition
-        oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("InName文件只读")
-
-
-        Dim oDefs As ObjectCollection
-        oDefs = ThisApplication.TransientObjects.CreateObjectCollection
-
-        oDefs.Add(oDef1)
-
-        ' Create a split button control
-        'Call oPanel.CommandControls.AddButton(oDef1)
-
-        If oDef1.Pressed = True Then
-            oDef1.Pressed = False
-        Else
-            oDef1.Pressed = True
-        End If
-
-        ' Get the rebuild command
-
-
-
-    End Sub
 
     Private Sub 动画设计ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动画设计ToolStripMenuItem.Click
         FormPlayerShow()
@@ -1000,8 +1046,8 @@ Public Class FormMain
 
     End Sub
 
-    Private Sub 抑制错误约束ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 抑制错误约束ToolStripMenuItem.Click
-        SuppressAllUnhealthConstraints()
+    Private Sub 抑制错误约束ToolStripMenuItem_Click(sender As Object, e As EventArgs)
+        'SuppressAllUnhealthConstraints()
     End Sub
 
     Private Sub 统计焊缝ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 统计焊缝ToolStripMenuItem.Click
@@ -1064,14 +1110,14 @@ Public Class FormMain
         Dim strTypeName As String = TypeName(oSelectObject)
 
         Debug.Print(strTypeName)
-        MsgBox(strTypeName)
+         MessageBox.Show(strTypeName)
 
 
 
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles 菜单工具ToolStripMenuItem.Click
-        formNetTool.Show()
+        FormNetTool.Show()
     End Sub
 
     Private Sub 自定义iPropertyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 自定义iPropertyToolStripMenuItem.Click
@@ -1103,7 +1149,7 @@ Public Class FormMain
         Dim pnt1 As Point2d
         Dim pnt2 As Point2d
         Do
-            pnt1 = getPoint.GetDrawingPoint("Click the desired location", MouseButtonEnum.kLeftMouseButton)
+            pnt1 = getPoint.GetDrawingPoint("Click the desired location", MouseButtonEnum.kLeftMouseButton, CursorTypeEnum.kCursorBuiltInCrosshair)
             If pnt1 IsNot Nothing Then
 
                 Dim lineLen As Double
@@ -1126,7 +1172,7 @@ Public Class FormMain
                     ElseIf hor_Alignment = "R" Then
                         pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X + lineLen, pnt1.Y)
                     Else
-                        MsgBox("Invalid entry for horizantal alignment")
+                         MessageBox.Show("Invalid entry for horizantal alignment")
                     End If
                 ElseIf line_orientation = "V" Then
                     ver_Alignment = InputBox("Type U(Upward) or D(Downward)")
@@ -1137,10 +1183,10 @@ Public Class FormMain
                     ElseIf ver_Alignment = "D" Then
                         pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X, pnt1.Y - lineLen)
                     Else
-                        MsgBox("Invalid entry for vertical alignment")
+                         MessageBox.Show("Invalid entry for vertical alignment")
                     End If
                 Else
-                    MsgBox("Invalid Entry for line orientation")
+                     MessageBox.Show("Invalid Entry for line orientation")
                 End If
 
 
@@ -1149,9 +1195,7 @@ Public Class FormMain
     End Sub
 
     Private Sub 钣金厚度检查ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 钣金厚度检查ToolStripMenuItem.Click
-
         CheckSteelThicknessInPart()
-
     End Sub
 
     Private Sub 清净世界ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 清净世界ToolStripMenuItem.Click
@@ -1167,5 +1211,13 @@ Public Class FormMain
 
     Private Sub 资源管理器ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 资源管理器ToolStripMenuItem.Click
         FormExplorerShow()
+    End Sub
+
+    Private Sub 修改序号ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 修改序号ToolStripMenuItem.Click
+        ModifySerialNumber()
+    End Sub
+
+    Private Sub 批量BOM命名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 批量BOM命名ToolStripMenuItem.Click
+        FormiPropertyToFileNameShow()
     End Sub
 End Class

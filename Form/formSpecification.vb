@@ -3,6 +3,7 @@ Imports Inventor.DocumentTypeEnum
 Imports System.IO
 Imports System.Windows.Forms
 Imports System.Collections.Generic
+Imports System.Text
 
 Public Class FormSpecification
     Private boolIsBasicChange As Boolean
@@ -29,8 +30,8 @@ Public Class FormSpecification
         '加载配置文件
         strSpecificationIni = IO.Path.Combine(My.Application.Info.DirectoryPath, "Specification.ini")
 
-        If IsFileExsts(strSpecificationIni) = False Then
-            MsgBox("未找到配置文件 Specification.ini", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "技术要求")
+        If IsFileExists(strSpecificationIni) = False Then
+            MessageBox.Show("未找到配置文件 Specification.ini", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -44,7 +45,7 @@ Public Class FormSpecification
         strNode = GetStrFromINI("通用技术标准", intNumber.ToString, "", strSpecificationIni)
         Do While (strNode <> "")
             TreeView基础数据树.Nodes.Add(strNode)
-            intNumber = intNumber + 1
+            intNumber += 1
             strNode = GetStrFromINI("通用技术标准", intNumber.ToString, "", strSpecificationIni)
         Loop
         TreeView基础数据树.ExpandAll()
@@ -55,7 +56,7 @@ Public Class FormSpecification
         strNode = GetStrFromINI("技术要求", intNumber.ToString, "", strSpecificationIni)
         Do While (strNode <> "")
             TreeView自定义.Nodes.Add(strNode)
-            intNumber = intNumber + 1
+            intNumber += 1
             strNode = GetStrFromINI("技术要求", intNumber.ToString, "", strSpecificationIni)
         Loop
 
@@ -70,7 +71,8 @@ Public Class FormSpecification
         End If
 
         If boolIsBasicChange = True Then
-            If MsgBox(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+            If MessageBox.Show(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
+                               MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存基础数据ToolStripButton.PerformClick()
             End If
         End If
@@ -89,7 +91,7 @@ Public Class FormSpecification
         strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Do While (strChildNodeValue <> "")
             lst基础数据列表.Items.Add(strChildNodeValue)
-            intNumber = intNumber + 1
+            intNumber += 1
             strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Loop
 
@@ -142,7 +144,7 @@ Public Class FormSpecification
         strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Do While (strChildNodeValue <> "")
             EraseSection(strChildNodeName, strSpecificationIni)
-            intNumber = intNumber + 1
+            intNumber += 1
             strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Loop
 
@@ -202,7 +204,7 @@ Public Class FormSpecification
         strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Do While (strChildNodeValue <> "")
             EraseSection(strChildNodeName, strSpecificationIni)
-            intNumber = intNumber + 1
+            intNumber += 1
             strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Loop
 
@@ -223,7 +225,7 @@ Public Class FormSpecification
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
         Else
-            MsgBox("请选择基础数据。", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "技术要求")
+            MessageBox.Show("请选择基础数据。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -235,7 +237,8 @@ Public Class FormSpecification
         End If
 
         If boolIsUserChange = True Then
-            If MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+            If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
+                               MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存自定义ToolStripButton.PerformClick()
             End If
         End If
@@ -254,7 +257,7 @@ Public Class FormSpecification
         strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Do While (strChildNodeValue <> "")
             lst技术要求文本.Items.Add(strChildNodeValue)
-            intNumber = intNumber + 1
+            intNumber += 1
             strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
         Loop
 
@@ -271,7 +274,8 @@ Public Class FormSpecification
         If strChildNodeName <> "" Then
             TreeView自定义.Nodes.Add(strChildNodeName)
             If boolIsUserChange = True Then
-                If MsgBox(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "") = MsgBoxResult.Yes Then
+                If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
+                                   MessageBoxIcon.Question) = DialogResult.Yes Then
                     保存自定义ToolStripButton.PerformClick()
                 End If
             End If
@@ -350,7 +354,7 @@ Public Class FormSpecification
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-            MsgBox("该功能仅适用于工程图", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -359,8 +363,6 @@ Public Class FormSpecification
         ini.WriteStrINI("技术要求", "字体", 字体ToolStripButton.Text, IniFile)
 
         '-----------------------------------------
-        'Dim oInventorDocument As Inventor.Document
-        'oInventorDocument = ThisApplication.ActiveDocument
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
         Dim oActiveSheet As Sheet
@@ -409,7 +411,8 @@ Public Class FormSpecification
 
         Dim oPoint2d As Point2d
 
-        oPoint2d = GetDrawingPoint("单击确定插入位置。") ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
+
+        oPoint2d = GetPointInDrawing("单击确定插入位置。") ' ThisApplication.TransientGeometry.CreatePoint2d(ModelPosition.X, ModelPosition.Y)
 
         Dim oGeneralNote As GeneralNote
 
@@ -447,38 +450,38 @@ Public Class FormSpecification
 
     Private Sub 导入文件ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 导入文件ToolStripMenuItem.Click
         Dim strFilter As String = "文本文档(*.txt)|*.txt" '添加过滤文件
-        Dim strInitialDirectory = Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim strFile = IO.Path.Combine(Microsoft.VisualBasic.FileIO.SpecialDirectories.Desktop, "选择导入的文本文件")
 
-        If arrayFullFileName Is Nothing Then
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
+
+        If oFileList Is Nothing Then
             Exit Sub
         End If
 
         Dim strTextFileFullName As String
-        strTextFileFullName = arrayFullFileName.Item(0).ToString
+        strTextFileFullName = oFileList.Item(0).ToString
 
-        Dim arrstrReader() As String
-        arrstrReader = System.IO.File.ReadAllLines(strTextFileFullName)
-        For Each stringReader As String In arrstrReader
-            lst技术要求文本.Items.Add(stringReader)
-        Next
+        Using oStreamReader As New StreamReader(strTextFileFullName, Encoding.UTF8)
+            While Not oStreamReader.EndOfStream
+                Dim strFileName As String
+                strFileName = oStreamReader.ReadLine()
+
+                lst技术要求文本.Items.Add(strFileName)
+
+            End While
+        End Using
 
         boolIsUserChange = True
 
     End Sub
 
     Private Sub Btn确定导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定导入.Click
-        Dim strTempFileName As String
-        strTempFileName = My.Computer.FileSystem.GetTempFileName()
-
-        My.Computer.FileSystem.WriteAllText(strTempFileName, txt导入文本.Text, True)
-
-        Dim arrstrReader() As String
-        arrstrReader = System.IO.File.ReadAllLines(strTempFileName)
-        For Each stringReader As String In arrstrReader
-            lst技术要求文本.Items.Add(stringReader)
+        For Each stringReader As String In txt导入文本.Lines
+            If stringReader.Length > 0 Then
+                lst技术要求文本.Items.Add(stringReader)
+            End If
         Next
 
         boolIsUserChange = True

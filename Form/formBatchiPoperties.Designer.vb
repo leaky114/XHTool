@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormMassiPoperties
+Partial Class formBatchiPoperties
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -52,6 +52,7 @@ Partial Class FormMassiPoperties
         Me.tsmi筛选保留 = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn导入已打开文件 = New System.Windows.Forms.Button()
         Me.btn添加文件夹 = New System.Windows.Forms.Button()
+        Me.chk删除自定义 = New System.Windows.Forms.CheckBox()
         Me.tp自定义.SuspendLayout()
         Me.tp项目.SuspendLayout()
         Me.tab1.SuspendLayout()
@@ -279,6 +280,7 @@ Partial Class FormMassiPoperties
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
         Me.lvw文件列表.Size = New System.Drawing.Size(461, 286)
@@ -336,12 +338,23 @@ Partial Class FormMassiPoperties
         Me.btn添加文件夹.Text = "添加文件夹"
         Me.btn添加文件夹.UseVisualStyleBackColor = True
         '
-        'frmMassiPoperties
+        'chk删除自定义
+        '
+        Me.chk删除自定义.AutoSize = True
+        Me.chk删除自定义.Location = New System.Drawing.Point(267, 401)
+        Me.chk删除自定义.Name = "chk删除自定义"
+        Me.chk删除自定义.Size = New System.Drawing.Size(84, 16)
+        Me.chk删除自定义.TabIndex = 42
+        Me.chk删除自定义.Text = "删除自定义"
+        Me.chk删除自定义.UseVisualStyleBackColor = True
+        '
+        'formBatchiPoperties
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(485, 500)
+        Me.Controls.Add(Me.chk删除自定义)
         Me.Controls.Add(Me.btn导入已打开文件)
         Me.Controls.Add(Me.btn添加文件夹)
         Me.Controls.Add(Me.lvw文件列表)
@@ -351,7 +364,7 @@ Partial Class FormMassiPoperties
         Me.Controls.Add(Me.tab1)
         Me.Controls.Add(Me.btn添加文件)
         Me.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.Name = "frmMassiPoperties"
+        Me.Name = "formBatchiPoperties"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "量产iProperty"
         Me.tp自定义.ResumeLayout(False)
@@ -361,6 +374,7 @@ Partial Class FormMassiPoperties
         Me.tab1.ResumeLayout(False)
         Me.cms右键菜单.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btn确定 As System.Windows.Forms.Button
@@ -392,5 +406,5 @@ Partial Class FormMassiPoperties
     Friend WithEvents tsmi移出 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmi筛选移出 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsmi筛选保留 As System.Windows.Forms.ToolStripMenuItem
-
+    Friend WithEvents chk删除自定义 As System.Windows.Forms.CheckBox
 End Class

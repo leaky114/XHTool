@@ -42,7 +42,7 @@ Module OpenForm
             Dim FormAbout As New formAbout
             FormManager.ShowForm(Of formAbout)(True)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -57,14 +57,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
             Dim formSign As New FormCustomSignature
             FormManager.ShowForm(Of FormCustomSignature)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
         End Try
 
     End Sub
@@ -81,7 +81,7 @@ Module OpenForm
             Dim FormSaveCloseAllDocument As New FormSaveCloseAllDocument
             FormManager.ShowForm(Of FormSaveCloseAllDocument)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -95,14 +95,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formAutoPartNumber As New formAutoPartNumber
-            FormManager.ShowForm(Of formAutoPartNumber)()
+            Dim formAutoPartNumber As New FormAutoPartNumber
+            FormManager.ShowForm(Of FormAutoPartNumber)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -112,22 +112,22 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formSpecification As New formSpecification
+            Dim formSpecification As New FormSpecification
 
             If ThisApplication.FileManager.Files.Count = 0 Then
-                FormManager.ShowForm(Of formSpecification)()
+                FormManager.ShowForm(Of FormSpecification)()
                 Exit Sub
             End If
 
             If ThisApplication.ActiveDocumentType = kDrawingDocumentObject Then
-                FormManager.ShowForm(Of formSpecification)()
+                FormManager.ShowForm(Of FormSpecification)()
             Else
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
         End Try
 
     End Sub
@@ -137,10 +137,13 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formBorderTitle As New formBorderTitle
-            FormManager.ShowForm(Of formBorderTitle)(True)
+            'Dim formBorderTitle As New FormBorderTitle
+            'formBorderTitle.Show()
+
+            FormManager.ShowForm(Of FormBorderTitle)(False)
+
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -151,10 +154,22 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formPrint As New FormBulkPrint
-            FormManager.ShowForm(Of FormBulkPrint)()
+            Dim FormBatchPrint As New FormBatchPrint
+            FormManager.ShowForm(Of FormBatchPrint)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Public Sub FormBatchCommandShow()
+        Try
+            SetStatusBarText()
+
+            Dim FormBatchCommand As New FormBatchCommand
+            FormManager.ShowForm(Of FormBatchCommand)()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -164,10 +179,10 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formSearchERPCode As New formSearchERPCode
-            FormManager.ShowForm(Of formSearchERPCode)()
+            Dim formSearchERPCode As New FormSearchERPCode
+            FormManager.ShowForm(Of FormSearchERPCode)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -180,7 +195,7 @@ Module OpenForm
             Dim FormReverseCheckERPCodes As New FormReverseCheckERPCodes
             FormManager.ShowForm(Of FormReverseCheckERPCodes)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -195,14 +210,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formImportCodeToIam As New formImportCodeToIam
-            FormManager.ShowForm(Of formImportCodeToIam)()
+            Dim formImportCodeToIam As New FormImportCodeToIam
+            FormManager.ShowForm(Of FormImportCodeToIam)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -212,10 +227,10 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formImportCodeToBomExcel As New formImportCodeToBomExcel
-            FormManager.ShowForm(Of formImportCodeToBomExcel)()
+            Dim formImportCodeToBomExcel As New FormImportCodeToBomExcel
+            FormManager.ShowForm(Of FormImportCodeToBomExcel)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -225,13 +240,13 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            If IsFileExsts(BasicExcelFullFileName) Then
+            If IsFileExists(BasicExcelFullFileName) Then
                 Process.Start(BasicExcelFullFileName)
             Else
                 Process.Start(My.Application.Info.DirectoryPath)
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -240,16 +255,16 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formOption As New formOption
+            Dim formOption As New FormOption
 
             If ThisApplication.FileManager.Files.Count = 0 Then
-                FormManager.ShowForm(Of formOption)(True) '  formOption.ShowDialog()
+                FormManager.ShowForm(Of FormOption)(True) '  formOption.ShowDialog()
             Else
-                FormManager.ShowForm(Of formOption)()
+                FormManager.ShowForm(Of FormOption)()
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -259,10 +274,10 @@ Module OpenForm
         Try
             SetStatusBarText()
 
-            Dim formFormatConversion As New formFormatConversion
-            FormManager.ShowForm(Of formFormatConversion)()
+            Dim formFormatConversion As New FormFormatConversion
+            FormManager.ShowForm(Of FormFormatConversion)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -278,7 +293,7 @@ Module OpenForm
             Dim formiProperty As New FormiProperty
             FormManager.ShowForm(Of FormiProperty)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -295,7 +310,7 @@ Module OpenForm
             Dim formUseriProperty As New FormUseriProperty
             FormManager.ShowForm(Of FormUseriProperty)(True)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -308,10 +323,10 @@ Module OpenForm
                 Exit Sub
             End If
 
-            Dim formMassiPoperties As New formMassiPoperties
-            FormManager.ShowForm(Of formMassiPoperties)()
+            Dim formMassiPoperties As New formBatchiPoperties
+            FormManager.ShowForm(Of formBatchiPoperties)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -326,14 +341,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formStatistical As New formStatistical
-            FormManager.ShowForm(Of formStatistical)()
+            Dim formStatistical As New FormStatistical
+            FormManager.ShowForm(Of FormStatistical)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -349,14 +364,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formSetReadOnly As New formSetReadOnly
-            FormManager.ShowForm(Of formSetReadOnly)()
+            Dim formSetReadOnly As New FormSetReadOnly
+            FormManager.ShowForm(Of FormSetReadOnly)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -372,15 +387,15 @@ Module OpenForm
             End If
 
             'if (ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
-            '    MsgBox("该功能仅适用于零件。", MsgBoxStyle.Information)
+            '      MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             '    Exit Sub
             'End if
 
-            Dim formEditDimension As New formEditDimension
-            FormManager.ShowForm(Of formEditDimension)()
+            Dim formEditDimension As New FormEditDimension
+            FormManager.ShowForm(Of FormEditDimension)()
 
         Catch ex As Exception
-            'MsgBox(ex.Message)
+            ' MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -395,17 +410,40 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formDim2Object As New formDim2Object
-            FormManager.ShowForm(Of formDim2Object)()
+            Dim formDim2Object As New FormDim2Object
+            FormManager.ShowForm(Of FormDim2Object)()
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
+    End Sub
+
+
+    '打开动画窗口
+    Public Sub FormPantoneShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim FormPantone As New FormPantone
+            FormManager.ShowForm(Of FormPantone)()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     '打开动画窗口
@@ -418,15 +456,15 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formPlayer As New formPlayer
-            FormManager.ShowForm(Of formPlayer)()
+            Dim formPlayer As New FormPlayer
+            FormManager.ShowForm(Of FormPlayer)()
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -444,11 +482,11 @@ Module OpenForm
             End If
 
 
-            Dim formSwitchLables As New formSwitchLables
-            FormManager.ShowForm(Of formSwitchLables)()
+            Dim formSwitchLables As New FormSwitchLables
+            FormManager.ShowForm(Of FormSwitchLables)()
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -465,7 +503,7 @@ Module OpenForm
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -480,14 +518,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Sub
             End If
 
-            Dim formFlatPattern As New formFlatPattern
-            FormManager.ShowForm(Of formFlatPattern)()
+            Dim formFlatPattern As New FormFlatPattern
+            FormManager.ShowForm(Of FormFlatPattern)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -502,14 +540,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formMovesSpecifiedFile As New formMovesSpecifiedFile
-            FormManager.ShowForm(Of formMovesSpecifiedFile)()
+            Dim formMovesSpecifiedFile As New FormMovesSpecifiedFile
+            FormManager.ShowForm(Of FormMovesSpecifiedFile)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -525,14 +563,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
             Dim FormiPropertyToFileName As New FormiPropertyToFileName
             FormManager.ShowForm(Of FormiPropertyToFileName)()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -547,14 +585,14 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            Dim formBatchChangeFileNames As New formBatchChangeFileNames
-            FormManager.ShowForm(Of formBatchChangeFileNames)(True)
+            Dim formBatchChangeFileNames As New FormBatchChangeFileNames
+            FormManager.ShowForm(Of FormBatchChangeFileNames)(True)
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub

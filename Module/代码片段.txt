@@ -52,14 +52,14 @@ Dim strInventorDrawingDocumentFullFileName as string
 
 
       ThisApplication.UserInterfaceManager.DoEvents()
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+       dim OInteractionEventsAs InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         
-         oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+         OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
         
         
         
@@ -90,7 +90,7 @@ Dim strInventorDrawingDocumentFullFileName as string
    
     '==========================
     'If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-    'MsgBox("该功能仅适用于工程图。", MsgBoxStyle.Information)
+    ' MessageBox.Show("该功能仅适用于工程图。", MsgBoxStyle.Information)
     'Exit Sub
     'End If
 
@@ -99,7 +99,7 @@ Dim strInventorDrawingDocumentFullFileName as string
 
     '=======================
     'If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-    'MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+    ' MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
     'Exit Sub
     'End If
 
@@ -111,7 +111,7 @@ Dim strInventorDrawingDocumentFullFileName as string
     '        End If
 
     '        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-    '            MsgBox("该功能仅适用于零部件。", MsgBoxStyle.Information)
+    '             MessageBox.Show("该功能仅适用于零部件。", MsgBoxStyle.Information)
     '            Exit Sub
     '        End If
 
@@ -187,6 +187,6 @@ Dim strInventorDrawingDocumentFullFileName as string
                 End If
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+               MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 		‘=================================================

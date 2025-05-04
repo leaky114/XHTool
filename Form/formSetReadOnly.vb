@@ -56,9 +56,9 @@ Public Class FormSetReadOnly
 
         strCurrentAssemblyDocumentFulFileName = oInventorAssemblyDocument.FullDocumentName
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         oTreeView.BeginUpdate()
@@ -83,8 +83,8 @@ Public Class FormSetReadOnly
         oTreeView.EndUpdate()
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
     End Sub
 
@@ -150,7 +150,7 @@ Public Class FormSetReadOnly
                 Continue For
             End If
 
-            If IsFileExsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExIsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -244,7 +244,7 @@ Public Class FormSetReadOnly
                 Continue For
             End If
 
-            If IsFileExsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExIsts(strDocumentFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -285,7 +285,7 @@ Public Class FormSetReadOnly
                     Dim strInventorDrawingFullFileName As String
                     strInventorDrawingFullFileName = GetChangeExtension(strDocumentFullFileName, IDW)
 
-                    If IsFileExsts(strInventorDrawingFullFileName) = True Then
+                    If IsFileExIsts(strInventorDrawingFullFileName) = True Then
                         Dim strInventorDrawingFileName As String
                         strInventorDrawingFileName = GetFileNameInfo(strInventorDrawingFullFileName).FileName
 
@@ -324,7 +324,8 @@ Public Class FormSetReadOnly
         Try
             oAssemblyDocument = ThisApplication.Documents.ItemByName(strCurrentAssemblyDocumentFulFileName)
         Catch
-            MsgBox("没有打开文件：" & strCurrentAssemblyDocumentFulFileName)
+            MessageBox.Show("没有打开文件：" & strCurrentAssemblyDocumentFulFileName, XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
             e.Node.Remove()
             Exit Sub
         End Try
@@ -352,7 +353,7 @@ Public Class FormSetReadOnly
                 Dim strInventorDrawingFileName As String
                 strInventorDrawingFileName = GetFileNameInfo(strInventorDrawingFullFileName).FileName
 
-                If IsFileExsts(strInventorDrawingFullFileName) = True Then
+                If IsFileExIsts(strInventorDrawingFullFileName) = True Then
                     oListViewItem = Lvw文件列表.Items.Add(strInventorDrawingFileName, 2)
 
                     Dim oListViewSubItem As ListViewItem.ListViewSubItem
@@ -458,7 +459,7 @@ Public Class FormSetReadOnly
     End Sub
 
     Private Sub 树打开tsmi_Click(sender As Object, e As EventArgs) Handles 树打开tsmi.Click
-        If IsFileExsts(strCurrentAssemblyDocumentFulFileName) = True Then
+        If IsFileExIsts(strCurrentAssemblyDocumentFulFileName) = True Then
             ThisApplication.Documents.Open(strCurrentAssemblyDocumentFulFileName)
         End If
     End Sub
@@ -497,7 +498,7 @@ Public Class FormSetReadOnly
     End Sub
 
     Private Sub 树读写tsmi_Click(sender As Object, e As EventArgs) Handles 树读写tsmi.Click
-        If IsFileExsts(strCurrentAssemblyDocumentFulFileName) = True Then
+        If IsFileExIsts(strCurrentAssemblyDocumentFulFileName) = True Then
             Select Case GetFileReadOnly(strCurrentAssemblyDocumentFulFileName)
                 Case True     '只读变可写
                     SetFileReadOnly(strCurrentAssemblyDocumentFulFileName, False)

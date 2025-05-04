@@ -853,4 +853,34 @@
   <data name="过滤32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\过滤32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="刷新16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\刷新16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="清理冗余16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\清理冗余16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="色卡16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\色卡16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="色卡32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\色卡32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="实体16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\实体16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="实体32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\实体32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="面16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\面16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="面32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\面32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="修改序号16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\修改序号16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="修改序号32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\修改序号32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

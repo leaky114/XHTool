@@ -135,6 +135,7 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb" />
     <Compile Include="Class\clsFormManager.vb" />
+    <Compile Include="Class\clsGetLineInSketch.vb" />
     <Compile Include="Class\clsGetRectAreaInDrawing2.vb" />
     <Compile Include="Class\clsPictureConverter.vb">
       <SubType>Component</SubType>
@@ -142,7 +143,6 @@
     <Compile Include="Class\clsRightMouseSelectPartInBrowser.vb" />
     <Compile Include="Class\clsRightMouseSetDrawingSize.vb" />
     <Compile Include="Class\clsGetPoint.vb" />
-    <Compile Include="Class\clsGetRectAreaInDrawing.vb" />
     <Compile Include="Class\clsListViewSorter.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
     <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
@@ -150,6 +150,7 @@
     <Compile Include="Class\clsRightMouseShowAll.vb" />
     <Compile Include="Class\clsRightMouseTurnOffAdaptivity.vb" />
     <Compile Include="Class\clsRightMouseSelectPartCurveInDrawing.vb" />
+    <Compile Include="Class\clsWindowSelection.vb" />
     <Compile Include="Class\clsXml.vb" />
     <Compile Include="Form\formBatchChangeFileNames.Designer.vb">
       <DependentUpon>formBatchChangeFileNames.vb</DependentUpon>
@@ -157,16 +158,28 @@
     <Compile Include="Form\formBatchChangeFileNames.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\FormBatchCommand.Designer.vb">
+      <DependentUpon>FormBatchCommand.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormBatchCommand.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\formBatchiPoperties.Designer.vb">
+      <DependentUpon>formBatchiPoperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\formBatchiPoperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormBatchPrint.Designer.vb">
+      <DependentUpon>FormBatchPrint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormBatchPrint.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\FormBorderTitle.Designer.vb">
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormBorderTitle.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FormBulkPrint.Designer.vb">
-      <DependentUpon>FormBulkPrint.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormBulkPrint.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormCustomSignature.Designer.vb">
@@ -259,12 +272,6 @@
     <Compile Include="Form\FormImportCodeToBomExcel.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FormMassiPoperties.Designer.vb">
-      <DependentUpon>FormMassiPoperties.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FormMassiPoperties.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FormQuitOpen.Designer.vb">
       <DependentUpon>FormQuitOpen.vb</DependentUpon>
     </Compile>
@@ -355,6 +362,7 @@
     <Compile Include="Module\Calc.vb" />
     <Compile Include="Module\excelcode.vb" />
     <Compile Include="Module\IamModule.vb" />
+    <Compile Include="Module\IdwBalloon.vb" />
     <Compile Include="Module\IdwModule.vb" />
     <Compile Include="Module\ini.vb" />
     <Compile Include="Module\Inventorbasic.vb" />
@@ -396,11 +404,17 @@
     <EmbeddedResource Include="Form\formBatchChangeFileNames.resx">
       <DependentUpon>formBatchChangeFileNames.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormBatchCommand.resx">
+      <DependentUpon>FormBatchCommand.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\formBatchiPoperties.resx">
+      <DependentUpon>formBatchiPoperties.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormBatchPrint.resx">
+      <DependentUpon>FormBatchPrint.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FormBorderTitle.resx">
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormBulkPrint.resx">
-      <DependentUpon>FormBulkPrint.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormCustomSignature.resx">
       <DependentUpon>FormCustomSignature.vb</DependentUpon>
@@ -450,10 +464,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormImportCodeToBomExcel.resx">
       <DependentUpon>FormImportCodeToBomExcel.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormMassiPoperties.resx">
-      <DependentUpon>FormMassiPoperties.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormQuitOpen.resx">
@@ -728,6 +738,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
+    <None Include="Resources\面16.ico" />
+    <None Include="Resources\面32.ICO" />
+    <None Include="Resources\清理冗余16.ico" />
+    <None Include="Resources\色卡16.ico" />
+    <None Include="Resources\色卡32.ico" />
+    <None Include="Resources\刷新16.ico" />
+    <None Include="Resources\清空列表32.ICO" />
+    <None Include="Resources\实体16.ico" />
+    <None Include="Resources\实体32.ico" />
+    <None Include="Resources\修改序号16.ico" />
+    <None Include="Resources\修改序号32.ico" />
     <Content Include="Resources\过滤16.ico" />
     <Content Include="Resources\过滤32.ico" />
     <None Include="Resources\新建文件夹16.ICO" />

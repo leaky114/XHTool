@@ -27,9 +27,11 @@ Module BasicFileSystem
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function ReadTextFile(ByVal strFullFileName As String) As String
-        Dim oStreamReader As New StreamReader(strFullFileName, Encoding.Default)
-        Dim FileText = oStreamReader.ReadToEnd()
-        oStreamReader.Close()
+        Dim FileText As String
+        Using oStreamReader As New StreamReader(strFullFileName, Encoding.Default)
+            FileText = oStreamReader.ReadToEnd()
+        End Using
+
         Return FileText
     End Function
 
@@ -39,8 +41,8 @@ Module BasicFileSystem
     ''' <param name="strFullFileName">文件名</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function IsFileExsts(ByVal strFullFileName As String) As Boolean
-        IsFileExsts = IO.File.Exists(strFullFileName)
+    Public Function IsFileExists(ByVal strFullFileName As String) As Boolean
+        IsFileExists = IO.File.Exists(strFullFileName)
     End Function
 
     ''' <summary>
@@ -131,7 +133,7 @@ Module BasicFileSystem
     Public Function ReFileName(ByVal strOldFullFileName As String, ByVal strNewFullFileName As String) As Boolean
         If File.Exists(strOldFullFileName) AndAlso Not File.Exists(strNewFullFileName) Then
             System.IO.File.Move(strOldFullFileName, strNewFullFileName)
-            ReFileName = IsFileExsts(strNewFullFileName)
+            ReFileName = IsFileExists(strNewFullFileName)
         Else
             ReFileName = False
         End If
@@ -222,10 +224,10 @@ Module BasicFileSystem
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function DeleteFile2(ByVal strFullFileName As String, ByVal oRecycleOption As FileIO.RecycleOption) As Boolean
-        If IsFileExsts(strFullFileName) Then
+        If IsFileExists(strFullFileName) Then
             Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strFullFileName, FileIO.UIOption.OnlyErrorDialogs, oRecycleOption, FileIO.UICancelOption.ThrowException)
         End If
-        DeleteFile2 = IsFileExsts(strFullFileName) Xor True
+        DeleteFile2 = IsFileExists(strFullFileName) Xor True
     End Function
 
     ''' <summary>
@@ -279,7 +281,7 @@ Module BasicFileSystem
 
         IO.File.Move(strSourceFileName, strDestinationFileName)
 
-        Return IsFileExsts(strDestinationFileName)
+        Return IsFileExists(strDestinationFileName)
     End Function
 
     ''' <summary>
@@ -301,7 +303,7 @@ Module BasicFileSystem
             IO.File.Move(sourceFilePath, targetFilePath)
         End If
 
-        Return IsFileExsts(targetFilePath)
+        Return IsFileExists(targetFilePath)
 
     End Function
 
@@ -325,6 +327,8 @@ Module BasicFileSystem
         '    Next
         'End if
 
+        olistbox.BeginUpdate()
+
         If strFile.Length > 0 Then
             For i = 0 To strFile.Length - 1
                 'Debug.Print(strFile(i))
@@ -336,6 +340,8 @@ Module BasicFileSystem
                 End If
             Next
         End If
+
+        olistbox.EndUpdate()
         'If strDir.Length > 0 Then
         '    For i = 0 To strDir.Length - 1
         '        GetAllFile(strBootFolder, strDir(i), olistbox, strExtension)
@@ -473,12 +479,13 @@ Module BasicFileSystem
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function SetNewFile(ByVal strFullFileName As String, ByVal strFilter As String) As String
-        If IsFileExsts(strFullFileName) = True Then
-            Dim msg As MsgBoxResult = MsgBox("已存在文件： " & strFullFileName & "  覆盖（是），另存为（否），取消？", MsgBoxStyle.Question + MsgBoxStyle.YesNoCancel)
+        If IsFileExists(strFullFileName) = True Then
+            Dim msg As DialogResult = MessageBox.Show("已存在文件： " & strFullFileName & "  覆盖（是），另存为（否），取消？", XHTool,
+MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             Select Case msg
-                Case MsgBoxResult.Yes
+                Case DialogResult.Yes
                     Return strFullFileName
-                Case MsgBoxResult.No
+                Case DialogResult.No
                     Dim oSaveFileDialog As New SaveFileDialog
                     With oSaveFileDialog
                         .Title = "选择文件"
@@ -488,10 +495,11 @@ Module BasicFileSystem
                             strFullFileName = .FileName
                             Return strFullFileName
                         Else
+                            strFullFileName = “”
                             Return strFullFileName
                         End If
                     End With
-                Case MsgBoxResult.Cancel
+                Case DialogResult.Cancel
                     strFullFileName = ""
                     Return strFullFileName
             End Select
@@ -511,7 +519,7 @@ Module BasicFileSystem
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function SetFileReadOnly(ByVal strFullFileName As String, ByVal bIsReadOnly As Boolean) As Boolean
-        If IsFileExsts(strFullFileName) = False Then
+        If IsFileExists(strFullFileName) = False Then
             Return False
         End If
 
@@ -529,7 +537,7 @@ Module BasicFileSystem
     ''' 获取文件只读属性
     ''' </summary>
     ''' <param name="strFullFileName">文件名</param>
-    ''' <returns></returns>
+    ''' <returns> True 为只读</returns>
     ''' <remarks></remarks>
     Public Function GetFileReadOnly(ByVal strFullFileName As String) As Boolean
         Dim myFile As New FileInfo(strFullFileName)
@@ -546,7 +554,7 @@ Module BasicFileSystem
         Dim strOldFullName As String
         strOldFullName = strFullName & OLD
 
-        If IsFileExsts(strOldFullName) = True Then
+        If IsFileExists(strOldFullName) = True Then
             DeleteFile2(strOldFullName, RecycleOption.SendToRecycleBin)
         End If
 
@@ -599,11 +607,11 @@ Module BasicFileSystem
     ''' <remarks></remarks>
     Function GetAllFilesByExtension(ByVal strFolderPath As String, ByVal strExtension As String) As List(Of String)
         On Error Resume Next
-        Dim arrayFullFileNames As String()
-        arrayFullFileNames = Directory.GetFiles(strFolderPath, "*" & strExtension, System.IO.SearchOption.AllDirectories)
+        Dim oFileLists As String()
+        oFileLists = Directory.GetFiles(strFolderPath, "*" & strExtension, System.IO.SearchOption.AllDirectories)
 
         Dim strFullFileNames As New List(Of String)()
-        For Each strFileFullFileName As String In arrayFullFileNames
+        For Each strFileFullFileName As String In oFileLists
             strFullFileNames.Add(strFileFullFileName)
         Next
 
@@ -622,25 +630,25 @@ Module BasicFileSystem
         As List(Of String)
         On Error Resume Next
 
-        Dim arrayFullFileNames As String()
+        Dim oFileLists As String()
 
         Dim strFullFileNames As New List(Of String)()
 
 
         If strExtension = "" Then   '无扩展名
-            arrayFullFileNames = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*.*", IO.SearchOption.AllDirectories)
+            oFileLists = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*.*", IO.SearchOption.AllDirectories)
 
-            For Each strFileFullFileName As String In arrayFullFileNames
+            For Each strFileFullFileName As String In oFileLists
                 strFullFileNames.Add(strFileFullFileName)
             Next
 
 
         Else    '有扩展名
-            arrayFullFileNames = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*" & strExtension, IO.SearchOption.AllDirectories)
+            oFileLists = IO.Directory.GetFiles(strFolderPath, "*" & strSearchFileName & "*" & strExtension, IO.SearchOption.AllDirectories)
             Dim strFileName = strSearchFileName & strExtension
             strFileName = Trim(strFileName)
 
-            For Each strFileFullFileName As String In arrayFullFileNames
+            For Each strFileFullFileName As String In oFileLists
                 If GetFileNameWithExtension(strFileFullFileName) = strFileName Then
                     strFullFileNames.Add(strFileFullFileName)
                 End If
@@ -679,11 +687,11 @@ Module BasicFileSystem
     ''' </summary>
     ''' <param name="strFilter">扩展名列表</param>
     ''' <param name="strMultiSelectEnabled">是否可多选,True:多选；False：不多选</param>
-    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <param name="strFileName">初始文件名，文件夹也要用这个才有用</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function OpenFileDialog(Optional ByVal strFilter As String = "所以文件 (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True, _
-                                   Optional ByVal strInitialDirectory As String = "") As List(Of String)
+    Public Function OpenFileDialog(Optional ByVal strFilter As String = "所以文件 (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True,
+                                   Optional ByVal strFileName As String = "") As List(Of String)
         Dim oOpenFileDialog As Inventor.FileDialog = Nothing
 
         ThisApplication.CreateFileDialog(oOpenFileDialog)
@@ -691,7 +699,7 @@ Module BasicFileSystem
         oOpenFileDialog.Filter = strFilter '添加过滤文件
         oOpenFileDialog.DialogTitle = "打开"
         oOpenFileDialog.MultiSelectEnabled = strMultiSelectEnabled
-        oOpenFileDialog.InitialDirectory = strInitialDirectory
+        oOpenFileDialog.FileName = strFileName
         oOpenFileDialog.CancelError = False
         oOpenFileDialog.InsertMode = False
 
@@ -700,11 +708,11 @@ Module BasicFileSystem
         If oOpenFileDialog.FileName <> "" Then  '如果有选中文件
 
             On Error Resume Next
-            Dim arrayFullFileNames As String()
-            arrayFullFileNames = Split(oOpenFileDialog.FileName, "|")
+            Dim oFileLists As String()
+            oFileLists = Split(oOpenFileDialog.FileName, "|")
 
             Dim strFullFileNames As New List(Of String)()
-            For Each strFileFullFileName As String In arrayFullFileNames
+            For Each strFileFullFileName As String In oFileLists
                 strFullFileNames.Add(strFileFullFileName)
             Next
 
@@ -719,10 +727,10 @@ Module BasicFileSystem
     ''' <summary>
     ''' 通过打开选择文件对话框选择的文件确定文件夹
     ''' </summary>
-    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <param name="strFileName">初始文件名，文件夹也要用这个才有用</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function OpenFolderDialog(Optional ByVal strInitialDirectory As String = "") As String
+    Public Function OpenFolderDialog(Optional ByVal strFileName As String = "") As String
         Dim oOpenFileDialog As Inventor.FileDialog = Nothing
 
         ThisApplication.CreateFileDialog(oOpenFileDialog)
@@ -731,7 +739,7 @@ Module BasicFileSystem
             .Filter = "所有文件 (*.*)|*.*"
             .DialogTitle = "从文件选择文件夹"
             .MultiSelectEnabled = False
-            .InitialDirectory = strInitialDirectory
+            .FileName = strFileName
             .CancelError = False
             .InsertMode = False
             .ShowOpen()
@@ -739,11 +747,11 @@ Module BasicFileSystem
             If .FileName <> "" Then  '如果有选中文件
 
                 On Error Resume Next
-                'Dim arrayFullFileNames As String()
-                'arrayFullFileNames = Split(.FileName, "|")
+                'Dim oFileLists As String()
+                'oFileLists = Split(.FileName, "|")
 
                 'Dim strFullFileNames As New List(Of String)()
-                'For Each strFileFullFileName As String In arrayFullFileNames
+                'For Each strFileFullFileName As String In oFileLists
                 '    strFullFileNames.Add(strFileFullFileName)
                 'Next
                 Dim strFullFileName As String
@@ -767,11 +775,11 @@ Module BasicFileSystem
     ''' </summary>
     ''' <param name="strFilter">扩展名列表</param>
     ''' <param name="strMultiSelectEnabled">是否可多选</param>
-    ''' <param name="strInitialDirectory">初始目录</param>
+    ''' <param name="strFileName">初始文件名，文件夹也要用这个才有用</param>
     ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function SaveFileDialog(Optional ByVal strFilter As String = "所有文件 (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True, _
-                                   Optional ByVal strInitialDirectory As String = "") As List(Of String)
+    ''' <remarks>扩展名列表，是否可多选，初始文件名 </remarks>
+    Public Function SaveFileDialog(Optional ByVal strFilter As String = "所有文件 (*.*)|*.*", Optional ByVal strMultiSelectEnabled As Boolean = True,
+                                   Optional ByVal strFileName As String = "") As List(Of String)
         Dim oOpenFileDialog As Inventor.FileDialog = Nothing
 
         ThisApplication.CreateFileDialog(oOpenFileDialog)
@@ -779,7 +787,7 @@ Module BasicFileSystem
         oOpenFileDialog.Filter = strFilter '添加过滤文件
         oOpenFileDialog.DialogTitle = "保存"
         oOpenFileDialog.MultiSelectEnabled = strMultiSelectEnabled
-        oOpenFileDialog.InitialDirectory = strInitialDirectory
+        oOpenFileDialog.FileName = strFileName
         oOpenFileDialog.CancelError = False
         oOpenFileDialog.InsertMode = False
 
@@ -788,11 +796,11 @@ Module BasicFileSystem
         If oOpenFileDialog.FileName <> "" Then  '如果有选中文件
 
             On Error Resume Next
-            Dim arrayFullFileNames As String()
-            arrayFullFileNames = Split(oOpenFileDialog.FileName, "|")
+            Dim oFileLists As String()
+            oFileLists = Split(oOpenFileDialog.FileName, "|")
 
             Dim strFullFileNames As New List(Of String)()
-            For Each strFileFullFileName As String In arrayFullFileNames
+            For Each strFileFullFileName As String In oFileLists
                 strFullFileNames.Add(strFileFullFileName)
             Next
 
@@ -800,7 +808,6 @@ Module BasicFileSystem
         Else
 
         End If
-
 
     End Function
 

@@ -45,6 +45,7 @@ Partial Class FormFlatPattern
         Me.rdo左视图 = New System.Windows.Forms.RadioButton()
         Me.rdo后视图 = New System.Windows.Forms.RadioButton()
         Me.rdo前视图 = New System.Windows.Forms.RadioButton()
+        Me.btn选择当前零件 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -178,7 +179,7 @@ Partial Class FormFlatPattern
         'btn打开零件
         '
         Me.btn打开零件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn打开零件.Location = New System.Drawing.Point(111, 211)
+        Me.btn打开零件.Location = New System.Drawing.Point(102, 211)
         Me.btn打开零件.Name = "btn打开零件"
         Me.btn打开零件.Size = New System.Drawing.Size(80, 28)
         Me.btn打开零件.TabIndex = 5
@@ -291,11 +292,22 @@ Partial Class FormFlatPattern
         Me.rdo前视图.Text = "前视图"
         Me.rdo前视图.UseVisualStyleBackColor = True
         '
-        'formFlatPattern
+        'btn选择当前零件
+        '
+        Me.btn选择当前零件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn选择当前零件.Location = New System.Drawing.Point(189, 211)
+        Me.btn选择当前零件.Name = "btn选择当前零件"
+        Me.btn选择当前零件.Size = New System.Drawing.Size(95, 28)
+        Me.btn选择当前零件.TabIndex = 23
+        Me.btn选择当前零件.Text = "选择当前零件"
+        Me.btn选择当前零件.UseVisualStyleBackColor = True
+        '
+        'FormFlatPattern
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(418, 253)
+        Me.Controls.Add(Me.btn选择当前零件)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btn添加展开图)
         Me.Controls.Add(Me.btn打开零件)
@@ -303,7 +315,7 @@ Partial Class FormFlatPattern
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.Name = "formFlatPattern"
+        Me.Name = "FormFlatPattern"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "工艺图"
         Me.GroupBox1.ResumeLayout(False)
@@ -336,4 +348,5 @@ Partial Class FormFlatPattern
     Friend WithEvents rdo左视图 As System.Windows.Forms.RadioButton
     Friend WithEvents rdo后视图 As System.Windows.Forms.RadioButton
     Friend WithEvents rdo前视图 As System.Windows.Forms.RadioButton
+    Friend WithEvents btn选择当前零件 As System.Windows.Forms.Button
 End Class

@@ -31,6 +31,7 @@
         ini.WriteStrINI("BOM", "Sheet_Name", SheetName, IniFile)
         ini.WriteStrINI("BOM", "Table_Array", TableArrays, IniFile)
         ini.WriteStrINI("BOM", "Col_Index_Num", ColIndexNum, IniFile)
+        ini.WriteStrINI("BOM", "BOM编码", strEncoding, IniFile)
 
         ini.WriteStrINI("模型", "变更工程图扩展名", str变更工程图扩展名, IniFile)
         ini.WriteStrINI("模型", "另存到子文件夹", str另存到子文件夹, IniFile)
@@ -129,7 +130,16 @@
         'CustomExcelFullFileName = ini.GetStrFromINI("", "Map_DrawingNnumber", ""
         SheetName = ini.GetStrFromINI("BOM", "Sheet_Name", "物料", Inifile)
         TableArrays = ini.GetStrFromINI("BOM", "Table_Array", "D,E,F", Inifile)
-        ColIndexNum = ini.GetStrFromINI("BOM", "Col_Index_Num", "C", Inifile)
+        ColIndexNum = ini.GetStrFromINI("BOM", "Col_Index_Num", "C", IniFile)
+        strEncoding = ini.GetStrFromINI("BOM", "BOM编码", "Default", IniFile)
+
+        Select Case strEncoding
+            Case "Default"
+                oEncoding = Text.Encoding.Default
+            Case "UTF8"
+                oEncoding = Text.Encoding.UTF8
+        End Select
+
 
         str变更工程图扩展名 = ini.GetStrFromINI("模型", "变更工程图扩展名", "-1", Inifile)
         str另存到子文件夹 = ini.GetStrFromINI("模型", "另存到子文件夹", "-1", Inifile)

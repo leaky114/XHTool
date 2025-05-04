@@ -65,7 +65,7 @@ Public Class FormFlatPattern
 
         '添加零件的文件名
         Dim oPoint2d As Point2d
-        oPoint2d = GetDrawingPoint("单击插入文件名的位置")
+        oPoint2d = GetPointInDrawing("单击插入文件名的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -75,7 +75,7 @@ Public Class FormFlatPattern
 
 
         '添加零件的材质
-        oPoint2d = GetDrawingPoint("单击插入材质的位置")
+        oPoint2d = GetPointInDrawing("单击插入材质的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -84,7 +84,7 @@ Public Class FormFlatPattern
         End If
 
         '添加数量
-        oPoint2d = GetDrawingPoint("单击插入数量的位置")
+        oPoint2d = GetPointInDrawing("单击插入数量的位置")
         If oPoint2d Is Nothing Then
             Exit Sub
         Else
@@ -401,7 +401,7 @@ Public Class FormFlatPattern
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MsgBox("请切换到工程图。", MsgBoxStyle.Information)
+            MessageBox.Show(”请切换到工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -412,8 +412,8 @@ Public Class FormFlatPattern
 
         Dim strInventorPartDocumentFullFileName As String = txt位置.Text
 
-        If IsFileExsts(strInventorPartDocumentFullFileName) = False Then
-            MsgBox("未选择零件。", MsgBoxStyle.Information)
+        If IsFileExists(strInventorPartDocumentFullFileName) = False Then
+            MessageBox.Show(”未选择零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -463,7 +463,7 @@ Public Class FormFlatPattern
 
     Private Sub Btn从部件选择_Click(sender As Object, e As EventArgs) Handles btn从部件选择.Click
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MsgBox("请切换到部件", MsgBoxStyle.Information)
+            MessageBox.Show(”请切换到部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -471,14 +471,14 @@ Public Class FormFlatPattern
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         If oInventorAssemblyDocument.SelectSet.Count = 0 Then
-            MsgBox("在部件中选择一个零件", MsgBoxStyle.Information)
+            MessageBox.Show(”在部件中选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         Dim oComponentOccurrence As ComponentOccurrence = oInventorAssemblyDocument.SelectSet(1)
 
         If oComponentOccurrence Is Nothing Then
-            MsgBox("请选择一个零件", MsgBoxStyle.Information)
+            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -505,18 +505,19 @@ Public Class FormFlatPattern
             'SetViewToPictureBox(oInventorPartDocument, PictureBox1)
 
         Else
-            MsgBox("请选择一个零件。", MsgBoxStyle.Information)
+            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
     End Sub
 
     Private Sub Btn打开零件_Click(sender As Object, e As EventArgs) Handles btn打开零件.Click
         Dim strFilter As String
-
         strFilter = "Autodesk Inventor 零件(*.ipt)|*.ipt" '添加过滤文件    
 
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择零件文件")
+
         Dim oFileList As List(Of String)
-        oFileList = OpenFileDialog(strFilter, False)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
 
         If oFileList Is Nothing Then
             Exit Sub
@@ -634,5 +635,28 @@ Public Class FormFlatPattern
 
     Private Sub FormFlatPattern_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         FormManager.CloseAndDisposeForm(Of FormFlatPattern)()
+    End Sub
+
+    Private Sub btn选择当前零件_Click(sender As Object, e As EventArgs) Handles btn选择当前零件.Click
+
+        If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            MessageBox.Show(”请切换到零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Dim oInventorPartDocument As Inventor.PartDocument
+        oInventorPartDocument = ThisApplication.ActiveDocument
+
+        CreateFlat(oInventorPartDocument)
+
+        Dim oFlatInfo As FlatInfor
+        oFlatInfo = GetPartFlatInformation(oInventorPartDocument)
+
+        txt图号.Text = oFlatInfo.Number
+        txt文件名.Text = oFlatInfo.FileName
+        txt材质.Text = oFlatInfo.Metial
+        txt位置.Text = oInventorPartDocument.FullDocumentName
+
+        intViewOrientation = kFrontViewOrientation
     End Sub
 End Class

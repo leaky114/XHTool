@@ -10,11 +10,12 @@ Module WrXml
 
         if File.Exists(FPath) = True Then
             File.Delete(FPath)
-        End if
+        End If
 
-        Dim XWriter As New Xml.XmlTextWriter(FPath, System.Text.Encoding.GetEncoding("UTF-8"))
+        Dim XWriter As New Xml.XmlTextWriter(FPath, System.Text.Encoding.GetEncoding("UTF-8")) With {
+            .Formatting = Xml.Formatting.Indented
+        }
 
-        XWriter.Formatting = Xml.Formatting.Indented
         XWriter.WriteRaw("<?xml version=""1.0"" encoding=""utf-8"" ?>")
 
         XWriter.WriteStartElement("InAISetting")

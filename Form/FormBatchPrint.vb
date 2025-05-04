@@ -11,7 +11,7 @@ Imports System.Windows.Forms
 Imports System.Xml
 Imports System.Collections.Generic
 
-Public Class FormBulkPrint
+Public Class FormBatchPrint
     Private IsStopPrint As Double '中断打印标记
 
     '批量打印开始
@@ -19,14 +19,14 @@ Public Class FormBulkPrint
         On Error Resume Next
 
         If lvw文件列表.Items.Count = 0 Then
-            MsgBox("未添加工程图文件。", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "批量另存为")
+            MessageBox.Show(”未添加工程图文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         ThisApplication.UserInterfaceManager.DoEvents()
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         Dim strPrinterName As String = ""
@@ -54,7 +54,7 @@ Public Class FormBulkPrint
 
             strInventorDrawingDocumentFullFileName = oListViewItem.Text
 
-            If IsFileExsts(strInventorDrawingDocumentFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExists(strInventorDrawingDocumentFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -155,44 +155,46 @@ Public Class FormBulkPrint
             End If
 
         Next
-        'MsgBox("批量打印工程图完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量打印")
+        ' MessageBox.Show("批量打印工程图完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "批量打印")
 
         str模型匹配检查标记 = 1
 
         btn开始.Enabled = True
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
 
         SetStatusBarText("批量打印工程图完成")
 
         If chk关闭窗口.Checked = True Then
-            FormManager.CloseAndDisposeForm(Of FormBulkPrint)()
+            FormManager.CloseAndDisposeForm(Of FormBatchPrint)()
         End If
 
     End Sub
 
     '关闭
     Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click, Me.Closing
-        FormManager.CloseAndDisposeForm(Of FormBulkPrint)()
+        FormManager.CloseAndDisposeForm(Of FormBatchPrint)()
     End Sub
 
     '添加文件
     Private Sub Btn添加文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件.Click
+        Me.TopMost = False
+
         Dim strFilter As String = "Autodesk Inventor 工程图(*.idw)|*.idw" '添加过滤文件
 
-        Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择工程图文件")
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, True, strInitialDirectory)
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, True, strFile)
 
-        If arrayFullFileName Is Nothing Then
+        If oFileList Is Nothing Then
             Exit Sub
         End If
 
         lbl建议.Visible = False
 
-        For Each strInventorDrawingDocumentFullFileName In arrayFullFileName
+        For Each strInventorDrawingDocumentFullFileName In oFileList
             If IsItemInListView(lvw文件列表, strInventorDrawingDocumentFullFileName) = False Then
                 lvw文件列表.Items.Add(strInventorDrawingDocumentFullFileName)
             End If
@@ -210,8 +212,10 @@ Public Class FormBulkPrint
 
     '添加文件夹
     Private Sub Btn添加文件夹_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn添加文件夹.Click
-        Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
-        Dim strDestinationFolder As String = OpenFolderDialog(strInitialDirectory)
+        Me.TopMost = False
+
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择一个文件确定文件夹")
+        Dim strDestinationFolder As String = OpenFolderDialog(strFile)
 
         If strDestinationFolder Is Nothing Then
             Exit Sub
@@ -219,15 +223,14 @@ Public Class FormBulkPrint
 
         lbl建议.Visible = False
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         GetAllFile(strDestinationFolder, lvw文件列表, IDW)
 
-        oInteraction.Stop()
-
+        OInteractionEvents.Stop()
 
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
     End Sub
@@ -273,20 +276,23 @@ Public Class FormBulkPrint
     End Sub
 
     Private Sub Btn从部件导入_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn从部件导入.Click
+        Me.TopMost = False
+
         Dim strFilter As String = "Autodesk Inventor 部件(*.iam)|*.iam" '添加过滤文件
-        Dim strInitialDirectory = ThisApplication.FileLocations.Workspace
 
-        Dim arrayFullFileName As List(Of String)
-        arrayFullFileName = OpenFileDialog(strFilter, False, strInitialDirectory)
+        Dim strFile = IO.Path.Combine(ThisApplication.FileLocations.Workspace, "选择部件文件")
 
-        If arrayFullFileName Is Nothing Then
+        Dim oFileList As List(Of String)
+        oFileList = OpenFileDialog(strFilter, False, strFile)
+
+        If oFileList Is Nothing Then
             Exit Sub
         End If
 
         lbl建议.Visible = False
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
-        oInventorAssemblyDocument = ThisApplication.Documents.Open(arrayFullFileName.Item(0).ToString)
+        oInventorAssemblyDocument = ThisApplication.Documents.Open(oFileList.Item(0).ToString)
 
         LoadBOM(oInventorAssemblyDocument, lvw文件列表)
 
@@ -304,9 +310,9 @@ Public Class FormBulkPrint
     Private Sub LoadBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal oListView As ListView)
         On Error Resume Next
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         oListView.BeginUpdate()
@@ -326,8 +332,8 @@ Public Class FormBulkPrint
 
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
     End Sub
 
     ''' <summary>
@@ -350,7 +356,7 @@ Public Class FormBulkPrint
             Dim strInventorDrawingFullFileName As String
             strInventorDrawingFullFileName = GetChangeExtension(strDocumentFullFileName, IDW)
 
-            If IsFileExsts(strInventorDrawingFullFileName) = False Then   '跳过不存在的文件
+            If IsFileExists(strInventorDrawingFullFileName) = False Then   '跳过不存在的文件
                 Continue For
             End If
 
@@ -403,7 +409,7 @@ Public Class FormBulkPrint
 
             Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -504,7 +510,7 @@ Public Class FormBulkPrint
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -515,11 +521,7 @@ Public Class FormBulkPrint
 
         Me.Text = "批量打印  (共" & lvw文件列表.Items.Count & "张）"
 
-        Me.TopMost = True
-        Me.TopMost = False
     End Sub
-
-
 
     Private Sub Lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick
         ThisApplication.Documents.Open(lvw文件列表.SelectedItems(0).Text)

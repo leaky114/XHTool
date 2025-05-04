@@ -17,9 +17,9 @@ Public Class FormAutoPartNumber
 
             ThisApplication.SilentOperation = True
 
-            Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-            oInteraction.Start()
-            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+            Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+            OInteractionEvents.Start()
+            OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
             ThisApplication.UserInterfaceManager.DoEvents()
 
             str模型匹配检查标记 = 3
@@ -54,7 +54,7 @@ Public Class FormAutoPartNumber
                 End If
 
                 '打开旧文件,不显示
-                If IsFileExsts(strOldFullFileName) = False Then
+                If IsFileExists(strOldFullFileName) = False Then
 
                 End If
 
@@ -91,7 +91,7 @@ Public Class FormAutoPartNumber
                 Dim strOldDrawingFullFileName As String
                 strOldDrawingFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
 
-                If IsFileExsts(strOldDrawingFullFileName) = True Then
+                If IsFileExists(strOldDrawingFullFileName) = True Then
                     Dim strNewDrawingFullFileName As String
 
                     strNewDrawingFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
@@ -116,17 +116,16 @@ Public Class FormAutoPartNumber
 
             Me.TopMost = True
             SetStatusBarText("自动命名图号完成！")
-            MsgBox("自动命名图号完成", MsgBoxStyle.Information + MsgBoxStyle.OkOnly, "自动命名图号")
+            MessageBox.Show("自动命名图号完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
             btn开始.Enabled = True
             str模型匹配检查标记 = 1
 
-            oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-            oInteraction.Stop()
+            OInteractionEvents.Stop()
 
         Catch ex As Exception
             Me.TopMost = True
             btn开始.Enabled = True
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -223,12 +222,12 @@ Public Class FormAutoPartNumber
         strBasicStockNum = txt基准图号.Text
 
         If txt基准图号.Text = "" Then
-            MsgBox("请输入基准图号！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+            MessageBox.Show("请输入基准图号。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         If (IsNumeric(txt零件变量.Text) = False) Or (IsNumeric(cmb部件变量.Text) = False) Then
-            MsgBox("变量非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+            MessageBox.Show("变量非数字。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -282,9 +281,9 @@ Public Class FormAutoPartNumber
     Private Sub LoadBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal oListView As ListView)
         On Error Resume Next
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         Dim strInventorAssemblyFullFileName As String
@@ -306,7 +305,6 @@ Public Class FormAutoPartNumber
         For Each oBOMView As BOMView In oBOM.BOMViews
             '基于bom结构化数据，可跳过参考的文件
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
-
                 For Each oBOMRow As BOMRow In oBOMView.BOMRows
                     Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.FullFileName
                     '测试文件
@@ -326,7 +324,6 @@ Public Class FormAutoPartNumber
                             .SubItems.Add(oFileNameInfo.Folder)
                         End With
                     End If
-
                 Next
 
                 Exit For
@@ -335,8 +332,8 @@ Public Class FormAutoPartNumber
 
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
     End Sub
 
     '移出项
@@ -377,7 +374,7 @@ Public Class FormAutoPartNumber
                 End If
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -421,7 +418,7 @@ Public Class FormAutoPartNumber
 
     Private Sub Txt零件变量_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt零件变量.TextChanged
         If IsNumeric(txt零件变量.Text) = False Then
-            MsgBox("非数字！", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "错误")
+            MessageBox.Show(”非数字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 

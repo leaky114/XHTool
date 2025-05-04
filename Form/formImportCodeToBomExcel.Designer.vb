@@ -56,7 +56,7 @@ Partial Class FormImportCodeToBomExcel
         '
         'txt最后行
         '
-        Me.txt最后行.Location = New System.Drawing.Point(18, 12)
+        Me.txt最后行.Location = New System.Drawing.Point(65, 12)
         Me.txt最后行.Name = "txt最后行"
         Me.txt最后行.Size = New System.Drawing.Size(44, 21)
         Me.txt最后行.TabIndex = 0
@@ -87,7 +87,7 @@ Partial Class FormImportCodeToBomExcel
         'lbl最后行
         '
         Me.lbl最后行.AutoSize = True
-        Me.lbl最后行.Location = New System.Drawing.Point(68, 16)
+        Me.lbl最后行.Location = New System.Drawing.Point(18, 16)
         Me.lbl最后行.Name = "lbl最后行"
         Me.lbl最后行.Size = New System.Drawing.Size(41, 12)
         Me.lbl最后行.TabIndex = 17
@@ -146,7 +146,7 @@ Partial Class FormImportCodeToBomExcel
         Me.lbl进度文件.TabIndex = 23
         Me.lbl进度文件.Text = "当前零件："
         '
-        'formImportCodeToBomExcel
+        'FormImportCodeToBomExcel
         '
         Me.AcceptButton = Me.btn导入
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -167,7 +167,7 @@ Partial Class FormImportCodeToBomExcel
         Me.Controls.Add(Me.btn关闭)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "formImportCodeToBomExcel"
+        Me.Name = "FormImportCodeToBomExcel"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码到Bom表"
         Me.ResumeLayout(False)

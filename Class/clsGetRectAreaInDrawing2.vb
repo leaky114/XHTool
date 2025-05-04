@@ -28,7 +28,10 @@ Public Class ClsGetRectAreaInDrawing2
         m_position = Nothing
         m_button = Button
         OInteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorBuiltInCrosshair)
+
         OMouseEvents = OInteractionEvents.MouseEvents
+
         OMouseEvents.MouseMoveEnabled = True
 
         OInteractionEvents.StatusBarText = Prompt
@@ -45,8 +48,9 @@ Public Class ClsGetRectAreaInDrawing2
 
     End Function
 
-    Private Sub OMouseEvents_OnMouseDown(ByVal Button As MouseButtonEnum, ByVal ShiftKeys As ShiftStateEnum, ByVal ModelPosition As Point,
-                                         ByVal ViewPosition As Point2d, ByVal View As View) Handles OMouseEvents.OnMouseDown
+    Private Sub OMouseEvents_OnMouseDown(ByVal Button As MouseButtonEnum, ByVal ShiftKeys As ShiftStateEnum,
+                                         ByVal ModelPosition As Point, ByVal ViewPosition As Point2d,
+                                         ByVal View As View) Handles OMouseEvents.OnMouseDown
 
         If oStartPoint Is Nothing Then
             oStartPoint = ModelPosition
@@ -109,10 +113,6 @@ Public Class ClsGetRectAreaInDrawing2
                 ' update the display to see the results.
                 'ThisApplication.ActiveView.Update()
             End If
-
-
-
-
 
 
             oEndPoint = ModelPosition
@@ -212,7 +212,7 @@ Public Class ClsGetRectAreaInDrawing2
         ' Assign the color set to the line strip.
         oLineStrip.ColorSet = oColorSet
         oLineStrip.LineDefinitionSpace = LineDefinitionSpaceEnum.kModelSpace
-        oLineStrip.LineWeight = 0.08
+        oLineStrip.LineWeight = 0.06
 
         ' The two spirals are currently on top of each other so translate the
         ' new one in the x direction so they're side by side.

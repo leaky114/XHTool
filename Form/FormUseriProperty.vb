@@ -2,6 +2,7 @@
 Imports System.Windows.Forms
 Imports System.Collections.Generic
 Imports System.Linq
+Imports System.Text
 
 Public Class FormUseriProperty
 
@@ -100,15 +101,16 @@ Public Class FormUseriProperty
         Dim strUseriPropertyIniFile As String
         strUseriPropertyIniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "UseriProperty.ini")
 
-        If IsFileExsts(strUseriPropertyIniFile) = False Then
-            MsgBox("无配置文件,请手动配置！", MsgBoxStyle.Information)
+        If IsFileExists(strUseriPropertyIniFile) = False Then
+            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
 
-            Dim file As New StreamWriter(strUseriPropertyIniFile)
-            file.WriteLine("#不要修改#号行。")
-            file.WriteLine("#数据结构为  自定义=自定义iproperty名称{列表数据}，若无列表数组则不设置{}内列表数据。")
-            file.WriteLine("#自定义=输入数量{1,2,3,4,5,6,7,8,9,10}")
-            file.WriteLine("数量=0")
-            file.Close()
+            Using oStreamWriter As New StreamWriter(strUseriPropertyIniFile, False, Encoding.Default)
+                oStreamWriter.WriteLine("#不要修改#号行。")
+                oStreamWriter.WriteLine("#数据结构为  自定义=自定义iproperty名称{列表数据}，若无列表数组则不设置{}内列表数据。")
+                oStreamWriter.WriteLine("#自定义=输入数量{1,2,3,4,5,6,7,8,9,10}")
+                oStreamWriter.WriteLine("数量=0")
+            End Using
+
             Exit Sub
         End If
 
@@ -123,71 +125,62 @@ Public Class FormUseriProperty
         Dim strNewTitleBlockName As String = Nothing
         Dim strOldTitleBlockName As String = Nothing
 
-        Microsoft.VisualBasic.FileOpen(intFreeFile, strUseriPropertyIniFile, OpenMode.Input, OpenAccess.Default, OpenShare.Default)
+        Using oStreamReader As New System.IO.StreamReader(strUseriPropertyIniFile, Encoding.Default)
+            ' 定义控件的数量
+            Dim intControlCount As Integer
+            '当前控件指针
+            Dim intControl As Integer = 0
 
-        ' 定义控件的数量
-        Dim intControlCount As Integer
-        '当前控件指针
-        Dim intControl As Integer = 0
+            While oStreamReader.Peek() >= 0
+                strLine = oStreamReader.ReadLine()
 
-        Do While Not EOF(intFreeFile)
-            strLine = LineInput(intFreeFile)
-
-            '跳过注释
-            If Strings.Left(strLine, 1) = "#" Then
-                Continue Do
-            End If
-
-            '获取自定义数量
-            If Strings.Left(strLine, 3) = "数量=" Then
-                intControlCount = Int(Val(Strings.Replace(strLine, "数量=", "")))
-                If intControlCount = 0 Then
-                    Exit Sub
-                Else
-                    Continue Do
-                End If
-            End If
-
-
-            If textBoxes Is Nothing Then
-                CreateControls(intControlCount)
-            End If
-
-         
-
-            '获取自定义数据
-            If Strings.Left(strLine, 4) = "自定义=" Then
-                Dim InputString As String = Strings.Replace(strLine, "自定义=", "")
-
-                ' 提取 {} 之前的字符串
-                Dim striPropertyName As String = ExtractPrefix(InputString)
-
-                ' 提取 {} 里面的字符串并按逗号分割成数组
-                Dim striPropertyVales As String() = ExtractItems(InputString)
-
-                Me.textBoxes(intControl).Text = striPropertyName
-
-                For Each striPropertyVale As String In striPropertyVales
-                    Me.comboBoxes(intControl).Items.Add(striPropertyVale)
-                Next
-
-
-                Me.comboBoxes(intControl).Text = GetUserPropitem(oInventorDocument, Me.textBoxes(intControl).Text)
-
-                intControl = intControl + 1
-
-                If intControl = intControlCount Then
-                    Exit Do
+                '跳过注释
+                If strLine.StartsWith("#") Then
+                    Continue While
                 End If
 
-                Continue Do
-            End If
+                '获取自定义数量
+                If strLine.StartsWith("数量=") Then
+                    Integer.TryParse(strLine.Replace("数量=", ""), intControlCount)
+                    If intControlCount = 0 Then
+                        Exit Sub
+                    Else
+                        Continue While
+                    End If
+                End If
 
+                If textBoxes Is Nothing Then
+                    CreateControls(intControlCount)
+                End If
 
-        Loop
+                '获取自定义数据
+                If strLine.StartsWith("自定义=") Then
+                    Dim InputString As String = strLine.Replace("自定义=", "")
 
-        FileClose(intFreeFile)
+                    ' 提取 {} 之前的字符串
+                    Dim striPropertyName As String = ExtractPrefix(InputString)
 
+                    ' 提取 {} 里面的字符串并按逗号分割成数组
+                    Dim striPropertyVales As String() = ExtractItems(InputString)
+
+                    Me.textBoxes(intControl).Text = striPropertyName
+
+                    For Each striPropertyVale As String In striPropertyVales
+                        Me.comboBoxes(intControl).Items.Add(striPropertyVale)
+                    Next
+
+                    Me.comboBoxes(intControl).Text = GetUserPropitem(oInventorDocument, Me.textBoxes(intControl).Text)
+
+                    intControl += 1
+
+                    If intControl = intControlCount Then
+                        Exit While
+                    End If
+
+                    Continue While
+                End If
+            End While
+        End Using
     End Sub
 
 
@@ -246,8 +239,8 @@ Public Class FormUseriProperty
         Dim strUseriPropertyIniFile As String
         strUseriPropertyIniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "UseriProperty.ini")
 
-        If IsFileExsts(strUseriPropertyIniFile) = False Then
-            MsgBox("无配置文件,请手动配置！", MsgBoxStyle.Information)
+        If IsFileExists(strUseriPropertyIniFile) = False Then
+            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
 
             Dim file As New StreamWriter(strUseriPropertyIniFile)
             file.WriteLine("#不要修改#号行。")

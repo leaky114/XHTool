@@ -16,6 +16,7 @@ Public Class FormiPropertyToFileName
 
     Private Sub FormiPropertyToFileName_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
+        Me.TopMost = True
 
         Dim toolTip As New ToolTip With {
             .AutoPopDelay = 0,
@@ -50,9 +51,9 @@ Public Class FormiPropertyToFileName
     Private Sub LoadBOM(ByVal oInventorAssemblyDocument As Inventor.AssemblyDocument, ByVal oListView As ListView)
         On Error Resume Next
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         oListView.Items.Clear()
@@ -132,8 +133,8 @@ Public Class FormiPropertyToFileName
 
         oListView.EndUpdate()
 
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeDefault)
-        oInteraction.Stop()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        OInteractionEvents.Stop()
     End Sub
 
 
@@ -168,7 +169,7 @@ Public Class FormiPropertyToFileName
                 End If
             End If
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -190,7 +191,7 @@ Public Class FormiPropertyToFileName
         Dim strNewFileName As String
 
         If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
-            MsgBox("该功能仅适用于部件。", MsgBoxStyle.Information)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
@@ -206,9 +207,9 @@ Public Class FormiPropertyToFileName
 
         Dim oInventorDocument As Inventor.Document
 
-        Dim oInteraction As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
-        oInteraction.Start()
-        oInteraction.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        OInteractionEvents.Start()
+        OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
         ThisApplication.UserInterfaceManager.DoEvents()
 
         For Each oListViewItem As ListViewItem In lvw文件列表.Items
@@ -243,7 +244,7 @@ Public Class FormiPropertyToFileName
                         '全部替换为新文件
                         SetStatusBarText("替换文件")
 
-                        'If MsgBox("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
+                        'If  MessageBox.Show("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton1) = MsgBoxResult.Yes Then
 
                         oComponentOccurrence.Replace(strNewFullFileName, True)
 
@@ -263,7 +264,7 @@ Public Class FormiPropertyToFileName
                         SetDocumentIpropertyFromFileNameSub(oInventorDocument, True) '设置Iproperty，打开文件后需关闭
 
                         'Dim IsSaveAsOld As MsgBoxResult
-                        'IsSaveAsOld = MsgBox("是否更改原文件为备份文件，扩展名增加 .old ？", MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2)
+                        'IsSaveAsOld =  MessageBox.Show("是否更改原文件为备份文件，扩展名增加 .old ？", MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2)
 
                         '是否有对应的工程图文件，同时复制后修改文件名和模型链接
                         Dim strOldIdwFullFileName As String
@@ -272,19 +273,19 @@ Public Class FormiPropertyToFileName
 
                         strOldIdwFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
 
-                        If IsFileExsts(strOldIdwFullFileName) = False Then
+                        If IsFileExIsts(strOldIdwFullFileName) = False Then
                             strOldIdwFullFileName = GetChangeExtensionDocument(oInventorDocument.FullDocumentName, IDW)
                         End If
 
-                        If IsFileExsts(strOldIdwFullFileName) = True Then
+                        If IsFileExIsts(strOldIdwFullFileName) = True Then
 
                             SetStatusBarText("复制新工程图。")
 
                             Dim strNewIdwFullFileName As String
                             strNewIdwFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
 
-                            'If IsFileExsts(strNewIdwFullFileName) = True Then
-                            '    If MsgBox("存在旧的工程图：" & vbCrLf & vbCrLf & strNewIdwFullFileName & "，是否重新生成?",
+                            'If IsFileExIsts(strNewIdwFullFileName) = True Then
+                            '    If  MessageBox.Show("存在旧的工程图：" & vbCrLf & vbCrLf & strNewIdwFullFileName & "，是否重新生成?",
                             '          MsgBoxStyle.Information + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then  '选择覆盖
 
                             DeleteFile2(strNewIdwFullFileName, FileIO.RecycleOption.SendToRecycleBin)   '删除旧的新文件名 文件
@@ -313,9 +314,13 @@ Public Class FormiPropertyToFileName
             End If
         Next
 
-        oInteraction.Stop()
+        OInteractionEvents.Stop()
 
-        MsgBox("按iProperty更改文件名完成。", MsgBoxStyle.Information)
+        Me.TopMost = False
+
+        MessageBox.Show("按iProperty更改文件名完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Me.Close()
 
     End Sub
 
@@ -329,13 +334,14 @@ Public Class FormiPropertyToFileName
 
         Try
             ' 创建 StreamWriter 写入文件
-            Using writer As New StreamWriter(strCsvFullFileName, False, Encoding.UTF8)
+            Using oStreamWriter As New StreamWriter(strCsvFullFileName, False, oEncoding)
                 ' 写入列名
                 Dim ColumnNames As New List(Of String)
+
                 For Each oColumnHeader As ColumnHeader In lvw文件列表.Columns
                     ColumnNames.Add(EscapeCsvValue(oColumnHeader.Text))
                 Next
-                writer.WriteLine(String.Join(",", ColumnNames))
+                oStreamWriter.WriteLine(String.Join(",", ColumnNames))
 
                 ' 写入每行数据
                 For Each oListViewItem As ListViewItem In lvw文件列表.Items
@@ -343,18 +349,19 @@ Public Class FormiPropertyToFileName
                     For Each oListViewSubItem As ListViewItem.ListViewSubItem In oListViewItem.SubItems
                         rowData.Add(EscapeCsvValue(oListViewSubItem.Text))
                     Next
-                    writer.WriteLine(String.Join(",", rowData))
+                    oStreamWriter.WriteLine(String.Join(",", rowData))
                 Next
             End Using
 
-            MessageBox.Show("CSV 文件导出成功！", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If MessageBox.Show("数据文件导出完成，是否打开？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                Process.Start(strCsvFullFileName)
+            End If
+
         Catch ex As Exception
-            MessageBox.Show("导出失败: " & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If MsgBox("数据文件导出完成，是否打开？", MsgBoxStyle.Information + MsgBoxStyle.YesNo, "导出") = MsgBoxResult.Yes Then
-            Process.Start(strCsvFullFileName)
-        End If
+
     End Sub
 
     Private Sub Btn导入_Click(sender As Object, e As EventArgs) Handles btn导入BOM.Click
@@ -367,27 +374,28 @@ Public Class FormiPropertyToFileName
                 Try
 
                     ' 使用 TextFieldParser 读取 CSV 文件
-                    Using parser As New TextFieldParser(openFileDialog.FileName, Encoding.UTF8)
-                        parser.TextFieldType = FieldType.Delimited
-                        parser.Delimiters = New String() {","}
-                        parser.HasFieldsEnclosedInQuotes = True ' 自动处理双引号包裹的字段
+                    Using oTextFieldParser As New TextFieldParser(openFileDialog.FileName, oEncoding)
+                        oTextFieldParser.TextFieldType = FieldType.Delimited
+                        oTextFieldParser.Delimiters = New String() {","}
+                        oTextFieldParser.HasFieldsEnclosedInQuotes = True ' 自动处理双引号包裹的字段
 
                         ' 步骤1：读取列名
-                        If parser.EndOfData Then
-                            MessageBox.Show("CSV 文件为空！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        If oTextFieldParser.EndOfData Then
+                            MessageBox.Show("CSV 文件为空。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             Return
                         End If
-                        Dim csvHeaders As String() = parser.ReadFields()
+                        Dim csvHeaders As String() = oTextFieldParser.ReadFields()
 
                         ' 步骤2：验证列名和列数是否与 ListView 匹配
                         If csvHeaders.Length <> lvw文件列表.Columns.Count Then
-                            MessageBox.Show("CSV 列数不匹配！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            MessageBox.Show("CSV 列数不匹配。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             Return
                         End If
 
                         For i As Integer = 0 To csvHeaders.Length - 1
                             If csvHeaders(i) <> lvw文件列表.Columns(i).Text Then
-                                MessageBox.Show($"列名不匹配：第 {i + 1} 列应为 [{lvw文件列表.Columns(i).Text}]", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                MessageBox.Show($"列名不匹配：第 {i + 1} 列应为 [{lvw文件列表.Columns(i).Text}]", XHTool,
+                                                MessageBoxButtons.OK, MessageBoxIcon.Warning)
                                 Return
                             End If
                         Next
@@ -398,8 +406,8 @@ Public Class FormiPropertyToFileName
                         lvw文件列表.Items.Clear()
 
                         ' 步骤4：逐行读取数据并填充到 ListView
-                        While Not parser.EndOfData
-                            Dim fields As String() = parser.ReadFields()
+                        While Not oTextFieldParser.EndOfData
+                            Dim fields As String() = oTextFieldParser.ReadFields()
 
                             ' 跳过字段数不匹配的行
                             If fields.Length <> lvw文件列表.Columns.Count Then
@@ -431,10 +439,10 @@ Public Class FormiPropertyToFileName
                     Next
 
                     lvw文件列表.EndUpdate()
-                    MessageBox.Show("CSV 文件导入成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("CSV 文件导入成功。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Catch ex As Exception
-                    MessageBox.Show($"导入失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
             End If
         End Using

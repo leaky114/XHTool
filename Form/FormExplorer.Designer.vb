@@ -47,7 +47,7 @@ Partial Class FormExplorer
         Me.插入ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip资源管理器 = New System.Windows.Forms.ToolStrip()
         Me.当前文件夹ToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.定位ToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.浏览文件ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.旧版ToolStripDropDownButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.设置旧版ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,8 +56,10 @@ Partial Class FormExplorer
         Me.CMS文件列表 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.打开ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.插入到部件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.定位文件位置ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.浏览文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.复制文件名ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.重命名ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.复制ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.删除ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
@@ -67,9 +69,13 @@ Partial Class FormExplorer
         Me.lbl过滤栏 = New System.Windows.Forms.Label()
         Me.Btn过滤 = New System.Windows.Forms.Button()
         Me.Btn搜索 = New System.Windows.Forms.Button()
-        Me.重命名ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.状态ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.刷新ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip资源管理器.SuspendLayout()
         Me.CMS文件列表.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ImageList文件列表
@@ -88,10 +94,10 @@ Partial Class FormExplorer
         Me.Lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.文件名ColumnHeader, Me.文件扩展名ColumnHeader, Me.修改日期ColumnHeader, Me.大小ColumnHeader, Me.类型ColumnHeader})
         Me.Lvw文件列表.FullRowSelect = True
         Me.Lvw文件列表.HideSelection = False
-        Me.Lvw文件列表.Location = New System.Drawing.Point(12, 108)
+        Me.Lvw文件列表.Location = New System.Drawing.Point(12, 103)
         Me.Lvw文件列表.MultiSelect = False
         Me.Lvw文件列表.Name = "Lvw文件列表"
-        Me.Lvw文件列表.Size = New System.Drawing.Size(708, 370)
+        Me.Lvw文件列表.Size = New System.Drawing.Size(708, 362)
         Me.Lvw文件列表.SmallImageList = Me.ImageList文件列表
         Me.Lvw文件列表.TabIndex = 0
         Me.Lvw文件列表.UseCompatibleStateImageBehavior = False
@@ -148,29 +154,26 @@ Partial Class FormExplorer
         '项目文件夹ToolStripButton
         '
         Me.项目文件夹ToolStripButton.CheckOnClick = True
-        Me.项目文件夹ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.项目文件夹ToolStripButton.Image = CType(resources.GetObject("项目文件夹ToolStripButton.Image"), System.Drawing.Image)
         Me.项目文件夹ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.项目文件夹ToolStripButton.Name = "项目文件夹ToolStripButton"
-        Me.项目文件夹ToolStripButton.Size = New System.Drawing.Size(36, 36)
+        Me.项目文件夹ToolStripButton.Size = New System.Drawing.Size(72, 36)
         Me.项目文件夹ToolStripButton.Text = "项目文件夹"
         Me.项目文件夹ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.项目文件夹ToolStripButton.ToolTipText = "转到项目文件夹。"
         '
         '新建文件夹ToolStripButton
         '
-        Me.新建文件夹ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.新建文件夹ToolStripButton.Image = CType(resources.GetObject("新建文件夹ToolStripButton.Image"), System.Drawing.Image)
         Me.新建文件夹ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.新建文件夹ToolStripButton.Name = "新建文件夹ToolStripButton"
-        Me.新建文件夹ToolStripButton.Size = New System.Drawing.Size(36, 36)
+        Me.新建文件夹ToolStripButton.Size = New System.Drawing.Size(72, 36)
         Me.新建文件夹ToolStripButton.Text = "新建文件夹"
         Me.新建文件夹ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.新建文件夹ToolStripButton.ToolTipText = "新建文件夹。"
+        Me.新建文件夹ToolStripButton.ToolTipText = "按选择的文件名新建文件夹。"
         '
         '打开ToolStripButton
         '
-        Me.打开ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.打开ToolStripButton.Image = CType(resources.GetObject("打开ToolStripButton.Image"), System.Drawing.Image)
         Me.打开ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.打开ToolStripButton.Name = "打开ToolStripButton"
@@ -181,7 +184,6 @@ Partial Class FormExplorer
         '
         '删除ToolStripDropDownButton
         '
-        Me.删除ToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.删除ToolStripDropDownButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.回收ToolStripMenuItem, Me.永久删除ToolStripMenuItem})
         Me.删除ToolStripDropDownButton.Image = CType(resources.GetObject("删除ToolStripDropDownButton.Image"), System.Drawing.Image)
         Me.删除ToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -212,7 +214,6 @@ Partial Class FormExplorer
         '插入ToolStripButton
         '
         Me.插入ToolStripButton.CheckOnClick = True
-        Me.插入ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.插入ToolStripButton.Image = CType(resources.GetObject("插入ToolStripButton.Image"), System.Drawing.Image)
         Me.插入ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.插入ToolStripButton.Name = "插入ToolStripButton"
@@ -223,9 +224,9 @@ Partial Class FormExplorer
         '
         'ToolStrip资源管理器
         '
+        Me.ToolStrip资源管理器.AutoSize = False
         Me.ToolStrip资源管理器.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip资源管理器.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip资源管理器.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.项目文件夹ToolStripButton, Me.当前文件夹ToolStripButton, Me.定位ToolStripButton, Me.新建文件夹ToolStripButton, Me.ToolStripSeparator1, Me.打开ToolStripButton, Me.删除ToolStripDropDownButton, Me.ToolStripSeparator2, Me.插入ToolStripButton, Me.旧版ToolStripDropDownButton})
+        Me.ToolStrip资源管理器.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.项目文件夹ToolStripButton, Me.当前文件夹ToolStripButton, Me.浏览文件ToolStripButton, Me.新建文件夹ToolStripButton, Me.ToolStripSeparator1, Me.打开ToolStripButton, Me.删除ToolStripDropDownButton, Me.ToolStripSeparator2, Me.插入ToolStripButton, Me.旧版ToolStripDropDownButton})
         Me.ToolStrip资源管理器.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip资源管理器.Name = "ToolStrip资源管理器"
         Me.ToolStrip资源管理器.Size = New System.Drawing.Size(732, 39)
@@ -234,25 +235,23 @@ Partial Class FormExplorer
         '
         '当前文件夹ToolStripButton
         '
-        Me.当前文件夹ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.当前文件夹ToolStripButton.Image = CType(resources.GetObject("当前文件夹ToolStripButton.Image"), System.Drawing.Image)
         Me.当前文件夹ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.当前文件夹ToolStripButton.Name = "当前文件夹ToolStripButton"
-        Me.当前文件夹ToolStripButton.Size = New System.Drawing.Size(36, 36)
+        Me.当前文件夹ToolStripButton.Size = New System.Drawing.Size(72, 36)
         Me.当前文件夹ToolStripButton.Text = "当前文件夹"
         Me.当前文件夹ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.当前文件夹ToolStripButton.ToolTipText = "转到当前文件夹。"
         '
-        '定位ToolStripButton
+        '浏览文件ToolStripButton
         '
-        Me.定位ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.定位ToolStripButton.Image = CType(resources.GetObject("定位ToolStripButton.Image"), System.Drawing.Image)
-        Me.定位ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.定位ToolStripButton.Name = "定位ToolStripButton"
-        Me.定位ToolStripButton.Size = New System.Drawing.Size(36, 36)
-        Me.定位ToolStripButton.Text = "定位"
-        Me.定位ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.定位ToolStripButton.ToolTipText = "定位所选项目。"
+        Me.浏览文件ToolStripButton.Image = CType(resources.GetObject("浏览文件ToolStripButton.Image"), System.Drawing.Image)
+        Me.浏览文件ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.浏览文件ToolStripButton.Name = "浏览文件ToolStripButton"
+        Me.浏览文件ToolStripButton.Size = New System.Drawing.Size(60, 36)
+        Me.浏览文件ToolStripButton.Text = "浏览文件"
+        Me.浏览文件ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.浏览文件ToolStripButton.ToolTipText = "浏览文件所在文件夹。"
         '
         'ToolStripSeparator2
         '
@@ -261,7 +260,6 @@ Partial Class FormExplorer
         '
         '旧版ToolStripDropDownButton
         '
-        Me.旧版ToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.旧版ToolStripDropDownButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.设置旧版ToolStripMenuItem, Me.还原旧版ToolStripMenuItem})
         Me.旧版ToolStripDropDownButton.Image = CType(resources.GetObject("旧版ToolStripDropDownButton.Image"), System.Drawing.Image)
         Me.旧版ToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -295,9 +293,9 @@ Partial Class FormExplorer
         '
         'CMS文件列表
         '
-        Me.CMS文件列表.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.打开ToolStripMenuItem, Me.插入到部件ToolStripMenuItem, Me.定位文件位置ToolStripMenuItem, Me.ToolStripSeparator3, Me.重命名ToolStripMenuItem, Me.复制ToolStripMenuItem, Me.删除ToolStripMenuItem, Me.ToolStripSeparator4, Me.属性ToolStripMenuItem})
+        Me.CMS文件列表.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.打开ToolStripMenuItem, Me.插入到部件ToolStripMenuItem, Me.浏览文件ToolStripMenuItem, Me.复制文件名ToolStripMenuItem, Me.ToolStripSeparator3, Me.重命名ToolStripMenuItem, Me.复制ToolStripMenuItem, Me.删除ToolStripMenuItem, Me.ToolStripSeparator4, Me.刷新ToolStripMenuItem, Me.属性ToolStripMenuItem})
         Me.CMS文件列表.Name = "CMS文件列表"
-        Me.CMS文件列表.Size = New System.Drawing.Size(181, 192)
+        Me.CMS文件列表.Size = New System.Drawing.Size(181, 236)
         '
         '打开ToolStripMenuItem
         '
@@ -311,16 +309,28 @@ Partial Class FormExplorer
         Me.插入到部件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.插入到部件ToolStripMenuItem.Text = "插入到部件"
         '
-        '定位文件位置ToolStripMenuItem
+        '浏览文件ToolStripMenuItem
         '
-        Me.定位文件位置ToolStripMenuItem.Name = "定位文件位置ToolStripMenuItem"
-        Me.定位文件位置ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.定位文件位置ToolStripMenuItem.Text = "定位文件位置"
+        Me.浏览文件ToolStripMenuItem.Name = "浏览文件ToolStripMenuItem"
+        Me.浏览文件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.浏览文件ToolStripMenuItem.Text = "浏览文件"
+        '
+        '复制文件名ToolStripMenuItem
+        '
+        Me.复制文件名ToolStripMenuItem.Name = "复制文件名ToolStripMenuItem"
+        Me.复制文件名ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.复制文件名ToolStripMenuItem.Text = "复制文件名"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        '
+        '重命名ToolStripMenuItem
+        '
+        Me.重命名ToolStripMenuItem.Name = "重命名ToolStripMenuItem"
+        Me.重命名ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.重命名ToolStripMenuItem.Text = "重命名"
         '
         '复制ToolStripMenuItem
         '
@@ -386,17 +396,39 @@ Partial Class FormExplorer
         Me.Btn搜索.TabIndex = 50
         Me.Btn搜索.UseVisualStyleBackColor = True
         '
-        '重命名ToolStripMenuItem
+        'StatusStrip1
         '
-        Me.重命名ToolStripMenuItem.Name = "重命名ToolStripMenuItem"
-        Me.重命名ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.重命名ToolStripMenuItem.Text = "重命名"
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.状态ToolStripStatusLabel})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 468)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(732, 22)
+        Me.StatusStrip1.TabIndex = 51
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        '
+        '状态ToolStripStatusLabel
+        '
+        Me.状态ToolStripStatusLabel.AutoSize = False
+        Me.状态ToolStripStatusLabel.Name = "状态ToolStripStatusLabel"
+        Me.状态ToolStripStatusLabel.Size = New System.Drawing.Size(200, 17)
+        Me.状态ToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        '刷新ToolStripMenuItem
+        '
+        Me.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem"
+        Me.刷新ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.刷新ToolStripMenuItem.Text = "刷新"
         '
         'FormExplorer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(732, 490)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.Btn搜索)
         Me.Controls.Add(Me.Btn过滤)
         Me.Controls.Add(Me.lbl过滤栏)
@@ -414,6 +446,8 @@ Partial Class FormExplorer
         Me.ToolStrip资源管理器.ResumeLayout(False)
         Me.ToolStrip资源管理器.PerformLayout()
         Me.CMS文件列表.ResumeLayout(False)
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -446,17 +480,22 @@ Partial Class FormExplorer
     Friend WithEvents CMS文件列表 As ContextMenuStrip
     Friend WithEvents 打开ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 插入到部件ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 定位文件位置ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 浏览文件ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents 复制ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 删除ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents 属性ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 定位ToolStripButton As ToolStripButton
+    Friend WithEvents 浏览文件ToolStripButton As ToolStripButton
     Friend WithEvents Txt搜索栏 As TextBox
     Friend WithEvents lbl搜索栏 As Label
     Friend WithEvents lbl过滤栏 As Label
     Friend WithEvents Btn过滤 As Button
     Friend WithEvents Btn搜索 As Button
     Friend WithEvents 重命名ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents 状态ToolStripStatusLabel As ToolStripStatusLabel
+    Friend WithEvents 复制文件名ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 刷新ToolStripMenuItem As ToolStripMenuItem
 End Class
