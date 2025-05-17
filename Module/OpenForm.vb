@@ -27,8 +27,9 @@ Module OpenForm
         Dim windowHeight As Integer = CInt(screenHeight * douHeightRatio)
 
         ' 设置窗口的大小
-        oForm.Size = New Size(windowWidth, windowHeight)
-
+        If windowHeight * windowWidth <> 0 Then
+            oForm.Size = New Size(windowWidth, windowHeight)
+        End If
         ' 将窗口居中显示
         oForm.StartPosition = FormStartPosition.CenterScreen
     End Sub
@@ -291,7 +292,7 @@ Module OpenForm
             End If
 
             Dim formiProperty As New FormiProperty
-            FormManager.ShowForm(Of FormiProperty)()
+            FormManager.ShowForm(Of FormiProperty)(True)
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -597,6 +598,51 @@ Module OpenForm
 
     End Sub
 
+
+    '打开油路块着色窗口
+    Public Sub FormOilBlockHoleColoringShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim FormOilBlockHoleColoring As New FormOilBlockHoleColoring
+            FormManager.ShowForm(Of FormOilBlockHoleColoring)()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+
+    ''打开面着色窗口
+    Public Sub FormFaceColoringShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim FormFaceColoring As New FormFaceColoring
+            FormManager.ShowForm(Of FormFaceColoring)()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
 
 
 End Module

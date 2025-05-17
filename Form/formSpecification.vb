@@ -71,8 +71,8 @@ Public Class FormSpecification
         End If
 
         If boolIsBasicChange = True Then
-            If MessageBox.Show(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
-                               MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MessageBox.Show(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+                               MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存基础数据ToolStripButton.PerformClick()
             End If
         End If
@@ -237,8 +237,8 @@ Public Class FormSpecification
         End If
 
         If boolIsUserChange = True Then
-            If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
-                               MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+                               MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存自定义ToolStripButton.PerformClick()
             End If
         End If
@@ -274,8 +274,8 @@ Public Class FormSpecification
         If strChildNodeName <> "" Then
             TreeView自定义.Nodes.Add(strChildNodeName)
             If boolIsUserChange = True Then
-                If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool， MessageBoxButtons.YesNo，
-                                   MessageBoxIcon.Question) = DialogResult.Yes Then
+                If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+                                   MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                     保存自定义ToolStripButton.PerformClick()
                 End If
             End If

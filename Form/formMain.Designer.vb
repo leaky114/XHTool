@@ -77,6 +77,8 @@ Partial Class FormMain
         Me.钣金厚度检查ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.替换基础文件ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.设置只读ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.设置孔颜色ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.油路块着色ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.工程图ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.标记孔径ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.创建工艺图ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -428,7 +430,7 @@ Partial Class FormMain
         '
         '零件ToolStripMenuItem
         '
-        Me.零件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.保存为图片ToolStripMenuItem, Me.创建工程图ToolStripMenuItem, Me.创建展开图ToolStripMenuItem, Me.打开工程图ToolStripMenuItem, Me.动态尺寸ToolStripMenuItem, Me.钣金厚度检查ToolStripMenuItem, Me.替换基础文件ToolStripMenuItem, Me.设置只读ToolStripMenuItem})
+        Me.零件ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.保存为图片ToolStripMenuItem, Me.创建工程图ToolStripMenuItem, Me.创建展开图ToolStripMenuItem, Me.打开工程图ToolStripMenuItem, Me.动态尺寸ToolStripMenuItem, Me.钣金厚度检查ToolStripMenuItem, Me.替换基础文件ToolStripMenuItem, Me.设置只读ToolStripMenuItem, Me.设置孔颜色ToolStripMenuItem, Me.油路块着色ToolStripMenuItem})
         Me.零件ToolStripMenuItem.Name = "零件ToolStripMenuItem"
         Me.零件ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.零件ToolStripMenuItem.Text = "零件"
@@ -480,6 +482,18 @@ Partial Class FormMain
         Me.设置只读ToolStripMenuItem.Name = "设置只读ToolStripMenuItem"
         Me.设置只读ToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.设置只读ToolStripMenuItem.Text = "设置只读"
+        '
+        '设置孔颜色ToolStripMenuItem
+        '
+        Me.设置孔颜色ToolStripMenuItem.Name = "设置孔颜色ToolStripMenuItem"
+        Me.设置孔颜色ToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.设置孔颜色ToolStripMenuItem.Text = "设置孔颜色"
+        '
+        '油路块着色ToolStripMenuItem
+        '
+        Me.油路块着色ToolStripMenuItem.Name = "油路块着色ToolStripMenuItem"
+        Me.油路块着色ToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
+        Me.油路块着色ToolStripMenuItem.Text = "油路块着色"
         '
         '工程图ToolStripMenuItem
         '
@@ -846,7 +860,7 @@ Partial Class FormMain
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(78, 39)
         Me.Button2.TabIndex = 20
-        Me.Button2.Text = "测试二"
+        Me.Button2.Text = "面着色"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'ButtoniProperty
@@ -1013,4 +1027,6 @@ Partial Class FormMain
     Friend WithEvents 资源管理器ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 修改序号ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 批量BOM命名ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 设置孔颜色ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 油路块着色ToolStripMenuItem As ToolStripMenuItem
 End Class

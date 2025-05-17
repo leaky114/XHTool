@@ -284,7 +284,7 @@ Public Class FormSwitchLables
 
         Dim obutton As ButtonDefinition
         obutton = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName切换文档")
-        Txt快捷键.Text = obutton.OverrideShortcut
+        Txt快捷键.Text = obutton.DefaultShortcut
 
         Dim windowWidth As Integer = Me.ClientSize.Width
         Dim windowHeight As Integer = Me.ClientSize.Height
@@ -313,7 +313,7 @@ Public Class FormSwitchLables
 
         Dim obutton As ButtonDefinition
         obutton = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName切换文档")
-        obutton.OverrideShortcut = Txt快捷键.Text
+        obutton.DefaultShortcut = Txt快捷键.Text
 
         ini.WriteStrINI("切换文档", "每行数量", int每行数量.ToString, IniFile)
         ini.WriteStrINI("切换文档", "图框宽度", int图框宽度.ToString, IniFile)

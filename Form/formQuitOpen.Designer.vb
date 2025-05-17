@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports System.Windows.Forms
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormQuitOpen
     Inherits System.Windows.Forms.Form
 
@@ -26,6 +28,7 @@ Partial Class FormQuitOpen
         Me.lvw文件列表 = New System.Windows.Forms.ListView()
         Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.btn多选打开 = New System.Windows.Forms.Button()
+        Me.btn插入文件 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btn关闭
@@ -47,6 +50,7 @@ Partial Class FormQuitOpen
         Me.lvw文件列表.AutoArrange = False
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
         Me.lvw文件列表.Size = New System.Drawing.Size(742, 194)
@@ -71,18 +75,30 @@ Partial Class FormQuitOpen
         Me.btn多选打开.Text = "多选打开"
         Me.btn多选打开.Visible = False
         '
-        'formQuitOpen
+        'btn插入文件
+        '
+        Me.btn插入文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btn插入文件.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btn插入文件.Location = New System.Drawing.Point(517, 224)
+        Me.btn插入文件.Name = "btn插入文件"
+        Me.btn插入文件.Size = New System.Drawing.Size(75, 28)
+        Me.btn插入文件.TabIndex = 39
+        Me.btn插入文件.Text = "插入文件"
+        Me.btn插入文件.Visible = False
+        '
+        'FormQuitOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(766, 264)
+        Me.Controls.Add(Me.btn插入文件)
         Me.Controls.Add(Me.btn多选打开)
         Me.Controls.Add(Me.lvw文件列表)
         Me.Controls.Add(Me.btn关闭)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "formQuitOpen"
+        Me.Name = "FormQuitOpen"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "快速打开"
@@ -94,5 +110,5 @@ Partial Class FormQuitOpen
     Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader
     Friend WithEvents btn多选打开 As System.Windows.Forms.Button
-
+    Friend WithEvents btn插入文件 As Button
 End Class

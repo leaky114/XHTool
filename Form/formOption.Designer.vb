@@ -103,6 +103,7 @@ Partial Class FormOption
         Me.cbo图号 = New System.Windows.Forms.ComboBox()
         Me.TabControl = New System.Windows.Forms.TabControl()
         Me.TabPage工程图 = New System.Windows.Forms.TabPage()
+        Me.chk强制横向 = New System.Windows.Forms.CheckBox()
         Me.chk逆时针序号 = New System.Windows.Forms.CheckBox()
         Me.chk模型匹配检查 = New System.Windows.Forms.CheckBox()
         Me.GroupBox标题栏 = New System.Windows.Forms.GroupBox()
@@ -167,6 +168,7 @@ Partial Class FormOption
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.chk短日期 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型.SuspendLayout()
         CType(Me.NUD查找文件夹层数, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxERP查询.SuspendLayout()
@@ -568,7 +570,7 @@ Partial Class FormOption
         Me.GroupBox快速打印.Controls.Add(Me.chk匹配A3纸)
         Me.GroupBox快速打印.Controls.Add(Me.chk签字)
         Me.GroupBox快速打印.Controls.Add(Me.lbl打印机)
-        Me.GroupBox快速打印.Location = New System.Drawing.Point(400, 124)
+        Me.GroupBox快速打印.Location = New System.Drawing.Point(400, 160)
         Me.GroupBox快速打印.Name = "GroupBox快速打印"
         Me.GroupBox快速打印.Size = New System.Drawing.Size(207, 121)
         Me.GroupBox快速打印.TabIndex = 22
@@ -684,6 +686,7 @@ Partial Class FormOption
         '
         'GroupBox签字
         '
+        Me.GroupBox签字.Controls.Add(Me.chk短日期)
         Me.GroupBox签字.Controls.Add(Me.chk同时签字)
         Me.GroupBox签字.Controls.Add(Me.txt工程师)
         Me.GroupBox签字.Controls.Add(Me.lbl工程师)
@@ -692,7 +695,7 @@ Partial Class FormOption
         Me.GroupBox签字.Controls.Add(Me.lbl打印日期)
         Me.GroupBox签字.Location = New System.Drawing.Point(400, 10)
         Me.GroupBox签字.Name = "GroupBox签字"
-        Me.GroupBox签字.Size = New System.Drawing.Size(207, 102)
+        Me.GroupBox签字.Size = New System.Drawing.Size(207, 125)
         Me.GroupBox签字.TabIndex = 19
         Me.GroupBox签字.TabStop = False
         Me.GroupBox签字.Text = "签字"
@@ -969,6 +972,7 @@ Partial Class FormOption
         '
         'TabPage工程图
         '
+        Me.TabPage工程图.Controls.Add(Me.chk强制横向)
         Me.TabPage工程图.Controls.Add(Me.chk逆时针序号)
         Me.TabPage工程图.Controls.Add(Me.chk模型匹配检查)
         Me.TabPage工程图.Controls.Add(Me.GroupBox标题栏)
@@ -981,6 +985,17 @@ Partial Class FormOption
         Me.TabPage工程图.TabIndex = 2
         Me.TabPage工程图.Text = "工程图"
         Me.TabPage工程图.UseVisualStyleBackColor = True
+        '
+        'chk强制横向
+        '
+        Me.chk强制横向.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.chk强制横向.AutoSize = True
+        Me.chk强制横向.Location = New System.Drawing.Point(412, 254)
+        Me.chk强制横向.Name = "chk强制横向"
+        Me.chk强制横向.Size = New System.Drawing.Size(72, 16)
+        Me.chk强制横向.TabIndex = 35
+        Me.chk强制横向.Text = "强制横向"
+        Me.chk强制横向.UseVisualStyleBackColor = True
         '
         'chk逆时针序号
         '
@@ -996,8 +1011,6 @@ Partial Class FormOption
         '
         Me.chk模型匹配检查.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.chk模型匹配检查.AutoSize = True
-        Me.chk模型匹配检查.Checked = True
-        Me.chk模型匹配检查.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chk模型匹配检查.Location = New System.Drawing.Point(412, 222)
         Me.chk模型匹配检查.Name = "chk模型匹配检查"
         Me.chk模型匹配检查.Size = New System.Drawing.Size(96, 16)
@@ -1622,6 +1635,16 @@ Partial Class FormOption
         Me.Button1.Text = "选择"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'chk短日期
+        '
+        Me.chk短日期.AutoSize = True
+        Me.chk短日期.Location = New System.Drawing.Point(14, 99)
+        Me.chk短日期.Name = "chk短日期"
+        Me.chk短日期.Size = New System.Drawing.Size(60, 16)
+        Me.chk短日期.TabIndex = 9
+        Me.chk短日期.Text = "短日期"
+        Me.chk短日期.UseVisualStyleBackColor = True
+        '
         'FormOption
         '
         Me.AcceptButton = Me.btn确定
@@ -1830,4 +1853,6 @@ Partial Class FormOption
     Friend WithEvents ch按钮 As ColumnHeader
     Friend WithEvents ch图标大小 As ColumnHeader
     Friend WithEvents chk使用UTF8编码 As CheckBox
+    Friend WithEvents chk强制横向 As CheckBox
+    Friend WithEvents chk短日期 As CheckBox
 End Class

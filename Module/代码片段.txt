@@ -52,10 +52,10 @@ Dim strInventorDrawingDocumentFullFileName as string
 
 
       ThisApplication.UserInterfaceManager.DoEvents()
-       dim OInteractionEventsAs InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+       dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         OInteractionEvents.Start()
         OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
-        ThisApplication.UserInterfaceManager.DoEvents()
+
 
         
          OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)

@@ -179,10 +179,6 @@ Public Class FormMovesSpecifiedFile
     End Sub
 
     Private Sub 应用ToolStripButton_Click(sender As Object, e As EventArgs) Handles 应用ToolStripButton.Click
-        If MessageBox.Show("确定移动文件？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Exit Sub
-        End If
-
 
         Dim strOldFullFileName As String
         Dim strNewFullFileName As String
@@ -192,7 +188,10 @@ Public Class FormMovesSpecifiedFile
 
         Dim strInventorAssemblyDocumentFullFileName As String = oInventorDocument.FullFileName
 
-        MessageBox.Show("将关闭部件：" & strInventorAssemblyDocumentFullFileName, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If MessageBox.Show("确定移动文件？" & vbCrLf & "将关闭部件：" & strInventorAssemblyDocumentFullFileName, XHTool,
+                           MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+            Exit Sub
+        End If
 
         oInventorDocument.Close()
 

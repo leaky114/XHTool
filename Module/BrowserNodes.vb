@@ -481,7 +481,7 @@ Module BrowserNodes
 
 
         Dim oChildBrowserNode As BrowserNode
-        Dim oSelectBrowserNode As BrowserNode = Nothing
+        Dim oSelectBrowserNode As BrowserNode
 
         For Each oChildBrowserNode In oOccurrencePatternBrowserNode.BrowserNodes
 

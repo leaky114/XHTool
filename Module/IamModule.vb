@@ -411,38 +411,43 @@ Module IamModule
     ''' <param name="oComponentOccurrence1">第一个组件</param>
     ''' <param name="oComponentOccurrence2">第二个组件</param>
     ''' <param name="IsDelMate">对齐后是否删除约束，默认不删除</param>
-    Public Sub FlushXYZPlaneSub(ByVal OInventorAssemblyDocument As Inventor.AssemblyDocument,
+    Public Function FlushXYZPlaneSub(ByVal OInventorAssemblyDocument As Inventor.AssemblyDocument,
                                      ByVal oComponentOccurrence1 As ComponentOccurrence,
-                                     ByVal oComponentOccurrence2 As ComponentOccurrence, Optional ByVal IsDelMate As Boolean = False)
-        For i = 1 To 3
-            Dim oPartPlane1 As WorkPlane
-            oPartPlane1 = oComponentOccurrence1.Definition.WorkPlanes.Item(i)
+                                     ByVal oComponentOccurrence2 As ComponentOccurrence, Optional ByVal IsDelMate As Boolean = False) As Boolean
+        Try
+            For i = 1 To 3
+                Dim oPartPlane1 As WorkPlane
+                oPartPlane1 = oComponentOccurrence1.Definition.WorkPlanes.Item(i)
 
-            Dim oPartPlane2 As WorkPlane
-            oPartPlane2 = oComponentOccurrence2.Definition.WorkPlanes.Item(i)
+                Dim oPartPlane2 As WorkPlane
+                oPartPlane2 = oComponentOccurrence2.Definition.WorkPlanes.Item(i)
 
-            ' Because we need the work plane in the context of the assembly
-            ' we need to create proxies for the work planes.  The proxies
-            ' represent the work planes in the context of the assembly.
-            Dim oAsmPlane1 As WorkPlaneProxy = Nothing
-            oComponentOccurrence1.CreateGeometryProxy(oPartPlane1, oAsmPlane1)
+                ' Because we need the work plane in the context of the assembly
+                ' we need to create proxies for the work planes.  The proxies
+                ' represent the work planes in the context of the assembly.
+                Dim oAsmPlane1 As WorkPlaneProxy = Nothing
+                oComponentOccurrence1.CreateGeometryProxy(oPartPlane1, oAsmPlane1)
 
-            Dim oAsmPlane2 As WorkPlaneProxy = Nothing
-            oComponentOccurrence2.CreateGeometryProxy(oPartPlane2, oAsmPlane2)
+                Dim oAsmPlane2 As WorkPlaneProxy = Nothing
+                oComponentOccurrence2.CreateGeometryProxy(oPartPlane2, oAsmPlane2)
 
-            ' Create the constraint using the work plane proxies.
-            Dim oMate As FlushConstraint
+                ' Create the constraint using the work plane proxies.
+                Dim oMate As FlushConstraint
 
-            oMate = OInventorAssemblyDocument.ComponentDefinition.Constraints.AddFlushConstraint(oAsmPlane1, oAsmPlane2, 0)
+                oMate = OInventorAssemblyDocument.ComponentDefinition.Constraints.AddFlushConstraint(oAsmPlane1, oAsmPlane2, 0)
 
-            If IsDelMate = True Then
-                oMate.Delete()
-            End If
+                If IsDelMate = True Then
+                    oMate.Delete()
+                End If
 
-        Next
+            Next
 
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
 
-    End Sub
+    End Function
 
 
 
@@ -531,9 +536,9 @@ Module IamModule
                     strNewReferencedFullFileName = IO.Path.Combine(strInventorAssemblyFileFolder, strReferencedFileName)
 
                     If IsFileExists(strNewReferencedFullFileName) Then
-                        If MessageBox.Show("存在文件：" & strNewReferencedFullFileName & "，是否覆盖？", XHTool， MessageBoxButtons.YesNo，
-                                           MessageBoxIcon.Question) = DialogResult.Yes Then
-                        Else
+                        If MessageBox.Show("存在文件：" & strNewReferencedFullFileName & "，是否覆盖？", XHTool，
+                                           MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.No Then
+                            '不覆盖 ，进行下一个文件
                             Continue For
                         End If
                     End If
@@ -683,8 +688,11 @@ Module IamModule
 
                 '检查新文件是否存在
                 If IsFileExists(strNewFullFileName) = True Then
-                    Select Case MessageBox.Show("存在文件：" & strNewFullFileName & " ，是-直接替换  否-重新生成替换  取消-退出重新命名 ", XHTool，
+
+                    Dim msg As DialogResult = MessageBox.Show("存在文件：" & strNewFullFileName & " ，是-直接替换  否-重新生成替换  取消-退出重新命名 ", XHTool，
                                                 MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+
+                    Select Case msg
                         Case DialogResult.Yes  '直接用新文件替换
                             '全部替换为新文件
                             'if  MessageBox.Show("是否替换全部零件？", MsgBoxStyle.YesNo + MsgBoxStyle.Question + MsgBoxStyle.SystemModal) = MsgBoxResult.Yes Then
@@ -752,9 +760,9 @@ Module IamModule
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub SetClearRandomColor()
-
-        Select Case MessageBox.Show("设置随机颜色。" & vbCrLf & vbCrLf & "是——设置随机颜色" & vbCrLf & vbCrLf & "否——清除随机颜色", XHTool，
+        Dim msg As DialogResult = MessageBox.Show("设置随机颜色。" & vbCrLf & vbCrLf & "是——设置随机颜色" & vbCrLf & vbCrLf & "否——清除随机颜色", XHTool，
                                        MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+        Select Case msg
             Case DialogResult.Yes
                 SetRandomColor()
             Case DialogResult.No
@@ -1042,8 +1050,10 @@ Module IamModule
 
                 Dim IsExpandOutSourcedParts As Boolean
 
-                Select Case MessageBox.Show("是否展开外协件、外购件？", XHTool,
+                Dim msg As DialogResult = MessageBox.Show("是否展开外协件、外购件？", XHTool,
                                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+
+                Select Case msg
                     Case DialogResult.Yes
                         IsExpandOutSourcedParts = True
                     Case DialogResult.No
@@ -1857,9 +1867,11 @@ Module IamModule
 
                 '检查新文件是否存在
                 If IsFileExists(strNewFullFileName) = True Then
-                    Select Case MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
+                    Dim msg As DialogResult = MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
                                        "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool，
                                          MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+
+                    Select Case msg
                         Case DialogResult.Yes  '直接用新文件替换
                             '全部替换为新文件
                             If MessageBox.Show("是否替换全部零件？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -2100,9 +2112,12 @@ Module IamModule
 
         '检查新文件是否存在
         If IsFileExists(strNewFullFileName) = True Then
-            Select Case MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
+
+            Dim msg As DialogResult = MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
                                "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool，
                                 MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+
+            Select Case msg
                 Case DialogResult.Yes   '直接用新文件替换
                     '全部替换为新文件
                     If MessageBox.Show("是否替换全部零件？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -2225,8 +2240,10 @@ Module IamModule
 
         '检查新文件是否存在
         If IsFileExists(strNewFullFileName) = True Then
-            Select Case MessageBox.Show("存在文件：" & strNewFullFileName & vbCrLf & "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ",
-                                        XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+
+            Dim msg As DialogResult = MessageBox.Show("存在文件：" & strNewFullFileName & vbCrLf & "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+
+            Select Case msg
                 Case DialogResult.Yes   '直接用新文件替换
                     '全部替换为新文件
                     If MessageBox.Show("是否替换全部零件？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -2322,7 +2339,8 @@ Module IamModule
             oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
             Dim IsSaveAsOld As DialogResult
-            IsSaveAsOld = MessageBox.Show("是否更改原文件为备份文件，扩展名增加 .old ？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question， MessageBoxDefaultButton.Button2)
+            IsSaveAsOld = MessageBox.Show("是否更改原文件为备份文件，扩展名增加 .old ？", XHTool，
+                                          MessageBoxButtons.YesNo， MessageBoxIcon.Question， MessageBoxDefaultButton.Button2)
 
             ReplaceNameInAsmSub(oInventorAssemblyDocument, strOldFileName, strNewFileName, IsSaveAsOld)
 
@@ -2637,8 +2655,11 @@ Module IamModule
 
             Dim IsVisible As Boolean
 
-            Select Case MessageBox.Show("设置标准件可见性。" & vbCrLf & vbCrLf & "是——全部可见" & vbCrLf & vbCrLf & "否——全部隐藏", XHTool,
+
+            Dim msg As DialogResult = MessageBox.Show("设置标准件可见性。" & vbCrLf & vbCrLf & "是——全部可见" & vbCrLf & vbCrLf & "否——全部隐藏", XHTool,
                              MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+
+            Select Case msg
                 Case DialogResult.Yes
                     IsVisible = True
                 Case DialogResult.No
@@ -3358,7 +3379,10 @@ Module IamModule
 
 
             '对齐源组件和 粘贴 的组件
-            FlushXYZPlaneSub(oInventorAssemblyDocument, oOneSourceComponentOccurrence, oOneCloneComponent, True)
+            If FlushXYZPlaneSub(oInventorAssemblyDocument, oOneSourceComponentOccurrence, oOneCloneComponent, True) = False Then
+                ThisApplication.CommandManager.ControlDefinitions.Item("AppUndoCmd").Execute()
+                Exit Do
+            End If
 
             Dim oComponentCenter As Point     '组件圆心
             Dim oComponentRadius As Double    '组件半径
@@ -3417,8 +3441,12 @@ Module IamModule
 
         Loop While (True)
 
-
+        oEdgeHSet.Clear()
         oTransaction.End()
+        ThisApplication.ScreenUpdating = True
+        oInventorAssemblyDocument.Update()
+        oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+
     End Sub
 
 

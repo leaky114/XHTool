@@ -98,6 +98,10 @@ Public Class FormExplorer
     ' 当前文件夹路径
     Private strCurrentDirectory As String
 
+    '当前扩展名
+    Private strCurrentExtension As String
+
+
     ' 定义标志常量
     Private Const SHGFI_TYPENAME As Integer = &H400
 
@@ -256,7 +260,8 @@ Public Class FormExplorer
     ''' <param name="oListView">listview 文件列表</param>
     ''' <param name="oImageList">imagelist 图标</param>
     ''' <param name="oComboBox">combobox 扩展名筛选</param>
-    Public Sub LoadFolderContents(ByVal strfolderPath As String, ByVal oListView As ListView, ByVal oImageList As ImageList, ByVal oComboBox As ComboBox)
+    Public Sub LoadFolderContents(ByVal strfolderPath As String, ByVal oListView As ListView, ByVal oImageList As ImageList,
+                                  ByVal oComboBox As ComboBox， ByVal strExtension As String)
         ' 清空所有缓存和控件
         oListView.Items.Clear()
         oComboBox.Items.Clear()
@@ -274,26 +279,108 @@ Public Class FormExplorer
         Dim oDirectoryInfo As New DirectoryInfo(strfolderPath)
 
         ' 先加载文件夹
-        For Each strDir In oDirectoryInfo.GetDirectories()
+        For Each strDir As DirectoryInfo In oDirectoryInfo.GetDirectories()
             AddItemToList(strDir.FullName, True, strDir.Name, "Folder", strDir.LastWriteTime, 0, False)
         Next
 
         ' 再加载文件
-        For Each oFileInfo In oDirectoryInfo.GetFiles()
-            AddItemToList(oFileInfo.FullName, False, oFileInfo.Name, oFileInfo.Extension, oFileInfo.LastWriteTime, oFileInfo.Length, False)
+
+        For Each oFileInfo As FileInfo In oDirectoryInfo.GetFiles()
+            Dim bAddFile As Boolean = False
+
+            ' 核心过滤逻辑
+            If strExtension.ToLower() = "所有" Then
+                ' 添加所有文件
+                bAddFile = True
+            Else
+                ' 处理扩展名格式（兼容带点和不带点的情况，如 "txt" 或 ".txt"）
+                Dim targetExt As String = "." & strExtension.TrimStart("."c).ToLower()
+                Dim fileExt As String = oFileInfo.Extension.ToLower()
+
+                ' 比较扩展名
+                If fileExt = targetExt Then
+                    bAddFile = True
+                End If
+            End If
+
+
+            If bAddFile Then
+                AddItemToList(oFileInfo.FullName, False, oFileInfo.Name, oFileInfo.Extension, oFileInfo.LastWriteTime, oFileInfo.Length, False)
+            End If
         Next
 
         ' 加载排序后的扩展名
         Dim extensions = oDirectoryInfo.GetFiles().Select(Function(f) f.Extension.ToLower().Substring(1）).Distinct().OrderBy(Function(e) e).ToArray()
 
-        oComboBox.Items.Add("所有")
-        oComboBox.Items.AddRange(extensions)
-        oComboBox.SelectedIndex = 0
+            oComboBox.Items.Add("所有")
+            oComboBox.Items.AddRange(extensions)
+        'oComboBox.SelectedIndex = 0
+        oComboBox.SelectedItem = strExtension
 
         oListView.Columns.Item(0).Width = -1
-        oListView.Columns.Item(4).Width = -1
-        oListView.Columns.Item(0).Width = oListView.Columns.Item(0).Width + 20
+            oListView.Columns.Item(4).Width = -1
+            oListView.Columns.Item(0).Width = oListView.Columns.Item(0).Width + 20
 
+            文档分类ToolStripDropDownButton.DropDownItems.Clear()
+
+            For Each extension As String In extensions
+                Dim menuItem As New ToolStripMenuItem()
+                menuItem.Text = extension ' 设置文本为当前字符
+
+                ' 添加点击事件处理程序
+                AddHandler menuItem.Click, AddressOf DynamicMenuItem_Click
+
+                ' 将菜单项添加到下拉按钮中
+                文档分类ToolStripDropDownButton.DropDownItems.Add(menuItem)
+            Next
+    End Sub
+
+    ''' <summary>
+    ''' 点击事件处理程序
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub DynamicMenuItem_Click(sender As Object, e As EventArgs)
+        Dim clickedItem As ToolStripMenuItem = TryCast(sender, ToolStripMenuItem)
+        If clickedItem IsNot Nothing Then
+            Dim strExtension As String = clickedItem.Text
+            ' 这里处理点击后的逻辑，例如：
+            'MessageBox.Show($"你点击了字符：{selectedChar}")
+
+            If MessageBox.Show($"确定将扩展名为 .{strExtension} 的文件移动到子文件夹？", XHTool,
+                               MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.Cancel Then
+                Exit Sub
+            End If
+
+            Try
+                Dim strNewDirectory As String = IO.Path.Combine(strCurrentDirectory, strExtension)
+
+                CreateDirectory2(strNewDirectory)
+
+                ' 统一扩展名格式（确保带点）'
+                If Not strExtension.StartsWith(".") Then strExtension = "." & strExtension
+
+                ' 获取并移动文件'
+                Dim files As IEnumerable(Of String) = Directory.EnumerateFiles(strCurrentDirectory, "*" & strExtension, IO.SearchOption.TopDirectoryOnly)
+
+                For Each filePath In files
+                    Dim destPath As String = Path.Combine(strNewDirectory, Path.GetFileName(filePath))
+
+                    File.Move(filePath, destPath)
+                Next
+
+                刷新ToolStripMenuItem_Click(sender, e)
+
+            Catch ex As DirectoryNotFoundException
+                MessageBox.Show($"错误：源文件夹不存在 {strCurrentDirectory}")
+            Catch ex As UnauthorizedAccessException
+                MessageBox.Show("错误：没有操作权限")
+            Catch ex As IOException
+                MessageBox.Show($"IO错误：{ex.Message}")
+            Catch ex As Exception
+                MessageBox.Show($"意外错误：{ex.Message}")
+            End Try
+        End If
     End Sub
 
     ''' <summary>
@@ -561,6 +648,7 @@ Public Class FormExplorer
         永久删除ToolStripMenuItem.Image = My.Resources.删除16.ToBitmap
         插入ToolStripButton.Image = My.Resources.插入16.ToBitmap
         旧版ToolStripDropDownButton.Image = My.Resources.还原旧版文件16.ToBitmap
+        文档分类ToolStripDropDownButton.Image = My.Resources.分类16.ToBitmap
         Btn向上.Image = My.Resources.向上16.ToBitmap
         Btn搜索.Image = My.Resources.查询16.ToBitmap
         Btn过滤.Image = My.Resources.过滤16.ToBitmap
@@ -601,10 +689,14 @@ Public Class FormExplorer
 
         End If
 
+        strCurrentExtension = “所有”
+
         Dim strFilter As String = Cmb过滤.Text
 
         If Directory.Exists(strCurrentDirectory) Then
-            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+
+            '架装文件夹内容
+            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤， strCurrentExtension)
 
             '加载父文件夹到 Cmb当前文件夹 
             AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
@@ -631,8 +723,9 @@ Public Class FormExplorer
             strCurrentDirectory = strParentDirectory
         End If
 
-        Dim strFilter As String = Cmb过滤.Text
-        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+        strCurrentExtension = "所有"
+
+        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
         Cmb当前文件夹.Text = strCurrentDirectory
     End Sub
 
@@ -645,7 +738,9 @@ Public Class FormExplorer
             strCurrentDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
         End If
 
-        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+        strCurrentExtension = "所有"
+
+        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
 
         '加载父文件夹到 Cmb当前文件夹 
         AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
@@ -683,7 +778,7 @@ Public Class FormExplorer
         Try
             Directory.CreateDirectory(newFolderPath)
             Dim strFilter As String = Cmb过滤.Text
-            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -705,7 +800,7 @@ Public Class FormExplorer
                 strCurrentDirectory = strSelectPath
 
                 Dim strFilter As String = Cmb过滤.Text
-                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
                 Cmb当前文件夹.Text = strCurrentDirectory
 
                 '加载父文件夹到 Cmb当前文件夹 
@@ -778,14 +873,15 @@ Public Class FormExplorer
 
             LoadFolderAllContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
 
-            FilterListView(Txt搜索栏.Text, Cmb过滤.Text)
+            FilterListView(Txt搜索栏.Text, strCurrentExtension)
 
             状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
         End If
     End Sub
 
     Private Sub Cmb过滤_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmb过滤.SelectedIndexChanged
-        FilterListView(Txt过滤栏.Text, Cmb过滤.Text)
+        strCurrentExtension = Cmb过滤.Text
+        FilterListView(Txt过滤栏.Text, strCurrentExtension)
         状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
@@ -795,7 +891,7 @@ Public Class FormExplorer
             strCurrentDirectory = Cmb当前文件夹.Text.Trim()
 
             If Directory.Exists(strCurrentDirectory) Then
-                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+                LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
 
                 '加载父文件夹到 Cmb当前文件夹 
                 AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
@@ -809,7 +905,10 @@ Public Class FormExplorer
         strCurrentDirectory = Cmb当前文件夹.SelectedItem.ToString
 
         If Directory.Exists(strCurrentDirectory) Then
-            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+
+            strCurrentExtension = "所有"
+
+            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
 
             '加载父文件夹到 Cmb当前文件夹 
             AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
@@ -1027,7 +1126,9 @@ Public Class FormExplorer
 
         End If
 
-        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+        strCurrentExtension = "所有"
+
+        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
 
         '加载父文件夹到 Cmb当前文件夹 
         AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
@@ -1049,14 +1150,26 @@ Public Class FormExplorer
 
             ElseIf File.Exists(strSelectPath) Then
                 Try
-                    If MessageBox.Show("确定将文件：" & strSelectPath & " 设置为旧版？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) _
-                        = DialogResult.No Then
+                    If MessageBox.Show($"确定将文件：{strSelectPath}设置为旧版？", XHTool,
+                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
                         Exit Sub
                     End If
 
                     Dim stroldFileName As String = Path.Combine(strCurrentDirectory, oListViewItem.Text & ".old")
-                    Rename(strSelectPath, stroldFileName)
-                    LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+
+                    If IsFileExists(stroldFileName) = True Then
+                        Dim msg As DialogResult = MessageBox.Show($“存在文件：{stroldFileName},是否覆盖？“, XHTool,
+                                                                  MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                        If msg = DialogResult.OK Then
+                            Rename(strSelectPath, stroldFileName)
+                            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
+                        End If
+
+                    Else
+                        Rename(strSelectPath, stroldFileName)
+                        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
+                    End If
+
                 Catch ex As Exception
                     MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
@@ -1085,9 +1198,20 @@ Public Class FormExplorer
                     End If
 
                     Dim stroldFileName As String = Strings.Left(strSelectPath, Strings.Len(strSelectPath) - 4)
-                    Rename(strSelectPath, stroldFileName)
-                    LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
 
+
+                    If IsFileExists(stroldFileName) = True Then
+                        Dim msg As DialogResult = MessageBox.Show($“存在文件：{stroldFileName},是否覆盖？“, XHTool,
+                                                                  MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                        If msg = DialogResult.OK Then
+                            Rename(strSelectPath, stroldFileName)
+                            LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
+                        End If
+
+                    Else
+                        Rename(strSelectPath, stroldFileName)
+                        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
+                    End If
                 Catch ex As Exception
                     MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
@@ -1231,7 +1355,7 @@ Public Class FormExplorer
     End Sub
 
     Private Sub 刷新ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 刷新ToolStripMenuItem.Click
-        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤)
+        LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤, strCurrentExtension)
         AddFolderPathToComboBox(strCurrentDirectory， Cmb当前文件夹)
 
         Cmb当前文件夹.SelectedIndex = 0
@@ -1282,4 +1406,7 @@ Public Class FormExplorer
         End If
     End Sub
 
+    Private Sub FormExplorer_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        FormManager.CloseAndDisposeForm(Of FormExplorer)()
+    End Sub
 End Class

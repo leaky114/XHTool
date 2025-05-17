@@ -62,7 +62,7 @@ Partial Class formBatchiPoperties
         'btn确定
         '
         Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn确定.Location = New System.Drawing.Point(327, 460)
+        Me.btn确定.Location = New System.Drawing.Point(372, 345)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(70, 28)
         Me.btn确定.TabIndex = 2
@@ -72,7 +72,7 @@ Partial Class formBatchiPoperties
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(405, 460)
+        Me.btn关闭.Location = New System.Drawing.Point(450, 345)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(70, 28)
         Me.btn关闭.TabIndex = 3
@@ -81,7 +81,7 @@ Partial Class formBatchiPoperties
         'btn添加文件
         '
         Me.btn添加文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn添加文件.Location = New System.Drawing.Point(266, 318)
+        Me.btn添加文件.Location = New System.Drawing.Point(266, 203)
         Me.btn添加文件.Name = "btn添加文件"
         Me.btn添加文件.Size = New System.Drawing.Size(91, 28)
         Me.btn添加文件.TabIndex = 0
@@ -91,7 +91,7 @@ Partial Class formBatchiPoperties
         'btn清空列表
         '
         Me.btn清空列表.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn清空列表.Location = New System.Drawing.Point(389, 358)
+        Me.btn清空列表.Location = New System.Drawing.Point(389, 243)
         Me.btn清空列表.Name = "btn清空列表"
         Me.btn清空列表.Size = New System.Drawing.Size(70, 28)
         Me.btn清空列表.TabIndex = 1
@@ -263,7 +263,7 @@ Partial Class formBatchiPoperties
         Me.tab1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.tab1.Controls.Add(Me.tp项目)
         Me.tab1.Controls.Add(Me.tp自定义)
-        Me.tab1.Location = New System.Drawing.Point(12, 316)
+        Me.tab1.Location = New System.Drawing.Point(12, 201)
         Me.tab1.Name = "tab1"
         Me.tab1.SelectedIndex = 0
         Me.tab1.Size = New System.Drawing.Size(248, 172)
@@ -283,7 +283,7 @@ Partial Class formBatchiPoperties
         Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
-        Me.lvw文件列表.Size = New System.Drawing.Size(461, 286)
+        Me.lvw文件列表.Size = New System.Drawing.Size(506, 171)
         Me.lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvw文件列表.TabIndex = 37
         Me.lvw文件列表.UseCompatibleStateImageBehavior = False
@@ -321,7 +321,7 @@ Partial Class formBatchiPoperties
         'btn导入已打开文件
         '
         Me.btn导入已打开文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn导入已打开文件.Location = New System.Drawing.Point(266, 358)
+        Me.btn导入已打开文件.Location = New System.Drawing.Point(266, 243)
         Me.btn导入已打开文件.Name = "btn导入已打开文件"
         Me.btn导入已打开文件.Size = New System.Drawing.Size(103, 28)
         Me.btn导入已打开文件.TabIndex = 41
@@ -331,7 +331,7 @@ Partial Class formBatchiPoperties
         'btn添加文件夹
         '
         Me.btn添加文件夹.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn添加文件夹.Location = New System.Drawing.Point(368, 318)
+        Me.btn添加文件夹.Location = New System.Drawing.Point(368, 203)
         Me.btn添加文件夹.Name = "btn添加文件夹"
         Me.btn添加文件夹.Size = New System.Drawing.Size(91, 28)
         Me.btn添加文件夹.TabIndex = 39
@@ -340,8 +340,9 @@ Partial Class formBatchiPoperties
         '
         'chk删除自定义
         '
+        Me.chk删除自定义.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chk删除自定义.AutoSize = True
-        Me.chk删除自定义.Location = New System.Drawing.Point(267, 401)
+        Me.chk删除自定义.Location = New System.Drawing.Point(267, 282)
         Me.chk删除自定义.Name = "chk删除自定义"
         Me.chk删除自定义.Size = New System.Drawing.Size(84, 16)
         Me.chk删除自定义.TabIndex = 42
@@ -353,7 +354,7 @@ Partial Class formBatchiPoperties
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(485, 500)
+        Me.ClientSize = New System.Drawing.Size(530, 385)
         Me.Controls.Add(Me.chk删除自定义)
         Me.Controls.Add(Me.btn导入已打开文件)
         Me.Controls.Add(Me.btn添加文件夹)

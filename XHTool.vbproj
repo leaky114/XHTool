@@ -206,6 +206,12 @@
     <Compile Include="Form\FormExplorer.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\FormFaceColoring.Designer.vb">
+      <DependentUpon>FormFaceColoring.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormFaceColoring.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\FormFlatPattern.Designer.vb">
       <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </Compile>
@@ -240,6 +246,12 @@
       <DependentUpon>formNetTool.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\formNetTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormOilBlockHoleColoring.Designer.vb">
+      <DependentUpon>FormOilBlockHoleColoring.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormOilBlockHoleColoring.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormPaint.Designer.vb">
@@ -360,6 +372,7 @@
     <Compile Include="Module\BiaoQingBao.vb" />
     <Compile Include="Module\BrowserNodes.vb" />
     <Compile Include="Module\Calc.vb" />
+    <Compile Include="Module\Colors.vb" />
     <Compile Include="Module\excelcode.vb" />
     <Compile Include="Module\IamModule.vb" />
     <Compile Include="Module\IdwBalloon.vb" />
@@ -430,6 +443,9 @@
     <EmbeddedResource Include="Form\FormExplorer.resx">
       <DependentUpon>FormExplorer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormFaceColoring.resx">
+      <DependentUpon>FormFaceColoring.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FormFlatPattern.resx">
       <DependentUpon>FormFlatPattern.vb</DependentUpon>
     </EmbeddedResource>
@@ -448,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormNetTool.resx">
       <DependentUpon>formNetTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormOilBlockHoleColoring.resx">
+      <DependentUpon>FormOilBlockHoleColoring.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormPaint.resx">
       <DependentUpon>FormPaint.vb</DependentUpon>
@@ -738,6 +757,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
+    <None Include="Resources\面着色32.ico" />
+    <None Include="Resources\面着色16.ico" />
+    <None Include="Resources\选择实体16.ICO" />
+    <None Include="Resources\选择特征16.ICO" />
     <None Include="Resources\面16.ico" />
     <None Include="Resources\面32.ICO" />
     <None Include="Resources\清理冗余16.ico" />
@@ -749,6 +772,10 @@
     <None Include="Resources\实体32.ico" />
     <None Include="Resources\修改序号16.ico" />
     <None Include="Resources\修改序号32.ico" />
+    <None Include="Resources\分类32.ico" />
+    <None Include="Resources\分类16.ico" />
+    <None Include="Resources\孔颜色16.ico" />
+    <None Include="Resources\孔颜色32.ico" />
     <Content Include="Resources\过滤16.ico" />
     <Content Include="Resources\过滤32.ico" />
     <None Include="Resources\新建文件夹16.ICO" />

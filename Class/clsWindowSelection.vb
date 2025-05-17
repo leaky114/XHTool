@@ -19,8 +19,8 @@ Public Class ClsWindowSelection
         bTooltipEnabled = ThisApplication.GeneralOptions.ShowCommandPromptTooltips
         ThisApplication.GeneralOptions.ShowCommandPromptTooltips = True
 
-        oInteractEvents.StatusBarText = "选择组件，CTRL键取消选择，ESC键完成。"
-        oInteractEvents.Start()
+        OInteractEvents.StatusBarText = "选择组件，ESC键完成。"
+        OInteractEvents.Start()
         While stillSelecting
             ThisApplication.UserInterfaceManager.DoEvents()
         End While

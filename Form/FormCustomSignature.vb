@@ -25,7 +25,11 @@ Public Class FormCustomSignature
 
             Dim strPrintDate As String
 
-            strPrintDate = dtp日期.Value.Date.Year & "." & dtp日期.Value.Date.Month & "." & dtp日期.Value.Date.Day
+            If IsShortData = 1 Then
+                strPrintDate = Strings.Mid(dtp日期.Value.Year, 3, 2) & "." & dtp日期.Value.Month & "." & dtp日期.Value.Day
+            Else
+                strPrintDate = dtp日期.Value.Year & "." & dtp日期.Value.Month & "." & dtp日期.Value.Day
+            End If
 
             Select Case chk签字后打印.Checked
                 Case True

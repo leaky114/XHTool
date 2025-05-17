@@ -883,4 +883,28 @@
   <data name="修改序号32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\修改序号32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="分类16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\分类16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="分类32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\分类32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="孔颜色16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\孔颜色16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="孔颜色32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\孔颜色32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="选择实体16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择实体16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="选择特征16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择特征16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="面着色16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\面着色16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="面着色32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\面着色32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

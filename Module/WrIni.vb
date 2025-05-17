@@ -43,6 +43,7 @@
         ini.WriteStrINI("打印", "IsOpenPrint", IsOpenPrint, IniFile)
         ini.WriteStrINI("打印", "EngineerName", EngineerName, IniFile)
         ini.WriteStrINI("打印", "IsDayAndName", IsDayAndName, IniFile)
+        ini.WriteStrINI("打印", "短日期", IsShortData, IniFile)
         ini.WriteStrINI("打印", "Printer", Printer, IniFile)
         ini.WriteStrINI("打印", "IsPaperA3", IsPaperA3, IniFile)
         ini.WriteStrINI("打印", "IsSign", IsSign, IniFile)
@@ -97,6 +98,7 @@
         ini.WriteStrINI("工程图", "钣金厚度检查", str钣金厚度检查, IniFile)
         ini.WriteStrINI("工程图", "钣金厚度前缀", str钣金厚度前缀, IniFile)
         ini.WriteStrINI("工程图", "逆时针序号", str逆时针序号, IniFile)
+        ini.WriteStrINI("工程图", "强制横向", str强制横向, IniFile)
 
         ini.WriteStrINI("主题", "大图标", strLargeSmallIconSets, IniFile)
 
@@ -150,8 +152,9 @@
         Map_PrintDay = ini.GetStrFromINI("打印", "MapPrintDay", "打印日期", Inifile)
         IsOpenPrint = ini.GetStrFromINI("打印", "IsOpenPrint", "-1", Inifile)
         EngineerName = ini.GetStrFromINI("打印", "EngineerName", "", Inifile)
-        IsDayAndName = ini.GetStrFromINI("打印", "IsDayAndName", "-1", Inifile)
-        Printer = ini.GetStrFromINI("打印", "Printer", "", Inifile)
+        IsDayAndName = ini.GetStrFromINI("打印", "IsDayAndName", "-1", IniFile)
+        IsShortData = ini.GetStrFromINI("打印", "短日期 ", "1", IniFile)
+        Printer = ini.GetStrFromINI("打印", "Printer", "", IniFile)
         IsPaperA3 = ini.GetStrFromINI("打印", "IsPaperA3", "1", Inifile)
         IsSign = ini.GetStrFromINI("打印", "IsSign", "1", Inifile)
         SaveAsDawAndPdf = ini.GetStrFromINI("打印", "SaveAsDwgPdf", "不另存", Inifile)
@@ -209,6 +212,7 @@
         str钣金厚度检查 = ini.GetStrFromINI("工程图", "钣金厚度检查", "-1", IniFile)
         str钣金厚度前缀 = ini.GetStrFromINI("工程图", "钣金厚度前缀", "钢板,steel", IniFile)
         str逆时针序号 = ini.GetStrFromINI("工程图", "逆时针序号", "1", IniFile)
+        str强制横向 = ini.GetStrFromINI("工程图", "强制横向", "-1", IniFile)
 
         int每行数量 = ini.GetStrFromINI("切换文档", "每行数量", "8", Inifile)
         int图框宽度 = ini.GetStrFromINI("切换文档", "图框宽度", "160", Inifile)

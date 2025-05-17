@@ -23,7 +23,6 @@ Public Class FormBatchPrint
             Exit Sub
         End If
 
-        ThisApplication.UserInterfaceManager.DoEvents()
         Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         OInteractionEvents.Start()
         OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
@@ -89,7 +88,13 @@ Public Class FormBatchPrint
 
             '设置签字
             Dim strPrintDate As String
-            strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
+
+            If IsShortData = 1 Then
+                strPrintDate = Strings.Mid(Today.Year, 3, 2) & "." & Today.Month & "." & Today.Day
+            Else
+                strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
+            End If
+
             If chk签字.Checked = True Then
                 SetSign(oInventorDrawingDocument, EngineerName, strPrintDate, False)
             End If

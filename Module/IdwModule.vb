@@ -1058,11 +1058,15 @@ Module IdwModule
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-            Dim strPrint_Day As String
+            Dim strPrintDate As String
 
-            strPrint_Day = Today.Year & "." & Today.Month & "." & Today.Day
+            If IsShortData = 1 Then
+                strPrintDate = Strings.Mid(Today.Year, 3, 2) & "." & Today.Month & "." & Today.Day
+            Else
+                strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
+            End If
 
-            If SetSign(oInventorDrawingDocument, EngineerName, strPrint_Day, True) Then
+            If SetSign(oInventorDrawingDocument, EngineerName, strPrintDate, True) Then
                 SetStatusBarText("设置工程图属性：签字完成")
             Else
                 SetStatusBarText(XHTool)
@@ -1254,7 +1258,13 @@ Module IdwModule
 
             '设置签字
             Dim strPrintDate As String
-            strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
+
+            If IsShortData = 1 Then
+                strPrintDate = Strings.Mid(Today.Year, 3, 2) & "." & Today.Month & "." & Today.Day
+            Else
+                strPrintDate = Today.Year & "." & Today.Month & "." & Today.Day
+            End If
+
             If IsSign = 1 Then
                 SetSign(oInventorDrawingDocument, EngineerName, strPrintDate, False)
             End If
@@ -1379,8 +1389,11 @@ Module IdwModule
         End If
 
         Dim strInventorDrawingFolder As String = Nothing
-        Select Case MessageBox.Show("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", XHTool，
+
+        Dim msg As DialogResult = MessageBox.Show("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", XHTool，
                                     MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question, MessageBoxDefaultButton.Button1）
+
+        Select Case msg
             Case DialogResult.Yes
                 Dim oFolderBrowserDialog As New FolderBrowserDialog
 
@@ -1784,106 +1797,17 @@ Module IdwModule
 
             str工程图模板 = oFileList.Item(0).ToString
             ini.WriteStrINI("工程图", "工程图模板", str工程图模板, IniFile)
-
-
         End If
 
         Dim strInventorDrawingFolder As String = "当前文件夹"
 
-        'Select Case  MessageBox.Show("是否指定保存工程图文件夹？不指定则保存到当前文件夹。", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
-        '    Case MsgBoxResult.Yes
-        '        Dim oFolderBrowserDialog As New FolderBrowserDialog
-
-        '        With oFolderBrowserDialog
-        '            .ShowNewFolderButton = False
-        '            .Description = "选择文件夹"
-        '            .RootFolder = System.Environment.SpecialFolder.Desktop
-        '            if .ShowDialog = DialogResult.OK Then
-        '                strInventorDrawingFolder = .SelectedPath
-        '            Else
-        '                Exit Sub
-        '            End if
-        '        End With
-
-        '    Case MsgBoxResult.No
-        'strInventorDrawingFolder = "当前文件夹"
-        '    Case MsgBoxResult.Cancel
-        'Exit Sub
-        'End Select
-
-
         Dim IsClose As Boolean = False
-
-        'Select Case  MessageBox.Show("创建工程图后是否关闭？", MsgBoxStyle.YesNoCancel + MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2)
-        '    Case MsgBoxResult.Yes
-        '        IsClose = True
-        '    Case MsgBoxResult.No
-        '        IsClose = False
-        '    Case MsgBoxResult.Cancel
-        '        Exit Sub
-        'End Select
 
         Select Case oInventorDocument.DocumentType
             Case kAssemblyDocumentObject
                 oInventorAssemblyDocument = oInventorDocument
 
                 CreatNewDrawingDocumentSub(oInventorAssemblyDocument, str工程图模板, strInventorDrawingFolder, IsClose)
-
-                '==============================================================================================
-                '基于bom结构化数据，可跳过参考的文件
-                ' Set a reference to the BOM
-                '                Dim oBOM As BOM
-                '                oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
-                '                oBOM.StructuredViewEnabled = True
-                '                oBOM.StructuredViewFirstLevelOnly = False
-
-                '                'Set a reference to the "Structured" BOMView
-                '                Dim oBOMView As BOMView
-
-                '                '获取结构化的bom页面
-                '                For Each oBOMView In oBOM.BOMViews
-                '                    if oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
-                '                        '遍历这个bom页面
-                '                        Dim i As Integer
-
-                '                        Dim intStepCount As Integer
-                '                        intStepCount = oBOMView.BOMRows.Count
-
-                '                        For i = 1 To intStepCount
-                '                            ' Get the current row.
-                '                            Dim oBOMRow As BOMRow
-                '                            oBOMRow = oBOMView.BOMRows.Item(i)
-
-                '                            Dim strFullFileName As String
-                '                            strFullFileName = oBOMRow.ReferencedFileDescriptor.FullFileName
-
-                '                            '测试文件
-                '                            Debug.Print(strFullFileName)
-
-                '                            ' Set the message for the progress bar
-                '                            'oProgressBar.Message = oFullFileName
-
-                '                            if IsFileExists(strFullFileName) = False Then   '跳过不存在的文件
-                '                                GoTo 999
-                '                            End if
-
-                '                            if InStr(strFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
-                '                                GoTo 999
-                '                            End if
-
-                '                            if oBOMRow.ReferencedFileDescriptor.ReferencedFileType = FileTypeEnum.kPartFileType Then
-
-                '                                'oInventorPartDocument = ThisApplication.Documents.Open(strFullFileName, False)  '打开文件，不显示
-
-                '                                oInventorPartDocument = ThisApplication.Documents.ItemByName(strFullFileName)
-                '                                CreateIdwSub(oInventorPartDocument, strBasicIdwFileFullName, strInventorDrawingFolder, IsClose)
-                '                            End if
-                '999:
-                '                        Next
-                '                    End if
-                '                Next
-                '                 MessageBox.Show("批量生成工程图完成。", MsgBoxStyle.Information)
-
             Case kPartDocumentObject
                 oInventorPartDocument = oInventorDocument
                 CreatNewDrawingDocumentSub(oInventorPartDocument, str工程图模板, strInventorDrawingFolder, IsClose)
@@ -2056,20 +1980,24 @@ Module IdwModule
         '根据宽比高，大于2为A3，否则为A4
 
         Select Case douDrawingViewWidthDividedHeight
-            Case Is > 2         '设置为a3，横向
-                If MessageBox.Show("是否将图框设置为 A3-横向？", XHTool，
-                                   MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then   '询问是否将图框改为横向
-                    oSheet.Size = DrawingSheetSizeEnum.kA3DrawingSheetSize
-                    oSheet.Orientation = PageOrientationTypeEnum.kLandscapePageOrientation
-                Else
+                Case Is > 2         '设置为a3，横向
+                    If MessageBox.Show("是否将图框设置为 A3-横向？", XHTool，
+                                       MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then   '询问是否将图框改为横向
+                        oSheet.Size = DrawingSheetSizeEnum.kA3DrawingSheetSize
+                        oSheet.Orientation = PageOrientationTypeEnum.kLandscapePageOrientation
+                    Else
+                        oSheet.Size = DrawingSheetSizeEnum.kA4DrawingSheetSize
+                        oSheet.Orientation = PageOrientationTypeEnum.kPortraitPageOrientation
+                    End If
+                Case Else
                     oSheet.Size = DrawingSheetSizeEnum.kA4DrawingSheetSize
                     oSheet.Orientation = PageOrientationTypeEnum.kPortraitPageOrientation
-                End If
-            Case Else
-                oSheet.Size = DrawingSheetSizeEnum.kA4DrawingSheetSize
-                oSheet.Orientation = PageOrientationTypeEnum.kPortraitPageOrientation
+            End Select
 
-        End Select
+        '强制横向
+        If str强制横向 = 1 Then
+            oSheet.Orientation = PageOrientationTypeEnum.kLandscapePageOrientation
+        End If
 
 
         '根据页面A3或A4设置图框内宽
@@ -2197,8 +2125,11 @@ Module IdwModule
 
         '保存工程图
         If IsFileExists(strInventorDrawingDocumentFullFileName) = True Then
-            Select Case MessageBox.Show("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", XHTool，
+
+            Dim msg As DialogResult = MessageBox.Show("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", XHTool，
                                          MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+            Select Case msg
+
                 Case DialogResult.Yes
                     'DelFile(strInventorDrawingDocumentFullFileName, FileIO.RecycleOption.SendToRecycleBin)
                     oInventorDrawingDocument.SaveAs(strInventorDrawingDocumentFullFileName, False)

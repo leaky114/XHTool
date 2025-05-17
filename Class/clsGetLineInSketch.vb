@@ -112,6 +112,7 @@ Public Class ClsGetLineInSketch
         2 * oCenterPoint.X - oStartPoint.X,
         2 * oCenterPoint.Y - oStartPoint.Y, 0)
 
+
         DrawPreviewLine()
 
 

@@ -48,12 +48,12 @@ Module IdwBalloon
             oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
             If oActiveSheet.Balloons.Count = 0 Then
-                MessageBox.Show("该工程图无序号，请添加【序号】。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无序号，请添加【序号】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Function
             End If
 
             If oActiveSheet.PartsLists.Count = 0 Then
-                MessageBox.Show("该工程图无明细表，请插入一个【明细表】。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无明细表，请插入一个【明细表】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
                 Exit Function
             End If
 
@@ -68,6 +68,7 @@ Module IdwBalloon
             Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
             OInteractionEvents.Start()
             OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+
 
             '新建颜色
             Dim oColor As Color
@@ -92,21 +93,23 @@ Module IdwBalloon
 
             'ThisApplication.ScreenUpdating = True
 
-            'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+            OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
             OInteractionEvents.Stop()
 
             oTransaction.End() '事务结束，完成修改操作
 
             If Strings.Len(strList) > 1 Then
-                MessageBox.Show("明细表：" & strList & " 无序号。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("明细表：" & strList & " 无序号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
             Else
                 MessageBox.Show("检查序号完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
             End If
 
 
         Catch ex As Exception
-               MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+
+
 
         'Return True
     End Function

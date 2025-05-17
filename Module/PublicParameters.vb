@@ -97,6 +97,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     Public Map_PrintDay As String '映射打印时间
     Public IsOpenPrint As String    '设置打印时间后是否进入打印预览
     Public IsDayAndName As String   '同时签字
+    Public IsShortData As String   '短日期
 
     Public EngineerName As String '工程师
 
@@ -207,6 +208,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
     Public str另存到子文件夹 As String
     Public str逆时针序号 As String
+    Public str强制横向 As String
 
     Public int每行数量 As Integer = 8  ' 设置每行的数量
     Public int图框宽度 As Integer = 160  ' 设置每个PictureBox的宽度

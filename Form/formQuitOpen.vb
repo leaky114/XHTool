@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms
+Imports Inventor
 
 Public Class FormQuitOpen
 
@@ -43,6 +44,29 @@ Public Class FormQuitOpen
     Private Sub FrmQuitOpen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         SetWindowSizeAndCenter(Me, 0.5, 0.32)
+    End Sub
+
+    Private Sub 插入文件_Click(sender As Object, e As EventArgs) Handles btn插入文件.Click
+
+        If lvw文件列表.SelectedItems.Count = 0 Then Return
+
+        Dim strSelectPath = lvw文件列表.SelectedItems(0).Text
+
+        Select Case GetFileExtensionLCase(strSelectPath)
+            Case IAM, IPT
+                If ThisApplication.ActiveDocumentType <> Inventor.DocumentTypeEnum.kAssemblyDocumentObject Then
+                    Exit Sub
+                End If
+
+                If ThisApplication.ActiveDocument.FullDocumentName = strSelectPath Then
+                    Exit Sub
+                End If
+
+                ThisApplication.CommandManager.PostPrivateEvent(Inventor.PrivateEventTypeEnum.kFileNameEvent, strSelectPath)
+                ThisApplication.CommandManager.ControlDefinitions.Item("AssemblyPlaceComponentCmd").Execute()
+
+        End Select
+
     End Sub
 
 

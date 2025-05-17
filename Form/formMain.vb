@@ -14,8 +14,7 @@ Imports System.Collections.ObjectModel
 Imports System.Runtime.InteropServices
 Imports System.Diagnostics
 Imports System.Net
-
-
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class FormMain
 
@@ -330,12 +329,12 @@ Public Class FormMain
     'frmSwitchLables.Show()
 
 
+
+
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
 
 
-
-
-
+        FormFaceColoringShow()
 
 
         'CheckDrawingDocumentNameToReferencedDocument(ThisApplication.ActiveDocument)
@@ -437,8 +436,7 @@ Public Class FormMain
     End Sub
 
     Private Sub Frmain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Me.Dispose()
-        End
+        Windows.Forms.Application.Exit()
     End Sub
 
     Private Sub Frmain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -728,7 +726,7 @@ Public Class FormMain
                 SetStatusBarText(XHTool)
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -1105,14 +1103,55 @@ Public Class FormMain
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Dim oSelectObject = ThisApplication.ActiveDocument.SelectSet(1)
 
-        Dim strTypeName As String = TypeName(oSelectObject)
+        If ThisApplication.ActiveDocument.SelectSet.Count = 0 Then
+            Exit Sub
+        End If
+
+        Dim oSelectObject = ThisApplication.ActiveDocument.SelectSet(1)
+        Dim strTypeName As String
+        strTypeName = TypeName(oSelectObject)
 
         Debug.Print(strTypeName)
-         MessageBox.Show(strTypeName)
+        MessageBox.Show(strTypeName)
+
+        Select Case strTypeName
+            Case "Face"
+                Dim oface As Face = CType(oSelectObject, Face)
+
+                Try
+                    Dim oThreadInfo As ThreadInfo
+                    oThreadInfo = oface.ThreadInfos.Item(1)
+                    MessageBox.Show(oThreadInfo.NominalSize)
+
+                    Exit Sub
+                Catch
+
+                End Try
 
 
+                If oface.SurfaceType = SurfaceTypeEnum.kCylinderSurface Then
+
+                    For Each oedge As Edge In oface.Edges
+                        If FourFive(oedge.StartVertex.Point.X - oedge.StopVertex.Point.X, 4) = 0 And FourFive(oedge.StartVertex.Point.Y - oedge.StopVertex.Point.Y, 4) = 0 And FourFive(oedge.StartVertex.Point.Z - oedge.StopVertex.Point.Z, 4) = 0 Then
+                            Try
+                                Dim Cyl As Cylinder = oface.Geometry
+                                Dim CylRadius As Double = Cyl.Radius
+                                MessageBox.Show(CylRadius)
+                                Exit For
+                            Catch
+
+                            End Try
+                        End If
+                    Next
+                End If
+
+            Case "Edge"
+                Dim oEdge As Edge = CType(oSelectObject, Edge)
+
+
+
+        End Select
 
     End Sub
 
@@ -1145,7 +1184,7 @@ Public Class FormMain
     End Sub
 
     Public Sub TestGetDrawingPoint()
-        Dim getPoint As New clsGetPoint
+        Dim getPoint As New ClsGetPoint
         Dim pnt1 As Point2d
         Dim pnt2 As Point2d
         Do
@@ -1172,7 +1211,7 @@ Public Class FormMain
                     ElseIf hor_Alignment = "R" Then
                         pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X + lineLen, pnt1.Y)
                     Else
-                         MessageBox.Show("Invalid entry for horizantal alignment")
+                        MessageBox.Show("Invalid entry for horizantal alignment")
                     End If
                 ElseIf line_orientation = "V" Then
                     ver_Alignment = InputBox("Type U(Upward) or D(Downward)")
@@ -1183,10 +1222,10 @@ Public Class FormMain
                     ElseIf ver_Alignment = "D" Then
                         pnt2 = ThisApplication.TransientGeometry.CreatePoint2d(pnt1.X, pnt1.Y - lineLen)
                     Else
-                         MessageBox.Show("Invalid entry for vertical alignment")
+                        MessageBox.Show("Invalid entry for vertical alignment")
                     End If
                 Else
-                     MessageBox.Show("Invalid Entry for line orientation")
+                    MessageBox.Show("Invalid Entry for line orientation")
                 End If
 
 
@@ -1219,5 +1258,13 @@ Public Class FormMain
 
     Private Sub 批量BOM命名ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 批量BOM命名ToolStripMenuItem.Click
         FormiPropertyToFileNameShow()
+    End Sub
+
+    Private Sub 设置孔颜色ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置孔颜色ToolStripMenuItem.Click
+        SameDiameterHoleColoring（）
+    End Sub
+
+    Private Sub 油路块着色ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 油路块着色ToolStripMenuItem.Click
+        FormOilBlockHoleColoringShow()
     End Sub
 End Class

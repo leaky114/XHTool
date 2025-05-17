@@ -76,18 +76,19 @@ Public Class FormOption
         str去除后缀表 = txt去除后缀.Text
 
         str模型匹配检查 = IIf(chk模型匹配检查.Checked, "1", "-1")
+        str逆时针序号 = IIf(chk逆时针序号.Checked, "1", "-1")
+        str强制横向 = IIf(chk强制横向.Checked, "1", "-1")
+
         str钣金厚度检查 = IIf(chk钣金厚度检查.Checked, "1", "-1")
         str钣金厚度前缀 = txt钣金厚度前缀.Text
-        str逆时针序号 = IIf(chk逆时针序号.Checked, "1", "-1")
-
 
         '打印签字
         IsOpenPrint = IIf(chk签字后打印.Checked, "1", "-1")
 
-
         '同时签字
         IsDayAndName = IIf(chk同时签字.Checked, "1", "-1")
 
+        IsShortData = IIf(chk短日期.Checked, "1"， “-1")
 
         '打开工程图时写入
 
@@ -326,10 +327,8 @@ Public Class FormOption
 
 
         chk签字后打印.Checked = IIf(IsOpenPrint = "1", True, False)
-
         chk同时签字.Checked = IIf(IsDayAndName = "1", True, False)
-
-        'chk保存比例.Checked = IIf(IsSetDrawingScale = "1", True, False)
+        chk短日期.Checked = IIf(IsShortData = "1", True, False)
 
         'chk保存质量.Checked = IIf(IsSetMass = "1", True, False)
 
@@ -346,9 +345,12 @@ Public Class FormOption
         txt去除后缀.Text = str去除后缀表
 
         chk模型匹配检查.Checked = IIf(str模型匹配检查 = "1", True, False)
+        chk逆时针序号.Checked = IIf(str逆时针序号 = "1", True, False)
+        chk强制横向.Checked = IIf(str强制横向 = "1", True, False)
+
+
         chk钣金厚度检查.Checked = IIf(str钣金厚度检查 = "1", True, False)
         txt钣金厚度前缀.Text = str钣金厚度前缀
-        chk逆时针序号.Checked = IIf(str逆时针序号 = "1", True, False)
 
 
         '默认打印机
@@ -441,6 +443,8 @@ Public Class FormOption
         toolTip.SetToolTip(lbl标记孔径上限, "标记螺纹的最大值，保留2位小数")
         toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致，在列表中添加材质")
         toolTip.SetToolTip(lvw设置图标大小, "双击列表行切换图标大小")
+        toolTip.SetToolTip(chk强制横向, "强制生成的工程图图框为横向")
+
 
         btn选择erp数据库.Image = My.Resources.打开文件16.ToBitmap
         btn选择工程图模板.Image = My.Resources.打开文件16.ToBitmap

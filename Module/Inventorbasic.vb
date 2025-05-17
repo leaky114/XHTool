@@ -92,6 +92,7 @@ Module InventorBasic
             Dim frmQuitOpen As New formQuitOpen
             frmQuitOpen.lvw文件列表.CheckBoxes = True
             frmQuitOpen.btn多选打开.Visible = True
+            frmQuitOpen.btn插入文件.Visible = True
 
             For Each strFullFileName In arrayFullFileName
                 If Strings.InStr(strFullFileName, "OldVersions") = 0 Then
@@ -296,8 +297,10 @@ Module InventorBasic
         End If
 
         Dim intDeleteRecycleOption As Integer
-        Select Case MessageBox.Show("是否永久删除旧文件，而不是移动到回收站？", XHTool，
+
+        Dim msg As DialogResult = MessageBox.Show("是否永久删除旧文件，而不是移动到回收站？", XHTool，
                                     MessageBoxButtons.YesNo， MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+        Select Case msg
             Case DialogResult.Yes
                 intDeleteRecycleOption = FileIO.RecycleOption.DeletePermanently
             Case DialogResult.No
@@ -425,8 +428,9 @@ Module InventorBasic
 
         Dim FirstLevelOnly As Boolean
 
-        Select Case MessageBox.Show("修改模式：" & vbCrLf & "是-仅修改第一级零件 " & vbCrLf & "否-修改所有级别零件 ", XHTool，
+        Dim msg As DialogResult = MessageBox.Show("修改模式：" & vbCrLf & "是-仅修改第一级零件 " & vbCrLf & "否-修改所有级别零件 ", XHTool，
                                     MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+        Select Case msg
             Case DialogResult.Yes
                 'RefDocs = AsmDoc.ReferencedDocuments
                 FirstLevelOnly = True
@@ -686,8 +690,11 @@ Module InventorBasic
             '如果旧文件目录下有一个文件名相同的已有零件号的文件，是否替换或者重新命名当前文件
             For Each FoundFile As String In My.Computer.FileSystem.GetFiles(oOldFileNameInfo.Folder, FileIO.SearchOption.SearchTopLevelOnly) ' OldFileInfo.ExtensionName)
                 If InStr(GetFileNameInfo(FoundFile).FileName, oOldFileNameInfo.FileName) > 1 Then  '存在一个已命名图号的文件
-                    Select Case MessageBox.Show("存在一个已命名图号的文件：" & FoundFile & vbCrLf & vbCrLf & " ，是-直接替换  否-重新生成替换 ",
+
+                    Dim msg As DialogResult = MessageBox.Show("存在一个已命名图号的文件：" & FoundFile & vbCrLf & vbCrLf & " ，是-直接替换  否-重新生成替换 ",
                                                 XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1）
+
+                    Select Case msg
                         Case DialogResult.Yes   '替换文件
                             oOldComponentOccurrence.Replace(FoundFile, True)
                             GoTo 999
