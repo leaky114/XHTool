@@ -55,7 +55,7 @@ Public Class formBatchiPoperties
         'Next
 
         If lvw文件列表.Items.Count = 0 Then
-            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -73,7 +73,7 @@ Public Class formBatchiPoperties
 
             Case 0
                 If cbo项目名.Text = "" Then
-                    MessageBox.Show(”请选择项目。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    MessageBox.Show(”请选择项目。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     OInteractionEvents.Stop()
                     btn确定.Enabled = True
                     Exit Sub
@@ -116,7 +116,7 @@ Public Class formBatchiPoperties
             Case 1
 
                 If txt特性名.Text = "" Then
-                    MessageBox.Show(”请输入新特性的名字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    MessageBox.Show(”请输入新特性的名字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     OInteractionEvents.Stop()
                     btn确定.Enabled = True
                     Exit Sub

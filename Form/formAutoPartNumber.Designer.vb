@@ -113,6 +113,7 @@ Partial Class FormAutoPartNumber
         Me.lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ch原文件名, Me.ch类型, Me.ch新文件名, Me.ch文件夹})
         Me.lvw文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.lvw文件列表.FullRowSelect = True
+        Me.lvw文件列表.HideSelection = False
         Me.lvw文件列表.Location = New System.Drawing.Point(13, 12)
         Me.lvw文件列表.Name = "lvw文件列表"
         Me.lvw文件列表.Size = New System.Drawing.Size(639, 287)
@@ -281,7 +282,7 @@ Partial Class FormAutoPartNumber
         Me.chk备份文件.Text = "备份文件"
         Me.chk备份文件.UseVisualStyleBackColor = True
         '
-        'frmAutoPartNumber
+        'FormAutoPartNumber
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -305,7 +306,7 @@ Partial Class FormAutoPartNumber
         Me.Controls.Add(Me.btn上移)
         Me.Controls.Add(Me.btn关闭)
         Me.Controls.Add(Me.btn开始)
-        Me.Name = "frmAutoPartNumber"
+        Me.Name = "FormAutoPartNumber"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "自动命名图号"
         Me.TopMost = True

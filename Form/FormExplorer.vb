@@ -289,6 +289,7 @@ Public Class FormExplorer
             Dim bAddFile As Boolean = False
 
             ' 核心过滤逻辑
+
             If strExtension.ToLower() = "所有" Then
                 ' 添加所有文件
                 bAddFile = True
@@ -310,9 +311,18 @@ Public Class FormExplorer
         Next
 
         ' 加载排序后的扩展名
-        Dim extensions = oDirectoryInfo.GetFiles().Select(Function(f) f.Extension.ToLower().Substring(1）).Distinct().OrderBy(Function(e) e).ToArray()
+        'Dim extensions = oDirectoryInfo.GetFiles().Select(Function(f) f.Extension.ToLower().Substring(1）).Distinct().OrderBy(Function(e) e).ToArray()
 
-            oComboBox.Items.Add("所有")
+        Dim extensions = oDirectoryInfo.GetFiles().
+    Select(Function(f)
+               Dim ext = “." & f.Extension.ToLower()
+               Return If(ext.Length > 0, ext.Substring(1), String.Empty)
+           End Function).
+    Distinct().
+    OrderBy(Function(e) e).
+    ToArray()
+
+        oComboBox.Items.Add("所有")
             oComboBox.Items.AddRange(extensions)
         'oComboBox.SelectedIndex = 0
         oComboBox.SelectedItem = strExtension
@@ -347,13 +357,14 @@ Public Class FormExplorer
             ' 这里处理点击后的逻辑，例如：
             'MessageBox.Show($"你点击了字符：{selectedChar}")
 
-            If MessageBox.Show($"确定将扩展名为 .{strExtension} 的文件移动到子文件夹？", XHTool,
+            If MessageBox.Show($"确定将扩展名为 {strExtension} 的文件移动到子文件夹？", XHTool,
                                MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.Cancel Then
                 Exit Sub
             End If
 
             Try
-                Dim strNewDirectory As String = IO.Path.Combine(strCurrentDirectory, strExtension)
+
+                Dim strNewDirectory As String = IO.Path.Combine(strCurrentDirectory, strExtension.Substring(1, 1).ToUpper & strExtension.Substring(2))
 
                 CreateDirectory2(strNewDirectory)
 
@@ -366,19 +377,33 @@ Public Class FormExplorer
                 For Each filePath In files
                     Dim destPath As String = Path.Combine(strNewDirectory, Path.GetFileName(filePath))
 
-                    File.Move(filePath, destPath)
+                    If IsFileExists(destPath) = True Then
+                        Dim msg As DialogResult = MessageBox.Show($"存在文件：{destPath }，是否覆盖？", XHTool,
+                                                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+
+                        Select Case msg
+                            Case DialogResult.Yes
+                                DeleteFile2(destPath, RecycleOption.SendToRecycleBin)
+                                File.Move(filePath, destPath)
+                            Case DialogResult.No
+
+
+                        End Select
+                    Else
+                        File.Move(filePath, destPath)
+                    End If
                 Next
 
                 刷新ToolStripMenuItem_Click(sender, e)
 
             Catch ex As DirectoryNotFoundException
-                MessageBox.Show($"错误：源文件夹不存在 {strCurrentDirectory}")
+                MessageBox.Show($"错误：源文件夹不存在 {strCurrentDirectory}。")
             Catch ex As UnauthorizedAccessException
-                MessageBox.Show("错误：没有操作权限")
+                MessageBox.Show("错误：没有操作权限。")
             Catch ex As IOException
-                MessageBox.Show($"IO错误：{ex.Message}")
+                MessageBox.Show($"IO错误：{ex.Message}。")
             Catch ex As Exception
-                MessageBox.Show($"意外错误：{ex.Message}")
+                MessageBox.Show($"意外错误：{ex.Message}。")
             End Try
         End If
     End Sub
@@ -451,7 +476,15 @@ Public Class FormExplorer
         On Error Resume Next
 
         item.ImageIndex = iconIndex
-        item.SubItems.Add(If(isFolder, "", extension.Substring(1)))
+
+        'If extension = "" Then
+
+        'Else
+        '    item.SubItems.Add(If(isFolder, "", extension.Substring(1)))
+        'End If
+        item.SubItems.Add(If(isFolder, "", extension))
+
+
         item.SubItems.Add(lastWriteTime.ToString("yyyy/MM/dd HH:mm"))
         '        item.SubItems.Add(If(isFolder, "", (size / 1024).ToString("N0") & " KB"))
         item.SubItems.Add(If(isFolder, "", FormatSize(size)))
@@ -475,7 +508,13 @@ Public Class FormExplorer
             CUInt(Marshal.SizeOf(shinfo)),
             SHGFI_USEFILEATTRIBUTES Or SHGFI_TYPENAME)
 
-        Return If(shinfo.szTypeName.StartsWith("."), "未知类型", shinfo.szTypeName)
+        If strExtension = "" Then
+            Return “文件”
+        Else
+            Return If(shinfo.szTypeName.StartsWith("."), "未知类型", shinfo.szTypeName)
+        End If
+
+
     End Function
 
 
@@ -485,6 +524,7 @@ Public Class FormExplorer
     ''' <param name="strTextFilter"></param>
     ''' <param name="strExtensionFilter"></param>
     Private Sub FilterListView(strTextFilter As String, strExtensionFilter As String)
+        On Error Resume Next
         Lvw文件列表.Items.Clear()
         For Each item In AllItems
             Dim nameMatch = item.Text.IndexOf(strTextFilter, StringComparison.OrdinalIgnoreCase) >= 0
@@ -695,7 +735,7 @@ Public Class FormExplorer
 
         If Directory.Exists(strCurrentDirectory) Then
 
-            '架装文件夹内容
+            '加载文件夹内容
             LoadFolderContents(strCurrentDirectory, Lvw文件列表, ImageList文件列表, Cmb过滤， strCurrentExtension)
 
             '加载父文件夹到 Cmb当前文件夹 
@@ -706,7 +746,7 @@ Public Class FormExplorer
             状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
 
         Else
-            MessageBox.Show("文件夹路径不存在！", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("文件夹路径不存在。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
         SetWindowSizeAndCenter(Me, 0.4, 0.5)
@@ -816,7 +856,7 @@ Public Class FormExplorer
                         Case IAM, IPT, IDW, ".ipn"
                             ThisApplication.Documents.Open(strSelectPath)
                         Case Else
-                            Process.Start(strSelectPath)
+                          ProcessStart(strSelectPath)
                     End Select
 
 
@@ -881,7 +921,7 @@ Public Class FormExplorer
 
     Private Sub Cmb过滤_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmb过滤.SelectedIndexChanged
         strCurrentExtension = Cmb过滤.Text
-        FilterListView(Txt过滤栏.Text, strCurrentExtension)
+        FilterListView(Txt搜索栏.Text, strCurrentExtension)
         状态ToolStripStatusLabel.Text = Lvw文件列表.Items.Count & "个项目"
     End Sub
 
@@ -1193,7 +1233,7 @@ Public Class FormExplorer
                 Try
 
                     If Strings.Right（strSelectPath, 4).ToLower <> ".old" Then
-                        MessageBox.Show(”仅支持 .old 文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        MessageBox.Show(”仅支持 .old 文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Exit Sub
                     End If
 
@@ -1221,7 +1261,7 @@ Public Class FormExplorer
 
     Private Sub 浏览文件ToolStripButton_Click(sender As Object, e As EventArgs) Handles 浏览文件ToolStripButton.Click， 浏览文件ToolStripMenuItem.Click
 
-        Process.Start(strCurrentDirectory)
+      ProcessStart(strCurrentDirectory)
 
 
     End Sub
@@ -1243,7 +1283,7 @@ Public Class FormExplorer
             sei.hwnd = Me.Handle
 
             If Not ShellExecuteEx(sei) Then
-                MessageBox.Show("无法打开属性窗口！", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("无法打开属性窗口。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)

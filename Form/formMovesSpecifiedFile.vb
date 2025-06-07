@@ -40,7 +40,7 @@ Public Class FormMovesSpecifiedFile
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -188,7 +188,7 @@ Public Class FormMovesSpecifiedFile
 
         Dim strInventorAssemblyDocumentFullFileName As String = oInventorDocument.FullFileName
 
-        If MessageBox.Show("确定移动文件？" & vbCrLf & "将关闭部件：" & strInventorAssemblyDocumentFullFileName, XHTool,
+        If MessageBox.Show($"确定移动文件？{vbCrLf} 将关闭部件：{strInventorAssemblyDocumentFullFileName}", XHTool,
                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
             Exit Sub
         End If
@@ -214,7 +214,7 @@ Public Class FormMovesSpecifiedFile
             End If
         Next
 
-        If MessageBox.Show("移动文件完成，是否重新打开？" & strInventorAssemblyDocumentFullFileName, XHTool, MessageBoxButtons.YesNo，
+        If MessageBox.Show($"移动文件完成，是否重新打开{strInventorAssemblyDocumentFullFileName} ？“, XHTool, MessageBoxButtons.YesNo，
                            MessageBoxIcon.Question） = DialogResult.Yes Then
             ThisApplication.Documents.Open(strInventorAssemblyDocumentFullFileName)
         End If
@@ -228,7 +228,7 @@ Public Class FormMovesSpecifiedFile
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 

@@ -102,7 +102,7 @@ Public Class FormUseriProperty
         strUseriPropertyIniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "UseriProperty.ini")
 
         If IsFileExists(strUseriPropertyIniFile) = False Then
-            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
 
             Using oStreamWriter As New StreamWriter(strUseriPropertyIniFile, False, Encoding.Default)
                 oStreamWriter.WriteLine("#不要修改#号行。")
@@ -240,7 +240,7 @@ Public Class FormUseriProperty
         strUseriPropertyIniFile = IO.Path.Combine(My.Application.Info.DirectoryPath, "UseriProperty.ini")
 
         If IsFileExists(strUseriPropertyIniFile) = False Then
-            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
 
             Dim file As New StreamWriter(strUseriPropertyIniFile)
             file.WriteLine("#不要修改#号行。")
@@ -250,7 +250,7 @@ Public Class FormUseriProperty
             file.Close()
             Exit Sub
         End If
-        Process.Start(strUseriPropertyIniFile)
+      ProcessStart(strUseriPropertyIniFile)
 
     End Sub
 End Class

@@ -2,9 +2,7 @@
 
 Public NotInheritable Class FormAbout
 
-    Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
-    Const Bilibili As String = "https://space.bilibili.com/482062689"
-    Const Github As String = "https://github.com/leaky114/XHTool"
+
 
     Private Sub FrmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -24,8 +22,7 @@ Public NotInheritable Class FormAbout
         Me.lblVersion.Text = String.Format("版本 {0}", My.Application.Info.Version.ToString)
         Me.lblCopyright.Text = String.Format("版权 {0}", My.Application.Info.Copyright)
         Me.lblCompanyName.Text = String.Format("公司 {0}", My.Application.Info.CompanyName)
-        Me.txtDescription.Text = My.Application.Info.Description & vbCrLf & vbCrLf & _
-                                   IO.Path.Combine(My.Application.Info.DirectoryPath, My.Application.Info.AssemblyName & ".dll")
+        Me.txtDescription.Text = $“{My.Application.Info.Description}{vbCrLf}{IO.Path.Combine(My.Application.Info.DirectoryPath, My.Application.Info.AssemblyName & ".dll")}”
 
         '释放更新程序
         'NewUpdater.CreateUpdateExe()
@@ -57,10 +54,10 @@ Public NotInheritable Class FormAbout
     End Sub
 
     Private Sub LblGitCode_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblGitCode.LinkClicked
-        Process.Start(Github)
+        ProcessStart(Github)
     End Sub
 
     Private Sub LblBilibili_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblBilibili.LinkClicked
-        Process.Start(Bilibili)
+        ProcessStart(Bilibili)
     End Sub
 End Class

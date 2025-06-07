@@ -20,7 +20,7 @@ Public NotInheritable Class FormImportCodeToBomExcel
         strBomExcelFile = txtExcel文件.Text
 
         If IsFileExists(strBomExcelFile) = False Then
-            MessageBox.Show(”BOM文件不存在。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”BOM文件不存在。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -129,7 +129,7 @@ Public NotInheritable Class FormImportCodeToBomExcel
 
         ' MessageBox.Show("写入ERP编码完成！", MsgBoxStyle.OkOnly, "导入ERP编码")
 
-        Process.Start(strBomExcelFile)
+      ProcessStart(strBomExcelFile)
     End Sub
 
     Private Sub Btn打开excel文件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开excel文件.Click

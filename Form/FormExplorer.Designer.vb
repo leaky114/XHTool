@@ -52,6 +52,7 @@ Partial Class FormExplorer
         Me.旧版ToolStripDropDownButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.设置旧版ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.还原旧版ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.文档分类ToolStripDropDownButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.Cmb当前文件夹 = New System.Windows.Forms.ComboBox()
         Me.CMS文件列表 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.打开ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -73,7 +74,6 @@ Partial Class FormExplorer
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.状态ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.文档分类ToolStripDropDownButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.ToolStrip资源管理器.SuspendLayout()
         Me.CMS文件列表.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -272,16 +272,26 @@ Partial Class FormExplorer
         '设置旧版ToolStripMenuItem
         '
         Me.设置旧版ToolStripMenuItem.Name = "设置旧版ToolStripMenuItem"
-        Me.设置旧版ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.设置旧版ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.设置旧版ToolStripMenuItem.Text = "设置旧版"
         Me.设置旧版ToolStripMenuItem.ToolTipText = "设置所选项目为旧版。"
         '
         '还原旧版ToolStripMenuItem
         '
         Me.还原旧版ToolStripMenuItem.Name = "还原旧版ToolStripMenuItem"
-        Me.还原旧版ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.还原旧版ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.还原旧版ToolStripMenuItem.Text = "还原旧版"
         Me.还原旧版ToolStripMenuItem.ToolTipText = "还原所选旧版为正常文件。"
+        '
+        '文档分类ToolStripDropDownButton
+        '
+        Me.文档分类ToolStripDropDownButton.Image = CType(resources.GetObject("文档分类ToolStripDropDownButton.Image"), System.Drawing.Image)
+        Me.文档分类ToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.文档分类ToolStripDropDownButton.Name = "文档分类ToolStripDropDownButton"
+        Me.文档分类ToolStripDropDownButton.Size = New System.Drawing.Size(69, 36)
+        Me.文档分类ToolStripDropDownButton.Text = "文档分类"
+        Me.文档分类ToolStripDropDownButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.文档分类ToolStripDropDownButton.ToolTipText = "将文档按扩展名移动到子文件夹"
         '
         'Cmb当前文件夹
         '
@@ -423,16 +433,6 @@ Partial Class FormExplorer
         Me.状态ToolStripStatusLabel.Name = "状态ToolStripStatusLabel"
         Me.状态ToolStripStatusLabel.Size = New System.Drawing.Size(200, 17)
         Me.状态ToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        '文档分类ToolStripDropDownButton
-        '
-        Me.文档分类ToolStripDropDownButton.Image = CType(resources.GetObject("文档分类ToolStripDropDownButton.Image"), System.Drawing.Image)
-        Me.文档分类ToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.文档分类ToolStripDropDownButton.Name = "文档分类ToolStripDropDownButton"
-        Me.文档分类ToolStripDropDownButton.Size = New System.Drawing.Size(69, 36)
-        Me.文档分类ToolStripDropDownButton.Text = "文档分类"
-        Me.文档分类ToolStripDropDownButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.文档分类ToolStripDropDownButton.ToolTipText = "将文档按扩展名移动到子文件夹"
         '
         'FormExplorer
         '

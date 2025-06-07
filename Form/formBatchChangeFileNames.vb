@@ -14,7 +14,7 @@ Public Class FormBatchChangeFileNames
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -34,11 +34,20 @@ Public Class FormBatchChangeFileNames
 
             IsSaveAsOld = chk备份文件.Checked
 
+            ThisApplication.SilentOperation = True
+
             ReplaceNameInAsmSub(oInventorAssemblyDocument, strSearch, strReplace, strPrefix, strSuffix, IsSaveAsOld)
 
             RefreshTreeNodeNameSub(oInventorAssemblyDocument)
 
+            ThisApplication.SilentOperation = False
+
+            Me.TopMost = False
+
             MessageBox.Show(“部件替换文件名完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Me.Close()
+
         Catch ex As Exception
             MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -98,7 +107,7 @@ Public Class FormBatchChangeFileNames
             strNewFullFileName = IO.Path.Combine(GetFileNameInfo(strOldFullFileName).Folder, strNewFileName)
 
 
-            If strOldFullFileName = strNewFileName Then
+            If strOldFileName = strNewFileName Then
                 Continue For
             End If
 

@@ -345,7 +345,7 @@ Partial Class FormPaint
         Me.R_Spray.Text = "喷涂"
         Me.R_Spray.UseVisualStyleBackColor = True
         '
-        'Frm_Paint
+        'FormPaint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -358,7 +358,7 @@ Partial Class FormPaint
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(298, 436)
-        Me.Name = "Frm_Paint"
+        Me.Name = "FormPaint"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "油漆用量"
         CType(Me.N_TopCoat, System.ComponentModel.ISupportInitialize).EndInit()

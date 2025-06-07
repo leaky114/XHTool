@@ -194,7 +194,7 @@ Partial Class FormImportCodeToIam
         Me.chk展开外协.Text = "展开外协"
         Me.chk展开外协.UseVisualStyleBackColor = True
         '
-        'formImportCodeToIam
+        'FormImportCodeToIam
         '
         Me.AcceptButton = Me.btn装载
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -210,7 +210,7 @@ Partial Class FormImportCodeToIam
         Me.Controls.Add(Me.btn查询)
         Me.Controls.Add(Me.lvw文件列表)
         Me.MaximizeBox = False
-        Me.Name = "formImportCodeToIam"
+        Me.Name = "FormImportCodeToIam"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "导入ERP编码"
         Me.TopMost = True

@@ -55,7 +55,7 @@ Public Class FormInputBox
                             txt输入.Text = strPartNum
                         Case Else
                             If txt输入.Text <> strPartNum Then
-                                If MessageBox.Show("查询到不同的ERP编码：" & strPartNum & "，是否更新？", XHTool，
+                                If MessageBox.Show($"查询到不同的ERP编码：{strPartNum}，是否更新？", XHTool，
                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                                     txt输入.Text = strPartNum
                                 End If

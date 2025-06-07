@@ -92,7 +92,7 @@ Partial Class FormCustomSignature
         Me.chk签字后打印.Text = "签字后打印"
         Me.chk签字后打印.UseVisualStyleBackColor = True
         '
-        'formSign
+        'FormCustomSignature
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -109,7 +109,7 @@ Partial Class FormCustomSignature
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "formSign"
+        Me.Name = "FormCustomSignature"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " 签字"

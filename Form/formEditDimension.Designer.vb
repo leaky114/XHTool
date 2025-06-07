@@ -143,7 +143,7 @@ Partial Class FormEditDimension
         Me.lbl最大值.TabIndex = 7
         Me.lbl最大值.Text = "1000"
         '
-        'frmEditDimension
+        'FormEditDimension
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -159,7 +159,7 @@ Partial Class FormEditDimension
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmEditDimension"
+        Me.Name = "FormEditDimension"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "动态尺寸"

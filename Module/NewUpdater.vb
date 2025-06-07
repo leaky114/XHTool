@@ -49,9 +49,9 @@ Module NewUpdater
         strTempFile = Path.Combine(My.Application.Info.DirectoryPath, "XHUpdater.exe")
 
         If IsFileExists(strTempFile) = True Then
-            Process.Start(strTempFile)
+          ProcessStart(strTempFile)
         Else
-            MessageBox.Show("未找到升级程序XHUpdater.exe，请到 www.pmhker.com 重新下载安装文件！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+            MessageBox.Show("未找到升级程序XHUpdater.exe，请到 www.pmhker.com 重新下载安装文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
 
             'Process.Start(pmhker)
         End If
@@ -138,7 +138,7 @@ Module NewUpdater
 
     '        strArguments = "/startupdate /cv """ & strOldVersion & """  /url """ & Server & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
 
-    '        Process.Start(strSimpleUpdater, strArguments)
+    '      ProcessStart(strSimpleUpdater, strArguments)
 
     '        Return True
     '    Else
@@ -193,7 +193,7 @@ Module NewUpdater
     '            strTempFile = System.IO.Path.Combine(My.Application.Info.DirectoryPath, "UpdaterForInAI.exe")
 
 
-    '            Process.Start(strTempFile)
+    '          ProcessStart(strTempFile)
     '        End If
     '    End If
 
@@ -318,7 +318,7 @@ Module NewUpdater
 
     ''            strTempFile = System.IO.Path.Combine(My.Application.Info.DirectoryPath, "UpdaterForInAI.exe")
 
-    ''            Process.Start(strTempFile)
+    ''          ProcessStart(strTempFile)
     ''        End If
     ''    End If
 
@@ -471,7 +471,7 @@ End Module
 '            strArguments = "/startupdate /cv """ & MyVersion & """  /url """ & Server & DisplayVersion & "\{0}"" /infofile ""update.xml""  /p ""Inventor.exe"" /hideCheckUI"
 
 '            If IsFileExists(strSimpleUpdater) = True Then
-'                Process.Start(strSimpleUpdater, strArguments)
+'              ProcessStart(strSimpleUpdater, strArguments)
 '            End If
 
 '        Catch ex As Exception

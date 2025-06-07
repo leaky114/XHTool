@@ -23,7 +23,7 @@ Partial Class FormMovesSpecifiedFile
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formMovesSpecifiedFile))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMovesSpecifiedFile))
         Me.ToolStrip文档格式 = New System.Windows.Forms.ToolStrip()
         Me.筛选ToolStripTextBox = New System.Windows.Forms.ToolStripTextBox()
         Me.筛选ToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -47,13 +47,14 @@ Partial Class FormMovesSpecifiedFile
         Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.筛选ToolStripTextBox, Me.筛选ToolStripButton, Me.全部选择ToolStripButton, Me.全部取消ToolStripButton, Me.反向选择ToolStripButton, Me.应用ToolStripButton})
         Me.ToolStrip文档格式.Location = New System.Drawing.Point(12, 395)
         Me.ToolStrip文档格式.Name = "ToolStrip文档格式"
-        Me.ToolStrip文档格式.Size = New System.Drawing.Size(488, 40)
+        Me.ToolStrip文档格式.Size = New System.Drawing.Size(457, 40)
         Me.ToolStrip文档格式.TabIndex = 39
         Me.ToolStrip文档格式.Text = "ToolStrip1"
         '
         '筛选ToolStripTextBox
         '
         Me.筛选ToolStripTextBox.AutoSize = False
+        Me.筛选ToolStripTextBox.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.筛选ToolStripTextBox.Name = "筛选ToolStripTextBox"
         Me.筛选ToolStripTextBox.Size = New System.Drawing.Size(200, 23)
         Me.筛选ToolStripTextBox.ToolTipText = "筛选项"
@@ -119,6 +120,7 @@ Partial Class FormMovesSpecifiedFile
         Me.Lvw文件列表.FullRowSelect = True
         Me.Lvw文件列表.GridLines = True
         Me.Lvw文件列表.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.Lvw文件列表.HideSelection = False
         Me.Lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.Lvw文件列表.MultiSelect = False
         Me.Lvw文件列表.Name = "Lvw文件列表"
@@ -152,7 +154,7 @@ Partial Class FormMovesSpecifiedFile
         Me.ImageList1.Images.SetKeyName(1, "零件16.ico")
         Me.ImageList1.Images.SetKeyName(2, "工程图16.ico")
         '
-        'formMovesSpecifiedFile
+        'FormMovesSpecifiedFile
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -160,7 +162,7 @@ Partial Class FormMovesSpecifiedFile
         Me.Controls.Add(Me.Lvw文件列表)
         Me.Controls.Add(Me.ToolStrip文档格式)
         Me.MaximizeBox = False
-        Me.Name = "formMovesSpecifiedFile"
+        Me.Name = "FormMovesSpecifiedFile"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "移动文件"
         Me.ToolStrip文档格式.ResumeLayout(False)

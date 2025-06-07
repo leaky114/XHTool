@@ -80,6 +80,7 @@ Partial Class FormBorderTitle
         '
         Me.lvw标题栏对应表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
         Me.lvw标题栏对应表.FullRowSelect = True
+        Me.lvw标题栏对应表.HideSelection = False
         Me.lvw标题栏对应表.Location = New System.Drawing.Point(21, 54)
         Me.lvw标题栏对应表.Name = "lvw标题栏对应表"
         Me.lvw标题栏对应表.Size = New System.Drawing.Size(262, 126)
@@ -176,7 +177,7 @@ Partial Class FormBorderTitle
         Me.删除ToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
         Me.删除ToolStripMenuItem.Text = "删除"
         '
-        'formBorderTitle
+        'FormBorderTitle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -186,7 +187,7 @@ Partial Class FormBorderTitle
         Me.Controls.Add(Me.GroupBox边框)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.Name = "formBorderTitle"
+        Me.Name = "FormBorderTitle"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "图框标题栏"
         Me.GroupBox边框.ResumeLayout(False)

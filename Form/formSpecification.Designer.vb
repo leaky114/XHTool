@@ -191,7 +191,7 @@ Partial Class FormSpecification
         Me.GroupBox导入自定义.Controls.Add(Me.btn取消导入)
         Me.GroupBox导入自定义.Controls.Add(Me.btn确定导入)
         Me.GroupBox导入自定义.Controls.Add(Me.txt导入文本)
-        Me.GroupBox导入自定义.Location = New System.Drawing.Point(6, 45)
+        Me.GroupBox导入自定义.Location = New System.Drawing.Point(6, 44)
         Me.GroupBox导入自定义.Name = "GroupBox导入自定义"
         Me.GroupBox导入自定义.Size = New System.Drawing.Size(590, 198)
         Me.GroupBox导入自定义.TabIndex = 19
@@ -222,7 +222,7 @@ Partial Class FormSpecification
         Me.txt导入文本.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt导入文本.Location = New System.Drawing.Point(16, 18)
+        Me.txt导入文本.Location = New System.Drawing.Point(7, 20)
         Me.txt导入文本.Multiline = True
         Me.txt导入文本.Name = "txt导入文本"
         Me.txt导入文本.Size = New System.Drawing.Size(558, 125)
@@ -267,14 +267,14 @@ Partial Class FormSpecification
         '导入文件ToolStripMenuItem
         '
         Me.导入文件ToolStripMenuItem.Name = "导入文件ToolStripMenuItem"
-        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.导入文件ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.导入文件ToolStripMenuItem.Text = "导入文件"
         Me.导入文件ToolStripMenuItem.ToolTipText = "从文本文件导入，每行对应导入"
         '
         '导输入文本ToolStripMenuItem
         '
         Me.导输入文本ToolStripMenuItem.Name = "导输入文本ToolStripMenuItem"
-        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.导输入文本ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
         Me.导输入文本ToolStripMenuItem.Text = "导入文本"
         '
         'ToolStripSeparator1
@@ -332,13 +332,13 @@ Partial Class FormSpecification
         '自动编号ToolStripMenuItem
         '
         Me.自动编号ToolStripMenuItem.Name = "自动编号ToolStripMenuItem"
-        Me.自动编号ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.自动编号ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.自动编号ToolStripMenuItem.Text = "自动编号"
         '
         '去除编号ToolStripMenuItem
         '
         Me.去除编号ToolStripMenuItem.Name = "去除编号ToolStripMenuItem"
-        Me.去除编号ToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
+        Me.去除编号ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.去除编号ToolStripMenuItem.Text = "去除编号"
         '
         '字体ToolStripButton

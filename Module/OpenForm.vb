@@ -58,7 +58,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -96,7 +96,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -123,7 +123,7 @@ Module OpenForm
             If ThisApplication.ActiveDocumentType = kDrawingDocumentObject Then
                 FormManager.ShowForm(Of FormSpecification)()
             Else
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -211,7 +211,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -242,9 +242,10 @@ Module OpenForm
             SetStatusBarText()
 
             If IsFileExists(BasicExcelFullFileName) Then
-                Process.Start(BasicExcelFullFileName)
+              ProcessStart(BasicExcelFullFileName)
             Else
-                Process.Start(My.Application.Info.DirectoryPath)
+                'ProcessStart(My.Application.Info.DirectoryPath)
+                MessageBox.Show($"未找到文件： {BasicExcelFullFileName} ，请重新设置。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -341,8 +342,8 @@ Module OpenForm
                 Exit Sub
             End If
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            If ThisApplication.ActiveDocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
+                MessageBox.Show(”该功能仅适用于零部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -365,7 +366,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -388,7 +389,7 @@ Module OpenForm
             End If
 
             'if (ThisApplication.ActiveEditDocument.DocumentType <> kPartDocumentObject Then
-            '      MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            '      MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             '    Exit Sub
             'End if
 
@@ -411,7 +412,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -435,7 +436,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -457,7 +458,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -519,7 +520,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -541,7 +542,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -564,7 +565,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -586,7 +587,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -609,7 +610,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
-                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -632,7 +633,7 @@ Module OpenForm
             End If
 
             If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
-                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 

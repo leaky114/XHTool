@@ -23,7 +23,7 @@ Public Class FormPlayer
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -43,11 +43,11 @@ Public Class FormPlayer
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MessageBox.Show("选择一个约束。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                    MessageBox.Show("选择一个约束。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                     Exit Sub
             End Select
         Else
-            MessageBox.Show("选择一个约束。"， XHTool, MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("选择一个约束。"， XHTool, MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -189,11 +189,11 @@ Public Class FormPlayer
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                    MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                     Exit Sub
             End Select
         Else
-            MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("选择一个约束。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 

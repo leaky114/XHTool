@@ -31,14 +31,14 @@ Public Class SketchPointPicker
         ' 验证当前文档为零件文档
         Dim oDoc As PartDocument = TryCast(invApp.ActiveDocument, PartDocument)
         If oDoc Is Nothing Then
-            MessageBox.Show(”请打开零件文档。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请打开零件文档。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 
         ' 获取当前激活草图
         sketch = ThisApplication.ActiveEditObject
         If sketch Is Nothing Then
-            MessageBox.Show(”请先激活草图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请先激活草图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         End If
 

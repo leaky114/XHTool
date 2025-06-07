@@ -31,7 +31,7 @@ Public Class FormSpecification
         strSpecificationIni = IO.Path.Combine(My.Application.Info.DirectoryPath, "Specification.ini")
 
         If IsFileExists(strSpecificationIni) = False Then
-            MessageBox.Show("未找到配置文件 Specification.ini", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("未找到配置文件 Specification.ini", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -71,7 +71,7 @@ Public Class FormSpecification
         End If
 
         If boolIsBasicChange = True Then
-            If MessageBox.Show(TreeView基础数据树.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+            If MessageBox.Show($"{TreeView基础数据树.SelectedNode.Text} 已修改，是否保存？", XHTool，
                                MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存基础数据ToolStripButton.PerformClick()
             End If
@@ -108,7 +108,7 @@ Public Class FormSpecification
     Private Sub 添加自定义ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 添加自定义ToolStripButton.Click
         Dim strChildNodeValue As String
         Me.TopMost = False
-        strChildNodeValue = InputBox("输入技术要求。 ", "技术要求")
+        strChildNodeValue = InputBox("输入技术要求。 ", XHTool)
         If strChildNodeValue <> "" Then
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
@@ -199,6 +199,10 @@ Public Class FormSpecification
         Dim intNumber As Integer
         intNumber = 1
 
+        If TreeView自定义.SelectedNode Is Nothing Then
+            Exit Sub
+        End If
+
         strChildNodeName = TreeView自定义.SelectedNode.Text
 
         strChildNodeValue = GetStrFromINI(strChildNodeName, intNumber.ToString, "", strSpecificationIni)
@@ -225,7 +229,7 @@ Public Class FormSpecification
             lst技术要求文本.Items.Add(strChildNodeValue)
             boolIsUserChange = True
         Else
-            MessageBox.Show("请选择基础数据。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("请选择基础数据。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -237,7 +241,7 @@ Public Class FormSpecification
         End If
 
         If boolIsUserChange = True Then
-            If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+            If MessageBox.Show($"{TreeView自定义.SelectedNode.Text}已修改，是否保存？", XHTool，
                                MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                 保存自定义ToolStripButton.PerformClick()
             End If
@@ -274,7 +278,7 @@ Public Class FormSpecification
         If strChildNodeName <> "" Then
             TreeView自定义.Nodes.Add(strChildNodeName)
             If boolIsUserChange = True Then
-                If MessageBox.Show(TreeView自定义.SelectedNode.Text & "  已修改，是否保存？", XHTool，
+                If MessageBox.Show($"{TreeView自定义.SelectedNode.Text}已修改，是否保存？", XHTool，
                                    MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                     保存自定义ToolStripButton.PerformClick()
                 End If
@@ -306,6 +310,10 @@ Public Class FormSpecification
         Dim strChildNodeValue As String
         Dim intNumber As Integer
 
+        If lst技术要求文本.Items.Count = 0 Then
+            Exit Sub
+        End If
+
         For intNumber = 1 To lst技术要求文本.Items.Count
             strChildNodeValue = lst技术要求文本.Items(intNumber - 1).ToString
             strFlag = intNumber.ToString & "."
@@ -321,6 +329,10 @@ Public Class FormSpecification
         Dim strFlag As String
         Dim strChildNodeValue As String
         Dim intNumber As Integer
+
+        If lst技术要求文本.Items.Count = 0 Then
+            Exit Sub
+        End If
 
         For intNumber = 1 To lst技术要求文本.Items.Count
             strChildNodeValue = lst技术要求文本.Items(intNumber - 1).ToString
@@ -354,7 +366,7 @@ Public Class FormSpecification
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -428,7 +440,7 @@ Public Class FormSpecification
     End Sub
 
     Private Sub 配置文件ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 配置文件ToolStripButton.Click
-        Process.Start("NOTEPAD.EXE", strSpecificationIni)
+        ProcessStart(strSpecificationIni)
     End Sub
 
     Private Sub 上移ToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 上移ToolStripButton.Click

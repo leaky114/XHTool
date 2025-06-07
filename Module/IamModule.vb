@@ -13,6 +13,8 @@ Imports Microsoft.Office.Interop.Excel.XlCellType
 Imports Microsoft.Office.Interop.Excel.XlFileFormat
 Imports System.Collections.Generic
 Imports System.Collections.ObjectModel
+Imports System.Drawing
+Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Linq
 Imports System.Text
@@ -30,7 +32,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -47,8 +49,8 @@ Module IamModule
 
             With frmInputBox
                 .txt输入.Text = strPartDrawingNnumber
-                .Text = "检查包含指定字符的工程图"
-                .lbl描述.Text = "输入要检查的部分图号。"     '  & vbCrLf & "如要检查全部AAA-BBB000下的零件是否有工程图，输入AAA-BBB即可。"
+                .Text = XHTool
+                .lbl描述.Text = "输入要搜索的部分图号。"     '  & vbCrLf & "如要检查全部AAA-BBB000下的零件是否有工程图，输入AAA-BBB即可。"
                 .StartPosition = FormStartPosition.CenterScreen
                 strPartDrawingNnumber = .txt输入.Text
                 .txt输入.SelectAll()
@@ -67,7 +69,7 @@ Module IamModule
             ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
-                MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                 SetStatusBarText(XHTool)
                 GoTo 999
                 Exit Sub
@@ -168,7 +170,7 @@ Module IamModule
             SetStatusBarText()
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -226,7 +228,7 @@ Module IamModule
         SetStatusBarText()
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -351,7 +353,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Function
             End If
@@ -461,7 +463,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -488,7 +490,7 @@ Module IamModule
             ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
-                MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                 SetStatusBarText(XHTool)
                 GoTo 999
                 Exit Sub
@@ -536,7 +538,7 @@ Module IamModule
                     strNewReferencedFullFileName = IO.Path.Combine(strInventorAssemblyFileFolder, strReferencedFileName)
 
                     If IsFileExists(strNewReferencedFullFileName) Then
-                        If MessageBox.Show("存在文件：" & strNewReferencedFullFileName & "，是否覆盖？", XHTool，
+                        If MessageBox.Show($"存在文件：{strNewReferencedFullFileName}，是否覆盖？", XHTool，
                                            MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.No Then
                             '不覆盖 ，进行下一个文件
                             Continue For
@@ -554,7 +556,7 @@ Module IamModule
                         strNewReferencedDrawingFullFileName = GetChangeExtension(strNewReferencedDrawingFullFileName, IDW)
 
                         If IsFileExists(strNewReferencedDrawingFullFileName) Then
-                            If MessageBox.Show("存在文件：" & strNewReferencedDrawingFullFileName & "，是否覆盖？", XHTool，
+                            If MessageBox.Show($"存在文件：{strNewReferencedDrawingFullFileName}，是否覆盖？", XHTool，
                                                 MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                             Else
                                 Continue For
@@ -568,7 +570,7 @@ Module IamModule
                 End If
             Next
 
-            If MessageBox.Show("移动指定文件完成，是否重新打开 " & strInventorAssemblyDocumentFullFileName, XHTool，
+            If MessageBox.Show($"移动指定文件完成，是否重新打开 {strInventorAssemblyDocumentFullFileName} ？", XHTool，
                                                 MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
                 ThisApplication.Documents.Open(strInventorAssemblyDocumentFullFileName)
             End If
@@ -587,7 +589,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -631,13 +633,13 @@ Module IamModule
         strOldFileName = GetFileNameInfo(strOldFullFileName).OnlyName
 
         If IsFileExists(strOldFullFileName) = False Then
-            MessageBox.Show("文件： " & strOldFullFileName & "不存在！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"文件： {strOldFullFileName}不存在。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Return True
             Exit Function
         End If
 
         If InStr(strOldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
-            MessageBox.Show("无法修改资源中心文件： " & strOldFullFileName, XHTool, MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"无法修改资源中心文件： {strOldFullFileName}。", XHTool, MessageBoxButtons.OK， MessageBoxIcon.Error)
             'OldInventorDoc.Close()
             Return True
             Exit Function
@@ -689,8 +691,7 @@ Module IamModule
                 '检查新文件是否存在
                 If IsFileExists(strNewFullFileName) = True Then
 
-                    Dim msg As DialogResult = MessageBox.Show("存在文件：" & strNewFullFileName & " ，是-直接替换  否-重新生成替换  取消-退出重新命名 ", XHTool，
-                                                MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+                    Dim msg As DialogResult = MessageBox.Show($"存在文件：{strNewFullFileName }，{vbCrLf}是-直接替换。{vbCrLf}否-重新生成替换。{vbCrLf}取消-退出重新命名。", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
 
                     Select Case msg
                         Case DialogResult.Yes  '直接用新文件替换
@@ -748,7 +749,7 @@ Module IamModule
                 End If
 
                 Return True
-            Case MessageBox.Show("选择的文件不是零件或部件", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            Case MessageBox.Show("选择的文件不是零件或部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                 Return False
         End Select
     End Function
@@ -760,7 +761,7 @@ Module IamModule
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub SetClearRandomColor()
-        Dim msg As DialogResult = MessageBox.Show("设置随机颜色。" & vbCrLf & vbCrLf & "是——设置随机颜色" & vbCrLf & vbCrLf & "否——清除随机颜色", XHTool，
+        Dim msg As DialogResult = MessageBox.Show($"设置随机颜色。{vbCrLf}是——设置随机颜色。{vbCrLf}否——清除随机颜色。", XHTool，
                                        MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
         Select Case msg
             Case DialogResult.Yes
@@ -783,7 +784,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Return False
             Exit Sub
         End If
@@ -856,7 +857,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Return False
             Exit Sub
         End If
@@ -923,7 +924,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -950,11 +951,7 @@ Module IamModule
         Dim BOMStructureType As BOMStructureEnum
 
         Dim strBOMStructureType As String
-        strBOMStructureType = InputBox("将本部件所属零部件设置为【普通件】或【虚拟件】。输入要设置的类型：" & vbCrLf & vbCrLf &
-                                       "1——普通件" & vbCrLf & vbCrLf &
-                                       "2——虚拟件" & vbCrLf & vbCrLf &
-                                       "3——外购件",
-                                       "设置虚拟件", 2)
+        strBOMStructureType = InputBox($"将本部件所属零部件设置为【普通件】或【虚拟件】。输入要设置的类型：{vbCrLf}{vbCrLf}1——普通件{vbCrLf}{vbCrLf}2——虚拟件{vbCrLf}{vbCrLf}3——外购件。"， "设置虚拟件", 2)
 
         If IsNumeric(strBOMStructureType) = False Then
             Return False
@@ -1034,7 +1031,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             Else
                 Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
@@ -1200,13 +1197,13 @@ Module IamModule
         '删除 csv
         DeleteFile2(strCsvFullFileName, FileIO.RecycleOption.SendToRecycleBin)
 
-        SetStatusBarText("BOM导出到文件：" & vbCrLf & strExcelFullFileName)
-        MessageBox.Show("BOM导出到文件：" & vbCrLf & strExcelFullFileName, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
+        SetStatusBarText($"导出BOM到文件：{strExcelFullFileName}。")
+        MessageBox.Show($"导出BOM到文件：{vbCrLf}{strExcelFullFileName}。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
 
         Try
-            Process.Start(strExcelFullFileName)
+            ProcessStart(strExcelFullFileName)
         Catch ex As Exception
-            Process.Start("excel.exe", strExcelFullFileName)
+            ProcessStart(strExcelFullFileName)
         End Try
 
 
@@ -1573,7 +1570,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -1589,8 +1586,8 @@ Module IamModule
         Dim frmInputBox As New FormInputBox
         With frmInputBox
             .txt输入.Text = strPartDrawingNnumber
-            .Text = "打开指定工程图"
-            .lbl描述.Text = "输入包含指定的字段的图号。" & vbCrLf & "如要打开 AAA-BBB000.aim 下的工程图，输入AAA-BBB即可。"
+            .Text = XHTool
+            .lbl描述.Text = $"输入搜索的部分图号。{vbCrLf}如要打开 AAA-BBB000.aim 下的工程图，输入AAA-BBB即可。"
             .StartPosition = FormStartPosition.CenterScreen
             .ShowDialog()
         End With
@@ -1606,7 +1603,7 @@ Module IamModule
         ElseIf frmInputBox.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
             Exit Sub
         Else
-            MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("请输入部分图号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             SetStatusBarText(XHTool)
             GoTo 999
             Exit Sub
@@ -1724,7 +1721,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -1755,7 +1752,7 @@ Module IamModule
                 strOldDocumentName = GetFileNameInfo(strOldFullFileNameName).OnlyName
 
                 Dim strNewFileName As String   '新文件仅文件名
-                strNewFileName = InputBox("重命名" & vbCrLf & vbCrLf & strOldFullFileNameName,   , strOldDocumentName)  '输入新文件名
+                strNewFileName = InputBox($"重命名：{vbCrLf}{vbCrLf}{strOldFullFileNameName}", XHTool, strOldDocumentName)  '输入新文件名
 
                 If strNewFileName = “” Then
                     Exit Sub
@@ -1778,7 +1775,7 @@ Module IamModule
                         '没找到重复文件
 
                     Else
-                        If MessageBox.Show("当前项目存在:" & vbCrLf & vbCrLf & arrFullFileName(0) & vbCrLf & vbCrLf & "是否退出？", XHTool，
+                        If MessageBox.Show($"当前项目存在:{vbCrLf}{arrFullFileName(0)}，{vbCrLf}是否退出？", XHTool，
                                             MessageBoxButtons.YesNo， MessageBoxIcon.Question， MessageBoxDefaultButton.Button1) = DialogResult.Yes Then
                             Exit Sub
                         End If
@@ -1822,7 +1819,7 @@ Module IamModule
         strOldFileName = GetFileNameInfo(strOldFullFileName).OnlyName
 
         If IsFileExists(strOldFullFileName) = False Then
-            MessageBox.Show("文件： " & strOldFullFileName & "不存在！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"文件：{strOldFullFileName} 不存在。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Return True
             Exit Function
         End If
@@ -1838,7 +1835,7 @@ Module IamModule
         'End if
 
         If InStr(strOldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
-            MessageBox.Show("无法修改资源中心文件： " & strOldFullFileName, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"无法修改资源中心文件：{strOldFullFileName}。“, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             'OldInventorDoc.Close()
             Return True
             Exit Function
@@ -1858,7 +1855,7 @@ Module IamModule
 
                 '新旧文件名一致
                 If strOldFileName = strNewFileName Then
-                    MessageBox.Show("新旧文件名一致，请重新命名。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                    MessageBox.Show("新旧文件名一致，请重新命名。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                     Return True
                 End If
 
@@ -1867,9 +1864,7 @@ Module IamModule
 
                 '检查新文件是否存在
                 If IsFileExists(strNewFullFileName) = True Then
-                    Dim msg As DialogResult = MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
-                                       "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool，
-                                         MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+                    Dim msg As DialogResult = MessageBox.Show($"存在文件：{vbCrLf}{strNewFullFileName}{vbCrLf}是-直接替换。{vbCrLf}否-重新生成替换。{vbCrLf}取消-退出重新命名。", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
 
                     Select Case msg
                         Case DialogResult.Yes  '直接用新文件替换
@@ -1952,7 +1947,7 @@ Module IamModule
                     strNewIdwFullFileName = GetChangeExtension(strNewFullFileName, IDW)   '新工程图
 
                     If IsFileExists(strNewIdwFullFileName) = True Then
-                        If MessageBox.Show("存在旧的工程图：" & vbCrLf & vbCrLf & strNewIdwFullFileName & "，是否重新生成?", XHTool，
+                        If MessageBox.Show($"存在旧的工程图：{vbCrLf}{strNewIdwFullFileName}{vbCrLf}是否重新生成？", XHTool，
                                   MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then  '选择覆盖
 
                             DeleteFile2(strNewIdwFullFileName, FileIO.RecycleOption.SendToRecycleBin)   '删除旧的新文件名 文件
@@ -1989,7 +1984,7 @@ Module IamModule
                 OInteractionEvents.Stop()
 
                 Return True
-            Case MessageBox.Show("选择的文件不是零件或部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            Case MessageBox.Show("选择的文件不是零件或部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                 Return False
         End Select
 
@@ -2005,7 +2000,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -2034,7 +2029,7 @@ Module IamModule
                 OldFileName = GetFileNameInfo(OldFullFileName).OnlyName
 
                 Dim NewFileName As String   '新文件仅文件名
-                NewFileName = InputBox("镜像文件重命名 " & vbCrLf & vbCrLf & OldFullFileName, "", OldFileName)  '输入新文件名
+                NewFileName = InputBox($"镜像文件重命名：{vbCrLf}{OldFullFileName}", XHTool, OldFileName)  '输入新文件名
 
                 '取消输入
                 If NewFileName = "" Then
@@ -2052,7 +2047,7 @@ Module IamModule
                     MessageBox.Show("更改镜像零件/部件文件名错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
                 End If
-            Case MessageBox.Show("选择的文件不是零件或部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            Case MessageBox.Show("选择的文件不是零件或部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
 
         End Select
         'Catch ex As Exception
@@ -2081,7 +2076,7 @@ Module IamModule
         strOldFileName = GetFileNameInfo(strOldFullFileName).OnlyName
 
         If IsFileExists(strOldFullFileName) = False Then
-            MessageBox.Show(strOldFullFileName & "不存在！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"{strOldFullFileName} 不存在。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Return True
             Exit Function
         End If
@@ -2097,7 +2092,7 @@ Module IamModule
         'End if
 
         If InStr(strOldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
-            MessageBox.Show(strOldFullFileName & "为零件库文件，不支持更改名字。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"{strOldFullFileName} 为零件库文件，不支持更改文件名。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             'OldInventorDoc.Close()
             Return True
             Exit Function
@@ -2113,9 +2108,7 @@ Module IamModule
         '检查新文件是否存在
         If IsFileExists(strNewFullFileName) = True Then
 
-            Dim msg As DialogResult = MessageBox.Show("存在文件：" & vbCrLf & vbCrLf & strNewFullFileName & vbCrLf & vbCrLf &
-                               "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool，
-                                MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+            Dim msg As DialogResult = MessageBox.Show($"存在文件：{vbCrLf}{strNewFullFileName}{vbCrLf}是-直接替换。{vbCrLf}否-重新生成替换。{vbCrLf}取消-退出重新命名。", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
 
             Select Case msg
                 Case DialogResult.Yes   '直接用新文件替换
@@ -2152,7 +2145,7 @@ Module IamModule
         Dim docToReplace As Inventor.Document = FindDocToReplace(oNewInventorDocument)
         If (docToReplace Is Nothing) Then Return False
 
-        MessageBox.Show("选择 " & vbCrLf & vbCrLf & strNewFullFileName & "  的基础文件！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
+        MessageBox.Show($"选择文件：{vbCrLf}{strNewFullFileName}{vbCrLf}的基础文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
         Dim ReplacementFileName As String = SelectReplacementFilename(docToReplace.DisplayName)
 
         If (String.IsNullOrEmpty(ReplacementFileName)) Then Return False
@@ -2162,8 +2155,8 @@ Module IamModule
 
         Dim doReplace As Boolean = True
         If (ReplacementPart.InternalName <> docToReplace.InternalName) Then
-            MessageBox.Show("更换零件 (" & ReplacementPart.DisplayName & ") 似乎与原始零件关系不密切，因此无法使用。",
-            XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show($"更换零件{ReplacementPart.DisplayName} 似乎与原始零件关系不密切，因此无法使用。",
+                            XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             doReplace = False
         End If
         ReplacementPart.ReleaseReference()
@@ -2215,7 +2208,7 @@ Module IamModule
         strOldFileName = GetFileNameInfo(strOldFullFileName).OnlyName
 
         If IsFileExists(strOldFullFileName) = False Then
-            MessageBox.Show(strOldFullFileName & "不存在！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"文件：{strOldFullFileName} 不存在。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Return True
             Exit Function
         End If
@@ -2225,7 +2218,7 @@ Module IamModule
 
 
         If InStr(strOldFullFileName, ContentCenterFiles) > 0 Then         '跳过零件库文件
-            MessageBox.Show(strOldFullFileName & "为零件库文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show($"{strOldFullFileName} 为零件库文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             'OldInventorDoc.Close()
             Return True
             Exit Function
@@ -2241,7 +2234,7 @@ Module IamModule
         '检查新文件是否存在
         If IsFileExists(strNewFullFileName) = True Then
 
-            Dim msg As DialogResult = MessageBox.Show("存在文件：" & strNewFullFileName & vbCrLf & "是-直接替换" & vbCrLf & "否-重新生成替换" & vbCrLf & "取消-退出重新命名 ", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
+            Dim msg As DialogResult = MessageBox.Show($"存在文件：{vbCrLf}{strNewFullFileName}{vbCrLf}是-直接替换。{vbCrLf}否-重新生成替换。{vbCrLf}取消-退出重新命名。", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
 
             Select Case msg
                 Case DialogResult.Yes   '直接用新文件替换
@@ -2282,10 +2275,10 @@ Module IamModule
         '全部替换为新文件
 
         If MessageBox.Show("是否替换全部零件？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
-            MessageBox.Show("选择 " & strNewFullFileName & "  的基础文件！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+            MessageBox.Show($"选择 {strNewFullFileName}  的基础文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
             oOldComponentOccurrence.Replace(strNewFullFileName, True)
         Else
-            MessageBox.Show("选择 " & strNewFullFileName & "  的基础文件！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+            MessageBox.Show($"选择 {strNewFullFileName}  的基础文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
             oOldComponentOccurrence.Replace(strNewFullFileName, False)
         End If
 
@@ -2315,7 +2308,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -2475,7 +2468,7 @@ Module IamModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -2596,7 +2589,7 @@ Module IamModule
             SetStatusBarText()
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -2640,7 +2633,7 @@ Module IamModule
             SetStatusBarText()
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -2656,7 +2649,7 @@ Module IamModule
             Dim IsVisible As Boolean
 
 
-            Dim msg As DialogResult = MessageBox.Show("设置标准件可见性。" & vbCrLf & vbCrLf & "是——全部可见" & vbCrLf & vbCrLf & "否——全部隐藏", XHTool,
+            Dim msg As DialogResult = MessageBox.Show($"设置标准件可见性。{vbCrLf}是——全部可见。{vbCrLf}否——全部隐藏。", XHTool,
                              MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
             Select Case msg
@@ -2696,7 +2689,7 @@ Module IamModule
             SetStatusBarText()
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
@@ -2805,7 +2798,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -2849,7 +2842,7 @@ Module IamModule
 
                 Dim strOldDocumentName As String
 
-                strOldDocumentName = InputBox("替换的文件：" & GetFileNameWithExtension(strOldFullDocumentName), "查找替换", strDrawingNnumber)
+                strOldDocumentName = InputBox($"输入需搜索的文件替换：{GetFileNameWithExtension(strOldFullDocumentName)}", XHTool， strDrawingNnumber)
 
                 If strOldDocumentName = "" Then
                     Exit Sub
@@ -2868,7 +2861,7 @@ Module IamModule
                 End If
 
                 If arrFullFileName.Length = 0 Then
-                    MessageBox.Show("未找到文件：" & strOldDocumentName, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                    MessageBox.Show($"未找到文件：{strOldDocumentName}。”, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                     Exit Sub
                 End If
 
@@ -2912,7 +2905,7 @@ Module IamModule
                             Exit Sub
                         End If
 
-                        Select Case MessageBox.Show("是否全部替换为" & strQuitOpenSelectFileFullName & "？", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
+                        Select Case MessageBox.Show($"是否全部替换为 {strQuitOpenSelectFileFullName} ？", XHTool， MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
                             Case DialogResult.Yes
                                 oOldComponentOccurrence.Replace(strQuitOpenSelectFileFullName, True)
                                 ' MessageBox.Show("替换完成！", MsgBoxStyle.Information)
@@ -2940,7 +2933,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -2953,9 +2946,12 @@ Module IamModule
                 oConstraint.Suppressed = True
             End If
         Next
-        MessageBox.Show("抑制错误的约束完成！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
+        MessageBox.Show("抑制错误的约束完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
     End Sub
 
+    ''' <summary>
+    ''' 创建截图
+    ''' </summary>
     Public Sub CreatJpg()
         SetStatusBarText()
 
@@ -2964,7 +2960,7 @@ Module IamModule
         End If
 
         'If (ThisApplication.ActiveDocumentType = kAssemblyDocumentObject) And (ThisApplication.ActiveDocumentType = kPartDocumentObject) Then
-        '     MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '     MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         '    Exit Sub
         'End If
 
@@ -2984,8 +2980,14 @@ Module IamModule
 
         CreatJpgSub(oInventorDocument, strJpgFileFullName)
 
-        MessageBox.Show("保持文件到：" & strJpgFileFullName, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+        MessageBox.Show($"保存文件到：{vbCrLf}{strJpgFileFullName}。“， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
     End Sub
+
+    ''' <summary>
+    ''' 创建截图过程
+    ''' </summary>
+    ''' <param name="oInventorDocument">创建的文档</param>
+    ''' <param name="strJpgFileFullName">图片文件</param>
     Public Sub CreatJpgSub(ByVal oInventorDocument As Inventor.Document, ByVal strJpgFileFullName As String)
 
         oInventorDocument.Activate()
@@ -3001,9 +3003,140 @@ Module IamModule
 
         'ThisApplication.ActiveView.Fit()
 
-        oActiveView.SaveAsBitmap(strJpgFileFullName, 1000, 800)
+        oActiveView.SaveAsBitmap(strJpgFileFullName, intPitcureWidth, intPitcureHeight)
+
+        AddTextToImage（strJpgFileFullName， GetFileNameWithExtension(oInventorDocument.FullDocumentName), True）
+
 
     End Sub
+
+
+    ''' <summary>
+    ''' 图片底部添加字符串
+    ''' </summary>
+    ''' <param name="imagePath">图片文件</param>
+    ''' <param name="customText">要绘制的字符串，如果为Nothing则使用文件名</param>
+    ''' <param name="overwriteOriginal">是否另存为新文件，如果为True则覆盖原文件</param>
+
+    Public Sub AddTextToImage(imagePath As String,
+                              Optional customText As String = Nothing,
+                              Optional overwriteOriginal As Boolean = False)
+        Try
+            ' 读取原始图片到内存流（避免文件锁定）
+            Dim imageBytes() As Byte = System.IO.File.ReadAllBytes(imagePath)
+            Dim originalImage As Image = Nothing
+            Using ms As New MemoryStream(imageBytes)
+                originalImage = Image.FromStream(ms)
+            End Using
+
+            ' 确定要绘制的文本
+            Dim textToDraw As String = If(String.IsNullOrEmpty(customText),
+                                         System.IO.Path.GetFileName(imagePath),
+                                         customText)
+
+            ' 创建新画布（高度增加20像素）
+            Dim newHeight As Integer = originalImage.Height + 40
+            Using newImage As New Bitmap(originalImage.Width, newHeight)
+                Using g = Graphics.FromImage(newImage)
+                    ' 设置高质量绘制参数
+                    g.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+                    g.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+
+                    ' 绘制原始图片
+                    g.DrawImage(originalImage, 0, 0, originalImage.Width, originalImage.Height)
+
+                    ' 创建底部背景矩形
+                    Dim footerRect As New Rectangle(0, originalImage.Height, originalImage.Width, 40)
+                    g.FillRectangle(Brushes.White, footerRect)
+
+                    ' 设置文字格式（居中）
+                    Dim sf As New StringFormat()
+                    sf.Alignment = StringAlignment.Center
+                    sf.LineAlignment = StringAlignment.Center
+
+                    ' 自动调整字体大小
+                    Dim fontSize As Integer = 12
+                    Dim textFont As Font
+                    Do
+                        textFont = New Font("Microsoft YaHei", fontSize, FontStyle.Regular)
+                        Dim textSize = g.MeasureString(textToDraw, textFont)
+                        If textSize.Width < originalImage.Width * 0.9 Then Exit Do
+                        fontSize -= 1
+                    Loop While fontSize > 8
+
+                    ' 绘制文本
+                    g.DrawString(textToDraw, textFont, Brushes.Black, footerRect, sf)
+                End Using
+
+                ' 确定保存路径
+                Dim savePath As String = imagePath
+
+                ' 获取原始图片格式
+                Dim format = GetImageFormat(imagePath)
+
+                ' 创建编码参数（保持JPEG质量）
+                Dim encoderParams As EncoderParameters = Nothing
+                If format.Equals(ImageFormat.Jpeg) Then
+                    encoderParams = New EncoderParameters(1)
+                    encoderParams.Param(0) = New EncoderParameter(Imaging.Encoder.Quality, 95L)
+                End If
+
+                ' 覆盖保存前先释放原始图片资源
+                originalImage.Dispose()
+
+                ' 保存图片
+                If encoderParams IsNot Nothing Then
+                    Dim jpegEncoder = GetEncoder(ImageFormat.Jpeg)
+                    newImage.Save(savePath, jpegEncoder, encoderParams)
+                Else
+                    newImage.Save(savePath, format)
+                End If
+
+                ' 如果不覆盖原文件，则创建新文件（在覆盖保存后重命名）
+                If Not overwriteOriginal Then
+                    Dim newPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(imagePath),
+                                             System.IO.Path.GetFileNameWithoutExtension(imagePath) +
+                                             "_labeled" +
+                                             System.IO.Path.GetExtension(imagePath))
+                    System.IO.File.Move(savePath, newPath)
+                End If
+            End Using
+        Catch ex As Exception
+            ' 错误处理
+            MessageBox.Show("处理失败: " & ex.Message)
+        End Try
+    End Sub
+
+    ' 获取图片编码器
+    Private Function GetEncoder(format As ImageFormat) As ImageCodecInfo
+        Dim codecs As ImageCodecInfo() = ImageCodecInfo.GetImageEncoders()
+        For Each codec As ImageCodecInfo In codecs
+            If codec.FormatID = format.Guid Then
+                Return codec
+            End If
+        Next
+        Return Nothing
+    End Function
+
+    ' 辅助函数：根据文件扩展名获取图像格式
+    Private Function GetImageFormat(imagePath As String) As ImageFormat
+        Dim extension = System.IO.Path.GetExtension(imagePath).ToLower()
+        Select Case extension
+            Case ".jpg", ".jpeg"
+                Return ImageFormat.Jpeg
+            Case ".png"
+                Return ImageFormat.Png
+            Case ".gif"
+                Return ImageFormat.Gif
+            Case ".bmp"
+                Return ImageFormat.Bmp
+            Case ".tif", ".tiff"
+                Return ImageFormat.Tiff
+            Case Else
+                Return ImageFormat.Jpeg ' 默认为JPG
+        End Select
+    End Function
+
 
 
     'Public Sub PackAndGo(ByVal strSourceFile As String, ByVal strDestinationFolder As String, ByVal strProjectFile As String)
@@ -3048,7 +3181,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -3175,7 +3308,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -3248,7 +3381,7 @@ Module IamModule
         ' 3. 结果检查
         If oOneSourceComponentOccurrence Is Nothing Then
             ' 未找到符合条件的组件
-            MessageBox.Show("选择的组件中无数量为一的，无法与源组件对齐，退出本功能。"， XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("选择的组件中无数量为一的，无法与源组件对齐，退出本功能。"， XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         Else
             ' 成功找到唯一文件路径的组件
@@ -3258,7 +3391,7 @@ Module IamModule
 
         Dim douOffset As Double      '插入偏移
         If Not Double.TryParse(InputBox("输入偏移量：", "复制插入", 0), douOffset) Then
-            MessageBox.Show("偏移量必须为数字。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("偏移量必须为数字。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
         '输入的单位是cm ，转换为 mm
@@ -3309,11 +3442,11 @@ Module IamModule
 
         If IsEdgeOneInComponentOccurrence = False Then
             oEdgeHSet.Clear()
-            MessageBox.Show("选择的圆(弧)不属于被复制的组件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("选择的圆(弧)不属于被复制的组件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             GoTo 998
         End If
 
-        Dim oSourceCenter As Point     '源圆心
+        Dim oSourceCenter As Inventor.Point     '源圆心
         Dim oSourceRadius As Double     '源半径
 
         oSourceCenter = oEdgeOne.Geometry.center
@@ -3384,7 +3517,7 @@ Module IamModule
                 Exit Do
             End If
 
-            Dim oComponentCenter As Point     '组件圆心
+            Dim oComponentCenter As Inventor.Point     '组件圆心
             Dim oComponentRadius As Double    '组件半径
 
             Dim oColneComponentEdges As Edges
@@ -3426,7 +3559,7 @@ Module IamModule
 999:
 
             If oEdgeThree Is Nothing Then
-                MessageBox.Show("未找到匹配的圆形边。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("未找到匹配的圆形边。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Continue Do
             End If
 
@@ -3491,7 +3624,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -3530,7 +3663,7 @@ Module IamModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -3577,4 +3710,8 @@ Module IamModule
 
         MessageBox.Show("检查钣金厚度匹配完成，已打开不匹配的零件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
     End Sub
+
+
+
+
 End Module

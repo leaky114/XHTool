@@ -13,7 +13,11 @@ Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
 
 Public Module PublicParameters
-    Public Const XHTool = "XHTool"
+    Public Const XHTool As String = "XHTool"
+
+    Public Const GitWeb As String = "https://gitcode.net/leaky114/inventoraddin"
+    Public Const Bilibili As String = "https://space.bilibili.com/482062689"
+    Public Const Github As String = "https://github.com/leaky114/XHTool"
 
     Public strLargeSmallIconNames As String = "快速打开,按列表打开文件,保存关闭,关闭,打开工程图,提取iProperty,打开文件夹"
     Public strLargeSmallIconSets As String   '大小图标
@@ -180,6 +184,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     Public str样式 As String   '0 显示隐藏线,1 不显示隐藏线,2着色
     Public str标注尺寸 As String
 
+    Public str保存展开图到指定文件夹 As String
 
     '工程图图框
     Public str部件图框 As String
@@ -188,6 +193,12 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
     '变更工程图扩展名
     Public str变更工程图扩展名 As String
+
+    '创建截图的宽度
+    Public intPitcureWidth As Integer
+    '创建截图的高度
+    Public intPitcureHeight As Integer
+
 
     Public Structure 选择视图
         Dim str左视图 As String
@@ -283,7 +294,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
                         Case 1
                             If BeforeOrAfter = EventTimingEnum.kAfter Then
                                 If CheckDrawingDocumentNameToReferencedDocument(oInventorDocument) = False Then
-                                    MessageBox.Show("本文件名与模型参考不匹配。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                                    MessageBox.Show("本文件名与模型参考不匹配。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                                 End If
                             End If
                             str模型匹配检查标记 = 2

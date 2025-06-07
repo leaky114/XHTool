@@ -38,7 +38,7 @@ Module Colors
         End If
 
         If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-            MessageBox.Show("该功能仅适用于零件。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("该功能仅适用于零件。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -49,7 +49,7 @@ Module Colors
         Dim CompDef As PartComponentDefinition = oInventorPartDocument.ComponentDefinition
 
 
-        Dim msg As DialogResult = MessageBox.Show("孔着色。" & vbCrLf & vbCrLf & "是——孔着色" & vbCrLf & vbCrLf & "否——清除着色", XHTool，
+        Dim msg As DialogResult = MessageBox.Show($"孔着色。{vbCrLf}是——孔着色。{vbCrLf}否——清除着色。", XHTool，
                                        MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
         Select Case msg
             Case DialogResult.Yes
@@ -264,16 +264,16 @@ Module Colors
 
     End Sub
 
-    ''' <summary>
-    ''' 油路块孔着色
-    ''' </summary>
+    '''' <summary>
+    '''' 油路块孔着色
+    '''' </summary>
     'Public Sub OilBlockHoleColoring（）
     '    If IsInventorOpenDocument() = False Then
     '        Exit Sub
     '    End If
 
     '    If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-    '        MessageBox.Show("该功能仅适用于零件。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        MessageBox.Show("该功能仅适用于零件。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
     '        Exit Sub
     '    End If
 

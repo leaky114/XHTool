@@ -74,6 +74,7 @@ Partial Class FormOption
         Me.cbo质量精度 = New System.Windows.Forms.ComboBox()
         Me.lbl质量精度 = New System.Windows.Forms.Label()
         Me.GroupBox签字 = New System.Windows.Forms.GroupBox()
+        Me.chk短日期 = New System.Windows.Forms.CheckBox()
         Me.chk同时签字 = New System.Windows.Forms.CheckBox()
         Me.txt工程师 = New System.Windows.Forms.TextBox()
         Me.lbl工程师 = New System.Windows.Forms.Label()
@@ -135,6 +136,7 @@ Partial Class FormOption
         Me.txt工程图模板 = New System.Windows.Forms.TextBox()
         Me.lbl模板工程图 = New System.Windows.Forms.Label()
         Me.TabPage展开图 = New System.Windows.Forms.TabPage()
+        Me.chk保存展开图到指定文件夹 = New System.Windows.Forms.CheckBox()
         Me.txt工艺文字高 = New System.Windows.Forms.TextBox()
         Me.lbl工艺文字高 = New System.Windows.Forms.Label()
         Me.cbo图号材质 = New System.Windows.Forms.ComboBox()
@@ -162,13 +164,17 @@ Partial Class FormOption
         Me.lbl线宽上 = New System.Windows.Forms.Label()
         Me.lbl线型上 = New System.Windows.Forms.Label()
         Me.TabPage主题 = New System.Windows.Forms.TabPage()
+        Me.GroupBox截图 = New System.Windows.Forms.GroupBox()
+        Me.txt高度 = New System.Windows.Forms.TextBox()
+        Me.txt宽度 = New System.Windows.Forms.TextBox()
+        Me.lbl高度 = New System.Windows.Forms.Label()
+        Me.lbl宽度 = New System.Windows.Forms.Label()
         Me.lvw设置图标大小 = New System.Windows.Forms.ListView()
         Me.ch按钮 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch图标大小 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.chk短日期 = New System.Windows.Forms.CheckBox()
         Me.TabPage模型.SuspendLayout()
         CType(Me.NUD查找文件夹层数, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxERP查询.SuspendLayout()
@@ -196,6 +202,7 @@ Partial Class FormOption
         Me.GroupBox下.SuspendLayout()
         Me.GroupBox上.SuspendLayout()
         Me.TabPage主题.SuspendLayout()
+        Me.GroupBox截图.SuspendLayout()
         Me.SuspendLayout()
         '
         'btn确定
@@ -699,6 +706,16 @@ Partial Class FormOption
         Me.GroupBox签字.TabIndex = 19
         Me.GroupBox签字.TabStop = False
         Me.GroupBox签字.Text = "签字"
+        '
+        'chk短日期
+        '
+        Me.chk短日期.AutoSize = True
+        Me.chk短日期.Location = New System.Drawing.Point(14, 99)
+        Me.chk短日期.Name = "chk短日期"
+        Me.chk短日期.Size = New System.Drawing.Size(60, 16)
+        Me.chk短日期.TabIndex = 9
+        Me.chk短日期.Text = "短日期"
+        Me.chk短日期.UseVisualStyleBackColor = True
         '
         'chk同时签字
         '
@@ -1305,6 +1322,7 @@ Partial Class FormOption
         '
         'TabPage展开图
         '
+        Me.TabPage展开图.Controls.Add(Me.chk保存展开图到指定文件夹)
         Me.TabPage展开图.Controls.Add(Me.txt工艺文字高)
         Me.TabPage展开图.Controls.Add(Me.lbl工艺文字高)
         Me.TabPage展开图.Controls.Add(Me.cbo图号材质)
@@ -1322,6 +1340,16 @@ Partial Class FormOption
         Me.TabPage展开图.TabIndex = 3
         Me.TabPage展开图.Text = "展开图"
         Me.TabPage展开图.UseVisualStyleBackColor = True
+        '
+        'chk保存展开图到指定文件夹
+        '
+        Me.chk保存展开图到指定文件夹.AutoSize = True
+        Me.chk保存展开图到指定文件夹.Location = New System.Drawing.Point(302, 260)
+        Me.chk保存展开图到指定文件夹.Name = "chk保存展开图到指定文件夹"
+        Me.chk保存展开图到指定文件夹.Size = New System.Drawing.Size(156, 16)
+        Me.chk保存展开图到指定文件夹.TabIndex = 41
+        Me.chk保存展开图到指定文件夹.Text = "保存展开图到指定文件夹"
+        Me.chk保存展开图到指定文件夹.UseVisualStyleBackColor = True
         '
         'txt工艺文字高
         '
@@ -1421,7 +1449,7 @@ Partial Class FormOption
         Me.lbl展开图模板.Name = "lbl展开图模板"
         Me.lbl展开图模板.Size = New System.Drawing.Size(77, 12)
         Me.lbl展开图模板.TabIndex = 7
-        Me.lbl展开图模板.Text = "工程图模板："
+        Me.lbl展开图模板.Text = "展开图模板："
         '
         'chk展开图标注
         '
@@ -1575,6 +1603,7 @@ Partial Class FormOption
         '
         'TabPage主题
         '
+        Me.TabPage主题.Controls.Add(Me.GroupBox截图)
         Me.TabPage主题.Controls.Add(Me.lvw设置图标大小)
         Me.TabPage主题.Location = New System.Drawing.Point(4, 22)
         Me.TabPage主题.Name = "TabPage主题"
@@ -1582,6 +1611,51 @@ Partial Class FormOption
         Me.TabPage主题.TabIndex = 4
         Me.TabPage主题.Text = "主题"
         Me.TabPage主题.UseVisualStyleBackColor = True
+        '
+        'GroupBox截图
+        '
+        Me.GroupBox截图.Controls.Add(Me.txt高度)
+        Me.GroupBox截图.Controls.Add(Me.txt宽度)
+        Me.GroupBox截图.Controls.Add(Me.lbl高度)
+        Me.GroupBox截图.Controls.Add(Me.lbl宽度)
+        Me.GroupBox截图.Location = New System.Drawing.Point(244, 9)
+        Me.GroupBox截图.Name = "GroupBox截图"
+        Me.GroupBox截图.Size = New System.Drawing.Size(128, 85)
+        Me.GroupBox截图.TabIndex = 33
+        Me.GroupBox截图.TabStop = False
+        Me.GroupBox截图.Text = "截图"
+        '
+        'txt高度
+        '
+        Me.txt高度.Location = New System.Drawing.Point(47, 55)
+        Me.txt高度.Name = "txt高度"
+        Me.txt高度.Size = New System.Drawing.Size(66, 21)
+        Me.txt高度.TabIndex = 1
+        '
+        'txt宽度
+        '
+        Me.txt宽度.Location = New System.Drawing.Point(47, 22)
+        Me.txt宽度.Name = "txt宽度"
+        Me.txt宽度.Size = New System.Drawing.Size(66, 21)
+        Me.txt宽度.TabIndex = 0
+        '
+        'lbl高度
+        '
+        Me.lbl高度.AutoSize = True
+        Me.lbl高度.Location = New System.Drawing.Point(6, 55)
+        Me.lbl高度.Name = "lbl高度"
+        Me.lbl高度.Size = New System.Drawing.Size(41, 12)
+        Me.lbl高度.TabIndex = 9
+        Me.lbl高度.Text = "高度："
+        '
+        'lbl宽度
+        '
+        Me.lbl宽度.AutoSize = True
+        Me.lbl宽度.Location = New System.Drawing.Point(6, 25)
+        Me.lbl宽度.Name = "lbl宽度"
+        Me.lbl宽度.Size = New System.Drawing.Size(41, 12)
+        Me.lbl宽度.TabIndex = 8
+        Me.lbl宽度.Text = "宽度："
         '
         'lvw设置图标大小
         '
@@ -1634,16 +1708,6 @@ Partial Class FormOption
         Me.Button1.TabIndex = 17
         Me.Button1.Text = "选择"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'chk短日期
-        '
-        Me.chk短日期.AutoSize = True
-        Me.chk短日期.Location = New System.Drawing.Point(14, 99)
-        Me.chk短日期.Name = "chk短日期"
-        Me.chk短日期.Size = New System.Drawing.Size(60, 16)
-        Me.chk短日期.TabIndex = 9
-        Me.chk短日期.Text = "短日期"
-        Me.chk短日期.UseVisualStyleBackColor = True
         '
         'FormOption
         '
@@ -1707,6 +1771,8 @@ Partial Class FormOption
         Me.GroupBox上.ResumeLayout(False)
         Me.GroupBox上.PerformLayout()
         Me.TabPage主题.ResumeLayout(False)
+        Me.GroupBox截图.ResumeLayout(False)
+        Me.GroupBox截图.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1855,4 +1921,10 @@ Partial Class FormOption
     Friend WithEvents chk使用UTF8编码 As CheckBox
     Friend WithEvents chk强制横向 As CheckBox
     Friend WithEvents chk短日期 As CheckBox
+    Friend WithEvents GroupBox截图 As GroupBox
+    Friend WithEvents txt高度 As TextBox
+    Friend WithEvents txt宽度 As TextBox
+    Friend WithEvents lbl高度 As Label
+    Friend WithEvents lbl宽度 As Label
+    Friend WithEvents chk保存展开图到指定文件夹 As CheckBox
 End Class

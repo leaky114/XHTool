@@ -191,7 +191,7 @@ Public Class FormiPropertyToFileName
         Dim strNewFileName As String
 
         If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -354,7 +354,7 @@ Public Class FormiPropertyToFileName
             End Using
 
             If MessageBox.Show("数据文件导出完成，是否打开？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
-                Process.Start(strCsvFullFileName)
+              ProcessStart(strCsvFullFileName)
             End If
 
         Catch ex As Exception
@@ -381,21 +381,21 @@ Public Class FormiPropertyToFileName
 
                         ' 步骤1：读取列名
                         If oTextFieldParser.EndOfData Then
-                            MessageBox.Show("CSV 文件为空。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            MessageBox.Show("CSV 文件为空。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Return
                         End If
                         Dim csvHeaders As String() = oTextFieldParser.ReadFields()
 
                         ' 步骤2：验证列名和列数是否与 ListView 匹配
                         If csvHeaders.Length <> lvw文件列表.Columns.Count Then
-                            MessageBox.Show("CSV 列数不匹配。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            MessageBox.Show("CSV 列数不匹配。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Return
                         End If
 
                         For i As Integer = 0 To csvHeaders.Length - 1
                             If csvHeaders(i) <> lvw文件列表.Columns(i).Text Then
                                 MessageBox.Show($"列名不匹配：第 {i + 1} 列应为 [{lvw文件列表.Columns(i).Text}]", XHTool,
-                                                MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                                MessageBoxButtons.OK, MessageBoxIcon.Error)
                                 Return
                             End If
                         Next

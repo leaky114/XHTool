@@ -70,7 +70,7 @@
         'ini.WriteStrINI("展开图", "导出DXF", str导出DXF, Inifile)
         ini.WriteStrINI("展开图", "图号材质", str图号材质, IniFile)
         ini.WriteStrINI("展开图", "工艺文字高", str工艺文字高, IniFile)
-
+        ini.WriteStrINI("展开图", "保存展开图到指定文件夹", str保存展开图到指定文件夹, IniFile)
 
 
         ini.WriteStrINI("工程图", "工程图模板", str工程图模板, IniFile)
@@ -101,6 +101,10 @@
         ini.WriteStrINI("工程图", "强制横向", str强制横向, IniFile)
 
         ini.WriteStrINI("主题", "大图标", strLargeSmallIconSets, IniFile)
+
+        ini.WriteStrINI("截图", "宽度", intPitcureWidth, IniFile)
+        ini.WriteStrINI("截图", "高度", intPitcureHeight, IniFile)
+
 
     End Sub
 
@@ -184,6 +188,8 @@
         'str导出DXF = ini.GetStrFromINI("展开图", "导出DXF", "1", Inifile)
         str图号材质 = ini.GetStrFromINI("展开图", "图号材质", "无材质", IniFile)
 
+        str保存展开图到指定文件夹 = ini.GetStrFromINI("展开图", "保存展开图到指定文件夹", "-1", IniFile)
+
         str工艺文字高 = ini.GetStrFromINI("展开图", "工艺文字高", "2.5", IniFile)
 
         str工程图模板 = ini.GetStrFromINI("工程图", "工程图模板", My.Application.Info.DirectoryPath & "\模板.idw", Inifile)
@@ -222,6 +228,8 @@
 
         strLargeSmallIconSets = ini.GetStrFromINI("主题", "大图标", "大,大,大,大,大,大,大", IniFile)
 
+        intPitcureWidth = ini.GetStrFromINI("截图", "宽度", "800", IniFile)
+        intPitcureHeight = ini.GetStrFromINI("截图", "高度", "600“, IniFile)
 
     End Sub
 

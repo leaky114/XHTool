@@ -21,7 +21,7 @@ Public Class FormImportCodeToIam
         End If
 
         If ThisApplication.ActiveEditDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -246,8 +246,7 @@ Public Class FormImportCodeToIam
                                 Exit For
                             Else
                                 'Me.TopMost = False
-                                If MessageBox.Show(oListViewItem.Text & "(" & strNowRangeValue & ") 查询到新的编码：" & vbCrLf &
-                                                   strFindRangeValue & vbCrLf & "是否替换？", XHTool,
+                                If MessageBox.Show($"{oListViewItem.Text}({strNowRangeValue})查询到新的编码： {strFindRangeValue} ，是否替换？", XHTool,
                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                                     oListViewItem.SubItems(2).Text = strFindRangeValue
                                     oListViewItem.UseItemStyleForSubItems = False
@@ -392,7 +391,7 @@ Public Class FormImportCodeToIam
         End If
 
         If ThisApplication.ActiveEditDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Me.Dispose()
             Exit Sub
         End If

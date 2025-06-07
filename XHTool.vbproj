@@ -130,6 +130,7 @@
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Concurrent" />
     <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
@@ -146,6 +147,7 @@
     <Compile Include="Class\clsListViewSorter.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
     <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
+    <Compile Include="Class\clsRightMouseChangeSelectionPriority.vb" />
     <Compile Include="Class\clsRightMouseZhenlieChicun.vb" />
     <Compile Include="Class\clsRightMouseShowAll.vb" />
     <Compile Include="Class\clsRightMouseTurnOffAdaptivity.vb" />
@@ -757,6 +759,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Module\代码片段.txt" />
+    <None Include="Resources\选择零部件16.ICO" />
+    <None Include="Resources\选择模式32.ico" />
+    <None Include="Resources\选择模式16.ico" />
+    <None Include="Resources\选择面和边16.ICO" />
     <None Include="Resources\面着色32.ico" />
     <None Include="Resources\面着色16.ico" />
     <None Include="Resources\选择实体16.ICO" />

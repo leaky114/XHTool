@@ -23,7 +23,7 @@ Partial Class FormFormatConversion
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formFormatConversion))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFormatConversion))
         Me.Lvw文件列表 = New System.Windows.Forms.ListView()
         Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cms右键菜单 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -88,6 +88,7 @@ Partial Class FormFormatConversion
         Me.Lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader文件名})
         Me.Lvw文件列表.ContextMenuStrip = Me.cms右键菜单
         Me.Lvw文件列表.FullRowSelect = True
+        Me.Lvw文件列表.HideSelection = False
         Me.Lvw文件列表.Location = New System.Drawing.Point(12, 218)
         Me.Lvw文件列表.Name = "Lvw文件列表"
         Me.Lvw文件列表.Size = New System.Drawing.Size(776, 317)
@@ -434,6 +435,7 @@ Partial Class FormFormatConversion
         '指定文件夹ToolStripTextBox
         '
         Me.指定文件夹ToolStripTextBox.Enabled = False
+        Me.指定文件夹ToolStripTextBox.Font = New System.Drawing.Font("Microsoft YaHei UI", 9.0!)
         Me.指定文件夹ToolStripTextBox.Name = "指定文件夹ToolStripTextBox"
         Me.指定文件夹ToolStripTextBox.Size = New System.Drawing.Size(550, 40)
         '
@@ -489,7 +491,7 @@ Partial Class FormFormatConversion
         Me.关闭ToolStripButton.Text = "关闭"
         Me.关闭ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'formFormatConversion
+        'FormFormatConversion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -500,7 +502,7 @@ Partial Class FormFormatConversion
         Me.Controls.Add(Me.加载方式ToolStrip)
         Me.Controls.Add(Me.ToolStrip文档格式)
         Me.Controls.Add(Me.Lvw文件列表)
-        Me.Name = "formFormatConversion"
+        Me.Name = "FormFormatConversion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "格式转换"
         Me.cms右键菜单.ResumeLayout(False)

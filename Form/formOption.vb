@@ -40,7 +40,7 @@ Public Class FormOption
 
     Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
         If cbo图号.Text = cbo文件名.Text Then
-            MessageBox.Show("映射设置相同.", XHTool, MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("映射设置相同。", XHTool, MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -163,6 +163,8 @@ Public Class FormOption
 
         str工艺文字高 = txt工艺文字高.Text
 
+        str保存展开图到指定文件夹 = IIf(chk保存展开图到指定文件夹.Checked, "1", "-1")
+
         str工程图模板 = txt工程图模板.Text
         str自动展开图 = IIf(chk钣金自动展开.Checked, "1", "-1")
         str第三视角 = IIf(chk第三视角.Checked, "1", "-1")
@@ -190,6 +192,9 @@ Public Class FormOption
             strLargeSmallIconSets = strLargeSmallIconSets & item.SubItems(1).Text.ToString & ","
         Next
 
+        intPitcureWidth = txt宽度.Text
+        intPitcureHeight = txt高度.Text
+
 
         WrIni.InAISettingIniWriteSetting()
 
@@ -203,11 +208,11 @@ Public Class FormOption
     Private Sub Btn打开erp数据库_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn打开erp数据库.Click
 
         'if IsFileExists(txt自定义数据文件.Text) = True Then
-        '    Process.Start(txt自定义数据文件.Text)
+        '  ProcessStart(txt自定义数据文件.Text)
         'End if
 
         If IsFileExists(BasicExcelFullFileName) = True Then
-            Process.Start(BasicExcelFullFileName)
+          ProcessStart(BasicExcelFullFileName)
         Else
             'excel文件不存在，到服务器下载
             Dim documentURL As String
@@ -216,7 +221,7 @@ Public Class FormOption
             If IsFileExists(documentURL) = True Then
                 Dim wc As New System.Net.WebClient
                 wc.DownloadFile(documentURL, BasicExcelFullFileName)
-                Process.Start(BasicExcelFullFileName)
+              ProcessStart(BasicExcelFullFileName)
             End If
 
         End If
@@ -398,6 +403,8 @@ Public Class FormOption
         cbo图号材质.Text = str图号材质
         txt工艺文字高.Text = str工艺文字高
 
+        chk保存展开图到指定文件夹.Checked = IIf(str保存展开图到指定文件夹 = "1", True, False)
+
         txt工程图模板.Text = str工程图模板
         chk钣金自动展开.Checked = IIf(str自动展开图 = "1", True, False)
         chk第三视角.Checked = IIf(str第三视角 = "1", True, False)
@@ -421,7 +428,8 @@ Public Class FormOption
         txt部件图框.Text = str部件图框
         txt零件图框.Text = str零件图框
 
-
+        txt宽度.Text = intPitcureWidth
+        txt高度.Text = intPitcureHeight
 
 
         '==================================================================
@@ -562,7 +570,7 @@ Public Class FormOption
     Private Sub ToolStripMenuItem全局_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem全局.Click
         Dim FPath As String = IO.Path.Combine(My.Application.Info.DirectoryPath, "InAISetting.ini")
 
-        Process.Start("NOTEPAD.EXE", FPath)
+        ProcessStart(FPath)
     End Sub
 
     Private Sub ToolStripMenuItem图框替换_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem图框替换.Click
@@ -575,7 +583,7 @@ Public Class FormOption
     Private Sub ToolStripMenuItem安装目录_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem安装目录.Click
         Dim strAppPath As String
         strAppPath = My.Application.Info.DirectoryPath
-        Process.Start("explorer.exe", strAppPath)
+        ProcessStart(strAppPath)
     End Sub
 
     Private Sub Btn配置文件_MouseClick(sender As Object, e As MouseEventArgs) Handles btn配置文件.MouseClick

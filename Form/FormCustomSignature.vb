@@ -16,7 +16,7 @@ Public Class FormCustomSignature
             oInventorDocument = ThisApplication.ActiveDocument
 
             If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 

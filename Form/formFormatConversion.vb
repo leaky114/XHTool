@@ -395,7 +395,7 @@ Public Class FormFormatConversion
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -529,7 +529,7 @@ Public Class FormFormatConversion
         Dim strInventorDocumentFullFileName As String = Nothing   '文档文件名
 
         If Lvw文件列表.Items.Count = 0 Then
-            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 

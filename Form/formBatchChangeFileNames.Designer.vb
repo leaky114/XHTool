@@ -137,7 +137,7 @@ Partial Class FormBatchChangeFileNames
         Me.chk备份文件.Text = "备份文件"
         Me.chk备份文件.UseVisualStyleBackColor = True
         '
-        'formBatchChangeFileNames
+        'FormBatchChangeFileNames
         '
         Me.AcceptButton = Me.btn确定
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -157,7 +157,7 @@ Partial Class FormBatchChangeFileNames
         Me.Controls.Add(Me.lbl图号)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
-        Me.Name = "formBatchChangeFileNames"
+        Me.Name = "FormBatchChangeFileNames"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量重命名"
         Me.ResumeLayout(False)

@@ -146,11 +146,11 @@ Public Class FormDim2Object
                     kFlushConstraintObject, kInsertConstraintObject, kMateConstraintObject, kTangentConstraintObject, kTransitionalConstraintObject
                     oAssemblyConstraint = oselect
                 Case Else
-                    MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
             End Select
         Else
-            MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”选择一个约束。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -411,7 +411,7 @@ Public Class FormDim2Object
         End Using
 
         If MessageBox.Show("数据文件导出完成，是否打开？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
-            Process.Start(strCsvFullFileName)
+          ProcessStart(strCsvFullFileName)
         End If
 
     End Sub

@@ -56,14 +56,14 @@ Public Class FormMain
             ' 验证当前文档为零件文档
             Dim oInventorDocument As Inventor.Document = TryCast(ThisApplication.ActiveDocument, PartDocument)
             If oInventorDocument Is Nothing Then
-                MessageBox.Show(”请打开零件文档。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”请打开零件文档。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
             ' 获取当前激活草图
             Dim oSketch As Sketch = ThisApplication.ActiveEditObject
             If oSketch Is Nothing Then
-                MessageBox.Show(”请先激活草图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”请先激活草图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
             End If
 
@@ -134,10 +134,17 @@ Public Class FormMain
     End Sub
 
 
+
+
+
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
-        CreateLineWithMidpoint()
+        '  CreateLineWithMidpoint()
+
+
+
+
 
     End Sub
 
@@ -146,7 +153,7 @@ Public Class FormMain
     'CheckSteelThicknessInAssembly()
 
     'If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-    '     MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '     MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
     '    Exit Sub
     'End If
 
@@ -617,7 +624,9 @@ Public Class FormMain
         Dim strHelpFullFileName As String
         strHelpFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "帮助.pdf")
         If IsFileExists(strHelpFullFileName) = True Then
-            Process.Start(strHelpFullFileName)
+            ProcessStart(strHelpFullFileName)
+        Else
+            ProcessStart(Bilibili)
         End If
     End Sub
 
@@ -646,7 +655,7 @@ Public Class FormMain
             SetStatusBarText()
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -681,7 +690,7 @@ Public Class FormMain
             End If
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -713,7 +722,7 @@ Public Class FormMain
             End If
 
             If ThisApplication.ActiveDocument.DocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 

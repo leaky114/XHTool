@@ -37,7 +37,7 @@ Module IdwBalloon
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Function
             End If
 
@@ -48,12 +48,12 @@ Module IdwBalloon
             oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
             If oActiveSheet.Balloons.Count = 0 Then
-                MessageBox.Show("该工程图无序号，请添加【序号】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无序号，请添加【序号】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Function
             End If
 
             If oActiveSheet.PartsLists.Count = 0 Then
-                MessageBox.Show("该工程图无明细表，请插入一个【明细表】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无明细表，请插入一个【明细表】。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Function
             End If
 
@@ -99,7 +99,7 @@ Module IdwBalloon
             oTransaction.End() '事务结束，完成修改操作
 
             If Strings.Len(strList) > 1 Then
-                MessageBox.Show("明细表：" & strList & " 无序号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show($"明细表：{strList} 无序号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Else
                 MessageBox.Show("检查序号完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
             End If
@@ -202,7 +202,7 @@ Module IdwBalloon
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Function
         End If
 
@@ -222,12 +222,12 @@ Module IdwBalloon
         oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
         If oActiveSheet.PartsLists.Count = 0 Then
-            MessageBox.Show("该工程图无明细表。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该工程图无明细表。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Return False
             Exit Function
         End If
 
-        Dim userInput As String = InputBox("输入第一个序号", "自动新建序号", 1)
+        Dim userInput As String = InputBox("输入第一个序号", XHTool, 1)
 
         Dim intFirstBalloonNumber As Integer
         If String.IsNullOrEmpty(userInput) Then
@@ -313,8 +313,6 @@ Module IdwBalloon
                     End If
 
                 Next
-
-
 
                 '获取视图包含的balloon个数
                 Dim intArrayBalloonDateLength As Integer
@@ -462,7 +460,7 @@ Module IdwBalloon
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -473,19 +471,15 @@ Module IdwBalloon
             Dim oTransaction As Transaction
             oTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "My Transaction")
 
-            'start a transaction so the slot will be within a single undo step
-            Dim createSlotTransaction As Transaction
-            createSlotTransaction = ThisApplication.TransactionManager.StartTransaction(ThisApplication.ActiveDocument, "重新设置序号")
-
             Dim oActiveSheet As Sheet
             oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
             If oActiveSheet.PartsLists.Count = 0 Then
-                MessageBox.Show("该工程图无明细表", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无明细表", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
-            Dim strFirstBalloonNumber As String = InputBox("输入第一个序号", "重建序号", 1)
+            Dim strFirstBalloonNumber As String = InputBox("输入第一个序号", XHTool, 1)
             Dim intFirstBalloonNumber As Integer
 
             If String.IsNullOrEmpty(strFirstBalloonNumber) Then
@@ -592,7 +586,7 @@ Module IdwBalloon
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -603,7 +597,7 @@ Module IdwBalloon
             oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
             If oActiveSheet.PartsLists.Count = 0 Then
-                MessageBox.Show("该工程图无明细表。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该工程图无明细表。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -635,7 +629,7 @@ Module IdwBalloon
         oInventorDocument = ThisApplication.ActiveDocument
 
         If oInventorDocument.DocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -654,7 +648,7 @@ Module IdwBalloon
         oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
         If oActiveSheet.PartsLists.Count = 0 Then
-            MessageBox.Show("该工程图无明细表。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该工程图无明细表。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -696,7 +690,7 @@ Module IdwBalloon
 
             oTransaction.End()
         Catch ex As FormatException
-            MessageBox.Show(”请输入有效的数字格式“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请输入有效的数字格式“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As ArgumentException
 
             MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)

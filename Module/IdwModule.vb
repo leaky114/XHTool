@@ -36,7 +36,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -78,7 +78,7 @@ Module IdwModule
 
             'If Strings.InStr(strDwgFullFileName, "取消") = 1 Then
             '    strDwgFullFileName = Strings.Replace(strDwgFullFileName, "取消", "")
-            '    Process.Start(strDwgFullFileName)
+            '  ProcessStart(strDwgFullFileName)
             '    Exit Sub
             'End If
 
@@ -89,9 +89,9 @@ Module IdwModule
             IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
 
             If IsFileExists(strDwgFullFileName) Then
-                SetStatusBarText("另存为DWG完成")
-                If MessageBox.Show("是否打开文件： " & strDwgFullFileName, XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
-                    System.Diagnostics.Process.Start(strDwgFullFileName)
+                SetStatusBarText("另存为DWG完成。")
+                If MessageBox.Show($"是否打开文件： {vbCrLf}{strDwgFullFileName} ？”, XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
+                    ProcessStart(strDwgFullFileName)
                 End If
             Else
                 SetStatusBarText(XHTool)
@@ -183,7 +183,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -222,7 +222,7 @@ Module IdwModule
 
             'If Strings.InStr(strPdfFullFileName, "取消") = 1 Then
             '    strPdfFullFileName = Strings.Replace(strPdfFullFileName, "取消", "")
-            '    Process.Start(strPdfFullFileName)
+            '  ProcessStart(strPdfFullFileName)
             '    Exit Sub
             'End If
 
@@ -234,9 +234,9 @@ Module IdwModule
 
             If IsFileExists(strPdfFullFileName) Then
                 SetStatusBarText("另存为Pdf文件完成")
-                If MessageBox.Show("是否打开文件： " & strPdfFullFileName, XHTool，
+                If MessageBox.Show($"是否打开文件：{strPdfFullFileName}？“, XHTool，
                                    MessageBoxButtons.YesNo， MessageBoxIcon.Question) = DialogResult.Yes Then
-                    System.Diagnostics.Process.Start(strPdfFullFileName)
+                    ProcessStart(strPdfFullFileName)
                 End If
             Else
                 SetStatusBarText(XHTool)
@@ -328,14 +328,15 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-            Dim oLinearGeneralDimension As LinearGeneralDimension    '选择的部件或零件
+            '
+            Dim oDrawingDimension As DrawingDimension     '选择的部件或零件
 
             Dim strDimension As String
             Dim strFai As String
@@ -343,7 +344,7 @@ Module IdwModule
             ' 是否已经选择了尺寸
             If oInventorDrawingDocument.SelectSet.Count <> 0 Then
                 For Each oSelect As Object In oInventorDrawingDocument.SelectSet
-                    If oSelect.Type = ObjectTypeEnum.kLinearGeneralDimensionObject Then
+                    If TypeOf oSelect Is LinearGeneralDimension Then
 
                         '添加Φ, 内部代号n
                         strFai = "<StyleOverride Font='AIGDT'>n</StyleOverride>"
@@ -353,14 +354,20 @@ Module IdwModule
                     End If
                 Next
             Else
-                oLinearGeneralDimension = ThisApplication.CommandManager.Pick(kDrawingDefaultFilter, "选择要添加Φ的尺寸，ESC键取消")
-                If oLinearGeneralDimension Is Nothing Then       '取消选择
-                    Exit Sub
-                End If
+                Do
+                    oDrawingDimension = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要添加Φ的尺寸，ESC键取消")
+                    'If oLinearGeneralDimension Is Nothing Then       '取消选择
+                    '    Exit Sub
+                    'End If
 
-                strFai = "<StyleOverride Font='AIGDT'>n</StyleOverride>"
-                strDimension = strFai & "<DimensionValue/>"
-                oLinearGeneralDimension.Text.FormattedText = strDimension
+                    If TypeOf oDrawingDimension Is LinearGeneralDimension Then
+
+                        strFai = "<StyleOverride Font='AIGDT'>n</StyleOverride>"
+                        strDimension = strFai & "<DimensionValue/>"
+                        oDrawingDimension.Text.FormattedText = strDimension
+
+                    End If
+                Loop Until (oDrawingDimension Is Nothing)
 
             End If
         Catch ex As Exception
@@ -383,30 +390,31 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Function
             End If
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-            Dim oLinearGeneralDimension As LinearGeneralDimension    '选择的部件或零件
+            Dim oDrawingDimension As DrawingDimension    '选择的部件或零件
 
             ' 是否已经选择了尺寸
             If oInventorDrawingDocument.SelectSet.Count <> 0 Then
                 For Each oSelectSet As Object In oInventorDrawingDocument.SelectSet
-                    If oSelectSet.Type = ObjectTypeEnum.kLinearGeneralDimensionObject Then
+                    If TypeOf oSelectSet Is DrawingDimension Then
                         oSelectSet.Precision = 0
                     End If
                 Next
             Else
-                oLinearGeneralDimension = ThisApplication.CommandManager.Pick(kDrawingDefaultFilter, "选择要圆整的尺寸，ESC键取消")
-                If oLinearGeneralDimension Is Nothing Then       '取消选择
-                    Return True
-                    Exit Function
-                End If
-                oLinearGeneralDimension.Precision = 0
-
+                '循环选择设置，直到esc键取消选择
+                Do
+                    oDrawingDimension = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要圆整的尺寸，ESC键取消")
+                    '   If TypeOf oDrawingDimension Is LinearGeneralDimension Or TypeOf oDrawingDimension Is AngularGeneralDimension Then
+                    If TypeOf oDrawingDimension Is DrawingDimension Then
+                        oDrawingDimension.Precision = 0
+                    End If
+                Loop Until (oDrawingDimension Is Nothing)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -428,7 +436,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -439,7 +447,7 @@ Module IdwModule
             Dim oSheet As Sheet
             oSheet = oInventorDrawingDocument.ActiveSheet
 
-            Dim oDrawingDim As DrawingDimension
+            Dim oDrawingDimension As DrawingDimension
 
             ' Iterate over all dimensions in the drawing and
             ' center them if they are linear or angular.
@@ -450,10 +458,9 @@ Module IdwModule
 
             Dim oarrangeDims = ThisApplication.TransientObjects.CreateObjectCollection
 
-            For Each oDrawingDim In oSheet.DrawingDimensions
-
-                If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
-                    oDrawingDim.CenterText()
+            For Each oDrawingDimension In oSheet.DrawingDimensions
+                If TypeOf oDrawingDimension Is LinearGeneralDimension Or TypeOf oDrawingDimension Is AngularGeneralDimension Then
+                    oDrawingDimension.CenterText()
                     'oarrangeDims.Add(oDrawingDim)
                 End If
             Next
@@ -482,14 +489,14 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
             Dim oInventorDrawingDocument As Inventor.DrawingDocument
             oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-            Dim oDrawingDim As DrawingDimension    '选择的尺寸标注
+            Dim oDrawingDimension As DrawingDimension    '选择的尺寸标注
 
             ' 是否已经选择了尺寸
             If oInventorDrawingDocument.SelectSet.Count <> 0 Then
@@ -501,12 +508,12 @@ Module IdwModule
             Else
                 '循环选择设置，直到esc键取消选择
                 Do
-                    oDrawingDim = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要文字居中的尺寸，ESC键取消")
-                    If TypeOf oDrawingDim Is LinearGeneralDimension Or TypeOf oDrawingDim Is AngularGeneralDimension Then
-                        oDrawingDim.CenterText()
+                    oDrawingDimension = ThisApplication.CommandManager.Pick(kDrawingDimensionFilter, "选择要文字居中的尺寸，ESC键取消")
+                    If TypeOf oDrawingDimension Is LinearGeneralDimension Or TypeOf oDrawingDimension Is AngularGeneralDimension Then
+                        oDrawingDimension.CenterText()
                     End If
 
-                Loop Until (oDrawingDim Is Nothing)
+                Loop Until (oDrawingDimension Is Nothing)
 
             End If
         Catch ex As Exception
@@ -527,7 +534,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -539,7 +546,7 @@ Module IdwModule
                 ' MessageBox.Show("设置工程图自定义属性：对称件IPro", MsgBoxStyle.Information)
             Else
                 SetStatusBarText(XHTool)
-                MessageBox.Show("设置对称件iProperty错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("设置对称件iProperty错误。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             End If
         Catch ex As Exception
@@ -558,7 +565,7 @@ Module IdwModule
         oSheet = oInventorDrawingDocument.ActiveSheet
 
         If oSheet.DrawingViews.Count = 0 Then
-            MessageBox.Show("先添加一个视图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("先添加一个视图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Return False
         End If
 
@@ -683,7 +690,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -691,7 +698,7 @@ Module IdwModule
         oInventorDrawingDocument = ThisApplication.ActiveDocument
 
         If IsFileExists(str工程图模板) = False Then
-            MessageBox.Show("找不到模板文件：" & str工程图模板 & "，重新设置。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show($"找不到模板文件：{str工程图模板}，重新设置。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             Dim strFileName As String
             Dim strFilter As String = "Inventor工程图文件(*.idw;*.dwg)|*.idw;*.dwg" '添加过滤文件
@@ -713,7 +720,7 @@ Module IdwModule
         strTitleBlock = IO.Path.Combine(My.Application.Info.DirectoryPath, "TitleBlock.ini")
 
         If IsFileExists(strTitleBlock) = False Then
-            MessageBox.Show("无配置文件,请手动配置！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("无配置文件,请手动配置。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             Dim file As New StreamWriter(strTitleBlock)
             file.WriteLine("#号行勿修改,文件编码 ANSI")
@@ -723,7 +730,7 @@ Module IdwModule
             file.WriteLine("#SH(-零件 = NX - 零件)")
             file.Close()
 
-            Process.Start(strTitleBlock)
+          ProcessStart(strTitleBlock)
 
             Exit Sub
         End If
@@ -1051,7 +1058,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -1093,7 +1100,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -1249,7 +1256,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -1367,8 +1374,8 @@ Module IdwModule
         If IsFileExists(str展开图模板) = False Then
             Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-            MessageBox.Show("未找到展开图模板：" & vbCrLf & str展开图模板 & vbCrLf & "请选择展开图模板文件。", XHTool，
-                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show($"未找到展开图模板：{vbCrLf}{str展开图模板}，{vbCrLf}请选择展开图模板文件。", XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             With oOpenFileDialog
                 .Title = "打开展开图模板文件"
@@ -1390,11 +1397,12 @@ Module IdwModule
 
         Dim strInventorDrawingFolder As String = Nothing
 
-        Dim msg As DialogResult = MessageBox.Show("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", XHTool，
-                                    MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question, MessageBoxDefaultButton.Button1）
+        'Dim msg As DialogResult = MessageBox.Show("是否指定保存展开图文件夹？不指定则保存到当前文件夹。", XHTool，
+        '                            MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question, MessageBoxDefaultButton.Button1）
 
-        Select Case msg
-            Case DialogResult.Yes
+        Select Case str保存展开图到指定文件夹
+            Case "1"    ' DialogResult.Yes
+
                 Dim oFolderBrowserDialog As New FolderBrowserDialog
 
                 With oFolderBrowserDialog
@@ -1408,10 +1416,10 @@ Module IdwModule
                     End If
                 End With
 
-            Case DialogResult.No
+            Case Else     ' DialogResult.No
                 strInventorDrawingFolder = "当前文件夹"
-            Case DialogResult.Cancel
-                Exit Sub
+                'Case DialogResult.Cancel
+                '    Exit Sub
         End Select
 
 
@@ -1429,7 +1437,7 @@ Module IdwModule
         Select Case oInventorDocument.DocumentType
             Case kAssemblyDocumentObject
 
-                If MessageBox.Show("将为部件中的钣金件创建展开图？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.No Then
+                If MessageBox.Show("部件中的钣金件将创建展开图？", XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.No Then
                     Exit Sub
                 End If
 
@@ -1508,13 +1516,13 @@ Module IdwModule
     Public Sub CreateFlat(ByVal oInventorDocument As Inventor.PartDocument)
         ' Check for a non-part document 
         If oInventorDocument.DocumentType <> kPartDocumentObject Then
-            MessageBox.Show(”该文档不是零件“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(”该文档不是零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         ' The Active document must be a Sheet metal Part
         If oInventorDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}" Then
-            MessageBox.Show(”该文档不是钣金件“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(”该文档不是钣金件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -1781,8 +1789,8 @@ Module IdwModule
         If IsFileExists(str工程图模板) = False Then
             Dim oOpenFileDialog As New OpenFileDialog '声名新open 窗口
 
-            MessageBox.Show("未找到工程图模板：" & vbCrLf & str工程图模板 & vbCrLf & "请选择工程图模板文件。", XHTool，
-                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show($"未找到工程图模板：{vbCrLf}{str工程图模板}，{vbCrLf}请选择工程图模板文件。", XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Error）
 
             Dim strFilter As String = "Autodesk Inventor 工程图 (*.idw)|*.idw" '添加过滤文件
 
@@ -1855,7 +1863,7 @@ Module IdwModule
 
         '如果工程图存在就打开工程图，不创建新的工程图
         If IsFileExists(strInventorDrawingDocumentFullFileName) = True Then
-            If MessageBox.Show("确定打开已存在工程图：" & strInventorDrawingDocumentFullFileName, XHTool，
+            If MessageBox.Show($"确定打开现有工程图：{vbCrLf}{strInventorDrawingDocumentFullFileName}？”, XHTool，
                                MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                 ThisApplication.Documents.Open(strInventorDrawingDocumentFullFileName)
                 Exit Sub
@@ -2126,7 +2134,7 @@ Module IdwModule
         '保存工程图
         If IsFileExists(strInventorDrawingDocumentFullFileName) = True Then
 
-            Dim msg As DialogResult = MessageBox.Show("存在文件：" & strInventorDrawingDocumentFullFileName & "，是否覆盖？", XHTool，
+            Dim msg As DialogResult = MessageBox.Show($"存在文件：{vbCrLf}{strInventorDrawingDocumentFullFileName}，{vbCrLf}是否覆盖？", XHTool，
                                          MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question）
             Select Case msg
 
@@ -2257,7 +2265,7 @@ Module IdwModule
             End If
 
             If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -2298,7 +2306,7 @@ Module IdwModule
             Dim strNewInventorDocumentFullName As String = oFileList.Item(0).ToString
 
             If strNewInventorDocumentFullName = strOldInventorDocumentFullName Then
-                MessageBox.Show("请选择不同的零部件文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+                MessageBox.Show("请选择不同的零部件文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
                 Exit Sub
             End If
 
@@ -2309,7 +2317,7 @@ Module IdwModule
 
             '判断新工程图是否存在，是否需要覆盖
             If IsFileExists(strNewInventorDrawingDocumentFullName) = True Then
-                If MessageBox.Show("存在工程图：" & vbCrLf & vbCrLf & strNewInventorDrawingDocumentFullName & vbCrLf & vbCrLf & " 是否覆盖？",
+                If MessageBox.Show($"存在工程图：{vbCrLf}{strNewInventorDrawingDocumentFullName}，{vbCrLf}是否覆盖？",
                          XHTool， MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                 Else
                     Exit Sub
@@ -2368,7 +2376,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -2398,7 +2406,7 @@ Module IdwModule
 
             End If
         Next
-        MessageBox.Show("断开链接完成！", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+        MessageBox.Show("断开链接完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
     End Sub
 
     ''' <summary>
@@ -2415,7 +2423,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -2659,7 +2667,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -2671,7 +2679,7 @@ Module IdwModule
         oInventorDocument = oInventorDrawingDocument.ReferencedDocumentDescriptors.Item(1).ReferencedDocument
 
         If TypeOf oInventorDocument IsNot PartDocument Then
-            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -2781,7 +2789,7 @@ Module IdwModule
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("该功能仅适用于工程图。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -2865,7 +2873,7 @@ Module IdwModule
         intNunber = Int(Val(strText1) / Val(strText2))
 
         If douNumber <> intNunber Then
-            MessageBox.Show("基准尺寸非整数个。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("基准尺寸非整数个。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -3020,7 +3028,7 @@ Module IdwModule
         oDocDesc = oDrawView.ReferencedDocumentDescriptor
         ' Verify that the selected drawing view is of an assembly.
         If oDocDesc.ReferencedDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show("请选装一个部件模型。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show("请选装一个部件模型。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
         Dim oAssyDoc As AssemblyDocument

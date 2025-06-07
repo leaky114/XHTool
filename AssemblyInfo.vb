@@ -8,9 +8,9 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("XHTool")> 
-<Assembly: AssemblyDescription("A Inventor AddIn For Inventor 2016-2025")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyTitle("XHTool")>
+<Assembly: AssemblyDescription("A Inventor AddIn For Inventor 2016-2026")>
+<Assembly: AssemblyCompany("https://github.com/leaky114/XHTool")>
 <Assembly: AssemblyProduct("XHTool")> 
 <Assembly: AssemblyCopyright("Copyright ©  2016-2025 leaky114")> 
 <Assembly: AssemblyTrademark("")> 
@@ -28,5 +28,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.25.5.17")>
-<Assembly: AssemblyFileVersion("1.25.5.17")>
+<Assembly: AssemblyVersion("1.25.6.1")>
+<Assembly: AssemblyFileVersion("1.25.6.1")>

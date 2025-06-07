@@ -14,7 +14,7 @@ Public Class FormBorderTitle
         strTitleBlock = IO.Path.Combine(My.Application.Info.DirectoryPath, "TitleBlock.ini")
 
         If IsFileExists(strTitleBlock) = False Then
-            MessageBox.Show(”无配置文件,请手动配置。”, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”无配置文件,请手动配置。”, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
 
             Using oStreamWriter As New StreamWriter(strTitleBlock, False, Encoding.Default)
                 oStreamWriter.WriteLine("#号行勿修改")
@@ -196,7 +196,7 @@ Public Class FormBorderTitle
     Private Sub 打开配置文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 打开配置文件ToolStripMenuItem.Click
         Dim strTitleBlock As String
         strTitleBlock = IO.Path.Combine(My.Application.Info.DirectoryPath, "TitleBlock.ini")
-        Process.Start("NOTEPAD.EXE", strTitleBlock)
+        ProcessStart(strTitleBlock)
     End Sub
 
 

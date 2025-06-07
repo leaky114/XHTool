@@ -16,7 +16,7 @@ Module BrowserNodes
         strOldInventorDocumentFullName = oInventorDrawingDocument.AllReferencedDocuments(1).FullDocumentName
 
         If GetFileExtensionLCase(strOldInventorDocumentFullName) <> IAM Then
-            MessageBox.Show("不支持非部件工程图。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+            MessageBox.Show("不支持非部件工程图。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -52,7 +52,7 @@ Module BrowserNodes
         Try
             oOcc = oDrawingCurve.ModelGeometry.ContainingOccurrence
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End Try
 

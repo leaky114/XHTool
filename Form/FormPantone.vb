@@ -389,7 +389,7 @@ Public Class FormPantone
     Private Sub Lst_Color_DoubleClick(sender As Object, E As EventArgs) Handles Btn_Color.Click, Lst_Color.DoubleClick
 
         If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
-            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -484,7 +484,7 @@ Public Class FormPantone
 
 
         If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
-            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -565,16 +565,16 @@ Public Class FormPantone
                     If sender.text >= 0 And sender.text <= 255 Then
                         Tol_ColorBar.BackColor = Drawing.Color.FromArgb(Txt_R.Text, Txt_G.Text, Txt_B.Text)
                     Else
-                        MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                        MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                         If sender.text > 255 Then sender.text = 255
                         If sender.text < 0 Then sender.text = 0
                     End If
                 Else
-                    MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                    MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                     sender.text = sender.text.Remove(Len(sender.text) - 1, 1)
                 End If
             Else
-                MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Warning)
+                MessageBox.Show("输入 0-255 整数!", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)
                 sender.text = sender.text.Remove(Len(sender.text) - 1, 1)
             End If
         Catch
@@ -772,6 +772,6 @@ Public Class FormPantone
     End Sub
 
     Private Sub ToolStripLabel8_Click(sender As Object, e As EventArgs) Handles ToolStripLabel8.Click
-        Process.Start("https://www.pmhker.com/article/71.html")
+      ProcessStart("https://www.pmhker.com/article/71.html")
     End Sub
 End Class

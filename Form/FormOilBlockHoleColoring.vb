@@ -98,7 +98,7 @@ Public Class FormOilBlockHoleColoring
 
         Me.TopMost = False
 
-        Dim msg As DialogResult = MessageBox.Show("油路块孔着色。" & vbCrLf & vbCrLf & "是——油路块孔着色" & vbCrLf & vbCrLf & "否——清除着色", XHTool，
+        Dim msg As DialogResult = MessageBox.Show($"油路块孔着色。{vbCrLf}是——油路块孔着色。{vbCrLf}否——清除着色。", XHTool，
                                      MessageBoxButtons.YesNoCancel， MessageBoxIcon.Question)
 
         Me.TopMost = True

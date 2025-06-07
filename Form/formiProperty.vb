@@ -169,7 +169,7 @@ Public Class FormiProperty
                     txtERP编码.Text = strPartNum
                 Case Else
                     If txtERP编码.Text <> strPartNum Then
-                        If MessageBox.Show("查询到不同的ERP编码：" & strPartNum & "，是否更新？", XHTool，
+                        If MessageBox.Show($"查询到不同的ERP编码：{strPartNum}，是否更新？", XHTool，
                                            MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
                             txtERP编码.Text = strPartNum
                         End If

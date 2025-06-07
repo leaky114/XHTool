@@ -480,8 +480,7 @@ Module BasicFileSystem
     ''' <remarks></remarks>
     Public Function SetNewFile(ByVal strFullFileName As String, ByVal strFilter As String) As String
         If IsFileExists(strFullFileName) = True Then
-            Dim msg As DialogResult = MessageBox.Show("已存在文件： " & strFullFileName & "  覆盖（是），另存为（否），取消？", XHTool,
-                                                      MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+            Dim msg As DialogResult = MessageBox.Show($"已存在文件：{vbCrLf}{strFullFileName}。{vbCrLf}是——覆盖。{vbCrLf}否——另存为。", XHTool, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
             Select Case msg
                 Case DialogResult.Yes
                     Return strFullFileName
@@ -828,6 +827,7 @@ Module BasicFileSystem
         End If
     End Function
 
+
     Function GetFileEncoding(ByVal filePath As String) As Encoding
         Using reader As New StreamReader(filePath, True)
             Dim byteBuffer As Byte() = New Byte(reader.BaseStream.Length - 1) {}
@@ -848,5 +848,15 @@ Module BasicFileSystem
             End If
         End Using
     End Function
+
+
+    Public Sub ProcessStart(ByVal strPath As String)
+        Dim oProcess As Process = New Process()
+        Dim oProcessStartInfo As ProcessStartInfo = New ProcessStartInfo(strPath)
+        oProcess.StartInfo = oProcessStartInfo
+        oProcess.StartInfo.UseShellExecute = True
+        oProcess.Start()
+
+    End Sub
 
 End Module

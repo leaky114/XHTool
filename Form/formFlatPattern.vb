@@ -401,7 +401,7 @@ Public Class FormFlatPattern
         End If
 
         If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
-            MessageBox.Show(”请切换到工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请切换到工程图。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -413,7 +413,7 @@ Public Class FormFlatPattern
         Dim strInventorPartDocumentFullFileName As String = txt位置.Text
 
         If IsFileExists(strInventorPartDocumentFullFileName) = False Then
-            MessageBox.Show(”未选择零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”未选择零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -463,7 +463,7 @@ Public Class FormFlatPattern
 
     Private Sub Btn从部件选择_Click(sender As Object, e As EventArgs) Handles btn从部件选择.Click
         If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
-            MessageBox.Show(”请切换到部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请切换到部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -471,14 +471,14 @@ Public Class FormFlatPattern
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         If oInventorAssemblyDocument.SelectSet.Count = 0 Then
-            MessageBox.Show(”在部件中选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”在部件中选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         Dim oComponentOccurrence As ComponentOccurrence = oInventorAssemblyDocument.SelectSet(1)
 
         If oComponentOccurrence Is Nothing Then
-            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -505,7 +505,7 @@ Public Class FormFlatPattern
             'SetViewToPictureBox(oInventorPartDocument, PictureBox1)
 
         Else
-            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请选择一个零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
     End Sub
@@ -640,7 +640,7 @@ Public Class FormFlatPattern
     Private Sub btn选择当前零件_Click(sender As Object, e As EventArgs) Handles btn选择当前零件.Click
 
         If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-            MessageBox.Show(”请切换到零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”请切换到零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 

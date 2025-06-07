@@ -222,12 +222,12 @@ Public Class FormAutoPartNumber
         strBasicStockNum = txt基准图号.Text
 
         If txt基准图号.Text = "" Then
-            MessageBox.Show("请输入基准图号。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("请输入基准图号。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If (IsNumeric(txt零件变量.Text) = False) Or (IsNumeric(cmb部件变量.Text) = False) Then
-            MessageBox.Show("变量非数字。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("变量非数字。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -418,7 +418,7 @@ Public Class FormAutoPartNumber
 
     Private Sub Txt零件变量_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt零件变量.TextChanged
         If IsNumeric(txt零件变量.Text) = False Then
-            MessageBox.Show(”非数字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(”非数字。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 

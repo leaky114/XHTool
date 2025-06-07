@@ -2473,6 +2473,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 选择零部件16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("选择零部件16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 选择面和边16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("选择面和边16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 选择面和边32() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("选择面和边32", resourceCulture)

@@ -907,4 +907,10 @@
   <data name="面着色32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\面着色32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="选择面和边16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择面和边16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="选择零部件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\选择零部件16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -33,7 +33,7 @@ Public Class FormQuitOpen
                     str模型匹配检查标记 = 1
                     ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
                 Case Else
-                    Process.Start(strQuitOpenSelectFileFullName)
+                  ProcessStart(strQuitOpenSelectFileFullName)
             End Select
 
         Next

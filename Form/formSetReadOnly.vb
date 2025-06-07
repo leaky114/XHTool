@@ -324,8 +324,8 @@ Public Class FormSetReadOnly
         Try
             oAssemblyDocument = ThisApplication.Documents.ItemByName(strCurrentAssemblyDocumentFulFileName)
         Catch
-            MessageBox.Show("没有打开文件：" & strCurrentAssemblyDocumentFulFileName, XHTool，
-                            MessageBoxButtons.OK， MessageBoxIcon.Warning）
+            MessageBox.Show($"没有打开文件：{strCurrentAssemblyDocumentFulFileName}。", XHTool，
+                            MessageBoxButtons.OK， MessageBoxIcon.Error）
             e.Node.Remove()
             Exit Sub
         End Try
