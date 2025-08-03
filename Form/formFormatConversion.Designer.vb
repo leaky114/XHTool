@@ -39,6 +39,7 @@ Partial Class FormFormatConversion
         Me.清空列表ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.静默转换ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.转换后关闭ToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.替换ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.加载方式ToolStrip = New System.Windows.Forms.ToolStrip()
         Me.加载方式ToolStripButton = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -123,7 +124,7 @@ Partial Class FormFormatConversion
         'ToolStrip文档格式
         '
         Me.ToolStrip文档格式.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.文档格式ToolStripButton, Me.ToolStripButton1, Me.工程图ToolStripButton, Me.零部件ToolStripButton, Me.ToolStripSeparator5, Me.移出文件ToolStripButton, Me.清空列表ToolStripButton, Me.静默转换ToolStripButton, Me.转换后关闭ToolStripButton})
+        Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.文档格式ToolStripButton, Me.ToolStripButton1, Me.工程图ToolStripButton, Me.零部件ToolStripButton, Me.ToolStripSeparator5, Me.移出文件ToolStripButton, Me.清空列表ToolStripButton, Me.静默转换ToolStripButton, Me.转换后关闭ToolStripButton, Me.替换ToolStripButton})
         Me.ToolStrip文档格式.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip文档格式.Name = "ToolStrip文档格式"
         Me.ToolStrip文档格式.Size = New System.Drawing.Size(800, 40)
@@ -209,6 +210,17 @@ Partial Class FormFormatConversion
         Me.转换后关闭ToolStripButton.Text = "转换后关闭"
         Me.转换后关闭ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.转换后关闭ToolStripButton.ToolTipText = "转换后关闭文件"
+        '
+        '替换ToolStripButton
+        '
+        Me.替换ToolStripButton.CheckOnClick = True
+        Me.替换ToolStripButton.Image = CType(resources.GetObject("替换ToolStripButton.Image"), System.Drawing.Image)
+        Me.替换ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.替换ToolStripButton.Name = "替换ToolStripButton"
+        Me.替换ToolStripButton.Size = New System.Drawing.Size(36, 37)
+        Me.替换ToolStripButton.Text = "替换"
+        Me.替换ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.替换ToolStripButton.ToolTipText = "替换现有文件"
         '
         '加载方式ToolStrip
         '
@@ -565,5 +577,5 @@ Partial Class FormFormatConversion
     Friend WithEvents 进度ToolStripProgressBar As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents 开始转换ToolStripButton2 As System.Windows.Forms.ToolStripButton
     Friend WithEvents 关闭ToolStripButton As System.Windows.Forms.ToolStripButton
-
+    Friend WithEvents 替换ToolStripButton As ToolStripButton
 End Class

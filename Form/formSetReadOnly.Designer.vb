@@ -23,7 +23,7 @@ Partial Class FormSetReadOnly
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formSetReadOnly))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormSetReadOnly))
         Me.btn载入当前部件 = New System.Windows.Forms.Button()
         Me.btn关闭 = New System.Windows.Forms.Button()
         Me.cms文件列表右键菜单 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -46,7 +46,7 @@ Partial Class FormSetReadOnly
         Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader文件路径 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chk隐藏工程图 = New System.Windows.Forms.CheckBox()
-        Me.cbo筛选文件 = New System.Windows.Forms.ComboBox()
+        Me.cmb筛选文件 = New System.Windows.Forms.ComboBox()
         Me.cms文件列表右键菜单.SuspendLayout()
         CType(Me.SplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer.Panel1.SuspendLayout()
@@ -222,6 +222,7 @@ Partial Class FormSetReadOnly
         Me.Lvw文件列表.FullRowSelect = True
         Me.Lvw文件列表.GridLines = True
         Me.Lvw文件列表.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.Lvw文件列表.HideSelection = False
         Me.Lvw文件列表.Location = New System.Drawing.Point(1, 0)
         Me.Lvw文件列表.Name = "Lvw文件列表"
         Me.Lvw文件列表.Size = New System.Drawing.Size(706, 441)
@@ -253,29 +254,29 @@ Partial Class FormSetReadOnly
         Me.chk隐藏工程图.Text = "隐藏工程图"
         Me.chk隐藏工程图.UseVisualStyleBackColor = True
         '
-        'cbo筛选文件
+        'cmb筛选文件
         '
-        Me.cbo筛选文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cbo筛选文件.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo筛选文件.FormattingEnabled = True
-        Me.cbo筛选文件.Items.AddRange(New Object() {"全部文件", "只读文件", "可写文件"})
-        Me.cbo筛选文件.Location = New System.Drawing.Point(137, 463)
-        Me.cbo筛选文件.Name = "cbo筛选文件"
-        Me.cbo筛选文件.Size = New System.Drawing.Size(106, 20)
-        Me.cbo筛选文件.TabIndex = 35
+        Me.cmb筛选文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmb筛选文件.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb筛选文件.FormattingEnabled = True
+        Me.cmb筛选文件.Items.AddRange(New Object() {"全部文件", "只读文件", "可写文件"})
+        Me.cmb筛选文件.Location = New System.Drawing.Point(137, 463)
+        Me.cmb筛选文件.Name = "cmb筛选文件"
+        Me.cmb筛选文件.Size = New System.Drawing.Size(106, 20)
+        Me.cmb筛选文件.TabIndex = 35
         '
-        'frmSetReadOnly
+        'FormSetReadOnly
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
         Me.ClientSize = New System.Drawing.Size(986, 495)
-        Me.Controls.Add(Me.cbo筛选文件)
+        Me.Controls.Add(Me.cmb筛选文件)
         Me.Controls.Add(Me.chk隐藏工程图)
         Me.Controls.Add(Me.SplitContainer)
         Me.Controls.Add(Me.btn载入当前部件)
         Me.Controls.Add(Me.btn关闭)
-        Me.Name = "frmSetReadOnly"
+        Me.Name = "FormSetReadOnly"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "设置只读"
         Me.cms文件列表右键菜单.ResumeLayout(False)
@@ -301,7 +302,7 @@ Partial Class FormSetReadOnly
     Friend WithEvents 树全部展开tsmi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 树全部收拢tsmi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents chk隐藏工程图 As System.Windows.Forms.CheckBox
-    Friend WithEvents cbo筛选文件 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb筛选文件 As System.Windows.Forms.ComboBox
     Friend WithEvents 列表打开tsmi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 树打开tsmi As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents 树清空tsmi As System.Windows.Forms.ToolStripMenuItem

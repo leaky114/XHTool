@@ -14,6 +14,8 @@ Public Class FormSaveCloseAllDocument
 
         Me.Hide()
 
+        ThisApplication.SilentOperation = True
+
         Dim strInventorDocumentFullFileName As String
 
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
@@ -73,6 +75,8 @@ Public Class FormSaveCloseAllDocument
                     End If
             End Select
         Next
+
+        ThisApplication.SilentOperation = False
 
         FormManager.CloseAndDisposeForm(Of FormSaveCloseAllDocument)()
     End Sub

@@ -9,16 +9,16 @@ Public Class FormiProperty
 
         SetPropitem(oInventorDocument, Map_DrawingNnumber, txt图号.Text)
         SetPropitem(oInventorDocument, Map_PartName, txt文件名.Text)
-        SetPropitem(oInventorDocument, Map_Describe, cbo描述.Text)
+        SetPropitem(oInventorDocument, Map_Describe, cmb描述.Text)
         SetPropitem(oInventorDocument, Map_ERPCode, txtERP编码.Text)
-        SetPropitem(oInventorDocument, Map_Vendor, cbo供应商.Text)
+        SetPropitem(oInventorDocument, Map_Vendor, cmb供应商.Text)
         SetPropitem(oInventorDocument, Map_Price, IIf(txt价格.Text = "", "0", txt价格.Text))
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
             Dim oPartDocument As Inventor.PartDocument = oInventorDocument
 
             Dim strMaterialName As String
-            strMaterialName = cbo材料.Text.ToString
+            strMaterialName = cmb材料.Text.ToString
 
             Dim oMaterial As Inventor.Material
             oMaterial = oPartDocument.Materials.Item(strMaterialName)
@@ -45,7 +45,7 @@ Public Class FormiProperty
         Me.TopMost = True
 
         '加载自定义描述
-        LoadCustomDescription(cbo描述)
+        LoadCustomDescription(cmb描述)
 
         Dim toolTip As New ToolTip With {
             .AutoPopDelay = 0,
@@ -97,28 +97,30 @@ Public Class FormiProperty
                     Case Map_PartName
                         txt文件名.Text = propitem.Value
                     Case Map_Describe
-                        cbo描述.Text = propitem.Value
+                        cmb描述.Text = propitem.Value
                     Case Map_ERPCode
                         txtERP编码.Text = propitem.Value
                     Case Map_Vendor
-                        cbo供应商.Text = propitem.Value
+                        cmb供应商.Text = propitem.Value
                     Case Map_Price
                         txt价格.Text = propitem.Value
+                    Case "质量"
+                        txt质量.Text = FourFive(propitem.Value * 0.001, Mass_Accuracy) & "Kg"
                 End Select
             Next
         Next
 
         If oInventorDocument.DocumentType = Inventor.DocumentTypeEnum.kPartDocumentObject Then
             Dim oInventorPartDocument As Inventor.PartDocument = oInventorDocument
-            cbo材料.Items.Clear()
+            cmb材料.Items.Clear()
 
             For Each oMaterial In oInventorPartDocument.Materials
-                cbo材料.Items.Add(oMaterial.Name)
+                cmb材料.Items.Add(oMaterial.Name)
             Next
-            cbo材料.DropDownStyle = ComboBoxStyle.DropDownList
-            cbo材料.Text = oInventorPartDocument.ComponentDefinition.Material.Name.ToString
+            cmb材料.DropDownStyle = ComboBoxStyle.DropDownList
+            cmb材料.Text = oInventorPartDocument.ComponentDefinition.Material.Name.ToString
         Else
-            cbo材料.Enabled = False
+            cmb材料.Enabled = False
         End If
 
     End Sub
@@ -133,8 +135,8 @@ Public Class FormiProperty
     Private Sub Btn向上2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn向上2.Click
         Dim strTemp As String
         strTemp = txt文件名.Text
-        txt文件名.Text = cbo描述.Text
-        cbo描述.Text = strTemp
+        txt文件名.Text = cmb描述.Text
+        cmb描述.Text = strTemp
     End Sub
 
     Private Sub Btn查询_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn查询.Click

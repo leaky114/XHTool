@@ -146,7 +146,7 @@ Public Class FormFormatConversion
         移出文件ToolStripButton.Image = My.Resources.移出文件16.ToBitmap
         清空列表ToolStripButton.Image = My.Resources.清空列表16.ToBitmap
         静默转换ToolStripButton.Image = My.Resources.静默16.ToBitmap
-        转换后关闭ToolStripButton.Image = My.Resources.关闭文件16.ToBitmap
+        替换ToolStripButton.Image = My.Resources.左右交换16.ToBitmap
 
         添加文件ToolStripButton.Image = My.Resources.打开文件16.ToBitmap
         添加文件夹ToolStripButton.Image = My.Resources.打开文件夹16.ToBitmap
@@ -533,8 +533,6 @@ Public Class FormFormatConversion
             Exit Sub
         End If
 
-
-
         Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         OInteractionEvents.Start()
         OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
@@ -606,10 +604,11 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DWG)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+
                         End If
 
-                        If DXFToolStripButton.Checked = True Then
+                            If DXFToolStripButton.Checked = True Then
                             oFormatFileNameInfo.Folder = IO.Path.Combine(strNewFolder, "Dxf")
 
                             If IsDirectoryExists(oFormatFileNameInfo.Folder) = False Then
@@ -618,7 +617,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DXF)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If PDFToolStripButton.Checked = True Then
@@ -630,7 +629,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & PDF)
 
-                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then
@@ -642,7 +641,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.FileName & ".jpg")
 
-                            ExportToBitmap(oInventorDocument, strFormatFulFileName)
+                            ExportToBitmap(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 
@@ -657,7 +656,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & STP)
 
-                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName)
+                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If XTToolStripButton.Checked = True Then
@@ -669,7 +668,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & ".x_t")
 
-                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName)
+                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then
@@ -681,7 +680,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.FileName & ".jpg")
 
-                            CreatJpgSub(oInventorDocument, strFormatFulFileName)
+                            CreatJpgSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 
@@ -692,25 +691,25 @@ Public Class FormFormatConversion
                         If DWGToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DWG)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If DXFToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DXF)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If PDFToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & PDF)
 
-                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName)
+                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.FileName & ".jpg")
 
-                            ExportToBitmap(oInventorDocument, strFormatFulFileName)
+                            ExportToBitmap(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 
@@ -718,21 +717,21 @@ Public Class FormFormatConversion
 
                         If STPToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & STP)
-                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName)
+                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 
                         If XTToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & ".x_t")
 
-                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName)
+                            AsmIptSaveAsStpSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.FileName & ".jpg")
 
-                            CreatJpgSub(oInventorDocument, strFormatFulFileName)
+                            CreatJpgSub(oInventorDocument, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 

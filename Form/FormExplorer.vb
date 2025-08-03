@@ -620,16 +620,16 @@ Public Class FormExplorer
                 If Directory.Exists(strSelectPath) Then
                     ' 删除文件夹
                     If IsMoveToRecycleBin Then
-                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
+                        My.Computer.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
                     Else
-                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+                        My.Computer.FileSystem.DeleteDirectory(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
                     End If
                 ElseIf File.Exists(strSelectPath) Then
                     ' 删除文件
                     If IsMoveToRecycleBin Then
-                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
+                        My.Computer.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.SendToRecycleBin)
                     Else
-                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
+                        My.Computer.FileSystem.DeleteFile(strSelectPath, UIOption.AllDialogs, RecycleOption.DeletePermanently)
                     End If
                 End If
             Catch ex As Exception

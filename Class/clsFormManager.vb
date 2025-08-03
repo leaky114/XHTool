@@ -17,16 +17,22 @@ Public Class FormManager
     Public Shared Sub ShowForm(Of T As {New, Form})(Optional ByVal IsDialog As Integer = False)
         Dim formType As Type = GetType(T)
 
+
+        Dim wrapper = New ClsWindowWrapper(ThisApplication.MainFrameHWND)
+
         ' 检查字典中是否存在该类型的实例
         If Not _formInstances.ContainsKey(formType) OrElse _formInstances(formType).IsDisposed Then
             ' 如果不存在或被销毁，则创建新实例并添加到字典中
             Dim newForm As New T()
             _formInstances(formType) = newForm
             AddHandler newForm.FormClosing, AddressOf Form_FormClosing
+
+            'FormCloneComponent.Show(wrapper)
+
             If IsDialog = True Then
-                newForm.ShowDialog()
+                newForm.ShowDialog(wrapper)
             Else
-                newForm.Show()
+                newForm.Show(wrapper)
             End If
 
 
@@ -39,7 +45,7 @@ Public Class FormManager
             If Not existingForm.Visible Then
                 ' 如果不可见，则显示它
 
-                existingForm.Show()
+                existingForm.Show(wrapper)
                 existingForm.WindowState = FormWindowState.Normal
             End If
             ' 实例已经可见，不需要进一步操作

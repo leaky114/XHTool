@@ -44,6 +44,8 @@ Public Class FormQuitOpen
     Private Sub FrmQuitOpen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
         SetWindowSizeAndCenter(Me, 0.5, 0.32)
+        lvw文件列表.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent)
+
     End Sub
 
     Private Sub 插入文件_Click(sender As Object, e As EventArgs) Handles btn插入文件.Click

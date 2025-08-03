@@ -293,7 +293,7 @@ Module OpenForm
             End If
 
             Dim formiProperty As New FormiProperty
-            FormManager.ShowForm(Of FormiProperty)(True)
+            FormManager.ShowForm(Of FormiProperty)()
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -645,5 +645,59 @@ Module OpenForm
 
     End Sub
 
+
+    ''' <summary>
+    ''' 打开 清理冗余文件 窗口
+    ''' </summary>
+    Public Sub FormCleanUpRedundantFilesShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim FormCleanUpRedundantFiles As New FormCleanUpRedundantFiles
+            FormManager.ShowForm(Of FormCleanUpRedundantFiles)(True)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+
+    ''' <summary>
+    ''' 打开克隆组件窗口
+    ''' </summary>
+    Public Sub FormCloneComponentShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+                MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim FormCloneComponent As New FormCloneComponent
+            FormManager.ShowForm(Of FormCloneComponent)(False)
+
+            'Dim wrapper = New ClsWindowWrapper(ThisApplication.MainFrameHWND)
+            'FormCloneComponent.Show(wrapper)
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
 
 End Module

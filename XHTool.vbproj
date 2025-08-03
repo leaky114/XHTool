@@ -131,6 +131,8 @@
     <Import Include="System.Collections.Concurrent" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Linq" />
+    <Import Include="System.Linq.Expressions" />
+    <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
@@ -138,13 +140,13 @@
     <Compile Include="Class\clsFormManager.vb" />
     <Compile Include="Class\clsGetLineInSketch.vb" />
     <Compile Include="Class\clsGetRectAreaInDrawing2.vb" />
+    <Compile Include="Class\clsListViewColumnSorter.vb" />
     <Compile Include="Class\clsPictureConverter.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Class\clsRightMouseSelectPartInBrowser.vb" />
     <Compile Include="Class\clsRightMouseSetDrawingSize.vb" />
     <Compile Include="Class\clsGetPoint.vb" />
-    <Compile Include="Class\clsListViewSorter.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
     <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
     <Compile Include="Class\clsRightMouseChangeSelectionPriority.vb" />
@@ -153,6 +155,7 @@
     <Compile Include="Class\clsRightMouseTurnOffAdaptivity.vb" />
     <Compile Include="Class\clsRightMouseSelectPartCurveInDrawing.vb" />
     <Compile Include="Class\clsWindowSelection.vb" />
+    <Compile Include="Class\clsWindowWrapper.vb" />
     <Compile Include="Class\clsXml.vb" />
     <Compile Include="Form\formBatchChangeFileNames.Designer.vb">
       <DependentUpon>formBatchChangeFileNames.vb</DependentUpon>
@@ -182,6 +185,18 @@
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormBorderTitle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormCleanUpRedundantFiles.Designer.vb">
+      <DependentUpon>FormCleanUpRedundantFiles.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormCleanUpRedundantFiles.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormCloneComponent.Designer.vb">
+      <DependentUpon>FormCloneComponent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormCloneComponent.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormCustomSignature.Designer.vb">
@@ -430,6 +445,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormBorderTitle.resx">
       <DependentUpon>FormBorderTitle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormCleanUpRedundantFiles.resx">
+      <DependentUpon>FormCleanUpRedundantFiles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormCloneComponent.resx">
+      <DependentUpon>FormCloneComponent.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormCustomSignature.resx">
       <DependentUpon>FormCustomSignature.vb</DependentUpon>
@@ -782,6 +803,12 @@
     <None Include="Resources\分类16.ico" />
     <None Include="Resources\孔颜色16.ico" />
     <None Include="Resources\孔颜色32.ico" />
+    <None Include="Resources\打开父部件16.ico" />
+    <None Include="Resources\打开父部件32.ico" />
+    <None Include="Resources\插入对齐32.ICO" />
+    <None Include="Resources\插入反向32.ICO" />
+    <None Include="Resources\冗余文件32.ico" />
+    <None Include="Resources\冗余文件16.ico" />
     <Content Include="Resources\过滤16.ico" />
     <Content Include="Resources\过滤32.ico" />
     <None Include="Resources\新建文件夹16.ICO" />

@@ -225,7 +225,7 @@ Module BasicFileSystem
     ''' <remarks></remarks>
     Public Function DeleteFile2(ByVal strFullFileName As String, ByVal oRecycleOption As FileIO.RecycleOption) As Boolean
         If IsFileExists(strFullFileName) Then
-            Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(strFullFileName, FileIO.UIOption.OnlyErrorDialogs, oRecycleOption, FileIO.UICancelOption.ThrowException)
+            My.Computer.FileSystem.DeleteFile(strFullFileName, FileIO.UIOption.OnlyErrorDialogs, oRecycleOption, FileIO.UICancelOption.ThrowException)
         End If
         DeleteFile2 = IsFileExists(strFullFileName) Xor True
     End Function

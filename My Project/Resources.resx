@@ -856,9 +856,6 @@
   <data name="刷新16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\刷新16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="清理冗余16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\清理冗余16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="色卡16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\色卡16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -912,5 +909,23 @@
   </data>
   <data name="选择零部件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\选择零部件16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开父部件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\打开父部件16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开父部件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\打开父部件32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="插入反向32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\插入反向32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="插入对齐32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\插入对齐32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="冗余文件16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\冗余文件16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="冗余文件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\冗余文件32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

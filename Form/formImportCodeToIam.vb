@@ -9,7 +9,8 @@ Imports System.Windows.Forms
 
 Public Class FormImportCodeToIam
 
-
+    Private currentSortColumn As Integer = -1 ' 记录当前排序列
+    Private sortOrder As SortOrder = SortOrder.None ' 记录当前排序方向
     Private Sub Btn装载_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn装载.Click
         lvw文件列表.Items.Clear()
 
@@ -83,6 +84,9 @@ Public Class FormImportCodeToIam
                 oListViewItem.BackColor = System.Drawing.Color.LightGreen
             End If
         Next
+
+        oListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
+
 
         oListView.EndUpdate()
 
@@ -339,16 +343,44 @@ Public Class FormImportCodeToIam
     End Sub
 
     Private Sub Lvw文件列表_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvw文件列表.ColumnClick
-        If _ListViewSorter = ClsListViewSorter.EnumSortOrder.Ascending Then
-            Dim Sorter As New ClsListViewSorter(e.Column, ClsListViewSorter.EnumSortOrder.Descending)
-            lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = ClsListViewSorter.EnumSortOrder.Descending
-        Else
-            Dim Sorter As New ClsListViewSorter(e.Column, ClsListViewSorter.EnumSortOrder.Ascending)
-            lvw文件列表.ListViewItemSorter = Sorter
-            _ListViewSorter = ClsListViewSorter.EnumSortOrder.Ascending
+
+        ' 如果点击的是同一列
+        If e.Column = currentSortColumn Then
+            ' 切换排序方向
+            If SortOrder = SortOrder.Ascending Then
+                SortOrder = SortOrder.Descending
+            Else
+                SortOrder = SortOrder.Ascending
+            End If
+        Else ' 点击新列
+            currentSortColumn = e.Column
+            SortOrder = SortOrder.Ascending ' 默认新列按升序排序
         End If
 
+        ' 设置排序图标
+        lvw文件列表.ListViewItemSorter = New ListViewColumnSorter(e.Column, SortOrder)
+        lvw文件列表.Sort()
+
+        ' 更新列头排序图标
+        UpdateSortIcon(lvw文件列表)
+
+    End Sub
+
+    ''' <summary>
+    '''  更新列头排序图标
+    ''' </summary>
+    ''' <param name="oListView">listview对象</param>
+    Private Sub UpdateSortIcon(ByVal oListView As ListView)
+        ' 清除所有列头图标
+        For Each col As ColumnHeader In oListView.Columns
+            col.Text = col.Text.Replace(" ↑", "").Replace(" ↓", "")
+        Next
+
+        ' 为当前排序列添加图标
+        If currentSortColumn >= 0 Then
+            Dim arrow = If(sortOrder = SortOrder.Ascending, " ↑", " ↓")
+            oListView.Columns(currentSortColumn).Text += arrow
+        End If
     End Sub
 
     Private Sub Lvw文件列表_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvw文件列表.MouseDoubleClick

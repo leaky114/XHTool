@@ -105,6 +105,9 @@
         ini.WriteStrINI("截图", "宽度", intPitcureWidth, IniFile)
         ini.WriteStrINI("截图", "高度", intPitcureHeight, IniFile)
 
+        ini.WriteStrINI("自动保存", "启用自动保存", str启用自动保存, IniFile)
+        ini.WriteStrINI("自动保存", "保存文档类型", str保存文档类型, IniFile)
+        ini.WriteStrINI("自动保存", "保存间隔时间", str保存间隔时间, IniFile)
 
     End Sub
 
@@ -165,7 +168,12 @@
         PrintSetting = ini.GetStrFromINI("打印", "PrintSetting", "1101111001", Inifile)
 
         CheckUpdate = ini.GetStrFromINI("更新", "CheckUpdate", "1", Inifile)
-        Server = ini.GetStrFromINI("更新", "Server", "\\Likai-pc\发行版\更新包\", Inifile)
+        Server = ini.GetStrFromINI("更新", "Server", "\\Likai-pc\发行版\更新包\", IniFile)
+
+        If Strings.Right(Server, 1) <> "\" Then
+            Server = Server & "\"
+        End If
+
         ServerExcelFileName = ini.GetStrFromINI("更新", "ServerExcelFileName", "最新物料编码.xlsx", Inifile)
         SimpleUpdater = ini.GetStrFromINI("更新", "SimpleUpdater", "SimpleUpdater.exe", Inifile)
         NewVersionTxt = ini.GetStrFromINI("更新", "NewVersionTxt", "NewVersion.txt", Inifile)
@@ -230,6 +238,10 @@
 
         intPitcureWidth = ini.GetStrFromINI("截图", "宽度", "800", IniFile)
         intPitcureHeight = ini.GetStrFromINI("截图", "高度", "600“, IniFile)
+
+        str启用自动保存 = ini.GetStrFromINI("自动保存", "启用自动保存", "0", IniFile)
+        str保存文档类型 = ini.GetStrFromINI("自动保存", "保存文档类型", "当前文档", IniFile)
+        str保存间隔时间 = ini.GetStrFromINI("自动保存", "保存间隔时间", "10", IniFile)
 
     End Sub
 

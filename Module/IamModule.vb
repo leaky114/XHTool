@@ -1422,15 +1422,35 @@ Module IamModule
                                     arrColumnsTitleValue(k) = (GetMass(oInventorDocument) * oBOMRow.ItemQuantity * intPresentNumber).ToString
                                 Case Map_Price    '成本
                                     arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, Map_Price)
-
                                 Case "总成本"
                                     arrColumnsTitleValue(k) = (GetPropitem(oInventorDocument, Map_Price) * oBOMRow.ItemQuantity * intPresentNumber).ToString
-                                Case "文件名"
+                                Case "文件名称"
                                     arrColumnsTitleValue(k) = GetFileNameWithExtension(oInventorDocument.FullDocumentName)
                                 Case "文件路径"
                                     arrColumnsTitleValue(k) = oInventorDocument.FullDocumentName
-                                Case "Web"
+                                Case "Web 链接"
                                     arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, "目录 Web 链接")
+                                Case "BOM 表结构"
+                                    Select Case oBOMRow.BOMStructure
+                                        Case BOMStructureEnum.kDefaultBOMStructure, BOMStructureEnum.kNormalBOMStructure
+                                            arrColumnsTitleValue(k) = "普通件"
+                                        Case BOMStructureEnum.kInseparableBOMStructure
+                                            arrColumnsTitleValue(k) = "虚拟件"
+                                        Case BOMStructureEnum.kPhantomBOMStructure
+                                            arrColumnsTitleValue(k) = "外购件"
+                                        Case BOMStructureEnum.kPurchasedBOMStructure
+                                            arrColumnsTitleValue(k) = ""
+                                        Case BOMStructureEnum.kReferenceBOMStructure
+                                            arrColumnsTitleValue(k) = "参考件"
+                                        Case BOMStructureEnum.kVariesBOMStructure
+                                            arrColumnsTitleValue(k) = ""
+                                        Case Else
+                                            arrColumnsTitleValue(k) = ""
+                                    End Select
+                                Case "版本"
+                                    arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, "修订号")
+                                Case "版本"
+                                    arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, "修订号")
                                 Case Else   '其他 iproperty
                                     arrColumnsTitleValue(k) = GetPropitem(oInventorDocument, arrColumnsTitle(k))
                             End Select
@@ -2978,7 +2998,7 @@ Module IamModule
         Dim strJpgFileFullName As String
         strJpgFileFullName = IO.Path.Combine(strJpgFileDirectory, GetFileNameWithExtension(oInventorDocument.FullDocumentName) & ".jpg")
 
-        CreatJpgSub(oInventorDocument, strJpgFileFullName)
+        CreatJpgSub(oInventorDocument, strJpgFileFullName, True)
 
         MessageBox.Show($"保存文件到：{vbCrLf}{strJpgFileFullName}。“， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
     End Sub
@@ -2986,9 +3006,15 @@ Module IamModule
     ''' <summary>
     ''' 创建截图过程
     ''' </summary>
-    ''' <param name="oInventorDocument">创建的文档</param>
+    ''' <param name="oInventorDocument">文档对象</param>
     ''' <param name="strJpgFileFullName">图片文件</param>
-    Public Sub CreatJpgSub(ByVal oInventorDocument As Inventor.Document, ByVal strJpgFileFullName As String)
+    ''' <param name="IsReplace">是否覆盖</param>
+    Public Sub CreatJpgSub(ByVal oInventorDocument As Inventor.Document, ByVal strJpgFileFullName As String, ByVal IsReplace As Boolean)
+
+        If IsFileExists(strJpgFileFullName) And IsReplace = False Then
+            Exit Sub
+        End If
+
 
         oInventorDocument.Activate()
 
@@ -3323,13 +3349,14 @@ Module IamModule
 
         If oSelectSets.Count = 0 Then
 
-            Dim oclsWindowSelection As New ClsWindowSelection
-            oSourceComponentList = oclsWindowSelection.WindowSelect()
+            'Dim oclsWindowSelection As New ClsWindowSelection
+            'oSourceComponentList = oclsWindowSelection.WindowSelect()
 
-            If oSourceComponentList Is Nothing Then
-                Exit Sub
-            End If
-
+            'If oSourceComponentList Is Nothing Then
+            '    Exit Sub
+            'End If
+            MessageBox.Show("选择复制的组件。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
+            Exit Sub
         Else
             For Each oSelectedEntity As Object In oSelectSets
                 ' 检查是否为 ComponentOccurrence 类型
@@ -3424,7 +3451,9 @@ Module IamModule
         '判断选择的边是否属于选择的组件
         Dim IsEdgeOneInComponentOccurrence As Boolean = False
 
-        Dim oEdgeOneComponentOccurrence As ComponentOccurrence = oEdgeOne.ContainingOccurrence    '选择的第一个圆的源组件
+        Dim oEdgeOneComponentOccurrence As ComponentOccurrence   '选择的第一个圆的源组件
+
+        oEdgeOneComponentOccurrence = oEdgeOne.ContainingOccurrence
 
 
         ' 扩展目标组件列表：将子部件展开为所有子零件
@@ -3584,7 +3613,7 @@ Module IamModule
 
 
     ' 递归获取所有叶子节点（零件层级的 ComponentOccurrence）
-    Private Function GetAllLeafOccurrences(occurrence As ComponentOccurrence) As List(Of ComponentOccurrence)
+    Public Function GetAllLeafOccurrences(occurrence As ComponentOccurrence) As List(Of ComponentOccurrence)
         Dim leafOccurrences As New List(Of ComponentOccurrence)()
 
         ' 判断当前组件是零件还是子部件

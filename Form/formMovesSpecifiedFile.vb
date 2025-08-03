@@ -52,7 +52,7 @@ Public Class FormMovesSpecifiedFile
         Dim strSearch As String
         strSearch = GetPropitem(oInventorAssemblyDocument, Map_DrawingNnumber)
         strSearch = RemoveTrailingZeros(strSearch)    '去除末尾的0
-        strSearch = Strings.LCase(strSearch)          '转换为小写
+        strSearch = Strings.UCase(strSearch)          '转换为大写
 
         'With frmInputBox
         '    .txt输入.Text = strSearchNnumber
@@ -127,7 +127,7 @@ Public Class FormMovesSpecifiedFile
             Dim strOldFileName As String
 
             strOldFileName = GetFileNameWithoutExtension2(strOldFullFileName)
-            strOldFileName = Strings.LCase(strOldFileName)
+            strOldFileName = Strings.UCase(strOldFileName)
 
             If InStr(strOldFileName, strSearch) = 0 Then
                 Continue For

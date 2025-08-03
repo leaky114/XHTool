@@ -131,6 +131,7 @@ Public Class FormiPropertyToFileName
             End If
         Next
 
+        oListView.AutoResizeColumn(4, ColumnHeaderAutoResizeStyle.ColumnContent)
         oListView.EndUpdate()
 
         OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)

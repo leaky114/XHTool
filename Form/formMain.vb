@@ -15,6 +15,7 @@ Imports System.Runtime.InteropServices
 Imports System.Diagnostics
 Imports System.Net
 Imports Microsoft.VisualBasic.FileIO
+Imports System.Timers
 
 Public Class FormMain
 
@@ -48,6 +49,7 @@ Public Class FormMain
 
     Private HideSide As Short '隐藏边的位置，0为未隐藏，1为上边，2为左边
 
+    'Private WithEvents m_timer As System.Timers.Timer    '计时器
 
 
     Public Sub CreateLineWithMidpoint()
@@ -134,16 +136,30 @@ Public Class FormMain
     End Sub
 
 
-
-
-
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
         '  CreateLineWithMidpoint()
+        Dim UiRessourceDocker As DockableWindows = ThisApplication.UserInterfaceManager.DockableWindows
 
+        For Each oChildDockableWindows As DockableWindow In UiRessourceDocker
 
+            If oChildDockableWindows.InternalName = "cheatsheet" Then
+                oChildDockableWindows.Visible = False
+                oChildDockableWindows.Delete()
+                Exit For
+            End If
 
+        Next
+
+        Dim cheatSheetWindow As DockableWindow = UiRessourceDocker.Add("214234234", "CheatSheet", "Cheat Sheet")
+        cheatSheetWindow.Visible = True
+        cheatSheetWindow.DockingState = DockingStateEnum.kDockRight
+
+        Dim oCheatSheet As New FormiProperty
+
+        oCheatSheet.FormBorderStyle = FormBorderStyle.None
+        cheatSheetWindow.AddChild(oCheatSheet.Handle)
 
 
     End Sub
@@ -337,11 +353,17 @@ Public Class FormMain
 
 
 
-
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim doc As Document = ThisApplication.ActiveDocument
+
+        doc.ComponentDefinition.BOMQuantity.SetBaseQuantity(BOMQuantityTypeEnum.kEachBOMQuantity)
 
 
-        FormFaceColoringShow()
+
+        '  CreatePartsList(ThisApplication.ActiveDocument)
+
+
+        'FormFaceColoringShow()
 
 
         'CheckDrawingDocumentNameToReferencedDocument(ThisApplication.ActiveDocument)
@@ -469,6 +491,7 @@ Public Class FormMain
         ReSetLabel()
 
 
+
         'Me.Location.Y = 318 '初始化高度，不要落在Timer1触发事件高度内，否则启动时就触发了，窗体会上移，很不方便使用
         '初始化时钟定时器
         With Timer1
@@ -501,6 +524,12 @@ Public Class FormMain
 
         WrIni.InAISettingIniReadSetting()
 
+
+        m_timer = New System.Timers.Timer
+        m_timer.Interval = Integer.Parse(str保存间隔时间 * 1000 * 60)            ' Set timer for 10 minutes (600000 milliseconds)
+        m_timer.AutoReset = True
+        'm_timer.Start()
+
         '更新数据库文件
         If BasicExcelFullFileName = "" Then
             BasicExcelFullFileName = IO.Path.Combine(My.Application.Info.DirectoryPath, "最新物料编码.xlsx")
@@ -529,7 +558,7 @@ Public Class FormMain
 
         'clsRightMouse()
         'If SharedVariable.Exists("ShowAll") Then Return
-        'SharedVariable("ShowAll") = "ShowAll"
+        'SharedVariable("ShowAll") = "ShowAll" 
 
         'Dim mybutton As New clsRightMouse(ThisApplication)
 
@@ -537,6 +566,8 @@ Public Class FormMain
         'BuildToolBar()
 
     End Sub
+
+
 
     Private Sub ReSetLabel()
         ToolStripStatusLabel1.Text = ""
@@ -1275,5 +1306,9 @@ Public Class FormMain
 
     Private Sub 油路块着色ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 油路块着色ToolStripMenuItem.Click
         FormOilBlockHoleColoringShow()
+    End Sub
+
+    Private Sub 清理冗余五年级ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 清理冗余五年级ToolStripMenuItem.Click
+        FormCleanUpRedundantFilesShow()
     End Sub
 End Class

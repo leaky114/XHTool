@@ -55,7 +55,7 @@ Public Class FormBatchChangeFileNames
     End Sub
 
     Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of FormBatchChangeFileNames)()
     End Sub
 
     Private Sub FrmChangeIpro_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

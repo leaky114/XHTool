@@ -29,7 +29,7 @@ Public Class FormBatchPrint
         ThisApplication.UserInterfaceManager.DoEvents()
 
         Dim strPrinterName As String = ""
-        strPrinterName = cbo打印机.Text
+        strPrinterName = cmb打印机.Text
 
         btn开始.Enabled = False
         IsStopPrint = False
@@ -100,7 +100,7 @@ Public Class FormBatchPrint
             End If
 
             '打印文件
-            PrintDrawing(oInventorDrawingDocument, strPrinterName, chk打印为黑色.Checked, nud份数.Value, chk匹配A3.Checked)
+            PrintDrawing(oInventorDrawingDocument, strPrinterName, chk打印为黑色.Checked, nud份数.Value, cmb纸张尺寸.Text)
 
 
             '另存为pdf
@@ -120,7 +120,7 @@ Public Class FormBatchPrint
                     strPdfFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, PDF)
                 End If
 
-                IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName， True)
 
             End If
 
@@ -140,7 +140,7 @@ Public Class FormBatchPrint
                     strDwgFullFileName = GetChangeExtension(strInventorDrawingDocumentFullFileName, DWG)
                 End If
 
-                IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName, True)
 
             End If
 
@@ -247,17 +247,19 @@ Public Class FormBatchPrint
         Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
         For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
-            cbo打印机.Items.Add(strPrinterName)
+            cmb打印机.Items.Add(strPrinterName)
             If strPrinterName = strDefaultPrinter Then
-                cbo打印机.SelectedIndex = cbo打印机.Items.IndexOf(strPrinterName)
+                cmb打印机.SelectedIndex = cmb打印机.Items.IndexOf(strPrinterName)
             End If
         Next
 
-        For Each cmblist In cbo打印机.Items
+        For Each cmblist In cmb打印机.Items
             If cmblist = Printer Then
-                cbo打印机.Text = Printer
+                cmb打印机.Text = Printer
             End If
         Next
+
+        cmb纸张尺寸.Text = ini.GetStrFromINI("打印", "纸张尺寸"， ”A3“, IniFile)
 
         Dim binaryArray(PrintSetting.Length - 1) As String
 
@@ -265,7 +267,6 @@ Public Class FormBatchPrint
             binaryArray(i) = Strings.Mid(PrintSetting, i + 1, 1)
         Next
 
-        chk匹配A3.Checked = IntToBool(binaryArray(0))
         chk签字.Checked = IntToBool(binaryArray(1))
         chk刷新工程图.Checked = IntToBool(binaryArray(2))
         chk存为pdf.Checked = IntToBool(binaryArray(3))
@@ -587,10 +588,11 @@ Public Class FormBatchPrint
     End Sub
 
     Private Sub Btn保存配置_Click(sender As Object, e As EventArgs) Handles btn保存配置.Click
-        PrintSetting = BoolToInt(chk匹配A3.Checked) & BoolToInt(chk签字.Checked) & BoolToInt(chk刷新工程图.Checked) &
+        PrintSetting = "0" & BoolToInt(chk签字.Checked) & BoolToInt(chk刷新工程图.Checked) &
              BoolToInt(chk存为pdf.Checked) & BoolToInt(chk关闭窗口.Checked) & BoolToInt(chk打印为黑色.Checked) &
             BoolToInt(chk打印后关闭.Checked) & BoolToInt(chk保存签字.Checked) & BoolToInt(chk保存工程图.Checked) & BoolToInt(chk存为dwg.Checked)
 
+        ini.WriteStrINI("打印", "纸张尺寸", cmb纸张尺寸.Text, IniFile)
         ini.WriteStrINI("打印", "PrintSetting", PrintSetting, IniFile)
 
     End Sub

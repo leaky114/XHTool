@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Forms
 
-Public Class WindowWrapper
+Public Class ClsWindowWrapper
     Implements IWin32Window
 
     Private ReadOnly _hwnd As IntPtr

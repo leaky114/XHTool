@@ -29,8 +29,8 @@ Partial Class FormiProperty
         Me.txt文件名 = New System.Windows.Forms.TextBox()
         Me.btn向上1 = New System.Windows.Forms.Button()
         Me.btn向上2 = New System.Windows.Forms.Button()
-        Me.cbo描述 = New System.Windows.Forms.ComboBox()
-        Me.cbo材料 = New System.Windows.Forms.ComboBox()
+        Me.cmb描述 = New System.Windows.Forms.ComboBox()
+        Me.cmb材料 = New System.Windows.Forms.ComboBox()
         Me.lbl文件名 = New System.Windows.Forms.Label()
         Me.lbl描述 = New System.Windows.Forms.Label()
         Me.lbl材料 = New System.Windows.Forms.Label()
@@ -38,19 +38,21 @@ Partial Class FormiProperty
         Me.btn查询 = New System.Windows.Forms.Button()
         Me.txtERP编码 = New System.Windows.Forms.TextBox()
         Me.lbl供应商 = New System.Windows.Forms.Label()
-        Me.cbo供应商 = New System.Windows.Forms.ComboBox()
+        Me.cmb供应商 = New System.Windows.Forms.ComboBox()
         Me.txt价格 = New System.Windows.Forms.TextBox()
         Me.lbl价格 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txt位置 = New System.Windows.Forms.TextBox()
         Me.btn保存描述 = New System.Windows.Forms.Button()
         Me.btn提取文件名 = New System.Windows.Forms.Button()
+        Me.txt质量 = New System.Windows.Forms.TextBox()
+        Me.lbl质量 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btn确定
         '
         Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn确定.Location = New System.Drawing.Point(169, 295)
+        Me.btn确定.Location = New System.Drawing.Point(169, 334)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(65, 28)
         Me.btn确定.TabIndex = 10
@@ -60,7 +62,7 @@ Partial Class FormiProperty
         '
         Me.btn取消.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn取消.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn取消.Location = New System.Drawing.Point(242, 295)
+        Me.btn取消.Location = New System.Drawing.Point(242, 334)
         Me.btn取消.Name = "btn取消"
         Me.btn取消.Size = New System.Drawing.Size(65, 28)
         Me.btn取消.TabIndex = 11
@@ -111,27 +113,27 @@ Partial Class FormiProperty
         Me.btn向上2.TabIndex = 8
         Me.btn向上2.UseVisualStyleBackColor = True
         '
-        'cbo描述
+        'cmb描述
         '
-        Me.cbo描述.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.cmb描述.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cbo描述.FormattingEnabled = True
-        Me.cbo描述.Items.AddRange(New Object() {"", "见本图", "无图", "无图,×", "无图,L="})
-        Me.cbo描述.Location = New System.Drawing.Point(79, 78)
-        Me.cbo描述.Name = "cbo描述"
-        Me.cbo描述.Size = New System.Drawing.Size(185, 20)
-        Me.cbo描述.TabIndex = 2
+        Me.cmb描述.FormattingEnabled = True
+        Me.cmb描述.Items.AddRange(New Object() {"", "见本图", "无图", "无图,×", "无图,L="})
+        Me.cmb描述.Location = New System.Drawing.Point(79, 78)
+        Me.cmb描述.Name = "cmb描述"
+        Me.cmb描述.Size = New System.Drawing.Size(185, 20)
+        Me.cmb描述.TabIndex = 2
         '
-        'cbo材料
+        'cmb材料
         '
-        Me.cbo材料.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.cmb材料.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cbo材料.FormattingEnabled = True
-        Me.cbo材料.Location = New System.Drawing.Point(79, 106)
-        Me.cbo材料.Name = "cbo材料"
-        Me.cbo材料.Size = New System.Drawing.Size(185, 20)
-        Me.cbo材料.Sorted = True
-        Me.cbo材料.TabIndex = 3
+        Me.cmb材料.FormattingEnabled = True
+        Me.cmb材料.Location = New System.Drawing.Point(79, 106)
+        Me.cmb材料.Name = "cmb材料"
+        Me.cmb材料.Size = New System.Drawing.Size(185, 20)
+        Me.cmb材料.Sorted = True
+        Me.cmb材料.TabIndex = 3
         '
         'lbl文件名
         '
@@ -196,17 +198,17 @@ Partial Class FormiProperty
         Me.lbl供应商.TabIndex = 15
         Me.lbl供应商.Text = "供 应 商："
         '
-        'cbo供应商
+        'cmb供应商
         '
-        Me.cbo供应商.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.cmb供应商.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cbo供应商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo供应商.FormattingEnabled = True
-        Me.cbo供应商.Items.AddRange(New Object() {"", "标准件", "看板件", "外购件", "外协件", "自制件"})
-        Me.cbo供应商.Location = New System.Drawing.Point(80, 167)
-        Me.cbo供应商.Name = "cbo供应商"
-        Me.cbo供应商.Size = New System.Drawing.Size(183, 20)
-        Me.cbo供应商.TabIndex = 5
+        Me.cmb供应商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb供应商.FormattingEnabled = True
+        Me.cmb供应商.Items.AddRange(New Object() {"", "标准件", "看板件", "外购件", "外协件", "自制件"})
+        Me.cmb供应商.Location = New System.Drawing.Point(80, 167)
+        Me.cmb供应商.Name = "cmb供应商"
+        Me.cmb供应商.Size = New System.Drawing.Size(183, 20)
+        Me.cmb供应商.TabIndex = 5
         '
         'txt价格
         '
@@ -228,8 +230,9 @@ Partial Class FormiProperty
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 233)
+        Me.Label1.Location = New System.Drawing.Point(13, 271)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 12)
         Me.Label1.TabIndex = 18
@@ -237,9 +240,8 @@ Partial Class FormiProperty
         '
         'txt位置
         '
-        Me.txt位置.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txt位置.Location = New System.Drawing.Point(78, 229)
+        Me.txt位置.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txt位置.Location = New System.Drawing.Point(78, 267)
         Me.txt位置.Multiline = True
         Me.txt位置.Name = "txt位置"
         Me.txt位置.ReadOnly = True
@@ -259,11 +261,30 @@ Partial Class FormiProperty
         'btn提取文件名
         '
         Me.btn提取文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn提取文件名.Location = New System.Drawing.Point(15, 295)
+        Me.btn提取文件名.Location = New System.Drawing.Point(15, 334)
         Me.btn提取文件名.Name = "btn提取文件名"
         Me.btn提取文件名.Size = New System.Drawing.Size(85, 28)
         Me.btn提取文件名.TabIndex = 21
         Me.btn提取文件名.Text = "提取文件名"
+        '
+        'txt质量
+        '
+        Me.txt质量.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txt质量.Location = New System.Drawing.Point(80, 232)
+        Me.txt质量.Name = "txt质量"
+        Me.txt质量.ReadOnly = True
+        Me.txt质量.Size = New System.Drawing.Size(185, 21)
+        Me.txt质量.TabIndex = 22
+        '
+        'lbl质量
+        '
+        Me.lbl质量.AutoSize = True
+        Me.lbl质量.Location = New System.Drawing.Point(13, 236)
+        Me.lbl质量.Name = "lbl质量"
+        Me.lbl质量.Size = New System.Drawing.Size(65, 12)
+        Me.lbl质量.TabIndex = 23
+        Me.lbl质量.Text = "质    量："
         '
         'FormiProperty
         '
@@ -271,14 +292,16 @@ Partial Class FormiProperty
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn取消
-        Me.ClientSize = New System.Drawing.Size(321, 331)
+        Me.ClientSize = New System.Drawing.Size(321, 370)
+        Me.Controls.Add(Me.txt质量)
+        Me.Controls.Add(Me.lbl质量)
         Me.Controls.Add(Me.btn提取文件名)
         Me.Controls.Add(Me.btn保存描述)
         Me.Controls.Add(Me.txt位置)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txt价格)
         Me.Controls.Add(Me.lbl价格)
-        Me.Controls.Add(Me.cbo供应商)
+        Me.Controls.Add(Me.cmb供应商)
         Me.Controls.Add(Me.lbl供应商)
         Me.Controls.Add(Me.txtERP编码)
         Me.Controls.Add(Me.btn查询)
@@ -286,8 +309,8 @@ Partial Class FormiProperty
         Me.Controls.Add(Me.lbl材料)
         Me.Controls.Add(Me.lbl描述)
         Me.Controls.Add(Me.lbl文件名)
-        Me.Controls.Add(Me.cbo材料)
-        Me.Controls.Add(Me.cbo描述)
+        Me.Controls.Add(Me.cmb材料)
+        Me.Controls.Add(Me.cmb描述)
         Me.Controls.Add(Me.btn确定)
         Me.Controls.Add(Me.btn取消)
         Me.Controls.Add(Me.btn向上2)
@@ -312,8 +335,8 @@ Partial Class FormiProperty
     Friend WithEvents txt文件名 As System.Windows.Forms.TextBox
     Friend WithEvents btn向上1 As System.Windows.Forms.Button
     Friend WithEvents btn向上2 As System.Windows.Forms.Button
-    Friend WithEvents cbo描述 As System.Windows.Forms.ComboBox
-    Friend WithEvents cbo材料 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb描述 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb材料 As System.Windows.Forms.ComboBox
     Friend WithEvents lbl文件名 As System.Windows.Forms.Label
     Friend WithEvents lbl描述 As System.Windows.Forms.Label
     Friend WithEvents lbl材料 As System.Windows.Forms.Label
@@ -321,12 +344,13 @@ Partial Class FormiProperty
     Friend WithEvents btn查询 As System.Windows.Forms.Button
     Friend WithEvents txtERP编码 As System.Windows.Forms.TextBox
     Friend WithEvents lbl供应商 As System.Windows.Forms.Label
-    Friend WithEvents cbo供应商 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb供应商 As System.Windows.Forms.ComboBox
     Friend WithEvents txt价格 As System.Windows.Forms.TextBox
     Friend WithEvents lbl价格 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txt位置 As System.Windows.Forms.TextBox
     Friend WithEvents btn保存描述 As System.Windows.Forms.Button
     Friend WithEvents btn提取文件名 As System.Windows.Forms.Button
-
+    Friend WithEvents txt质量 As System.Windows.Forms.TextBox
+    Friend WithEvents lbl质量 As System.Windows.Forms.Label
 End Class

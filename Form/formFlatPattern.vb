@@ -426,7 +426,7 @@ Public Class FormFlatPattern
         Dim oFlatInfor As FlatInfor
         oFlatInfor.FileName = txt图号.Text.ToString & txt文件名.Text.ToString
         oFlatInfor.Metial = txt材质.Text.ToString
-        oFlatInfor.Number = cbo数量.Text.ToString
+        oFlatInfor.Number = cmb数量.Text.ToString
 
         '添加展开图信息
         AddPartFlatInforToIdw(oInventorDrawingDocument, oInventorPartDocument, oFlatInfor)

@@ -37,10 +37,10 @@ Public Class FormFaceColoring
         ThisApplication.ActiveMaterialLibrary = assetLib
 
         For Each AppearanceAsset As Asset In assetLib.AppearanceAssets
-            cbo外观.Items.Add(AppearanceAsset.DisplayName)
+            cmb外观.Items.Add(AppearanceAsset.DisplayName)
         Next
 
-        cbo外观.Text = "默认"
+        cmb外观.Text = "默认"
 
     End Sub
 
@@ -48,7 +48,7 @@ Public Class FormFaceColoring
         Dim oInventorPartDocument As Inventor.PartDocument
         oInventorPartDocument = CType(ThisApplication.ActiveDocument, PartDocument)
 
-        Dim oAssetName As String = cbo外观.Text
+        Dim oAssetName As String = cmb外观.Text
 
         Dim assetLib As AssetLibrary
 
@@ -198,7 +198,7 @@ Public Class FormFaceColoring
         Dim oInventorPartDocument As Inventor.PartDocument
         oInventorPartDocument = CType(ThisApplication.ActiveDocument, PartDocument)
 
-        Dim oAssetName As String = cbo外观.Text
+        Dim oAssetName As String = cmb外观.Text
 
         Dim assetLib As AssetLibrary
 
@@ -270,7 +270,7 @@ Public Class FormFaceColoring
 
                 oAsset = oSelectFace.Appearance
 
-                cbo外观.Text = oAsset.DisplayName
+                cmb外观.Text = oAsset.DisplayName
 
             Loop Until oSelectFace IsNot Nothing
         Catch ex As Exception

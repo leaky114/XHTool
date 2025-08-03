@@ -1,24 +1,7 @@
-﻿Imports Inventor
-Imports Inventor.AssetTypeEnum
-Imports Inventor.BOMStructureEnum
+﻿Imports System.Windows.Forms
+Imports Inventor
 Imports Inventor.DocumentTypeEnum
-Imports Inventor.DrawingViewTypeEnum
-Imports Inventor.IOMechanismEnum
-Imports Inventor.PrintOrientationEnum
-Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
-Imports Inventor.ViewOrientationTypeEnum
-Imports Inventor.DrawingViewStyleEnum
-Imports Microsoft.Office.Interop
-Imports Microsoft.Office.Interop.Excel.XlCellType
-Imports Microsoft.Office.Interop.Excel.XlFileFormat
-Imports System.Collections.ObjectModel
-Imports System.IO
-Imports System.Text
-Imports System.Windows.Forms
-Imports System.Collections.Generic
-Imports Microsoft.Office.Interop.Excel
-Imports Sheets = Inventor
 
 Module IdwBalloon
 
@@ -83,7 +66,12 @@ Module IdwBalloon
                 End If
 
                 If oPartsListRow.ReferencedFiles.Count <> 0 Then
+                    '零件名用 文档的文件名
                     strPartName = GetFileNameInfo(oPartsListRow.ReferencedFiles(1).FullFileName).OnlyName
+
+                    '零件名用 iproporty 的数据
+                    'strPartName = GetPropitem(oPartsListRow.ReferencedFiles(1).ReferencedDocument, Map_DrawingNnumber) & GetPropitem(oPartsListRow.ReferencedFiles(1).ReferencedDocument, Map_PartName)
+
                     SetStatusBarText("正在描绘：" & oPartsListRow.ReferencedFiles(1).FullFileName)
                     '设置颜色
                     SetPartCorlor(oInventorDrawingDocument, strPartName, oColor, oPartsListRow.Ballooned)
@@ -99,14 +87,14 @@ Module IdwBalloon
             oTransaction.End() '事务结束，完成修改操作
 
             If Strings.Len(strList) > 1 Then
-                MessageBox.Show($"明细表：{strList} 无序号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+                MessageBox.Show($"明细表：{strList} 无序号。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
             Else
                 MessageBox.Show("检查序号完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information)
             End If
 
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
 
@@ -126,10 +114,10 @@ Module IdwBalloon
     Public Sub SetPartCorlor(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal partStr As String,
                              ByVal oColor As Color, ByVal oPartsListRowBallooned As Boolean)
 
-        Dim oTransaction As Transaction
+        'Dim oTransaction As Transaction
         Dim refAssyDef As ComponentDefinition = Nothing
 
-        oTransaction = ThisApplication.TransactionManager.StartTransaction(oInventorDrawingDocument, "Colorize [PART]")
+        'oTransaction = ThisApplication.TransactionManager.StartTransaction(oInventorDrawingDocument, "Colorize [PART]")
 
         '遍历图纸
         For Each oSheet As Sheet In oInventorDrawingDocument.Sheets
@@ -147,7 +135,7 @@ Module IdwBalloon
                 End If
 
                 For Each oComponentOccurrence As ComponentOccurrence In refAssyDef.Occurrences
-                    If oComponentOccurrence.Name Like partStr & ":*" Then
+                    If oComponentOccurrence.Name.ToLower() Like partStr.ToLower() & ":*" Then
                         ThisApplication.ScreenUpdating = False
                         Try
                             Dim ViewCurves As DrawingCurvesEnumerator = oDrawingView.DrawingCurves(oComponentOccurrence)
@@ -184,7 +172,7 @@ Module IdwBalloon
                 Next
             Next
         Next
-        oTransaction.End()
+        'oTransaction.End()
     End Sub
 
 
@@ -272,12 +260,16 @@ Module IdwBalloon
         oActiveBalloonStyle.TextStyle = oZeroBalloonTextStyle ' oInventorDrawingDocument.StylesManager.TextStyles.Item("ZeroBalloonText")
 
 
-
         Try
             Dim oDrawingView As DrawingView
             Do
 
-                oDrawingView = ThisApplication.CommandManager.Pick(kDrawingViewFilter, "选择一个视图，ESC键取消")
+                Dim ofirstballoon As Balloon
+                ofirstballoon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择一个序号，ESC键取消")
+
+                oDrawingView = ofirstballoon.ParentView
+
+                'oDrawingView = ThisApplication.CommandManager.Pick(kDrawingViewFilter, "选择一个视图，ESC键取消")
 
                 '100个临时balloon
                 Dim arrayTempBalloonDate(99) As BalloonDate
@@ -303,7 +295,7 @@ Module IdwBalloon
 
                     ThisApplication.ScreenUpdating = True
 
-                    If oBalloon.ParentView.Name = oDrawingView.Name Then
+                    If oBalloon.ParentView Is oDrawingView Then
 
                         arrayTempBalloonDate(i).Balloon = oBalloon
                         arrayTempBalloonDate(i).Position = oBalloon.Position
@@ -323,9 +315,11 @@ Module IdwBalloon
 
                 ' MessageBox.Show(“”)
 
-                'For i = 0 To intArrayBalloonDateLength - 1
-                '    Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
-                'Next
+                '计算角度
+                For i = 0 To intArrayBalloonDateLength - 1
+                    'Debug.Print(arrayTempBalloonDate(i).Position.X & "       " & arrayTempBalloonDate(i).Position.Y)
+                    arrayTempBalloonDate(i).Angles = FourFive(arrayTempBalloonDate(i).Position.X / arrayTempBalloonDate(i).Position.Y, 6)
+                Next
 
                 'Debug.Print("")
 
@@ -370,8 +364,6 @@ Module IdwBalloon
                                 End If
                             Next
                         Next
-
-
                 End Select
                 '=============================================
                 'For i = 0 To intArrayBalloonDateLength - 1
@@ -379,8 +371,8 @@ Module IdwBalloon
                 'Next
 
                 '重新写序号
-                Dim ofirstballoon As Balloon
-                ofirstballoon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择第一个序号，ESC键取消")
+                'Dim ofirstballoon As Balloon
+                'ofirstballoon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择第一个序号，ESC键取消")
 
                 '选择的balloon在数组中的位置
                 Dim intfirstballoon As Integer
@@ -545,6 +537,10 @@ Module IdwBalloon
                 Do
                     oBalloon = ThisApplication.CommandManager.Pick(kDrawingBalloonFilter, "选择引出序号，ESC键取消")
 
+                    If oBalloon Is Nothing Then
+                        Exit Do
+                    End If
+
                     For Each oBalloonValueSet As BalloonValueSet In oBalloon.BalloonValueSets
                         'if (oBalloonValueSet.Value >= FirstBalloonNumber) Then
                         If oBalloonValueSet.Value = 0 Then
@@ -554,16 +550,18 @@ Module IdwBalloon
                     Next
                 Loop While True
             Catch ex As Exception
-                'esc 退出后，还原balloon style
-                oActiveBalloonStyle.TextStyle = oOldBalloonTextStyle
+
+
             End Try
 
+            oActiveBalloonStyle.TextStyle = oOldBalloonTextStyle
 
-            'If  MessageBox.Show("是否重写BOM序号？", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "重新序号") = vbYes Then
-
+            'If MessageBox.Show("是否重写BOM序号？", XHTool, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+            '                   MessageBoxDefaultButton.Button1) = vbYes Then
+            '    'Threading.Thread.Sleep(2000)
             ReWriteBOM()
+            'End If
 
-            'End If 
 
 
             oTransaction.End() '事务结束，完成修改操作
@@ -648,7 +646,7 @@ Module IdwBalloon
         oActiveSheet = oInventorDrawingDocument.ActiveSheet
 
         If oActiveSheet.PartsLists.Count = 0 Then
-            MessageBox.Show("该工程图无明细表。",XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            MessageBox.Show("该工程图无明细表。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
             Exit Sub
         End If
 
@@ -693,7 +691,7 @@ Module IdwBalloon
             MessageBox.Show(”请输入有效的数字格式“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         Catch ex As ArgumentException
 
-            MessageBox.Show(ex.Message, xhtool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
 
@@ -852,4 +850,53 @@ Module IdwBalloon
         Next
         Throw New ArgumentException($"未找到序号为 {targetNumber} 的行。")
     End Function
+
+    ''' <summary>
+    ''' 创建工程图明细表
+    ''' </summary>
+    Public Sub CreatePartsList(oInventorDrawingDocument As Inventor.DrawingDocument)
+        Dim osheet As Sheet
+        osheet = oInventorDrawingDocument.ActiveSheet
+
+        Dim oBorder As Border = osheet.Border
+        Dim oTitleBlock As TitleBlock = osheet.TitleBlock
+        Dim oPlacementPoint As Point2d
+
+        'If oBorder IsNot Nothing Then
+        '    If oTitleBlock IsNot Nothing Then
+        '    oPlacementPoint = ThisApplication.TransientGeometry.CreatePoint2d(oTitleBlock.RangeBox.MaxPoint.X, oTitleBlock.RangeBox.MaxPoint.Y)
+        'Else
+        '        oPlacementPoint = oBorder.RangeBox.MinPoint
+        '    End If
+        'Else
+        'there is no border. The placement point
+        'is the top-right corner of the sheet
+        ' oPlacementPoint = ThisApplication.TransientGeometry.CreatePoint2d(osheet.Width, osheet.Height)
+
+        oPlacementPoint = ThisApplication.TransientGeometry.CreatePoint2d(0, 0)
+
+        'End If
+
+        Dim oDrawingView As DrawingView = oInventorDrawingDocument.ActiveSheet.DrawingViews.Item(1)
+        Dim oPartsList As PartsList
+        Try
+            oPartsList = oInventorDrawingDocument.ActiveSheet.PartsLists.Add(oDrawingView, oPlacementPoint, PartsListLevelEnum.kStructured, Nothing, 1, True)
+        Catch
+            oPartsList = oInventorDrawingDocument.ActiveSheet.PartsLists.Add(oDrawingView, oPlacementPoint, PartsListLevelEnum.kStructuredAllLevels, Nothing, 1, True)
+        End Try
+
+        Try
+            oPartsList.Position = ThisApplication.TransientGeometry.CreatePoint2d(
+            oTitleBlock.RangeBox.MinPoint.X + oPartsList.RangeBox.MaxPoint.X - oPartsList.RangeBox.MinPoint.X,
+            oTitleBlock.RangeBox.MaxPoint.Y + oPartsList.RangeBox.MaxPoint.Y - oPartsList.RangeBox.MinPoint.Y)
+        Catch
+            oPartsList.Position = ThisApplication.TransientGeometry.CreatePoint2d(0, 0)
+        End Try
+
+        oPartsList.Sort("序号")
+        oPartsList.Renumber()
+        oPartsList.SaveItemOverridesToBOM()
+
+    End Sub
+
 End Module

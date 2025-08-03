@@ -11,6 +11,7 @@ Imports Inventor.IOMechanismEnum
 Imports Inventor.PrintOrientationEnum
 Imports Inventor.PropertyTypeEnum
 Imports Inventor.SelectionFilterEnum
+Imports System.Timers
 
 Public Module PublicParameters
     Public Const XHTool As String = "XHTool"
@@ -22,7 +23,7 @@ Public Module PublicParameters
     Public strLargeSmallIconNames As String = "快速打开,按列表打开文件,保存关闭,关闭,打开工程图,提取iProperty,打开文件夹"
     Public strLargeSmallIconSets As String   '大小图标
 
-
+    Public WithEvents m_timer As System.Timers.Timer    '计时器
 
     Public Structure RectangularPoint
         Dim TopLeft As Inventor.Point
@@ -45,6 +46,7 @@ Public Module PublicParameters
     Public Structure BalloonDate
         Dim Balloon As Balloon
         Dim Position As Point2d
+        Dim Angles As Double
     End Structure
 
     Public ThisApplication As Inventor.Application
@@ -199,6 +201,11 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     '创建截图的高度
     Public intPitcureHeight As Integer
 
+    '自动保存
+    Public str启用自动保存 As String
+    Public str保存文档类型 As String
+    Public str保存间隔时间 As String
+
 
     Public Structure 选择视图
         Dim str左视图 As String
@@ -229,7 +236,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
 
     '声明并初始化变量
-    Public _ListViewSorter As ClsListViewSorter.EnumSortOrder = ClsListViewSorter.EnumSortOrder.Ascending
+    'Public _ListViewSorter As ClsListViewSorter.EnumSortOrder = ClsListViewSorter.EnumSortOrder.Ascending
 
     '-------------------------------------------------------------------------------------------------------
 
@@ -455,4 +462,15 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
         GetImageFromView = Image.FromFile(tempFile)
 
     End Function
+
+
+    ''' <summary>
+    ''' 自动保存文档计时器
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Public Sub m_timer_Elapsed(sender As Object, e As ElapsedEventArgs) Handles m_timer.Elapsed
+        AutoSaveDocument()
+    End Sub
+
 End Module

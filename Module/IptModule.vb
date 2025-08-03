@@ -249,7 +249,7 @@ Module IptModule
                 Exit Sub
             End If
 
-            AsmIptSaveAsStpSub(oInventorDocument, strStpFullFileName)
+            AsmIptSaveAsStpSub(oInventorDocument, strStpFullFileName, True)
 
             If IsFileExists(strStpFullFileName) Then
                 SetStatusBarText("另存为STEP完成")
@@ -273,23 +273,28 @@ Module IptModule
     ''' </summary>
     ''' <param name="InventorDocument">文件对象</param>
     ''' <param name="strStepFullFileName">stp文件名</param>
+    ''' <param name="IsReplace">是否覆盖</param>
     ''' <remarks></remarks>
-    Public Sub AsmIptSaveAsStpSub(ByVal InventorDocument As Inventor.Document, ByVal strStepFullFileName As String)
+    Public Sub AsmIptSaveAsStpSub(ByVal InventorDocument As Inventor.Document, ByVal strStepFullFileName As String, ByVal IsReplace As Boolean)
+
+        If IsFileExists(strStepFullFileName) And IsReplace = False Then
+            Exit Sub
+        End If
 
         ' Get the STEP translator Add-In.
         Dim oSTEPTranslator As TranslatorAddIn
         oSTEPTranslator = ThisApplication.ApplicationAddIns.ItemById("{90AF7F40-0C01-11D5-8E83-0010B541CD80}")
 
-        if oSTEPTranslator Is Nothing Then
+        If oSTEPTranslator Is Nothing Then
             ' MessageBox.Show("无法转换为Step文件。")
             Exit Sub
-        End if
+        End If
 
         Dim oContext As TranslationContext
         oContext = ThisApplication.TransientObjects.CreateTranslationContext
         Dim oOptions As NameValueMap
         oOptions = ThisApplication.TransientObjects.CreateNameValueMap
-        if oSTEPTranslator.HasSaveCopyAsOptions(ThisApplication.ActiveDocument, oContext, oOptions) Then
+        If oSTEPTranslator.HasSaveCopyAsOptions(ThisApplication.ActiveDocument, oContext, oOptions) Then
             ' Set application protocol.
             ' 2 = AP 203 - Configuration Controlled Design
             ' 3 = AP 214 - Automotive Design
@@ -308,7 +313,7 @@ Module IptModule
             oData.FileName = strStepFullFileName
 
             oSTEPTranslator.SaveCopyAs(InventorDocument, oContext, oOptions, oData)
-        End if
+        End If
     End Sub
 
     ''' <summary>

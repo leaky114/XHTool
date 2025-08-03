@@ -26,7 +26,7 @@ Partial Class FormFlatPattern
         Me.txt位置 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txt材质 = New System.Windows.Forms.TextBox()
-        Me.cbo数量 = New System.Windows.Forms.ComboBox()
+        Me.cmb数量 = New System.Windows.Forms.ComboBox()
         Me.lbl数量 = New System.Windows.Forms.Label()
         Me.lbl材料 = New System.Windows.Forms.Label()
         Me.lbl文件名 = New System.Windows.Forms.Label()
@@ -55,7 +55,7 @@ Partial Class FormFlatPattern
         Me.GroupBox1.Controls.Add(Me.txt位置)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.txt材质)
-        Me.GroupBox1.Controls.Add(Me.cbo数量)
+        Me.GroupBox1.Controls.Add(Me.cmb数量)
         Me.GroupBox1.Controls.Add(Me.lbl数量)
         Me.GroupBox1.Controls.Add(Me.lbl材料)
         Me.GroupBox1.Controls.Add(Me.lbl文件名)
@@ -98,15 +98,15 @@ Partial Class FormFlatPattern
         Me.txt材质.Size = New System.Drawing.Size(77, 21)
         Me.txt材质.TabIndex = 2
         '
-        'cbo数量
+        'cmb数量
         '
-        Me.cbo数量.FormattingEnabled = True
-        Me.cbo数量.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"})
-        Me.cbo数量.Location = New System.Drawing.Point(220, 85)
-        Me.cbo数量.Name = "cbo数量"
-        Me.cbo数量.Size = New System.Drawing.Size(50, 20)
-        Me.cbo数量.TabIndex = 3
-        Me.cbo数量.Text = "1"
+        Me.cmb数量.FormattingEnabled = True
+        Me.cmb数量.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"})
+        Me.cmb数量.Location = New System.Drawing.Point(220, 85)
+        Me.cmb数量.Name = "cmb数量"
+        Me.cmb数量.Size = New System.Drawing.Size(50, 20)
+        Me.cmb数量.TabIndex = 3
+        Me.cmb数量.Text = "1"
         '
         'lbl数量
         '
@@ -326,7 +326,7 @@ Partial Class FormFlatPattern
 
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents cbo数量 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb数量 As System.Windows.Forms.ComboBox
     Friend WithEvents lbl数量 As System.Windows.Forms.Label
     Friend WithEvents lbl材料 As System.Windows.Forms.Label
     Friend WithEvents lbl文件名 As System.Windows.Forms.Label

@@ -42,7 +42,7 @@ Partial Class formBatchiPoperties
         Me.txt数据 = New System.Windows.Forms.TextBox()
         Me.lbl数据 = New System.Windows.Forms.Label()
         Me.lbl项目名 = New System.Windows.Forms.Label()
-        Me.cbo项目名 = New System.Windows.Forms.ComboBox()
+        Me.cmb项目名 = New System.Windows.Forms.ComboBox()
         Me.tab1 = New System.Windows.Forms.TabControl()
         Me.lvw文件列表 = New System.Windows.Forms.ListView()
         Me.ColumnHeader文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -214,7 +214,7 @@ Partial Class formBatchiPoperties
         Me.tp项目.Controls.Add(Me.txt数据)
         Me.tp项目.Controls.Add(Me.lbl数据)
         Me.tp项目.Controls.Add(Me.lbl项目名)
-        Me.tp项目.Controls.Add(Me.cbo项目名)
+        Me.tp项目.Controls.Add(Me.cmb项目名)
         Me.tp项目.Location = New System.Drawing.Point(4, 22)
         Me.tp项目.Name = "tp项目"
         Me.tp项目.Padding = New System.Windows.Forms.Padding(3)
@@ -248,15 +248,14 @@ Partial Class formBatchiPoperties
         Me.lbl项目名.TabIndex = 19
         Me.lbl项目名.Text = "项目名："
         '
-        'cbo项目名
+        'cmb项目名
         '
-        Me.cbo项目名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo项目名.FormattingEnabled = True
-        Me.cbo项目名.Items.AddRange(New Object() {"零件代号", "库存编号", "描述", "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "预估成本", "供应商", "Web链接"})
-        Me.cbo项目名.Location = New System.Drawing.Point(70, 10)
-        Me.cbo项目名.Name = "cbo项目名"
-        Me.cbo项目名.Size = New System.Drawing.Size(145, 20)
-        Me.cbo项目名.TabIndex = 0
+        Me.cmb项目名.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb项目名.FormattingEnabled = True
+        Me.cmb项目名.Location = New System.Drawing.Point(70, 10)
+        Me.cmb项目名.Name = "cmb项目名"
+        Me.cmb项目名.Size = New System.Drawing.Size(145, 20)
+        Me.cmb项目名.TabIndex = 0
         '
         'tab1
         '
@@ -397,7 +396,7 @@ Partial Class formBatchiPoperties
     Friend WithEvents txt数据 As System.Windows.Forms.TextBox
     Friend WithEvents lbl数据 As System.Windows.Forms.Label
     Friend WithEvents lbl项目名 As System.Windows.Forms.Label
-    Friend WithEvents cbo项目名 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmb项目名 As System.Windows.Forms.ComboBox
     Friend WithEvents tab1 As System.Windows.Forms.TabControl
     Friend WithEvents lvw文件列表 As System.Windows.Forms.ListView
     Friend WithEvents ColumnHeader文件名 As System.Windows.Forms.ColumnHeader

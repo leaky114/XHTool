@@ -37,7 +37,7 @@ Public Class FormSetReadOnly
 
         LoadIAM(Lvw文件列表, TreeV文件树)
 
-        cbo筛选文件.SelectedIndex = cbo筛选文件.Items.IndexOf("全部文件")
+        cmb筛选文件.SelectedIndex = cmb筛选文件.Items.IndexOf("全部文件")
         SetWindowSizeAndCenter(Me, 0.6, 0.5)
     End Sub
 
@@ -375,9 +375,9 @@ Public Class FormSetReadOnly
         Next
     End Sub
 
-    Private Sub Cbo筛选文件_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbo筛选文件.SelectedIndexChanged
+    Private Sub Cbo筛选文件_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb筛选文件.SelectedIndexChanged
 
-        Select Case cbo筛选文件.Text
+        Select Case cmb筛选文件.Text
             Case "全部文件"
                 LoadFileToListView(strCurrentAssemblyDocumentFulFileName, Lvw文件列表, chk隐藏工程图.Checked)
 

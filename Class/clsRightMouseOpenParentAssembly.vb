@@ -9,8 +9,8 @@ Public Class ClsRightMouseOpenParentAssembly
         Dim smallPicture As IPictureDisp
 
         'Dim largePicture As stdole.IPictureDisp
-        smallPicture = clsPictureConverter.ImageToPictureDisp(My.Resources.部件16.ToBitmap)
-        'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.可见32.ToBitmap)
+        smallPicture = ClsPictureConverter.ImageToPictureDisp(My.Resources.打开父部件16.ToBitmap)
+        'largePicture = clsPictureConverter.ImageToPictureDisp(My.Resources.打开父部件32.ToBitmap)
 
         Me.m_打开父部件_Buttondef = ThisApplication.CommandManager.ControlDefinitions.AddButtonDefinition(
             "打开父部件", "InName打开父部件", CommandTypesEnum.kShapeEditCmdType,

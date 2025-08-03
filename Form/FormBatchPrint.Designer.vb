@@ -30,6 +30,8 @@ Partial Class FormBatchPrint
         Me.btn添加文件夹 = New System.Windows.Forms.Button()
         Me.lbl建议 = New System.Windows.Forms.Label()
         Me.grp选项 = New System.Windows.Forms.GroupBox()
+        Me.lbl纸张尺寸 = New System.Windows.Forms.Label()
+        Me.cmb纸张尺寸 = New System.Windows.Forms.ComboBox()
         Me.btn保存配置 = New System.Windows.Forms.Button()
         Me.chk关闭窗口 = New System.Windows.Forms.CheckBox()
         Me.chk刷新工程图 = New System.Windows.Forms.CheckBox()
@@ -41,8 +43,7 @@ Partial Class FormBatchPrint
         Me.lbl份数 = New System.Windows.Forms.Label()
         Me.lbl打印机 = New System.Windows.Forms.Label()
         Me.nud份数 = New System.Windows.Forms.NumericUpDown()
-        Me.cbo打印机 = New System.Windows.Forms.ComboBox()
-        Me.chk匹配A3 = New System.Windows.Forms.CheckBox()
+        Me.cmb打印机 = New System.Windows.Forms.ComboBox()
         Me.chk签字 = New System.Windows.Forms.CheckBox()
         Me.chk打印为黑色 = New System.Windows.Forms.CheckBox()
         Me.btn从部件导入 = New System.Windows.Forms.Button()
@@ -123,6 +124,8 @@ Partial Class FormBatchPrint
         'grp选项
         '
         Me.grp选项.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.grp选项.Controls.Add(Me.lbl纸张尺寸)
+        Me.grp选项.Controls.Add(Me.cmb纸张尺寸)
         Me.grp选项.Controls.Add(Me.btn保存配置)
         Me.grp选项.Controls.Add(Me.chk关闭窗口)
         Me.grp选项.Controls.Add(Me.chk刷新工程图)
@@ -134,8 +137,7 @@ Partial Class FormBatchPrint
         Me.grp选项.Controls.Add(Me.lbl份数)
         Me.grp选项.Controls.Add(Me.lbl打印机)
         Me.grp选项.Controls.Add(Me.nud份数)
-        Me.grp选项.Controls.Add(Me.cbo打印机)
-        Me.grp选项.Controls.Add(Me.chk匹配A3)
+        Me.grp选项.Controls.Add(Me.cmb打印机)
         Me.grp选项.Controls.Add(Me.chk签字)
         Me.grp选项.Controls.Add(Me.chk打印为黑色)
         Me.grp选项.Location = New System.Drawing.Point(12, 352)
@@ -144,6 +146,25 @@ Partial Class FormBatchPrint
         Me.grp选项.TabIndex = 0
         Me.grp选项.TabStop = False
         Me.grp选项.Text = "选项"
+        '
+        'lbl纸张尺寸
+        '
+        Me.lbl纸张尺寸.AutoSize = True
+        Me.lbl纸张尺寸.Location = New System.Drawing.Point(115, 55)
+        Me.lbl纸张尺寸.Name = "lbl纸张尺寸"
+        Me.lbl纸张尺寸.Size = New System.Drawing.Size(53, 12)
+        Me.lbl纸张尺寸.TabIndex = 40
+        Me.lbl纸张尺寸.Text = "纸张尺寸"
+        '
+        'cmb纸张尺寸
+        '
+        Me.cmb纸张尺寸.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb纸张尺寸.FormattingEnabled = True
+        Me.cmb纸张尺寸.Items.AddRange(New Object() {"默认", "A4", "A3"})
+        Me.cmb纸张尺寸.Location = New System.Drawing.Point(169, 53)
+        Me.cmb纸张尺寸.Name = "cmb纸张尺寸"
+        Me.cmb纸张尺寸.Size = New System.Drawing.Size(65, 20)
+        Me.cmb纸张尺寸.TabIndex = 39
         '
         'btn保存配置
         '
@@ -256,28 +277,15 @@ Partial Class FormBatchPrint
         Me.nud份数.TabIndex = 1
         Me.nud份数.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'cbo打印机
+        'cmb打印机
         '
-        Me.cbo打印机.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo打印机.FormattingEnabled = True
-        Me.cbo打印机.Location = New System.Drawing.Point(60, 18)
-        Me.cbo打印机.Name = "cbo打印机"
-        Me.cbo打印机.Size = New System.Drawing.Size(174, 20)
-        Me.cbo打印机.Sorted = True
-        Me.cbo打印机.TabIndex = 0
-        '
-        'chk匹配A3
-        '
-        Me.chk匹配A3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chk匹配A3.AutoSize = True
-        Me.chk匹配A3.Checked = True
-        Me.chk匹配A3.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk匹配A3.Location = New System.Drawing.Point(248, 20)
-        Me.chk匹配A3.Name = "chk匹配A3"
-        Me.chk匹配A3.Size = New System.Drawing.Size(72, 16)
-        Me.chk匹配A3.TabIndex = 3
-        Me.chk匹配A3.Text = "匹配A3纸"
-        Me.chk匹配A3.UseVisualStyleBackColor = True
+        Me.cmb打印机.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb打印机.FormattingEnabled = True
+        Me.cmb打印机.Location = New System.Drawing.Point(60, 18)
+        Me.cmb打印机.Name = "cmb打印机"
+        Me.cmb打印机.Size = New System.Drawing.Size(174, 20)
+        Me.cmb打印机.Sorted = True
+        Me.cmb打印机.TabIndex = 0
         '
         'chk签字
         '
@@ -296,7 +304,7 @@ Partial Class FormBatchPrint
         Me.chk打印为黑色.AutoSize = True
         Me.chk打印为黑色.Checked = True
         Me.chk打印为黑色.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk打印为黑色.Location = New System.Drawing.Point(150, 53)
+        Me.chk打印为黑色.Location = New System.Drawing.Point(248, 20)
         Me.chk打印为黑色.Name = "chk打印为黑色"
         Me.chk打印为黑色.Size = New System.Drawing.Size(84, 16)
         Me.chk打印为黑色.TabIndex = 2
@@ -427,8 +435,7 @@ Partial Class FormBatchPrint
     Friend WithEvents btn添加文件夹 As System.Windows.Forms.Button
     Friend WithEvents lbl建议 As System.Windows.Forms.Label
     Friend WithEvents grp选项 As System.Windows.Forms.GroupBox
-    Friend WithEvents cbo打印机 As System.Windows.Forms.ComboBox
-    Friend WithEvents chk匹配A3 As System.Windows.Forms.CheckBox
+    Friend WithEvents cmb打印机 As System.Windows.Forms.ComboBox
     Friend WithEvents chk签字 As System.Windows.Forms.CheckBox
     Friend WithEvents chk打印为黑色 As System.Windows.Forms.CheckBox
     Friend WithEvents nud份数 As System.Windows.Forms.NumericUpDown
@@ -453,5 +460,6 @@ Partial Class FormBatchPrint
     Friend WithEvents chk关闭窗口 As System.Windows.Forms.CheckBox
     Friend WithEvents btn保存配置 As System.Windows.Forms.Button
     Friend WithEvents btn中断 As System.Windows.Forms.Button
-
+    Friend WithEvents lbl纸张尺寸 As System.Windows.Forms.Label
+    Friend WithEvents cmb纸张尺寸 As System.Windows.Forms.ComboBox
 End Class

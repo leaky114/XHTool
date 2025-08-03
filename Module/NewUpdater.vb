@@ -27,14 +27,13 @@ Module NewUpdater
            Format(My.Application.Info.Version.Revision, "00")
 
         '写本地版本文件
-        Dim strTempFile As String = IO.Path.Combine(IO.Path.GetTempPath, "OldVison.txt")
+        Dim strTempFile As String = IO.Path.Combine(IO.Path.GetTempPath, "OldVersion.txt")
 
         ' 使用Using语句确保资源被正确释放
         Using oStreamWriter As New StreamWriter(strTempFile, False, Encoding.Default)
             ' 将字符串写入文件
             oStreamWriter.Write(strOldVersion)
         End Using
-
 
 
         '写本地版本文件
@@ -56,10 +55,7 @@ Module NewUpdater
             'Process.Start(pmhker)
         End If
 
-
     End Sub
-
-
 
     ''Public NewVersion As String
 

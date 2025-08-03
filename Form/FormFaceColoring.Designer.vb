@@ -26,7 +26,7 @@ Partial Class FormFaceColoring
     Private Sub InitializeComponent()
         Me.btn清除着色 = New System.Windows.Forms.Button()
         Me.btn选择面 = New System.Windows.Forms.Button()
-        Me.cbo外观 = New System.Windows.Forms.ComboBox()
+        Me.cmb外观 = New System.Windows.Forms.ComboBox()
         Me.btn清除全部 = New System.Windows.Forms.Button()
         Me.btn选择特征 = New System.Windows.Forms.Button()
         Me.Btn选择颜色 = New System.Windows.Forms.Button()
@@ -50,18 +50,18 @@ Partial Class FormFaceColoring
         Me.btn选择面.TabIndex = 9
         Me.btn选择面.UseVisualStyleBackColor = True
         '
-        'cbo外观
+        'cmb外观
         '
-        Me.cbo外观.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.cmb外观.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cbo外观.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbo外观.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.cbo外观.FormattingEnabled = True
-        Me.cbo外观.Location = New System.Drawing.Point(12, 12)
-        Me.cbo外观.Name = "cbo外观"
-        Me.cbo外观.Size = New System.Drawing.Size(121, 20)
-        Me.cbo外观.Sorted = True
-        Me.cbo外观.TabIndex = 13
+        Me.cmb外观.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb外观.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.cmb外观.FormattingEnabled = True
+        Me.cmb外观.Location = New System.Drawing.Point(12, 12)
+        Me.cmb外观.Name = "cmb外观"
+        Me.cmb外观.Size = New System.Drawing.Size(121, 20)
+        Me.cmb外观.Sorted = True
+        Me.cmb外观.TabIndex = 13
         '
         'btn清除全部
         '
@@ -99,7 +99,7 @@ Partial Class FormFaceColoring
         Me.Controls.Add(Me.btn选择特征)
         Me.Controls.Add(Me.btn清除着色)
         Me.Controls.Add(Me.btn选择面)
-        Me.Controls.Add(Me.cbo外观)
+        Me.Controls.Add(Me.cmb外观)
         Me.Controls.Add(Me.btn清除全部)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
@@ -113,7 +113,7 @@ Partial Class FormFaceColoring
     End Sub
     Friend WithEvents btn清除着色 As Button
     Friend WithEvents btn选择面 As Button
-    Friend WithEvents cbo外观 As ComboBox
+    Friend WithEvents cmb外观 As ComboBox
     Friend WithEvents btn清除全部 As Button
     Friend WithEvents btn选择特征 As Button
     Friend WithEvents Btn选择颜色 As Button

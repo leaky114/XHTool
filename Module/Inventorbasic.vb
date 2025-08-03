@@ -1341,4 +1341,71 @@ Module InventorBasic
         End Using
         MessageBox.Show($"保存当前打开的文件到列表：{vbCrLf}{strListFileName}。“, XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
     End Sub
+
+    ''' <summary>
+    ''' 自动保存文档
+    ''' </summary>
+    Public Sub AutoSaveDocument()
+        SetStatusBarText()
+
+        If str启用自动保存 <> "1" Then
+            Exit Sub
+        End If
+
+        If ThisApplication.FileManager.Files.Count = 0 Then
+            Exit Sub
+        End If
+
+        Select Case str保存文档类型
+            Case "当前文档"
+                Dim oInventorDocument As Inventor.Document
+                oInventorDocument = ThisApplication.ActiveDocument
+
+                AutoSaveDocumentSub(oInventorDocument)
+
+            Case "所有可见的文档"
+                For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
+                    AutoSaveDocumentSub(oInventorDocument)
+                Next
+            Case "所有打开的文档"
+                For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
+                    AutoSaveDocumentSub(oInventorDocument)
+                Next
+        End Select
+
+    End Sub
+
+    ''' <summary>
+    ''' 自动保存文档
+    ''' </summary>
+    ''' <param name="oInventorDocument">文档</param>
+    Public Sub AutoSaveDocumentSub(oInventorDocument As Inventor.Document)
+        Dim strFileFullName As String
+
+        strFileFullName = oInventorDocument.FullFileName
+        If IsFileExists(strFileFullName) = False Then
+            Exit Sub
+        End If
+
+        If GetFileReadOnly(strFileFullName) = True Then
+            Exit Sub
+        End If
+
+        'Dim changedate As Date
+        'changedate = IO.File.GetLastWriteTime(strFileFullName)
+
+        'Dim nowdate As Date
+        'nowdate = Now
+
+        '' 计算分钟差（精确到分钟）
+        'Dim minutesDifference As Double = (nowdate - changedate).TotalMinutes
+
+        '' 如果需要整数分钟（向下取整）
+        'Dim wholeMinutes As Integer = CInt(Math.Floor(minutesDifference))
+
+        'If wholeMinutes > Val(str保存间隔时间) Then
+        oInventorDocument.Save()
+        'End If
+
+    End Sub
 End Module

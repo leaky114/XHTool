@@ -86,7 +86,7 @@ Module IdwModule
                 Exit Sub
             End If
 
-            IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+            IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName, True)
 
             If IsFileExists(strDwgFullFileName) Then
                 SetStatusBarText("另存为DWG完成。")
@@ -108,16 +108,15 @@ Module IdwModule
     ''' <summary>
     ''' 
     ''' </summary>
-    ''' <param name="strInventorDrawingDocumentFullFileName"></param>
-    ''' <param name="strDwgFullFileName"></param>
+    ''' <param name="strInventorDrawingDocumentFullFileName">工程图文件名</param>
+    ''' <param name="strDwgFullFileName">dwg文件名</param>
+    ''' <param name="IsReplace">是否覆盖</param>
     ''' <remarks></remarks>
-    Public Sub IdwSaveAsDwgSub(ByVal strInventorDrawingDocumentFullFileName As String, ByVal strDwgFullFileName As String)
+    Public Sub IdwSaveAsDwgSub(ByVal strInventorDrawingDocumentFullFileName As String, ByVal strDwgFullFileName As String, ByVal IsReplace As Boolean)
 
-        'IdwDoc.SaveAs(DwgFullFileName, True)
-
-        'if IsFileExists(DwgFullFileName) = False Then
-        '    DwgFullFileName = Strings.Replace(DwgFullFileName, ".dwg", ".zip")
-        'End if
+        If IsFileExists(strDwgFullFileName) And IsReplace = False Then
+            Exit Sub
+        End If
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
 
@@ -230,7 +229,7 @@ Module IdwModule
                 Exit Sub
             End If
 
-            IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+            IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName, True)
 
             If IsFileExists(strPdfFullFileName) Then
                 SetStatusBarText("另存为Pdf文件完成")
@@ -253,11 +252,15 @@ Module IdwModule
     ''' <summary>
     ''' 
     ''' </summary>
-    ''' <param name="strInventorDrawingDocumentFullFileName"></param>
-    ''' <param name="strPdfFullFileName"></param>
+    ''' <param name="strInventorDrawingDocumentFullFileName">工程图文件名</param>
+    ''' <param name="strPdfFullFileName">pdf文件名</param>
+    ''' <param name="IsReplace">是否覆盖</param>
     ''' <remarks></remarks>
 
-    Public Sub IdwSaveAsPdfSub(ByVal strInventorDrawingDocumentFullFileName As String, ByVal strPdfFullFileName As String)
+    Public Sub IdwSaveAsPdfSub(ByVal strInventorDrawingDocumentFullFileName As String, ByVal strPdfFullFileName As String, ByVal IsReplace As Boolean)
+        If IsFileExists(strPdfFullFileName) And IsReplace = False Then
+            Exit Sub
+        End If
 
         Dim oInventorDrawingDocument As Inventor.DrawingDocument
 
@@ -916,11 +919,12 @@ Module IdwModule
                 strScale = oDrawingView.ScaleString
 
                 Dim pEachScale As [Property]
-
                 Try
                     '若该iProperty已经存在，则直接修改其值
                     pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(strPropertyName)
-                    pEachScale.Value = strScale
+                    If pEachScale.Value <> strScale Then
+                        pEachScale.Value = strScale
+                    End If
                 Catch
                     ' 若该iProperty不存在，则添加一个
                     oDrawingDocument.PropertySets.Item("User Defined Properties").Add(strScale, strPropertyName)
@@ -941,7 +945,6 @@ Module IdwModule
     ''' <param name="oDrawingDocument">工程图对象</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-
     Public Function SetMass(ByVal oDrawingDocument As DrawingDocument) As Boolean
         Dim oPropertyName As String
         oPropertyName = "质量"
@@ -965,7 +968,11 @@ Module IdwModule
         Try
             '若该iProperty已经存在，则直接修改其值
             pEachScale = oDrawingDocument.PropertySets.Item("User Defined Properties").Item(oPropertyName)
-            pEachScale.Value = strMass
+
+            If pEachScale.Value <> strMass Then
+                pEachScale.Value = strMass
+            End If
+
         Catch
             ' 若该iProperty不存在，则添加一个
             oDrawingDocument.PropertySets.Item("User Defined Properties").Add(strMass, oPropertyName)
@@ -1157,10 +1164,10 @@ Module IdwModule
     ''' <param name="sPrinterName">打印机名称</param>
     ''' <param name="IsBlack">是否黑色</param>
     ''' <param name="intCopies">打印份数</param>
-    ''' <param name="IsA3">适配A3</param>
+    ''' <param name="strPaperSize">强制纸张尺寸</param>
     ''' <remarks></remarks>
     Public Sub PrintDrawing(ByVal oInventorDrawingDocument As Inventor.DrawingDocument, ByVal sPrinterName As String, ByVal IsBlack As Boolean,
-                             ByVal intCopies As Integer, ByVal IsA3 As Boolean)
+                             ByVal intCopies As Integer, ByVal strPaperSize As String)
 
         ' Set a reference to the print manager object of the active document.
         ' This will fail if a drawing document is not active.
@@ -1193,35 +1200,33 @@ Module IdwModule
             '设置为默认纸张大小
 
             ' 如果是打印到打印机，修正为A3
-            If IsA3 = True Then
-                Select Case oInventorDrawingDocument.ActiveSheet.Size
-                    Case DrawingSheetSizeEnum.kA4DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA4
-                    Case DrawingSheetSizeEnum.kA3DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA3
-                    Case DrawingSheetSizeEnum.kA2DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA3
-                    Case DrawingSheetSizeEnum.kA1DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA3
-                    Case DrawingSheetSizeEnum.kA0DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA3
-                End Select
-            Else
-                '设置为默认纸张大小
-                Select Case oInventorDrawingDocument.ActiveSheet.Size
-                    Case DrawingSheetSizeEnum.kA4DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA4
-                    Case DrawingSheetSizeEnum.kA3DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA3
-                    Case DrawingSheetSizeEnum.kA2DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA2
-                    Case DrawingSheetSizeEnum.kA1DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA1
-                    Case DrawingSheetSizeEnum.kA0DrawingSheetSize
-                        .PaperSize = PaperSizeEnum.kPaperSizeA0
-                End Select
 
-            End If
+            Select Case strPaperSize
+                Case "A4"
+                    .PaperSize = PaperSizeEnum.kPaperSizeA4
+                Case "A3"
+                    Select Case oInventorDrawingDocument.ActiveSheet.Size
+                        Case DrawingSheetSizeEnum.kA4DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA4
+                        Case Else
+                            .PaperSize = PaperSizeEnum.kPaperSizeA3
+                    End Select
+                Case Else
+                    '设置为默认纸张大小
+                    Select Case oInventorDrawingDocument.ActiveSheet.Size
+                        Case DrawingSheetSizeEnum.kA4DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA4
+                        Case DrawingSheetSizeEnum.kA3DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA3
+                        Case DrawingSheetSizeEnum.kA2DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA2
+                        Case DrawingSheetSizeEnum.kA1DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA1
+                        Case DrawingSheetSizeEnum.kA0DrawingSheetSize
+                            .PaperSize = PaperSizeEnum.kPaperSizeA0
+                    End Select
+            End Select
+
 
             '最佳比例
             .ScaleMode = PrintScaleModeEnum.kPrintBestFitScale
@@ -1314,7 +1319,7 @@ Module IdwModule
 
                     If strDwgFullFileName = "" Then
                     Else
-                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName, True)
                     End If
 
                     strPdfFullFileName = SetNewFile(strPdfFullFileName, "Adobe PDF文件(*.pdf)|*.pdf")
@@ -1322,14 +1327,14 @@ Module IdwModule
                     If strPdfFullFileName = "" Then
 
                     Else
-                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName, True)
                     End If
 
                 Case "另存为dwg"
                     strDwgFullFileName = SetNewFile(strDwgFullFileName, "AutoCAD文件(*.dwg)|*.dwg")
                     If strDwgFullFileName = "" Then
                     Else
-                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName)
+                        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDwgFullFileName, True)
                     End If
 
                 Case "另存为pdf"
@@ -1337,7 +1342,7 @@ Module IdwModule
                     If strPdfFullFileName = "" Then
 
                     Else
-                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName)
+                        IdwSaveAsPdfSub(strInventorDrawingDocumentFullFileName, strPdfFullFileName, True)
                     End If
 
             End Select
@@ -1927,6 +1932,8 @@ Module IdwModule
             oView仰视图.Name = "仰视图"
         End If
 
+
+
         '======================
         '还原1：1比例
         oView前视图.Scale = 1
@@ -2128,6 +2135,13 @@ Module IdwModule
 
         '查询设置新标题栏
         CreateDrawingDocumentTitleBlock(oInventorDrawingDocument, oInventorDocument.DocumentType)
+
+        '添加明细表
+        If oInventorDocument.DocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then
+            CreatePartsList（oInventorDrawingDocument）
+        End If
+        '设置重量
+        SetMass（oInventorDrawingDocument）
 
         oInventorDrawingDocument.Update()
 
@@ -2719,7 +2733,7 @@ Module IdwModule
             strDxfFullFileName = IO.Path.Combine(strChildDirectory, GetFileNameInfo(strDxfFullFileName).FileName)
         End If
 
-        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDxfFullFileName)
+        IdwSaveAsDwgSub(strInventorDrawingDocumentFullFileName, strDxfFullFileName, True)
     End Sub
 
     ''' <summary>
@@ -2746,9 +2760,16 @@ Module IdwModule
     ''' <summary>
     ''' 工程图转换图形
     ''' </summary>
-    ''' <param name="oInventorDrawingDocument">工程图文件</param>
-    ''' <param name="strPictureFullFileName">图形文件名</param>
-    Public Sub ExportToBitmap(ByVal oInventorDrawingDocument As DrawingDocument, ByVal strPictureFullFileName As String)
+    ''' <param name="oInventorDrawingDocument">工程图文档对象</param>
+    ''' <param name="strPictureFullFileName">图片文件名</param>
+    ''' <param name="IsReplace">是否覆盖</param>
+    Public Sub ExportToBitmap(ByVal oInventorDrawingDocument As DrawingDocument, ByVal strPictureFullFileName As String, ByVal IsReplace As Boolean)
+
+        If IsFileExists(strPictureFullFileName) And IsReplace = False Then
+            Exit Sub
+        End If
+
+
         '执行系统命令(最大化显示图纸)
         If oInventorDrawingDocument.Views.Count = 0 Then oInventorDrawingDocument.Views.Add()
         oInventorDrawingDocument.Activate()

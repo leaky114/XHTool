@@ -62,7 +62,7 @@ Partial Class FormiPropertyToFileName
         'ch文件名
         '
         Me.ch文件名.Text = "文件名"
-        Me.ch文件名.Width = 150
+        Me.ch文件名.Width = 200
         '
         'ch图号
         '
@@ -77,7 +77,7 @@ Partial Class FormiPropertyToFileName
         'ch新文件名
         '
         Me.ch新文件名.Text = "新文件名"
-        Me.ch新文件名.Width = 150
+        Me.ch新文件名.Width = 200
         '
         'ch文件路径
         '

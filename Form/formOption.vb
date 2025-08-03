@@ -16,7 +16,7 @@ Public Class FormOption
         'Else
 
         '//先获取复制文本
-        Dim newstr As String = cbo添加.Text
+        Dim newstr As String = cmb添加.Text
 
         If newstr = "| (分隔符)" Then
             newstr = "|"
@@ -39,15 +39,15 @@ Public Class FormOption
     End Sub
 
     Private Sub Btn确定_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn确定.Click
-        If cbo图号.Text = cbo文件名.Text Then
+        If cmb图号.Text = cmb文件名.Text Then
             MessageBox.Show("映射设置相同。", XHTool, MessageBoxButtons.OK， MessageBoxIcon.Error)
             Exit Sub
         End If
 
-        Map_DrawingNnumber = cbo图号.Text
-        Map_PartName = cbo文件名.Text
-        Map_ERPCode = cbo存货编码.Text
-        Map_Vendor = cbo供应商.Text
+        Map_DrawingNnumber = cmb图号.Text
+        Map_PartName = cmb文件名.Text
+        Map_ERPCode = cmb存货编码.Text
+        Map_Vendor = cmb供应商.Text
 
         Map_Mir_StochNum = txt对称件图号映射.Text
         Map_Mir_PartName = txt对称件文件名映射.Text
@@ -105,7 +105,7 @@ Public Class FormOption
 
 
         '质量精度：
-        Select Case cbo质量精度.Text
+        Select Case cmb质量精度.Text
             Case "", "0"
                 Mass_Accuracy = "0"
             Case "0.1"
@@ -117,7 +117,7 @@ Public Class FormOption
         End Select
 
         '面积精度：
-        Select Case cbo面积精度.Text
+        Select Case cmb面积精度.Text
             Case "", "0"
                 Area_Accuracy = "0"
             Case "0.1"
@@ -134,7 +134,7 @@ Public Class FormOption
                 Area_Accuracy = "6"
         End Select
 
-        Printer = cbo打印机.Text
+        Printer = cmb打印机.Text
 
         '匹配A3
         IsPaperA3 = IIf(chk匹配A3纸.Checked, "1", "-1")
@@ -144,22 +144,22 @@ Public Class FormOption
 
 
         '另存为
-        SaveAsDawAndPdf = cbo另存为.Text
+        SaveAsDawAndPdf = cmb另存为.Text
 
 
         str展开图模板 = txt展开图模板.Text
-        str向上线宽 = cbo向上线宽.Text
-        str向下线宽 = cbo向下线宽.Text
+        str向上线宽 = cmb向上线宽.Text
+        str向下线宽 = cmb向下线宽.Text
 
-        str向上线型 = cbo向上线型.Text
-        str向下线型 = cbo向下线型.Text
+        str向上线型 = cmb向上线型.Text
+        str向下线型 = cmb向下线型.Text
 
         str展开图标注 = IIf(chk展开图标注.Checked, "1", "-1")
 
         str展开图隐藏螺纹特征 = IIf(chk展开图隐藏螺纹特征.Checked, "1", "-1")
         str标记孔径上限 = txt标记孔径上限.Text
         'str导出DXF = IIf(chk导出DXF.Checked, "1", "-1")
-        str图号材质 = cbo图号材质.Text
+        str图号材质 = cmb图号材质.Text
 
         str工艺文字高 = txt工艺文字高.Text
 
@@ -195,6 +195,18 @@ Public Class FormOption
         intPitcureWidth = txt宽度.Text
         intPitcureHeight = txt高度.Text
 
+        '自动保存
+        str启用自动保存 = IIf(chk启用自动保存.Checked, "1", "-1")
+        str保存文档类型 = cmb保存文档.Text
+        str保存间隔时间 = cmb时间间隔.Text
+
+
+        If str启用自动保存 = "1" Then
+            m_timer.Interval = Integer.Parse(str保存间隔时间 * 60 * 1000)
+            m_timer.Start()
+        Else
+            m_timer.Stop()
+        End If
 
         WrIni.InAISettingIniWriteSetting()
 
@@ -212,7 +224,7 @@ Public Class FormOption
         'End if
 
         If IsFileExists(BasicExcelFullFileName) = True Then
-          ProcessStart(BasicExcelFullFileName)
+            ProcessStart(BasicExcelFullFileName)
         Else
             'excel文件不存在，到服务器下载
             Dim documentURL As String
@@ -221,7 +233,7 @@ Public Class FormOption
             If IsFileExists(documentURL) = True Then
                 Dim wc As New System.Net.WebClient
                 wc.DownloadFile(documentURL, BasicExcelFullFileName)
-              ProcessStart(BasicExcelFullFileName)
+                ProcessStart(BasicExcelFullFileName)
             End If
 
         End If
@@ -270,53 +282,63 @@ Public Class FormOption
         strComboBoxs = GetStrFromINI("iProperty", "图号列表", "库存编号,零件代号,描述,标题,主题", IniFile)
         arraystrComboBox = Split(strComboBoxs, ",")
         For Each strComboBox In arraystrComboBox
-            If cbo图号.FindString(strComboBox) = -1 Then
-                cbo图号.Items.Add(strComboBox)
+            If cmb图号.FindString(strComboBox) = -1 Then
+                cmb图号.Items.Add(strComboBox)
             End If
         Next
 
         strComboBoxs = GetStrFromINI("iProperty", "文件名列表", "库存编号,零件代号,描述,标题,主题", IniFile)
         arraystrComboBox = Split(strComboBoxs, ",")
         For Each strComboBox In arraystrComboBox
-            If cbo文件名.FindString(strComboBox) = -1 Then
-                cbo文件名.Items.Add(strComboBox)
+            If cmb文件名.FindString(strComboBox) = -1 Then
+                cmb文件名.Items.Add(strComboBox)
             End If
         Next
 
         '初始化映射
-        cbo图号.Text = Map_DrawingNnumber
-        cbo文件名.Text = Map_PartName
-        cbo存货编码.Text = Map_ERPCode
-        cbo供应商.Text = Map_Vendor
+        cmb图号.Text = Map_DrawingNnumber
+        cmb文件名.Text = Map_PartName
+        cmb存货编码.Text = Map_ERPCode
+        cmb供应商.Text = Map_Vendor
 
-        cbo添加.Text = cbo添加.Items(0)
+        Dim items As String() = {"| (分隔符)", "BOM 表结构", "Web 链接", "版本", "标题", "材料", "成本中心", "创建日期", "单位", "单位数量", "工程核准人",
+            "工程师", "工程师核准日期", "供应商", "关键词", "基础单位", "基础数量", "检测人", "检测日期", "库存编号", "类别", "零部件类型", "零件代号", "描述",
+            "批准人", "设计人", "设计状态", "数量", "体积", "文件路径", "文件名称", "项目", "项数量", "预估成本", "制造核准人", "制造者核准日期", "质量", "主管",
+            "主题", "注释", "状态", "作者", "材料", "成本", "空格", "面积", "所属装配", "所属装配代号", "项目序号", "总成本", "总数量", "总质量"}
+
+        ' 将数组添加到ComboBox
+        cmb添加.Items.AddRange(items)
+        cmb添加.DropDownStyle = ComboBoxStyle.DropDownList
+        cmb添加.Sorted = True    ' 保持原始顺序
+        cmb添加.SelectedIndex = 0   ' 默认选择第一项
+
 
         Select Case Mass_Accuracy
             Case "0"
-                cbo质量精度.Text = "0"
+                cmb质量精度.Text = "0"
             Case "1"
-                cbo质量精度.Text = "0.1"
+                cmb质量精度.Text = "0.1"
             Case "2"
-                cbo质量精度.Text = "0.01"
+                cmb质量精度.Text = "0.01"
             Case "3"
-                cbo质量精度.Text = "0.001"
+                cmb质量精度.Text = "0.001"
         End Select
 
         Select Case Area_Accuracy
             Case "0"
-                cbo面积精度.Text = "0"
+                cmb面积精度.Text = "0"
             Case "1"
-                cbo面积精度.Text = "0.1"
+                cmb面积精度.Text = "0.1"
             Case "2"
-                cbo面积精度.Text = "0.01"
+                cmb面积精度.Text = "0.01"
             Case "3"
-                cbo面积精度.Text = "0.001"
+                cmb面积精度.Text = "0.001"
             Case "4"
-                cbo面积精度.Text = "0.0001"
+                cmb面积精度.Text = "0.0001"
             Case "5"
-                cbo面积精度.Text = "0.00001"
+                cmb面积精度.Text = "0.00001"
             Case "6"
-                cbo面积精度.Text = "0.000001"
+                cmb面积精度.Text = "0.000001"
         End Select
 
         txt对称件图号映射.Text = Map_Mir_StochNum
@@ -362,17 +384,17 @@ Public Class FormOption
         Dim oPrintDocument As New Printing.PrintDocument
         Dim strDefaultPrinter As String = oPrintDocument.PrinterSettings.PrinterName
 
-        cbo打印机.Items.Clear()
+        cmb打印机.Items.Clear()
         For Each strPrinterName As String In Printing.PrinterSettings.InstalledPrinters
-            cbo打印机.Items.Add(strPrinterName)
+            cmb打印机.Items.Add(strPrinterName)
             If strPrinterName = strDefaultPrinter Then
-                cbo打印机.SelectedIndex = cbo打印机.Items.IndexOf(strPrinterName)
+                cmb打印机.SelectedIndex = cmb打印机.Items.IndexOf(strPrinterName)
             End If
         Next
 
-        For Each cmblist In cbo打印机.Items
+        For Each cmblist In cmb打印机.Items
             If cmblist = Printer Then
-                cbo打印机.Text = Printer
+                cmb打印机.Text = Printer
             End If
         Next
 
@@ -383,24 +405,24 @@ Public Class FormOption
         chk签字.Checked = IIf(IsSign = "1", True, False)
 
         '另存为
-        cbo另存为.Text = SaveAsDawAndPdf
+        cmb另存为.Text = SaveAsDawAndPdf
 
 
         txt展开图模板.Text = str展开图模板
         btn向上颜色.BackColor = ColorTranslator.FromHtml(str向上颜色)
         btn向下颜色.BackColor = ColorTranslator.FromHtml(str向下颜色)
 
-        cbo向上线宽.Text = str向上线宽
-        cbo向下线宽.Text = str向下线宽
+        cmb向上线宽.Text = str向上线宽
+        cmb向下线宽.Text = str向下线宽
 
-        cbo向上线型.Text = str向上线型
-        cbo向下线型.Text = str向下线型
+        cmb向上线型.Text = str向上线型
+        cmb向下线型.Text = str向下线型
 
         chk展开图标注.Checked = IIf(str展开图标注 = "1", True, False)
         chk展开图隐藏螺纹特征.Checked = IIf(str展开图隐藏螺纹特征 = "1", True, False)
         txt标记孔径上限.Text = str标记孔径上限
         'chk导出DXF.Checked = IIf(str导出DXF = "1", True, False)
-        cbo图号材质.Text = str图号材质
+        cmb图号材质.Text = str图号材质
         txt工艺文字高.Text = str工艺文字高
 
         chk保存展开图到指定文件夹.Checked = IIf(str保存展开图到指定文件夹 = "1", True, False)
@@ -430,6 +452,29 @@ Public Class FormOption
 
         txt宽度.Text = intPitcureWidth
         txt高度.Text = intPitcureHeight
+
+        chk启用自动保存.Checked = IIf(str启用自动保存 = “1”, True, False)
+        cmb保存文档.Text = str保存文档类型
+
+
+        If cmb时间间隔.Items.Contains(str保存间隔时间) = False Then
+            cmb时间间隔.Items.Add(str保存间隔时间)
+        End If
+
+
+        ' 获取当前项并转换为整数排序
+        Dim sortedItems = cmb时间间隔.Items.Cast(Of String)() _
+                   .OrderBy(Function(s) Integer.Parse(s)) _
+                   .ToList()
+
+        ' 清空并重新添加排序后的项
+        cmb时间间隔.Items.Clear()
+        For Each item In sortedItems
+            cmb时间间隔.Items.Add(item)
+        Next
+
+        cmb时间间隔.Text = str保存间隔时间
+
 
 
         '==================================================================
@@ -607,8 +652,8 @@ Public Class FormOption
 
         End If
     End Sub
-
     Private Sub Btn关闭_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn关闭.Click
-        Me.Close()
+        FormManager.CloseAndDisposeForm(Of FormOption)()
     End Sub
+
 End Class

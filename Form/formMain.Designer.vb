@@ -133,6 +133,7 @@ Partial Class FormMain
         Me.统计焊缝ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.同步目录树ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.自定义iPropertyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.清理冗余五年级ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.关于ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.帮助ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.关于2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -748,7 +749,7 @@ Partial Class FormMain
         '
         '工具ToolStripMenuItem
         '
-        Me.工具ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.选项ToolStripMenuItem, Me.菜单工具ToolStripMenuItem, Me.动画设计ToolStripMenuItem, Me.驱动测量ToolStripMenuItem, Me.格式转换ToolStripMenuItem, Me.还原旧图ToolStripMenuItem, Me.清理旧版文件ToolStripMenuItem, Me.量产iPropertyToolStripMenuItem, Me.切换文档ToolStripMenuItem, Me.统计焊缝ToolStripMenuItem, Me.同步目录树ToolStripMenuItem, Me.自定义iPropertyToolStripMenuItem})
+        Me.工具ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.选项ToolStripMenuItem, Me.菜单工具ToolStripMenuItem, Me.动画设计ToolStripMenuItem, Me.驱动测量ToolStripMenuItem, Me.格式转换ToolStripMenuItem, Me.还原旧图ToolStripMenuItem, Me.清理旧版文件ToolStripMenuItem, Me.量产iPropertyToolStripMenuItem, Me.切换文档ToolStripMenuItem, Me.统计焊缝ToolStripMenuItem, Me.同步目录树ToolStripMenuItem, Me.自定义iPropertyToolStripMenuItem, Me.清理冗余五年级ToolStripMenuItem})
         Me.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem"
         Me.工具ToolStripMenuItem.Size = New System.Drawing.Size(44, 21)
         Me.工具ToolStripMenuItem.Text = "工具"
@@ -825,6 +826,12 @@ Partial Class FormMain
         Me.自定义iPropertyToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.自定义iPropertyToolStripMenuItem.Text = "自定义iProperty"
         '
+        '清理冗余五年级ToolStripMenuItem
+        '
+        Me.清理冗余五年级ToolStripMenuItem.Name = "清理冗余五年级ToolStripMenuItem"
+        Me.清理冗余五年级ToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.清理冗余五年级ToolStripMenuItem.Text = "清理冗余文件"
+        '
         '关于ToolStripMenuItem
         '
         Me.关于ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.帮助ToolStripMenuItem, Me.关于2ToolStripMenuItem})
@@ -860,7 +867,7 @@ Partial Class FormMain
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(78, 39)
         Me.Button2.TabIndex = 20
-        Me.Button2.Text = "面着色"
+        Me.Button2.Text = "复制组件"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'ButtoniProperty
@@ -1029,4 +1036,5 @@ Partial Class FormMain
     Friend WithEvents 批量BOM命名ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 设置孔颜色ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 油路块着色ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 清理冗余五年级ToolStripMenuItem As ToolStripMenuItem
 End Class

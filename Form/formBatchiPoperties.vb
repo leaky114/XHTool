@@ -47,19 +47,12 @@ Public Class formBatchiPoperties
 
         Dim oInventorDocDocument As Inventor.Document
 
-        'For Each oInventorDocDocument In ThisApplication.Documents.VisibleDocuments
-        '    Select Case oInventorDocDocument.DocumentType
-        '        Case DocumentTypeEnum.kDrawingDocumentObject, DocumentTypeEnum.kAssemblyDocumentObject, DocumentTypeEnum.kPartDocumentObject
-        '            lvw文件列表.Items.Add(oInventorDocDocument.FullDocumentName)
-        '    End Select
-        'Next
-
         If lvw文件列表.Items.Count = 0 Then
             MessageBox.Show(”未添加文件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
-        btn确定.Enabled = False
+        'btn确定.Enabled = False
 
         Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         OInteractionEvents.Start()
@@ -72,7 +65,7 @@ Public Class formBatchiPoperties
         Select Case tab1.SelectedIndex
 
             Case 0
-                If cbo项目名.Text = "" Then
+                If cmb项目名.Text = "" Then
                     MessageBox.Show(”请选择项目。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     OInteractionEvents.Stop()
                     btn确定.Enabled = True
@@ -81,13 +74,16 @@ Public Class formBatchiPoperties
 
 
                 For Each oListViewItem As ListViewItem In lvw文件列表.Items
-                    oListViewItem.Selected = True
+                    'oListViewItem.Selected = True
 
                     '打开文件
                     strInventorDocumentFullFileName = oListViewItem.Text
                     oInventorDocDocument = ThisApplication.Documents.Open(strInventorDocumentFullFileName, False)
                     '打开 项目 选项卡
-                    Dim oPropertySet As PropertySet = oInventorDocDocument.PropertySets.Item("Design Tracking Properties")
+
+
+
+                    'Dim oPropertySet As PropertySet = oInventorDocDocument.PropertySets.Item("Design Tracking Properties")
 
                     '用内部定义名的代码
                     'Dim oDesignerProp As Inventor.Property = oDTProps.ItemByPropId(Inventor.PropertiesForDesignTrackingPropertiesEnum.kDesignerDesignTrackingProperties)
@@ -97,22 +93,33 @@ Public Class formBatchiPoperties
                     '用显示名 displayname 的代码
                     '定义单个项目
                     'Dim oProperty As Inventor.Property
+                    Try
+                        For Each oPropertySet As PropertySet In oInventorDocDocument.PropertySets
+                            '遍历选项卡下的每个单项目
+                            For Each oProperty As Inventor.Property In oPropertySet
 
-                    '遍历选项卡下的每个单项目
-                    For Each oProperty As Inventor.Property In oPropertySet
-                        If oProperty.DisplayName = cbo项目名.Text Then
-                            '项目名对应，设置数据
-                            oProperty.Value = txt数据.Text.ToString
-                        End If
-                    Next
+                                'If oProperty.DisplayName <> "缩略图" Then
+                                '    Debug.Print(oProperty.DisplayName & "----------" & oProperty.Value)
+                                'End If
 
-                    '保存到文件
-                    'InventorDoc.PropertySets.FlushToFile()
-                    '关闭文件
-                    'InventorDoc.Close()
+                                If oProperty.DisplayName = cmb项目名.Text Then
+                                    '项目名对应，设置数据
+                                    oProperty.Value = txt数据.Text.ToString
+                                End If
+                            Next
+
+                            '保存到文件
+                            'InventorDoc.PropertySets.FlushToFile()
+                            '关闭文件
+                            'InventorDoc.Close()
+
+                        Next
+                    Catch ex As Exception
+                        OInteractionEvents.Stop()
+                    End Try
+
 
                 Next
-
             Case 1
 
                 If txt特性名.Text = "" Then
@@ -186,7 +193,7 @@ Public Class formBatchiPoperties
 
         End Select
 
-        btn确定.Enabled = True
+        'btn确定.Enabled = True
 
         'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
         OInteractionEvents.Stop()
@@ -202,7 +209,17 @@ Public Class formBatchiPoperties
     Private Sub FrmiPoperties_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = My.Resources.XHTool48
 
-        cbo项目名.Text = EngineerName
+        Dim items As String() = {"标题", "主题", "作者", "主管", "单位", "类别", "关键词", "注释", "零件代号", "库存编号", "描述",
+            "修订号", "项目", "设计人", "工程师", "批准人", "成本中心", "成本", "供应商", "目录 Web 链接", "检测人",
+            "工程核准人", "制造核准人"}
+
+        ' 将数组添加到ComboBox
+        cmb项目名.Items.AddRange(items)
+        cmb项目名.DropDownStyle = ComboBoxStyle.DropDownList
+        cmb项目名.Sorted = True    ' 保持原始顺序
+        cmb项目名.SelectedIndex = 0   ' 默认选择第一项
+
+        cmb项目名.Text = EngineerName
         rdo字符串.Checked = True
     End Sub
 
@@ -273,7 +290,14 @@ Public Class formBatchiPoperties
         Dim strInventorDocumentFullFileName As String
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
             strInventorDocumentFullFileName = oInventorDocument.FullFileName
-            lvw文件列表.Items.Add(strInventorDocumentFullFileName)
+            If strInventorDocumentFullFileName = "" Then
+                Continue For
+            End If
+
+            If IsItemInListView(lvw文件列表, strInventorDocumentFullFileName) = False Then
+                lvw文件列表.Items.Add(strInventorDocumentFullFileName)
+            End If
+
         Next
     End Sub
 
