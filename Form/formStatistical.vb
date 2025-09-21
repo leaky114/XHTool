@@ -16,10 +16,17 @@ Public Class FormStatistical
 
     Private oMassList As List(Of ComponentOccurrence)
     Private oEdgeList As List(Of Edge)
+
     Private oAreaList As List(Of Face)
 
+    Private oEdgeHSet100 As HighlightSet
+    Private oEdgeHSet70 As HighlightSet
+    Private oEdgeHSet50 As HighlightSet
+    Private oEdgeHSet30 As HighlightSet
 
-    Private oHSet As HighlightSet
+    Private oFaceHSet As HighlightSet
+    Private oComponentOccurrenceHSet As HighlightSet
+
     Private strFullDocumentName As String
 
     Private Sub FrmStatisticalWeight_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -41,6 +48,8 @@ Public Class FormStatistical
         toolTip.SetToolTip(btn复制焊缝长度, "复制焊缝长度")
 
         toolTip.SetToolTip(btn选择面, "选择添加面")
+        toolTip.SetToolTip(btn选择零部件2, "选择添加零件")
+
         toolTip.SetToolTip(btn复制面积, "复制面积")
 
         btn选择零件.Image = My.Resources.选择面和边16.ToBitmap
@@ -52,6 +61,7 @@ Public Class FormStatistical
         btn复制焊缝长度.Image = My.Resources.复制16.ToBitmap
 
         btn选择面.Image = My.Resources.选择面和边16.ToBitmap
+        btn选择零部件2.Image = My.Resources.添加16.ToBitmap
         btn复制面积.Image = My.Resources.复制16.ToBitmap
 
 
@@ -72,8 +82,24 @@ Public Class FormStatistical
         dblSumArea = 0
 
         strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
-        oHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
-        oHSet.Color = ThisApplication.TransientObjects.CreateColor(255, 0, 0)
+
+        oEdgeHSet100 = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oEdgeHSet100.Color = ThisApplication.TransientObjects.CreateColor(255, 0, 0)
+
+        oEdgeHSet70 = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oEdgeHSet70.Color = ThisApplication.TransientObjects.CreateColor(255， 165， 0)
+
+        oEdgeHSet50 = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oEdgeHSet50.Color = ThisApplication.TransientObjects.CreateColor(255， 0， 255)
+
+        oEdgeHSet30 = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oEdgeHSet30.Color = ThisApplication.TransientObjects.CreateColor(0， 255， 255)
+
+        oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oFaceHSet.Color = ThisApplication.TransientObjects.CreateColor(46, 139, 87)
+
+        oComponentOccurrenceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
+        oComponentOccurrenceHSet.Color = ThisApplication.TransientObjects.CreateColor(0, 191, 255)
 
     End Sub
 
@@ -138,7 +164,7 @@ Public Class FormStatistical
                 txt长度.Text = 0
                 txt焊缝长度.Text = 0
 
-                oHSet.Clear()
+                oFaceHSet.Clear()
             Case "面积"
                 lvw面积文件列表.Items.Clear()
                 dblSumArea = 0
@@ -146,7 +172,12 @@ Public Class FormStatistical
 
         End Select
 
-        oHSet.Clear()
+        oEdgeHSet100.Clear()
+        oEdgeHSet70.Clear()
+        oEdgeHSet50.Clear()
+        oEdgeHSet30.Clear()
+        oFaceHSet.Clear()
+        oComponentOccurrenceHSet.Clear
 
     End Sub
 
@@ -181,7 +212,7 @@ Public Class FormStatistical
     Private Sub Btn选择零件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择零件.Click
         Try
             If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
-                oHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
+                oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
                 strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
                 Btn清空_Click(sender, e)
             End If
@@ -205,43 +236,21 @@ Public Class FormStatistical
                 oListViewItem = lvw质量文件列表.Items.Add(oComponentOccurrence.Name)
 
                 Dim intQuantity As Integer = 1
-                '数量 = InputBox("输入数量", "数量", "1")
-                'oListViewItem.SubItems.Add(intQuantity)
-
-                'Dim InventorDoc2 As Inventor.Document
-                'InventorDoc2 = ThisApplication.Documents.Open(FullFileName, False)
-                'LVI.SubItems.Add(GetMass(InventorDoc2) * 数量)
-                'LVI.SubItems.Add(GetArea(InventorDoc2) * 数量)
 
                 Dim dblMass As Double
                 dblMass = FourFive(oComponentOccurrence.MassProperties.Mass, Mass_Accuracy)
-                'dblMass = dblMass + 0.00000001
-
-                'Dim intMassAccuracy As Integer
-                'intMassAccuracy = Val(Mass_Accuracy)
-                'dblMass = Math.Round(dblMass, intMassAccuracy)
-
-                'Dim dblArea As Double
-                'dblArea = oComponentOccurrence.MassProperties.Area / 10000
-                'dblArea = dblArea + 0.00000001
-
-                'Dim Val_Area_Accuracy As Integer
-                'Val_Area_Accuracy = Val(Area_Accuracy)
-                'dblArea = Math.Round(dblArea, Val_Area_Accuracy)
 
                 oListViewItem.SubItems.Add(dblMass * intQuantity)
-                'oListViewItem.SubItems.Add(dblArea * intQuantity)
 
                 dblSumMass = 0
-                'dblSumArea = 0
+
+                oComponentOccurrenceHSet.AddItem(oComponentOccurrence)
 
                 For Each LVI As ListViewItem In lvw质量文件列表.Items
                     dblSumMass = dblSumMass + LVI.SubItems(1).Text    ' * LVI.SubItems(1).Text
-                    'dblSumArea = dblSumArea + LVI.SubItems(1).Text * LVI.SubItems(3).Text
                 Next
 
                 txt总质量.Text = dblSumMass.ToString
-                'txt面积.Text = dblSumArea.ToString
 
             Loop While True
 
@@ -253,7 +262,7 @@ Public Class FormStatistical
     Private Sub Btn选择面和边_Click(sender As Object, e As EventArgs) Handles btn选择面和边.Click
         Try
             If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
-                oHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
+                oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
                 strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
                 Btn清空_Click(sender, e)
             End If
@@ -269,6 +278,33 @@ Public Class FormStatistical
                 Do
                     oedge = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartEdgeFilter, "选择一条边，ESC键取消")
 
+                    Select Case dou长度系数
+                        Case 1
+                            If IsInSelectObject(oEdgeHSet100, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet100.AddItem(oedge)
+                            End If
+                        Case 0.7
+                            If IsInSelectObject(oEdgeHSet70, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet70.AddItem(oedge)
+                            End If
+                        Case 0.5
+                            If IsInSelectObject(oEdgeHSet50, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet50.AddItem(oedge)
+                            End If
+                        Case 0.3
+                            If IsInSelectObject(oEdgeHSet30, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet30.AddItem(oedge)
+                            End If
+                    End Select
+
                     Dim oListViewItem As ListViewItem
 
                     Dim oEval As CurveEvaluator = oedge.Evaluator
@@ -280,7 +316,7 @@ Public Class FormStatistical
                     ' MessageBox.Show(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
 
                     'Dim dou边长度 = UoM.GetStringFromValue(FourFive(oLength, Mass_Accuracy), UoM.LengthUnits)
-                    Dim dou边长度 As Double = FourFive(oLength, Mass_Accuracy)
+                    Dim dou边长度 As Double = FourFive(oLength * 10, Mass_Accuracy)
                     Dim dou焊缝长度 As Double = FourFive(dou边长度 * dou长度系数, Mass_Accuracy）
 
                     Dim oSurfaceBodyProxy As SurfaceBodyProxy
@@ -307,8 +343,6 @@ Public Class FormStatistical
                     txt长度.Text = dblSumLength.ToString
                     txt焊缝长度.Text = dblSumHanFengLength.ToString
 
-                    oHSet.AddItem(oedge)
-
                 Loop While True
 
             Catch ex As Exception
@@ -321,6 +355,33 @@ Public Class FormStatistical
                 Do
                     oedge = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartEdgeFilter, "选择一条边，ESC键取消")
 
+                    Select Case dou长度系数
+                        Case 1
+                            If IsInSelectObject(oEdgeHSet100, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet100.AddItem(oedge)
+                            End If
+                        Case 0.7
+                            If IsInSelectObject(oEdgeHSet70, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet70.AddItem(oedge)
+                            End If
+                        Case 0.5
+                            If IsInSelectObject(oEdgeHSet50, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet50.AddItem(oedge)
+                            End If
+                        Case 0.3
+                            If IsInSelectObject(oEdgeHSet30, oedge) = True Then
+                                Continue Do
+                            Else
+                                oEdgeHSet30.AddItem(oedge)
+                            End If
+                    End Select
+
                     Dim oListViewItem As ListViewItem
 
                     Dim oEval As CurveEvaluator = oedge.Evaluator
@@ -331,7 +392,7 @@ Public Class FormStatistical
                     'Dim UoM As UnitsOfMeasure = ThisApplication.ActiveDocument.UnitsOfMeasure
                     ' MessageBox.Show(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
 
-                    Dim dou边长度 As Double = FourFive(oLength, Mass_Accuracy)     ' UoM.GetStringFromValue(oLength, UoM.LengthUnits)
+                    Dim dou边长度 As Double = FourFive(oLength * 10, Mass_Accuracy)     ' UoM.GetStringFromValue(oLength, UoM.LengthUnits)
                     Dim dou焊缝长度 As Double = FourFive(dou边长度 * dou长度系数, Mass_Accuracy）
 
                     'Dim oSurfaceBodyProxy As SurfaceBodyProxy
@@ -358,7 +419,6 @@ Public Class FormStatistical
                     txt长度.Text = dblSumLength.ToString
                     txt焊缝长度.Text = dblSumHanFengLength.ToString
 
-                    oHSet.AddItem(oedge)
                 Loop While True
 
             Catch ex As Exception
@@ -398,7 +458,7 @@ Public Class FormStatistical
 
         Try
             If oInventorDocument.FullDocumentName <> strFullDocumentName Then
-                oHSet = oInventorDocument.CreateHighlightSet()
+                oFaceHSet = oInventorDocument.CreateHighlightSet()
                 strFullDocumentName = oInventorDocument.FullDocumentName
                 Btn清空_Click(sender, e)
             End If
@@ -507,28 +567,9 @@ Public Class FormStatistical
 
         oListViewItem = oListView.Items.Add(strFileName)
 
-        'oListViewItem.SubItems.Add(intQuantity)
-
-        'Dim InventorDoc2 As Inventor.Document
-        'InventorDoc2 = ThisApplication.Documents.Open(FullFileName, False)
-        'LVI.SubItems.Add(GetMass(InventorDoc2) * 数量)
-        'LVI.SubItems.Add(GetArea(InventorDoc2) * 数量)
-
-        'douMass = douMass + 0.00000001
-
-        'Dim intMassAccuracy As Integer
-        'intMassAccuracy = Val(Mass_Accuracy)
-        'douMass = Math.Round(douMass, intMassAccuracy)
-
-        'douArea = douArea + 0.00000001
-
-        'Dim Val_Area_Accuracy As Integer
-        'Val_Area_Accuracy = Val(Area_Accuracy)
-        'douArea = Math.Round(douArea, Val_Area_Accuracy)
-
         douMass = FourFive(douMass, Mass_Accuracy)
         oListViewItem.SubItems.Add(douMass * intQuantity)
-        'oListViewItem.SubItems.Add(douArea * intQuantity)
+
     End Sub
 
     Private Sub Lvw质量文件列表_KeyDown(sender As Object, e As KeyEventArgs) Handles lvw质量文件列表.KeyDown
@@ -616,7 +657,7 @@ Public Class FormStatistical
     Private Sub btn选择面_Click(sender As Object, e As EventArgs) Handles btn选择面.Click
         Try
             If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
-                oHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
+                oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
                 strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
                 Btn清空_Click(sender, e)
             End If
@@ -630,12 +671,17 @@ Public Class FormStatistical
                     Dim oFaceProxy As FaceProxy
                     oFaceProxy = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartFaceFilter, "选择一个面，ESC键取消")
 
+                    If IsInSelectObject(oFaceHSet, oFaceProxy) = True Then
+                        Continue Do
+                    End If
+
+
                     'Dim UoM As UnitsOfMeasure = ThisApplication.ActiveDocument.UnitsOfMeasure
                     ' MessageBox.Show(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
 
                     'Dim strFaceArea As String = UoM.GetStringFromValue(FourFive(oFaceProxy.Evaluator.Area, Mass_Accuracy), UoM.LengthUnits)
 
-                    Dim strFaceArea As String = FourFive(oFaceProxy.Evaluator.Area, Mass_Accuracy)
+                    Dim strFaceArea As String = FourFive(oFaceProxy.Evaluator.Area * 100, Area_Accuracy)
 
                     Dim oSurfaceBodyProxy As SurfaceBodyProxy
                     oSurfaceBodyProxy = oFaceProxy.Parent
@@ -648,7 +694,7 @@ Public Class FormStatistical
                     oListViewItem = lvw面积文件列表.Items.Add(oComponentOccurrence.Name)
                     oListViewItem.SubItems.Add(strFaceArea)
 
-                    oHSet.AddItem(oFaceProxy)
+                    oFaceHSet.AddItem(oFaceProxy)
 
                     dblSumArea = 0
                     For Each LVI As ListViewItem In lvw面积文件列表.Items
@@ -661,25 +707,31 @@ Public Class FormStatistical
                     Dim oFace As Face
                     oFace = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kPartFaceFilter, "选择一个面，ESC键取消")
 
+                    If IsInSelectObject(oFaceHSet, oFace) = True Then
+                        Continue Do
+                    End If
+
                     'Dim UoM As UnitsOfMeasure = ThisApplication.ActiveDocument.UnitsOfMeasure
                     ' MessageBox.Show(UoM.GetStringFromValue(oLength, UoM.LengthUnits))
 
                     'Dim strFaceArea As String = UoM.GetStringFromValue(FourFive(oFace.Evaluator.Area, Mass_Accuracy), UoM.LengthUnits)
 
-                    Dim strFaceArea As String = FourFive(oFace.Evaluator.Area, Mass_Accuracy)
+                    Dim strFaceArea As String = FourFive(oFace.Evaluator.Area, Area_Accuracy)
 
                     Dim oListViewItem As ListViewItem
                     oListViewItem = lvw面积文件列表.Items.Add(oFace.CreatedByFeature.Name.ToString)
                     oListViewItem.SubItems.Add(strFaceArea.ToString)
 
-                    oHSet.AddItem(oFace)
+                    oFaceHSet.AddItem(oFace)
                 End If
 
                 dblSumArea = 0
                 For Each LVI As ListViewItem In lvw面积文件列表.Items
                     dblSumArea = dblSumArea + Val(LVI.SubItems(1).Text)
                 Next
-                txt面积.Text = dblSumArea.ToString
+
+                txt面积.Text = ConvertArea(dblSumArea)
+
 
             Loop While True
 
@@ -690,11 +742,200 @@ Public Class FormStatistical
 
     Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
         Try
-            If oHSet.Count <> 0 Then
-                oHSet.Clear()
+            If oFaceHSet.Count <> 0 Then
+                oFaceHSet.Clear()
             End If
         Catch ex As Exception
 
         End Try
     End Sub
+
+    Private Sub btn选择零部件2_Click(sender As Object, e As EventArgs) Handles btn选择零部件2.Click
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveEditDocument
+
+        If oInventorDocument.SelectSet.Count = 0 Then
+            Exit Sub
+        End If
+
+        Debug.Print(oInventorDocument.SelectSet.Item(1).Type)
+
+        Try
+            If oInventorDocument.FullDocumentName <> strFullDocumentName Then
+                oFaceHSet = oInventorDocument.CreateHighlightSet()
+                strFullDocumentName = oInventorDocument.FullDocumentName
+                Btn清空_Click(sender, e)
+            End If
+        Catch ex As Exception
+
+        End Try
+
+        Dim oListViewItem As ListViewItem = Nothing
+        Dim dblArea As Double
+        Dim intQuantity As Integer = 1
+
+        Try
+            Dim oComponentOccurrence As ComponentOccurrence = Nothing
+            Dim oRectangularOccurrencePattern As RectangularOccurrencePattern
+            Dim oCircularOccurrencePattern As CircularOccurrencePattern
+
+            For Each oSelectObject In oInventorDocument.SelectSet
+
+                Debug.Print(oSelectObject.type)
+
+
+
+                Select Case oSelectObject.Type
+
+                    Case ObjectTypeEnum.kComponentOccurrenceObject          '组件
+                        ' MessageBox.Show(ObjectTypeEnum.kComponentOccurrenceObject)
+                        oComponentOccurrence = CType(oSelectObject, ComponentOccurrence)
+
+                        If IsItemInListView(lvw面积文件列表, oComponentOccurrence.Name) Then
+                            Continue For
+                        End If
+
+                        oListViewItem = lvw面积文件列表.Items.Add(oComponentOccurrence.Name)
+
+                        dblArea = FourFive(oComponentOccurrence.MassProperties.Area * 100, Mass_Accuracy)
+                        oListViewItem.SubItems.Add(dblArea * intQuantity)
+                        oComponentOccurrenceHSet.AddItem(oComponentOccurrence)
+
+
+                    Case ObjectTypeEnum.kRectangularOccurrencePatternObject       '矩形阵列
+                        ' MessageBox.Show(ObjectTypeEnum.kRectangularOccurrencePatternObject)
+
+
+                        oRectangularOccurrencePattern = CType(oSelectObject, RectangularOccurrencePattern)
+
+
+                        For Each OccurrencePatternElementObject As OccurrencePatternElement In oRectangularOccurrencePattern.OccurrencePatternElements
+
+
+                            oListViewItem = lvw面积文件列表.Items.Add(OccurrencePatternElementObject.Occurrences.Item(1).Name )
+
+                            dblArea = FourFive(OccurrencePatternElementObject.Occurrences.Item(1).MassProperties.Area * 100, Mass_Accuracy)
+                            oListViewItem.SubItems.Add(dblArea * intQuantity)
+                            oComponentOccurrenceHSet.AddItem(oComponentOccurrence)
+
+
+                        Next
+
+                    Case ObjectTypeEnum.kCircularOccurrencePatternObject     '环形阵列
+                        ' MessageBox.Show(ObjectTypeEnum.kRectangularOccurrencePatternObject)
+
+
+                        oCircularOccurrencePattern = CType(oSelectObject, CircularOccurrencePattern)
+
+                        'intQuantity = oCircularOccurrencePattern.ElementCount.Value
+
+                        For Each OccurrencePatternElementObject As OccurrencePatternElement In oCircularOccurrencePattern.OccurrencePatternElements
+
+                            oListViewItem = lvw面积文件列表.Items.Add(OccurrencePatternElementObject.Occurrences.Item(1).Name)
+
+                            dblArea = FourFive(OccurrencePatternElementObject.Occurrences.Item(1).MassProperties.Area * 100, Mass_Accuracy)
+                            oListViewItem.SubItems.Add(dblArea * intQuantity)
+                            oComponentOccurrenceHSet.AddItem(oComponentOccurrence)
+
+                        Next
+
+                End Select
+
+
+            Next
+
+            dblSumArea = 0
+            For Each LVI As ListViewItem In lvw面积文件列表.Items
+                dblSumArea = dblSumArea + Val(LVI.SubItems(1).Text)
+            Next
+
+            txt面积.Text = ConvertArea(dblSumArea)
+
+
+            Exit Sub
+        Catch ex As Exception
+
+        End Try
+
+        '没有已选择的组件就鼠标选择
+        Try
+            Dim oComponentOccurrence As ComponentOccurrence
+
+            Do
+                oComponentOccurrence = ThisApplication.CommandManager.Pick(SelectionFilterEnum.kAssemblyLeafOccurrenceFilter, "选择一个零件，ESC键取消")
+
+                'LVI = ListView1.Items.Add(FNI.ONlyName)
+
+                If IsItemInListView(lvw面积文件列表, oComponentOccurrence.Name) Then
+                    Continue Do
+                End If
+
+                oListViewItem = lvw面积文件列表.Items.Add(oComponentOccurrence.Name)
+
+
+                Dim oInventorPartDocument As Inventor.PartDocument
+                oInventorPartDocument = oComponentOccurrence.Definition.Document
+
+                dblArea = FourFive(oInventorPartDocument.ComponentDefinition.MassProperties.Area * 100, Mass_Accuracy)
+
+                oListViewItem.SubItems.Add(dblArea * intQuantity)
+
+                oComponentOccurrenceHSet.AddItem(oComponentOccurrence)
+
+                dblSumArea = 0
+                For Each LVI As ListViewItem In lvw面积文件列表.Items
+                    dblSumArea = dblSumArea + Val(LVI.SubItems(1).Text)
+                Next
+
+                txt面积.Text = ConvertArea(dblSumArea)
+
+            Loop While True
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+
+    ''' <summary>
+    ''' 根据数字大小自动决定转换的单位：
+    ''' </summary>
+    ''' <param name="areaInMM2">面积，单位平方毫米</param>
+    ''' <returns></returns>
+    Private Function ConvertArea(ByVal areaInMM2 As Double) As String
+        Dim douArea As Double
+        Dim strUnit As String
+
+        If areaInMM2 < 1 Then
+            douArea = areaInMM2
+            strUnit = "mm²"
+        ElseIf areaInMM2 < 10000 Then
+            douArea = FourFive(areaInMM2 / 100, Area_Accuracy) ' 转换为 cm²
+            strUnit = "cm²"
+        ElseIf areaInMM2 < 1000000 Then
+            douArea = FourFive(areaInMM2 / 10000, Area_Accuracy) ' 转换为 dm²
+            strUnit = "dm²"
+        Else
+            douArea = FourFive(areaInMM2 / 1000000, Area_Accuracy) ' 转换为 m²
+            strUnit = "m²"
+        End If
+
+        Return String.Format("{0} {1}", douArea, strUnit)
+    End Function
+
+    ''' <summary>
+    ''' 检查对选是否已选择
+    ''' </summary>
+    ''' <param name="oCheckObjectList">已选择列表</param>
+    ''' <param name="oCheckObject">被检查对象</param>
+    ''' <returns></returns>
+    Private Function IsInSelectObject(ByVal oCheckObjectList As Object, ByVal oCheckObject As Object) As Boolean
+        For Each oObject As Object In oCheckObjectList
+            If oObject Is oCheckObject Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
 End Class

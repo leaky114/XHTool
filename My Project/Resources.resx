@@ -928,4 +928,16 @@
   <data name="冗余文件32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\冗余文件32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="基础数量16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\基础数量16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="基础数量32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\基础数量32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="复制材料16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\复制材料16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="复制材料32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\复制材料32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

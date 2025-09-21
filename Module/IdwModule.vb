@@ -3165,6 +3165,26 @@ Module IdwModule
                     End Select
                 Next
 
+                For Each oFileDescriptor As FileDescriptor In oInventorAssemblyDocument.File.ReferencedFileDescriptors
+
+                    If Not oFileDescriptor.ReferenceMissing Then
+
+
+
+                    Else
+                        '抑制缺失的组件
+                        Dim oComp As ComponentOccurrence
+                        For Each oComp In oInventorAssemblyDocument.ComponentDefinition.Occurrences
+                            If oComp.ReferencedDocumentDescriptor.ReferencedFileDescriptor.FullFileName = oFileDescriptor.FullFileName Then
+                                oComp.Suppress()
+                            End If
+                        Next oComp
+
+
+                    End If
+                Next
+
+
             Case DocumentTypeEnum.kDrawingDocumentObject     '工程图删除错误的尺寸，序号，焊接
                 Dim oInventorDrawingDocument As Inventor.DrawingDocument
                 oInventorDrawingDocument = ThisApplication.ActiveDocument

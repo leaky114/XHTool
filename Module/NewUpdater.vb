@@ -17,7 +17,12 @@ Module NewUpdater
     ''' </summary>
     ''' <param name="isMsgbox">是否显示最新版本对话框</param>
     ''' <remarks></remarks>
-    Public Sub Shell_XHUpdater(ByVal isMsgbox As Integer)
+    Public Sub ShellXHUpdater(ByVal isMsgbox As Integer)
+
+
+
+        Dim strTempFile As String
+
         '获取本地插件版本
         Dim strOldVersion As String
 
@@ -27,7 +32,7 @@ Module NewUpdater
            Format(My.Application.Info.Version.Revision, "00")
 
         '写本地版本文件
-        Dim strTempFile As String = IO.Path.Combine(IO.Path.GetTempPath, "OldVersion.txt")
+        strTempFile = IO.Path.Combine(IO.Path.GetTempPath, "OldVersion.txt")
 
         ' 使用Using语句确保资源被正确释放
         Using oStreamWriter As New StreamWriter(strTempFile, False, Encoding.Default)
@@ -44,11 +49,19 @@ Module NewUpdater
         End Using
 
 
+        '写inventor.exe 文件地址
+        strTempFile = Path.Combine(IO.Path.GetTempPath, "inventorpath.txt")
+
+        Using oStreamWriter As New StreamWriter(strTempFile, False, Encoding.Default)
+            oStreamWriter.WriteLine(Path.Combine(ThisApplication.InstallPath, "Inventor.exe"))
+        End Using
+
+
         '启动升级程序
         strTempFile = Path.Combine(My.Application.Info.DirectoryPath, "XHUpdater.exe")
 
         If IsFileExists(strTempFile) = True Then
-          ProcessStart(strTempFile)
+            ProcessStart(strTempFile)
         Else
             MessageBox.Show("未找到升级程序XHUpdater.exe，请到 www.pmhker.com 重新下载安装文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
 

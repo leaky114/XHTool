@@ -2652,14 +2652,14 @@ Module IamModule
 
             SetStatusBarText()
 
-            If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            If TypeOf ThisApplication.ActiveEditDocument IsNot AssemblyDocument Then
                 MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 'Return False
                 Exit Sub
             End If
 
             Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
-            oInventorAssemblyDocument = ThisApplication.ActiveDocument
+            oInventorAssemblyDocument = ThisApplication.ActiveEditDocument
 
             '关闭屏幕更新
             'ThisApplication.ScreenUpdating = False

@@ -144,12 +144,12 @@
     <Compile Include="Class\clsPictureConverter.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Class\clsRightMouseChangeSelectionPriority.vb" />
     <Compile Include="Class\clsRightMouseSelectPartInBrowser.vb" />
     <Compile Include="Class\clsRightMouseSetDrawingSize.vb" />
     <Compile Include="Class\clsGetPoint.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
     <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
-    <Compile Include="Class\clsRightMouseChangeSelectionPriority.vb" />
     <Compile Include="Class\clsRightMouseZhenlieChicun.vb" />
     <Compile Include="Class\clsRightMouseShowAll.vb" />
     <Compile Include="Class\clsRightMouseTurnOffAdaptivity.vb" />
@@ -809,6 +809,10 @@
     <None Include="Resources\插入反向32.ICO" />
     <None Include="Resources\冗余文件32.ico" />
     <None Include="Resources\冗余文件16.ico" />
+    <None Include="Resources\基础数量16.ico" />
+    <None Include="Resources\基础数量32.ico" />
+    <None Include="Resources\复制材料32.ico" />
+    <None Include="Resources\复制材料16.ico" />
     <Content Include="Resources\过滤16.ico" />
     <Content Include="Resources\过滤32.ico" />
     <None Include="Resources\新建文件夹16.ICO" />

@@ -48,6 +48,20 @@ Public Class FormOption
         Map_PartName = cmb文件名.Text
         Map_ERPCode = cmb存货编码.Text
         Map_Vendor = cmb供应商.Text
+        str连接符 = cmb连接符.Text
+
+        Select Case str连接符
+            Case "无"
+                char连接符 = “”
+            Case "空格"
+                char连接符 = “ ”
+            Case "点."
+                char连接符 = “.”
+            Case "短横线-"
+                char连接符 = “-”
+            Case "下划线_"
+                char连接符 = “_”
+        End Select
 
         Map_Mir_StochNum = txt对称件图号映射.Text
         Map_Mir_PartName = txt对称件文件名映射.Text
@@ -263,7 +277,6 @@ Public Class FormOption
 
         Dim strArryLargeSmallIconNames As String() = strLargeSmallIconNames.Split(","c)
 
-
         Dim strArryLargeSmallIconSets As String() = strLargeSmallIconSets.Split(","c)
         Dim i As Integer = 0
 
@@ -300,6 +313,7 @@ Public Class FormOption
         cmb文件名.Text = Map_PartName
         cmb存货编码.Text = Map_ERPCode
         cmb供应商.Text = Map_Vendor
+        cmb连接符.Text = str连接符
 
         Dim items As String() = {"| (分隔符)", "BOM 表结构", "Web 链接", "版本", "标题", "材料", "成本中心", "创建日期", "单位", "单位数量", "工程核准人",
             "工程师", "工程师核准日期", "供应商", "关键词", "基础单位", "基础数量", "检测人", "检测日期", "库存编号", "类别", "零部件类型", "零件代号", "描述",

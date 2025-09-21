@@ -238,7 +238,6 @@ Public Class FormiProperty
     End Sub
 
     Private Sub Btn提取文件名_Click(sender As Object, e As EventArgs) Handles btn提取文件名.Click
-
         Dim oInventorDocument As Inventor.Document      '当前文件
         oInventorDocument = ThisApplication.ActiveEditDocument
 

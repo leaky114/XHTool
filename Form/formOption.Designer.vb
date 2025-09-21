@@ -172,6 +172,8 @@ Partial Class FormOption
         Me.lbl对称件文件名 = New System.Windows.Forms.Label()
         Me.lbl对称件图号 = New System.Windows.Forms.Label()
         Me.GroupBoxiProperty映射 = New System.Windows.Forms.GroupBox()
+        Me.cmb连接符 = New System.Windows.Forms.ComboBox()
+        Me.lbl连接符 = New System.Windows.Forms.Label()
         Me.cmb供应商 = New System.Windows.Forms.ComboBox()
         Me.lbl采购来源 = New System.Windows.Forms.Label()
         Me.cmb存货编码 = New System.Windows.Forms.ComboBox()
@@ -215,7 +217,7 @@ Partial Class FormOption
         'btn确定
         '
         Me.btn确定.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn确定.Location = New System.Drawing.Point(460, 333)
+        Me.btn确定.Location = New System.Drawing.Point(460, 344)
         Me.btn确定.Name = "btn确定"
         Me.btn确定.Size = New System.Drawing.Size(75, 28)
         Me.btn确定.TabIndex = 1
@@ -225,7 +227,7 @@ Partial Class FormOption
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(551, 333)
+        Me.btn关闭.Location = New System.Drawing.Point(551, 344)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(75, 28)
         Me.btn关闭.TabIndex = 2
@@ -237,7 +239,7 @@ Partial Class FormOption
         Me.chk检查更新.AutoSize = True
         Me.chk检查更新.Checked = True
         Me.chk检查更新.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk检查更新.Location = New System.Drawing.Point(25, 339)
+        Me.chk检查更新.Location = New System.Drawing.Point(25, 350)
         Me.chk检查更新.Name = "chk检查更新"
         Me.chk检查更新.Size = New System.Drawing.Size(108, 16)
         Me.chk检查更新.TabIndex = 3
@@ -300,7 +302,7 @@ Partial Class FormOption
         Me.TabPage其他.Controls.Add(Me.lvw设置图标大小)
         Me.TabPage其他.Location = New System.Drawing.Point(4, 22)
         Me.TabPage其他.Name = "TabPage其他"
-        Me.TabPage其他.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage其他.Size = New System.Drawing.Size(616, 299)
         Me.TabPage其他.TabIndex = 4
         Me.TabPage其他.Text = "其他"
         Me.TabPage其他.UseVisualStyleBackColor = True
@@ -423,7 +425,7 @@ Partial Class FormOption
         Me.lvw设置图标大小.HideSelection = False
         Me.lvw设置图标大小.Location = New System.Drawing.Point(9, 9)
         Me.lvw设置图标大小.Name = "lvw设置图标大小"
-        Me.lvw设置图标大小.Size = New System.Drawing.Size(229, 274)
+        Me.lvw设置图标大小.Size = New System.Drawing.Size(229, 283)
         Me.lvw设置图标大小.TabIndex = 1
         Me.lvw设置图标大小.TabStop = False
         Me.lvw设置图标大小.UseCompatibleStateImageBehavior = False
@@ -455,7 +457,7 @@ Partial Class FormOption
         Me.TabPage展开图.Controls.Add(Me.GroupBox上)
         Me.TabPage展开图.Location = New System.Drawing.Point(4, 22)
         Me.TabPage展开图.Name = "TabPage展开图"
-        Me.TabPage展开图.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage展开图.Size = New System.Drawing.Size(616, 299)
         Me.TabPage展开图.TabIndex = 3
         Me.TabPage展开图.Text = "展开图"
         Me.TabPage展开图.UseVisualStyleBackColor = True
@@ -731,7 +733,7 @@ Partial Class FormOption
         Me.TabPage工程图.Controls.Add(Me.GroupBox工程图模板)
         Me.TabPage工程图.Location = New System.Drawing.Point(4, 22)
         Me.TabPage工程图.Name = "TabPage工程图"
-        Me.TabPage工程图.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage工程图.Size = New System.Drawing.Size(616, 299)
         Me.TabPage工程图.TabIndex = 2
         Me.TabPage工程图.Text = "工程图"
         Me.TabPage工程图.UseVisualStyleBackColor = True
@@ -740,7 +742,7 @@ Partial Class FormOption
         '
         Me.chk强制横向.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.chk强制横向.AutoSize = True
-        Me.chk强制横向.Location = New System.Drawing.Point(412, 254)
+        Me.chk强制横向.Location = New System.Drawing.Point(412, 258)
         Me.chk强制横向.Name = "chk强制横向"
         Me.chk强制横向.Size = New System.Drawing.Size(72, 16)
         Me.chk强制横向.TabIndex = 35
@@ -750,7 +752,7 @@ Partial Class FormOption
         'chk逆时针序号
         '
         Me.chk逆时针序号.AutoSize = True
-        Me.chk逆时针序号.Location = New System.Drawing.Point(518, 222)
+        Me.chk逆时针序号.Location = New System.Drawing.Point(518, 226)
         Me.chk逆时针序号.Name = "chk逆时针序号"
         Me.chk逆时针序号.Size = New System.Drawing.Size(84, 16)
         Me.chk逆时针序号.TabIndex = 34
@@ -761,7 +763,7 @@ Partial Class FormOption
         '
         Me.chk模型匹配检查.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.chk模型匹配检查.AutoSize = True
-        Me.chk模型匹配检查.Location = New System.Drawing.Point(412, 222)
+        Me.chk模型匹配检查.Location = New System.Drawing.Point(412, 226)
         Me.chk模型匹配检查.Name = "chk模型匹配检查"
         Me.chk模型匹配检查.Size = New System.Drawing.Size(96, 16)
         Me.chk模型匹配检查.TabIndex = 33
@@ -1069,7 +1071,7 @@ Partial Class FormOption
         Me.TabPage模型.Location = New System.Drawing.Point(4, 22)
         Me.TabPage模型.Name = "TabPage模型"
         Me.TabPage模型.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage模型.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage模型.Size = New System.Drawing.Size(616, 299)
         Me.TabPage模型.TabIndex = 1
         Me.TabPage模型.Text = "模型"
         Me.TabPage模型.UseVisualStyleBackColor = True
@@ -1095,7 +1097,7 @@ Partial Class FormOption
         Me.chk钣金厚度检查.AutoSize = True
         Me.chk钣金厚度检查.Checked = True
         Me.chk钣金厚度检查.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk钣金厚度检查.Location = New System.Drawing.Point(153, 258)
+        Me.chk钣金厚度检查.Location = New System.Drawing.Point(153, 262)
         Me.chk钣金厚度检查.Name = "chk钣金厚度检查"
         Me.chk钣金厚度检查.Size = New System.Drawing.Size(96, 16)
         Me.chk钣金厚度检查.TabIndex = 37
@@ -1345,7 +1347,7 @@ Partial Class FormOption
         Me.TabPage常规.Location = New System.Drawing.Point(4, 22)
         Me.TabPage常规.Name = "TabPage常规"
         Me.TabPage常规.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage常规.Size = New System.Drawing.Size(616, 290)
+        Me.TabPage常规.Size = New System.Drawing.Size(616, 299)
         Me.TabPage常规.TabIndex = 0
         Me.TabPage常规.Text = "常规"
         Me.TabPage常规.UseVisualStyleBackColor = True
@@ -1357,7 +1359,7 @@ Partial Class FormOption
         Me.GroupBox快速打印.Controls.Add(Me.chk匹配A3纸)
         Me.GroupBox快速打印.Controls.Add(Me.chk签字)
         Me.GroupBox快速打印.Controls.Add(Me.lbl打印机)
-        Me.GroupBox快速打印.Location = New System.Drawing.Point(400, 160)
+        Me.GroupBox快速打印.Location = New System.Drawing.Point(400, 142)
         Me.GroupBox快速打印.Name = "GroupBox快速打印"
         Me.GroupBox快速打印.Size = New System.Drawing.Size(207, 121)
         Me.GroupBox快速打印.TabIndex = 22
@@ -1426,9 +1428,9 @@ Partial Class FormOption
         Me.GroupBox精度设置.Controls.Add(Me.lbl面积精度)
         Me.GroupBox精度设置.Controls.Add(Me.cmb质量精度)
         Me.GroupBox精度设置.Controls.Add(Me.lbl质量精度)
-        Me.GroupBox精度设置.Location = New System.Drawing.Point(203, 160)
+        Me.GroupBox精度设置.Location = New System.Drawing.Point(203, 208)
         Me.GroupBox精度设置.Name = "GroupBox精度设置"
-        Me.GroupBox精度设置.Size = New System.Drawing.Size(191, 78)
+        Me.GroupBox精度设置.Size = New System.Drawing.Size(180, 78)
         Me.GroupBox精度设置.TabIndex = 0
         Me.GroupBox精度设置.TabStop = False
         Me.GroupBox精度设置.Text = "精度设置"
@@ -1556,9 +1558,9 @@ Partial Class FormOption
         Me.GroupBox比例映射.Controls.Add(Me.txt比例)
         Me.GroupBox比例映射.Controls.Add(Me.lbl质量)
         Me.GroupBox比例映射.Controls.Add(Me.lbl比例)
-        Me.GroupBox比例映射.Location = New System.Drawing.Point(6, 160)
+        Me.GroupBox比例映射.Location = New System.Drawing.Point(203, 124)
         Me.GroupBox比例映射.Name = "GroupBox比例映射"
-        Me.GroupBox比例映射.Size = New System.Drawing.Size(191, 78)
+        Me.GroupBox比例映射.Size = New System.Drawing.Size(180, 78)
         Me.GroupBox比例映射.TabIndex = 18
         Me.GroupBox比例映射.TabStop = False
         Me.GroupBox比例映射.Text = "其他映射"
@@ -1599,7 +1601,7 @@ Partial Class FormOption
         '
         Me.btn配置文件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn配置文件.ContextMenuStrip = Me.ContextMenuStrip配置文件
-        Me.btn配置文件.Location = New System.Drawing.Point(6, 251)
+        Me.btn配置文件.Location = New System.Drawing.Point(6, 260)
         Me.btn配置文件.Name = "btn配置文件"
         Me.btn配置文件.Size = New System.Drawing.Size(75, 28)
         Me.btn配置文件.TabIndex = 0
@@ -1614,16 +1616,16 @@ Partial Class FormOption
         Me.GroupBox对称零件iProperty映射.Controls.Add(Me.txt对称件图号映射)
         Me.GroupBox对称零件iProperty映射.Controls.Add(Me.lbl对称件文件名)
         Me.GroupBox对称零件iProperty映射.Controls.Add(Me.lbl对称件图号)
-        Me.GroupBox对称零件iProperty映射.Location = New System.Drawing.Point(203, 19)
+        Me.GroupBox对称零件iProperty映射.Location = New System.Drawing.Point(203, 10)
         Me.GroupBox对称零件iProperty映射.Name = "GroupBox对称零件iProperty映射"
-        Me.GroupBox对称零件iProperty映射.Size = New System.Drawing.Size(180, 116)
+        Me.GroupBox对称零件iProperty映射.Size = New System.Drawing.Size(180, 105)
         Me.GroupBox对称零件iProperty映射.TabIndex = 17
         Me.GroupBox对称零件iProperty映射.TabStop = False
         Me.GroupBox对称零件iProperty映射.Text = "对称零件iProperty映射"
         '
         'txt对称件编码映射
         '
-        Me.txt对称件编码映射.Location = New System.Drawing.Point(77, 85)
+        Me.txt对称件编码映射.Location = New System.Drawing.Point(77, 75)
         Me.txt对称件编码映射.Name = "txt对称件编码映射"
         Me.txt对称件编码映射.Size = New System.Drawing.Size(87, 21)
         Me.txt对称件编码映射.TabIndex = 5
@@ -1631,7 +1633,7 @@ Partial Class FormOption
         'lbl对称件编码
         '
         Me.lbl对称件编码.AutoSize = True
-        Me.lbl对称件编码.Location = New System.Drawing.Point(21, 88)
+        Me.lbl对称件编码.Location = New System.Drawing.Point(21, 80)
         Me.lbl对称件编码.Name = "lbl对称件编码"
         Me.lbl对称件编码.Size = New System.Drawing.Size(53, 12)
         Me.lbl对称件编码.TabIndex = 6
@@ -1639,14 +1641,14 @@ Partial Class FormOption
         '
         'txt对称件文件名映射
         '
-        Me.txt对称件文件名映射.Location = New System.Drawing.Point(77, 52)
+        Me.txt对称件文件名映射.Location = New System.Drawing.Point(77, 49)
         Me.txt对称件文件名映射.Name = "txt对称件文件名映射"
         Me.txt对称件文件名映射.Size = New System.Drawing.Size(87, 21)
         Me.txt对称件文件名映射.TabIndex = 1
         '
         'txt对称件图号映射
         '
-        Me.txt对称件图号映射.Location = New System.Drawing.Point(77, 22)
+        Me.txt对称件图号映射.Location = New System.Drawing.Point(77, 20)
         Me.txt对称件图号映射.Name = "txt对称件图号映射"
         Me.txt对称件图号映射.Size = New System.Drawing.Size(87, 21)
         Me.txt对称件图号映射.TabIndex = 0
@@ -1654,7 +1656,7 @@ Partial Class FormOption
         'lbl对称件文件名
         '
         Me.lbl对称件文件名.AutoSize = True
-        Me.lbl对称件文件名.Location = New System.Drawing.Point(21, 55)
+        Me.lbl对称件文件名.Location = New System.Drawing.Point(21, 52)
         Me.lbl对称件文件名.Name = "lbl对称件文件名"
         Me.lbl对称件文件名.Size = New System.Drawing.Size(53, 12)
         Me.lbl对称件文件名.TabIndex = 4
@@ -1663,7 +1665,7 @@ Partial Class FormOption
         'lbl对称件图号
         '
         Me.lbl对称件图号.AutoSize = True
-        Me.lbl对称件图号.Location = New System.Drawing.Point(21, 26)
+        Me.lbl对称件图号.Location = New System.Drawing.Point(21, 24)
         Me.lbl对称件图号.Name = "lbl对称件图号"
         Me.lbl对称件图号.Size = New System.Drawing.Size(53, 12)
         Me.lbl对称件图号.TabIndex = 3
@@ -1671,6 +1673,8 @@ Partial Class FormOption
         '
         'GroupBoxiProperty映射
         '
+        Me.GroupBoxiProperty映射.Controls.Add(Me.cmb连接符)
+        Me.GroupBoxiProperty映射.Controls.Add(Me.lbl连接符)
         Me.GroupBoxiProperty映射.Controls.Add(Me.cmb供应商)
         Me.GroupBoxiProperty映射.Controls.Add(Me.lbl采购来源)
         Me.GroupBoxiProperty映射.Controls.Add(Me.cmb存货编码)
@@ -1681,10 +1685,29 @@ Partial Class FormOption
         Me.GroupBoxiProperty映射.Controls.Add(Me.cmb图号)
         Me.GroupBoxiProperty映射.Location = New System.Drawing.Point(6, 10)
         Me.GroupBoxiProperty映射.Name = "GroupBoxiProperty映射"
-        Me.GroupBoxiProperty映射.Size = New System.Drawing.Size(191, 143)
+        Me.GroupBoxiProperty映射.Size = New System.Drawing.Size(191, 168)
         Me.GroupBoxiProperty映射.TabIndex = 16
         Me.GroupBoxiProperty映射.TabStop = False
         Me.GroupBoxiProperty映射.Text = "iProperty映射"
+        '
+        'cmb连接符
+        '
+        Me.cmb连接符.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb连接符.FormattingEnabled = True
+        Me.cmb连接符.Items.AddRange(New Object() {"无", "空格", "点.", "短横线-", "下划线_"})
+        Me.cmb连接符.Location = New System.Drawing.Point(81, 136)
+        Me.cmb连接符.Name = "cmb连接符"
+        Me.cmb连接符.Size = New System.Drawing.Size(91, 20)
+        Me.cmb连接符.TabIndex = 38
+        '
+        'lbl连接符
+        '
+        Me.lbl连接符.AutoSize = True
+        Me.lbl连接符.Location = New System.Drawing.Point(16, 140)
+        Me.lbl连接符.Name = "lbl连接符"
+        Me.lbl连接符.Size = New System.Drawing.Size(53, 12)
+        Me.lbl连接符.TabIndex = 37
+        Me.lbl连接符.Text = "连接符："
         '
         'cmb供应商
         '
@@ -1700,7 +1723,7 @@ Partial Class FormOption
         'lbl采购来源
         '
         Me.lbl采购来源.AutoSize = True
-        Me.lbl采购来源.Location = New System.Drawing.Point(21, 108)
+        Me.lbl采购来源.Location = New System.Drawing.Point(16, 108)
         Me.lbl采购来源.Name = "lbl采购来源"
         Me.lbl采购来源.Size = New System.Drawing.Size(65, 12)
         Me.lbl采购来源.TabIndex = 7
@@ -1720,7 +1743,7 @@ Partial Class FormOption
         'lbl存货编码
         '
         Me.lbl存货编码.AutoSize = True
-        Me.lbl存货编码.Location = New System.Drawing.Point(21, 80)
+        Me.lbl存货编码.Location = New System.Drawing.Point(16, 80)
         Me.lbl存货编码.Name = "lbl存货编码"
         Me.lbl存货编码.Size = New System.Drawing.Size(65, 12)
         Me.lbl存货编码.TabIndex = 5
@@ -1729,7 +1752,7 @@ Partial Class FormOption
         'lbl文件名
         '
         Me.lbl文件名.AutoSize = True
-        Me.lbl文件名.Location = New System.Drawing.Point(21, 52)
+        Me.lbl文件名.Location = New System.Drawing.Point(16, 52)
         Me.lbl文件名.Name = "lbl文件名"
         Me.lbl文件名.Size = New System.Drawing.Size(53, 12)
         Me.lbl文件名.TabIndex = 4
@@ -1749,7 +1772,7 @@ Partial Class FormOption
         'lbl图号
         '
         Me.lbl图号.AutoSize = True
-        Me.lbl图号.Location = New System.Drawing.Point(21, 24)
+        Me.lbl图号.Location = New System.Drawing.Point(16, 24)
         Me.lbl图号.Name = "lbl图号"
         Me.lbl图号.Size = New System.Drawing.Size(53, 12)
         Me.lbl图号.TabIndex = 3
@@ -1775,7 +1798,7 @@ Partial Class FormOption
         Me.TabControl.Location = New System.Drawing.Point(2, 11)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedIndex = 0
-        Me.TabControl.Size = New System.Drawing.Size(624, 316)
+        Me.TabControl.Size = New System.Drawing.Size(624, 325)
         Me.TabControl.TabIndex = 0
         '
         'FormOption
@@ -1784,7 +1807,7 @@ Partial Class FormOption
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(638, 370)
+        Me.ClientSize = New System.Drawing.Size(638, 381)
         Me.Controls.Add(Me.TabControl)
         Me.Controls.Add(Me.btn确定)
         Me.Controls.Add(Me.btn关闭)
@@ -2004,4 +2027,6 @@ Partial Class FormOption
     Friend WithEvents lbl图号 As Label
     Friend WithEvents cmb图号 As ComboBox
     Friend WithEvents TabControl As TabControl
+    Friend WithEvents cmb连接符 As ComboBox
+    Friend WithEvents lbl连接符 As Label
 End Class

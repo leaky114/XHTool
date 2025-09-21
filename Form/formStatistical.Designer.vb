@@ -67,6 +67,7 @@ Partial Class FormStatistical
         Me.lvw面积文件列表 = New System.Windows.Forms.ListView()
         Me.ch面积文件名 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ch面积 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.btn选择零部件2 = New System.Windows.Forms.Button()
         Me.cms右键菜单.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -328,7 +329,7 @@ Partial Class FormStatistical
         '
         Me.btn添加零部件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btn添加零部件.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btn添加零部件.Location = New System.Drawing.Point(53, 329)
+        Me.btn添加零部件.Location = New System.Drawing.Point(45, 330)
         Me.btn添加零部件.Name = "btn添加零部件"
         Me.btn添加零部件.Size = New System.Drawing.Size(26, 26)
         Me.btn添加零部件.TabIndex = 53
@@ -357,7 +358,7 @@ Partial Class FormStatistical
         'btn选择零件
         '
         Me.btn选择零件.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn选择零件.Location = New System.Drawing.Point(9, 329)
+        Me.btn选择零件.Location = New System.Drawing.Point(10, 330)
         Me.btn选择零件.Name = "btn选择零件"
         Me.btn选择零件.Size = New System.Drawing.Size(26, 26)
         Me.btn选择零件.TabIndex = 44
@@ -418,6 +419,7 @@ Partial Class FormStatistical
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.btn选择零部件2)
         Me.TabPage3.Controls.Add(Me.btn选择面)
         Me.TabPage3.Controls.Add(Me.btn复制面积)
         Me.TabPage3.Controls.Add(Me.txt面积)
@@ -434,9 +436,9 @@ Partial Class FormStatistical
         'btn选择面
         '
         Me.btn选择面.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn选择面.Location = New System.Drawing.Point(16, 330)
+        Me.btn选择面.Location = New System.Drawing.Point(10, 330)
         Me.btn选择面.Name = "btn选择面"
-        Me.btn选择面.Size = New System.Drawing.Size(25, 25)
+        Me.btn选择面.Size = New System.Drawing.Size(26, 26)
         Me.btn选择面.TabIndex = 57
         Me.btn选择面.UseVisualStyleBackColor = True
         '
@@ -496,6 +498,17 @@ Partial Class FormStatistical
         '
         Me.ch面积.Text = "面积"
         Me.ch面积.Width = 100
+        '
+        'btn选择零部件2
+        '
+        Me.btn选择零部件2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btn选择零部件2.Font = New System.Drawing.Font("宋体", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.btn选择零部件2.Location = New System.Drawing.Point(45, 330)
+        Me.btn选择零部件2.Name = "btn选择零部件2"
+        Me.btn选择零部件2.Size = New System.Drawing.Size(26, 26)
+        Me.btn选择零部件2.TabIndex = 58
+        Me.btn选择零部件2.TabStop = False
+        Me.btn选择零部件2.UseVisualStyleBackColor = True
         '
         'FormStatistical
         '
@@ -567,4 +580,5 @@ Partial Class FormStatistical
     Friend WithEvents btn复制长度 As Button
     Friend WithEvents txt长度 As TextBox
     Friend WithEvents lbl长度 As Label
+    Friend WithEvents btn选择零部件2 As Button
 End Class

@@ -11,6 +11,7 @@
         ini.WriteStrINI("iProperty", "MapPartName", Map_PartName, IniFile)
         ini.WriteStrINI("iProperty", "MapPartNum", Map_ERPCode, IniFile)
         ini.WriteStrINI("iProperty", "Map_Vendor", Map_Vendor, IniFile)
+        ini.WriteStrINI("iProperty", "连接符", str连接符, IniFile)
 
         ini.WriteStrINI("iProperty", "MapMirStochNum", Map_Mir_StochNum, IniFile)
         ini.WriteStrINI("iProperty", "MapMirPartName", Map_Mir_PartName, IniFile)
@@ -120,7 +121,21 @@
         Map_DrawingNnumber = ini.GetStrFromINI("iProperty", "MapStochNum", "库存编号", Inifile)
         Map_PartName = ini.GetStrFromINI("iProperty", "MapPartName", "零件代号", Inifile)
         Map_ERPCode = ini.GetStrFromINI("iProperty", "MapPartNum", "成本中心", Inifile)
-        Map_Vendor = ini.GetStrFromINI("iProperty", "Map_Vendor", "供应商", Inifile)
+        Map_Vendor = ini.GetStrFromINI("iProperty", "Map_Vendor", "供应商", IniFile)
+        str连接符 = ini.GetStrFromINI("iProperty", "连接符", "无", IniFile)
+
+        Select Case str连接符
+            Case "无"
+                char连接符 = “”
+            Case "空格"
+                char连接符 = “ ”
+            Case "点."
+                char连接符 = “.”
+            Case "短横线-"
+                char连接符 = “-”
+            Case " 下划线_"
+                char连接符 = “_”
+        End Select
 
         Map_Mir_StochNum = ini.GetStrFromINI("iProperty", "MapMirStochNum", "对称件代号", Inifile)
         Map_Mir_PartName = ini.GetStrFromINI("iProperty", "MapMirPartName", "对称件名称", Inifile)

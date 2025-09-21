@@ -354,11 +354,12 @@ Public Class FormMain
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Dim doc As Document = ThisApplication.ActiveDocument
-
-        doc.ComponentDefinition.BOMQuantity.SetBaseQuantity(BOMQuantityTypeEnum.kEachBOMQuantity)
 
 
+
+        'CopyMaterialFromBasicPart()
+
+        'SetBaseQuantityByEach()
 
         '  CreatePartsList(ThisApplication.ActiveDocument)
 
@@ -1043,13 +1044,9 @@ Public Class FormMain
         RefreshTreeNodeName()
     End Sub
 
-
     Private Sub 设置只读ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置只读ToolStripMenuItem.Click
         FormSetReadOnlyShow()
     End Sub
-
-
-
 
     Private Sub 动画设计ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 动画设计ToolStripMenuItem.Click
         FormPlayerShow()
@@ -1103,7 +1100,6 @@ Public Class FormMain
 
     Private Sub 保存列表ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 保存列表ToolStripMenuItem.Click
         SaveFilessList()
-
     End Sub
 
     Private Sub 替换基础文件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 替换基础文件ToolStripMenuItem.Click
@@ -1310,5 +1306,9 @@ Public Class FormMain
 
     Private Sub 清理冗余五年级ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 清理冗余五年级ToolStripMenuItem.Click
         FormCleanUpRedundantFilesShow()
+    End Sub
+
+    Private Sub 复制材料ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 复制材料ToolStripMenuItem.Click
+        CopyMaterialFromBasicPart()
     End Sub
 End Class

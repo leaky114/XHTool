@@ -90,6 +90,9 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     Public Map_ERPCode As String    '映射存货编码
     Public Map_Describe As String = "描述"     '映射描述
 
+    Public str连接符 As String  '连接符
+    Public char连接符 As String  '连接符
+
     Public str去除后缀表 As String     '去除后缀表
 
     Public Map_Mir_StochNum As String   '映射对称件图号

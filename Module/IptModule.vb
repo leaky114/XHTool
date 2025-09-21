@@ -600,4 +600,121 @@ Module IptModule
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' 设置基础数量为每个
+    ''' </summary>
+    Public Sub SetBaseQuantityByEach()
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject And ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            MessageBox.Show("该功能仅适用于零部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            Exit Sub
+        End If
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        Try
+            oInventorDocument.ComponentDefinition.BOMQuantity.SetBaseQuantity(BOMQuantityTypeEnum.kEachBOMQuantity)
+
+            If TypeOf (oInventorDocument) Is AssemblyDocument Then
+
+                Dim oInventorAssemblyDocument As AssemblyDocument = CType(oInventorDocument, AssemblyDocument)
+                oInventorAssemblyDocument.ComponentDefinition.BOMQuantity.SetBaseQuantity(BOMQuantityTypeEnum.kEachBOMQuantity)
+
+                ' 获取所有引用文档
+                Dim oInventorDocumentsEnumerator As Inventor.DocumentsEnumerator
+                oInventorDocumentsEnumerator = oInventorAssemblyDocument.AllReferencedDocuments
+
+                For Each oInventorDocument In oInventorDocumentsEnumerator
+                    oInventorDocument.ComponentDefinition.BOMQuantity.SetBaseQuantity(BOMQuantityTypeEnum.kEachBOMQuantity)
+                Next
+
+            End If
+
+            MessageBox.Show("设置基础数量为【每个】完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    ''' <summary>
+    ''' 让镜像文件从基础文件复制材料
+    ''' </summary>
+    Public Sub CopyMaterialFromBasicPart()
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
+            MessageBox.Show("该功能仅适用于零件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            Exit Sub
+        End If
+
+        Dim oInventorDocument As Inventor.Document
+        oInventorDocument = ThisApplication.ActiveDocument
+
+        Dim oInventorPartDocument As Inventor.PartDocument
+        oInventorPartDocument = CType（oInventorDocument, PartDocument)
+
+        If oInventorPartDocument.ReferencedDocumentDescriptors.Count = 0 Then
+            MessageBox.Show("未找到基础文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            Return
+        End If
+
+        Dim oInventorBasicPartDocument As Inventor.PartDocument
+        oInventorBasicPartDocument = oInventorPartDocument.ReferencedDocumentDescriptors.Item(1).ReferencedDocument
+
+        If oInventorBasicPartDocument Is Nothing Then
+            MessageBox.Show("未找到基础文件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            Return
+        End If
+
+        Debug.Print(oInventorBasicPartDocument.FullDocumentName)
+
+        Dim strMaterialName As String
+        strMaterialName = oInventorBasicPartDocument.ComponentDefinition.Material.Name.ToString()
+
+        Debug.Print(strMaterialName)
+
+        Dim oMaterial As Inventor.Material
+        oMaterial = oInventorPartDocument.Materials.Item(strMaterialName)
+        oInventorPartDocument.ComponentDefinition.Material = oMaterial
+
+        '如果不是钣金件，退出
+        If (oInventorPartDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
+            MessageBox.Show("复制材料完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+            Return
+        End If
+
+        If (oInventorBasicPartDocument.SubType <> "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") Then
+            MessageBox.Show("复制材料完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+            Return
+        End If
+
+        Dim oBasicSheetMetalComponentDefinition As Inventor.SheetMetalComponentDefinition
+        oBasicSheetMetalComponentDefinition = oInventorBasicPartDocument.ComponentDefinition
+
+        Dim strBasicThickness As String
+        strBasicThickness = oBasicSheetMetalComponentDefinition.Thickness.Expression
+
+        Dim oSheetMetalComponentDefinition As Inventor.SheetMetalComponentDefinition
+        oSheetMetalComponentDefinition = oInventorPartDocument.ComponentDefinition
+
+        oSheetMetalComponentDefinition.UseSheetMetalStyleThickness = False
+        oSheetMetalComponentDefinition.Thickness.Expression = strBasicThickness
+
+        MessageBox.Show("复制材料完成。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Information）
+
+
+    End Sub
+
 End Module

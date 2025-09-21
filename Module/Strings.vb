@@ -62,30 +62,43 @@ Module StringsModel
             Next
         End If
 
-
-        ' 调用函数检测首先出现的字符类型
-        Dim firstCharType As String = FindFirstCharacterType(FileName)
-
         Dim spaceIndex As Integer
-        Select Case firstCharType
-            Case "汉字"
+
+        If char连接符 = “” Then
+            ' 调用函数检测首先出现的字符类型
+            Dim firstCharType As String = FindFirstCharacterType(FileName)
+            Select Case firstCharType
+                Case "汉字"
 
 
-            Case " ", "-", "_"
-                '按空格分割文件名
-                spaceIndex = InStr(FileName, firstCharType)
+                Case " ", "-", "_"
+                    '按空格分割文件名
+                    spaceIndex = InStr(FileName, firstCharType)
 
-                If spaceIndex > 0 Then
-                    GetStockNumPartName.IsGet = True
-                    GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
-                    GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
-                    GetStockNumPartName.ERP编码 = ""
-                    GetStockNumPartName.价格 = ""
+                    If spaceIndex > 0 Then
+                        GetStockNumPartName.IsGet = True
+                        GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
+                        GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
+                        GetStockNumPartName.ERP编码 = ""
+                        GetStockNumPartName.价格 = ""
 
-                    Return GetStockNumPartName
-                End If
-        End Select
+                        Return GetStockNumPartName
+                    End If
+            End Select
+        Else
+            '按空格分割文件名
+            spaceIndex = InStr(FileName, char连接符)
 
+            If spaceIndex > 0 Then
+                GetStockNumPartName.IsGet = True
+                GetStockNumPartName.图号 = Strings.Trim(Left(FileName, spaceIndex - 1))
+                GetStockNumPartName.零件名称 = Strings.Trim(Mid(FileName, spaceIndex + 1))
+                GetStockNumPartName.ERP编码 = ""
+                GetStockNumPartName.价格 = ""
+
+                Return GetStockNumPartName
+            End If
+        End If
 
         '按汉字分割文件名
         i = 1

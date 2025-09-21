@@ -47,7 +47,7 @@ Public NotInheritable Class FormAbout
 
     Private Sub Btn检查更新_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn检查更新.Click
 
-        NewUpdater.Shell_XHUpdater("1")
+        NewUpdater.ShellXHUpdater("1")
 
         Me.Close()
 
