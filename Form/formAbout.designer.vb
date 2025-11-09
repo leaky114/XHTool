@@ -43,7 +43,7 @@ Partial Class FormAbout
         '
         Me.btn关闭.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn关闭.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btn关闭.Location = New System.Drawing.Point(274, 238)
+        Me.btn关闭.Location = New System.Drawing.Point(301, 238)
         Me.btn关闭.Name = "btn关闭"
         Me.btn关闭.Size = New System.Drawing.Size(75, 28)
         Me.btn关闭.TabIndex = 40
@@ -51,9 +51,8 @@ Partial Class FormAbout
         '
         'lblVersion
         '
-        Me.lblVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(124, 35)
+        Me.lblVersion.Location = New System.Drawing.Point(126, 35)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblVersion.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblVersion.Name = "lblVersion"
@@ -64,9 +63,8 @@ Partial Class FormAbout
         '
         'lblCopyright
         '
-        Me.lblCopyright.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCopyright.AutoSize = True
-        Me.lblCopyright.Location = New System.Drawing.Point(124, 61)
+        Me.lblCopyright.Location = New System.Drawing.Point(126, 61)
         Me.lblCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblCopyright.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblCopyright.Name = "lblCopyright"
@@ -77,9 +75,8 @@ Partial Class FormAbout
         '
         'lblCompanyName
         '
-        Me.lblCompanyName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCompanyName.AutoSize = True
-        Me.lblCompanyName.Location = New System.Drawing.Point(124, 86)
+        Me.lblCompanyName.Location = New System.Drawing.Point(126, 86)
         Me.lblCompanyName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblCompanyName.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblCompanyName.Name = "lblCompanyName"
@@ -90,9 +87,8 @@ Partial Class FormAbout
         '
         'lblProductName
         '
-        Me.lblProductName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblProductName.AutoSize = True
-        Me.lblProductName.Location = New System.Drawing.Point(124, 11)
+        Me.lblProductName.Location = New System.Drawing.Point(126, 11)
         Me.lblProductName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.lblProductName.MaximumSize = New System.Drawing.Size(0, 16)
         Me.lblProductName.Name = "lblProductName"
@@ -103,14 +99,13 @@ Partial Class FormAbout
         '
         'txtDescription
         '
-        Me.txtDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtDescription.Location = New System.Drawing.Point(127, 107)
+        Me.txtDescription.Location = New System.Drawing.Point(129, 107)
         Me.txtDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)
         Me.txtDescription.Multiline = True
         Me.txtDescription.Name = "txtDescription"
         Me.txtDescription.ReadOnly = True
         Me.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtDescription.Size = New System.Drawing.Size(219, 107)
+        Me.txtDescription.Size = New System.Drawing.Size(247, 107)
         Me.txtDescription.TabIndex = 41
         Me.txtDescription.TabStop = False
         Me.txtDescription.Text = "说明 :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(在运行时，将用应用程序的程序集信息替换这些标签的文本。" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "在"
@@ -118,7 +113,7 @@ Partial Class FormAbout
         'btn检查更新
         '
         Me.btn检查更新.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btn检查更新.Location = New System.Drawing.Point(184, 238)
+        Me.btn检查更新.Location = New System.Drawing.Point(211, 238)
         Me.btn检查更新.Name = "btn检查更新"
         Me.btn检查更新.Size = New System.Drawing.Size(75, 28)
         Me.btn检查更新.TabIndex = 44
@@ -166,13 +161,13 @@ Partial Class FormAbout
         Me.picWeiXin.TabIndex = 49
         Me.picWeiXin.TabStop = False
         '
-        'formAbout
+        'FormAbout
         '
         Me.AcceptButton = Me.btn检查更新
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn关闭
-        Me.ClientSize = New System.Drawing.Size(358, 275)
+        Me.ClientSize = New System.Drawing.Size(385, 275)
         Me.Controls.Add(Me.picWeiXin)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblBilibili)
@@ -187,7 +182,7 @@ Partial Class FormAbout
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "formAbout"
+        Me.Name = "FormAbout"
         Me.Padding = New System.Windows.Forms.Padding(9, 8, 9, 8)
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

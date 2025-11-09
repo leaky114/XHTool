@@ -23,10 +23,10 @@ Public Class ClsGetSketchPoint
         m_button = button
 
         OInteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+
         OMouseEvents = OInteractionEvents.MouseEvents
 
         OInteractionEvents.StatusBarText = StrInformation
-
         OInteractionEvents.Start()
 
         m_continue = True
@@ -39,13 +39,15 @@ Public Class ClsGetSketchPoint
         Return m_position
     End Function
 
-    Private Sub Mouse_OnMouseClick(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point,
-                                     ViewPosition As Point2d, View As View) Handles OMouseEvents.OnMouseClick
+    Private Sub Mouse_OnMouseClick(Button As MouseButtonEnum, ShiftKeys As ShiftStateEnum, ModelPosition As Point, ViewPosition As Point2d, View As View) Handles OMouseEvents.OnMouseClick
         If Button = m_button Then
             m_position = ThisApplication.TransientGeometry.CreatePoint(ModelPosition.X, ModelPosition.Y, ModelPosition.Z)
+
+            'MsgBox（“获取的位置”）
+
+            m_continue = False
         End If
 
-        m_continue = False
     End Sub
 
 End Class

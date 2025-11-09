@@ -92,7 +92,7 @@ Public Class FormMovesSpecifiedFile
         oInventorDocumentsEnumerator = oInventorAssemblyDocument.AllReferencedDocuments
 
         Dim strInventorAssemblyDocumentFullFileName As String
-        strInventorAssemblyDocumentFullFileName = oInventorAssemblyDocument.FullDocumentName
+        strInventorAssemblyDocumentFullFileName = oInventorAssemblyDocument.File.FullFileName
 
         '组件所在文件夹
         Dim strInventorAssemblyFileFolder As String
@@ -108,12 +108,12 @@ Public Class FormMovesSpecifiedFile
         oListView.BeginUpdate()
 
         For Each oInventorDocument As Inventor.Document In oInventorDocumentsEnumerator
-            'Debug.Print(oInventorDocument.FullFileName)
-            'strReferencedFullFileNames(i) = oInventorDocument.FullFileName
+            'Debug.Print(oInventorDocument.File.FullFileName)
+            'strReferencedFullFileNames(i) = oInventorDocument.File.FullFileName
             'i = i + 1
 
             Dim strOldFullFileName As String
-            strOldFullFileName = oInventorDocument.FullFileName
+            strOldFullFileName = oInventorDocument.File.FullFileName
 
             If IsFileExists(strOldFullFileName) = False Then   '跳过不存在的文件
                 Continue For
@@ -129,7 +129,7 @@ Public Class FormMovesSpecifiedFile
             strOldFileName = GetFileNameWithoutExtension2(strOldFullFileName)
             strOldFileName = Strings.UCase(strOldFileName)
 
-            If InStr(strOldFileName, strSearch) = 0 Then
+            If InStr(strOldFileName.ToLower, strSearch.ToLower) = 0 Then
                 Continue For
             End If
 
@@ -144,17 +144,17 @@ Public Class FormMovesSpecifiedFile
 
             Select Case GetFileExtensionLCase(strOldFullFileName)
                 Case IAM
-                    oListViewItem = oListView.Items.Add(strOldFullFileName, 0)
+                    oListViewItem = oListView.Items.Add(GetFileNameWithExtension(strOldFullFileName), 0)
                 Case IPT
-                    oListViewItem = oListView.Items.Add(strOldFullFileName, 1)
+                    oListViewItem = oListView.Items.Add(GetFileNameWithExtension(strOldFullFileName), 1)
             End Select
 
-
+            oListViewItem.SubItems.Add(strOldFullFileName)
             oListViewItem.SubItems.Add(strNewFullFileName)
 
             If IsFileExists(strNewFullFileName) = True Then
                 oListViewItem.UseItemStyleForSubItems = False
-                oListViewItem.SubItems(1).ForeColor = Drawing.Color.Red
+                oListViewItem.SubItems(0).ForeColor = Drawing.Color.Red
                 oListViewItem.SubItems.Add(“跳过”)
             End If
 
@@ -165,7 +165,9 @@ Public Class FormMovesSpecifiedFile
             If IsFileExists(strOldDrawingFullFileName) = True Then
                 Dim strNewDrawingFullFileName As String
                 strNewDrawingFullFileName = GetChangeExtension(strNewFullFileName, IDW)
-                oListViewItem = oListView.Items.Add(strOldDrawingFullFileName, 2)
+
+                oListViewItem = oListView.Items.Add(GetFileNameWithExtension(strOldDrawingFullFileName), 2)
+                oListViewItem.SubItems.Add(strOldDrawingFullFileName)
                 oListViewItem.SubItems.Add(strNewDrawingFullFileName)
 
             End If
@@ -186,7 +188,7 @@ Public Class FormMovesSpecifiedFile
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveDocument
 
-        Dim strInventorAssemblyDocumentFullFileName As String = oInventorDocument.FullFileName
+        Dim strInventorAssemblyDocumentFullFileName As String = oInventorDocument.File.FullFileName
 
         If MessageBox.Show($"确定移动文件？{vbCrLf} 将关闭部件：{strInventorAssemblyDocumentFullFileName}", XHTool,
                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
@@ -197,13 +199,13 @@ Public Class FormMovesSpecifiedFile
 
         For Each oListViewItem As ListViewItem In Lvw文件列表.Items
             If oListViewItem.Checked = True Then
-                strOldFullFileName = oListViewItem.Text.ToString
-                strNewFullFileName = oListViewItem.SubItems(1).Text.ToString
+                strOldFullFileName = oListViewItem.SubItems(1).Text.ToString
+                strNewFullFileName = oListViewItem.SubItems(2).Text.ToString
 
                 If IsFileExists(strNewFullFileName) = False Then   '目标文件不存在，直接移动
                     ReMoveFile(strOldFullFileName, strNewFullFileName)
                 Else   '目标文件存在，判读方法
-                    If oListViewItem.SubItems(2).Text.ToString = "覆盖" Then
+                    If oListViewItem.SubItems(4).Text.ToString = "覆盖" Then
                         BasicFileSystem.DeleteFile2(strNewFullFileName, FileIO.RecycleOption.SendToRecycleBin)
                         ReMoveFile(strOldFullFileName, strNewFullFileName）
                     Else
@@ -273,7 +275,7 @@ Public Class FormMovesSpecifiedFile
 
         If e.Button = Windows.Forms.MouseButtons.Left Then
             Try
-                Dim strMethod As String = oListViewItem.SubItems(2).Text
+                Dim strMethod As String = oListViewItem.SubItems(3).Text
 
                 Select Case strMethod
                     Case ”跳过“
@@ -282,7 +284,7 @@ Public Class FormMovesSpecifiedFile
                         strMethod = "跳过"
                 End Select
 
-                oListViewItem.SubItems(2).Text = strMethod
+                oListViewItem.SubItems(3).Text = strMethod
 
 
             Catch ex As Exception
@@ -294,4 +296,9 @@ Public Class FormMovesSpecifiedFile
     End Sub
 
 
+    Private Sub 筛选ToolStripTextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles 筛选ToolStripTextBox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            筛选ToolStripButton_Click(sender, e)
+        End If
+    End Sub
 End Class

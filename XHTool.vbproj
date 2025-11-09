@@ -111,6 +111,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\..\InventorTool\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\..\InventorTool\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -138,16 +144,18 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="AssemblyInfo.vb" />
     <Compile Include="Class\clsFormManager.vb" />
+    <Compile Include="Class\clsGetDrawingPoint.vb" />
     <Compile Include="Class\clsGetLineInSketch.vb" />
     <Compile Include="Class\clsGetRectAreaInDrawing2.vb" />
+    <Compile Include="Class\clsGetSketchPoint.vb" />
     <Compile Include="Class\clsListViewColumnSorter.vb" />
     <Compile Include="Class\clsPictureConverter.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Class\clsRightMouseChangeSelectionPriority.vb" />
+    <Compile Include="Class\clsRightMouseCopyComponent.vb" />
     <Compile Include="Class\clsRightMouseSelectPartInBrowser.vb" />
     <Compile Include="Class\clsRightMouseSetDrawingSize.vb" />
-    <Compile Include="Class\clsGetPoint.vb" />
     <Compile Include="Class\clsRightMouseOpenParentAssembly.vb" />
     <Compile Include="Class\clsRightMouseOpenSelectComponentOccurrences.vb" />
     <Compile Include="Class\clsRightMouseZhenlieChicun.vb" />
@@ -203,6 +211,12 @@
       <DependentUpon>FormCustomSignature.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FormCustomSignature.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormDiameterHoleColoring.Designer.vb">
+      <DependentUpon>FormDiameterHoleColoring.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FormDiameterHoleColoring.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FormDim2Object.Designer.vb">
@@ -385,6 +399,12 @@
     <Compile Include="Form\FormUseriProperty.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form\UCExplorer.Designer.vb">
+      <DependentUpon>UCExplorer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\UCExplorer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Module\BasicFileSystem.vb" />
     <Compile Include="Module\BiaoQingBao.vb" />
     <Compile Include="Module\BrowserNodes.vb" />
@@ -454,6 +474,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormCustomSignature.resx">
       <DependentUpon>FormCustomSignature.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormDiameterHoleColoring.resx">
+      <DependentUpon>FormDiameterHoleColoring.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormDim2Object.resx">
       <DependentUpon>FormDim2Object.vb</DependentUpon>
@@ -527,6 +550,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormUseriProperty.resx">
       <DependentUpon>FormUseriProperty.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\UCExplorer.resx">
+      <DependentUpon>UCExplorer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -813,6 +839,10 @@
     <None Include="Resources\基础数量32.ico" />
     <None Include="Resources\复制材料32.ico" />
     <None Include="Resources\复制材料16.ico" />
+    <None Include="Resources\硬盘32.ICO" />
+    <None Include="Resources\硬盘16.ICO" />
+    <None Include="Resources\样式表32.ICO" />
+    <None Include="Resources\样式表16.ico" />
     <Content Include="Resources\过滤16.ico" />
     <Content Include="Resources\过滤32.ico" />
     <None Include="Resources\新建文件夹16.ICO" />

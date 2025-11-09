@@ -54,7 +54,7 @@ Public Class FormSetReadOnly
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = oInventorDocument
 
-        strCurrentAssemblyDocumentFulFileName = oInventorAssemblyDocument.FullDocumentName
+        strCurrentAssemblyDocumentFulFileName = oInventorAssemblyDocument.File.FullFileName
 
         Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
         OInteractionEvents.Start()
@@ -139,7 +139,7 @@ Public Class FormSetReadOnly
 
         For Each oBomRow As BOMRow In oBOMRows
 
-            Dim strDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.FullFileName
+            Dim strDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.File.FullFileName
 
             '测试文件
             Debug.Print(strDocumentFullFileName)
@@ -238,7 +238,7 @@ Public Class FormSetReadOnly
 
         For Each oBomRow As BOMRow In oBOMRows
 
-            Dim strDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.FullFileName
+            Dim strDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.File.FullFileName
 
             If InStr(strDocumentFullFileName, ContentCenterFiles) > 0 Then    '跳过零件库文件
                 Continue For

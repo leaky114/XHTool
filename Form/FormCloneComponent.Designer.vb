@@ -34,7 +34,7 @@ Partial Class FormCloneComponent
         Me.lbl插入方向 = New System.Windows.Forms.Label()
         Me.lbl偏移量 = New System.Windows.Forms.Label()
         Me.lbl组件数量 = New System.Windows.Forms.Label()
-        Me.chk自动下一步 = New System.Windows.Forms.CheckBox()
+        Me.lbl已选择组件圆 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btn选择现有组件
@@ -144,24 +144,22 @@ Partial Class FormCloneComponent
         Me.lbl组件数量.TabIndex = 20
         Me.lbl组件数量.Text = "已选择0"
         '
-        'chk自动下一步
+        'lbl已选择组件圆
         '
-        Me.chk自动下一步.AutoSize = True
-        Me.chk自动下一步.Checked = True
-        Me.chk自动下一步.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk自动下一步.Location = New System.Drawing.Point(14, 219)
-        Me.chk自动下一步.Name = "chk自动下一步"
-        Me.chk自动下一步.Size = New System.Drawing.Size(84, 16)
-        Me.chk自动下一步.TabIndex = 21
-        Me.chk自动下一步.Text = "自动下一步"
-        Me.chk自动下一步.UseVisualStyleBackColor = True
+        Me.lbl已选择组件圆.AutoSize = True
+        Me.lbl已选择组件圆.ForeColor = System.Drawing.Color.Red
+        Me.lbl已选择组件圆.Location = New System.Drawing.Point(140, 55)
+        Me.lbl已选择组件圆.Name = "lbl已选择组件圆"
+        Me.lbl已选择组件圆.Size = New System.Drawing.Size(47, 12)
+        Me.lbl已选择组件圆.TabIndex = 21
+        Me.lbl已选择组件圆.Text = "已选择0"
         '
         'FormCloneComponent
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(221, 252)
-        Me.Controls.Add(Me.chk自动下一步)
+        Me.Controls.Add(Me.lbl已选择组件圆)
         Me.Controls.Add(Me.lbl组件数量)
         Me.Controls.Add(Me.lbl偏移量)
         Me.Controls.Add(Me.lbl插入方向)
@@ -198,5 +196,5 @@ Partial Class FormCloneComponent
     Friend WithEvents lbl插入方向 As Label
     Friend WithEvents lbl偏移量 As Label
     Friend WithEvents lbl组件数量 As Label
-    Friend WithEvents chk自动下一步 As CheckBox
+    Friend WithEvents lbl已选择组件圆 As Label
 End Class

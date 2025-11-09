@@ -17,6 +17,7 @@ Imports System.Net
 Imports Microsoft.VisualBasic.FileIO
 Imports System.Timers
 
+
 Public Class FormMain
 
 
@@ -139,28 +140,53 @@ Public Class FormMain
     '测试
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
 
-        '  CreateLineWithMidpoint()
-        Dim UiRessourceDocker As DockableWindows = ThisApplication.UserInterfaceManager.DockableWindows
+        FormDiameterHoleColoringShow()
 
-        For Each oChildDockableWindows As DockableWindow In UiRessourceDocker
+        'CopyComponent()
 
-            If oChildDockableWindows.InternalName = "cheatsheet" Then
-                oChildDockableWindows.Visible = False
-                oChildDockableWindows.Delete()
-                Exit For
-            End If
+        '
+        'SetStandardStyle()
 
-        Next
+        'If ThisApplication.ActiveDocumentType <> kDrawingDocumentObject Then
+        '    MessageBox.Show("该功能仅适用于工程图。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    Exit Sub
+        'End If
 
-        Dim cheatSheetWindow As DockableWindow = UiRessourceDocker.Add("214234234", "CheatSheet", "Cheat Sheet")
-        cheatSheetWindow.Visible = True
-        cheatSheetWindow.DockingState = DockingStateEnum.kDockRight
+        'Dim oInventorDrawingDocument As Inventor.DrawingDocument
+        'oInventorDrawingDocument = ThisApplication.ActiveDocument
 
-        Dim oCheatSheet As New FormiProperty
+        'Dim OInteractionEvents As InteractionEvents = ThisApplication.CommandManager.CreateInteractionEvents
+        'OInteractionEvents.Start()
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeWindows, 32514)
+        'ThisApplication.UserInterfaceManager.DoEvents()
 
-        oCheatSheet.FormBorderStyle = FormBorderStyle.None
-        cheatSheetWindow.AddChild(oCheatSheet.Handle)
+        'ThisApplication.ScreenUpdating = False
 
+        'Try
+        '    oInventorDrawingDocument.StylesManager.ActiveStandardStyle = oInventorDrawingDocument.StylesManager.StandardStyles(str样式表标准名)
+
+        '    Dim oStyles As Styles = oInventorDrawingDocument.StylesManager.Styles
+        '    For Each oStyle As Style In oStyles
+        '        If Not oStyle.UpToDate Then
+        '            oStyle.UpdateFromGlobal()
+        '        End If
+        '    Next
+
+        '    MessageBox.Show("设置样式表完成。", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        'Catch ex As Exception
+        '    MessageBox.Show($"未找到样式标准：{str样式表标准名}", XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'End Try
+
+        ''刷新浏览器
+        'ThisApplication.ScreenUpdating = True
+        'oInventorDrawingDocument.Update()
+        ''oInventorDrawingDocument.BrowserPanes.ActivePane.Refresh()
+
+        'OInteractionEvents.SetCursor(CursorTypeEnum.kCursorTypeDefault)
+        'OInteractionEvents.Stop()
+
+        'SetStatusBarText("设置样式表完成。")
 
     End Sub
 
@@ -351,9 +377,113 @@ Public Class FormMain
 
     'frmSwitchLables.Show()
 
+    Private dc As UCExplorer
+    Public Function CreateChildDialog() As Long
+
+        If Not dc Is Nothing Then
+            dc.Dispose()
+            dc = Nothing
+        End If
+
+        dc = New UCExplorer
+        'dc.Show(New WindowWrapper(AddinGlobal.InventorApp.MainFrameHWND))
 
 
+        Return dc.Handle.ToInt64()
+    End Function
+
+    Function GetNextToExistingTopWindow() As Double
+        Dim leftWindows As DockableWindows
+        leftWindows = ThisApplication.UserInterfaceManager.DockableWindows
+
+        Dim maxTop As Double
+        maxTop = 0
+
+        Dim i As Integer
+        For i = 1 To leftWindows.Count
+            Dim dw As DockableWindow
+            dw = leftWindows.Item(i)
+
+            If dw.DockingState = DockingStateEnum.kDockTop Then
+                If dw.Top > maxTop Then
+                    maxTop = dw.Top
+                End If
+            End If
+        Next i
+
+        If maxTop > 0 Then
+            GetNextToExistingTopWindow = maxTop
+        Else
+            GetNextToExistingTopWindow = 0
+        End If
+    End Function
+
+    Function GetNextToExistingLeftWindow() As Double
+        Dim leftWindows As DockableWindows
+        leftWindows = ThisApplication.UserInterfaceManager.DockableWindows
+
+        Dim maxRight As Double
+        maxRight = 0
+
+        Dim i As Integer
+        For i = 1 To leftWindows.Count
+            Dim dw As DockableWindow
+            dw = leftWindows.Item(i)
+
+            If dw.DockingState = DockingStateEnum.kDockLeft Then
+                If dw.Left + dw.Width > maxRight Then
+                    maxRight = dw.Left + dw.Width
+                End If
+            End If
+        Next i
+
+        If maxRight > 0 Then
+            GetNextToExistingLeftWindow = maxRight
+        Else
+            GetNextToExistingLeftWindow = 0
+        End If
+    End Function
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+
+        Dim oUserInterfaceMgr As UserInterfaceManager
+        oUserInterfaceMgr = ThisApplication.UserInterfaceManager
+
+        ' Create a new dockable window
+        Dim oWindow As DockableWindow
+
+        Try
+            oWindow = oUserInterfaceMgr.DockableWindows.Item("XHToolInNameDock资源管理器")
+            oWindow.Delete()
+        Catch
+
+        End Try
+        oWindow = oUserInterfaceMgr.DockableWindows.Add("SampleClientId", "XHToolInNameDock资源管理器", "资源管理器")
+
+
+
+        ' 创建Windows Forms控件并获取其句柄
+        Dim oUCExplorer As New UCExplorer
+        Dim hwnd As Long = oUCExplorer.Handle.ToInt64()
+        oWindow.AddChild(hwnd)
+
+        ' Make the window visible
+        oWindow.ShowTitleBar = True
+        oWindow.Visible = True
+        ' Don't allow docking to top and bottom
+        oWindow.DockingState = DockingStateEnum.kDockRight
+        oWindow.Width = 340
+        oWindow.SetMinimumSize(400, 340)
+
+
+        ' 设置位置
+        'oWindow.DockingState = DockingStateEnum.kFloat
+        ' 先设置为浮动以设置位置
+
+
+        ' 定位到左侧现有窗口旁边
+        'oWindow.Move(GetNextToExistingTopWindow, GetNextToExistingLeftWindow(), ThisApplication.Height - GetNextToExistingTopWindow(), 350)
+
+        ' 停靠到左侧
 
 
 
@@ -802,8 +932,6 @@ Public Class FormMain
         ExportBOMAsFlat()
     End Sub
 
-
-
     Private Sub 打开文件所在文件夹ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 打开文件所在文件夹ToolStripMenuItem.Click
         OpenFolderwithDocument()
     End Sub
@@ -1204,7 +1332,10 @@ Public Class FormMain
     End Sub
 
     Private Sub 克隆组件ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 克隆组件ToolStripMenuItem.Click
-        CloneComponentAndInsertConstraint()
+        'CloneComponentAndInsertConstraint()
+
+        FormCloneComponentShow()
+
     End Sub
 
     Private Sub 在浏览器中查找ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 在浏览器中查找ToolStripMenuItem.Click
@@ -1220,7 +1351,7 @@ Public Class FormMain
     End Sub
 
     Public Sub TestGetDrawingPoint()
-        Dim getPoint As New ClsGetPoint
+        Dim getPoint As New ClsGetDrawingPoint
         Dim pnt1 As Point2d
         Dim pnt2 As Point2d
         Do
@@ -1310,5 +1441,13 @@ Public Class FormMain
 
     Private Sub 复制材料ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 复制材料ToolStripMenuItem.Click
         CopyMaterialFromBasicPart()
+    End Sub
+
+    Private Sub 基础数量ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 基础数量ToolStripMenuItem.Click
+        SetBaseQuantityByEach()
+    End Sub
+
+    Private Sub 设置颜色窗口ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 设置颜色窗口ToolStripMenuItem.Click
+        FormDiameterHoleColoringShow()
     End Sub
 End Class

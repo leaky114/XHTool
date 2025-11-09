@@ -79,9 +79,9 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
     Public IsAutoSetPartName As Boolean  'true 为进行中，false则退出进程
 
-    Public str查找文件夹层数 As Integer = "2" '返回父文件夹的层数
+    Public str查找文件夹层数 As Int16 = "2" '返回父文件夹的层数
 
-    Public Is检查重复图号 As Integer   '重命名时是否检查图号重复  '1为检查，0为不检查
+    Public Is检查重复图号 As Int16    '重命名时是否检查图号重复  '1为检查，0为不检查
 
     Public str快速打开 As String   ' 快速打开窗口 ， 双击列表item，0是直接打开  ，1 是不打开
 
@@ -128,7 +128,7 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
 
     Public CheckUpdate As String    '启动检查更新
 
-    Public TotalItem As Integer 'BOM序号
+    Public TotalItem As Int16 'BOM序号
 
     Public OPosition(9) As Inventor.Point   '点
     Public TempPoint(9) As SketchPoint   '临时绘制的点
@@ -145,8 +145,8 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     '默认打印设值
     Public Printer As String   '默认打印机
 
-    Public IsPaperA3 As Integer   '1：匹配A3纸，0：按原图纸大小打印
-    Public IsSign As Integer       '1：签字，0：不签字
+    Public IsPaperA3 As Int16    '1：匹配A3纸，0：按原图纸大小打印
+    Public IsSign As Int16       '1：签字，0：不签字
     Public SaveAsDawAndPdf As String
 
     '批量打印设置
@@ -200,9 +200,11 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     Public str变更工程图扩展名 As String
 
     '创建截图的宽度
-    Public intPitcureWidth As Integer
+    Public intPitcureWidth As Int16
     '创建截图的高度
-    Public intPitcureHeight As Integer
+    Public intPitcureHeight As Int16
+
+    Public int截图视觉样式 As Int16    '是否渲染截图  ，1 为渲染 
 
     '自动保存
     Public str启用自动保存 As String
@@ -236,6 +238,13 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
     Public int图框高度 As Integer = 120  ' 设置每个PictureBox的高度
     Public int图框行间距 As Integer = 20 ' 设置行间距
     Public int图框列间距 As Integer = 20 ' 设置列间距
+
+
+    Public str显示资源浏览器窗口 As String = 0 '显示资源浏览器窗口,0为不显示，1为显示
+
+    Public str样式表标准名 As String   '样式表标准名
+
+
 
 
     '声明并初始化变量
@@ -329,14 +338,14 @@ Autodesk Inventor 表达视图(*.ipn)|*.ipn|"
         If BeforeOrAfter = EventTimingEnum.kAfter Then
 
             '在标题栏中显示当前文档路径()
-            ThisApplication.Caption = GetFileNameInfo(oInventorDocument.FullDocumentName).Folder & "\"
+            ThisApplication.Caption = GetFileNameInfo(oInventorDocument.File.FullFileName).Folder & "\"
 
 
             '获取文件只读属性
             Dim oDef1 As ButtonDefinition
             oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName文件只读")
 
-            oDef1.Pressed = GetFileReadOnly(oInventorDocument.FullDocumentName)
+            oDef1.Pressed = GetFileReadOnly(oInventorDocument.File.FullFileName)
         Else
 
         End If

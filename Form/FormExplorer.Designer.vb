@@ -306,70 +306,70 @@ Partial Class FormExplorer
         '
         Me.CMS文件列表.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.打开ToolStripMenuItem, Me.插入到部件ToolStripMenuItem, Me.浏览文件ToolStripMenuItem, Me.复制文件名ToolStripMenuItem, Me.ToolStripSeparator3, Me.重命名ToolStripMenuItem, Me.复制ToolStripMenuItem, Me.删除ToolStripMenuItem, Me.ToolStripSeparator4, Me.刷新ToolStripMenuItem, Me.属性ToolStripMenuItem})
         Me.CMS文件列表.Name = "CMS文件列表"
-        Me.CMS文件列表.Size = New System.Drawing.Size(137, 214)
+        Me.CMS文件列表.Size = New System.Drawing.Size(181, 236)
         '
         '打开ToolStripMenuItem
         '
         Me.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem"
-        Me.打开ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.打开ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.打开ToolStripMenuItem.Text = "打开"
         '
         '插入到部件ToolStripMenuItem
         '
         Me.插入到部件ToolStripMenuItem.Name = "插入到部件ToolStripMenuItem"
-        Me.插入到部件ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.插入到部件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.插入到部件ToolStripMenuItem.Text = "插入到部件"
         '
         '浏览文件ToolStripMenuItem
         '
         Me.浏览文件ToolStripMenuItem.Name = "浏览文件ToolStripMenuItem"
-        Me.浏览文件ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.浏览文件ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.浏览文件ToolStripMenuItem.Text = "浏览文件"
         '
         '复制文件名ToolStripMenuItem
         '
         Me.复制文件名ToolStripMenuItem.Name = "复制文件名ToolStripMenuItem"
-        Me.复制文件名ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.复制文件名ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.复制文件名ToolStripMenuItem.Text = "复制文件名"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(133, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         '重命名ToolStripMenuItem
         '
         Me.重命名ToolStripMenuItem.Name = "重命名ToolStripMenuItem"
-        Me.重命名ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.重命名ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.重命名ToolStripMenuItem.Text = "重命名"
         '
         '复制ToolStripMenuItem
         '
         Me.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem"
-        Me.复制ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.复制ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.复制ToolStripMenuItem.Text = "复制"
         '
         '删除ToolStripMenuItem
         '
         Me.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem"
-        Me.删除ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.删除ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.删除ToolStripMenuItem.Text = "删除"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(133, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(177, 6)
         '
         '刷新ToolStripMenuItem
         '
         Me.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem"
-        Me.刷新ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.刷新ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.刷新ToolStripMenuItem.Text = "刷新"
         '
         '属性ToolStripMenuItem
         '
         Me.属性ToolStripMenuItem.Name = "属性ToolStripMenuItem"
-        Me.属性ToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.属性ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.属性ToolStripMenuItem.Text = "属性"
         '
         'Txt搜索栏

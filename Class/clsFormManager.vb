@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.Collections
+Imports System.Windows.Forms
 
 Public Class FormManager
     ' 字典用于存储窗口类型及其对应的实例
@@ -76,18 +77,24 @@ Public Class FormManager
 
     ' 泛型方法，用于关闭并销毁指定类型的窗口实例
     Public Shared Sub CloseAndDisposeForm(Of T As Form)()
-        On Error Resume Next
+        'On Error Resume Next
         Dim formType As Type = GetType(T)
 
-        '' 检查字典中是否存在该类型的实例且未被销毁
-        'If _formInstances.ContainsKey(formType) AndAlso Not _formInstances(formType).IsDisposed Then
-        '    ' 如果存在且未被销毁，则关闭并销毁它
-        Dim formToClose As Form = _formInstances(formType)
-        ' 从字典中移除实例引用（可选，但推荐在销毁前做）
-        _formInstances.Remove(formType)
-        ' 关闭并释放窗体资源
-        formToClose.Close()
-        formToClose.Dispose() ' 通常Close方法会调用Dispose，但明确调用以确保资源释放
-        'End If
+        Try
+            '' 检查字典中是否存在该类型的实例且未被销毁
+            'If _formInstances.ContainsKey(formType) AndAlso Not _formInstances(formType).IsDisposed Then
+            '    ' 如果存在且未被销毁，则关闭并销毁它
+            Dim formToClose As Form = _formInstances(formType)
+            ' 从字典中移除实例引用（可选，但推荐在销毁前做）
+            _formInstances.Remove(formType)
+            ' 关闭并释放窗体资源
+            formToClose.Close()
+            formToClose.Dispose() ' 通常Close方法会调用Dispose，但明确调用以确保资源释放
+            'End If
+        Catch ex As Exception
+
+        End Try
+
+
     End Sub
 End Class

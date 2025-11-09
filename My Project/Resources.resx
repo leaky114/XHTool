@@ -940,4 +940,16 @@
   <data name="复制材料32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\复制材料32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="硬盘16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\硬盘16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="硬盘32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\硬盘32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="样式表16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\样式表16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="样式表32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\样式表32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

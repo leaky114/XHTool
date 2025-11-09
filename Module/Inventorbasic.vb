@@ -19,7 +19,7 @@ Imports System.Windows.Forms
 Imports System.DateTime
 Imports System.Environment
 Imports System.Collections.Generic
-
+Imports System.Drawing
 
 Module InventorBasic
 
@@ -89,7 +89,7 @@ Module InventorBasic
 
             Dim strFullFileName As String = Nothing
 
-            Dim frmQuitOpen As New formQuitOpen
+            Dim frmQuitOpen As New FormQuitOpen
             frmQuitOpen.lvw文件列表.CheckBoxes = True
             frmQuitOpen.btn多选打开.Visible = True
             frmQuitOpen.btn插入文件.Visible = True
@@ -114,7 +114,7 @@ Module InventorBasic
                             str模型匹配检查标记 = 1
                             ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
                         Case Else
-                          ProcessStart(strQuitOpenSelectFileFullName)
+                            ProcessStart(strQuitOpenSelectFileFullName)
                     End Select
 
 
@@ -134,7 +134,7 @@ Module InventorBasic
                             str模型匹配检查标记 = 1
                             ThisApplication.Documents.Open(strQuitOpenSelectFileFullName)
                         Case Else
-                          ProcessStart(strQuitOpenSelectFileFullName)
+                            ProcessStart(strQuitOpenSelectFileFullName)
                     End Select
 
                     frmQuitOpen.Close()
@@ -156,7 +156,7 @@ Module InventorBasic
             End If
 
             Dim strDocumentFullName As String
-            strDocumentFullName = ThisApplication.ActiveDocument.FullDocumentName
+            strDocumentFullName = ThisApplication.ActiveDocument.File.FullFileName
 
             If GetFileReadOnly(strDocumentFullName) = False Then
                 ThisApplication.ActiveDocument.Save2(True)
@@ -200,7 +200,7 @@ Module InventorBasic
 
                     ThisApplication.CommandManager.ControlDefinitions.Item("AppFileSaveCmd").Execute()
 
-                    strDocumentFullName = ThisApplication.ActiveDocument.FullDocumentName
+                    strDocumentFullName = ThisApplication.ActiveDocument.File.FullFileName
 
                     If IsFileExists(strDocumentFullName) = True Then
                         ThisApplication.ActiveDocument.Close()
@@ -249,9 +249,9 @@ Module InventorBasic
             oInventorDocument = ThisApplication.ActiveDocument
 
             Dim strFolderPath As String
-            strFolderPath = GetDirectoryName2(oInventorDocument.FullDocumentName)
+            strFolderPath = GetDirectoryName2(oInventorDocument.File.FullFileName)
 
-          ProcessStart(strFolderPath)
+            ProcessStart(strFolderPath)
         Catch ex As Exception
             MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -366,7 +366,7 @@ Module InventorBasic
     Public Function SetDocumentIpropertyFromFileNameSub(ByVal oInventorDocument As Inventor.Document, ByVal IsNeedClose As Boolean) As Boolean
         Dim strFullFileName As String      '当前文件全名
 
-        strFullFileName = oInventorDocument.FullFileName
+        strFullFileName = oInventorDocument.File.FullFileName
 
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strFullFileName)
@@ -547,7 +547,7 @@ Module InventorBasic
         Dim strBasicNumber As String   '当前部件图号
 
         '部件全文件名 和 仅文件名
-        strFullFileName = oAssemblyDocument.FullFileName
+        strFullFileName = oAssemblyDocument.File.FullFileName
         strFileName = GetFileNameInfo(strFullFileName).OnlyName
 
         'Dim i As Integer
@@ -841,7 +841,7 @@ Module InventorBasic
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
         Dim propitem As [Property]
-
+        Dim strValue As String = ""
         '=============================================================================
         '采用学徒服务器, 速度更快
         'Dim apprentice As Inventor.ApprenticeServerComponent
@@ -858,18 +858,19 @@ Module InventorBasic
 
         For Each oPropertySet In oPropertySets
             '获取iproperty
-            Dim StockNumPartName As StockNumPartName = Nothing
+            'Dim StockNumPartName As StockNumPartName = Nothing
             For Each propitem In oPropertySet
                 Select Case propitem.DisplayName
                     Case strPropitemName
-                        Return propitem.Value
+                        strValue = propitem.Value
+                        GoTo 999
                 End Select
             Next
         Next
 
         'oInventorDocument.Update()   '刷新数据
-
-        Return ""
+999:
+        Return strValue
 
     End Function
 
@@ -1177,7 +1178,7 @@ Module InventorBasic
             '遍历Inventor中打开的文档
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents
                 '获取IPT文件路径
-                Dim docPath As String = oInventorDocument.FullFileName
+                Dim docPath As String = oInventorDocument.File.FullFileName
                 '比较文件路径是否一致
                 If FileFullName.Equals(docPath, StringComparison.OrdinalIgnoreCase) Then
                     '关闭文件
@@ -1204,7 +1205,7 @@ Module InventorBasic
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         Dim strInventorDocumentFullDocumentName As String
-        strInventorDocumentFullDocumentName = oInventorDocument.FullDocumentName
+        strInventorDocumentFullDocumentName = oInventorDocument.File.FullFileName
 
         Dim oDef1 As ButtonDefinition
         oDef1 = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName文件只读")
@@ -1335,7 +1336,7 @@ Module InventorBasic
             ' 使用StreamWriter将字符串写入文件
 
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-                strFileFullName = oInventorDocument.FullFileName
+                strFileFullName = oInventorDocument.File.FullFileName
                 oStreamWriter.WriteLine(strFileFullName)
             Next
         End Using
@@ -1382,7 +1383,7 @@ Module InventorBasic
     Public Sub AutoSaveDocumentSub(oInventorDocument As Inventor.Document)
         Dim strFileFullName As String
 
-        strFileFullName = oInventorDocument.FullFileName
+        strFileFullName = oInventorDocument.File.FullFileName
         If IsFileExists(strFileFullName) = False Then
             Exit Sub
         End If
@@ -1408,4 +1409,61 @@ Module InventorBasic
         'End If
 
     End Sub
+
+    ''' <summary>
+    ''' 返回inventor文件的缩略图
+    ''' </summary>
+    ''' <param name="filePath"></param>
+    ''' <returns></returns>
+    Public Function GetInventorThumbnail(filePath As String) As Image
+        Dim doc As Document = ThisApplication.Documents.Open(filePath, True)
+
+        Try
+
+            Dim thumbNailPicDisp As stdole.IPictureDisp
+            thumbNailPicDisp = doc.Thumbnail
+
+            Dim thumbNailImage As System.Drawing.Image = Nothing
+            '   thumbNailImage    = Microsoft.VisualBasic.Compatibility.VB6.IPictureDispToImage(thumbNailPicDisp)
+
+            thumbNailImage = ThumbnailToImage(thumbNailImage)
+
+            Return thumbNailImage
+
+        Catch
+            Return Nothing
+        End Try
+
+    End Function
+
+    Public Function ThumbnailToImage(thumbnail As IPictureDisp) As Bitmap
+        Dim width As Integer = thumbnail.Width
+        Dim height As Integer = thumbnail.Height
+
+        If width <= 0 OrElse height <= 0 Then
+            Return Nothing
+        End If
+
+        ' 创建位图
+        Dim bitmap As New Bitmap(width, height, Imaging.PixelFormat.Format32bppArgb)
+
+        ' 获取像素数据
+        Dim pixelData As Byte() = thumbnail.PixelData
+
+        ' 将像素数据复制到位图中
+        Dim rect As New Rectangle(0, 0, width, height)
+        Dim bmpData As Imaging.BitmapData = bitmap.LockBits(rect,
+                                                          Imaging.ImageLockMode.WriteOnly,
+                                                          bitmap.PixelFormat)
+
+        Try
+            ' 计算需要复制的字节数
+            Dim bytesToCopy As Integer = Math.Min(pixelData.Length, bmpData.Stride * height)
+            Runtime.InteropServices.Marshal.Copy(pixelData, 0, bmpData.Scan0, bytesToCopy)
+        Finally
+            bitmap.UnlockBits(bmpData)
+        End Try
+
+        Return bitmap
+    End Function
 End Module

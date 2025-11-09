@@ -67,8 +67,8 @@ Public Class FormBatchCommand
             lvw文件列表.BeginUpdate()
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
                 If oInventorDocument.DocumentType = DocumentTypeEnum.kPartDocumentObject Then
-                    If IsItemInListView(lvw文件列表, oInventorDocument.FullDocumentName) = False Then
-                        lvw文件列表.Items.Add(oInventorDocument.FullDocumentName)
+                    If IsItemInListView(lvw文件列表, oInventorDocument.File.FullFileName) = False Then
+                        lvw文件列表.Items.Add(oInventorDocument.File.FullFileName)
                     End If
                 End If
             Next

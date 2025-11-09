@@ -859,4 +859,63 @@ Module BasicFileSystem
 
     End Sub
 
+
+    ''' <summary>
+    ''' 获取父文件夹路径
+    ''' </summary>
+    ''' <param name="strFolderPath">需要获取父文件夹的路径</param>
+    ''' <returns></returns>
+    Public Function GetParentFolderPath(ByVal strFolderPath As String) As String
+        If String.IsNullOrEmpty(strFolderPath) Then
+            Return String.Empty
+        End If
+
+        Try
+            ' 规范化为完整路径（自动处理相对路径和多余斜杠）
+            Dim fullPath As String = Path.GetFullPath(strFolderPath)
+
+            ' 判断是否为根目录
+            If IsRootDirectory(fullPath) Then
+                Return String.Empty ' 根目录无父目录，返回空字符串
+            End If
+
+            ' 获取父目录
+            Dim parentDir As DirectoryInfo = Directory.GetParent(fullPath)
+
+            If parentDir IsNot Nothing Then
+                Return parentDir.FullName
+            Else
+                Return String.Empty
+            End If
+        Catch ex As Exception
+            ' 处理无效路径（如格式错误或权限不足）
+            Return String.Empty
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' 判断路径是否为根目录
+    ''' </summary>
+    ''' <param name="strFolderPath">需要判断的目录</param>
+    ''' <returns></returns>
+    Private Function IsRootDirectory(ByVal strFolderPath As String) As Boolean
+        ' 移除末尾的斜杠（统一格式）
+        strFolderPath = strFolderPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+
+        ' 本地驱动器根目录（如 "C:\"）
+        If strFolderPath.Length = 2 AndAlso strFolderPath(1) = ":"c AndAlso strFolderPath(2) = Path.DirectorySeparatorChar Then
+            Return True
+        End If
+
+        ' 网络路径根目录（如 "\\server\share"）
+        If strFolderPath.StartsWith("\\") Then
+            Dim parts As String() = strFolderPath.Split(New Char() {Path.DirectorySeparatorChar}, StringSplitOptions.RemoveEmptyEntries)
+            If parts.Length = 2 Then ' 网络根目录格式为 \\server\share
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
 End Module

@@ -541,63 +541,7 @@ Public Class FormExplorer
 
     '============================================================================
 
-    ''' <summary>
-    ''' 获取父文件夹路径
-    ''' </summary>
-    ''' <param name="strFolderPath">需要获取父文件夹的路径</param>
-    ''' <returns></returns>
-    Public Function GetParentFolderPath(ByVal strFolderPath As String) As String
-        If String.IsNullOrEmpty(strFolderPath) Then
-            Return String.Empty
-        End If
 
-        Try
-            ' 规范化为完整路径（自动处理相对路径和多余斜杠）
-            Dim fullPath As String = Path.GetFullPath(strFolderPath)
-
-            ' 判断是否为根目录
-            If IsRootDirectory(fullPath) Then
-                Return String.Empty ' 根目录无父目录，返回空字符串
-            End If
-
-            ' 获取父目录
-            Dim parentDir As DirectoryInfo = Directory.GetParent(fullPath)
-
-            If parentDir IsNot Nothing Then
-                Return parentDir.FullName
-            Else
-                Return String.Empty
-            End If
-        Catch ex As Exception
-            ' 处理无效路径（如格式错误或权限不足）
-            Return String.Empty
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' 判断路径是否为根目录
-    ''' </summary>
-    ''' <param name="strFolderPath">需要判断的目录</param>
-    ''' <returns></returns>
-    Private Function IsRootDirectory(ByVal strFolderPath As String) As Boolean
-        ' 移除末尾的斜杠（统一格式）
-        strFolderPath = strFolderPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
-
-        ' 本地驱动器根目录（如 "C:\"）
-        If strFolderPath.Length = 3 AndAlso strFolderPath(1) = ":"c AndAlso strFolderPath(2) = Path.DirectorySeparatorChar Then
-            Return True
-        End If
-
-        ' 网络路径根目录（如 "\\server\share"）
-        If strFolderPath.StartsWith("\\") Then
-            Dim parts As String() = strFolderPath.Split(New Char() {Path.DirectorySeparatorChar}, StringSplitOptions.RemoveEmptyEntries)
-            If parts.Length = 2 Then ' 网络根目录格式为 \\server\share
-                Return True
-            End If
-        End If
-
-        Return False
-    End Function
 
     ''' <summary>
     ''' 删除文件或文件夹
@@ -716,7 +660,7 @@ Public Class FormExplorer
         SetDoubleBuffered(Lvw文件列表)
 
         If ThisApplication.ActiveDocument IsNot Nothing Then
-            strCurrentDirectory = GetFileNameInfo(ThisApplication.ActiveDocument.FullDocumentName).Folder
+            strCurrentDirectory = GetFileNameInfo(ThisApplication.ActiveDocument.File.FullFileName).Folder
         End If
         If IsDirectoryExists(strCurrentDirectory) = False Then
             Dim strWorkspacePath As String = ThisApplication.DesignProjectManager.ActiveDesignProject.WorkspacePath
@@ -824,7 +768,8 @@ Public Class FormExplorer
         End Try
     End Sub
 
-    Private Sub 打开ToolStripButton_Click(sender As Object, e As EventArgs) Handles 打开ToolStripButton.Click, Lvw文件列表.MouseDoubleClick, 打开ToolStripMenuItem.Click
+    Private Sub Lvw文件列表_MouseDoubleClick(sender As Object, e As EventArgs) Handles Lvw文件列表.MouseDoubleClick, 打开ToolStripButton.Click, 打开ToolStripMenuItem.Click
+
         ' 双击打开文件或文件夹
         If Lvw文件列表.SelectedItems.Count = 0 Then Return
 
@@ -856,7 +801,7 @@ Public Class FormExplorer
                         Case IAM, IPT, IDW, ".ipn"
                             ThisApplication.Documents.Open(strSelectPath)
                         Case Else
-                          ProcessStart(strSelectPath)
+                            ProcessStart(strSelectPath)
                     End Select
 
 
@@ -888,7 +833,7 @@ Public Class FormExplorer
                     Exit Sub
                 End If
 
-                If ThisApplication.ActiveDocument.FullDocumentName = strSelectPath Then
+                If ThisApplication.ActiveDocument.File.FullFileName = strSelectPath Then
                     Exit Sub
                 End If
 
@@ -1152,7 +1097,7 @@ Public Class FormExplorer
     Private Sub 当前文件夹ToolStripButton_Click(sender As Object, e As EventArgs) Handles 当前文件夹ToolStripButton.Click
 
         If ThisApplication.ActiveDocument IsNot Nothing Then
-            strCurrentDirectory = GetFileNameInfo(ThisApplication.ActiveDocument.FullDocumentName).Folder
+            strCurrentDirectory = GetFileNameInfo(ThisApplication.ActiveDocument.File.FullFileName).Folder
         End If
 
         If IsDirectoryExists(strCurrentDirectory) = False Then
@@ -1449,4 +1394,5 @@ Public Class FormExplorer
     Private Sub FormExplorer_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         FormManager.CloseAndDisposeForm(Of FormExplorer)()
     End Sub
+
 End Class

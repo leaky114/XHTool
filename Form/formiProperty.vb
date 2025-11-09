@@ -29,7 +29,7 @@ Public Class FormiProperty
             'Exit Sub
         End If
 
-        If InStr(oInventorDocument.FullDocumentName, ContentCenterFiles) > 0 Then    '零件库文件自动保存
+        If InStr(oInventorDocument.File.FullFileName, ContentCenterFiles) > 0 Then    '零件库文件自动保存
             oInventorDocument.Save2(True)
         End If
 
@@ -65,9 +65,9 @@ Public Class FormiProperty
         Dim oInventorDocument As Inventor.Document
         oInventorDocument = ThisApplication.ActiveEditDocument
 
-        Me.Text = "iProperty+  " & GetFileNameInfo(oInventorDocument.FullDocumentName).OnlyName
+        Me.Text = "iProperty+  " & GetFileNameInfo(oInventorDocument.File.FullFileName).OnlyName
 
-        txt位置.Text = oInventorDocument.FullDocumentName
+        txt位置.Text = oInventorDocument.File.FullFileName
 
         Dim oPropertySets As PropertySets
         Dim oPropertySet As PropertySet
@@ -198,6 +198,8 @@ Public Class FormiProperty
         txtERP编码.SelectAll()
     End Sub
 
+
+
     ''' <summary>
     ''' 从配置文件加载自定义描述
     ''' </summary>
@@ -242,7 +244,7 @@ Public Class FormiProperty
         oInventorDocument = ThisApplication.ActiveEditDocument
 
         Dim strInventorDocumentFullFileName As String
-        strInventorDocumentFullFileName = oInventorDocument.FullFileName
+        strInventorDocumentFullFileName = oInventorDocument.File.FullFileName
 
         Dim oStockNumPartName As StockNumPartName
         oStockNumPartName = GetStockNumPartName(strInventorDocumentFullFileName)
@@ -254,4 +256,5 @@ Public Class FormiProperty
         txt文件名.Text = oStockNumPartName.零件名称
 
     End Sub
+
 End Class

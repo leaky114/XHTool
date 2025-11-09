@@ -8,6 +8,7 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports Path = System.IO.Path
 Imports System.Collections.Generic
+Imports System.Collections
 
 Public Class FormCleanUpRedundantFiles
 
@@ -80,7 +81,7 @@ Public Class FormCleanUpRedundantFiles
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         Dim strInventorAssemblyDocumentFullFileName As String
-        strInventorAssemblyDocumentFullFileName = oInventorAssemblyDocument.FullDocumentName
+        strInventorAssemblyDocumentFullFileName = oInventorAssemblyDocument.File.FullFileName
 
         Dim strInventorAssemblyDocumentName As String
         strInventorAssemblyDocumentName = GetFileNameWithExtension(strInventorAssemblyDocumentFullFileName)
@@ -146,7 +147,7 @@ Public Class FormCleanUpRedundantFiles
 
         For Each oRefDoc As Document In oRefDocs
             '   Debug.Print oRefDoc.DisplayName 
-            strInventorDocumentFullFileName = oRefDoc.FullDocumentName
+            strInventorDocumentFullFileName = oRefDoc.File.FullFileName
             strUseDocumentList.Add(Strings.UCase(strInventorDocumentFullFileName))
 
             strInventorDrawingDocumentFullFileName = GetChangeExtension(strInventorDocumentFullFileName, IDW)
@@ -163,7 +164,7 @@ Public Class FormCleanUpRedundantFiles
             strFullFileName = Strings.UCase(oListViewItem.SubItems（2）.Text)
 
             If strUseDocumentList.Contains(strFullFileName) = True Then
-                oListViewItem.Checked = True
+                'oListViewItem.Checked = True
 
                 oListViewItem.SubItems(1).Text = $"{strInventorAssemblyDocumentName}的引用。"
 
@@ -185,11 +186,11 @@ Public Class FormCleanUpRedundantFiles
         Next
 
         Try
-            ' 遍历所有项目
-            For Each oListViewItem As ListViewItem In lvw文件列表.Items
-                ' 反转勾选状态
-                oListViewItem.Checked = Not oListViewItem.Checked
-            Next
+            '' 遍历所有项目
+            'For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            '    ' 反转勾选状态
+            '    oListViewItem.Checked = Not oListViewItem.Checked
+            'Next
         Finally
             ' 确保始终恢复重绘
             lvw文件列表.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent)
@@ -199,6 +200,9 @@ Public Class FormCleanUpRedundantFiles
 
         End Try
 
+        chkiam.Checked = True
+        chkipt.Checked = True
+        chkidw.Checked = True
 
     End Sub
 
@@ -244,11 +248,49 @@ Public Class FormCleanUpRedundantFiles
     End Sub
 
     Private Sub 全选清理项ToolStripButton_Click(sender As Object, e As EventArgs) Handles 全选清理项ToolStripButton.Click
+        lvw文件列表.BeginUpdate()
+
         For Each oListViewItem As ListViewItem In lvw文件列表.Items
             If oListViewItem.SubItems(1).Text = "未查询到引用，可清除。" Then
                 oListViewItem.Checked = True
             End If
         Next
+
+        chkiam.CheckState = CheckState.Checked
+        chkipt.CheckState = CheckState.Checked
+        chkidw.CheckState = CheckState.Checked
+
+        lvw文件列表.EndUpdate()
+
     End Sub
 
+    Private Sub chkiam_CheckedChanged(sender As Object, e As EventArgs) Handles chkiam.CheckedChanged
+        lvw文件列表.BeginUpdate()
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            If oListViewItem.SubItems(1).Text = "未查询到引用，可清除。" And Strings.Right(oListViewItem.Text, 3).ToLower = "iam" Then
+                oListViewItem.Checked = chkiam.Checked
+            End If
+        Next
+        lvw文件列表.EndUpdate()
+    End Sub
+
+    Private Sub chkipt_CheckedChanged(sender As Object, e As EventArgs) Handles chkipt.CheckedChanged
+        lvw文件列表.BeginUpdate()
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            If oListViewItem.SubItems(1).Text = "未查询到引用，可清除。" And Strings.Right(oListViewItem.Text, 3).ToLower = "ipt" Then
+                oListViewItem.Checked = chkipt.Checked
+            End If
+        Next
+        lvw文件列表.EndUpdate()
+    End Sub
+
+    Private Sub chkidw_CheckedChanged(sender As Object, e As EventArgs) Handles chkidw.CheckedChanged
+        lvw文件列表.BeginUpdate()
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+            If oListViewItem.SubItems(1).Text = "未查询到引用，可清除。" And Strings.Right(oListViewItem.Text, 3).ToLower = "idw" Then
+                oListViewItem.Checked = chkidw.Checked
+            End If
+        Next
+        lvw文件列表.EndUpdate()
+    End Sub
 End Class

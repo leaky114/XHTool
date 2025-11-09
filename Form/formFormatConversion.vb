@@ -146,6 +146,7 @@ Public Class FormFormatConversion
         移出文件ToolStripButton.Image = My.Resources.移出文件16.ToBitmap
         清空列表ToolStripButton.Image = My.Resources.清空列表16.ToBitmap
         静默转换ToolStripButton.Image = My.Resources.静默16.ToBitmap
+        转换后关闭ToolStripButton.Image = My.Resources.关闭文件16.ToBitmap
         替换ToolStripButton.Image = My.Resources.左右交换16.ToBitmap
 
         添加文件ToolStripButton.Image = My.Resources.打开文件16.ToBitmap
@@ -362,7 +363,7 @@ Public Class FormFormatConversion
         End If
 
         For Each oInventorDocument In ThisApplication.Documents.VisibleDocuments
-            strInventorDocumentFullFileName = oInventorDocument.FullFileName
+            strInventorDocumentFullFileName = oInventorDocument.File.FullFileName
             If IsItemInListView(Lvw文件列表, strInventorDocumentFullFileName) = False Then
 
                 If GetFileExtensionLCase(strInventorDocumentFullFileName) = IDW And 工程图ToolStripButton.Checked = True Then
@@ -396,6 +397,11 @@ Public Class FormFormatConversion
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
             MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
+        If oInventorDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+            MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -465,7 +471,7 @@ Public Class FormFormatConversion
         Dim strInventorDocumentFullFileNames As New List(Of String)()
 
         For Each oBomRow As BOMRow In oBOMRows
-            Dim strInventorDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.FullFileName
+            Dim strInventorDocumentFullFileName As String = oBomRow.ComponentDefinitions(1).Document.File.FullFileName
 
             Debug.Print(strInventorDocumentFullFileName)
 
@@ -604,7 +610,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DWG)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsDwgSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
 
                         End If
 
@@ -617,7 +623,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DXF)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsDwgSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If PDFToolStripButton.Checked = True Then
@@ -629,7 +635,7 @@ Public Class FormFormatConversion
 
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & PDF)
 
-                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsPdfSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then
@@ -691,19 +697,19 @@ Public Class FormFormatConversion
                         If DWGToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DWG)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsDwgSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If DXFToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & DXF)
 
-                            IdwSaveAsDwgSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsDwgSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If PDFToolStripButton.Checked = True Then
                             strFormatFulFileName = IO.Path.Combine(oFormatFileNameInfo.Folder, oFormatFileNameInfo.OnlyName & PDF)
 
-                            IdwSaveAsPdfSub(oInventorDocument.FullDocumentName, strFormatFulFileName, 替换ToolStripButton.Checked)
+                            IdwSaveAsPdfSub(oInventorDocument.File.FullFileName, strFormatFulFileName, 替换ToolStripButton.Checked)
                         End If
 
                         If JPGToolStripButton.Checked = True Then

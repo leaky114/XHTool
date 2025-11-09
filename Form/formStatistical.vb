@@ -81,7 +81,7 @@ Public Class FormStatistical
         dblSumHanFengLength = 0
         dblSumArea = 0
 
-        strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
+        strFullDocumentName = ThisApplication.ActiveDocument.File.FullFileName
 
         oEdgeHSet100 = ThisApplication.ActiveDocument.CreateHighlightSet()
         oEdgeHSet100.Color = ThisApplication.TransientObjects.CreateColor(255, 0, 0)
@@ -211,9 +211,9 @@ Public Class FormStatistical
     '质量面积选择零件
     Private Sub Btn选择零件_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn选择零件.Click
         Try
-            If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
+            If ThisApplication.ActiveDocument.File.FullFileName <> strFullDocumentName Then
                 oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
-                strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
+                strFullDocumentName = ThisApplication.ActiveDocument.File.FullFileName
                 Btn清空_Click(sender, e)
             End If
         Catch ex As Exception
@@ -261,9 +261,9 @@ Public Class FormStatistical
 
     Private Sub Btn选择面和边_Click(sender As Object, e As EventArgs) Handles btn选择面和边.Click
         Try
-            If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
+            If ThisApplication.ActiveDocument.File.FullFileName <> strFullDocumentName Then
                 oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
-                strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
+                strFullDocumentName = ThisApplication.ActiveDocument.File.FullFileName
                 Btn清空_Click(sender, e)
             End If
         Catch ex As Exception
@@ -457,9 +457,9 @@ Public Class FormStatistical
         Debug.Print(oInventorDocument.SelectSet.Item(1).Type)
 
         Try
-            If oInventorDocument.FullDocumentName <> strFullDocumentName Then
+            If oInventorDocument.File.FullFileName <> strFullDocumentName Then
                 oFaceHSet = oInventorDocument.CreateHighlightSet()
-                strFullDocumentName = oInventorDocument.FullDocumentName
+                strFullDocumentName = oInventorDocument.File.FullFileName
                 Btn清空_Click(sender, e)
             End If
         Catch ex As Exception
@@ -656,9 +656,9 @@ Public Class FormStatistical
 
     Private Sub btn选择面_Click(sender As Object, e As EventArgs) Handles btn选择面.Click
         Try
-            If ThisApplication.ActiveDocument.FullDocumentName <> strFullDocumentName Then
+            If ThisApplication.ActiveDocument.File.FullFileName <> strFullDocumentName Then
                 oFaceHSet = ThisApplication.ActiveDocument.CreateHighlightSet()
-                strFullDocumentName = ThisApplication.ActiveDocument.FullDocumentName
+                strFullDocumentName = ThisApplication.ActiveDocument.File.FullFileName
                 Btn清空_Click(sender, e)
             End If
         Catch ex As Exception
@@ -761,9 +761,9 @@ Public Class FormStatistical
         Debug.Print(oInventorDocument.SelectSet.Item(1).Type)
 
         Try
-            If oInventorDocument.FullDocumentName <> strFullDocumentName Then
+            If oInventorDocument.File.FullFileName <> strFullDocumentName Then
                 oFaceHSet = oInventorDocument.CreateHighlightSet()
-                strFullDocumentName = oInventorDocument.FullDocumentName
+                strFullDocumentName = oInventorDocument.File.FullFileName
                 Btn清空_Click(sender, e)
             End If
         Catch ex As Exception

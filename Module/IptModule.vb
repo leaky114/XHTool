@@ -50,14 +50,14 @@ Module IptModule
             For Each ComponentOccurrence As ComponentOccurrence In oInventorDocument.SelectSet()
                 oInventorDocument = ThisApplication.Documents.ItemByName(ComponentOccurrence.ReferencedDocumentDescriptor.FullDocumentName)
 
-                strInventorDocumenFullDocumentName = oInventorDocument.FullDocumentName
+                strInventorDocumenFullDocumentName = oInventorDocument.File.FullFileName
                 strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, IDW)
 
 
                 If IsFileExists(strDrawingFullDocumentName) = True Then
                     ThisApplication.Documents.Open(strDrawingFullDocumentName)
                 Else
-                    If MessageBox.Show($"没有找到：{vbCrLf}{oInventorDocument.FullDocumentName}{vbCrLf}对应的工程图，是否查找 AutoCad Dwg 文件？", XHTool，
+                    If MessageBox.Show($"没有找到：{vbCrLf}{oInventorDocument.File.FullFileName }{vbCrLf}对应的工程图，是否查找 AutoCad Dwg 文件？", XHTool，
                                        MessageBoxButtons.YesNo， MessageBoxIcon.Question） = DialogResult.Yes Then
 
                         strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, DWG)
@@ -65,7 +65,7 @@ Module IptModule
                         If IsFileExists(strDrawingFullDocumentName) = True Then
                             ProcessStart(strDrawingFullDocumentName)
                         Else
-                            MessageBox.Show($"{oInventorDocument.FullDocumentName} {vbCrLf}没有对应的 AutoCad Dwg 文件。", XHTool，
+                            MessageBox.Show($"{oInventorDocument.File.FullFileName } {vbCrLf}没有对应的 AutoCad Dwg 文件。", XHTool，
                                             MessageBoxButtons.OK， MessageBoxIcon.Information）
                         End If
                     End If
@@ -73,7 +73,7 @@ Module IptModule
             Next
 
         Else
-            strInventorDocumenFullDocumentName = oInventorDocument.FullDocumentName
+            strInventorDocumenFullDocumentName = oInventorDocument.File.FullFileName
             strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, IDW)
 
             If IsFileExists(strDrawingFullDocumentName) = True Then
@@ -82,7 +82,7 @@ Module IptModule
                 If IsFileExists(strDrawingFullDocumentName) = True Then
                     ThisApplication.Documents.Open(strDrawingFullDocumentName)
                 Else
-                    If MessageBox.Show($”{oInventorDocument.FullDocumentName}{vbCrLf}{vbCrLf}没有对应的工程图，是否查找 AutoCad Dwg 文件？", XHTool，
+                    If MessageBox.Show($”{oInventorDocument.File.FullFileName }{vbCrLf}{vbCrLf}没有对应的工程图，是否查找 AutoCad Dwg 文件？", XHTool，
                                        MessageBoxButtons.YesNo， MessageBoxIcon.Error） = DialogResult.Yes Then
 
                         strDrawingFullDocumentName = GetChangeExtensionDocument(strInventorDocumenFullDocumentName, DWG)
@@ -90,7 +90,7 @@ Module IptModule
                         If IsFileExists(strDrawingFullDocumentName) = True Then
                             ProcessStart(strDrawingFullDocumentName)
                         Else
-                            MessageBox.Show($"没有找到：{vbCrLf}{oInventorDocument.FullDocumentName}{vbCrLf}对应的AutoCad.Dwg文件。", XHTool，
+                            MessageBox.Show($"没有找到：{vbCrLf}{oInventorDocument.File.FullFileName }{vbCrLf}对应的AutoCad.Dwg文件。", XHTool，
                                              MessageBoxButtons.OK， MessageBoxIcon.Information）
                         End If
                     End If
@@ -127,7 +127,7 @@ Module IptModule
             oInventorDocument = ThisApplication.ActiveEditDocument
 
             Dim strOldInventorDocumentFullName As String
-            strOldInventorDocumentFullName = oInventorDocument.FullFileName
+            strOldInventorDocumentFullName = oInventorDocument.File.FullFileName
 
 
             Dim strOldInventorDocumentExtensionName As String
@@ -218,7 +218,7 @@ Module IptModule
             oInventorDocument = ThisApplication.ActiveEditDocument
 
             Dim strInventorDocument As String
-            strInventorDocument = oInventorDocument.FullFileName
+            strInventorDocument = oInventorDocument.File.FullFileName
 
             'if strInventorDocument = "" Then
             '     MessageBox.Show("请先保存本零部件。", MsgBoxStyle.Information)
@@ -343,7 +343,7 @@ Module IptModule
         Dim replacementFileName As String = SelectReplacementFilename(docToReplace.DisplayName)
 
         if (String.IsNullOrEmpty(replacementFileName)) Then Return
-        if (String.Equals(docToReplace.FullFileName, replacementFileName, StringComparison.OrdinalIgnoreCase)) Then Return
+        If (String.Equals(docToReplace.File.FullFileName, replacementFileName, StringComparison.OrdinalIgnoreCase)) Then Return
 
         Dim replacementPart As Document = ThisApplication.Documents.Open(replacementFileName, False)
         Dim doReplace As Boolean = True
@@ -355,7 +355,7 @@ Module IptModule
 
         if (Not doReplace) Then Return
 
-        Dim fileNameToReplace As String = docToReplace.FullFileName
+        Dim fileNameToReplace As String = docToReplace.File.FullFileName
         ReplaceReferences(oInventorDocument, fileNameToReplace, replacementFileName)
         oInventorDocument.Update()
     End Sub
@@ -453,8 +453,8 @@ Module IptModule
         ReplaceReferencesInOneDoc(oInventorDocument, fileNameToReplace, replacementFileName)
 
         For Each subDoc As Document In oInventorDocument.AllReferencedDocuments
-            If (String.Equals(subDoc.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase) OrElse _
-             String.Equals(subDoc.FullFileName, replacementFileName, StringComparison.OrdinalIgnoreCase)) Then
+            If (String.Equals(subDoc.File.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase) OrElse
+             String.Equals(subDoc.File.FullFileName, replacementFileName, StringComparison.OrdinalIgnoreCase)) Then
                 Continue For
             End If
             ReplaceReferencesInOneDoc(subDoc, fileNameToReplace, replacementFileName)
@@ -474,10 +474,10 @@ Module IptModule
             if (desc.ReferenceMissing) Then Continue For
             Console.WriteLine("Referenced RelativeFileName = " & desc.RelativeFileName)
             Trace.WriteLine("Referenced RelativeFileName = " & desc.RelativeFileName)
-            if (String.Equals(desc.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase)) Then
+            If (String.Equals(desc.FullFileName, fileNameToReplace, StringComparison.OrdinalIgnoreCase)) Then
                 desc.ReplaceReference(replacementFileName)
                 Exit For
-            End if
+            End If
         Next
     End Sub
 
@@ -678,7 +678,7 @@ Module IptModule
             Return
         End If
 
-        Debug.Print(oInventorBasicPartDocument.FullDocumentName)
+        Debug.Print(oInventorBasicPartDocument.File.FullFileName)
 
         Dim strMaterialName As String
         strMaterialName = oInventorBasicPartDocument.ComponentDefinition.Material.Name.ToString()
@@ -716,5 +716,67 @@ Module IptModule
 
 
     End Sub
+
+
+    Public Sub CopyComponent()
+        On Error Resume Next
+
+        SetStatusBarText()
+
+        If IsInventorOpenDocument() = False Then
+            Exit Sub
+        End If
+
+        If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
+            MessageBox.Show("该功能仅适用于部件。", XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error）
+            Exit Sub
+        End If
+
+        Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
+        oInventorAssemblyDocument = ThisApplication.ActiveDocument
+
+        If oInventorAssemblyDocument.SelectSet.Count = 0 Then
+            Exit Sub
+        End If
+
+        '复制选择的组件
+        ThisApplication.CommandManager.ControlDefinitions.Item("AppCopyCmd").Execute()
+
+        ' 短暂延迟确保复制完成
+        System.Threading.Thread.Sleep(500)
+
+        '添加零件的文件名
+        Dim oPoint As Point
+        oPoint = GetPointInDocument("点击插入组件的位置。")
+        If oPoint Is Nothing Then
+            '粘贴选择的组件
+            ThisApplication.CommandManager.ControlDefinitions.Item("AppPasteCmd").Execute()
+        Else
+
+        End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' 在零部件里单击，获取一个点
+    ''' </summary>
+    ''' <param name="StrInformation">鼠标提示文字</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetPointInDocument(ByVal StrInformation As String) As Point2d
+        Dim oGetSketchPoint As New ClsGetSketchPoint
+        Dim oPoint2d As Point2d
+
+        Do
+            oPoint2d = oGetSketchPoint.GetSketchPoint(StrInformation, MouseButtonEnum.kLeftMouseButton)
+            If oPoint2d IsNot Nothing Then
+                ' MessageBox.Show("当前坐标： " & Strings.Format(oPoint2d.X, "0.0000") & ", " & Strings.Format(oPoint2d.Y, "0.0000"))
+            End If
+        Loop While oPoint2d IsNot Nothing
+
+        Return Nothing
+    End Function
+
 
 End Module

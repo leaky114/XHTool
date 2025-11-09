@@ -60,7 +60,7 @@ Public Class FormQuitOpen
                     Exit Sub
                 End If
 
-                If ThisApplication.ActiveDocument.FullDocumentName = strSelectPath Then
+                If ThisApplication.ActiveDocument.File.FullFileName = strSelectPath Then
                     Exit Sub
                 End If
 

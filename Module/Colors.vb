@@ -404,5 +404,66 @@ Module Colors
 
     End Sub
 
+    ''' <summary>
+    ''' 创建指定直径的颜色
+    ''' </summary>
+    ''' <param name="oInventorPartDocument"></param>
+    ''' <param name="strColorName">颜色名称</param>
+    ''' <param name="strHexColor">16进制颜色</param>
+    Public Sub SetUserColorAssets(ByVal oInventorPartDocument As PartDocument， ByVal strColorName As String, ByVal strHexColor As String)
 
+
+        Dim pureHex As String = strHexColor.TrimStart("#"c)
+        Dim r As Integer = Convert.ToInt32(pureHex.Substring(0, 2), 16)
+        Dim g As Integer = Convert.ToInt32(pureHex.Substring(2, 2), 16)
+        Dim b As Integer = Convert.ToInt32(pureHex.Substring(4, 2), 16)
+
+        Dim oUserColor As Inventor.Color = ThisApplication.TransientObjects.CreateColor(r, g, b)
+
+        Dim docAssets As Assets
+        docAssets = oInventorPartDocument.Assets
+
+        Dim oAsset As Asset
+        Dim strAssetName As String = "直径" & Strings.Replace(strColorName, "displayLbl", "")
+
+        Try
+            oAsset = oInventorPartDocument.Assets(strAssetName)
+        Catch
+            oAsset = oInventorPartDocument.Assets.Add(AssetTypeEnum.kAssetTypeAppearance, "Metal", strAssetName, strAssetName)
+            Dim BooleanAssetValue As BooleanAssetValue = oAsset.Item("common_Tint_toggle")
+            BooleanAssetValue.Value = True
+            Dim oColor As ColorAssetValue = oAsset.Item("common_Tint_color")
+            oColor.Value = oUserColor
+        End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' 将16进制颜色字符串转换为color对象
+    ''' </summary>
+    ''' <param name="hexColor">16进制颜色字符串</param>
+    ''' <returns>Drawing.Color对象</returns>
+    Public Function HexToColor(hexColor As String) As Drawing.Color
+        If hexColor.StartsWith("#") Then
+            hexColor = hexColor.Substring(1)
+        End If
+
+        If hexColor.Length = 6 Then
+            Dim r As Integer = Convert.ToInt32(hexColor.Substring(0, 2), 16)
+            Dim g As Integer = Convert.ToInt32(hexColor.Substring(2, 2), 16)
+            Dim b As Integer = Convert.ToInt32(hexColor.Substring(4, 2), 16)
+            Return Drawing.Color.FromArgb(r, g, b)
+        Else
+            Return Drawing.Color.White
+        End If
+    End Function
+
+    ''' <summary>
+    ''' 将Drawing.Color对象转换为16进制字符串
+    ''' </summary>
+    ''' <param name="color"></param>
+    ''' <returns>16进制字符串</returns>
+    Public Function ColorToHex(color As Drawing.Color) As String
+        Return "#" & color.R.ToString("X2") & color.G.ToString("X2") & color.B.ToString("X2")
+    End Function
 End Module

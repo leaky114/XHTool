@@ -351,7 +351,7 @@ Public Class FormBatchPrint
     Private Sub LoadBOMSub(ByVal oBOMRows As BOMRowsEnumerator, ByVal olistiview As ListView)
 
         For Each oBOMRow As BOMRow In oBOMRows
-            Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.FullFileName
+            Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.File.FullFileName
 
             '测试文件
             Debug.Print(strDocumentFullFileName)
@@ -403,8 +403,8 @@ Public Class FormBatchPrint
             For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
                 If oInventorDocument.DocumentType = DocumentTypeEnum.kDrawingDocumentObject Then
 
-                    If IsItemInListView(lvw文件列表, oInventorDocument.FullDocumentName) = False Then
-                        lvw文件列表.Items.Add(oInventorDocument.FullDocumentName)
+                    If IsItemInListView(lvw文件列表, oInventorDocument.File.FullFileName) = False Then
+                        lvw文件列表.Items.Add(oInventorDocument.File.FullFileName)
                     End If
 
                 End If
@@ -517,6 +517,12 @@ Public Class FormBatchPrint
 
         If oInventorDocument.DocumentType <> kAssemblyDocumentObject Then
             MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
+
+        If oInventorDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+            MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 

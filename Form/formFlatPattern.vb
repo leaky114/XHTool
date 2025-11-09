@@ -498,7 +498,7 @@ Public Class FormFlatPattern
             txt图号.Text = oFlatInfo.Number
             txt文件名.Text = oFlatInfo.FileName
             txt材质.Text = oFlatInfo.Metial
-            txt位置.Text = oInventorPartDocument.FullDocumentName
+            txt位置.Text = oInventorPartDocument.File.FullFileName
 
             intViewOrientation = kFrontViewOrientation
 
@@ -535,7 +535,7 @@ Public Class FormFlatPattern
         txt图号.Text = oFlatInfo.Number
         txt文件名.Text = oFlatInfo.FileName
         txt材质.Text = oFlatInfo.Metial
-        txt位置.Text = oInventorPartDocument.FullDocumentName
+        txt位置.Text = oInventorPartDocument.File.FullFileName
 
         intViewOrientation = kFrontViewOrientation
 
@@ -583,7 +583,7 @@ Public Class FormFlatPattern
         Dim tempFile As String = IO.Path.GetTempFileName()
         tempFile = IO.Path.ChangeExtension(tempFile, ".jpg")
 
-        ThisApplication.Documents.Open(oInventorDocument.FullDocumentName, False)
+        ThisApplication.Documents.Open(oInventorDocument.File.FullFileName, False)
 
         Dim oCamera As Camera
 
@@ -638,14 +638,25 @@ Public Class FormFlatPattern
     End Sub
 
     Private Sub btn选择当前零件_Click(sender As Object, e As EventArgs) Handles btn选择当前零件.Click
+        Dim oInventorPartDocument As Inventor.PartDocument = Nothing
 
-        If ThisApplication.ActiveDocumentType <> kPartDocumentObject Then
-            MessageBox.Show(”请切换到零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End If
+        Dim oInventorDrawingDocument As Inventor.DrawingDocument
 
-        Dim oInventorPartDocument As Inventor.PartDocument
-        oInventorPartDocument = ThisApplication.ActiveDocument
+
+        Select Case ThisApplication.ActiveDocumentType
+            Case DocumentTypeEnum.kAssemblyDocumentObject
+                MessageBox.Show(”请切换到零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            Case DocumentTypeEnum.kDrawingDocumentObject
+                oInventorDrawingDocument = ThisApplication.ActiveDocument
+
+                oInventorPartDocument = oInventorDrawingDocument.ReferencedDocumentDescriptors.Item(1).ReferencedDocument
+
+
+            Case DocumentTypeEnum.kPartDocumentObject
+                oInventorPartDocument = ThisApplication.ActiveDocument
+
+        End Select
 
         CreateFlat(oInventorPartDocument)
 
@@ -655,8 +666,11 @@ Public Class FormFlatPattern
         txt图号.Text = oFlatInfo.Number
         txt文件名.Text = oFlatInfo.FileName
         txt材质.Text = oFlatInfo.Metial
-        txt位置.Text = oInventorPartDocument.FullDocumentName
+        txt位置.Text = oInventorPartDocument.File.FullFileName
 
         intViewOrientation = kFrontViewOrientation
+
+
+
     End Sub
 End Class

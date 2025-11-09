@@ -332,7 +332,7 @@ Module excelcode
         Dim row As Integer = 2
         For Each compDef As ComponentDefinition In container.ComponentDefinition.Occurrences
             '获取文件名和数量
-            Dim fileName As String = compDef.Document.FullFileName
+            Dim fileName As String = compDef.Document.File.FullFileName
             Dim quantity As Integer = compDef.Quantity
 
             '将数据写入工作表

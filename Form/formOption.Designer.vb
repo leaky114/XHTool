@@ -36,6 +36,13 @@ Partial Class FormOption
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage其他 = New System.Windows.Forms.TabPage()
+        Me.GroupBox激活样式表标准 = New System.Windows.Forms.GroupBox()
+        Me.txt样式表标准名 = New System.Windows.Forms.TextBox()
+        Me.lbl样式表标准名 = New System.Windows.Forms.Label()
+        Me.GroupBox资源管理器 = New System.Windows.Forms.GroupBox()
+        Me.txt资源管理器快捷键 = New System.Windows.Forms.TextBox()
+        Me.chk启动显示资源管理器窗口 = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox自动保存 = New System.Windows.Forms.GroupBox()
         Me.cmb时间间隔 = New System.Windows.Forms.ComboBox()
         Me.chk启用自动保存 = New System.Windows.Forms.CheckBox()
@@ -183,8 +190,12 @@ Partial Class FormOption
         Me.lbl图号 = New System.Windows.Forms.Label()
         Me.cmb图号 = New System.Windows.Forms.ComboBox()
         Me.TabControl = New System.Windows.Forms.TabControl()
+        Me.lbl视觉样式 = New System.Windows.Forms.Label()
+        Me.cmb视觉样式 = New System.Windows.Forms.ComboBox()
         Me.ContextMenuStrip配置文件.SuspendLayout()
         Me.TabPage其他.SuspendLayout()
+        Me.GroupBox激活样式表标准.SuspendLayout()
+        Me.GroupBox资源管理器.SuspendLayout()
         Me.GroupBox自动保存.SuspendLayout()
         Me.GroupBox截图.SuspendLayout()
         Me.TabPage展开图.SuspendLayout()
@@ -297,6 +308,8 @@ Partial Class FormOption
         '
         'TabPage其他
         '
+        Me.TabPage其他.Controls.Add(Me.GroupBox激活样式表标准)
+        Me.TabPage其他.Controls.Add(Me.GroupBox资源管理器)
         Me.TabPage其他.Controls.Add(Me.GroupBox自动保存)
         Me.TabPage其他.Controls.Add(Me.GroupBox截图)
         Me.TabPage其他.Controls.Add(Me.lvw设置图标大小)
@@ -307,6 +320,73 @@ Partial Class FormOption
         Me.TabPage其他.Text = "其他"
         Me.TabPage其他.UseVisualStyleBackColor = True
         '
+        'GroupBox激活样式表标准
+        '
+        Me.GroupBox激活样式表标准.Controls.Add(Me.txt样式表标准名)
+        Me.GroupBox激活样式表标准.Controls.Add(Me.lbl样式表标准名)
+        Me.GroupBox激活样式表标准.Location = New System.Drawing.Point(425, 131)
+        Me.GroupBox激活样式表标准.Name = "GroupBox激活样式表标准"
+        Me.GroupBox激活样式表标准.Size = New System.Drawing.Size(176, 61)
+        Me.GroupBox激活样式表标准.TabIndex = 37
+        Me.GroupBox激活样式表标准.TabStop = False
+        Me.GroupBox激活样式表标准.Text = "激活样式表标准"
+        '
+        'txt样式表标准名
+        '
+        Me.txt样式表标准名.Location = New System.Drawing.Point(65, 23)
+        Me.txt样式表标准名.Name = "txt样式表标准名"
+        Me.txt样式表标准名.Size = New System.Drawing.Size(105, 21)
+        Me.txt样式表标准名.TabIndex = 10
+        '
+        'lbl样式表标准名
+        '
+        Me.lbl样式表标准名.AutoSize = True
+        Me.lbl样式表标准名.Location = New System.Drawing.Point(6, 27)
+        Me.lbl样式表标准名.Name = "lbl样式表标准名"
+        Me.lbl样式表标准名.Size = New System.Drawing.Size(53, 12)
+        Me.lbl样式表标准名.TabIndex = 9
+        Me.lbl样式表标准名.Text = "标准名："
+        '
+        'GroupBox资源管理器
+        '
+        Me.GroupBox资源管理器.Controls.Add(Me.txt资源管理器快捷键)
+        Me.GroupBox资源管理器.Controls.Add(Me.chk启动显示资源管理器窗口)
+        Me.GroupBox资源管理器.Controls.Add(Me.Label3)
+        Me.GroupBox资源管理器.Location = New System.Drawing.Point(429, 9)
+        Me.GroupBox资源管理器.Name = "GroupBox资源管理器"
+        Me.GroupBox资源管理器.Size = New System.Drawing.Size(172, 85)
+        Me.GroupBox资源管理器.TabIndex = 36
+        Me.GroupBox资源管理器.TabStop = False
+        Me.GroupBox资源管理器.Text = "资源管理器"
+        '
+        'txt资源管理器快捷键
+        '
+        Me.txt资源管理器快捷键.Location = New System.Drawing.Point(64, 49)
+        Me.txt资源管理器快捷键.Name = "txt资源管理器快捷键"
+        Me.txt资源管理器快捷键.Size = New System.Drawing.Size(66, 21)
+        Me.txt资源管理器快捷键.TabIndex = 1
+        Me.txt资源管理器快捷键.Visible = False
+        '
+        'chk启动显示资源管理器窗口
+        '
+        Me.chk启动显示资源管理器窗口.AutoSize = True
+        Me.chk启动显示资源管理器窗口.Location = New System.Drawing.Point(8, 21)
+        Me.chk启动显示资源管理器窗口.Name = "chk启动显示资源管理器窗口"
+        Me.chk启动显示资源管理器窗口.Size = New System.Drawing.Size(156, 16)
+        Me.chk启动显示资源管理器窗口.TabIndex = 35
+        Me.chk启动显示资源管理器窗口.Text = "启动显示资源管理器窗口"
+        Me.chk启动显示资源管理器窗口.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(6, 53)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(53, 12)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "快捷键："
+        Me.Label3.Visible = False
+        '
         'GroupBox自动保存
         '
         Me.GroupBox自动保存.Controls.Add(Me.cmb时间间隔)
@@ -316,7 +396,7 @@ Partial Class FormOption
         Me.GroupBox自动保存.Controls.Add(Me.cmb保存文档)
         Me.GroupBox自动保存.Location = New System.Drawing.Point(244, 9)
         Me.GroupBox自动保存.Name = "GroupBox自动保存"
-        Me.GroupBox自动保存.Size = New System.Drawing.Size(176, 103)
+        Me.GroupBox自动保存.Size = New System.Drawing.Size(176, 110)
         Me.GroupBox自动保存.TabIndex = 34
         Me.GroupBox自动保存.TabStop = False
         Me.GroupBox自动保存.Text = "自动保存"
@@ -325,7 +405,7 @@ Partial Class FormOption
         '
         Me.cmb时间间隔.FormattingEnabled = True
         Me.cmb时间间隔.Items.AddRange(New Object() {"10", "120", "20", "30", "40", "50", "60", "90"})
-        Me.cmb时间间隔.Location = New System.Drawing.Point(33, 74)
+        Me.cmb时间间隔.Location = New System.Drawing.Point(33, 79)
         Me.cmb时间间隔.Name = "cmb时间间隔"
         Me.cmb时间间隔.Size = New System.Drawing.Size(66, 20)
         Me.cmb时间间隔.TabIndex = 28
@@ -344,7 +424,7 @@ Partial Class FormOption
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 78)
+        Me.Label2.Location = New System.Drawing.Point(10, 83)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(143, 12)
         Me.Label2.TabIndex = 26
@@ -353,7 +433,7 @@ Partial Class FormOption
         'lbl保存文档
         '
         Me.lbl保存文档.AutoSize = True
-        Me.lbl保存文档.Location = New System.Drawing.Point(10, 47)
+        Me.lbl保存文档.Location = New System.Drawing.Point(10, 53)
         Me.lbl保存文档.Name = "lbl保存文档"
         Me.lbl保存文档.Size = New System.Drawing.Size(41, 12)
         Me.lbl保存文档.TabIndex = 23
@@ -364,20 +444,22 @@ Partial Class FormOption
         Me.cmb保存文档.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmb保存文档.FormattingEnabled = True
         Me.cmb保存文档.Items.AddRange(New Object() {"当前文档", "所有可见的文档", "所有打开的文档"})
-        Me.cmb保存文档.Location = New System.Drawing.Point(53, 43)
+        Me.cmb保存文档.Location = New System.Drawing.Point(53, 49)
         Me.cmb保存文档.Name = "cmb保存文档"
         Me.cmb保存文档.Size = New System.Drawing.Size(112, 20)
         Me.cmb保存文档.TabIndex = 24
         '
         'GroupBox截图
         '
+        Me.GroupBox截图.Controls.Add(Me.lbl视觉样式)
+        Me.GroupBox截图.Controls.Add(Me.cmb视觉样式)
         Me.GroupBox截图.Controls.Add(Me.txt高度)
         Me.GroupBox截图.Controls.Add(Me.txt宽度)
         Me.GroupBox截图.Controls.Add(Me.lbl高度)
         Me.GroupBox截图.Controls.Add(Me.lbl宽度)
-        Me.GroupBox截图.Location = New System.Drawing.Point(244, 118)
+        Me.GroupBox截图.Location = New System.Drawing.Point(244, 125)
         Me.GroupBox截图.Name = "GroupBox截图"
-        Me.GroupBox截图.Size = New System.Drawing.Size(128, 85)
+        Me.GroupBox截图.Size = New System.Drawing.Size(176, 167)
         Me.GroupBox截图.TabIndex = 33
         Me.GroupBox截图.TabStop = False
         Me.GroupBox截图.Text = "截图"
@@ -386,14 +468,14 @@ Partial Class FormOption
         '
         Me.txt高度.Location = New System.Drawing.Point(47, 55)
         Me.txt高度.Name = "txt高度"
-        Me.txt高度.Size = New System.Drawing.Size(66, 21)
+        Me.txt高度.Size = New System.Drawing.Size(75, 21)
         Me.txt高度.TabIndex = 1
         '
         'txt宽度
         '
         Me.txt宽度.Location = New System.Drawing.Point(47, 22)
         Me.txt宽度.Name = "txt宽度"
-        Me.txt宽度.Size = New System.Drawing.Size(66, 21)
+        Me.txt宽度.Size = New System.Drawing.Size(75, 21)
         Me.txt宽度.TabIndex = 0
         '
         'lbl高度
@@ -1801,6 +1883,25 @@ Partial Class FormOption
         Me.TabControl.Size = New System.Drawing.Size(624, 325)
         Me.TabControl.TabIndex = 0
         '
+        'lbl视觉样式
+        '
+        Me.lbl视觉样式.AutoSize = True
+        Me.lbl视觉样式.Location = New System.Drawing.Point(4, 90)
+        Me.lbl视觉样式.Name = "lbl视觉样式"
+        Me.lbl视觉样式.Size = New System.Drawing.Size(41, 12)
+        Me.lbl视觉样式.TabIndex = 25
+        Me.lbl视觉样式.Text = "样式："
+        '
+        'cmb视觉样式
+        '
+        Me.cmb视觉样式.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmb视觉样式.FormattingEnabled = True
+        Me.cmb视觉样式.Items.AddRange(New Object() {"默认", "真实着色", "着色", "带边着色", "带隐藏边的着色", "线框", "带隐藏边的线框", "仅带可见边的线框", "灰度", "水彩色", "草图插图", "技术插图"})
+        Me.cmb视觉样式.Location = New System.Drawing.Point(47, 86)
+        Me.cmb视觉样式.Name = "cmb视觉样式"
+        Me.cmb视觉样式.Size = New System.Drawing.Size(106, 20)
+        Me.cmb视觉样式.TabIndex = 26
+        '
         'FormOption
         '
         Me.AcceptButton = Me.btn确定
@@ -1820,6 +1921,10 @@ Partial Class FormOption
         Me.Text = "应用程序选项"
         Me.ContextMenuStrip配置文件.ResumeLayout(False)
         Me.TabPage其他.ResumeLayout(False)
+        Me.GroupBox激活样式表标准.ResumeLayout(False)
+        Me.GroupBox激活样式表标准.PerformLayout()
+        Me.GroupBox资源管理器.ResumeLayout(False)
+        Me.GroupBox资源管理器.PerformLayout()
         Me.GroupBox自动保存.ResumeLayout(False)
         Me.GroupBox自动保存.PerformLayout()
         Me.GroupBox截图.ResumeLayout(False)
@@ -2029,4 +2134,13 @@ Partial Class FormOption
     Friend WithEvents TabControl As TabControl
     Friend WithEvents cmb连接符 As ComboBox
     Friend WithEvents lbl连接符 As Label
+    Friend WithEvents chk启动显示资源管理器窗口 As CheckBox
+    Friend WithEvents GroupBox资源管理器 As GroupBox
+    Friend WithEvents txt资源管理器快捷键 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents GroupBox激活样式表标准 As GroupBox
+    Friend WithEvents lbl样式表标准名 As Label
+    Friend WithEvents txt样式表标准名 As TextBox
+    Friend WithEvents lbl视觉样式 As Label
+    Friend WithEvents cmb视觉样式 As ComboBox
 End Class

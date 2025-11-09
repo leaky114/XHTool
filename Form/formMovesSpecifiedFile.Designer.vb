@@ -36,6 +36,7 @@ Partial Class FormMovesSpecifiedFile
         Me.ColumnHeader目标文件 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader方法 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.ColumnHeader当前文件夹 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ToolStrip文档格式.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,7 +48,7 @@ Partial Class FormMovesSpecifiedFile
         Me.ToolStrip文档格式.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.筛选ToolStripTextBox, Me.筛选ToolStripButton, Me.全部选择ToolStripButton, Me.全部取消ToolStripButton, Me.反向选择ToolStripButton, Me.应用ToolStripButton})
         Me.ToolStrip文档格式.Location = New System.Drawing.Point(12, 395)
         Me.ToolStrip文档格式.Name = "ToolStrip文档格式"
-        Me.ToolStrip文档格式.Size = New System.Drawing.Size(457, 40)
+        Me.ToolStrip文档格式.Size = New System.Drawing.Size(488, 40)
         Me.ToolStrip文档格式.TabIndex = 39
         Me.ToolStrip文档格式.Text = "ToolStrip1"
         '
@@ -116,7 +117,7 @@ Partial Class FormMovesSpecifiedFile
         Me.Lvw文件列表.AutoArrange = False
         Me.Lvw文件列表.BackColor = System.Drawing.SystemColors.Window
         Me.Lvw文件列表.CheckBoxes = True
-        Me.Lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader当前文件, Me.ColumnHeader目标文件, Me.ColumnHeader方法})
+        Me.Lvw文件列表.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader当前文件, Me.ColumnHeader当前文件夹, Me.ColumnHeader目标文件, Me.ColumnHeader方法})
         Me.Lvw文件列表.FullRowSelect = True
         Me.Lvw文件列表.GridLines = True
         Me.Lvw文件列表.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -124,7 +125,7 @@ Partial Class FormMovesSpecifiedFile
         Me.Lvw文件列表.Location = New System.Drawing.Point(12, 12)
         Me.Lvw文件列表.MultiSelect = False
         Me.Lvw文件列表.Name = "Lvw文件列表"
-        Me.Lvw文件列表.Size = New System.Drawing.Size(734, 380)
+        Me.Lvw文件列表.Size = New System.Drawing.Size(734, 370)
         Me.Lvw文件列表.SmallImageList = Me.ImageList1
         Me.Lvw文件列表.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.Lvw文件列表.TabIndex = 46
@@ -135,12 +136,12 @@ Partial Class FormMovesSpecifiedFile
         'ColumnHeader当前文件
         '
         Me.ColumnHeader当前文件.Text = "当前文件"
-        Me.ColumnHeader当前文件.Width = 353
+        Me.ColumnHeader当前文件.Width = 300
         '
         'ColumnHeader目标文件
         '
         Me.ColumnHeader目标文件.Text = "目标文件"
-        Me.ColumnHeader目标文件.Width = 322
+        Me.ColumnHeader目标文件.Width = 300
         '
         'ColumnHeader方法
         '
@@ -153,6 +154,11 @@ Partial Class FormMovesSpecifiedFile
         Me.ImageList1.Images.SetKeyName(0, "部件16.ico")
         Me.ImageList1.Images.SetKeyName(1, "零件16.ico")
         Me.ImageList1.Images.SetKeyName(2, "工程图16.ico")
+        '
+        'ColumnHeader当前文件夹
+        '
+        Me.ColumnHeader当前文件夹.Text = "当前文件夹"
+        Me.ColumnHeader当前文件夹.Width = 250
         '
         'FormMovesSpecifiedFile
         '
@@ -183,4 +189,5 @@ Partial Class FormMovesSpecifiedFile
     Friend WithEvents 全部取消ToolStripButton As Windows.Forms.ToolStripButton
     Friend WithEvents 反向选择ToolStripButton As Windows.Forms.ToolStripButton
     Friend WithEvents ColumnHeader方法 As Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader当前文件夹 As ColumnHeader
 End Class

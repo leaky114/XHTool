@@ -222,6 +222,38 @@ Public Class FormOption
             m_timer.Stop()
         End If
 
+        str显示资源浏览器窗口 = IIf(chk启动显示资源管理器窗口.CheckState, "1", "-1")
+
+        str样式表标准名 = txt样式表标准名.Text
+
+
+        Select Case cmb视觉样式.Text
+            Case "默认"
+                int截图视觉样式 = 8888
+            Case "真实着色"
+                int截图视觉样式 = DisplayModeEnum.kRealisticRendering
+            Case "着色"
+                int截图视觉样式 = DisplayModeEnum.kShadedRendering
+            Case “带边着色"
+                int截图视觉样式 = DisplayModeEnum.kShadedWithEdgesRendering
+            Case "带隐藏边的着色"
+                int截图视觉样式 = DisplayModeEnum.kShadedWithHiddenEdgesRendering
+            Case "线框"
+                int截图视觉样式 = DisplayModeEnum.kWireframeRendering
+            Case  "带隐藏边的线框"
+                int截图视觉样式 = DisplayModeEnum.kWireframeNoHiddenEdges
+            Case  "仅带可见边的线框"
+                int截图视觉样式 = DisplayModeEnum.kWireframeWithHiddenEdgesRendering
+            Case "灰度"
+                int截图视觉样式 = DisplayModeEnum.kMonochromeRendering
+            Case "水彩色"
+                int截图视觉样式 = DisplayModeEnum.kWatercolorRendering
+            Case "草图插图"
+                int截图视觉样式 = DisplayModeEnum.kIllustrationRendering
+            Case "技术插图"
+                int截图视觉样式 = DisplayModeEnum.kTechnicalIllustrationRendering
+        End Select
+
         WrIni.InAISettingIniWriteSetting()
 
 
@@ -489,6 +521,43 @@ Public Class FormOption
 
         cmb时间间隔.Text = str保存间隔时间
 
+        chk启动显示资源管理器窗口.Checked = IIf(str显示资源浏览器窗口 = “1”, True, False)
+
+        Dim obutton As ButtonDefinition
+        obutton = ThisApplication.CommandManager.ControlDefinitions.Item("XHToolInName切换文档")
+        txt资源管理器快捷键.Text = obutton.DefaultShortcut
+
+
+        '读取样式表标准
+        txt样式表标准名.Text = str样式表标准名
+
+
+        Select Case int截图视觉样式
+            Case "8888"
+                cmb视觉样式.Text = "默认"
+            Case DisplayModeEnum.kRealisticRendering
+                cmb视觉样式.Text = "真实着色"
+            Case DisplayModeEnum.kShadedRendering
+                cmb视觉样式.Text = "着色"
+            Case DisplayModeEnum.kShadedWithEdgesRendering
+                cmb视觉样式.Text = “带边着色"
+            Case DisplayModeEnum.kShadedWithHiddenEdgesRendering
+                cmb视觉样式.Text = "带隐藏边的着色"
+            Case DisplayModeEnum.kWireframeRendering
+                cmb视觉样式.Text = "线框"
+            Case DisplayModeEnum.kWireframeNoHiddenEdges
+                cmb视觉样式.Text = "带隐藏边的线框"
+            Case DisplayModeEnum.kWireframeWithHiddenEdgesRendering
+                cmb视觉样式.Text = "仅带可见边的线框"
+            Case DisplayModeEnum.kMonochromeRendering
+                cmb视觉样式.Text = "灰度"
+            Case DisplayModeEnum.kWatercolorRendering
+                cmb视觉样式.Text = "水彩色"
+            Case DisplayModeEnum.kIllustrationRendering
+                cmb视觉样式.Text = "草图插图"
+            Case DisplayModeEnum.kTechnicalIllustrationRendering
+                cmb视觉样式.Text = "技术插图"
+        End Select
 
 
         '==================================================================
@@ -506,7 +575,7 @@ Public Class FormOption
         toolTip.SetToolTip(chk逆时针序号, "按逆时针自动重建序号")
         toolTip.SetToolTip(NUD查找文件夹层数, "设置查找文件时，向上父文件夹的层数")
         toolTip.SetToolTip(chk检查重复图号, "重命名文件时，在当前项目文件夹下，检查图号是否重复")
-        toolTip.SetToolTip(lbl去除后缀, "提取文件名时，去除后缀，用‘,’分割")
+        toolTip.SetToolTip(lbl去除后缀, "提取文件名时，去除后缀，用',’分割")
         toolTip.SetToolTip(lbl标记孔径上限, "标记螺纹的最大值，保留2位小数")
         toolTip.SetToolTip(chk钣金厚度检查, "打开零件为钣金时，检查钣金厚度值与材料厚度是否一致，在列表中添加材质")
         toolTip.SetToolTip(lvw设置图标大小, "双击列表行切换图标大小")

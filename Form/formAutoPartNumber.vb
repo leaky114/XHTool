@@ -545,7 +545,7 @@ Public Class FormAutoPartNumber
 
         Dim strInventorAssemblyFullFileName As String
 
-        strInventorAssemblyFullFileName = oInventorAssemblyDocument.FullFileName
+        strInventorAssemblyFullFileName = oInventorAssemblyDocument.File.FullFileName
 
         'Dim oStockNumPartName As StockNumPartName
         'oStockNumPartName = GetStockNumPartName(strInventorAssemblyFullFileName)
@@ -565,7 +565,7 @@ Public Class FormAutoPartNumber
             '基于bom结构化数据，可跳过参考的文件
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
                 For Each oBOMRow As BOMRow In oBOMView.BOMRows
-                    Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.FullFileName
+                    Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.File.FullFileName
                     '测试文件
                     Debug.Print(strDocumentFullFileName)
 

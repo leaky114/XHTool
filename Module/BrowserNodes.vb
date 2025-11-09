@@ -13,7 +13,7 @@ Module BrowserNodes
         oInventorDrawingDocument = ThisApplication.ActiveEditDocument
 
         Dim strOldInventorDocumentFullName As String
-        strOldInventorDocumentFullName = oInventorDrawingDocument.AllReferencedDocuments(1).FullDocumentName
+        strOldInventorDocumentFullName = oInventorDrawingDocument.AllReferencedDocuments(1).File.FullFileName
 
         If GetFileExtensionLCase(strOldInventorDocumentFullName) <> IAM Then
             MessageBox.Show("不支持非部件工程图。"， XHTool， MessageBoxButtons.OK， MessageBoxIcon.Error)

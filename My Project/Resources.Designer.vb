@@ -1843,6 +1843,26 @@ Namespace My.Resources
         '''<summary>
         '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         '''</summary>
+        Friend ReadOnly Property 样式表16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("样式表16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 样式表32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("样式表32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
         Friend ReadOnly Property 格式分类16() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("格式分类16", resourceCulture)
@@ -2076,6 +2096,26 @@ Namespace My.Resources
         Friend ReadOnly Property 生成图号32() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("生成图号32", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 硬盘16() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("硬盘16", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        '''</summary>
+        Friend ReadOnly Property 硬盘32() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("硬盘32", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property

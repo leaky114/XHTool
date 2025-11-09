@@ -90,7 +90,7 @@ Public Class FormBatchChangeFileNames
 
             'InventorDoc = ThisApplication.Documents.ItemByName(OldFullFileName)
 
-            strOldFullFileName = oInventorDocument.FullDocumentName
+            strOldFullFileName = oInventorDocument.File.FullFileName
 
             If IsFileExists(strOldFullFileName) = False Then   '跳过不存在的文件
                 Continue For
@@ -100,11 +100,11 @@ Public Class FormBatchChangeFileNames
                 Continue For
             End If
 
-            strOldFileName = GetFileNameInfo(strOldFullFileName).FileName
+            strOldFileName = GetFileNameWithExtension(strOldFullFileName)
 
             strNewFileName = GetNewFileNameByReplacePrefixSuffix(strOldFileName, strSearch, strReplace, strPrefix, strSuffix)
 
-            strNewFullFileName = IO.Path.Combine(GetFileNameInfo(strOldFullFileName).Folder, strNewFileName)
+            strNewFullFileName = IO.Path.Combine(GetDirectoryName2(strOldFullFileName), strNewFileName)
 
 
             If strOldFileName = strNewFileName Then
@@ -116,7 +116,12 @@ Public Class FormBatchChangeFileNames
             OldInventorDocument = ThisApplication.Documents.Open(strOldFullFileName, False)
 
             '另存为新文件
-            OldInventorDocument.SaveAs(strNewFullFileName, False)
+            If IsFileExists(strNewFullFileName) = True Then
+
+            Else
+                OldInventorDocument.SaveAs(strNewFullFileName, False)
+            End If
+
 
             '关闭旧图
             OldInventorDocument.Close()
@@ -159,17 +164,17 @@ Public Class FormBatchChangeFileNames
                 oInventorDocument.Save2()
                 oInventorDocument.Close()
 
-                If IsSaveAsOld = True Then  '暂时更改旧工程图文件的名字存档
+                If IsSaveAsOld = True And GetFileReadOnly(oOldIdwFullFileName) = False Then  '暂时更改旧工程图文件的名字存档
                     AddOldExtension(oOldIdwFullFileName)
                 End If
             End If
 
-            If IsSaveAsOld = True Then
-                    AddOldExtension(strOldFullFileName)
-                End If
+            If IsSaveAsOld = True And GetFileReadOnly(strOldFullFileName) = False Then
+                AddOldExtension(strOldFullFileName)
+            End If
 
-                '是部件的遍历新文件的子集
-                oNewInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)
+            '是部件的遍历新文件的子集
+            oNewInventorDocument = ThisApplication.Documents.Open(strNewFullFileName, False)
                 If oNewInventorDocument.DocumentType = kAssemblyDocumentObject Then
                     ReplaceNameInAsmSub(oNewInventorDocument, strSearch, strReplace, strPrefix, strSuffix, IsSaveAsOld)
                 End If

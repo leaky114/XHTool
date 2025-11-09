@@ -109,7 +109,7 @@ Public Class FormImportCodeToIam
         'oProgressBar = ThisApplication.CreateProgressBar(False, iStepCount, "当前文件： ")
 
         For Each oBOMRow As BOMRow In oBOMRows
-            Dim strInventorDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.FullFileName
+            Dim strInventorDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.File.FullFileName
 
             '测试文件
             Debug.Print(strInventorDocumentFullFileName)

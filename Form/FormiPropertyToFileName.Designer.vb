@@ -39,6 +39,8 @@ Partial Class FormiPropertyToFileName
         Me.txt图号 = New System.Windows.Forms.TextBox()
         Me.lbl图号 = New System.Windows.Forms.Label()
         Me.加载BOM = New System.Windows.Forms.Button()
+        Me.cmb连接符 = New System.Windows.Forms.ComboBox()
+        Me.lbl连接符 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lvw文件列表
@@ -98,7 +100,7 @@ Partial Class FormiPropertyToFileName
         'btn确定新文件名
         '
         Me.btn确定新文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btn确定新文件名.Location = New System.Drawing.Point(445, 398)
+        Me.btn确定新文件名.Location = New System.Drawing.Point(501, 398)
         Me.btn确定新文件名.Name = "btn确定新文件名"
         Me.btn确定新文件名.Size = New System.Drawing.Size(26, 26)
         Me.btn确定新文件名.TabIndex = 30
@@ -159,7 +161,7 @@ Partial Class FormiPropertyToFileName
         Me.txt文件名.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txt文件名.Location = New System.Drawing.Point(323, 401)
         Me.txt文件名.Name = "txt文件名"
-        Me.txt文件名.Size = New System.Drawing.Size(116, 21)
+        Me.txt文件名.Size = New System.Drawing.Size(168, 21)
         Me.txt文件名.TabIndex = 42
         '
         'txt图号
@@ -191,11 +193,33 @@ Partial Class FormiPropertyToFileName
         Me.加载BOM.Text = "加载BOM"
         Me.加载BOM.UseVisualStyleBackColor = True
         '
+        'cmb连接符
+        '
+        Me.cmb连接符.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmb连接符.FormattingEnabled = True
+        Me.cmb连接符.Items.AddRange(New Object() {"无", "空格", "短横线-", "下划线_"})
+        Me.cmb连接符.Location = New System.Drawing.Point(592, 401)
+        Me.cmb连接符.Name = "cmb连接符"
+        Me.cmb连接符.Size = New System.Drawing.Size(78, 20)
+        Me.cmb连接符.TabIndex = 45
+        '
+        'lbl连接符
+        '
+        Me.lbl连接符.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lbl连接符.AutoSize = True
+        Me.lbl连接符.Location = New System.Drawing.Point(545, 405)
+        Me.lbl连接符.Name = "lbl连接符"
+        Me.lbl连接符.Size = New System.Drawing.Size(41, 12)
+        Me.lbl连接符.TabIndex = 44
+        Me.lbl连接符.Text = "连接符"
+        '
         'FormiPropertyToFileName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(828, 471)
+        Me.Controls.Add(Me.cmb连接符)
+        Me.Controls.Add(Me.lbl连接符)
         Me.Controls.Add(Me.加载BOM)
         Me.Controls.Add(Me.lbl名称)
         Me.Controls.Add(Me.btn交换)
@@ -233,4 +257,6 @@ Partial Class FormiPropertyToFileName
     Friend WithEvents 加载BOM As New System.Windows.Forms.Button
     Friend WithEvents txt文件名 As Windows.Forms.TextBox
     Friend WithEvents txt图号 As Windows.Forms.TextBox
+    Friend WithEvents cmb连接符 As ComboBox
+    Friend WithEvents lbl连接符 As Label
 End Class

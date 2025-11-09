@@ -85,7 +85,7 @@ Public Class FormSwitchLables
         For i As Integer = 0 To int图框控件上限
 
             Dim strfilename As String
-            strfilename = ThisApplication.Documents.VisibleDocuments.Item(i + 1).FullDocumentName
+            strfilename = ThisApplication.Documents.VisibleDocuments.Item(i + 1).File.FullFileName
 
             If strfilename = Nothing Then
                 strfilename = ThisApplication.Documents.VisibleDocuments.Item(i + 1).DisplayName
@@ -202,7 +202,22 @@ Public Class FormSwitchLables
 
         strSelectFileFullName = oSelectedPictureBox.Name()
 
-        ThisApplication.Documents.ItemByName(strSelectFileFullName).Activate()
+        For Each oDocument As Document In ThisApplication.Documents.VisibleDocuments
+            If IsFileExists(oDocument.FullFileName) = True Then
+
+                If oDocument.File.FullFileName = strSelectFileFullName Then
+                    oDocument.Activate()
+                    Exit For
+                End If
+            Else
+                If oDocument.DisplayName = strSelectFileFullName Then
+                    oDocument.Activate()
+                    Exit For
+                End If
+
+            End If
+        Next
+
 
         FormManager.CloseAndDisposeForm(Of formSwitchLables)()
 
@@ -360,7 +375,7 @@ Public Class FormSwitchLables
             Exit Sub
         End If
 
-        If ThisApplication.ActiveDocument.FullDocumentName = strSelectFileFullName Then
+        If ThisApplication.ActiveDocument.File.FullFileName = strSelectFileFullName Then
             Exit Sub
         End If
 

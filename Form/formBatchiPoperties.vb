@@ -289,7 +289,7 @@ Public Class formBatchiPoperties
     Private Sub Btn导入已打开文件_Click(sender As Object, e As EventArgs) Handles btn导入已打开文件.Click
         Dim strInventorDocumentFullFileName As String
         For Each oInventorDocument As Inventor.Document In ThisApplication.Documents.VisibleDocuments
-            strInventorDocumentFullFileName = oInventorDocument.FullFileName
+            strInventorDocumentFullFileName = oInventorDocument.File.FullFileName
             If strInventorDocumentFullFileName = "" Then
                 Continue For
             End If

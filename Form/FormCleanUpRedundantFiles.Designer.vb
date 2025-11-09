@@ -34,6 +34,9 @@ Partial Class FormCleanUpRedundantFiles
         Me.清理ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.全选清理项ToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.查询ToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.chkiam = New System.Windows.Forms.CheckBox()
+        Me.chkipt = New System.Windows.Forms.CheckBox()
+        Me.chkidw = New System.Windows.Forms.CheckBox()
         Me.工具栏ToolStrip.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -124,11 +127,47 @@ Partial Class FormCleanUpRedundantFiles
         Me.查询ToolStripButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.查询ToolStripButton.ToolTipText = "查询冗余文件"
         '
+        'chkiam
+        '
+        Me.chkiam.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkiam.AutoSize = True
+        Me.chkiam.Location = New System.Drawing.Point(12, 405)
+        Me.chkiam.Name = "chkiam"
+        Me.chkiam.Size = New System.Drawing.Size(48, 16)
+        Me.chkiam.TabIndex = 44
+        Me.chkiam.Text = ".iam"
+        Me.chkiam.UseVisualStyleBackColor = True
+        '
+        'chkipt
+        '
+        Me.chkipt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkipt.AutoSize = True
+        Me.chkipt.Location = New System.Drawing.Point(72, 405)
+        Me.chkipt.Name = "chkipt"
+        Me.chkipt.Size = New System.Drawing.Size(48, 16)
+        Me.chkipt.TabIndex = 45
+        Me.chkipt.Text = ".ipt"
+        Me.chkipt.UseVisualStyleBackColor = True
+        '
+        'chkidw
+        '
+        Me.chkidw.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkidw.AutoSize = True
+        Me.chkidw.Location = New System.Drawing.Point(132, 405)
+        Me.chkidw.Name = "chkidw"
+        Me.chkidw.Size = New System.Drawing.Size(48, 16)
+        Me.chkidw.TabIndex = 46
+        Me.chkidw.Text = ".idw"
+        Me.chkidw.UseVisualStyleBackColor = True
+        '
         'FormCleanUpRedundantFiles
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(781, 443)
+        Me.Controls.Add(Me.chkidw)
+        Me.Controls.Add(Me.chkipt)
+        Me.Controls.Add(Me.chkiam)
         Me.Controls.Add(Me.工具栏ToolStrip)
         Me.Controls.Add(Me.lvw文件列表)
         Me.Name = "FormCleanUpRedundantFiles"
@@ -150,4 +189,7 @@ Partial Class FormCleanUpRedundantFiles
     Friend WithEvents 清理ToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents 关闭ToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents 全选清理项ToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents chkiam As CheckBox
+    Friend WithEvents chkipt As CheckBox
+    Friend WithEvents chkidw As CheckBox
 End Class

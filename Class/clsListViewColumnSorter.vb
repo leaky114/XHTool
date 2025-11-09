@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.Collections
+Imports System.Windows.Forms
 
 Public Class ListViewColumnSorter
     Implements IComparer

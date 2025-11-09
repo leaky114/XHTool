@@ -32,6 +32,9 @@ Public Class FormiPropertyToFileName
         btn确定新文件名.Image = My.Resources.确定16.ToBitmap
         btn交换.Image = My.Resources.左右交换16.ToBitmap
 
+        cmb连接符.Text = "无"
+
+
 
         Dim oInventorAssemblyDocument As Inventor.AssemblyDocument
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
@@ -63,13 +66,28 @@ Public Class FormiPropertyToFileName
         oBOM = oInventorAssemblyDocument.ComponentDefinition.BOM
         oBOM.StructuredViewEnabled = True
 
+        Dim ConnectionCharacter As String
+
+        Select Case cmb连接符.Text
+            Case "无"
+                ConnectionCharacter = “”
+            Case "空格"
+                ConnectionCharacter = “ ”
+            Case “短横线-”
+                ConnectionCharacter = “-”
+            Case "下划线_"
+                ConnectionCharacter = “_”
+            Case Else
+                ConnectionCharacter = cmb连接符.Text
+        End Select
+
         '获取结构化的bom页面
         For Each oBOMView As BOMView In oBOM.BOMViews
             '基于bom结构化数据，可跳过参考的文件
             If oBOMView.ViewType = BOMViewTypeEnum.kStructuredBOMViewType Then
 
                 For Each oBOMRow As BOMRow In oBOMView.BOMRows
-                    Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.FullFileName
+                    Dim strDocumentFullFileName As String = oBOMRow.ComponentDefinitions(1).Document.File.FullFileName
                     '测试文件
                     'Debug.Print(strDocumentFullFileName)
 
@@ -104,7 +122,9 @@ Public Class FormiPropertyToFileName
                         Next
 
                         Dim strOldFileName As String = oFileNameInfo.FileName
-                        Dim strNewFileName As String = strDrawingNnumber & strPartName & oFileNameInfo.ExtensionName
+
+
+                        Dim strNewFileName As String = strDrawingNnumber & ConnectionCharacter & strPartName & oFileNameInfo.ExtensionName
 
                         Dim oListViewItem As ListViewItem
                         oListViewItem = oListView.Items.Add(strOldFileName)
@@ -177,7 +197,22 @@ Public Class FormiPropertyToFileName
     Private Sub Btn确定新文件名_Click(sender As Object, e As EventArgs) Handles btn确定新文件名.Click
         Dim oListViewItem As ListViewItem = lvw文件列表.Items(intSelectIndex)
 
-        Dim strNewFileName As String = txt图号.Text & txt文件名.Text & GetFileExtensionLCase(oListViewItem.SubItems(4).Text)
+        Dim ConnectionCharacter As String
+
+        Select Case cmb连接符.Text
+            Case "无"
+                ConnectionCharacter = “”
+            Case "空格"
+                ConnectionCharacter = “ ”
+            Case “短横线-”
+                ConnectionCharacter = “-”
+            Case "下划线_"
+                ConnectionCharacter = “_”
+            Case Else
+                ConnectionCharacter = cmb连接符.Text
+        End Select
+
+        Dim strNewFileName As String = txt图号.Text & ConnectionCharacter & txt文件名.Text & GetFileExtensionLCase(oListViewItem.SubItems(4).Text)
 
         oListViewItem.SubItems(1).Text = txt图号.Text
         oListViewItem.SubItems(2).Text = txt文件名.Text
@@ -274,11 +309,11 @@ Public Class FormiPropertyToFileName
 
                         strOldIdwFullFileName = GetChangeExtension(strOldFullFileName, IDW)   '旧工程图
 
-                        If IsFileExIsts(strOldIdwFullFileName) = False Then
-                            strOldIdwFullFileName = GetChangeExtensionDocument(oInventorDocument.FullDocumentName, IDW)
+                        If IsFileExists(strOldIdwFullFileName) = False Then
+                            strOldIdwFullFileName = GetChangeExtensionDocument(oInventorDocument.File.FullFileName, IDW)
                         End If
 
-                        If IsFileExIsts(strOldIdwFullFileName) = True Then
+                        If IsFileExists(strOldIdwFullFileName) = True Then
 
                             SetStatusBarText("复制新工程图。")
 
@@ -424,6 +459,23 @@ Public Class FormiPropertyToFileName
                         End While
                     End Using
 
+
+                    Dim ConnectionCharacter As String
+
+                    Select Case cmb连接符.Text
+                        Case "无"
+                            ConnectionCharacter = “”
+                        Case "空格"
+                            ConnectionCharacter = “ ”
+                        Case “短横线-”
+                            ConnectionCharacter = “-”
+                        Case "下划线_"
+                            ConnectionCharacter = “_”
+                        Case Else
+                            ConnectionCharacter = cmb连接符.Text
+                    End Select
+
+
                     For Each oListViewItem As ListViewItem In lvw文件列表.Items
 
                         With oListViewItem
@@ -431,7 +483,7 @@ Public Class FormiPropertyToFileName
                             Dim strPartName As String = oListViewItem.SubItems(2).Text
                             Dim strOldFileName As String = oListViewItem.SubItems(4).Text
 
-                            Dim strNewFileName As String = strDrawingNnumber & strPartName & GetFileExtensionLCase(strOldFileName)
+                            Dim strNewFileName As String = strDrawingNnumber & ConnectionCharacter & strPartName & GetFileExtensionLCase(strOldFileName)
 
                             oListViewItem.SubItems(3).Text = strNewFileName
 
@@ -461,5 +513,38 @@ Public Class FormiPropertyToFileName
         oInventorAssemblyDocument = ThisApplication.ActiveDocument
 
         LoadBOM(oInventorAssemblyDocument, lvw文件列表)
+    End Sub
+
+    Private Sub cmb连接符_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb连接符.SelectedIndexChanged
+
+        Dim ConnectionCharacter As String
+
+        Select Case cmb连接符.Text
+            Case "无"
+                ConnectionCharacter = “”
+            Case "空格"
+                ConnectionCharacter = “ ”
+            Case “短横线-”
+                ConnectionCharacter = “-”
+            Case "下划线_"
+                ConnectionCharacter = “_”
+            Case Else
+                ConnectionCharacter = cmb连接符.Text
+        End Select
+
+        For Each oListViewItem As ListViewItem In lvw文件列表.Items
+
+            With oListViewItem
+                Dim strDrawingNnumber As String = oListViewItem.SubItems(1).Text
+                Dim strPartName As String = oListViewItem.SubItems(2).Text
+                Dim strOldFileName As String = oListViewItem.SubItems(4).Text
+
+                Dim strNewFileName As String = strDrawingNnumber & ConnectionCharacter & strPartName & GetFileExtensionLCase(strOldFileName)
+
+                oListViewItem.SubItems(3).Text = strNewFileName
+
+            End With
+
+        Next
     End Sub
 End Class

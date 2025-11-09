@@ -66,19 +66,18 @@ Public Class FormCloneComponent
 
         Me.Show()
 
-        If chk自动下一步.Checked = True And oSourceComponentList.Count <> 0 Then
+        If oSourceComponentList.Count <> 0 Then
             btn选择组件圆弧.Enabled = True
-            btn选择组件圆弧_Click(sender, e)
-        End If
-
-        If chk自动下一步.Checked = True And oSourceComponentList.Count = 0 Then
-            btn选择现有组件_Click(sender, e)
         End If
 
 
     End Sub
 
-    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click
+    Private Sub btn关闭_Click(sender As Object, e As EventArgs) Handles btn关闭.Click, Me.Closing
+
+        oInventorAssemblyDocument.SelectSet.Clear()
+
+
         FormManager.CloseAndDisposeForm(Of FormCloneComponent)()
         'Me.Close()
     End Sub
@@ -110,11 +109,15 @@ Public Class FormCloneComponent
                 ' 检查是否为 ComponentOccurrence 类型
                 If TypeOf oSelectedEntity Is ComponentOccurrence Then
                     Dim oComponent As ComponentOccurrence = CType(oSelectedEntity, ComponentOccurrence)
-                    oSourceComponentList.Add(oComponent)
+
+                    If oSourceComponentList.Contains(oComponent) = False Then
+                        oSourceComponentList.Add(oComponent)
+                    End If
+
                 Else
-                    ' 可选：提示用户排除了非组件的选择项
-                    '  MessageBox.Show($"已跳过非组件对象：{oSelectedEntity.ToString()}")
-                End If
+                        ' 可选：提示用户排除了非组件的选择项
+                        '  MessageBox.Show($"已跳过非组件对象：{oSelectedEntity.ToString()}")
+                    End If
             Next
         End If
 
@@ -128,14 +131,21 @@ Public Class FormCloneComponent
         '复制选择的组件
         ThisApplication.CommandManager.ControlDefinitions.Item("AppCopyCmd").Execute()
 
-        If chk自动下一步.Checked = True Then
-            btn选择组件圆弧.Enabled = True
-            btn选择组件圆弧_Click(sender, e)
-        End If
+        ' 短暂延迟确保复制完成
+        System.Threading.Thread.Sleep(500)
+
+        'If chk自动下一步.Checked = True Then
+        '    btn选择组件圆弧.Enabled = True
+        '    btn选择组件圆弧_Click(sender, e)
+        'End If
     End Sub
 
     Private Sub btn选择组件圆弧_Click(sender As Object, e As EventArgs) Handles btn选择组件圆弧.Click
         'Dim oOneSourceComponentOccurrence As ComponentOccurrence = Nothing
+
+        If oEdgeHSet IsNot Nothing Then
+            oEdgeHSet.Clear()
+        End If
 
         Try
 
@@ -227,14 +237,16 @@ Public Class FormCloneComponent
             oSourceCenter = oEdgeOne.Geometry.center
             oSourceRadius = oEdgeOne.Geometry.radius
 
+
+            lbl已选择组件圆.Text = "已选择1"
             btn插入组件圆弧.Enabled = True
         Catch
 
         End Try
 
-        If chk自动下一步.Checked = True Then
-            btn插入组件圆弧_Click(sender, e)
-        End If
+        'If chk自动下一步.Checked = True Then
+        '    btn插入组件圆弧_Click(sender, e)
+        'End If
 
     End Sub
 
@@ -270,22 +282,22 @@ Public Class FormCloneComponent
                 If oEdgeTwo Is Nothing Then       '取消选择
 
                     '刷新浏览器
-                    ThisApplication.ScreenUpdating = True
-                    oInventorAssemblyDocument.Update()
-                    oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+                    'ThisApplication.ScreenUpdating = True
+                    'oInventorAssemblyDocument.Update()
+                    'oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
                     Exit Do
                 End If
 
                 'oHSet.AddItem(oEdgeTwo)
 
-                ThisApplication.ScreenUpdating = False
+                'ThisApplication.ScreenUpdating = False
 
                 '记录粘贴前的组件数量
                 Dim originalOccCount As Integer = oInventorAssemblyDocument.ComponentDefinition.Occurrences.Count
 
                 '粘贴选择的组件
                 ThisApplication.CommandManager.ControlDefinitions.Item("AppPasteCmd").Execute()
-                oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+                'oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
 
                 Dim oOneCloneComponent As ComponentOccurrence = Nothing     '克隆组件
 
@@ -303,6 +315,10 @@ Public Class FormCloneComponent
                         Exit For
                     End If
                 Next
+
+                If oOneCloneComponent Is Nothing Then
+                    Exit Sub
+                End If
 
                 '对齐源组件和 粘贴 的组件
                 If FlushXYZPlaneSub(oInventorAssemblyDocument, oOneSourceComponentOccurrence, oOneCloneComponent, True) = False Then
@@ -373,7 +389,7 @@ Public Class FormCloneComponent
 
         ThisApplication.ScreenUpdating = True
         oInventorAssemblyDocument.Update()
-        oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
+        'oInventorAssemblyDocument.BrowserPanes.ActivePane.Refresh()
 
     End Sub
 
@@ -405,7 +421,7 @@ Public Class FormCloneComponent
 
             ThisApplication.ScreenUpdating = False
             For Each oInsertConstraint As InsertConstraint In oInsertConstraintList
-                oInsertConstraint.Distance.Value = Convert.ToInt32(txt偏移量.Text) * 0.1
+                oInsertConstraint.Distance.Value = Convert.ToDouble(txt偏移量.Text) * 0.1
             Next
 
             oTransaction.End()

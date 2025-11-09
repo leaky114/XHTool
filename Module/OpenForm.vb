@@ -100,6 +100,11 @@ Module OpenForm
                 Exit Sub
             End If
 
+            If ThisApplication.ActiveDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+                MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
             Dim formAutoPartNumber As New FormAutoPartNumber
             FormManager.ShowForm(Of FormAutoPartNumber)()
         Catch ex As Exception
@@ -212,6 +217,11 @@ Module OpenForm
 
             If ThisApplication.ActiveDocumentType <> kAssemblyDocumentObject Then
                 MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+                MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -362,6 +372,11 @@ Module OpenForm
             SetStatusBarText()
 
             If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+                MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
@@ -569,6 +584,11 @@ Module OpenForm
                 Exit Sub
             End If
 
+            If ThisApplication.ActiveDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+                MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
             Dim FormiPropertyToFileName As New FormiPropertyToFileName
             FormManager.ShowForm(Of FormiPropertyToFileName)()
         Catch ex As Exception
@@ -590,6 +610,12 @@ Module OpenForm
                 MessageBox.Show(”该功能仅适用于部件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
+
+            If ThisApplication.ActiveDocument.ComponentDefinition.RepresentationsManager.ActiveLevelOfDetailRepresentation.LevelOfDetail <> LevelOfDetailEnum.kMasterLevelOfDetail Then
+                MessageBox.Show(”检查详细等级是否为【主要】。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
 
             Dim formBatchChangeFileNames As New FormBatchChangeFileNames
             FormManager.ShowForm(Of FormBatchChangeFileNames)(True)
@@ -645,7 +671,6 @@ Module OpenForm
 
     End Sub
 
-
     ''' <summary>
     ''' 打开 清理冗余文件 窗口
     ''' </summary>
@@ -689,6 +714,36 @@ Module OpenForm
 
             Dim FormCloneComponent As New FormCloneComponent
             FormManager.ShowForm(Of FormCloneComponent)(False)
+
+            'Dim wrapper = New ClsWindowWrapper(ThisApplication.MainFrameHWND)
+            'FormCloneComponent.Show(wrapper)
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+
+    ''' <summary>
+    ''' 打开孔颜色设置窗口
+    ''' </summary>
+    Public Sub FormDiameterHoleColoringShow()
+        Try
+            SetStatusBarText()
+
+            If IsInventorOpenDocument() = False Then
+                Exit Sub
+            End If
+
+            If ThisApplication.ActiveDocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+                MessageBox.Show(”该功能仅适用于零件。“, XHTool, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim FormDiameterHoleColoring As New FormDiameterHoleColoring
+            FormManager.ShowForm(Of FormDiameterHoleColoring)(False)
 
             'Dim wrapper = New ClsWindowWrapper(ThisApplication.MainFrameHWND)
             'FormCloneComponent.Show(wrapper)

@@ -105,10 +105,15 @@
 
         ini.WriteStrINI("截图", "宽度", intPitcureWidth, IniFile)
         ini.WriteStrINI("截图", "高度", intPitcureHeight, IniFile)
+        ini.WriteStrINI("截图", "视觉样式", int截图视觉样式, IniFile)
 
         ini.WriteStrINI("自动保存", "启用自动保存", str启用自动保存, IniFile)
         ini.WriteStrINI("自动保存", "保存文档类型", str保存文档类型, IniFile)
         ini.WriteStrINI("自动保存", "保存间隔时间", str保存间隔时间, IniFile)
+
+        ini.WriteStrINI("其他", "显示资源浏览器窗口", str显示资源浏览器窗口, IniFile)
+
+        ini.WriteStrINI("其他", "样式表标准名", str样式表标准名, IniFile)
 
     End Sub
 
@@ -243,20 +248,26 @@
         str逆时针序号 = ini.GetStrFromINI("工程图", "逆时针序号", "1", IniFile)
         str强制横向 = ini.GetStrFromINI("工程图", "强制横向", "-1", IniFile)
 
-        int每行数量 = ini.GetStrFromINI("切换文档", "每行数量", "8", Inifile)
-        int图框宽度 = ini.GetStrFromINI("切换文档", "图框宽度", "160", Inifile)
-        int图框高度 = ini.GetStrFromINI("切换文档", "图框高度", "120", Inifile)
-        int图框行间距 = ini.GetStrFromINI("切换文档", "图框行间距", "10", Inifile)
-        int图框列间距 = ini.GetStrFromINI("切换文档", "图框列间距", "10", Inifile)
+        int每行数量 = ini.GetStrFromINI("切换文档", "每行数量", 8, IniFile)
+        int图框宽度 = ini.GetStrFromINI("切换文档", "图框宽度", 160, IniFile)
+        int图框高度 = ini.GetStrFromINI("切换文档", "图框高度", 120, IniFile)
+        int图框行间距 = ini.GetStrFromINI("切换文档", "图框行间距", 10, IniFile)
+        int图框列间距 = ini.GetStrFromINI("切换文档", "图框列间距", 10, IniFile)
 
         strLargeSmallIconSets = ini.GetStrFromINI("主题", "大图标", "大,大,大,大,大,大,大", IniFile)
 
-        intPitcureWidth = ini.GetStrFromINI("截图", "宽度", "800", IniFile)
-        intPitcureHeight = ini.GetStrFromINI("截图", "高度", "600“, IniFile)
+        intPitcureWidth = ini.GetStrFromINI("截图", "宽度", 800, IniFile)
+        intPitcureHeight = ini.GetStrFromINI("截图", "高度", 600, IniFile)
+        int截图视觉样式 = ini.GetStrFromINI("截图", "视觉样式", 8888, IniFile)
 
         str启用自动保存 = ini.GetStrFromINI("自动保存", "启用自动保存", "0", IniFile)
         str保存文档类型 = ini.GetStrFromINI("自动保存", "保存文档类型", "当前文档", IniFile)
         str保存间隔时间 = ini.GetStrFromINI("自动保存", "保存间隔时间", "10", IniFile)
+
+        str显示资源浏览器窗口 = ini.GetStrFromINI("其他", "显示资源浏览器窗口", "0", IniFile)
+
+        str样式表标准名 = ini.GetStrFromINI("其他", "样式表标准名", "", IniFile)
+
 
     End Sub
 
