@@ -48,6 +48,12 @@ XHTool是Autodesk Inventor 插件。
 - 清净世界
 - 部件选择多文件打开
 
+# 主页
+[主页](https://www.xh2.host)
+
+# 下载
+[下载](https://www.xh2.host/exe/XHTool.exe)
+
 # 视频
 [Bilibili](https://space.bilibili.com/482062689)
 
