@@ -48,21 +48,17 @@ XHTool是Autodesk Inventor 插件。
 - 清净世界
 - 部件选择多文件打开
 
-# 更多帮助
+# 视频
 [Bilibili](https://space.bilibili.com/482062689)
 
-# 更新日志
-[更新日志](https://www.pmhker.com/article/75.html)
-
-# 支持库文件
-[相关库文件](https://github.com/leaky114/XHTool/tree/master/library)
-
+# 使用指南
+[使用指南](https://www.xh2.host/help)
 
 # 关于作者
 一个机械工程师，一个把重复简单劳动自动化者。
 
 # 联系作者
-微信搜索(36-4767-0633)
+- ![](https://www.xh2.host/weixin.jpg)
 
 # 截图
 - ![](https://raw.githubusercontent.com/leaky114/XHTool/refs/heads/master/help/1.png)
